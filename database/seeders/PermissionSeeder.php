@@ -16,48 +16,17 @@ class PermissionSeeder extends Seeder
 
     protected $permissions = [
 
-        ['name' => 'client.browse', 'guard_name' => 'admin'],
-        ['name' => 'client.read', 'guard_name' => 'admin'],
-        ['name' => 'client.create', 'guard_name' => 'admin'],
-        ['name' => 'client.edit', 'guard_name' => 'admin'],
-        ['name' => 'client.delete', 'guard_name' => 'admin'],
+        ['name' => 'products.browse', 'guard_name' => 'admin'],
+        ['name' => 'products.read', 'guard_name' => 'admin'],
+        ['name' => 'products.create', 'guard_name' => 'admin'],
+        ['name' => 'products.edit', 'guard_name' => 'admin'],
+        ['name' => 'products.delete', 'guard_name' => 'admin'],
 
-        ['name' => 'admin.browse', 'guard_name' => 'admin'],
-        ['name' => 'admin.read', 'guard_name' => 'admin'],
-        ['name' => 'admin.create', 'guard_name' => 'admin'],
-        ['name' => 'admin.edit', 'guard_name' => 'admin'],
-        ['name' => 'admin.delete', 'guard_name' => 'admin'],
-
-
-        ['name' => 'invoices.browse', 'guard_name' => 'admin'],
-        ['name' => 'invoices.read', 'guard_name' => 'admin'],
-        ['name' => 'invoices.create', 'guard_name' => 'admin'],
-        ['name' => 'invoices.edit', 'guard_name' => 'admin'],
-        ['name' => 'invoices.delete', 'guard_name' => 'admin'],
-
-        ['name' => 'estimates.browse', 'guard_name' => 'admin'],
-        ['name' => 'estimates.read', 'guard_name' => 'admin'],
-        ['name' => 'estimates.create', 'guard_name' => 'admin'],
-        ['name' => 'estimates.edit', 'guard_name' => 'admin'],
-        ['name' => 'estimates.delete', 'guard_name' => 'admin'],
-
-        ['name' => 'bcommandes.browse', 'guard_name' => 'admin'],
-        ['name' => 'bcommandes.read', 'guard_name' => 'admin'],
-        ['name' => 'bcommandes.create', 'guard_name' => 'admin'],
-        ['name' => 'bcommandes.edit', 'guard_name' => 'admin'],
-        ['name' => 'bcommandes.delete', 'guard_name' => 'admin'],
-
-        ['name' => 'providers.browse', 'guard_name' => 'admin'],
-        ['name' => 'providers.read', 'guard_name' => 'admin'],
-        ['name' => 'providers.create', 'guard_name' => 'admin'],
-        ['name' => 'providers.edit', 'guard_name' => 'admin'],
-        ['name' => 'providers.delete', 'guard_name' => 'admin'],
-
-        ['name' => 'bills.browse', 'guard_name' => 'admin'],
-        ['name' => 'bills.read', 'guard_name' => 'admin'],
-        ['name' => 'bills.create', 'guard_name' => 'admin'],
-        ['name' => 'bills.edit', 'guard_name' => 'admin'],
-        ['name' => 'bills.delete', 'guard_name' => 'admin'],
+        ['name' => 'commands.browse', 'guard_name' => 'admin'],
+        ['name' => 'commands.read', 'guard_name' => 'admin'],
+        ['name' => 'commands.create', 'guard_name' => 'admin'],
+        ['name' => 'commands.edit', 'guard_name' => 'admin'],
+        ['name' => 'commands.delete', 'guard_name' => 'admin'],
 
     ];
 

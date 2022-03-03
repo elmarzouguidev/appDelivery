@@ -1,14 +1,11 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Sameleon;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Spatie\Permission\Models\Permission;
 
-class PermissionFactory extends Factory
+class CommandFactory extends Factory
 {
-
-    protected $model = Permission::class;
     /**
      * Define the model's default state.
      *

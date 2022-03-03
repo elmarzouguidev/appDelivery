@@ -16,21 +16,32 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             
             $table->id();
-            $table->uuid('uuid')->unique()->nullable();
+            $table->uuid('uuid')->unique();
             $table->string('code')->unique()->nullable();
 
-            $table->string('nom', 50);
-            $table->string('prenom', 50);
+            $table->string('nom');
+            $table->string('prenom');
+            $table->string('telephone')->unique();
+
+            $table->string('cnie')->unique()->nullable();
+
+            $table->string('rc')->unique()->nullable();
+            $table->string('ice')->unique()->nullable();
+            $table->string('cnss')->unique()->nullable();
+            $table->string('patente')->unique()->nullable();
+            $table->string('if')->unique()->nullable();
+
+            $table->longText('addresse')->nullable();
+            $table->string('city')->nullable();
+            
             $table->string('email')->unique();
-            $table->string('telephone')->nullable()->unique();
-
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->timestamp('email_verified_at')->nullable();
 
-            $table->rememberToken();
             $table->boolean('active')->default(true);
-            $table->boolean('super_admin')->default(false);
-
+            $table->enum('type',['user','entreprise','particulier'])->default('user');
+            $table->rememberToken();
+            $table->boolean('is_admin')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

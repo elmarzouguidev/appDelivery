@@ -6,8 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-
-class AdminSeeder extends Seeder
+class ClientSeed extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,28 +15,27 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-
         $user =  [
-            'nom' => 'Elmarzougui',
-            'prenom' => 'Abdelghafour',
-            'telephone' => '0677512753',
-            'email' => 'abdelgha4or@gmail.com',
+            'nom' => 'Ahmed',
+            'prenom' => 'Ouahdi',
+            'telephone' => '0677512750',
+            'email' => 'ouhadi@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('123456789@'),
             'remember_token' => Str::random(10),
-            'is_admin' => true
+            'is_admin' => false
         ];
 
-        $admin = User::whereEmail('abdelgha4or@gmail.com')->first();
+        $client = User::whereEmail('ouhadi@gmail.com')->first();
 
-        if (!$admin) {
+        if (!$client) {
 
             $newAdmin =  User::create($user);
-            $newAdmin->assignRole('SuperAdmin');
+            $newAdmin->assignRole('Client');
 
         } else {
 
-            $admin->assignRole('SuperAdmin');
+            $client->assignRole('Client');
         }
     }
 }
