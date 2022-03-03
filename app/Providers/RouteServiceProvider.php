@@ -49,7 +49,7 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/web.php'));
 
             $this->adminRoutes();
-            $this->commercialRoutes();
+            $this->sameleonRoutes();
             $this->devlopperRoutes();
 
         });
@@ -85,6 +85,15 @@ class RouteServiceProvider extends ServiceProvider
             ->name('admin:')
             ->namespace($this->namespace)
             ->group(base_path('routes/app-routes/routes.php'));
+    }
+
+    private function sameleonRoutes()
+    {
+        Route::middleware(['web', 'auth'])
+        ->prefix('app/sameleon')
+        ->name('sameleon:')
+        ->namespace($this->namespace)
+        ->group(base_path('routes/app-routes/sameleon.php')); 
     }
 
     private function commercialRoutes()

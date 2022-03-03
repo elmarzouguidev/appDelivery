@@ -21,7 +21,7 @@ class RedirectorMiddleware
 
         if ($request->is('app', 'app/')) {
 
-            return redirect()->route('admin:home');
+            return redirect()->route('sameleon:orders.index');
         }
         return $next($request);
     }

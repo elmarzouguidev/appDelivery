@@ -38,8 +38,6 @@
 
 @once
     @push('scripts')
-        <script src="{{ asset('js/libs/apexcharts/apexcharts.min.js') }}"></script>
 
-        <script src="{{ asset('js/pages/dashboard.init.js') }}"></script>
     @endpush
 @endonce

@@ -2,14 +2,8 @@
 
 namespace App\Http\Controllers\Administration\Admin;
 
-use App\Constants\Etat;
-use App\Constants\Status;
+
 use App\Http\Controllers\Controller;
-use App\Models\Client;
-use App\Models\Finance\Bill;
-use App\Models\Finance\Company;
-use App\Models\Finance\Estimate;
-use App\Models\Finance\Invoice;
 
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -20,7 +14,7 @@ class DashboardController extends Controller
 {
 
 
-    public function index()
+    public function indexx()
     {
         if (request()->has('appFilter') && request()->filled('appFilter')) {
             // QueryBuilderRequest::setArrayValueDelimiter('|');
@@ -116,5 +110,10 @@ class DashboardController extends Controller
                 'estimatesExpired'
             )
         );
+    }
+
+    public function index()
+    {
+        return view('theme.pages.Home.index');  
     }
 }
