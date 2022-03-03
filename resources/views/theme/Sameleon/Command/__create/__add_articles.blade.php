@@ -1,6 +1,6 @@
 <div data-repeater-list="articles">
     <div data-repeater-item class="row">
-        <div class="mb-3 col-lg-2">
+        <div class="mb-3 col-lg-3">
             <label for="designation">{{__('invoice.form.article_designation')}} *</label>
             <textarea name="designation" id="designation"
                 class="form-control @error('articles.*.designation') is-invalid @enderror" required></textarea>
@@ -26,7 +26,7 @@
             <label for="product">Produit *</label>
             <select class="form-control select2" name="product" id="get-product">
                 <option value=""></option>
-                <optgroup label="Factures">
+                <optgroup label="Produits">
                     @foreach ($products as $product)
                         <option value="{{ $product->id }}">
                             {{ $product->name }}
