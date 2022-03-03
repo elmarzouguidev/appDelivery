@@ -13,7 +13,15 @@ class CommandController extends Controller
     public function index()
     {
         $orders = Command::all();
+
+        $products = auth()->user()->products()->get();
         
-        return view('theme.Sameleon.Command.index',compact('orders'));
+        return view('theme.Sameleon.Command.index',compact('orders','products'));
+    }
+
+    public function create()
+    {
+        $products = auth()->user()->products()->get();
+        return view('theme.Sameleon.Command.__create.index',compact('products'));
     }
 }

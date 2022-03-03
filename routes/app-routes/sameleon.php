@@ -4,9 +4,12 @@ use App\Http\Controllers\Sameleon\Client\Product\ProductController;
 use App\Http\Controllers\Sameleon\CommandController;
 use Illuminate\Support\Facades\Route;
 
-Route::group(['prefix' => 'orders'],function(){
+Route::group(['prefix' => 'commands'],function(){
 
-    Route::get('/',[CommandController::class, 'index'])->name('orders.index');
+    Route::get('/',[CommandController::class, 'index'])->name('commands.index');
+
+    Route::get('/create',[CommandController::class, 'create'])->name('commands.create');
+    Route::post('/create',[CommandController::class, 'store'])->name('commands.store');
 });
 
 

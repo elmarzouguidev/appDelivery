@@ -32,6 +32,12 @@ class Product extends Model implements HasMedia
         return $this->belongsToMany(Command::class,'product_command','product_id','command_id');
     }
 
+
+    public function getFormatedPriceAttribute()
+    {
+        return number_format($this->price, 2);
+    }
+
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('normal')

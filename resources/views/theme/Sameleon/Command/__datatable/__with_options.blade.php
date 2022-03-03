@@ -9,8 +9,8 @@
                             {{--<a href="#" type="button" onclick="openFilters()" class="btn btn-primary" >
                                 Filters
                             </a>--}}
-                            <a href="" type="button" class="btn btn-info">
-                                {{ __('navbar.clients_add') }}
+                            <a href="{{route('sameleon:commands.create')}}" type="button" class="btn btn-info">
+                                Ajouter un commande
                             </a>
                         </div>
                     </div>

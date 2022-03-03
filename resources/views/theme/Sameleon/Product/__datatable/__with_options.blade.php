@@ -53,7 +53,7 @@
                                     <p class="text-muted mb-0"></p>
                                 </td>
                                 <td>
-                                    {{ $product->price }}
+                                    {{ $product->formated_price }} DH
                                 </td>
                                 <td>
                                     {{ $product->qte_global }}

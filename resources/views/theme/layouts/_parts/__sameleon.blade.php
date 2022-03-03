@@ -8,10 +8,10 @@
 <li class="menu-title" key="t-pages">Commandes</li>
 
 <li>
-    <a href="{{ route('sameleon:orders.index') }}" class="waves-effect">
+    <a href="{{ route('sameleon:commands.index') }}" class="waves-effect">
 
         <i class="bx bx-cart-alt"></i>
-        <span key="t-orders">{{ __('Commandes') }}</span>
+        <span key="t-commands">{{ __('Commandes') }}</span>
     </a>
 
 </li>

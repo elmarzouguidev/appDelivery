@@ -30,6 +30,7 @@ class ProductController extends Controller
      */
     public function create()
     {
+       
         return view('theme.Sameleon.Product.__create.index');
     }
 
@@ -113,7 +114,7 @@ class ProductController extends Controller
         $request->validate(['productId' => 'required|uuid']);
 
         $product = Product::whereUuid($request->productId)->firstOrFail();
-        
+
         $this->authorize('delete', $product);
 
         if ($product) {

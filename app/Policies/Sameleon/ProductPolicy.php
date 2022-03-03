@@ -42,7 +42,7 @@ class ProductPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->hasRole('Client');
     }
 
     /**
