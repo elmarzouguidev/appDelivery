@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Sameleon\Product;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -64,6 +66,13 @@ class User extends Authenticatable
     public function products()
     {
         return $this->hasMany(Product::class);
+    }
+
+    protected function fullName(): Attribute
+    {
+        return new Attribute(
+            fn () => $this->nom . ' ' . $this->prenom,
+        );
     }
 
     public static function boot()

@@ -7,8 +7,7 @@
                 <ol class="breadcrumb m-0">
                     <li class="breadcrumb-item"><a
                             href="{{ route('sameleon:orders.index') }}">{{ __('Commanes') }}</a></li>
-                    <li class="breadcrumb-item"><a
-                            href="{{ route('sameleon:orders.create') }}">{{ __('Commanes') }}</a></li>
+             
                 </ol>
             </div>
 

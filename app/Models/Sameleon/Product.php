@@ -2,6 +2,8 @@
 
 namespace App\Models\Sameleon;
 
+use App\Models\Sameleon\Traits\ModelRoutes;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
@@ -18,9 +20,11 @@ class Product extends Model implements HasMedia
     use GetModelByUuid;
     use UuidGenerator;
 
+    use ModelRoutes;
+
     public function client()
     {
-        return $this->belongs(User::class,'user_id');
+        return $this->belongsTo(User::class,'user_id');
     }
 
     public function commands()

@@ -1,13 +1,1 @@
-@extends('theme.layouts.app')
-
-@section('content')
-    <div class="container-fluid">
-      
-    </div>
-@endsection
-
-@once
-    @push('scripts')
-
-    @endpush
-@endonce
+@include('theme.Sameleon.Command.__datatable.index')

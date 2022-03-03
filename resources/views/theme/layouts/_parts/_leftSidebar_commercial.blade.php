@@ -7,19 +7,8 @@
             <!-- Left Menu Start -->
             <ul class="metismenu list-unstyled" id="side-menu">
                 <li class="menu-title" key="t-menu">Menu</li>
-
-                <li>
-                    <a href="{{ route('admin:home') }}" class="waves-effect">
-                        <i class="bx bx-home-circle"></i>{{-- <span class="badge rounded-pill bg-info float-end">04</span> --}}
-                        {{--<span key="t-dashboards">{{ __('navbar.dashboard') }}</span>---}}
-                    </a>
-                </li>
-
-                @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
-
-                @endif
-
-                <li class="menu-title" key="t-pages">{{ __('navbar.authentification') }}</li>
+                
+                @include('theme.layouts._parts.__sameleon')
 
                 <li>
                     <a href="{{ route('admin:admins') }}" class="waves-effect">
