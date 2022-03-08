@@ -24,19 +24,19 @@
                                     <label class="form-check-label" for="checkAll"></label>
                                 </div>
                             </th>--}}
-                            <th scope="col">Code Client</th>
-                            <th scope="col">Entreprise</th>
-                            <th scope="col">Telephone</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">ICE</th>
-                            <th scope="col">RC</th>
+                            <th scope="col">Numéro</th>
+                            <th scope="col">Distinataire</th>
+                            <th scope="col">Prix Total</th>
+                            <th scope="col">Détails</th>
+                            <th scope="col">Date de commande</th>
+                            <th scope="col">Status</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
 
                     <tbody>
 
-                        @foreach ($orders as $client)
+                        @foreach ($orders as $order)
                             <tr>
                                 {{--<td>
                                     <div class="form-check font-size-16">
@@ -47,30 +47,36 @@
                                 </td>--}}
                                 <td>
                                     <a href="{{--$client->url--}}" class="text-body fw-bold">
-                                        {{ $client->code }}
+                                        {{ $order->code }}
                                     </a>
                                 </td>
                                 <td>
-                                    {{ $client->entreprise }}
-                                    <p class="text-muted mb-0">{{$client->contact}}</p>
+                                    {{ $order->client_name }}
+                                    <p class="text-strong mb-0"><strong>{{$order->client_phone}}</strong></p>
+                                    <p class="text-strong mb-0">{{$order->client_address}}</p>
+                                    <p class="text-strong mb-0">{{$order->client_city}}</p>
                                 </td>
                                 <td>
-                                    {{ $client->telephone }}
+                                    {{ $order->total_price }}
                                 </td>
                                 <td>
-                                    {{ $client->email }}
+                                    <button type="button" class="btn btn-info  btn-sm" data-bs-toggle="modal"
+                                            data-bs-target=".orderdetailsModal-{{ $order->id }}">
+                                        Détails
+                                    </button>
                                 </td>
                                 <td>
-                                    {{ $client->ice }}
+                                    {{ $order->created_at->format('d-m-Y') }}
                                 </td>
                                 <td>
-                                    {{ $client->rc }}
+                                    <i class="mdi mdi-circle text-info font-size-10"></i>
+                                    {{ __('status.statuses.'. $order->status) }}
                                 </td>
-        
+
                                 <td>
                                     <div class="d-flex gap-3">
 
-                                        <a href="{{ $client->edit }}" class="text-success">
+                                        <a href="{{ $order->edit }}" class="text-success">
                                             <i class="mdi mdi-pencil font-size-18"></i>
                                         </a>
                                         <a href="#" class="text-danger" onclick="
@@ -78,17 +84,17 @@
 
                                                 if(result){
                                                     event.preventDefault();
-                                                    document.getElementById('delete-client-{{ $client->uuid }}').submit();
+                                                    document.getElementById('delete-order-{{ $order->uuid }}').submit();
                                                 }">
                                             <i class="mdi mdi-delete font-size-18"></i>
                                         </a>
                                     </div>
                                 </td>
-                                <form id="delete-client-{{ $client->uuid }}" method="post"
+                                <form id="delete-order-{{ $order->uuid }}" method="post"
                                     action="{{ route('admin:clients.delete') }}">
                                     @csrf
                                     @method('DELETE')
-                                    <input type="hidden" name="clientId" value="{{ $client->uuid }}">
+                                    <input type="hidden" name="orderId" value="{{ $order->uuid }}">
                                 </form>
                             </tr>
 

@@ -26,9 +26,7 @@ class CreateProductCommandTable extends Migration
 
             $table->unsignedBigInteger('quantity');
             $table->float('price_ht')->default(0);
-
-            $table->timestamp('date_command');
-
+            
             $table->timestamps();
         });
     }

@@ -3,9 +3,15 @@
 namespace App\Http\Livewire\Sameleon\Command;
 
 use Livewire\Component;
+use Illuminate\Support\Arr;
 
 class Products extends Component
 {
+
+    protected $listeners = [
+        //'selectedProduct',
+    ];
+
     public $products = [];
 
     public $orderProducts = [];
@@ -39,6 +45,21 @@ class Products extends Component
             'prix_unitaire' => ''
         ];
     }
+
+    /*public function selectedProduct($product)
+    {
+        //dd($product,'##',$indexer);
+       $this->pricer =  $this->products->firstWhere('id', $product)->price;
+    }*/
+
+    public function getPrice($index)
+    {
+
+        if ($this->orderProducts[$index]['product_id'] !== "") {
+            $this->orderProducts[$index]['prix_unitaire'] =  $this->products->firstWhere('id', $this->orderProducts[$index]['product_id'])->price;
+        }
+    }
+
 
     public function removeProduct($index)
     {

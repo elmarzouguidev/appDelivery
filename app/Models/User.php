@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Sameleon\Command;
 use App\Models\Sameleon\Product;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;

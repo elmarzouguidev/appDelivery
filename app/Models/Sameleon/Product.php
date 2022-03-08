@@ -29,7 +29,7 @@ class Product extends Model implements HasMedia
 
     public function commands()
     {
-        return $this->belongsToMany(Command::class,'product_command','product_id','command_id');
+        return $this->belongsToMany(Command::class,'product_command','product_id','command_id')->withPivot(['quantity','price_ht']);
     }
 
 

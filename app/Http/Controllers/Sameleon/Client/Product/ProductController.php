@@ -100,6 +100,11 @@ class ProductController extends Controller
 
         $product->save();
 
+        if ($request->hasFile('photo')) {
+
+            $product->addMediaFromRequest('photo')->toMediaCollection('products_photos');
+        }
+
         return redirect(route('sameleon:products.index'))->with('success', "L'update a éte effectuer avec success");
     }
 

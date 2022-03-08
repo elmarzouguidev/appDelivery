@@ -7,6 +7,8 @@
 
         @include('theme.Sameleon.Command.__datatable.__with_options')
 
+        @each('theme.Sameleon.Command.__datatable.__command_detail',$orders ,'order' )
+
     </div>
 @endsection
 

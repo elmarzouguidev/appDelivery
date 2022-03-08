@@ -5,7 +5,7 @@
             <input type="text" name="commande_date"
                 class="form-control @error('commande_date') is-invalid @enderror"
                 data-date-format="dd-mm-yyyy" value="{{ now()->format('d-m-Y') }}"
-                data-date-container='#datepicker1' data-provide="datepicker">
+                data-date-container='#datepicker1' data-provide="datepicker" readonly>
 
             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
             @error('commande_date')
