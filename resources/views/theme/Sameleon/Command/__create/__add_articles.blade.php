@@ -24,7 +24,7 @@
 
         <div class="mb-3 col-lg-3">
             <label for="product">Produit *</label>
-            <select class="form-control select2" name="product" id="get-product">
+            <select class="form-control select2 get-product" name="product">
                 <option value=""></option>
                 <optgroup label="Produits">
                     @foreach ($products as $product)
