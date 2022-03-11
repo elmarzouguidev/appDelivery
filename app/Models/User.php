@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Sameleon\Command;
+use App\Models\Sameleon\Company;
 use App\Models\Sameleon\Product;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
@@ -33,7 +34,11 @@ class User extends Authenticatable
         'telephone',
         'email',
         'password',
-        'is_admin'
+        'is_admin',
+        'cnie',
+        'addresse',
+        'city',
+        'type'
     ];
 
     /**
@@ -53,11 +58,17 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'is_admin' => 'boolean'
+        'is_admin' => 'boolean',
+        'active' => 'boolean'
     ];
 
 
     public $guard_name = 'admin';
+
+    public function company()
+    {
+        return $this->hasOne(Company::class);
+    }
 
     public function commands()
     {
@@ -86,7 +97,7 @@ class User extends Authenticatable
 
             $number = (self::max('id') + 1);
             if ($model->is_admin) {
-                $model->code = "ADMIN-" . str_pad($number, 5, 0, STR_PAD_LEFT);
+                $model->code = "__-" . str_pad($number, 5, 0, STR_PAD_LEFT);
             } else {
                 $model->code = $prefixer . str_pad($number, 5, 0, STR_PAD_LEFT);
             }
