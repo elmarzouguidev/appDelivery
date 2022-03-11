@@ -11,7 +11,16 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title mb-4">Ajouter un Produit</h4>
-
+                        @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+                        @if (session('notice'))
+                            <div class="alert alert-warning">
+                                {{ session('notice') }}
+                            </div>
+                        @endif
                         <form method="post" action="{{route('sameleon:products.store')}}" enctype="multipart/form-data">
                             @csrf
                             <div class="row mb-4">

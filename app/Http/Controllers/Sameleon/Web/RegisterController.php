@@ -28,6 +28,9 @@ class RegisterController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->active = false;
+        $user->save();
+
+        $user->assignRole('Client');
 
         return redirect()->back()->with('success', 'Votre compte a été crée  avec success ');
     }

@@ -27,7 +27,7 @@ class CommandPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->hasRole('Client');
     }
 
     /**
@@ -39,7 +39,7 @@ class CommandPolicy
      */
     public function view(User $user, Command $command)
     {
-        //
+        return $user->hasRole('Client');
     }
 
     /**

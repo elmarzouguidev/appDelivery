@@ -24,6 +24,11 @@ class CommandController extends Controller
     public function create()
     {
 
+        if (auth()->user()->products->count() <= 0) {
+
+            return redirect(route('sameleon:products.create'))->with('notice', 'entrer un produit avant ajouter une command');
+        }
+
         $this->authorize('create', Command::class);
 
         $products = auth()->user()->products()->get();
@@ -43,7 +48,7 @@ class CommandController extends Controller
         $command->client_phone = $request->client_phone;
         $command->client_city = $request->client_city;
         $command->client_address = $request->client_address;
-        
+
         $command->client()->associate(auth()->id());
         $command->save();
 
