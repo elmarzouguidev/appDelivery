@@ -55,4 +55,21 @@ class CommandController extends Controller
 
         return redirect()->back()->with('success', 'la commande a été ajouter avec success');
     }
+
+    public function delete(Request $request)
+    {
+        $request->validate(['commandId' => 'required|uuid']);
+
+        $command = Command::whereUuid($request->commandId)->firstOrFail();
+
+        if ($command && $command->client()->is(auth()->user())) {
+            // dd('Oui command');
+            $command->products()->detach();
+            
+            $command->delete();
+
+            return redirect()->back()->with('success', "La command a été supprimer avec success");
+        }
+        return redirect()->back()->with('success', "Problem ... !!");
+    }
 }

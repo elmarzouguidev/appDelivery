@@ -38,13 +38,15 @@ class Command extends Model
 
         parent::boot();
 
-        static::creating(function ($model) {
+        $prefix = 'CMD-';
 
-            $number = 'CMD-' . auth()->user()->code . ($model->max('id') + 1);
+        static::creating(function ($model) use ($prefix) {
+
+            $number = ($model->max('id') + 1);
 
             $code = str_pad($number, 5, 0, STR_PAD_LEFT);
 
-            $model->code = $code;
+            $model->code = $prefix . auth()->id() . '-' . $code;
 
             $model->track_code = str_pad(($model->max('id') + 1), 5, 0, STR_PAD_LEFT) . Str::random(10);
         });

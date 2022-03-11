@@ -24,7 +24,7 @@
                                     <label class="form-check-label" for="checkAll"></label>
                                 </div>
                             </th>--}}
-                            <th scope="col">Numéro</th>
+                            <th scope="col">Numéro / client</th>
                             <th scope="col">Distinataire</th>
                             <th scope="col">Prix Total</th>
                             <th scope="col">Détails</th>
@@ -49,6 +49,7 @@
                                     <a href="{{--$client->url--}}" class="text-body fw-bold">
                                         {{ $order->code }}
                                     </a>
+                                    <p class="text-strong mb-0">{{$order->client->full_name}}</p>
                                 </td>
                                 <td>
                                     {{ $order->client_name }}
@@ -80,7 +81,7 @@
                                             <i class="mdi mdi-pencil font-size-18"></i>
                                         </a>
                                         <a href="#" class="text-danger" onclick="
-                                                var result = confirm('Are you sure you want to delete this client ?');
+                                                var result = confirm('Are you sure you want to delete this command ?');
 
                                                 if(result){
                                                     event.preventDefault();
@@ -91,10 +92,10 @@
                                     </div>
                                 </td>
                                 <form id="delete-order-{{ $order->uuid }}" method="post"
-                                    action="{{ route('admin:clients.delete') }}">
+                                    action="{{ route('sameleon:commands.delete') }}">
                                     @csrf
                                     @method('DELETE')
-                                    <input type="hidden" name="orderId" value="{{ $order->uuid }}">
+                                    <input type="hidden" name="commandId" value="{{ $order->uuid }}">
                                 </form>
                             </tr>
 
