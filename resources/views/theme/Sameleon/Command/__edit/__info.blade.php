@@ -3,7 +3,7 @@
         <div class="mb-4">
             <label class="form-label">Nom du client *</label>
             <input type="text" class="form-control @error('client_name') is-invalid @enderror" name="client_name"
-            value="{{$command->client_name}}" readonly required>
+            value="{{$command->client_name}}" required>
             @error('client_name')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>

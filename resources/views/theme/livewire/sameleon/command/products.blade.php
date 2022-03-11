@@ -13,18 +13,6 @@
                 @enderror
             </div>
 
-            <div class="mb-3 col-lg-2">
-                <label for="description">{{ __('invoice.form.article_description') }}</label>
-                <textarea name="orderProducts[{{ $index }}][description]" rows="3"
-                    wire:model="orderProducts.{{ $index }}.description"
-                    class="form-control @error('articles.*.description') is-invalid @enderror"></textarea>
-                @error('description')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            </div>
-
             <div class="mb-3 col-lg-3">
                 <label for="product">Produit *</label>
                 <select wire:ignore class="form-control" name="orderProducts[{{ $index }}][product_id]"
@@ -61,13 +49,26 @@
             </div>
 
             <div class="mb-3 col-lg-2">
-                <label for="prix_unitaire">Prix *</label>
+                <label for="prix_unitaire">Prix U.T*</label>
                 <input type="text" name="orderProducts[{{ $index }}][prix_unitaire]"
                     wire:model="orderProducts.{{ $index }}.prix_unitaire"
                     wire:click="getPrice({{ $index }})"
                     class="form-control @error('articles.*.prix_unitaire') is-invalid @enderror" value="" />
 
                 @error('prix_unitaire')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            <div class="mb-3 col-lg-2">
+                <label for="prix_total">Prix TOTAL*</label>
+                <input type="text" name="orderProducts[{{ $index }}][prix_total]"
+                    wire:model="orderProducts.{{ $index }}.prix_total"
+                    wire:click="getPrice({{ $index }})"
+                    class="form-control @error('articles.*.prix_total') is-invalid @enderror" readonly/>
+
+                @error('prix_total')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>

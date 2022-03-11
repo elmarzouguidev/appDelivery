@@ -132,7 +132,7 @@
             </div>
 
             <div class="mb-3 col-lg-2">
-                <label for="prix_unitaire">Prix U.T*</label>
+                <label for="prix_unitaire">Prix U.T *</label>
                 <input type="text" name="newOrderProducts[{{ $indexer }}][prix_unitaire]"
                     wire:model="newOrderProducts.{{ $indexer }}.prix_unitaire"
                     wire:click="getPrice({{ $indexer }})"
