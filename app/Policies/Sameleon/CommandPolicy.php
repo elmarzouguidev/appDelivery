@@ -10,6 +10,14 @@ class CommandPolicy
 {
     use HandlesAuthorization;
 
+
+    /*public function before(User $user, $ability)
+    {
+        if ($user->hasRole('SuperAdmin')) {
+            return true;
+        }
+    }*/
+
     /**
      * Determine whether the user can view any models.
      *

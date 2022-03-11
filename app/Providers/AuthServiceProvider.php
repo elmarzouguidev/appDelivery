@@ -14,6 +14,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\Models\Sameleon\Product' => 'App\Policies\Sameleon\ProductPolicy',
+        'App\Models\Sameleon\Command' => 'App\Policies\Sameleon\CommandPolicy',
     ];
 
     /**

@@ -23,6 +23,9 @@ class CommandController extends Controller
 
     public function create()
     {
+
+        $this->authorize('create', Command::class);
+
         $products = auth()->user()->products()->get();
 
         return view('theme.Sameleon.Command.__create.index', compact('products'));
@@ -30,8 +33,8 @@ class CommandController extends Controller
 
     public function store(CommandFormRequest $request)
     {
-
-        $command = new Command();
+        $this->authorize('create', Command::class);
+        $$command = new Command();
 
         $command->client_name = $request->client_name;
         $command->client_email = $request->client_email;
@@ -63,6 +66,8 @@ class CommandController extends Controller
     public function edit(Command $command)
     {
 
+        $this->authorize('update', $command);
+
         $command->load('products');
 
         return view('theme.Sameleon.Command.__edit.index', compact('command'));
@@ -71,7 +76,7 @@ class CommandController extends Controller
     public function update(CommandUpdateFormRequest $request, Command $command)
     {
 
-        //dd($request->all());
+        $this->authorize('update', $command);
 
         $command->client_name = $request->client_name;
         $command->client_email = $request->client_email;
@@ -121,6 +126,8 @@ class CommandController extends Controller
 
     public function delete(Request $request)
     {
+        $this->authorize('delete', $command);
+
         $request->validate(['commandId' => 'required|uuid']);
 
         $command = Command::whereUuid($request->commandId)->firstOrFail();
