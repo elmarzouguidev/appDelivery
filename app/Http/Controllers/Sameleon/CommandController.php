@@ -33,14 +33,17 @@ class CommandController extends Controller
 
     public function store(CommandFormRequest $request)
     {
+
         $this->authorize('create', Command::class);
-        $$command = new Command();
+
+        $command = new Command();
 
         $command->client_name = $request->client_name;
         $command->client_email = $request->client_email;
         $command->client_phone = $request->client_phone;
         $command->client_city = $request->client_city;
         $command->client_address = $request->client_address;
+        
         $command->client()->associate(auth()->id());
         $command->save();
 

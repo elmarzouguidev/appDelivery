@@ -30,7 +30,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-       
+        $this->authorize('create', Product::class);
         return view('theme.Sameleon.Product.__create.index');
     }
 
@@ -42,7 +42,7 @@ class ProductController extends Controller
      */
     public function store(ProductFormRequest $request)
     {
-
+        $this->authorize('create', Product::class);
         $product = new Product();
         $product->name = $request->name;
         $product->description = $request->description;
@@ -80,7 +80,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $this->authorize('view', $product);
+        $this->authorize('update', $product);
 
         return view('theme.Sameleon.Product.__edit.index', compact('product'));
     }
@@ -116,8 +116,9 @@ class ProductController extends Controller
      */
     public function delete(Request $request)
     {
+        
         $request->validate(['productId' => 'required|uuid']);
-
+        
         $product = Product::whereUuid($request->productId)->firstOrFail();
 
         $this->authorize('delete', $product);

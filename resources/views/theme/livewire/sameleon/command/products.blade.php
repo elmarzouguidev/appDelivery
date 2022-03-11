@@ -5,8 +5,8 @@
                 <label for="designation">{{ __('invoice.form.article_designation') }} *</label>
                 <textarea name="orderProducts[{{ $index }}][designation]" rows="3"
                     wire:model="orderProducts.{{ $index }}.designation"
-                    class="form-control @error('articles.*.designation') is-invalid @enderror" required></textarea>
-                @error('articles.*.designation')
+                    class="form-control @error('orderProducts.'.$index.'.designation') is-invalid @enderror" required>{{old('orderProducts.'.$index.'.designation')}}</textarea>
+                @error('orderProducts.'.$index.'.designation')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -15,7 +15,7 @@
 
             <div class="mb-3 col-lg-3">
                 <label for="product">Produit *</label>
-                <select wire:ignore class="form-control" name="orderProducts[{{ $index }}][product_id]"
+                <select wire:ignore class="form-control select2" name="orderProducts[{{ $index }}][product_id]"
                     data-indexer="{{ $index }}" wire:model="orderProducts.{{ $index }}.product_id">
                     <option value=""></option>
                     <optgroup label="Produits">

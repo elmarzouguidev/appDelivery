@@ -14,6 +14,8 @@ class Products extends Component
 
     public $products = [];
 
+    public $totalPrice ;
+
     public $orderProducts = [];
 
     public function mount()
@@ -28,6 +30,7 @@ class Products extends Component
                 'prix_unitaire' => ''
             ]
         ];
+        $this->totalPrice = 0;
     }
 
     public function render()
