@@ -5,6 +5,7 @@ namespace App\Policies\Sameleon;
 use App\Models\Sameleon\Command;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class CommandPolicy
 {
@@ -49,7 +50,9 @@ class CommandPolicy
      */
     public function create(User $user)
     {
-        return $user->hasRole('Client');
+        return $user->hasRole('Client')
+            ? Response::allow()
+            : Response::deny("désolé vous n'avez pas l'autorisation de crée une command.");
     }
 
     /**
@@ -61,7 +64,9 @@ class CommandPolicy
      */
     public function update(User $user, Command $command)
     {
-        return $command->client()->is($user);
+        return $command->client()->is($user)
+            ? Response::allow()
+            : Response::deny("désolé vous n'avez pas l'autorisation d'accéder à cette command.");
     }
 
     /**
@@ -73,7 +78,9 @@ class CommandPolicy
      */
     public function delete(User $user, Command $command)
     {
-        return $command->client()->is($user);
+        return $command->client()->is($user)
+            ? Response::allow()
+            : Response::deny("désolé vous n'avez pas l'autorisation de supprimer à cette command.");
     }
 
     /**

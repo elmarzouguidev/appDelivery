@@ -28,6 +28,11 @@ class Command extends Model
         return $this->belongsToMany(Product::class, 'product_command', 'command_id', 'product_id')->withPivot(['id', 'quantity', 'price_ht', 'price_total', 'designation']);
     }
 
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
+
     public function getTotalPriceAttribute()
     {
         //return $this->products()->sum('price_ht');
