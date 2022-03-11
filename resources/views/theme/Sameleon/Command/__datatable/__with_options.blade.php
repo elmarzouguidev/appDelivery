@@ -77,7 +77,7 @@
                                 <td>
                                     <div class="d-flex gap-3">
 
-                                        <a href="{{ $order->edit }}" class="text-success">
+                                        <a href="{{ $order->edit_url }}" class="text-success">
                                             <i class="mdi mdi-pencil font-size-18"></i>
                                         </a>
                                         <a href="#" class="text-danger" onclick="

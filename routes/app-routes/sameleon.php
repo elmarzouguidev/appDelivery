@@ -12,6 +12,13 @@ Route::group(['prefix' => 'commands'], function () {
     Route::post('/create', [CommandController::class, 'store'])->name('commands.store');
 
     Route::delete('/delete', [CommandController::class, 'delete'])->name('commands.delete');
+
+    Route::group(['prefix' => 'edit'], function () {
+
+        Route::get('/{command}', [CommandController::class, 'edit'])->name('commands.edit');
+        Route::post('/{command}', [CommandController::class, 'update'])->name('commands.update');
+
+    });
 });
 
 

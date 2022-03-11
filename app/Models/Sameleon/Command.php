@@ -2,6 +2,7 @@
 
 namespace App\Models\Sameleon;
 
+use App\Models\Sameleon\Traits\ModelRoutes;
 use App\Models\User;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
@@ -15,6 +16,7 @@ class Command extends Model
     use HasFactory;
     use UuidGenerator;
     use GetModelByUuid;
+    use ModelRoutes;
 
     public function client()
     {
@@ -23,14 +25,14 @@ class Command extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'product_command', 'command_id', 'product_id')->withPivot(['quantity', 'price_ht']);
+        return $this->belongsToMany(Product::class, 'product_command', 'command_id', 'product_id')->withPivot(['id', 'quantity', 'price_ht', 'price_total', 'designation']);
     }
 
     public function getTotalPriceAttribute()
     {
         //return $this->products()->sum('price_ht');
 
-        return number_format($this->products()->sum('price_ht'), 2);
+        return number_format($this->products()->sum('price_total'), 2);
     }
 
     public static function boot()
