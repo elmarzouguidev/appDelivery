@@ -1,8 +1,12 @@
 <?php
 
+
 use App\Http\Controllers\Sameleon\Client\Product\ProductController;
 use App\Http\Controllers\Sameleon\CommandController;
+
 use Illuminate\Support\Facades\Route;
+
+
 
 Route::group(['prefix' => 'commands'], function () {
 
@@ -17,7 +21,6 @@ Route::group(['prefix' => 'commands'], function () {
 
         Route::get('/{command}', [CommandController::class, 'edit'])->name('commands.edit');
         Route::post('/{command}', [CommandController::class, 'update'])->name('commands.update');
-
     });
 });
 

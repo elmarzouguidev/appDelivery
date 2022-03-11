@@ -18,6 +18,6 @@ class DatabaseSeeder extends Seeder
     $this->call(AdminSeeder::class);
     $this->call(ClientSeed::class);
 
-    \App\Models\Sameleon\Product::factory(5)->create();
+    //\App\Models\Sameleon\Product::factory(5)->create();
   }
 }

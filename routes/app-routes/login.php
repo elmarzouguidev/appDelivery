@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Sameleon\Web\RegisterController;
+
 use App\Http\Controllers\Authentification\AuthController;
 use App\Http\Controllers\Authentification\ForgotPasswordController;
 use App\Http\Controllers\Authentification\ResetPasswordController;
@@ -26,3 +28,11 @@ Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showRese
 Route::post('/password/reset/', [ResetPasswordController::class, 'reset'])
     ->middleware('guest')
     ->name('password.update');
+
+
+
+Route::group(['prefix' => 'register', 'middleware' => 'guest'], function () {
+
+    Route::get('/', [RegisterController::class, 'index'])->name('clients.create');
+    Route::post('/', [RegisterController::class, 'store'])->name('clients.store');
+});

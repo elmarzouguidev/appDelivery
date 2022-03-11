@@ -27,21 +27,13 @@ class RegisterFormRequest extends FormRequest
         return [
             'nom' => ['required', 'string'],
             'prenom' => ['required', 'string'],
-            'telephone' => ['required', 'phone:MA'],
-
-            'addresse' => ['required', 'string'],
-            'city' => ['required', 'string'],
-
-            'cnie' => ['required', 'string', Rule::unique('users')],
-            'rc' => ['nullable', 'numeric', Rule::unique('users')],
-            'ice' => ['nullable', 'numeric', Rule::unique('users')],
-            'cnss' => ['nullable', 'numeric', Rule::unique('users')],
-            'patente' => ['nullable', 'numeric', Rule::unique('users')],
-            'if' => ['nullable', 'numeric', Rule::unique('users')],
-            
-            'email' => ['required', 'email'],
+            'telephone' => ['required', 'phone:MA', Rule::unique('users')],
+            //'addresse' => ['required', 'string'],
+            'type' => ['required', 'string', Rule::in(['entreprise', 'particulier'])],
+            //'city' => ['required', 'string'],
+            //'cnie' => ['required_if:type,particulier', 'string', Rule::unique('users')],
+            'email' => ['required', 'email', Rule::unique('users')],
             'password' => ['required', 'string', 'min:6'],
-            'type' => ['required', 'string', Rule::in(['entreprise', 'particulier'])]
         ];
     }
 }
