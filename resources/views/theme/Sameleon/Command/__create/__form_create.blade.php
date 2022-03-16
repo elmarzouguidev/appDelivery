@@ -28,20 +28,9 @@
                         </div>
 
                         <div class="col-lg-6">
-                            <div class="templating-select mb-4">
-                                <label class="form-label">Ville *</label>
-                                <select name="client_city"
-                                    class="form-control select2-templating @error('client_city') is-invalid @enderror" required>
-                                    <option value="casablanca">Casablanca</option>
 
-                                </select>
-                                @error('client_city')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-
-                            </div>
+                            @include('theme.Sameleon.Command.__create.__select_city')
+                            
                             <div class=" mb-4">
                                 <label>Adresse du client *</label>
                                 <textarea name="client_address" id="textarea"

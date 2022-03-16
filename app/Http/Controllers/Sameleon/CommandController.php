@@ -12,17 +12,15 @@ use Illuminate\Http\Request;
 class CommandController extends Controller
 {
 
-
     public function index()
     {
+        $cities = app(CityInterface::class)->getCities();
 
-        //$cities = app(CityInterface::class)->getCities();
-
-        $commands = auth()->user()->commands()->withSum('products','product_command.price_total')->get();
+        $commands = auth()->user()->commands()->withSum('products', 'product_command.price_total')->get();
         //dd($commands);
         //$products = auth()->user()->products()->get();
 
-        return view('theme.Sameleon.Command.index', compact('commands'));
+        return view('theme.Sameleon.Command.index', compact('commands', 'cities'));
     }
 
     public function create()
@@ -50,10 +48,11 @@ class CommandController extends Controller
         $command->client_name = $request->client_name;
         $command->client_email = $request->client_email;
         $command->client_phone = $request->client_phone;
-        $command->client_city = $request->client_city;
+        //$command->client_city = $request->client_city;
         $command->client_address = $request->client_address;
 
         $command->client()->associate(auth()->id());
+        $command->city()->associate($request->city);
         $command->save();
 
         if ($command) {
@@ -100,6 +99,7 @@ class CommandController extends Controller
 
         if ($command) {
             if (count($request->getOldArticles())) {
+
                 foreach ($request->orderProducts as $product) {
 
                     $command->products()->updateExistingPivot(
@@ -138,11 +138,12 @@ class CommandController extends Controller
 
     public function delete(Request $request)
     {
-        $this->authorize('delete', $command);
 
         $request->validate(['commandId' => 'required|uuid']);
 
         $command = Command::whereUuid($request->commandId)->firstOrFail();
+
+        $this->authorize('delete', $command);
 
         if ($command && $command->client()->is(auth()->user())) {
             // dd('Oui command');
