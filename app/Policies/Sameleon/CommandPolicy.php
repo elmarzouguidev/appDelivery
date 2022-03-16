@@ -27,7 +27,7 @@ class CommandPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->hasRole('Client');
+        return $user->hasAnyRole('Client','SuperAdmin');
     }
 
     /**
@@ -50,7 +50,7 @@ class CommandPolicy
      */
     public function create(User $user)
     {
-        return $user->hasRole('Client')
+        return $user->hasAnyRole('Client','SuperAdmin')
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de crée une command.");
     }

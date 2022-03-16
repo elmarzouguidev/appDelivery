@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
     $this->call(RoleSeeder::class);
     $this->call(PermissionSeeder::class);
     $this->call(AdminSeeder::class);
-   // $this->call(ClientSeed::class);
+    $this->call(ClientSeed::class);
 
     //\App\Models\Sameleon\Product::factory(5)->create();
   }

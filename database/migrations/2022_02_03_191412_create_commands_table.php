@@ -31,7 +31,7 @@ class CreateCommandsTable extends Migration
 
             $table->longText('designation')->nullable();
  
-            $table->float('price_total')->default(0);
+            $table->unsignedBigInteger('price_total')->default(0);
 
             $table->integer('status')->default(Status::NON_TRAITE);
             $table->timestamps();

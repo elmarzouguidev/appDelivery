@@ -16,7 +16,7 @@
             <div class="mb-3 col-lg-3">
                 <label for="product">Produit *</label>
                 <select wire:ignore class="form-control select2" name="orderProducts[{{ $index }}][product_id]"
-                    data-indexer="{{ $index }}" wire:model="orderProducts.{{ $index }}.product_id">
+                    data-indexer="{{ $index }}" wire:model="orderProducts.{{ $index }}.product_id" required>
                     <option value=""></option>
                     <optgroup label="Produits">
                         @foreach ($products as $product)
@@ -53,7 +53,7 @@
                 <input type="text" name="orderProducts[{{ $index }}][prix_unitaire]"
                     wire:model="orderProducts.{{ $index }}.prix_unitaire"
                     wire:click="getPrice({{ $index }})"
-                    class="form-control @error('articles.*.prix_unitaire') is-invalid @enderror" value="" />
+                    class="form-control @error('articles.*.prix_unitaire') is-invalid @enderror" value="" required />
 
                 @error('prix_unitaire')
                     <span class="invalid-feedback" role="alert">

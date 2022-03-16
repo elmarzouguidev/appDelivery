@@ -62,7 +62,7 @@
             </div>
             <div class="card">
                 <div class="card-body">
-                    {{$errors}}
+             
                     <p class="card-title-desc">Entrer les information de la commande</p>
                     <div class="row">
                         <div class="col-lg-12 mb-4">

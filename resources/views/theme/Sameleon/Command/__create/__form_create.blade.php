@@ -1,5 +1,4 @@
 <div class="row">
-
     <div class="col-lg-12">
         @if (session('success'))
             <div class="alert alert-success">
@@ -32,7 +31,7 @@
                             <div class="templating-select mb-4">
                                 <label class="form-label">Ville *</label>
                                 <select name="client_city"
-                                    class="form-control select2-templating @error('client_city') is-invalid @enderror">
+                                    class="form-control select2-templating @error('client_city') is-invalid @enderror" required>
                                     <option value="casablanca">Casablanca</option>
 
                                 </select>
@@ -47,7 +46,7 @@
                                 <label>Adresse du client *</label>
                                 <textarea name="client_address" id="textarea"
                                     class="form-control @error('client_address') is-invalid @enderror" maxlength="225"
-                                    rows="5"></textarea>
+                                    rows="5" required></textarea>
 
                                 @error('client_address')
                                     <span class="invalid-feedback" role="alert">

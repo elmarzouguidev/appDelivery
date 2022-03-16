@@ -30,7 +30,7 @@ class ProductPolicy
      */
     public function view(User $user, Product $product)
     {
-      
+
         return $user->id === $product->user_id;
     }
 
@@ -42,7 +42,7 @@ class ProductPolicy
      */
     public function create(User $user)
     {
-        return $user->hasRole('Client');
+        return $user->hasAnyRole('Client','SuperAdmin');
     }
 
     /**
@@ -54,7 +54,7 @@ class ProductPolicy
      */
     public function update(User $user, Product $product)
     {
-       
+
         return $user->id === $product->user_id;
     }
 

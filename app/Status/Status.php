@@ -6,7 +6,7 @@ class Status
 {
 
     public const NON_TRAITE = 1;
-    public const RETOUR = 2;
+    public const ANNULE = 2;
     public const LIVRE = 3;
     public const CHANGE = 4;
     public const ENCOURS = 5;
@@ -22,5 +22,5 @@ class Status
     public const RECONFIRMER = 15;
     public const REFUSE = 16;
     public const REPORTE = 17;
-    public const REROURNE = 18;
+    public const RETOURNE = 18;
 }
