@@ -18,6 +18,8 @@ class Command extends Model
     use GetModelByUuid;
     use ModelRoutes;
 
+    protected $appends  = ['update_url'];
+
     public function client()
     {
         return $this->belongsTo(User::class, 'user_id');

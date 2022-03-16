@@ -7,14 +7,17 @@ File: Datatables Js File
 */
 
 $(document).ready(function () {
-    $('#datatable').DataTable();
+    $('#datatable').DataTable({
+        lengthChange: false,
+        order: [[0, "desc"]]
+    });
 
     //Buttons examples
     var table = $('#datatable-buttons').DataTable({
         lengthChange: false,
         //buttons: ['copy', 'excel', 'pdf', 'colvis'],
-        buttons: ['excel'],
-        order: [[0, "desc"]]
+        //buttons: ['excel'],
+        //order: [[0, "desc"]]
     });
 
     table.buttons().container()

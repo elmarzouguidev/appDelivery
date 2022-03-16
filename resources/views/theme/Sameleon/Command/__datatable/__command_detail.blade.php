@@ -1,10 +1,10 @@
-@if ($order)
-    <div class="modal fade orderdetailsModal-{{ $order->id }}" tabindex="-1" role="dialog"
+@if ($command)
+    <div class="modal fade orderdetailsModal-{{ $command->id }}" tabindex="-1" role="dialog"
         aria-labelledby=orderdetailsModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id=orderdetailsModalLabel">COMMANDE N° : {{ $order->code }} </h5>
+                    <h5 class="modal-title" id=orderdetailsModalLabel">COMMANDE N° : {{ $command->code }} </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -20,7 +20,7 @@
                             </thead>
                             <tbody>
 
-                                @foreach ($order->products as $product)
+                                @foreach ($command->products as $product)
                                     <tr>
                                         <th scope="row">
                                             <div>
@@ -53,7 +53,7 @@
                                     </td>
                                     <td>
                                    
-                                        {{ $order->total_price }}
+                                        {{ $command->total_price }}
                                     </td>
                                 </tr>
                             </tbody>
