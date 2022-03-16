@@ -14,6 +14,8 @@ class Commands extends Component
 
     public $showEdit = false;
 
+    public $showEditStatus = false;
+
     public function render()
     {
         
@@ -27,10 +29,22 @@ class Commands extends Component
 
     public function editCommand(Command $command)
     {
+
         $this->showEdit = true;
+
         $this->commandEdit = $command->load('products');
       
         //dd(  $this->command);
         $this->dispatchBrowserEvent('show-edit');
+    }
+
+    public function editStatus(Command $command)
+    {
+        
+        $this->showEditStatus = true;
+
+        $this->commandEdit = $command;
+      
+        $this->dispatchBrowserEvent('show-edit-status');
     }
 }

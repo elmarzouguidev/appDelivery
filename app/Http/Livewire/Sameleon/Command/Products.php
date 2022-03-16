@@ -14,23 +14,28 @@ class Products extends Component
 
     public $products = [];
 
-    public $totalPrice ;
+    public $totalPrice;
 
     public $orderProducts = [];
 
     public function mount()
     {
-        $this->products = auth()->user()->products()->get();
+
         $this->orderProducts = [
             [
                 'product_id' => '',
                 'quantity' => 1,
                 'designation' => '',
                 'description' => '',
-                'prix_unitaire' => ''
+                'prix_unitaire' => '',
+                'readonly' => ''
             ]
         ];
         $this->totalPrice = 0;
+
+       $this->products = auth()->user()->products()->get();
+
+
     }
 
     public function render()
@@ -40,20 +45,20 @@ class Products extends Component
 
     public function addProduct()
     {
+        //$data = collect($this->orderProducts);
+
+       // $this->products = auth()->user()->products()->get()->diffKeys($data);
+
         $this->orderProducts[] = [
             'product_id' => '',
             'quantity' => 1,
             'designation' => '',
             'description' => '',
-            'prix_unitaire' => ''
+            'prix_unitaire' => '',
+            'readonly' => ''
         ];
-    }
 
-    /*public function selectedProduct($product)
-    {
-        //dd($product,'##',$indexer);
-       $this->pricer =  $this->products->firstWhere('id', $product)->price;
-    }*/
+    }
 
     public function getPrice($index)
     {
@@ -62,7 +67,6 @@ class Products extends Component
             $this->orderProducts[$index]['prix_unitaire'] =  $this->products->firstWhere('id', $this->orderProducts[$index]['product_id'])->price;
         }
     }
-
 
     public function removeProduct($index)
     {

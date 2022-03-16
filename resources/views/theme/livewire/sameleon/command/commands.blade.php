@@ -9,9 +9,6 @@
                             {{-- <a href="#" type="button" onclick="openFilters()" class="btn btn-primary" >
                                 Filters
                             </a> --}}
-                            <a href="{{ route('sameleon:commands.create') }}" type="button" class="btn btn-info">
-                                Ajouter un commande
-                            </a>
                             <button class="btn btn-info" type="button" class="btn btn-info  btn-sm" data-bs-toggle="modal"
                                 data-bs-target=".addCommandModal">
                                 Ajouter un commande
@@ -40,11 +37,10 @@
                             </th> --}}
                             {{-- <th scope="col">Numéro / client</th> --}}
                             <th scope="col">Destinataire</th>
-
+                            <th scope="col">Status</th>
                             <th scope="col">Prix Total</th>
                             <th scope="col">Détails</th>
                             <th scope="col">Date de commande</th>
-                            <th scope="col">Status</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -74,9 +70,19 @@
                                     <p class="text-strong mb-0">{{ $command->client_address }}</p>
                                     <p class="text-strong mb-0">{{ $command->client_city }}</p>
                                 </td>
-
                                 <td>
-                                    {{ $command->total_price }}
+                                    {{--<i class="mdi mdi-circle text-info font-size-10"></i>
+                                    {{ __('status.statuses.' . $command->status) }}--}}
+
+                                    <button wire:click="editStatus('{{$command->uuid}}')" type="button" class="btn btn-sm btn-warning waves-effect waves-light">
+                                        <i class="bx bx-error font-size-16 align-middle me-2"></i>
+                                        {{ __('status.statuses.' . $command->status) }}
+                                    </button>
+
+                                </td>
+                                <td>
+                                    {{--$command->products->sum('pivot.price_total')--}}
+                                    {{number_format($command->products_sum_product_commandprice_total,2)}} DH
                                 </td>
                                 <td>
                                     <button type="button" class="btn btn-info  btn-sm" data-bs-toggle="modal"
@@ -90,11 +96,6 @@
                                     <strong>date de modification</strong>
                                     <p class="text-strong mb-0">{{ $command->updated_at->format('d-m-Y H:i') }}</p>
                                 </td>
-                                <td>
-                                    <i class="mdi mdi-circle text-info font-size-10"></i>
-                                    {{ __('status.statuses.' . $command->status) }}
-                                </td>
-
                                 <td>
                                     <div class="d-flex gap-3">
 
@@ -132,6 +133,12 @@
     @if($showEdit)
     
       @include('theme.livewire.sameleon.command.edit-command',['command' => $commandEdit])
+
+    @endif
+
+    @if($showEditStatus)
+    
+        @include('theme.livewire.sameleon.command.update-status',['command' => $commandEdit])
 
     @endif
 </div>

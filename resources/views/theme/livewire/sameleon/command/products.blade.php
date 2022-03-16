@@ -16,7 +16,7 @@
             <div class="mb-3 col-lg-3">
                 <label for="product">Produit *</label>
                 <select wire:ignore class="form-control select2" name="orderProducts[{{ $index }}][product_id]"
-                    data-indexer="{{ $index }}" wire:model="orderProducts.{{ $index }}.product_id" required>
+                    data-indexer="{{ $index }}" wire:model="orderProducts.{{ $index }}.product_id"  {{$orderProducts[$index]['readonly']}}  required>
                     <option value=""></option>
                     <optgroup label="Produits">
                         @foreach ($products as $product)
