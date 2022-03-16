@@ -35,6 +35,11 @@ class Command extends Model
         return $this->morphMany(Comment::class, 'commentable');
     }
 
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+    
     public function getTotalPriceAttribute()
     {
         //return $this->products()->sum('price_ht');

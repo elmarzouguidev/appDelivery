@@ -17,4 +17,9 @@ class City extends Model
         'name',
         'active'
     ];
+
+    public function commands()
+    {
+        return $this->hasMany(Command::class);
+    }
 }

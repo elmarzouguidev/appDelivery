@@ -45,6 +45,11 @@ class RepositoryServiceProvider extends ServiceProvider
         [
             'abstract' => "App\Repositories\Document\DocumentInterface",
             'concrete' => "App\Repositories\Document\DocumentRepository"
+        ],
+
+        [
+            'abstract' => "App\Repositories\City\CityInterface",
+            'concrete' => "App\Repositories\City\CityRepository"
         ]
     ];
     /**

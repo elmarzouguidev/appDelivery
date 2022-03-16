@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Sameleon\Command\CommandFormRequest;
 use App\Http\Requests\Sameleon\Command\CommandUpdateFormRequest;
 use App\Models\Sameleon\Command;
+use App\Repositories\City\CityInterface;
 use Illuminate\Http\Request;
 
 class CommandController extends Controller
@@ -14,6 +15,9 @@ class CommandController extends Controller
 
     public function index()
     {
+
+        //$cities = app(CityInterface::class)->getCities();
+
         $commands = auth()->user()->commands()->withSum('products','product_command.price_total')->get();
         //dd($commands);
         //$products = auth()->user()->products()->get();
