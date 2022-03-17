@@ -8,7 +8,7 @@
             </div>
             <div class="modal-body">
 
-                @include('Sameleon.Client.Command.__create.__form_create')
+                @include('Sameleon.Admin.Command.__create.__form_create')
                     
             </div>
         </div>

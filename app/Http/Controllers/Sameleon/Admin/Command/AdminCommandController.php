@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Sameleon\Client\Command;
+namespace App\Http\Controllers\Sameleon\Admin\Command;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Sameleon\Command\CommandFormRequest;
@@ -9,18 +9,16 @@ use App\Models\Sameleon\Command;
 use App\Repositories\City\CityInterface;
 use Illuminate\Http\Request;
 
-class ClientCommandController extends Controller
+class AdminCommandController extends Controller
 {
-
-
     public function index()
     {
 
         $cities = app(CityInterface::class)->getCities();
 
-        $commands = auth('client')->user()->commands()->withSum('products', 'product_command.price_total')->get();
+        $commands = Command::withSum('products', 'product_command.price_total')->get();
 
-        return view('Sameleon.Client.Command.__datatable.index', compact('commands', 'cities'));
+        return view('Sameleon.Admin.Command.__datatable.index', compact('commands', 'cities'));
     }
 
     public function store(CommandFormRequest $request)
@@ -68,7 +66,7 @@ class ClientCommandController extends Controller
 
         $cities = app(CityInterface::class)->getCities();
 
-        return view('Sameleon.Client.Command.__edit.index', compact('command', 'cities'));
+        return view('Sameleon.Admin.Command.__edit.index', compact('command', 'cities'));
     }
 
     public function update(CommandUpdateFormRequest $request, Command $command)

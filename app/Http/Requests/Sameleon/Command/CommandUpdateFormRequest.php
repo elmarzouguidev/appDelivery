@@ -48,8 +48,11 @@ class CommandUpdateFormRequest extends FormRequest
             'client_name' => ['required', 'string'],
             'client_email' => ['nullable', 'email'],
             'client_phone' => ['required', 'phone:MA'],
-            'client_city' => ['required', Rule::in(['casablanca'])],
+
+            //'client_city' => ['required', Rule::in(['casablanca'])],
+
             'client_address' => ['required', 'string'],
+            'city' => ['required', 'integer'],
 
             'orderProducts' => ['nullable', 'array'],
             'orderProducts.*.product_id' => ['nullable', 'integer'],

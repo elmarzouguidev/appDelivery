@@ -19,7 +19,6 @@ Route::group(['prefix' => 'commands'], function () {
         Route::get('/{command}', [ClientCommandController::class, 'edit'])->name('commands.edit');
         Route::post('/{command}', [ClientCommandController::class, 'update'])->name('commands.update');
     });
-
 });
 
 Route::group(['prefix' => 'products'], function () {

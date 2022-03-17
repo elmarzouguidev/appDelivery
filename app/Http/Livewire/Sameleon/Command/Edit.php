@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Sameleon\Command;
 
+use App\Models\Sameleon\Product;
 use Livewire\Component;
 
 class Edit extends Component
@@ -23,7 +24,12 @@ class Edit extends Component
 
     public function mount()
     {
-        $this->products = auth()->user()->products()->get();
+
+        if (auth('client')->check()) {
+            $this->products = auth('client')->user()->products()->with('media')->get();
+        } else {
+            $this->products = Product::with('media')->get();
+        }
 
         $this->orderProducts = $this->command->products()->get();
 

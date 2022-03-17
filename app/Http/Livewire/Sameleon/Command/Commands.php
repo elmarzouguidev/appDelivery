@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Sameleon\Command;
 
 use App\Models\Sameleon\Command;
+use App\Repositories\City\CityInterface;
 use Livewire\Component;
 
 class Commands extends Component
@@ -15,6 +16,8 @@ class Commands extends Component
     public $showEdit = false;
 
     public $showEditStatus = false;
+
+    public $cities;
 
     public function render()
     {
@@ -32,6 +35,8 @@ class Commands extends Component
 
         $this->showEdit = true;
 
+        $this->cities = app(CityInterface::class)->getCities();
+        
         $this->commandEdit = $command->load('products');
       
         //dd(  $this->command);

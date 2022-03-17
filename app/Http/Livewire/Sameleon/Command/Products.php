@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Sameleon\Command;
 
+use App\Models\Sameleon\Product;
 use Livewire\Component;
 use Illuminate\Support\Arr;
 
@@ -33,9 +34,11 @@ class Products extends Component
         ];
         $this->totalPrice = 0;
 
-       $this->products = auth()->user()->products()->get();
-
-
+        if (auth('client')->check()) {
+            $this->products = auth()->user()->products()->get();
+        } else {
+            $this->products = Product::with('media')->get();
+        }
     }
 
     public function render()
@@ -47,7 +50,7 @@ class Products extends Component
     {
         //$data = collect($this->orderProducts);
 
-       // $this->products = auth()->user()->products()->get()->diffKeys($data);
+        // $this->products = auth()->user()->products()->get()->diffKeys($data);
 
         $this->orderProducts[] = [
             'product_id' => '',
@@ -57,7 +60,6 @@ class Products extends Component
             'prix_unitaire' => '',
             'readonly' => ''
         ];
-
     }
 
     public function getPrice($index)

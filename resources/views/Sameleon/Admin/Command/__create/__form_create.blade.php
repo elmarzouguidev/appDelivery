@@ -1,5 +1,4 @@
 <div class="row">
-
     <div class="col-lg-12">
         @if (session('success'))
             <div class="alert alert-success">
@@ -11,7 +10,7 @@
                 {{ session('error') }}
             </div>
         @endif
-        <form action="{{ $command->update_url }}" method="post">
+        <form  action="{{ route('sameleon:commands.store') }}" method="post">
             @csrf
             <div class="card">
                 <div class="card-body">
@@ -21,23 +20,22 @@
                     <div class="row">
                         <div class="col-lg-6">
 
-                            @include('Sameleon.Client.Command.__edit.__info')
+                            @include('Sameleon.Admin.Command.__create.__info')
 
                             <div class="col-lg-12">
-                                @include('Sameleon.Client.Command.__edit.__date_commande')
-                                  
+                                @include('Sameleon.Admin.Command.__create.__date_commande')
                             </div>
                         </div>
 
                         <div class="col-lg-6">
-                    
-                            @include('Sameleon.Client.Command.__edit.__select_city')
+
+                            @include('Sameleon.Admin.Command.__create.__select_city')
                             
                             <div class=" mb-4">
                                 <label>Adresse du client *</label>
                                 <textarea name="client_address" id="textarea"
                                     class="form-control @error('client_address') is-invalid @enderror" maxlength="225"
-                                    rows="5">{{ $command->client_address }}</textarea>
+                                    rows="5" required></textarea>
 
                                 @error('client_address')
                                     <span class="invalid-feedback" role="alert">
@@ -51,46 +49,26 @@
             </div>
             <div class="card">
                 <div class="card-body">
-             
                     <p class="card-title-desc">Entrer les information de la commande</p>
                     <div class="row">
                         <div class="col-lg-12 mb-4">
 
-                            {{-- @include('theme.Sameleon.Command.__create.__add_articles') --}}
-                            @livewire('sameleon.command.edit',['command' => $command])
+                            {{--@include('theme.Sameleon.Command.__create.__add_articles')--}}
+                            @livewire('sameleon.command.products')
 
                         </div>
                     </div>
-                    <div class="col-lg-12">
-                        <div class="justify-content-end">
-                            <div class="card border border-primary">
-                                <div class="card-header bg-transparent border-primary">
-                                    <h5 class="my-0 text-primary">
-                                        <i class="mdi mdi-alarm-panel-outline me-3"></i>
-                                        Total du Command: {{ $command->total_price }}
-                                        DH
-                                    </h5>
-                                    <hr>
-                                    <h5 class="my-0 text-info">
-                                        <i class="mdi mdi-alarm-panel-outline me-3"></i>
-                                        Frais de Livraison : 14.00 DH
-                                       
-                                    </h5>
-                       
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
-            {{-- @include('theme.Sameleon.Command.__create.__condition') --}}
+            {{--@include('theme.Sameleon.Command.__create.__condition')--}}
             <div class="d-flex flex-wrap gap-2 justify-content-end mb-4">
                 <div class="">
                     <button type="submit" class="btn btn-primary waves-effect waves-light" {{-- onclick='document.getElementById("overlayy").style.display = "block"' --}}>
                         {{ __('buttons.store') }}
 
                     </button>
-
+    
                 </div>
             </div>
 

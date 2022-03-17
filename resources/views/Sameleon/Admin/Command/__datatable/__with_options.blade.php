@@ -8,17 +8,17 @@
                         <div class="col-lg-8 mb-4">
                             {{-- <a href="#" type="button" onclick="openFilters()" class="btn btn-primary" >
                                 Filters
-                            </a> 
+                            </a> --}}
                             <a href="{{ route('client:commands.create') }}" type="button" class="btn btn-info">
                                 Ajouter une commande
-                            </a> --}}
-                            <button class="btn btn-info" type="button" class="btn btn-info  btn-sm"
-                                data-bs-toggle="modal" data-bs-target=".addCommandModal">
+                            </a>
+                            <button class="btn btn-info" type="button" class="btn btn-info  btn-sm" data-bs-toggle="modal"
+                                data-bs-target=".addCommandModal">
                                 Ajouter une commande
                             </button>
                         </div>
                     </div>
-                </div>e
+                </div>
                 @if (session('success'))
                     <div class="alert alert-success">
                         {{ session('success') }}
@@ -98,10 +98,10 @@
                                 <td>
                                     <div class="d-flex gap-3">
 
-                                        {{-- <a href="{{ $order->edit_url }}" class="text-success">
+                                        {{--<a href="{{ $order->edit_url }}" class="text-success">
                                             <i class="mdi mdi-pencil font-size-18"></i>
-                                        </a> --}}
-                                        <a href="#" class="text-success">
+                                        </a>--}}
+                                        <a href="#"  class="text-success">
                                             <i class="mdi mdi-pencil font-size-18"></i>
                                         </a>
                                         <a href="#" class="text-danger" onclick="
