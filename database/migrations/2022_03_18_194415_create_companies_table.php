@@ -17,7 +17,7 @@ class CreateCompaniesTable extends Migration
 
             $table->id();
 
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('client_id')->constrained();
 
             $table->uuid('uuid')->unique();
             $table->string('code')->unique()->nullable();
@@ -33,7 +33,7 @@ class CreateCompaniesTable extends Migration
             $table->string('email')->nullable()->unique();
 
             $table->string('rc')->unique()->nullable();
-            $table->string('ice')->unique();
+            $table->string('ice')->unique()->nullable();
             $table->string('cnss')->unique()->nullable();
             $table->string('patente')->unique()->nullable();
             $table->string('if')->unique()->nullable();

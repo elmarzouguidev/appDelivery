@@ -11,7 +11,7 @@
                             </a> --}}
                             <button class="btn btn-info" type="button" class="btn btn-info  btn-sm" data-bs-toggle="modal"
                                 data-bs-target=".addCommandModal">
-                                Ajouter un commande
+                                Ajouter une commande
                             </button>
                         </div>
                     </div>
@@ -78,6 +78,7 @@
                                         <i class="bx bx-error font-size-16 align-middle me-2"></i>
                                         {{ __('status.statuses.' . $command->status) }}
                                     </button>
+                   
 
                                 </td>
                                 <td>

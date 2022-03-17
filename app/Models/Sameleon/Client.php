@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Sameleon;
 
-use App\Models\Sameleon\Group;
+use App\Models\Sameleon\Command;
+use App\Models\Sameleon\Company;
+use App\Models\Sameleon\Product;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -14,7 +16,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class Client extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
     use GetModelByUuid;
@@ -32,7 +34,6 @@ class User extends Authenticatable
         'telephone',
         'email',
         'password',
-        'is_admin',
         'cnie',
         'addresse',
         'city',
@@ -56,14 +57,31 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'is_admin' => 'boolean',
         'active' => 'boolean'
     ];
 
 
-    public $guard_name = 'admin';
+    public $guard_name = 'client';
 
+    public function company()
+    {
+        return $this->hasOne(Company::class);
+    }
 
+    public function group()
+    {
+        return $this->belongsTo(Group::class);
+    }
+
+    public function commands()
+    {
+        return $this->hasMany(Command::class);
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 
     protected function fullName(): Attribute
     {
@@ -72,16 +90,11 @@ class User extends Authenticatable
         );
     }
 
-    public function group()
-    {
-        return $this->hasOne(Group::class);
-    }
-
     public static function boot()
     {
         parent::boot();
 
-        $prefixer = "ADMIN-";
+        $prefixer = "CLT-";
 
         static::creating(function ($model) use ($prefixer) {
 

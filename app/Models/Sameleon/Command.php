@@ -3,7 +3,7 @@
 namespace App\Models\Sameleon;
 
 use App\Models\Sameleon\Traits\ModelRoutes;
-use App\Models\User;
+
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,7 +22,7 @@ class Command extends Model
 
     public function client()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(Client::class);
     }
 
     public function products()

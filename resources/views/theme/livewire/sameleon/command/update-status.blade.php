@@ -23,6 +23,9 @@
                                     <button type="button" class="btn btn-sm btn-link waves-effect">Link</button>
                                     <button type="button" class="btn btn-sm btn-light waves-effect">Light</button>
                                 </div>
+                                <div wire:loading wire:target="editStatus('{{$command->uuid}}')">
+                                    Updating Bob...
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -10,11 +10,11 @@
                                 Filters
                             </a> --}}
                             <a href="{{ route('sameleon:commands.create') }}" type="button" class="btn btn-info">
-                                Ajouter un commande
+                                Ajouter une commande
                             </a>
                             <button class="btn btn-info" type="button" class="btn btn-info  btn-sm" data-bs-toggle="modal"
                                 data-bs-target=".addCommandModal">
-                                Ajouter un commande
+                                Ajouter une commande
                             </button>
                         </div>
                     </div>

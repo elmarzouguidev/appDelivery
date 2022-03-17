@@ -15,12 +15,15 @@ class CreateCommandsTable extends Migration
     public function up()
     {
         Schema::create('commands', function (Blueprint $table) {
+            
             $table->id();
             $table->uuid('uuid')->unique();
             $table->string('code')->unique();
-            
-            $table->foreignId('user_id')->index()->constrained();
-     
+            $table->string('track_code')->unique();
+
+            $table->foreignId('client_id')->index()->constrained();
+            $table->foreignId('city_id')->index()->nullable();
+
             $table->string('client_email')->nullable();
             $table->string('client_phone');
             $table->string('client_name');

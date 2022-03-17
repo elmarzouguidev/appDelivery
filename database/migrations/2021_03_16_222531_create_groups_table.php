@@ -19,6 +19,7 @@ class CreateGroupsTable extends Migration
             $table->string('name')->unique();
             $table->mediumText('description')->nullable();
             $table->boolean('active')->default(true);
+            
             $table->foreignId('user_id')->nullable()->constrained();
     
             $table->timestamps();
