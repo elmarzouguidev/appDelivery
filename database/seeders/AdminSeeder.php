@@ -20,7 +20,6 @@ class AdminSeeder extends Seeder
         $user =  [
             'nom' => 'Elmarzougui',
             'prenom' => 'Abdelghafour',
-            'telephone' => '0677512753',
             'email' => 'abdelgha4or@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('123456789@'),

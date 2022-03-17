@@ -60,7 +60,6 @@ class Client extends Authenticatable
         'active' => 'boolean'
     ];
 
-
     public $guard_name = 'client';
 
     public function company()

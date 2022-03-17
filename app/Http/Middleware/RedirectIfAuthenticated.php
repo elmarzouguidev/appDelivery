@@ -13,6 +13,11 @@ class RedirectIfAuthenticated
 {
 
     /**
+     * @var array|string[]
+     */
+    private array $actions = ['web' => 'sameleon:home', 'client' => 'client:home'];
+
+    /**
      * @param Request $request
      * @param Closure $next
      * @param mixed ...$guards
@@ -24,7 +29,7 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(route('sameleon:commands.index'));
+                return redirect(route($this->actions[$guard]));
             }
         }
 

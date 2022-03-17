@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use App\Models\Sameleon\Client;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -23,14 +23,13 @@ class ClientSeed extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('123456789@'),
             'remember_token' => Str::random(10),
-            'is_admin' => false
         ];
 
-        $client = User::whereEmail('ouhadi@gmail.com')->first();
+        $client = Client::whereEmail('ouhadi@gmail.com')->first();
 
         if (!$client) {
 
-            $newAdmin =  User::create($user);
+            $newAdmin =  Client::create($user);
             $newAdmin->assignRole('Client');
 
         } else {

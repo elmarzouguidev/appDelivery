@@ -10,7 +10,6 @@ use Illuminate\Routing\Redirector;
 
 class RedirectorMiddleware
 {
-
     /**
      * @param Request $request
      * @param Closure $next
@@ -21,8 +20,16 @@ class RedirectorMiddleware
 
         if ($request->is('app', 'app/')) {
 
-            return redirect()->route('sameleon:commands.index');
+            return redirect()->route('home');
         }
-        return $next($request);
+
+        if ($request->is('app/sameleon', 'app/sameleon/')) {
+
+            return redirect()->route('sameleon:home');
+        }
+
+        if ($request->is('app/clients', 'app/clients/')) {
+            return redirect()->route('client:home');
+        }
     }
 }

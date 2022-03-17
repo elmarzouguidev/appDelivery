@@ -7,16 +7,16 @@ trait ModelRoutes
 
     public function getEditUrlAttribute()
     {
-        return route('sameleon:' . $this->getTable() . '.edit', $this->uuid);
+        return route('client:' . $this->getTable() . '.edit', $this->uuid);
     }
 
     public function getUpdateUrlAttribute()
     {
-        return route('sameleon:' . $this->getTable() . '.update', $this->uuid);
+        return route('client:' . $this->getTable() . '.update', $this->uuid);
     }
 
     public function getDeleteUrlAttribute()
     {
-        return route('sameleon:' . $this->getTable() . '.delete');
+        return route('client:' . $this->getTable() . '.delete');
     }
 }

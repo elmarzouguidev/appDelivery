@@ -40,7 +40,7 @@ class Products extends Component
 
     public function render()
     {
-        return view('theme.livewire.sameleon.command.products');
+        return view('livewire.sameleon.command.products');
     }
 
     public function addProduct()

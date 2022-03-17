@@ -27,7 +27,7 @@ return [
     |
     */
 
-    'view_path' => resource_path('views/theme/livewire'),
+    'view_path' => resource_path('views/livewire'),
 
     /*
     |--------------------------------------------------------------------------

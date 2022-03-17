@@ -39,17 +39,18 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->routes(function () {
 
-            Route::prefix('api')
+            /*Route::prefix('api')
                 ->middleware('api')
                 ->namespace($this->namespace)
-                ->group(base_path('routes/api.php'));
+                ->group(base_path('routes/api.php'));*/
 
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
 
             $this->adminRoutes();
-            $this->sameleonRoutes();
+            $this->clientRoutes();
+            
             $this->devlopperRoutes();
 
         });
@@ -75,25 +76,32 @@ class RouteServiceProvider extends ServiceProvider
     {
     
         Route::middleware(['web'])
-            ->prefix('app')
-            ->name('admin:auth:')
+            ->prefix('app/sameleon')
+            ->name('sameleon:auth:')
             ->namespace($this->namespace)
-            ->group(base_path('routes/app-routes/login.php'));
+            ->group(base_path('routes/app-routes/login-admin.php'));
 
         Route::middleware(['web', 'auth'])
-            ->prefix('app')
-            ->name('admin:')
+            ->prefix('app/sameleon')
+            ->name('sameleon:')
             ->namespace($this->namespace)
-            ->group(base_path('routes/app-routes/routes.php'));
+            ->group(base_path('routes/app-routes/routes-admin.php'));
     }
 
-    private function sameleonRoutes()
+    private function clientRoutes()
     {
-        Route::middleware(['web', 'auth'])
-        ->prefix('app/sameleon')
-        ->name('sameleon:')
-        ->namespace($this->namespace)
-        ->group(base_path('routes/app-routes/sameleon.php')); 
+    
+        Route::middleware(['web'])
+            ->prefix('app/clients')
+            ->name('client:auth:')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/app-routes/login-client.php'));
+
+        Route::middleware(['web', 'auth:client'])
+            ->prefix('app/clients')
+            ->name('client:')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/app-routes/routes-client.php'));
     }
 
     private function commercialRoutes()

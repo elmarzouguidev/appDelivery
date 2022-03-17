@@ -19,7 +19,7 @@ class Commands extends Component
     public function render()
     {
         
-        return view('theme.livewire.sameleon.command.commands');
+        return view('livewire.sameleon.command.commands');
     }
 
     public function mount()

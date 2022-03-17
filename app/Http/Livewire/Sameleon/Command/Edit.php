@@ -8,7 +8,7 @@ class Edit extends Component
 {
     public function render()
     {
-        return view('theme.livewire.sameleon.command.edit');
+        return view('livewire.sameleon.command.edit');
     }
 
     protected $listeners = [
