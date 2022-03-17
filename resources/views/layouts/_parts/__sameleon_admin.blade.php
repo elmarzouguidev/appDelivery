@@ -19,26 +19,35 @@
 <li class="menu-title" key="t-pages">Produits</li>
 
 <li>
-    <a href="javascript: void(0);" class="waves-effect has-arrow">
+    <a href="{{ route('sameleon:products.index') }}">
         <i class="bx bx-cart-alt"></i>
         <span key="t-products">{{ __('Produits') }}</span>
     </a>
-    <ul class="sub-menu" aria-expanded="false">
+    {{--<ul class="sub-menu" aria-expanded="false">
         <li>
-            <a href="{{-- route('sameleon:products.index') --}}"
-                key="t-login">{{ __('Produits') }}
+            <a href="{{ route('sameleon:products.index') }}"
+                key="t-products">{{ __('Produits') }}
             </a>
         </li>
         <li>
-            <a href="{{-- route('sameleon:products.create') --}}"
-                key="t-login">{{ __('Ajouter Produit') }}
+            <a href="{{ route('sameleon:products.create') }}"
+                key="t-products">{{ __('Ajouter Produit') }}
             </a>
         </li>
-    </ul>
+    </ul>--}}
 </li>
 
 
 <li class="menu-title" key="t-components">{{ __('navbar.advanced') }}</li>
+
+<li>
+    <a href="{{ route('sameleon:clients.index') }}" class="waves-effect">
+
+        <i class="bx bx-user-circle"></i>
+        <span key="t-clients">{{ __('Clients') }}</span>
+    </a>
+
+</li>
 
 <li>
     <a href="{{ route('sameleon:cities.index') }}" class="waves-effect">

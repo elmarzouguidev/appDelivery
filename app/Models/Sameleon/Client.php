@@ -62,6 +62,13 @@ class Client extends Authenticatable
 
     public $guard_name = 'client';
 
+    
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+
+
     public function company()
     {
         return $this->hasOne(Company::class);
