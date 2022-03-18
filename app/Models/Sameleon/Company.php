@@ -2,12 +2,16 @@
 
 namespace App\Models\Sameleon;
 
+use App\Traits\GetModelByUuid;
+use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Company extends Model
 {
     use HasFactory;
+    use UuidGenerator;
+    use GetModelByUuid;
 
     protected $fillable = [
         'name',
@@ -28,4 +32,5 @@ class Company extends Model
     {
         return $this->belongsTo(Client::class);
     }
+
 }

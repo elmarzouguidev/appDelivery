@@ -65,15 +65,15 @@
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item waves-effect" data-bs-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
-                    <img id="header-lang-img" src="{{ asset('assets/images/flags/french.jpg') }}" alt="Header Language"
-                        height="16">
+                    <img id="header-lang-img" src="{{ asset('assets/images/flags/french.jpg') }}"
+                        alt="Header Language" height="16">
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
 
                     <!-- item-->
                     <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="en">
-                        <img src="{{ asset('assets/images/flags/french.jpg') }}" alt="user-image" class="me-1"
-                            height="12"> <span class="align-middle">French</span>
+                        <img src="{{ asset('assets/images/flags/french.jpg') }}" alt="user-image"
+                            class="me-1" height="12"> <span class="align-middle">French</span>
                     </a>
 
                 </div>
@@ -186,19 +186,22 @@
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="rounded-circle header-profile-user"
-                        src="{{ asset('assets/images/logo.png') }}" alt="Header Avatar">
+                    <img class="rounded-circle header-profile-user" src="{{ asset('assets/images/logo.png') }}"
+                        alt="Header Avatar">
                     <span class="d-none d-xl-inline-block ms-1" key="t-henry">
                         {{ auth()->user()->nom ?? '' }}
                     </span>
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
-                    <!-- item-->
-                    <a class="dropdown-item" href="{{-- route('admin:profile.index') --}}"><i
-                            class="bx bx-user font-size-16 align-middle me-1"></i> <span
-                            key="t-profile">Profile</span></a>
-                    <a class="dropdown-item d-block" href="{{--route('admin:profile.settings') --}}">
+                    @auth('client')
+                        <a class="dropdown-item" href="{{ route('client:company') }}"><i
+                                class="bx bx-user font-size-16 align-middle me-1"></i> <span
+                                key="t-profile">Profile</span></a>
+                    @endauth
+
+
+                    <a class="dropdown-item d-block" href="{{-- route('admin:profile.settings') --}}">
                         <span class="badge bg-success float-end">11</span>
                         <i class="bx bx-wrench font-size-16 align-middle me-1"></i>
                         <span key="t-settings">Settings</span>
