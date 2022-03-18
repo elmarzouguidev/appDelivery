@@ -39,5 +39,10 @@
             $('.updateStatus').modal('show');
         });
 
+        window.addEventListener('status-updated', event => {
+            //$("#commands_list").load(window.location.href + " #commands_list");
+            window.location.reload();
+        });
+
     </script>
 @endpush

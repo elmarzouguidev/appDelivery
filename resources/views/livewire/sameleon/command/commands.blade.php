@@ -9,8 +9,8 @@
                             {{-- <a href="#" type="button" onclick="openFilters()" class="btn btn-primary" >
                                 Filters
                             </a> --}}
-                            <button class="btn btn-info" type="button" class="btn btn-info  btn-sm" data-bs-toggle="modal"
-                                data-bs-target=".addCommandModal">
+                            <button class="btn btn-info" type="button" class="btn btn-info  btn-sm"
+                                data-bs-toggle="modal" data-bs-target=".addCommandModal">
                                 Ajouter une commande
                             </button>
                         </div>
@@ -71,19 +71,18 @@
                                     <p class="text-strong mb-0">{{ $command->client_city }}</p>
                                 </td>
                                 <td>
-                                    {{--<i class="mdi mdi-circle text-info font-size-10"></i>
-                                    {{ __('status.statuses.' . $command->status) }}--}}
+                                    {{-- <i class="mdi mdi-circle text-info font-size-10"></i>
+                                    {{ __('status.statuses.' . $command->status) }} --}}
 
-                                    <button wire:click="editStatus('{{$command->uuid}}')" type="button" class="btn btn-sm btn-warning waves-effect waves-light">
-                                        <i class="bx bx-error font-size-16 align-middle me-2"></i>
+                                    <button wire:click="editStatus('{{ $command->uuid }}')" type="button"
+                                        class="btn btn-sm {{ __('status.classes.' . $command->status) }} waves-effect waves-light">
                                         {{ __('status.statuses.' . $command->status) }}
                                     </button>
-                   
 
                                 </td>
                                 <td>
-                                    {{--$command->products->sum('pivot.price_total')--}}
-                                    {{number_format($command->products_sum_product_commandprice_total,2)}} DH
+                                    {{-- $command->products->sum('pivot.price_total') --}}
+                                    {{ number_format($command->products_sum_product_commandprice_total, 2) }} DH
                                 </td>
                                 <td>
                                     <button type="button" class="btn btn-info  btn-sm" data-bs-toggle="modal"
@@ -100,10 +99,11 @@
                                 <td>
                                     <div class="d-flex gap-3">
 
-                                        {{--<a href="{{ $command->edit_url }}" class="text-success">
+                                        {{-- <a href="{{ $command->edit_url }}" class="text-success">
                                             <i class="mdi mdi-pencil font-size-18"></i>
-                                        </a>--}}
-                                        <a href="#" wire:click="editCommand('{{$command->uuid}}')"  class="text-success">
+                                        </a> --}}
+                                        <a href="#" wire:click="editCommand('{{ $command->uuid }}')"
+                                            class="text-success">
                                             <i class="mdi mdi-pencil font-size-18"></i>
                                         </a>
                                         <a href="#" class="text-danger" onclick="
@@ -131,16 +131,15 @@
             </div>
         </div>
     </div>
-    @if($showEdit)
-    
-      @include('livewire.sameleon.command.edit-command',['command' => $commandEdit])
-
+    @if ($showEdit)
+        @include('livewire.sameleon.command.edit-command', [
+            'command' => $commandEdit,
+        ])
     @endif
 
-    @if($showEditStatus)
-    
-        @include('livewire.sameleon.command.update-status',['command' => $commandEdit])
-
+    @if ($showEditStatus)
+        @include('livewire.sameleon.command.update-status', [
+            'command' => $commandEdit,
+        ])
     @endif
 </div>
-

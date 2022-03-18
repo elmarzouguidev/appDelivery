@@ -20,6 +20,8 @@ class Command extends Model
 
     protected $appends  = ['update_url'];
 
+    protected $fillable = ['status'];
+
     public function client()
     {
         return $this->belongsTo(Client::class);

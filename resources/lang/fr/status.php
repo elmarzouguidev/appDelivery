@@ -23,4 +23,26 @@ return [
 
     ],
 
+    'classes' => [
+        \App\Status\Status::NON_TRAITE => 'btn-light',
+        \App\Status\Status::ANNULE => 'btn-danger',
+        \App\Status\Status::LIVRE => 'btn-success',
+        \App\Status\Status::CHANGE => 'btn-info',
+        \App\Status\Status::ENCOURS => 'btn-secondary',
+        \App\Status\Status::EXPEDIE => 'btn-danger',
+        \App\Status\Status::INJOIGNABLE => 'btn-danger',
+        \App\Status\Status::INTERESSE => 'btn-danger',
+        \App\Status\Status::MANQUE_DE_STOCK => 'btn-danger',
+        \App\Status\Status::PAS_DE_REPONSE => 'btn-warning',
+        \App\Status\Status::PAS_DE_REPONSE_2 => 'btn-warning',
+        \App\Status\Status::PAS_DE_REPONSE_3 => 'btn-warning',
+        \App\Status\Status::PAS_DE_REPONSE_4 => 'btn-warning',
+        \App\Status\Status::PAS_DE_REPONSE_5 => 'btn-warning',
+        \App\Status\Status::RECONFIRMER => 'btn-info',
+        \App\Status\Status::REFUSE => 'btn-danger',
+        \App\Status\Status::REPORTE => 'btn-danger',
+        \App\Status\Status::RETOURNE => 'btn-danger',
+
+    ],
+
 ];

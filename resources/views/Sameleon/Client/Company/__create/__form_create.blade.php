@@ -58,7 +58,7 @@
 
                 </div>
             </div>
-            {{--@include('theme.Sameleon.Command.__create.__condition')--}}
+
             <div class="d-flex flex-wrap gap-2 justify-content-end mb-4">
                 <div class="">
                     <button type="submit" class="btn btn-primary waves-effect waves-light" {{-- onclick='document.getElementById("overlayy").style.display = "block"' --}}>
