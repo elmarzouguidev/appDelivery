@@ -2,19 +2,26 @@
 
 namespace App\Models\Sameleon;
 
+use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\MediaLibrary\MediaCollections\Models\Concerns\HasUuid;
 
 class Comment extends Model
 {
     use HasFactory;
-    use HasUuid;
+    use UuidGenerator;
 
     protected $fillable = [
+        
         'content',
         'user_id',
-        'uuid'
+        'client_id',
+        'uuid',
+        'reported_at'
+    ];
+
+    protected $casts = [
+        'reported_at' => 'datetime',
     ];
 
     public function commentable()

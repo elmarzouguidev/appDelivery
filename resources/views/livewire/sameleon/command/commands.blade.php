@@ -40,6 +40,7 @@
                             <th scope="col">Status</th>
                             <th scope="col">Prix Total</th>
                             <th scope="col">Détails</th>
+                            <th scope="col">Client</th>
                             <th scope="col">Date de commande</th>
                             <th scope="col">Action</th>
                         </tr>
@@ -91,6 +92,15 @@
                                     </button>
                                 </td>
                                 <td>
+                                    @if (optional($command->client)->type === 'entreprise')
+                                        <i class="fas fa-building me-1"></i>
+                                    @endif
+                                    @if (optional($command->client)->type === 'particulier')
+                                        <i class="fas fa-user me-1"></i>
+                                    @endif
+                                    {{ optional($command->client)->full_name }}
+                                </td>
+                                <td>
                                     <strong>date d'ajoute</strong>
                                     <p class="text-strong mb-0">{{ $command->created_at->format('d-m-Y H:i') }}</p>
                                     <strong>date de modification</strong>
@@ -131,6 +141,7 @@
             </div>
         </div>
     </div>
+    {{$errors}}
     @if ($showEdit)
         @include('livewire.sameleon.command.edit-command', [
             'command' => $commandEdit,
@@ -139,6 +150,12 @@
 
     @if ($showEditStatus)
         @include('livewire.sameleon.command.update-status', [
+            'command' => $commandEdit,
+        ])
+    @endif
+
+    @if ($isRepoted)
+        @include('livewire.sameleon.command.reported-status', [
             'command' => $commandEdit,
         ])
     @endif

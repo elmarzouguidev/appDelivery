@@ -20,6 +20,15 @@ class Commands extends Component
 
     public $cities;
 
+    public $isRepoted = false;
+    public $reportTime;
+    public $reportComment;
+
+    protected $rules = [
+        'reportTime' => 'required',
+        'reportComment' => 'required|string',
+    ];
+
     public function render()
     {
 
@@ -29,6 +38,10 @@ class Commands extends Component
     public function mount()
     {
         $this->showEdit = false;
+
+        $this->reportTime = now()->format('d-m-Y');
+
+        $this->reportComment = '';
     }
 
     public function editCommand(Command $command)
@@ -56,6 +69,34 @@ class Commands extends Component
     public function changeStatus(Command $command, int $status)
     {
         $command->update(['status' => $status]);
+
+        $this->isRepoted = true;
+
+        if ($this->commandEdit->comments()->latest()->count()) {
+
+            $this->reportTime = $this->commandEdit->comments()->latest()->value('reported_at')->format('d-m-Y');
+            $this->reportComment = $this->commandEdit->comments()->latest()->value('content');
+        }
+
+        //dd($this->reportTime,$this->reportComment);
+
+        $this->dispatchBrowserEvent('status-reported');
+
+
+        //$this->dispatchBrowserEvent('status-updated');
+    }
+
+    public function saveReportDetail()
+    {
+        $this->validate();
+        // dd($this->reportComment, "---", $this->reportTime, '***', $this->commandEdit);
+        $this->commandEdit->comments()->updateOrCreate(['commentable_id' => $this->commandEdit->id], [
+            'user_id' => auth()->id(),
+            'content' => $this->reportComment,
+            'reported_at' => $this->reportTime,
+        ]);
+
+        $this->dispatchBrowserEvent('notify-change');
 
         $this->dispatchBrowserEvent('status-updated');
     }
