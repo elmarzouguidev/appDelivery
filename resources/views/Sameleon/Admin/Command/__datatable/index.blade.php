@@ -64,7 +64,7 @@
                 icon: 'success',
                 title: 'Le Status est modifier avec succès. ',
                 showConfirmButton: false,
-                timer: 1500
+                timer: 1900
             })
 
         });

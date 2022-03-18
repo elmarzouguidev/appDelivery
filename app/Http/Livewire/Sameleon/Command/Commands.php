@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Sameleon\Command;
 
+use App\Models\Sameleon\Client;
 use App\Models\Sameleon\Command;
 use App\Repositories\City\CityInterface;
 use Livewire\Component;
@@ -16,9 +17,15 @@ class Commands extends Component
 
     public $showEdit = false;
 
+    public $showFilters = false;
+
+    public $class = 'col-12';
+
     public $showEditStatus = false;
 
     public $cities;
+
+    public $clients;
 
     public $isRepoted = false;
     public $reportTime;
@@ -42,6 +49,15 @@ class Commands extends Component
         $this->reportTime = now()->format('d-m-Y');
 
         $this->reportComment = '';
+
+        $this->clients = Client::all();
+    }
+
+    public function showFilter()
+    {
+        $this->class = "col-lg-10";
+        
+        $this->showFilters = !$this->showFilters;
     }
 
     public function editCommand(Command $command)

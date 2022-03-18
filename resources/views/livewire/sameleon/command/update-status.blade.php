@@ -38,7 +38,7 @@
 
                                     <button
                                         wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::MANQUE_DE_STOCK }})"
-                                        type="button" class="btn btn-sm btn-link waves-effect">Manque De Stock</button>
+                                        type="button" class="btn btn-sm btn-light waves-effect">Manque De Stock</button>
 
                                     <button
                                         wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::PAS_DE_REPONSE }})"
@@ -70,15 +70,15 @@
 
                                     <button
                                         wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::REFUSE }})"
-                                        type="button" class="btn btn-sm btn-light waves-effect">Refusé</button>
+                                        type="button" class="btn btn-sm btn-danger waves-effect">Refusé</button>
 
                                     <button
                                         wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::REPORTE }})"
-                                        type="button" class="btn btn-sm btn-light waves-effect">Reporté</button>
+                                        type="button" class="btn btn-sm btn-danger waves-effect">Reporté</button>
 
                                     <button
                                         wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::RETOURNE }})"
-                                        type="button" class="btn btn-sm btn-light waves-effect">Retourné</button>
+                                        type="button" class="btn btn-sm btn-danger waves-effect">Retourné</button>
                                 </div>
                             </div>
                         </div>

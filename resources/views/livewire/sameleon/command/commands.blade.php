@@ -1,14 +1,19 @@
 <div class="row">
-    <div class="col-12">
+    @if ($showFilters)
+
+        @include('livewire.sameleon.command.filters')
+
+    @endif
+    <div class="{{$class}}">
         <div class="card">
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-8">
 
                         <div class="col-lg-8 mb-4">
-                            {{-- <a href="#" type="button" onclick="openFilters()" class="btn btn-primary" >
+                            <button wire:click="showFilter()"  type="button"  class="btn btn-primary" >
                                 Filters
-                            </a> --}}
+                            </button>
                             <button class="btn btn-info" type="button" class="btn btn-info  btn-sm"
                                 data-bs-toggle="modal" data-bs-target=".addCommandModal">
                                 Ajouter une commande
@@ -156,7 +161,8 @@
 
     @if ($isRepoted)
         @include('livewire.sameleon.command.reported-status', [
-            'command' => $commandEdit,
+            'command' => $commandEdit
+           
         ])
     @endif
 </div>
