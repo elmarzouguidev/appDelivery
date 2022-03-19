@@ -3,7 +3,7 @@
 namespace App\Models\Sameleon;
 
 use App\Models\Sameleon\Traits\ModelRoutes;
-
+use App\Status\Status;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
+
 class Command extends Model
 {
 
@@ -42,7 +43,7 @@ class Command extends Model
     {
         return $this->belongsTo(City::class);
     }
-    
+
     public function getTotalPriceAttribute()
     {
         //return $this->products()->sum('price_ht');
@@ -61,6 +62,49 @@ class Command extends Model
         );
     }
 
+    public function scopeTotalCommands($query)
+    {
+        return $query->count();
+    }
+
+    public function scopeTotalCommandsLivred($query)
+    {
+        return $query->whereStatus(Status::LIVRE)->count();
+    }
+
+    public function scopeTotalCommandsEncours($query)
+    {
+        return $query->whereIn('status', [Status::ENCOURS, Status::EXPEDIE])->count();
+    }
+
+    public function scopeTotalCommandsNonResponde($query)
+    {
+        return $query->whereIn('status', [
+            Status::PAS_DE_REPONSE,
+            Status::PAS_DE_REPONSE_2,
+            Status::PAS_DE_REPONSE_3,
+            Status::PAS_DE_REPONSE_4,
+            Status::PAS_DE_REPONSE_5,
+            Status::INJOIGNABLE
+        ])->count();
+    }
+
+    public function scopeTotalCommandsReported($query)
+    {
+        return $query->whereIn('status', [
+            Status::REPORTE,
+            Status::INTERESSE
+        ])->count();
+    }
+
+    public function scopeTotalCommandsCancled($query)
+    {
+        return $query->whereIn('status', [
+            Status::ANNULE,
+            Status::REFUSE
+        ])->count();
+    }
+    
     public static function boot()
     {
 

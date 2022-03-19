@@ -1,4 +1,3 @@
-
 <li>
     <a href="{{ route('sameleon:home') }}" class="waves-effect">
         <i class="bx bx-home-circle"></i>{{-- <span class="badge rounded-pill bg-info float-end">04</span> --}}
@@ -23,7 +22,7 @@
         <i class="bx bx-store"></i>
         <span key="t-products">{{ __('Produits') }}</span>
     </a>
-    {{--<ul class="sub-menu" aria-expanded="false">
+    {{-- <ul class="sub-menu" aria-expanded="false">
         <li>
             <a href="{{ route('sameleon:products.index') }}"
                 key="t-products">{{ __('Produits') }}
@@ -34,7 +33,7 @@
                 key="t-products">{{ __('Ajouter un Produit') }}
             </a>
         </li>
-    </ul>--}}
+    </ul> --}}
 </li>
 
 
@@ -73,13 +72,14 @@
     </a>
     <ul class="sub-menu" aria-expanded="false">
         <li><a href="{{ route('sameleon:roles.index') }}" key="t-roles">{{ __('navbar.roles') }}</a></li>
-        <li><a href="{{ route('sameleon:permissions.index') }}" key="t-permissions">{{ __('navbar.permissions') }}</a>
+        <li><a href="{{ route('sameleon:permissions.index') }}"
+                key="t-permissions">{{ __('navbar.permissions') }}</a>
         </li>
     </ul>
 </li>
 
 <li>
-    <a href="{{-- route('admin:admins') --}}" class="waves-effect">
+    <a href="{{ route('sameleon:settings.index') }}" class="waves-effect">
         <i class="bx bx-wrench"></i>
         <span key="t-settings">Settings</span>
     </a>
