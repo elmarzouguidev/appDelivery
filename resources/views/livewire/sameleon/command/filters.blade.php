@@ -7,6 +7,7 @@
                 <div class="mt-4 pt-3">
                     <h5 class="font-size-14 mb-3">Status</h5>
                     <select wire:model.defer="data.status" class="form-select" name="status" id="clienter">
+                        <option value=""></option>
                         <option value="{{ App\Status\Status::ANNULE }}">Annulé</option>
                         <option value="{{ App\Status\Status::LIVRE }}">Livré</option>
                         <option value="{{ App\Status\Status::CHANGE }}">Change</option>

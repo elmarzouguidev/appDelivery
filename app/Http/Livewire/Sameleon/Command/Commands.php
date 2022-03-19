@@ -44,8 +44,20 @@ class Commands extends Component
 
     public function render()
     {
+
         $command = new ItemsQuery(new Command, $this->filter);
-        $commands =  $command->with('products')->get();
+
+        if (auth('client')->check()) {
+
+            $commands =  $command->where('client_id', auth('client')->id())
+                ->withSum('products', 'product_command.price_total')
+                ->get();
+        } else {
+
+            $commands = $command->withSum('products', 'product_command.price_total')
+                ->get();
+        }
+      //  $commands =  $command->with('products')->get();
 
         return view('livewire.sameleon.command.commands', compact('commands'));
     }
@@ -57,8 +69,9 @@ class Commands extends Component
         $this->reportTime = now()->format('d-m-Y');
 
         $this->reportComment = '';
-
-        $this->clients = Client::all();
+        if (!auth('client')->check()) {
+         $this->clients = Client::all();
+        }
     }
 
     public function showFilter()
