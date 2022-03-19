@@ -26,6 +26,12 @@ class Command extends Model
 
     protected $fillable = ['status', 'price_total', 'frais','invoice_id'];
 
+    protected  $casts = [
+        'due_date' => 'date:Y-m-d',
+        'delivered_at' => 'date:Y-m-d',
+        
+    ];
+    
     public function client()
     {
         return $this->belongsTo(Client::class);

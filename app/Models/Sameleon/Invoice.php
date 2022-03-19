@@ -21,6 +21,7 @@ class Invoice extends Model
     protected  $casts = [
         'due_date' => 'date:Y-m-d',
         'invoice_date' => 'date:Y-m-d',
+        
     ];
 
     public function getFormatedPriceHtAttribute()
