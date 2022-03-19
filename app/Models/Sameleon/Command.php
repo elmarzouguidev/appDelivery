@@ -8,8 +8,9 @@ use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
-
 class Command extends Model
 {
 
@@ -18,7 +19,7 @@ class Command extends Model
     use GetModelByUuid;
     use ModelRoutes;
 
-    protected $appends  = ['update_url'];
+    //protected $appends  = ['update_url'];
 
     protected $fillable = ['status'];
 
@@ -47,6 +48,17 @@ class Command extends Model
         //return $this->products()->sum('price_ht');
 
         return number_format($this->products()->sum('price_total'), 2);
+    }
+
+    public function scopeFromTo(Builder $query, $dateFrom, $dateTo): Builder
+    {
+        return $query->whereBetween(
+            'created_at',
+            [
+                Carbon::createFromFormat('m/d/Y', $dateFrom)->format('Y-m-d'),
+                Carbon::createFromFormat('m/d/Y', $dateTo)->format('Y-m-d')
+            ]
+        );
     }
 
     public static function boot()

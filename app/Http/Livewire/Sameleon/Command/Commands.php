@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Sameleon\Command;
 
+use App\Filters\ItemsQuery;
 use App\Models\Sameleon\Client;
 use App\Models\Sameleon\Command;
 use App\Repositories\City\CityInterface;
@@ -10,8 +11,6 @@ use App\Status\Status;
 
 class Commands extends Component
 {
-
-    public $commands;
 
     public $commandEdit;
 
@@ -31,6 +30,13 @@ class Commands extends Component
     public $reportTime;
     public $reportComment;
 
+
+    public $filter = [];
+
+    public $data = [];
+
+    protected $updatesQueryString = ['filter'];
+
     protected $rules = [
         'reportTime' => 'required',
         'reportComment' => 'required|string',
@@ -38,8 +44,10 @@ class Commands extends Component
 
     public function render()
     {
+        $command = new ItemsQuery(new Command, $this->filter);
+        $commands =  $command->with('products')->get();
 
-        return view('livewire.sameleon.command.commands');
+        return view('livewire.sameleon.command.commands', compact('commands'));
     }
 
     public function mount()
@@ -56,7 +64,7 @@ class Commands extends Component
     public function showFilter()
     {
         $this->class = "col-lg-10";
-        
+
         $this->showFilters = !$this->showFilters;
     }
 
@@ -115,5 +123,27 @@ class Commands extends Component
         $this->dispatchBrowserEvent('notify-change');
 
         $this->dispatchBrowserEvent('status-updated');
+    }
+
+    /********************Filters */
+
+    public function setfilter()
+    {
+
+        if (!$this->data) {
+
+            return;
+        }
+
+        if ($this->data && array_key_exists('from_to', $this->data)) {
+
+            $this->data['from_to'] = implode(',', array_reverse($this->data['from_to']));
+        }
+        $this->data = array_filter(array_map('trim', $this->data));
+
+        $this->filter = $this->data;
+
+        //$this->data = null;
+        //dd($this->data);
     }
 }

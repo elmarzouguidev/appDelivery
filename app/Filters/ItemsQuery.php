@@ -1,0 +1,34 @@
+<?php
+
+namespace App\Filters;
+
+use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
+
+class ItemsQuery extends QueryBuilder
+{
+
+    public function __construct($model, array $filters = [])
+    {
+        //request()->query->set('filter', $filter);
+     
+        //dd('ome 1');
+        $query = $model->query();
+        //dd('ome 2');
+        parent::__construct($query, request());
+
+        $this->request->query->set('filter', $filters);
+        // $this->request->appends(request()->query());
+        //dd('ome 3');
+        $this->allowedFilters([
+            'status',
+            AllowedFilter::scope('from_to'),
+            //AllowedFilter::exact('dateCommand', 'created_at'),
+        ]);
+    }
+
+    /*public function app()
+    {
+        return app(get_class($this->model::class));
+    }*/
+}

@@ -17,6 +17,7 @@ class AdminCommandController extends Controller
         $cities = app(CityInterface::class)->getCities();
 
         $commands = Command::withSum('products', 'product_command.price_total')->get();
+       // $commands = Command::with('products')->get();
 
         return view('Sameleon.Admin.Command.__datatable.index', compact('commands', 'cities'));
     }

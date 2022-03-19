@@ -146,7 +146,6 @@
             </div>
         </div>
     </div>
-    {{$errors}}
     @if ($showEdit)
         @include('livewire.sameleon.command.edit-command', [
             'command' => $commandEdit,
