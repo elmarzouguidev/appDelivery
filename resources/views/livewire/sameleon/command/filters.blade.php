@@ -54,13 +54,13 @@
                 </div>
                 <div class="mt-4">
                     <h5 class="font-size-14 mb-3">Client</h5>
-                    <select class="form-control select2 chk-filter-client" name="client" id="clienter">
+                    <select wire:model.defer="data.client" class="form-control select2 chk-filter-client" name="client" id="clienter">
                         <option value=""></option>
 
                         @foreach ($clients as $client)
-                            <option value="{{ $client->id }}"
-                                {{ in_array($client->id, explode(',', request()->input('appFilter.GetClient'))) ? 'selected' : '' }}>
-                                {{ $client->entreprise }}
+                            <option value="{{ $client->id }}" >
+    
+                                {{ $client->full_name }}
                             </option>
                         @endforeach
 

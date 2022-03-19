@@ -148,7 +148,7 @@ class Commands extends Component
             return;
         }
 
-        if ($this->data && array_key_exists('from_to', $this->data)) {
+        if ($this->data && array_key_exists('from_to', $this->data) && isset($this->data['from_to'])) {
 
             $this->data['from_to'] = implode(',', array_reverse($this->data['from_to']));
         }
@@ -157,6 +157,6 @@ class Commands extends Component
         $this->filter = $this->data;
 
         //$this->data = null;
-        //dd($this->data);
+       // dd($this->data);
     }
 }

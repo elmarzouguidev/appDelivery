@@ -22,8 +22,9 @@ class ItemsQuery extends QueryBuilder
         //dd('ome 3');
         $this->allowedFilters([
             'status',
+            //'client',
             AllowedFilter::scope('from_to'),
-            //AllowedFilter::exact('dateCommand', 'created_at'),
+            AllowedFilter::exact('client', 'client_id'),
         ]);
     }
 
