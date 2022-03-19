@@ -47,7 +47,9 @@
                             <th scope="col">Status</th>
                             <th scope="col">Prix Total</th>
                             <th scope="col">Détails</th>
-                            <th scope="col">Client</th>
+                            @if (!auth('client')->check())
+                                <th scope="col">Client</th>
+                            @endif
                             <th scope="col">Date de commande</th>
                             <th scope="col">Action</th>
                         </tr>
@@ -82,10 +84,18 @@
                                     {{-- <i class="mdi mdi-circle text-info font-size-10"></i>
                                     {{ __('status.statuses.' . $command->status) }} --}}
 
-                                    <button wire:click="editStatus('{{ $command->uuid }}')" type="button"
-                                        class="btn btn-sm {{ __('status.classes.' . $command->status) }} waves-effect waves-light">
-                                        {{ __('status.statuses.' . $command->status) }}
-                                    </button>
+
+                                    @if (!auth('client')->check())
+                                        <button wire:click="editStatus('{{ $command->uuid }}')" type="button"
+                                            class="btn btn-sm {{ __('status.classes.' . $command->status) }} waves-effect waves-light">
+                                            {{ __('status.statuses.' . $command->status) }}
+                                        </button>
+                                    @else
+                                        <button type="button"
+                                            class="btn btn-sm {{ __('status.classes.' . $command->status) }} waves-effect waves-light">
+                                            {{ __('status.statuses.' . $command->status) }}
+                                        </button>
+                                    @endif
 
                                 </td>
                                 <td>
@@ -98,15 +108,17 @@
                                         Détails
                                     </button>
                                 </td>
-                                <td>
-                                    @if (optional($command->client)->type === 'entreprise')
-                                        <i class="fas fa-building me-1"></i>
-                                    @endif
-                                    @if (optional($command->client)->type === 'particulier')
-                                        <i class="fas fa-user me-1"></i>
-                                    @endif
-                                    {{ optional($command->client)->full_name }}
-                                </td>
+                                @if (!auth('client')->check())
+                                    <td>
+                                        @if (optional($command->client)->type === 'entreprise')
+                                            <i class="fas fa-building me-1"></i>
+                                        @endif
+                                        @if (optional($command->client)->type === 'particulier')
+                                            <i class="fas fa-user me-1"></i>
+                                        @endif
+                                        {{ optional($command->client)->full_name }}
+                                    </td>
+                                @endif
                                 <td>
                                     <strong>date d'ajoute</strong>
                                     <p class="text-strong mb-0">{{ $command->created_at->format('d-m-Y H:i') }}</p>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Sameleon\Admin\Admin\AdminController;
 use App\Http\Controllers\Sameleon\Admin\AdminHomeController;
 use App\Http\Controllers\Sameleon\Admin\City\AdminCityController;
 use App\Http\Controllers\Sameleon\Admin\Client\ClientController;
@@ -58,5 +59,21 @@ Route::group(['prefix' => 'clients'], function () {
 
         Route::get('/{client}', [ClientController::class, 'edit'])->name('clients.edit');
         Route::post('/{client}', [ClientController::class, 'update'])->name('clients.update');
+    });
+});
+
+Route::group(['prefix' => 'auth/admins'], function () {
+
+    Route::get('/', [AdminController::class, 'index'])->name('admins.index');
+
+    Route::get('/create', [AdminController::class, 'create'])->name('admins.create');
+    Route::post('/create', [AdminController::class, 'store'])->name('admins.store');
+
+    Route::delete('/', [AdminController::class, 'delete'])->name('admins.delete');
+
+    Route::group(['prefix' => 'edit'], function () {
+
+        Route::get('/{user}', [AdminController::class, 'edit'])->name('admins.edit');
+        Route::post('/{user}', [AdminController::class, 'update'])->name('admins.update');
     });
 });

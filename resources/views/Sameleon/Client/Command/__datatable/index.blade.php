@@ -7,11 +7,11 @@
 
         {{-- @include('Sameleon.Client.Command.__datatable.__with_options') --}}
 
-        @livewire('sameleon.command.commands',['commands'=>$commands])
+        @livewire('sameleon.command.commands')
 
         @include('Sameleon.Client.Command.__datatable.__add_command_modal')
             
-        @each('Sameleon.Client.Command.__datatable.__command_detail',$commands ,'command' )
+         {{--@each('Sameleon.Client.Command.__datatable.__command_detail',$commands ,'command' )--}}
 
     </div>
 @endsection

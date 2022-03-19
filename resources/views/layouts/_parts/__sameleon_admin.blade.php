@@ -20,7 +20,7 @@
 
 <li>
     <a href="{{ route('sameleon:products.index') }}">
-        <i class="bx bx-cart-alt"></i>
+        <i class="bx bx-store"></i>
         <span key="t-products">{{ __('Produits') }}</span>
     </a>
     {{--<ul class="sub-menu" aria-expanded="false">
@@ -31,7 +31,7 @@
         </li>
         <li>
             <a href="{{ route('sameleon:products.create') }}"
-                key="t-products">{{ __('Ajouter Produit') }}
+                key="t-products">{{ __('Ajouter un Produit') }}
             </a>
         </li>
     </ul>--}}
@@ -59,10 +59,10 @@
 </li>
 
 <li>
-    <a href="{{-- route('sameleon:admins') --}}" class="waves-effect">
+    <a href="{{ route('sameleon:admins.index') }}" class="waves-effect">
 
         <i class="bx bx-user-circle"></i>
-        <span key="t-authentication">{{ __('navbar.authentification') }}</span>
+        <span key="t-authentication">{{ __('Authentification') }}</span>
     </a>
 
 </li>
@@ -80,7 +80,7 @@
 
 <li>
     <a href="{{-- route('admin:admins') --}}" class="waves-effect">
-        <i class="bx bx-edit"></i>
+        <i class="bx bx-wrench"></i>
         <span key="t-settings">Settings</span>
     </a>
 

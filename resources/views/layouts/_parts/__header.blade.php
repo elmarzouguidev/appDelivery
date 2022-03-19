@@ -3,7 +3,7 @@
         <div class="d-flex">
             <!-- LOGO -->
             <div class="navbar-brand-box">
-                <a href="{{ route('sameleon:home') }}" class="logo logo-dark">
+                <a href="{{-- route('sameleon:home') --}}" class="logo logo-dark">
                     <span class="logo-sm">
                         <img src="{{ asset('images/logo.png') }}" alt="" height="40">
                     </span>
@@ -12,7 +12,7 @@
                     </span>
                 </a>
 
-                <a href="{{ route('sameleon:home') }}" class="logo logo-light">
+                <a href="{{-- route('sameleon:home') --}}" class="logo logo-light">
                     <span class="logo-sm">
                         <img src="{{ asset('images/logo.png') }}" alt="" height="40">
                     </span>
@@ -164,14 +164,14 @@
                                         <i class="bx bx-cart"></i>
                                     </span>
                                 </div>
-                                <div class="flex-grow-1">
+                                {{--<div class="flex-grow-1">
                                     <h6 class="mb-1" key="t-your-order">Ticket Confirmé</h6>
                                     <div class="font-size-12 text-muted">
                                         <p class="mb-1" key="t-grammer">Ticket Confirmé</p>
                                         <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span
                                                 key="t-min-ago">3 min ago</span></p>
                                     </div>
-                                </div>
+                                </div>--}}
                             </div>
                         </a>
                     </div>
@@ -186,7 +186,7 @@
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="rounded-circle header-profile-user" src="{{ asset('assets/images/logo.png') }}"
+                    <img class="rounded-circle header-profile-user" src="{{ asset('images/logo.png') }}"
                         alt="Header Avatar">
                     <span class="d-none d-xl-inline-block ms-1" key="t-henry">
                         {{ auth()->user()->nom ?? '' }}
@@ -202,22 +202,27 @@
 
 
                     <a class="dropdown-item d-block" href="{{-- route('admin:profile.settings') --}}">
-                        <span class="badge bg-success float-end">11</span>
+                        
                         <i class="bx bx-wrench font-size-16 align-middle me-1"></i>
-                        <span key="t-settings">Settings</span>
+                        <span key="t-settings">Paramètres</span>
                     </a>
-                    <a class="dropdown-item" href="#"><i class="bx bx-lock-open font-size-16 align-middle me-1"></i>
-                        <span key="t-lock-screen">Lock screen</span></a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item text-danger" href="#"
                         onclick="document.getElementById('logoutForm').submit();">
                         <i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i>
-                        <span key="t-logout">Logout</span>
+                        <span key="t-logout">Se déconnecter</span>
                     </a>
-                    <form id="logoutForm" method="post" action="{{ route('sameleon:auth:logout') }}">
-                        @csrf
+                    @if (auth('client')->check())
+                        <form id="logoutForm" method="post" action="{{ route('client:auth:logout') }}">
+                            @csrf
 
-                    </form>
+                        </form>
+                    @else
+                        <form id="logoutForm" method="post" action="{{ route('sameleon:auth:logout') }}">
+                            @csrf
+
+                        </form>
+                    @endif
                 </div>
             </div>
 

@@ -18,9 +18,9 @@ class ClientCommandController extends Controller
 
         $cities = app(CityInterface::class)->getCities();
 
-        $commands = auth('client')->user()->commands()->withSum('products', 'product_command.price_total')->get();
+        //$commands = auth('client')->user()->commands()->withSum('products', 'product_command.price_total')->get();
 
-        return view('Sameleon.Client.Command.__datatable.index', compact('commands', 'cities'));
+        return view('Sameleon.Client.Command.__datatable.index', compact('cities'));
     }
 
     public function store(CommandFormRequest $request)

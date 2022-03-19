@@ -7,7 +7,7 @@
                 <div class="mt-4 pt-3">
                     <h5 class="font-size-14 mb-3">Status</h5>
                     <select wire:model.defer="data.status" class="form-select" name="status" id="clienter">
-                        <option value=""></option>
+                        <option value="">Par default</option>
                         <option value="{{ App\Status\Status::ANNULE }}">Annulé</option>
                         <option value="{{ App\Status\Status::LIVRE }}">Livré</option>
                         <option value="{{ App\Status\Status::CHANGE }}">Change</option>
@@ -55,7 +55,7 @@
                 <div class="mt-4">
                     <h5 class="font-size-14 mb-3">Client</h5>
                     <select wire:model.defer="data.client" class="form-control select2 chk-filter-client" name="client" id="clienter">
-                        <option value=""></option>
+                        <option value="">Par default</option>
 
                         @foreach ($clients as $client)
                             <option value="{{ $client->id }}" >
@@ -69,7 +69,6 @@
 
             </div>
         </div>
-
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
