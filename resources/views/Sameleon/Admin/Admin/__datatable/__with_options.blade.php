@@ -5,9 +5,9 @@
                 <div class="row">
                     <div class="col-lg-8">
                         <div class="col-lg-4 mb-4">
-                            {{--<a href="#" type="button" onclick="openFilters()" class="btn btn-primary">
+                            {{-- <a href="#" type="button" onclick="openFilters()" class="btn btn-primary">
                                 Filters
-                            </a>--}}
+                            </a> --}}
                             <a href="{{ route('sameleon:admins.create') }}" type="button" class="btn btn-info">
                                 Ajouter un Admin
                             </a>
@@ -58,30 +58,34 @@
                                 <td>
                                     {{ $user->full_name }}
                                 </td>
-    
+
                                 <td>
                                     <div class="d-flex gap-3">
-
-                                        <a href="{{ route('sameleon:admins.edit',$user->uuid) }}" class="text-success">
-                                            <i class="mdi mdi-pencil font-size-18"></i>
-                                        </a>
-                                        <a href="#" class="text-danger" onclick="
+                                        @if ($user->email !== 'abdelgha4or@gmail.com')
+                                            <a href="{{ route('sameleon:admins.edit', $user->uuid) }}"
+                                                class="text-success">
+                                                <i class="mdi mdi-pencil font-size-18"></i>
+                                            </a>
+                                            <a href="#" class="text-danger" onclick="
                                                 var result = confirm('Are you sure you want to delete this admin ?');
 
                                                 if(result){
                                                     event.preventDefault();
                                                     document.getElementById('delete-admin-{{ $user->uuid }}').submit();
                                                 }">
-                                            <i class="mdi mdi-delete font-size-18"></i>
-                                        </a>
+                                                <i class="mdi mdi-delete font-size-18"></i>
+                                            </a>
+                                        @endif
                                     </div>
                                 </td>
-                                <form id="delete-admin-{{ $user->uuid }}" method="post"
-                                    action="{{ route('sameleon:admins.delete') }}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="hidden" name="userId" value="{{ $user->uuid }}">
-                                </form>
+                                @if ($user->email !== 'abdelgha4or@gmail.com')
+                                    <form id="delete-admin-{{ $user->uuid }}" method="post"
+                                        action="{{ route('sameleon:admins.delete') }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="hidden" name="userId" value="{{ $user->uuid }}">
+                                    </form>
+                                @endif
                             </tr>
                         @endforeach
 
