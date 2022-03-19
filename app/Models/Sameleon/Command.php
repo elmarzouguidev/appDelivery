@@ -24,7 +24,7 @@ class Command extends Model
 
     protected $with = ['products'];
 
-    protected $fillable = ['status', 'price_total','frais'];
+    protected $fillable = ['status', 'price_total', 'frais','invoice_id'];
 
     public function client()
     {
@@ -35,6 +35,17 @@ class Command extends Model
     {
         return $this->belongsToMany(Product::class, 'product_command', 'command_id', 'product_id')
             ->withPivot(['id', 'quantity', 'price_ht', 'price_total', 'designation']);
+    }
+
+    /*public function invoice()
+    {
+        return $this->belongsToMany(Invoice::class, 'command_invoice', 'command_id', 'invoice_id');
+          
+    }*/
+
+    public function invoice()
+    {
+        return $this->belongsTo(Invoice::class);
     }
 
     public function comments()

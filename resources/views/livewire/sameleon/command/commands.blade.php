@@ -132,10 +132,11 @@
                                 </td>
                                 <td>
                                     <div class="d-flex gap-3">
-
-                                        {{-- <a href="{{ $command->edit_url }}" class="text-success">
-                                            <i class="mdi mdi-pencil font-size-18"></i>
-                                        </a> --}}
+                                        @if($command->invoice)  
+                                            <a target="_blank" href="{{ route('public.show.invoice', [$command->invoice->uuid, 'has_header' => true]) }}" class="text-success">
+                                                <i class="mdi mdi-file-pdf-box font-size-18"></i>
+                                            </a>
+                                        @endif 
                                         <a href="#" wire:click="editCommand('{{ $command->uuid }}')"
                                             class="text-success">
                                             <i class="mdi mdi-pencil font-size-18"></i>

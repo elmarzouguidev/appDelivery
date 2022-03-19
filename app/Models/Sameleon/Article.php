@@ -40,9 +40,9 @@ class Article extends Model
         return $this->belongsTo(Command::class);
     }
 
-    public function getFormatedMontantHtAttribute()
+    public function getFormatedPriceTotalAttribute()
     {
-        return number_format($this->montant_ht, 2);
+        return number_format($this->price_total, 2);
     }
 
     public function getFormatedPrixUnitaireAttribute()

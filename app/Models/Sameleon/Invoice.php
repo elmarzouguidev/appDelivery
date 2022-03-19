@@ -14,7 +14,7 @@ class Invoice extends Model
     use GetModelByUuid;
 
 
-    protected $fillable = ['status', 'type', 'is_paid'];
+    protected $fillable = ['status', 'type', 'is_paid','invoice_date'];
 
     // protected $dates = ['due_date'];
 
@@ -37,15 +37,30 @@ class Invoice extends Model
     {
         return number_format($this->price_tva, 2);
     }
-    
+
+    public function getFormatedTotalBrutAttribute()
+    {
+        return number_format($this->articles->sum('price_total'), 2);
+    }
+
     public function client()
     {
         return $this->belongsTo(Client::class);
     }
-    
+
     public function articles()
     {
         return $this->morphMany(Article::class, 'articleable');
+    }
+
+    /*public function commands()
+    {
+        return $this->belongsToMany(Command::class, 'command_invoice', 'invoice_id', 'command_id');
+    }*/
+
+    public function commands()
+    {
+        return $this->hasMany(Command::class);
     }
 
     public static function boot()

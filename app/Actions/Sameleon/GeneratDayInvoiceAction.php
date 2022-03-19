@@ -20,6 +20,7 @@ class GeneratDayInvoiceAction
             $this->addItems();
         } else {
             $this->invoice = new Invoice();
+            $this->invoice->invoice_date = now()->format('Y-m-d');
             $this->invoice->client()->associate(auth('client')->id());
             $this->invoice->save();
         }
@@ -40,6 +41,9 @@ class GeneratDayInvoiceAction
         if ($commands) {
 
             $newCommands =  $commands->map(function ($item, $key) {
+
+                $item->update(['invoice_id' => $this->invoice->id]);
+
                 return [
                     'command_id' => $item->id,
                     'code_command' => $item->code,

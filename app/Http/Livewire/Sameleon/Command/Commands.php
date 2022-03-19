@@ -51,11 +51,11 @@ class Commands extends Component
 
             $commands =  $command->where('client_id', auth('client')->id())
                 ->withSum('products', 'product_command.price_total')
-                ->get();
+                ->with('invoice:uuid,id')->get();
         } else {
 
             $commands = $command->withSum('products', 'product_command.price_total')
-                ->get();
+                ->with('invoice:uuid,id')->get();
         }
       //  $commands =  $command->with('products')->get();
 

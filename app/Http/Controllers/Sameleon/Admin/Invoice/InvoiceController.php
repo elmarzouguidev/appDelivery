@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class InvoiceController extends Controller
 {
-   
+
 
     public function showInvoice(Request $request, Invoice $invoice)
     {
@@ -16,9 +16,9 @@ class InvoiceController extends Controller
 
         $hasHeader = $request->has_header;
 
-        $invoice->load('articles','client','client.commands');
+        $invoice->load('articles', 'client', 'client.commands');
 
-        $companyLogo = "data:image/jpg;base64," . base64_encode(file_get_contents(public_path('storage/' . $invoice->company->logo)));
+        $companyLogo = "data:image/jpg;base64," . base64_encode(file_get_contents(public_path('storage/company/' . getCompany()->logo)));
 
         $pdf = \PDF::loadView('Sameleon.PDF.invoice', compact('invoice', 'companyLogo', 'hasHeader'));
 
