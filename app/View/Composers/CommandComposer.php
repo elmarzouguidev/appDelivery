@@ -30,7 +30,9 @@ class CommandComposer
     {
 
         $view->with('total_command', $this->command->totalCommands());
-        
+
+        $view->with('total_chiffre_affaires', $this->command->totalChiffre());
+
         $view->with('total_command_livred', $this->command->totalCommandsLivred());
         $view->with('total_command_encours', $this->command->totalCommandsEncours());
         $view->with('total_command_p_reponse', $this->command->totalCommandsNonResponde());

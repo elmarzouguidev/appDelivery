@@ -5,8 +5,8 @@
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="flex-grow-1">
-                            <p class="text-muted fw-medium">Chiffre d'affaires (T.T.C)</p>
-                            <h4 class="mb-0">{{ number_format(40000, 2) }} DH</h4>
+                            <p class="text-muted fw-medium">Total chiffre d'affaires</p>
+                            <h4 class="mb-0">{{ number_format($total_chiffre_affaires, 2) }} DH</h4>
                         </div>
 
                         <div class="flex-shrink-0 align-self-center">
@@ -29,8 +29,8 @@
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="flex-grow-1">
-                            <p class="text-muted fw-medium">Montant déclarations (TVA)</p>
-                            <h4 class="mb-0">{{ number_format(40000, 2) }} DH</h4>
+                            <p class="text-muted fw-medium">Chiffre d'affaires versé</p>
+                            <h4 class="mb-0">{{ number_format(000000, 2) }} DH</h4>
                         </div>
 
                         <div class="flex-shrink-0 align-self-center">
@@ -49,8 +49,8 @@
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="flex-grow-1">
-                            <p class="text-muted fw-medium">Total des encaissements (T.T.C)</p>
-                            <h4 class="mb-0">{{ number_format(40000, 2) }} DH</h4>
+                            <p class="text-muted fw-medium">Chiffre d'affaires non versé</p>
+                            <h4 class="mb-0">{{ number_format(000000, 2) }} DH</h4>
                         </div>
 
                         <div class="flex-shrink-0 align-self-center ">

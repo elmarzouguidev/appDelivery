@@ -15,21 +15,20 @@ class CitySeeder extends Seeder
     public function run()
     {
         $cities = [
-            ['name' =>'Casablanca'],
-            ['name'=>'Mohammadia'],
-            ['name'=>'Ain harrouda'],
-            ['name'=>'Bouskoura'],
-            ['name'=>'Dar bouazza'],
-            ['name'=>'Errahma'],
-            ['name'=>'Had soualem'],
-            ['name'=>'Mediouna'],
-            ['name'=>'Nouaceur'],
-            ['name'=>'Sidi rahhal'],
-            ['name'=>'Tit mellil'],
+            ['name' => 'Casablanca', 'frais' => 14],
+            ['name' => 'Mohammadia', 'frais' => 20],
+            ['name' => 'Ain harrouda', 'frais' => 20],
+            ['name' => 'Bouskoura', 'frais' => 14],
+            ['name' => 'Dar bouazza', 'frais' => 14],
+            ['name' => 'Errahma', 'frais' => 14],
+            ['name' => 'Had soualem', 'frais' => 14],
+            ['name' => 'Mediouna', 'frais' => 20],
+            ['name' => 'Nouaceur', 'frais' => 20],
+            ['name' => 'Sidi rahhal', 'frais' => 20],
+            ['name' => 'Tit mellil', 'frais' => 20],
         ];
 
-        foreach($cities as $city)
-        {
+        foreach ($cities as $city) {
             City::create($city);
         }
     }

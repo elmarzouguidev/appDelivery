@@ -23,6 +23,19 @@
                             @enderror
                         </div>
                     </div>
+                    <div class="row mb-4">
+                        <label for="name" class="col-form-label col-lg-2">Frais *</label>
+                        <div class="col-lg-10">
+                            <input id="number" name="name" type="text"
+                                class="form-control @error('frais') is-invalid @enderror"
+                                placeholder="Entrer le frais de livraison" required>
+                            @error('frais')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
 
                     <div class="row justify-content-end">
                         <div class="col-lg-10">

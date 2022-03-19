@@ -41,6 +41,7 @@
                             </th> --}}
                             <th scope="col">Code</th>
                             <th scope="col">Nom</th>
+                            <th scope="col">Frais</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -65,7 +66,10 @@
                                     {{ $city->name }}
                                     <p class="text-muted mb-0"></p>
                                 </td>
-
+                                <td>
+                                    {{ $city->frais }} DH
+                                    <p class="text-muted mb-0"></p>
+                                </td>
                                 <td>
                                     <div class="d-flex gap-3">
 

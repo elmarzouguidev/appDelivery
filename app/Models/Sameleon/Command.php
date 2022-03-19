@@ -22,7 +22,9 @@ class Command extends Model
 
     //protected $appends  = ['update_url'];
 
-    protected $fillable = ['status'];
+    protected $with = ['products'];
+
+    protected $fillable = ['status', 'price_total','frais'];
 
     public function client()
     {
@@ -31,12 +33,18 @@ class Command extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'product_command', 'command_id', 'product_id')->withPivot(['id', 'quantity', 'price_ht', 'price_total', 'designation']);
+        return $this->belongsToMany(Product::class, 'product_command', 'command_id', 'product_id')
+            ->withPivot(['id', 'quantity', 'price_ht', 'price_total', 'designation']);
     }
 
     public function comments()
     {
         return $this->morphMany(Comment::class, 'commentable');
+    }
+
+    public function articles()
+    {
+        return $this->hasMany(Article::class);
     }
 
     public function city()
@@ -104,7 +112,20 @@ class Command extends Model
             Status::REFUSE
         ])->count();
     }
-    
+
+    public function scopeTotalChiffre($query)
+    {
+
+        return $query->whereStatus(Status::LIVRE)->withSum('products', 'product_command.price_total')->get()->sum('products_sum_product_commandprice_total');
+        /*return $this->with('products')->get()->each(function ($command) {
+             dd($command->products->sum('pivot.price_total'));
+            return  $command->products->each(function ($product) {
+                //dd($product->pivot->sum('price_total'));
+               
+            });
+        });*/
+    }
+
     public static function boot()
     {
 

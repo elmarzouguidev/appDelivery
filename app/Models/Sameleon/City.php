@@ -15,7 +15,12 @@ class City extends Model
 
     protected $fillable = [
         'name',
-        'active'
+        'active',
+        'frais'
+    ];
+
+    protected $casts = [
+        'frais' => 'float',
     ];
 
     public function commands()

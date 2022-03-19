@@ -37,6 +37,7 @@ class AdminCommandController extends Controller
 
         $command->client()->associate(auth()->id());
         $command->city()->associate($request->city);
+        $command->frais = $command->city->frais;
         $command->save();
 
         if ($command) {
@@ -53,6 +54,9 @@ class AdminCommandController extends Controller
 
                 );
             }
+
+            //$priceTotal = $command->products()->sum('pivot.price_total');
+           // $command->update(['price_total' => $priceTotal]);
         }
 
         return redirect()->back()->with('success', 'la commande a été ajouter avec success');

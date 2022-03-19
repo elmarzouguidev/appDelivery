@@ -7,15 +7,10 @@
             'Sameleon.Admin.Home.sections.section_0_page_title'
         )
 
-        <div class="row">
+        {{--<div class="row">
 
             @include('Sameleon.Admin.Home.sections.section_a_period')
-        </div>
-
-        {{-- <div class="row">
-
-            @include('Sameleon.Admin.Home.sections.section_b_b')
-        </div> --}}
+        </div>--}}
 
         <div class="row">
 
@@ -32,6 +27,10 @@
             )
 
         </div>
+        <div class="row">
+
+            @include('Sameleon.Admin.Home.sections.section_b_b')
+        </div> 
 
         <div class="row">
             @include('Sameleon.Admin.Home.sections.section_a_chart')

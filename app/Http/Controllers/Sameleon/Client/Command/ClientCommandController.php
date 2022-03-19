@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Sameleon\Client\Command;
 
+use App\Actions\Sameleon\GeneratDayInvoiceAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Sameleon\Command\CommandFormRequest;
 use App\Http\Requests\Sameleon\Command\CommandUpdateFormRequest;
 use App\Models\Sameleon\Command;
+use App\Models\Sameleon\Invoice;
 use App\Repositories\City\CityInterface;
 use Illuminate\Http\Request;
 
@@ -15,6 +17,8 @@ class ClientCommandController extends Controller
 
     public function index()
     {
+
+        GeneratDayInvoiceAction::run();
 
         $cities = app(CityInterface::class)->getCities();
 
@@ -38,6 +42,7 @@ class ClientCommandController extends Controller
 
         $command->client()->associate(auth()->id());
         $command->city()->associate($request->city);
+        $command->frais = $command->city->frais;
         $command->save();
 
         if ($command) {
@@ -54,6 +59,9 @@ class ClientCommandController extends Controller
 
                 );
             }
+
+            //$priceTotal = $command->products()->sum('pivot.price_total');
+            // $command->update(['price_total' => $priceTotal]);
         }
 
         return redirect()->back()->with('success', 'la commande a été ajouter avec success');
