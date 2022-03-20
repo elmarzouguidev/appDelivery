@@ -19,26 +19,19 @@ class CreateInvoicesTable extends Migration
             $table->string('code')->unique();
             $table->string('full_number')->unique();
 
-            $table->string('bl_code')->nullable();
-            $table->string('bc_code')->nullable();
-
             $table->float('price_ht')->default(0)->nullable();
             $table->float('price_total')->default(0)->nullable();
             $table->float('price_tva')->default(0)->nullable();
 
             $table->date('invoice_date')->nullable();
-            $table->date('due_date')->nullable();
-            $table->date('payment_date')->nullable();
+    
+            $table->foreignId('user_id')->constrained();
+            $table->uuid('user_uuid')->nullable();
 
-            $table->foreignId('client_id')->index()->nullable()->constrained();
-            
-            $table->boolean('is_paid')->default(false);
             $table->boolean('cloture')->default(false);
 
             $table->boolean('active')->default(true);
-
-            $table->mediumText('admin_notes')->nullable();
-
+            
             $table->mediumText('condition_general')->nullable();
 
             $table->timestamps();

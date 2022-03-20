@@ -21,6 +21,7 @@ class CreateGroupsTable extends Migration
             $table->boolean('active')->default(true);
             
             $table->foreignId('user_id')->nullable()->constrained();
+            $table->uuid('user_uuid')->nullable();
     
             $table->timestamps();
         });

@@ -21,13 +21,15 @@ class CreateUsersTable extends Migration
 
             $table->string('nom');
             $table->string('prenom');
-         
+            $table->string('cnie')->unique()->nullable();
+            
             $table->string('email')->unique();
             $table->string('password');
             $table->timestamp('email_verified_at')->nullable();
 
             $table->boolean('active')->default(true);
-
+            $table->enum('type',['entreprise','particulier'])->default('particulier');
+            
             $table->rememberToken();
             $table->boolean('is_admin')->default(false);
             $table->timestamps();

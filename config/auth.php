@@ -41,12 +41,6 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-
-        'client' => [
-            'driver' => 'session',
-            'provider' => 'clients',
-        ]
-
     ],
 
     /*
@@ -72,11 +66,6 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
-
-        'clients' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Sameleon\Client::class,
-        ],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
@@ -101,13 +90,6 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
-            'table' => 'password_resets',
-            'expire' => 60,
-            'throttle' => 60,
-        ],
-
-        'clients' => [
-            'provider' => 'clients',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

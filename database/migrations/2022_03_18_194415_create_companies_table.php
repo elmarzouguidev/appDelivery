@@ -17,7 +17,9 @@ class CreateCompaniesTable extends Migration
 
             $table->id();
 
-            $table->foreignId('client_id')->constrained();
+            $table->foreignId('user_id')->constrained();
+            $table->uuid('user_uuid')->nullable();
+            
 
             $table->uuid('uuid')->unique();
             $table->string('code')->unique()->nullable();

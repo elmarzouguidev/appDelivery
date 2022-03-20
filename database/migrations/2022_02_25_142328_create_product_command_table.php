@@ -21,6 +21,7 @@ class CreateProductCommandTable extends Migration
 
             $table->foreignId('product_id')->index()->constrained();
             $table->foreignId('command_id')->index()->constrained();
+            $table->uuid('command_uuid')->nullable();
 
             $table->longText('designation')->nullable();
 

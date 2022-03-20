@@ -20,16 +20,8 @@ class RedirectorMiddleware
 
         if ($request->is('app', 'app/')) {
 
-            return redirect()->route('home');
+            return redirect()->route('admin:home');
         }
-
-        if ($request->is('app/sameleon', 'app/sameleon/')) {
-
-            return redirect()->route('sameleon:home');
-        }
-
-        if ($request->is('app/clients', 'app/clients/')) {
-            return redirect()->route('client:home');
-        }
+        return $next($request);
     }
 }

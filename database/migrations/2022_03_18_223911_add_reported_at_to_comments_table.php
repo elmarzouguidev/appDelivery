@@ -14,8 +14,7 @@ class AddReportedAtToCommentsTable extends Migration
     public function up()
     {
         Schema::table('comments', function (Blueprint $table) {
-            $table->foreignId('user_id')->nullable()->after('client_id');
-            $table->dateTime('reported_at')->nullable()->after('user_id');
+            $table->dateTime('reported_at')->nullable()->after('user_uuid');
         });
     }
 
@@ -27,7 +26,7 @@ class AddReportedAtToCommentsTable extends Migration
     public function down()
     {
         Schema::table('comments', function (Blueprint $table) {
-            $table->dropColumn(['user_id', 'reported_at']);
+            $table->dropColumn(['user_uuid', 'reported_at']);
         });
     }
 }

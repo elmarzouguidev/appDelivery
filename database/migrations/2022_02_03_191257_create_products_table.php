@@ -31,7 +31,8 @@ class CreateProductsTable extends Migration
 
             $table->boolean('active')->default(true);
 
-            $table->foreignId('client_id')->index()->constrained();
+            $table->foreignId('user_id')->index()->constrained();
+            $table->uuid('user_uuid')->nullable();
             $table->foreignId('category_id')->index()->nullable();
             
             $table->timestamps();

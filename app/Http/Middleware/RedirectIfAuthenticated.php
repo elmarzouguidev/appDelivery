@@ -12,11 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class RedirectIfAuthenticated
 {
 
-    /**
-     * @var array|string[]
-     */
-    private array $actions = ['web' => 'sameleon:home', 'client' => 'client:home'];
-
+    
     /**
      * @param Request $request
      * @param Closure $next
@@ -29,8 +25,7 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-               // dd($guard);
-                return redirect(route($this->actions[$guard]));
+                return redirect(route('admin:home'));
             }
         }
 
