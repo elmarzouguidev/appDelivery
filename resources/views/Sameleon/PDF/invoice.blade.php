@@ -251,7 +251,7 @@
                     <td colspan="5">Montant BRUT : {{ $invoice->formated_total_brut}} DH</td>
                 </tr>
                 <tr class="heading-price lefter">
-                    <td colspan="5">Montant TVA : {{ $invoice->formated_total_tva }} DH</td>
+                    <td colspan="5">Frais : {{ number_format($invoice->articles->sum('frais'),2) }} DH</td>
                 </tr>
                 <tr class="heading-price lefter">
                     <td colspan="5">Montant TTC : {{ $invoice->formated_price_total }} DH</td>
