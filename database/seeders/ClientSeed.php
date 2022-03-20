@@ -2,10 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Sameleon\Client;
+use App\Models\Sameleon\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+
 class ClientSeed extends Seeder
 {
     /**
@@ -19,19 +20,18 @@ class ClientSeed extends Seeder
             'nom' => 'Ahmed',
             'prenom' => 'Ouahdi',
             'telephone' => '0677512750',
-            'email' => 'ouhadi@gmail.com',
+            'email' => 'client@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('123456789@'),
             'remember_token' => Str::random(10),
         ];
 
-        $client = Client::whereEmail('ouhadi@gmail.com')->first();
+        $client = User::whereEmail('client@gmail.com')->first();
 
         if (!$client) {
 
-            $newAdmin =  Client::create($user);
+            $newAdmin =  User::create($user);
             $newAdmin->assignRole('Client');
-
         } else {
 
             $client->assignRole('Client');

@@ -24,7 +24,7 @@ class Product extends Model implements HasMedia
 
     public function client()
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(User::class,'user_id');
     }
 
     public function commands()

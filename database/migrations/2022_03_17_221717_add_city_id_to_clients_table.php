@@ -13,8 +13,8 @@ class AddCityIdToClientsTable extends Migration
      */
     public function up()
     {
-        Schema::table('clients', function (Blueprint $table) {
-            $table->foreignId('city_id')->nullable()->after('group_id');
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreignId('city_id')->nullable();
         });
     }
 
@@ -25,7 +25,7 @@ class AddCityIdToClientsTable extends Migration
      */
     public function down()
     {
-        Schema::table('clients', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('city_id');
         });
     }

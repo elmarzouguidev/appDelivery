@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Sameleon;
 
-use App\Models\Sameleon\Group;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -63,8 +62,6 @@ class User extends Authenticatable
 
     public $guard_name = 'admin';
 
-
-
     protected function fullName(): Attribute
     {
         return new Attribute(
@@ -77,15 +74,39 @@ class User extends Authenticatable
         return $this->hasOne(Group::class);
     }
 
+    public function company()
+    {
+        return $this->hasOne(Company::class);
+    }
+
+    public function commands()
+    {
+        return $this->hasMany(Command::class);
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
+    }
+
     public static function boot()
     {
         parent::boot();
 
-        $prefixer = "ADMIN-";
+        $prefixer = "client-";
 
         static::creating(function ($model) use ($prefixer) {
 
             $number = (self::max('id') + 1);
+
+            if ($model->is_admin) {
+                $prefixer = "_admin_";
+            }
 
             $model->code = $prefixer . str_pad($number, 5, 0, STR_PAD_LEFT);
         });

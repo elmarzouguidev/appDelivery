@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use App\Models\Sameleon\User;
+
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -33,7 +34,6 @@ class AdminSeeder extends Seeder
 
             $newAdmin =  User::create($user);
             $newAdmin->assignRole('SuperAdmin');
-
         } else {
 
             $admin->assignRole('SuperAdmin');

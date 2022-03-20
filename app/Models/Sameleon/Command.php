@@ -34,7 +34,7 @@ class Command extends Model
     
     public function client()
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(User::class,'user_id');
     }
 
     public function products()
@@ -156,7 +156,7 @@ class Command extends Model
 
             $code = str_pad($number, 5, 0, STR_PAD_LEFT);
 
-            $model->code = $prefix . auth()->id() . '-' . $code;
+            $model->code = $prefix . $model->created_at->format('dmY') . '-' . $code;
 
             $model->track_code = str_pad(($model->max('id') + 1), 5, 0, STR_PAD_LEFT) . Str::random(10);
         });

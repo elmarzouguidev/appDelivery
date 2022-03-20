@@ -64,7 +64,7 @@ return [
 
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\Sameleon\User::class,
         ],
         // 'users' => [
         //     'driver' => 'database',
