@@ -2,7 +2,7 @@
     @php
         $readonly = '';
         $disabled = '';
-        if (auth('web')->check()) {
+        if (auth()->user()->hasAnyRole('Admin','SuperAdmin')) {
             $readonly = 'readonly';
             $disabled = 'disabled';
         }
@@ -89,7 +89,7 @@
             </div>
         </div>
     @endforeach
-    @auth('client')
+    @if (auth()->user()->hasRole('Client'))
         <hr>
         @foreach ($newOrderProducts as $indexer => $newOrderProduct)
             <div class="row">
@@ -180,5 +180,5 @@
         <button wire:click.prevent="addNewProduct" type="button" class="btn btn-success waves-effect waves-light">
             <i class="bx bx-check-double font-size-16 align-middle"></i>
         </button>
-    @endauth
+    @endif
 </div>

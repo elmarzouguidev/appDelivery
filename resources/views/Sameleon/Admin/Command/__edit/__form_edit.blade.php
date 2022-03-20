@@ -21,17 +21,17 @@
                     <div class="row">
                         <div class="col-lg-6">
 
-                            @include('Sameleon.Client.Command.__edit.__info')
+                            @include('Sameleon.Admin.Command.__edit.__info')
 
                             <div class="col-lg-12">
-                                @include('Sameleon.Client.Command.__edit.__date_commande')
+                                @include('Sameleon.Admin.Command.__edit.__date_commande')
                                   
                             </div>
                         </div>
 
                         <div class="col-lg-6">
                     
-                            @include('Sameleon.Client.Command.__edit.__select_city')
+                            @include('Sameleon.Admin.Command.__edit.__select_city')
                             
                             <div class=" mb-4">
                                 <label>Adresse du client *</label>

@@ -9,7 +9,7 @@
                             {{-- <a href="#" type="button" onclick="openFilters()" class="btn btn-primary" >
                                 Filters
                             </a> --}}
-                            <a href="{{ route('client:commands.create') }}" type="button" class="btn btn-info">
+                            <a href="{{ route('admin:commands.create') }}" type="button" class="btn btn-info">
                                 Ajouter une commande
                             </a>
                             <button class="btn btn-info" type="button" class="btn btn-info  btn-sm" data-bs-toggle="modal"
@@ -116,7 +116,7 @@
                                     </div>
                                 </td>
                                 <form id="delete-order-{{ $order->uuid }}" method="post"
-                                    action="{{ route('client:commands.delete') }}">
+                                    action="{{ route('admin:commands.delete') }}">
                                     @csrf
                                     @method('DELETE')
                                     <input type="hidden" name="commandId" value="{{ $order->uuid }}">

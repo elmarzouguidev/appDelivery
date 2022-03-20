@@ -8,19 +8,10 @@
 
                 <li class="menu-title" key="t-menu">Menu</li>
 
-                @auth('client')
+                @include('layouts._parts.__sameleon_admin')
 
-                  @include('layouts._parts.__sameleon_client')
-
-                @endauth
-
-                @auth('web')
-
-                  @include('layouts._parts.__sameleon_admin')
-
-                @endauth
             </ul>
-            
+
         </div>
     </div>
 </div>

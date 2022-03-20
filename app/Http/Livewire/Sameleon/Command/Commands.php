@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Sameleon\Command;
 use App\Filters\ItemsQuery;
 use App\Models\Sameleon\Client;
 use App\Models\Sameleon\Command;
+use App\Models\Sameleon\User;
 use App\Repositories\City\CityInterface;
 use Livewire\Component;
 use App\Status\Status;
@@ -47,9 +48,9 @@ class Commands extends Component
 
         $command = new ItemsQuery(new Command, $this->filter);
 
-        if (auth('client')->check()) {
+        if (auth()->user()->hasRole('Client')) {
 
-            $commands =  $command->where('client_id', auth('client')->id())
+            $commands =  $command->where('client_id', auth()->id())
                 ->withSum('products', 'product_command.price_total')
                 ->with('invoice:uuid,id')->get();
         } else {
@@ -69,8 +70,8 @@ class Commands extends Component
         $this->reportTime = now()->format('d-m-Y');
 
         $this->reportComment = '';
-        if (!auth('client')->check()) {
-         $this->clients = Client::all();
+        if (auth()->user()->hasAnyRole('Admin','SuperAdmin')) {
+         $this->clients = User::all();
         }
     }
 

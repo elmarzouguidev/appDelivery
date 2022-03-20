@@ -39,7 +39,7 @@ class AuthAdminController extends Controller
 
         return $request->wantsJson()
             ? new Response('', 204)
-            : redirect(route('sameleon:auth:login'));
+            : redirect(route('admin:auth:login'));
     }
 
     /**
@@ -47,6 +47,6 @@ class AuthAdminController extends Controller
      */
     private function redirectTo()
     {
-        return route('sameleon:home');
+        return route('admin:home');
     }
 }

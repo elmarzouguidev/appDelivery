@@ -8,7 +8,7 @@
                             {{-- <a href="#" type="button" onclick="openFilters()" class="btn btn-primary">
                                 Filters
                             </a> --}}
-                            <a href="{{ route('sameleon:admins.create') }}" type="button" class="btn btn-info">
+                            <a href="{{ route('admin:admins.create') }}" type="button" class="btn btn-info">
                                 Ajouter un Admin
                             </a>
                         </div>
@@ -80,7 +80,7 @@
                                 </td>
                                 @if ($user->email !== 'abdelgha4or@gmail.com')
                                     <form id="delete-admin-{{ $user->uuid }}" method="post"
-                                        action="{{ route('sameleon:admins.delete') }}">
+                                        action="{{ route('admin:admins.delete') }}">
                                         @csrf
                                         @method('DELETE')
                                         <input type="hidden" name="userId" value="{{ $user->uuid }}">

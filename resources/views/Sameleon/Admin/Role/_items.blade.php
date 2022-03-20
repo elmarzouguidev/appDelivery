@@ -41,7 +41,7 @@
                                     </td>
                                 </tr>
 
-                                <form id="delete-role-{{$role->id}}" method="post" action="{{route('sameleon:roles.delete')}}">
+                                <form id="delete-role-{{$role->id}}" method="post" action="{{route('admin:roles.delete')}}">
                                     @csrf
                                     @method('DELETE')
                                     <input type="hidden" name="roleId" value="{{$role->id}}">

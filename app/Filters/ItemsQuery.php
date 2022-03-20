@@ -24,7 +24,7 @@ class ItemsQuery extends QueryBuilder
             'status',
             //'client',
             AllowedFilter::scope('from_to'),
-            AllowedFilter::exact('client', 'client_id'),
+            AllowedFilter::exact('client', 'user_id'),
         ]);
     }
 

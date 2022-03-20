@@ -41,7 +41,7 @@
                                     </td>
                                 </tr>
 
-                                <form id="delete-permission-{{$permission->id}}" method="post" action="{{route('sameleon:permissions.delete')}}">
+                                <form id="delete-permission-{{$permission->id}}" method="post" action="{{route('admin:permissions.delete')}}">
                                     @csrf
                                     @method('DELETE')
                                     <input type="hidden" name="permissionId" value="{{$permission->id}}">
@@ -70,7 +70,7 @@
                     </div>
                 @endif
 
-                <form id="clientForm" action="{{route('sameleon:permissions.store')}}" method="post">
+                <form id="clientForm" action="{{route('admin:permissions.store')}}" method="post">
                     @csrf
                     <div class="row">
                         <div class="col-sm-12">

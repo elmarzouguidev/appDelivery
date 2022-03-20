@@ -34,7 +34,7 @@ class Products extends Component
         ];
         $this->totalPrice = 0;
 
-        if (auth('client')->check()) {
+        if (auth()->user()->hasRole('Client')) {
             $this->products = auth()->user()->products()->get();
         } else {
             $this->products = Product::with('media')->get();

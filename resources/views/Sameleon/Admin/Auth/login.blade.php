@@ -4,7 +4,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Login-Admin | SAMELEON GROUP</title>
+    <title>Login | SAMELEON GROUP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow" />
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
@@ -63,7 +63,7 @@
                                     </div>
                                 @endif
                                 <form autocomplete="off" class="form-horizontal"
-                                    action="{{ route('sameleon:auth:loginPost') }}" method="post">
+                                    action="{{ route('admin:auth:loginPost') }}" method="post">
                                     @csrf
                                     <div class="mb-3">
                                         <label for="email" class="form-label">Email</label>

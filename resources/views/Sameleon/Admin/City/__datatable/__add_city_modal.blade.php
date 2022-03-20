@@ -8,7 +8,7 @@
             </div>
             <div class="modal-body">
 
-                <form method="post" action="{{ route('sameleon:cities.store') }}">
+                <form method="post" action="{{ route('admin:cities.store') }}">
                     @csrf
                     <div class="row mb-4">
                         <label for="name" class="col-form-label col-lg-2">Nom *</label>

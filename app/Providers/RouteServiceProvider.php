@@ -17,7 +17,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/';
+    public const HOME = '/app';
 
     /**
      * The controller namespace for the application.
@@ -49,8 +49,7 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/web.php'));
 
             $this->adminRoutes();
-            $this->clientRoutes();
-            
+
             $this->devlopperRoutes();
 
         });
@@ -76,32 +75,16 @@ class RouteServiceProvider extends ServiceProvider
     {
     
         Route::middleware(['web'])
-            ->prefix('app/sameleon')
-            ->name('sameleon:auth:')
+            ->prefix('app')
+            ->name('admin:auth:')
             ->namespace($this->namespace)
             ->group(base_path('routes/app-routes/login-admin.php'));
 
         Route::middleware(['web', 'auth'])
-            ->prefix('app/sameleon')
-            ->name('sameleon:')
+            ->prefix('app')
+            ->name('admin:')
             ->namespace($this->namespace)
             ->group(base_path('routes/app-routes/routes-admin.php'));
-    }
-
-    private function clientRoutes()
-    {
-    
-        Route::middleware(['web'])
-            ->prefix('app/clients')
-            ->name('client:auth:')
-            ->namespace($this->namespace)
-            ->group(base_path('routes/app-routes/login-client.php'));
-
-        Route::middleware(['web', 'auth:client'])
-            ->prefix('app/clients')
-            ->name('client:')
-            ->namespace($this->namespace)
-            ->group(base_path('routes/app-routes/routes-client.php'));
     }
 
     private function commercialRoutes()

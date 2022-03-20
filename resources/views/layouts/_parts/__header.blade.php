@@ -164,14 +164,14 @@
                                         <i class="bx bx-cart"></i>
                                     </span>
                                 </div>
-                                {{--<div class="flex-grow-1">
+                                {{-- <div class="flex-grow-1">
                                     <h6 class="mb-1" key="t-your-order">Ticket Confirmé</h6>
                                     <div class="font-size-12 text-muted">
                                         <p class="mb-1" key="t-grammer">Ticket Confirmé</p>
                                         <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span
                                                 key="t-min-ago">3 min ago</span></p>
                                     </div>
-                                </div>--}}
+                                </div> --}}
                             </div>
                         </a>
                     </div>
@@ -194,15 +194,14 @@
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
-                    @auth('client')
-                        <a class="dropdown-item" href="{{ route('client:company') }}"><i
+                    @if (auth()->user()->hasRole('Client'))
+                        <a class="dropdown-item" href="{{ route('admin:company') }}"><i
                                 class="bx bx-user font-size-16 align-middle me-1"></i> <span
                                 key="t-profile">Profile</span></a>
-                    @endauth
-
+                    @endif
 
                     <a class="dropdown-item d-block" href="{{-- route('admin:profile.settings') --}}">
-                        
+
                         <i class="bx bx-wrench font-size-16 align-middle me-1"></i>
                         <span key="t-settings">Paramètres</span>
                     </a>
@@ -212,17 +211,12 @@
                         <i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i>
                         <span key="t-logout">Se déconnecter</span>
                     </a>
-                    @if (auth('client')->check())
-                        <form id="logoutForm" method="post" action="{{ route('client:auth:logout') }}">
-                            @csrf
 
-                        </form>
-                    @else
-                        <form id="logoutForm" method="post" action="{{ route('sameleon:auth:logout') }}">
-                            @csrf
+                    <form id="logoutForm" method="post" action="{{ route('admin:auth:logout') }}">
+                        @csrf
 
-                        </form>
-                    @endif
+                    </form>
+
                 </div>
             </div>
 

@@ -14,7 +14,7 @@
                     {{ session('notice') }}
                 </div>
             @endif
-            <form method="post" action="{{ route('sameleon:cities.store') }}" enctype="multipart/form-data">
+            <form method="post" action="{{ route('admin:cities.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="row mb-4">
                     <label for="name" class="col-form-label col-lg-2">Nom *</label>

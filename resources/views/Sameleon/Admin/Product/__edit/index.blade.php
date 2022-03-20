@@ -4,7 +4,7 @@
 
     <div class="container-fluid">
 
-        @include('Sameleon.Client.Product.__title')
+        @include('Sameleon.Admin.Product.__title')
 
         <div class="row">
             <div class="col-lg-12">

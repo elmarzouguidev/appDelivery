@@ -12,7 +12,7 @@ use App\Http\Controllers\Sameleon\Admin\Product\AdminProductController;
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/home', [AdminHomeController::class, 'index'])->name('home');
+Route::get('/', [AdminHomeController::class, 'index'])->name('home');
 
 Route::group(['prefix' => 'commands'], function () {
 

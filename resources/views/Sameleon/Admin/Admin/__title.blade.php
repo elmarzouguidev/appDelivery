@@ -6,7 +6,7 @@
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
                     <li class="breadcrumb-item"><a
-                            href="{{ route('sameleon:admins.index') }}">{{ __('Admins') }}</a></li>
+                            href="{{ route('admin:admins.index') }}">{{ __('Admins') }}</a></li>
              
                 </ol>
             </div>

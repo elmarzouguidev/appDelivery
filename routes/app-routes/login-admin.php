@@ -12,10 +12,6 @@ Route::post('/login', [AuthAdminController::class, 'login'])->middleware('thrott
 Route::post('/logout', [AuthAdminController::class, 'logout'])->name('logout');
 
 
-
-
-
-
 Route::get('password/request', [ForgotPasswordController::class, 'showLinkRequestForm'])
     ->middleware('guest')
     ->name('forgotpassword');

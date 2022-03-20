@@ -1,5 +1,5 @@
 <div class="row">
-    @if (!auth('client')->check())
+    @if (auth()->user()->hasAnyRole('Admin','SuperAdmin'))
         @if ($showFilters)
             @include('livewire.sameleon.command.filters')
         @endif
@@ -11,7 +11,7 @@
                     <div class="col-lg-8">
 
                         <div class="col-lg-8 mb-4">
-                            @if (!auth('client')->check())
+                            @if (auth()->user()->hasAnyRole('Admin','SuperAdmin'))
                                 <button wire:click="showFilter()" type="button" class="btn btn-primary">
                                     Filters
                                 </button>
@@ -52,7 +52,7 @@
                             <th scope="col">Status</th>
                             <th scope="col">Prix Total</th>
                             <th scope="col">Détails</th>
-                            @if (!auth('client')->check())
+                            @if (auth()->user()->hasAnyRole('Admin','SuperAdmin'))
                                 <th scope="col">Client</th>
                             @endif
                             <th scope="col">Date de commande</th>
@@ -90,7 +90,7 @@
                                     {{ __('status.statuses.' . $command->status) }} --}}
 
 
-                                    @if (!auth('client')->check())
+                                    @if (auth()->user()->hasAnyRole('Admin','SuperAdmin'))
                                         <button wire:click="editStatus('{{ $command->uuid }}')" type="button"
                                             class="btn btn-sm {{ __('status.classes.' . $command->status) }} waves-effect waves-light">
                                             {{ __('status.statuses.' . $command->status) }}
@@ -113,7 +113,7 @@
                                         Détails
                                     </button>
                                 </td>
-                                @if (!auth('client')->check())
+                                @if (auth()->user()->hasAnyRole('Admin','SuperAdmin'))
                                     <td>
                                         @if (optional($command->client)->type === 'entreprise')
                                             <i class="fas fa-building me-1"></i>
@@ -153,7 +153,7 @@
                                     </div>
                                 </td>
                                 <form id="delete-order-{{ $command->uuid }}" method="post"
-                                    action="{{ route('client:commands.delete') }}">
+                                    action="{{ route('admin:commands.delete') }}">
                                     @csrf
                                     @method('DELETE')
                                     <input type="hidden" name="commandId" value="{{ $command->uuid }}">

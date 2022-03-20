@@ -17,7 +17,7 @@
                         {{ session('error') }}
                     </div>
                 @endif
-                <form action="{{ route('sameleon:clients.store') }}" method="post">
+                <form action="{{ route('admin:clients.store') }}" method="post">
                     @csrf
                     <div class="card">
                         <div class="card-body">
