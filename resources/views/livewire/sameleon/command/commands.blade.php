@@ -1,10 +1,10 @@
 <div>
     <div class="row">
-        @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin') && $showFilters)
- 
-             @include('livewire.sameleon.command.filters')
-      
-        @endif
+        <div>
+            @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin') && $showFilters)
+                @include('livewire.sameleon.command.filters')
+            @endif
+        </div>
         <div class="{{ $class }}">
             <div class="card">
                 <div class="card-body">
@@ -12,7 +12,7 @@
                         <div class="col-lg-8">
 
                             <div class="col-lg-8 mb-4">
-                                
+
                                 @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
                                     <button wire:click="showUpFilter()" type="button" class="btn btn-primary">
                                         Filters
@@ -190,7 +190,7 @@
             ])
         @endif
 
-        
+
     </div>
     @each('Sameleon.Admin.Command.__datatable.__command_detail',$commands ,'command' )
 </div>

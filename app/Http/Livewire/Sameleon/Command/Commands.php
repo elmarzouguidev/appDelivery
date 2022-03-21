@@ -77,9 +77,9 @@ class Commands extends Component
 
     public function showUpFilter()
     {
-        $this->showFilters = !$this->showFilters;
 
         $this->class = "col-lg-10";
+        $this->showFilters = !$this->showFilters;
 
     }
 
