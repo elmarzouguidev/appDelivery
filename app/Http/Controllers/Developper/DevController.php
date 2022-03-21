@@ -80,4 +80,14 @@ class DevController extends Controller
     {
         Artisan::call('sameleon:install');
     }
+
+    public function livewireConfig()
+    {
+        Artisan::call('livewire:publish', ['--config']);
+    }
+
+    public function livewireAssets()
+    {
+        Artisan::call('livewire:publish', ['--assets']);
+    }
 }

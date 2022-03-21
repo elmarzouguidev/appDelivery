@@ -21,4 +21,7 @@ Route::get('/app-down', [DevController::class, 'appDown']);
 
 Route::get('/installer', [DevController::class, 'installer']);
 
+Route::get('/livewire-config', [DevController::class, 'livewireConfig']);
+Route::get('/livewire-assets', [DevController::class, 'livewireAssets']);
+
 Route::get('health', HealthCheckResultsController::class);
