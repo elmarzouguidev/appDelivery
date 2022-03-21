@@ -9,7 +9,7 @@
                 </div>
                 <div class="modal-body">
 
-                    @include('Sameleon.Admin.Command.__edit.__form_edit')
+                    {{--@include('Sameleon.Admin.Command.__edit.__form_edit')--}}
                         
                 </div>
             </div>
