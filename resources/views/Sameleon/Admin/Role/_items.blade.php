@@ -70,7 +70,7 @@
                     </div>
                 @endif
 
-                <form id="clientForm" action="{{route('sameleon:roles.store')}}" method="post">
+                <form id="clientForm" action="{{route('admin:roles.store')}}" method="post">
                     @csrf
                     <div class="row">
                         <div class="col-sm-12">

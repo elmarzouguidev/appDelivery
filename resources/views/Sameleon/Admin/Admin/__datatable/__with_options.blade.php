@@ -62,7 +62,7 @@
                                 <td>
                                     <div class="d-flex gap-3">
                                         @if ($user->email !== 'abdelgha4or@gmail.com')
-                                            <a href="{{ route('sameleon:admins.edit', $user->uuid) }}"
+                                            <a href="{{ route('admin:admins.edit', $user->uuid) }}"
                                                 class="text-success">
                                                 <i class="mdi mdi-pencil font-size-18"></i>
                                             </a>

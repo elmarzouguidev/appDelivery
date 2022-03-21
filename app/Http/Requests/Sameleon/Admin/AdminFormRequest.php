@@ -30,8 +30,9 @@ class AdminFormRequest extends FormRequest
             'telephone' => 'nullable|phone:MA|unique:users',
             'email' => 'required|email|unique:users',
             'password' => 'required|string',
+            'addresse' => 'required|string',
             'super_admin' => ['nullable', Rule::in([1, '1', true, 'on', 'yes', 'oui', '0', 'no', 'non', false])],
-            'role'=>['nullable','string','exists:roles,name']
+            'role' => ['nullable', 'string', 'exists:roles,name']
         ];
     }
 }
