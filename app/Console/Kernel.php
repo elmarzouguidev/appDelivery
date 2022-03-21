@@ -25,6 +25,13 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->command(\Spatie\Health\Commands\RunHealthChecksCommand::class)->everyMinute();
+        
+        $schedule->command('model:prune', [
+            '--model' => [
+                \Spatie\Health\Models\HealthCheckResultHistoryItem::class,
+            ],
+        ])->daily();
     }
 
     /**
@@ -34,7 +41,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }
