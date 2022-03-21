@@ -33,9 +33,9 @@ class HealthServiceProvider extends ServiceProvider
             DatabaseCheck::new(),
             ScheduleCheck::new(),
             CacheCheck::new(),
-            CpuLoadCheck::new()
+            /*CpuLoadCheck::new()
                 ->failWhenLoadIsHigherInTheLast5Minutes(2.0)
-                ->failWhenLoadIsHigherInTheLast15Minutes(1.5),
+                ->failWhenLoadIsHigherInTheLast15Minutes(1.5),*/
         ]);
     }
 }

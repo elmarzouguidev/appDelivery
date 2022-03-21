@@ -112,6 +112,7 @@
                                         <form class="needs-validation" novalidate
                                             action="{{ route('admin:auth:clients.store') }}" method="post">
                                             @csrf
+                                            @honeypot
                                             <div class="mb-3">
                                                 <label for="nom" class="form-label">Nom</label>
                                                 <input type="text" name="nom"
