@@ -1,9 +1,9 @@
 <div>
     <div class="row">
-        @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
-            @if ($showFilters)
-                @include('livewire.sameleon.command.filters')
-            @endif
+        @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin') && $showFilters)
+ 
+             @include('livewire.sameleon.command.filters')
+      
         @endif
         <div class="{{ $class }}">
             <div class="card">
