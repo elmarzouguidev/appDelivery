@@ -189,6 +189,7 @@
             ])
         @endif
 
-        @each('Sameleon.Admin.Command.__datatable.__command_detail',$commands ,'command' )
+        
     </div>
+    @each('Sameleon.Admin.Command.__datatable.__command_detail',$commands ,'command' )
 </div>
