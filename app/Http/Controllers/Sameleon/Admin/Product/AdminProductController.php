@@ -29,6 +29,7 @@ class AdminProductController extends Controller
 
     public function store(ProductFormRequest $request)
     {
+       
         $this->authorize('create', Product::class);
         $product = new Product();
         $product->name = $request->name;
@@ -36,7 +37,7 @@ class AdminProductController extends Controller
         $product->price = $request->price;
         $product->qte_global = $request->qte_global;
 
-        //$product->client()->associate(auth('client')->id());
+        $product->client()->associate(auth()->id());
 
         $product->save();
 
@@ -45,7 +46,7 @@ class AdminProductController extends Controller
             $product->addMediaFromRequest('photo')->toMediaCollection('products_photos');
         }
 
-        return redirect(route('sameleon:products.index'))->with('success', "L'ajoute a éte effectuer avec success");
+        return redirect(route('admin:products.index'))->with('success', "L'ajoute a éte effectuer avec success");
     }
 
     public function edit(Product $product)
@@ -72,7 +73,7 @@ class AdminProductController extends Controller
             $product->addMediaFromRequest('photo')->toMediaCollection('products_photos');
         }
 
-        return redirect(route('sameleon:products.index'))->with('success', "L'update a éte effectuer avec success");
+        return redirect(route('admin:products.index'))->with('success', "L'update a éte effectuer avec success");
     }
 
     public function delete(Request $request)
@@ -88,8 +89,8 @@ class AdminProductController extends Controller
 
             $product->delete();
 
-            return redirect(route('sameleon:products.index'))->with('success', "Le produit a éte supprimer avec success");
+            return redirect(route('admin:products.index'))->with('success', "Le produit a éte supprimer avec success");
         }
-        return redirect(route('sameleon:products.index'))->with('success', "error . . . ");
+        return redirect(route('admin:products.index'))->with('success', "error . . . ");
     }
 }

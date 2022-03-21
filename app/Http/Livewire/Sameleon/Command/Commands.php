@@ -50,7 +50,7 @@ class Commands extends Component
 
         if (auth()->user()->hasRole('Client')) {
 
-            $commands =  $command->where('client_id', auth()->id())
+            $commands =  $command->where('user_id', auth()->id())
                 ->withSum('products', 'product_command.price_total')
                 ->with('invoice:uuid,id')->get();
         } else {
@@ -71,7 +71,7 @@ class Commands extends Component
 
         $this->reportComment = '';
         if (auth()->user()->hasAnyRole('Admin','SuperAdmin')) {
-         $this->clients = User::all();
+         $this->clients = User::select(['nom','prenom','id'])->get();
         }
     }
 

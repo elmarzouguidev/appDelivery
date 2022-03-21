@@ -13,6 +13,8 @@ class AdminCityController extends Controller
     public function index()
     {
 
+        $this->authorize('viewAny',City::class);
+
         $cities = app(CityInterface::class)->getCities();
 
         return view('Sameleon.Admin.City.__datatable.index', compact('cities'));
@@ -20,6 +22,8 @@ class AdminCityController extends Controller
 
     public function store(CityFormRequest $request)
     {
+        $this->authorize('create',City::class);
+
         $city = City::create($request->validated());
 
         if ($city) {
@@ -31,7 +35,9 @@ class AdminCityController extends Controller
 
     public function delete(Request $request)
     {
-      
+        
+        $this->authorize('delete',City::class);
+
         $request->validate(['cityId' => 'required|uuid']);
 
         $city = City::whereUuid($request->cityId)->firstOrFail();

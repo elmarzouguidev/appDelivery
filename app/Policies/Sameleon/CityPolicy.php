@@ -2,37 +2,35 @@
 
 namespace App\Policies\Sameleon;
 
-
-use App\Models\Sameleon\Product;
+use App\Models\Sameleon\City;
 use App\Models\Sameleon\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ProductPolicy
+class CityPolicy
 {
     use HandlesAuthorization;
 
     /**
      * Determine whether the user can view any models.
      *
-     * * @param  \App\Models\Sameleon\User  $user
+     * @param  \App\Models\Sameleon\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function viewAny(User $user)
     {
-        return $user->hasAnyRole('SuperAdmin','Admin');
+        return $user->hasAnyRole('Admin','SuperAdmin');
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\Sameleon\User  $user
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\Sameleon\City  $city
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Product $product)
+    public function view(User $user, City $city)
     {
-
-        return $user->id === $product->user_id;
+        return $user->hasAnyRole('Admin','SuperAdmin');
     }
 
     /**
@@ -43,55 +41,54 @@ class ProductPolicy
      */
     public function create(User $user)
     {
-        return $user->hasAnyRole('Client', 'SuperAdmin','Admin');
+        return $user->hasAnyRole('Admin','SuperAdmin');
     }
 
     /**
      * Determine whether the user can update the model.
      *
-     *@param  \App\Models\Sameleon\User  $user
-     * @param  \App\Models\Sameleon\Product  $product
+     * @param  \App\Models\Sameleon\User  $user
+     * @param  \App\Models\Sameleon\City  $city
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Product $product)
+    public function update(User $user, City $city)
     {
-
-        return $user->id === $product->user_id;
+        return $user->hasAnyRole('Admin','SuperAdmin');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
-     *@param  \App\Models\Sameleon\User  $user
-     * @param  \App\Models\Sameleon\Product  $product
+     * @param  \App\Models\Sameleon\User  $user
+     * @param  \App\Models\Sameleon\City  $city
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Product $product)
+    public function delete(User $user, City $city)
     {
-        return $user->id === $product->user_id;
+        return $user->hasAnyRole('SuperAdmin');
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\Sameleon\User  $user
-     * @param  \App\Models\Sameleon\Product  $product
+     * @param  \App\Models\Sameleon\City  $city
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Product $product)
+    public function restore(User $user, City $city)
     {
-        return $user->id === $product->user_id;
+        return $user->hasAnyRole('SuperAdmin');
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\Sameleon\User  $user
-     * @param  \App\Models\Sameleon\Product  $product
+     * @param  \App\Models\Sameleon\City  $city
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Product $product)
+    public function forceDelete(User $user, City $city)
     {
-        return $user->id === $product->user_id;
+        return $user->hasAnyRole('SuperAdmin');
     }
 }

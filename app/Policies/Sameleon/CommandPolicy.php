@@ -4,6 +4,7 @@ namespace App\Policies\Sameleon;
 
 use App\Models\Sameleon\Client;
 use App\Models\Sameleon\Command;
+use App\Models\Sameleon\User;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
@@ -25,9 +26,9 @@ class CommandPolicy
      *
 
      */
-    public function viewAny(Authenticatable $user)
+    public function viewAny(User $user)
     {
-        return $user->hasAnyRole('Client', 'SuperAdmin');
+        return $user->hasAnyRole('Admin', 'SuperAdmin');
     }
 
     /**
@@ -35,7 +36,7 @@ class CommandPolicy
      *
 
      */
-    public function view(Authenticatable $user, Command $command)
+    public function view(User $user, Command $command)
     {
         return $user->hasRole('Client');
     }
@@ -45,7 +46,7 @@ class CommandPolicy
      *
 
      */
-    public function create(Client $user)
+    public function create(User $user)
     {
         return $user->hasRole('Client')
             ? Response::allow()
@@ -53,11 +54,11 @@ class CommandPolicy
     }
 
 
-    public function update(Authenticatable $user, Command $command)
+    public function update(User $user, Command $command)
     {
        
         //dd($user,$command);
-        return $command->client()->is($user) || $user->hasRole('SuperAdmin')
+        return $command->client()->is($user) || $user->hasAnyRole('SuperAdmin','Admin')
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation d'accéder à cette command.");
     }
@@ -65,11 +66,11 @@ class CommandPolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \App\Models\Sameleon\Client  $user
+     * @param  \App\Models\Sameleon\User  $user
      * @param  \App\Models\Sameleon\Command  $command
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(Authenticatable $user, Command $command)
+    public function delete(User $user, Command $command)
     {
         return $command->client()->is($user)
             ? Response::allow()
@@ -79,11 +80,11 @@ class CommandPolicy
     /**
      * Determine whether the user can restore the model.
      *
-     *@param  \App\Models\Sameleon\Client  $user
+     *@param  \App\Models\Sameleon\User  $user
      * @param  \App\Models\Sameleon\Command  $command
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(Authenticatable $user, Command $command)
+    public function restore(User $user, Command $command)
     {
         return $command->client()->is($user);
     }
@@ -91,11 +92,11 @@ class CommandPolicy
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @param  \App\Models\Sameleon\Client  $user
+     * @param  \App\Models\Sameleon\User  $user
      * @param  \App\Models\Sameleon\Command  $command
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(Client $user, Command $command)
+    public function forceDelete(User $user, Command $command)
     {
         return $command->client()->is($user);
     }

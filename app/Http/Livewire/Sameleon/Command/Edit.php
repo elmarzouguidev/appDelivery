@@ -25,8 +25,8 @@ class Edit extends Component
     public function mount()
     {
 
-        if (auth('client')->check()) {
-            $this->products = auth('client')->user()->products()->with('media')->get();
+        if (auth()->user()->hasRole('Client')) {
+            $this->products = auth()->user()->products()->with('media')->get();
         } else {
             $this->products = Product::with('media')->get();
         }

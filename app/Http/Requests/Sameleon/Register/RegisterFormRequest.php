@@ -27,12 +27,12 @@ class RegisterFormRequest extends FormRequest
         return [
             'nom' => ['required', 'string'],
             'prenom' => ['required', 'string'],
-            'telephone' => ['required', 'phone:MA', Rule::unique('clients')],
+            'telephone' => ['required', 'phone:MA', Rule::unique('users')],
             'addresse' => ['required', 'string'],
             'type' => ['required', 'string', Rule::in(['entreprise', 'particulier'])],
             'city' => ['required', 'integer'],
-            'cnie' => ['nullable','required_if:type,particulier', 'string', Rule::unique('clients')],
-            'email' => ['required', 'email', Rule::unique('clients')],
+            'cnie' => ['nullable','required_if:type,particulier', 'string', Rule::unique('users')],
+            'email' => ['required', 'email', Rule::unique('users')],
             //'password' => ['required', 'string', 'min:6'],
         ];
     }

@@ -8,7 +8,7 @@
                             <a href="#" type="button" onclick="openFilters()" class="btn btn-primary">
                                 Filters
                             </a>
-                            <a href="{{ route('sameleon:clients.create') }}" type="button" class="btn btn-info">
+                            <a href="{{ route('admin:clients.create') }}" type="button" class="btn btn-info">
                                 Ajouter un client
                             </a>
                         </div>
@@ -81,7 +81,7 @@
                                 <td>
                                     <div class="d-flex gap-3">
 
-                                        <a href="{{ route('sameleon:clients.edit',$client->uuid) }}" class="text-success">
+                                        <a href="{{ route('admin:clients.edit',$client->uuid) }}" class="text-success">
                                             <i class="mdi mdi-pencil font-size-18"></i>
                                         </a>
                                         <a href="#" class="text-danger" onclick="
@@ -96,7 +96,7 @@
                                     </div>
                                 </td>
                                 <form id="delete-client-{{ $client->uuid }}" method="post"
-                                    action="{{ route('sameleon:clients.delete') }}">
+                                    action="{{ route('admin:clients.delete') }}">
                                     @csrf
                                     @method('DELETE')
                                     <input type="hidden" name="clientId" value="{{ $client->uuid }}">

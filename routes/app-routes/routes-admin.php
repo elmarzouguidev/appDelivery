@@ -37,6 +37,12 @@ Route::group(['prefix' => 'products'], function () {
     Route::post('/create', [AdminProductController::class, 'store'])->name('products.store');
 
     Route::delete('/', [AdminProductController::class, 'delete'])->name('products.delete');
+
+    Route::group(['prefix' => 'edit'], function () {
+
+        Route::get('/{product}', [AdminProductController::class, 'edit'])->name('products.edit');
+        Route::post('/{product}', [AdminProductController::class, 'update'])->name('products.update');
+    });
 });
 
 
@@ -120,4 +126,14 @@ Route::group(['prefix' => 'auth/settings'], function () {
     Route::get('/', [SettingController::class, 'index'])->name('settings.index');
     Route::post('/', [SettingController::class, 'store'])->name('settings.store');
 
+});
+
+
+Route::group(['prefix' => 'settings'], function () {
+
+    Route::group(['prefix' => 'company'], function () {
+
+        Route::get('/', [SettingController::class, 'index'])->name('company');
+        Route::post('/', [SettingController::class, 'store'])->name('company.store');
+    });
 });

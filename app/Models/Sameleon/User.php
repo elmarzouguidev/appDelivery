@@ -94,6 +94,11 @@ class User extends Authenticatable
         return $this->hasMany(Invoice::class);
     }
 
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+
     public static function boot()
     {
         parent::boot();

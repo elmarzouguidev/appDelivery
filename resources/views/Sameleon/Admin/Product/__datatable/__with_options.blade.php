@@ -6,12 +6,12 @@
                     <div class="col-lg-8">
 
                         <div class="col-lg-4 mb-4">
-                            {{--<a href="#" type="button" onclick="openFilters()" class="btn btn-primary" >
+                            <a href="#" type="button" onclick="openFilters()" class="btn btn-primary" >
                                 Filters
                             </a>
-                            <a href="{{route('sameleon:products.create')}}" type="button" class="btn btn-info">
+                            <a href="{{route('admin:products.create')}}" type="button" class="btn btn-info">
                                 Ajouter un Produit
-                            </a>--}}
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
                                 <td>
                                     <div class="d-flex gap-3">
 
-                                        {{--<a href="{{ $product->edit_url }}" class="text-success">
+                                        <a href="{{ $product->edit_url }}" class="text-success">
                                             <i class="mdi mdi-pencil font-size-18"></i>
                                         </a>
                                         <a href="#" class="text-danger" onclick="
@@ -79,15 +79,15 @@
                                                     document.getElementById('delete-prod-{{ $product->uuid }}').submit();
                                                 }">
                                             <i class="mdi mdi-delete font-size-18"></i>
-                                        </a>--}}
+                                        </a>
                                     </div>
                                 </td>
-                                 {{--<form id="delete-prod-{{ $product->uuid }}" method="post"
+                                 <form id="delete-prod-{{ $product->uuid }}" method="post"
                                     action="{{ $product->delete_url }}">
                                     @csrf
                                     @method('DELETE')
                                     <input type="hidden" name="productId" value="{{ $product->uuid }}">
-                                </form>--}}
+                                </form>
                             </tr>
 
                         @endforeach

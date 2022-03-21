@@ -88,7 +88,7 @@
                                     </div>
                                 </td>
                                 <form id="delete-city-{{ $city->uuid }}" method="post"
-                                    action="{{ route('sameleon:cities.delete') }}">
+                                    action="{{ route('admin:cities.delete') }}">
                                     @csrf
                                     @method('DELETE')
                                     <input type="hidden" name="cityId" value="{{ $city->uuid }}">

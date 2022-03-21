@@ -56,7 +56,7 @@ class AdminCommandController extends Controller
             }
 
             //$priceTotal = $command->products()->sum('pivot.price_total');
-           // $command->update(['price_total' => $priceTotal]);
+            // $command->update(['price_total' => $priceTotal]);
         }
 
         return redirect()->back()->with('success', 'la commande a été ajouter avec success');
@@ -125,7 +125,8 @@ class AdminCommandController extends Controller
             }
         }
 
-        return redirect($command->edit_url)->with('success', 'la commande a été modifier avec success');
+        // return redirect($command->edit_url)->with('success', 'la commande a été modifier avec success');
+        return redirect()->back()->with('success', 'la commande a été modifier avec success');
     }
 
     public function delete(Request $request)
@@ -137,7 +138,7 @@ class AdminCommandController extends Controller
 
         $this->authorize('delete', $command);
 
-        if ($command && $command->client()->is(auth()->user())) {
+        if ($command) {
             // dd('Oui command');
             $command->products()->detach();
 
