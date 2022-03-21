@@ -13,7 +13,7 @@
 
                             <div class="col-lg-8 mb-4">
                                 @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
-                                    <button wire:click="showFilter()" type="button" class="btn btn-primary">
+                                    <button wire:click="showUpFilter()" type="button" class="btn btn-primary">
                                         Filters
                                     </button>
                                 @endif

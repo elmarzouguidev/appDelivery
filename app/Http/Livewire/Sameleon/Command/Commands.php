@@ -17,7 +17,7 @@ class Commands extends Component
 
     public $showEdit = false;
 
-    public $showFilters = false;
+    public $showFilters;
 
     public $class = 'col-12';
 
@@ -75,11 +75,12 @@ class Commands extends Component
         }
     }
 
-    public function showFilter()
+    public function showUpFilter()
     {
+        $this->showFilters = !$this->showFilters;
+
         $this->class = "col-lg-10";
 
-        $this->showFilters = !$this->showFilters;
     }
 
     public function editCommand(Command $command)
