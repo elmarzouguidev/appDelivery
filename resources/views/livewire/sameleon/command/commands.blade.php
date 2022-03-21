@@ -1,10 +1,10 @@
 <div>
     <div class="row">
-    
+        @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
             @if ($showFilters)
                 @include('livewire.sameleon.command.filters')
             @endif
-  
+        @endif
         <div class="{{ $class }}">
             <div class="card">
                 <div class="card-body">
@@ -12,17 +12,16 @@
                         <div class="col-lg-8">
 
                             <div class="col-lg-8 mb-4">
-                                <div>
-                                  
-                                        <button wire:click="showUpFilter()" type="button" class="btn btn-primary">
-                                            Filters
-                                        </button>
-                                 
-                                    <button class="btn btn-info" type="button" class="btn btn-info  btn-sm"
-                                        data-bs-toggle="modal" data-bs-target=".addCommandModal">
-                                        Ajouter une commande
+                                
+                                @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
+                                    <button wire:click="showUpFilter()" type="button" class="btn btn-primary">
+                                        Filters
                                     </button>
-                                </div>
+                                @endif
+                                <button class="btn btn-info" type="button" class="btn btn-info  btn-sm"
+                                    data-bs-toggle="modal" data-bs-target=".addCommandModal">
+                                    Ajouter une commande
+                                </button>
                             </div>
                         </div>
                     </div>
