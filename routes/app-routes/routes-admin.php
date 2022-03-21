@@ -88,44 +88,45 @@ Route::group(['prefix' => 'auth/admins'], function () {
     });
 });
 
-Route::group(['prefix' => 'auth/permissions'], function () {
+Route::group(['middleware' => ['role:SuperAdmin']], function () {
 
-    Route::get('/', [PermissionController::class, 'index'])->name('permissions.index');
+    Route::group(['prefix' => 'auth/permissions'], function () {
 
-    //Route::get('/create', [PermissionController::class, 'create'])->name('permissions.create');
-    Route::post('/', [PermissionController::class, 'store'])->name('permissions.store');
+        Route::get('/', [PermissionController::class, 'index'])->name('permissions.index');
 
-    Route::delete('/', [PermissionController::class, 'delete'])->name('permissions.delete');
+        //Route::get('/create', [PermissionController::class, 'create'])->name('permissions.create');
+        Route::post('/', [PermissionController::class, 'store'])->name('permissions.store');
 
-    Route::group(['prefix' => 'edit'], function () {
+        Route::delete('/', [PermissionController::class, 'delete'])->name('permissions.delete');
 
-        Route::get('/{user}', [PermissionController::class, 'edit'])->name('permissions.edit');
-        Route::post('/{user}', [PermissionController::class, 'update'])->name('permissions.update');
+        Route::group(['prefix' => 'edit'], function () {
+
+            Route::get('/{user}', [PermissionController::class, 'edit'])->name('permissions.edit');
+            Route::post('/{user}', [PermissionController::class, 'update'])->name('permissions.update');
+        });
+    });
+
+    Route::group(['prefix' => 'auth/roles'], function () {
+
+        Route::get('/', [RoleController::class, 'index'])->name('roles.index');
+
+        Route::get('/create', [RoleController::class, 'create'])->name('roles.create');
+        Route::post('/create', [RoleController::class, 'store'])->name('roles.store');
+
+        Route::delete('/', [RoleController::class, 'delete'])->name('roles.delete');
+
+        Route::group(['prefix' => 'edit'], function () {
+
+            Route::get('/{user}', [RoleController::class, 'edit'])->name('roles.edit');
+            Route::post('/{user}', [RoleController::class, 'update'])->name('roles.update');
+        });
     });
 });
-
-Route::group(['prefix' => 'auth/roles'], function () {
-
-    Route::get('/', [RoleController::class, 'index'])->name('roles.index');
-
-    Route::get('/create', [RoleController::class, 'create'])->name('roles.create');
-    Route::post('/create', [RoleController::class, 'store'])->name('roles.store');
-
-    Route::delete('/', [RoleController::class, 'delete'])->name('roles.delete');
-
-    Route::group(['prefix' => 'edit'], function () {
-
-        Route::get('/{user}', [RoleController::class, 'edit'])->name('roles.edit');
-        Route::post('/{user}', [RoleController::class, 'update'])->name('roles.update');
-    });
-});
-
 
 Route::group(['prefix' => 'auth/settings'], function () {
 
     Route::get('/', [SettingController::class, 'index'])->name('settings.index');
     Route::post('/', [SettingController::class, 'store'])->name('settings.store');
-
 });
 
 

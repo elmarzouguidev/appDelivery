@@ -28,4 +28,51 @@ class DevController extends Controller
     {
         Artisan::call('storage:link');
     }
+    
+    public function storageUnLink()
+    {
+        \shell_exec('cd public');
+        \shell_exec('rm storage');
+    }
+
+    public function cleareAll()
+    {
+        Artisan::call('optimize:clear');
+
+        Artisan::call('config:clear');
+        Artisan::call('route:clear');
+        Artisan::call('view:clear');
+    }
+
+    public function cacheAll()
+    {
+        Artisan::call('optimize');
+        Artisan::call('config:cache');
+        Artisan::call('route:cache');
+        Artisan::call('view:cache');
+    }
+
+    public function migrateAll()
+    {
+        Artisan::call('migrate', [
+            '--force' => true
+        ]);
+    }
+
+    public function migrateSeed()
+    {
+        Artisan::call('db:seed', [
+            '--force' => true
+        ]);
+    }
+
+    public function appDown()
+    {
+        Artisan::call('down');
+    }
+
+    public function appUp()
+    {
+        Artisan::call('up');
+    }
 }

@@ -71,7 +71,7 @@ class Commands extends Component
 
         $this->reportComment = '';
         if (auth()->user()->hasAnyRole('Admin','SuperAdmin')) {
-         $this->clients = User::select(['nom','prenom','id'])->get();
+         $this->clients = User::role('Client')->select(['nom','prenom','id'])->get();
         }
     }
 
