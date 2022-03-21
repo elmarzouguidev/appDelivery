@@ -6,7 +6,7 @@
                 @include('livewire.sameleon.command.filters')
             @endif
 
-            <div class="{{ $class }}">
+            <div class="{{ $class }}" wire:key="appCommands">
                 <div class="card">
                     <div class="card-body">
                         <div class="row">

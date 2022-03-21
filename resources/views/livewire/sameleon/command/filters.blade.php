@@ -1,4 +1,4 @@
-<div class="col-lg-2" id="filters-list">
+<div wire:key="appFilters" class="col-lg-2" id="filters-list">
     <form>
         <div class="card">
             <div class="card-body">
