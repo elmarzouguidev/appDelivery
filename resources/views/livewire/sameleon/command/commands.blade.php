@@ -1,10 +1,12 @@
 <div>
     <div class="row">
-        <div>
-            @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin') && $showFilters)
+
+        @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin') && $showFilters)
+            <div>
                 @include('livewire.sameleon.command.filters')
-            @endif
-        </div>
+            </div>
+        @endif
+
         <div class="{{ $class }}">
             <div class="card">
                 <div class="card-body">
