@@ -38,6 +38,7 @@
 
         window.addEventListener('hidden.bs.modal', event => {
             //$("#commands_list").load(window.location.href + " #commands_list");
+       
             window.location.reload();
         });
 
