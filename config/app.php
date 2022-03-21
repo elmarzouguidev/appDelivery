@@ -183,7 +183,9 @@ return [
 
         App\Providers\RepositoryServiceProvider::class,
 
-        App\Providers\HelpersServiceProvider::class
+        App\Providers\HelpersServiceProvider::class,
+
+        App\Providers\HealthServiceProvider::class
 
     ],
 

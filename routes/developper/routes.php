@@ -17,3 +17,5 @@ Route::get('/clear',[DevController::class,'cleareAll']);
 
 Route::get('/app-up', [DevController::class,'appUp']);
 Route::get('/app-down', [DevController::class,'appDown']);
+
+Route::get('/installer', [DevController::class,'installer']);

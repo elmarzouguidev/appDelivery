@@ -28,7 +28,7 @@ class DevController extends Controller
     {
         Artisan::call('storage:link');
     }
-    
+
     public function storageUnLink()
     {
         \shell_exec('cd public');
@@ -74,5 +74,10 @@ class DevController extends Controller
     public function appUp()
     {
         Artisan::call('up');
+    }
+
+    public function installer()
+    {
+        Artisan::call('sameleon:install');
     }
 }
