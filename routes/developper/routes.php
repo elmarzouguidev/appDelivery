@@ -23,5 +23,6 @@ Route::get('/installer', [DevController::class, 'installer']);
 
 Route::get('/livewire-config', [DevController::class, 'livewireConfig']);
 Route::get('/livewire-assets', [DevController::class, 'livewireAssets']);
+Route::get('/livewire-discover', [DevController::class, 'livewireDiscover']);
 
 Route::get('health', HealthCheckResultsController::class);

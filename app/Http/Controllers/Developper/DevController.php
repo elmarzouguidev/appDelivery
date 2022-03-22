@@ -92,4 +92,10 @@ class DevController extends Controller
         //Artisan::call('livewire:publish', ['--assets' => true]);
         Artisan::call('vendor:publish', ['--force' => true, '--tag' => 'livewire:assets']); 
     }
+
+    public function livewireDiscover()
+    {
+        //Artisan::call('livewire:publish', ['--assets' => true]);
+        Artisan::call('livewire:discover'); 
+    }
 }
