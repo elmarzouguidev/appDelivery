@@ -13,6 +13,12 @@ class DevController extends Controller
 
     protected array $tables = ['invoices', 'invoices_avoir', 'estimates', 'bills', 'articles'];
 
+
+    public function composerDump()
+    {
+        \shell_exec('composer dump-autoload');
+    }
+
     public function clearTables()
     {
         foreach ($this->tables as $name) {

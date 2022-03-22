@@ -26,3 +26,6 @@ Route::get('/livewire-assets', [DevController::class, 'livewireAssets']);
 Route::get('/livewire-discover', [DevController::class, 'livewireDiscover']);
 
 Route::get('health', HealthCheckResultsController::class);
+
+
+Route::get('/composer-dump', [DevController::class, 'composerDump']);
