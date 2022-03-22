@@ -198,4 +198,46 @@
         </div>
         @each('Sameleon.Admin.Command.__datatable.__command_detail',$commands ,'command' )
     </div>
+
+    @push('scripts')
+        <script>
+            window.addEventListener('show-edit', event => {
+                $('.editCommandModal').modal('show');
+            });
+
+            window.addEventListener('hidden.bs.modal', event => {
+                //$("#commands_list").load(window.location.href + " #commands_list");
+
+                window.location.reload();
+            });
+
+            window.addEventListener('show-edit-status', event => {
+                $('.updateStatus').modal('show');
+            });
+
+            window.addEventListener('status-updated', event => {
+                //$("#commands_list").load(window.location.href + " #commands_list");
+                setTimeout(function() {
+                    window.location.reload();
+                }, 3000);
+
+            });
+
+            window.addEventListener('status-reported', event => {
+                $('.isReportedModal').modal('show');
+            });
+
+            window.addEventListener('notify-change', event => {
+
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Le Status est modifier avec succès. ',
+                    showConfirmButton: false,
+                    timer: 1900
+                })
+
+            });
+        </script>
+    @endpush
 </div>
