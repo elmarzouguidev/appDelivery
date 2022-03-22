@@ -83,11 +83,13 @@ class DevController extends Controller
 
     public function livewireConfig()
     {
-        Artisan::call('livewire:publish', ['--config']);
+        //Artisan::call('livewire:publish', ['--config' => true]);
+        Artisan::call('vendor:publish', ['--force' => true, '--tag' => 'livewire:config']); 
     }
 
     public function livewireAssets()
     {
-        Artisan::call('livewire:publish', ['--assets']);
+        //Artisan::call('livewire:publish', ['--assets' => true]);
+        Artisan::call('vendor:publish', ['--force' => true, '--tag' => 'livewire:assets']); 
     }
 }
