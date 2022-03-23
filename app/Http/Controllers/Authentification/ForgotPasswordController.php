@@ -14,7 +14,7 @@ class ForgotPasswordController extends Controller
 
     public function showLinkRequestForm()
     {
-        return view('theme.Authentification.Password.forgot');
+        return view('Sameleon.Admin.Auth.Password.forgot');
     }
 
 }

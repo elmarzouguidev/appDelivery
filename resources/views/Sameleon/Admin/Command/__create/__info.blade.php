@@ -46,15 +46,11 @@
     <label class="form-label">Numéro de command</label>
     <div class="input-group mb-4">
 
-        <span class="input-group-text" id="invoice_prefix">
-       
+        <span class="input-group-text" id="command_number">
+            <i class="bx bx-cart-alt"></i>
         </span>
         <input type="text" class="form-control @error('code') is-invalid @enderror" name="code"
-            value="" aria-describedby="invoice_prefix" readonly>
-        @error('code')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-        @enderror
+            value="" aria-describedby="command_number" readonly>
+
     </div>
 </div>

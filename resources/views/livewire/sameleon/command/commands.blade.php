@@ -90,10 +90,6 @@
                                             <p class="text-strong mb-0">{{ $command->client_city }}</p>
                                         </td>
                                         <td>
-                                            {{-- <i class="mdi mdi-circle text-info font-size-10"></i>
-                                    {{ __('status.statuses.' . $command->status) }} --}}
-
-
                                             @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
                                                 <button wire:click="editStatus('{{ $command->uuid }}')" type="button"
                                                     class="btn btn-sm {{ __('status.classes.' . $command->status) }} waves-effect waves-light">
@@ -152,13 +148,7 @@
                                                     class="text-success">
                                                     <i class="mdi mdi-pencil font-size-18"></i>
                                                 </a>
-                                                <a href="#" class="text-danger" onclick="
-                                                var result = confirm('Are you sure you want to delete this command ?');
-
-                                                if(result){
-                                                    event.preventDefault();
-                                                    document.getElementById('delete-order-{{ $command->uuid }}').submit();
-                                                }">
+                                                <a href="#" class="text-danger deleteCommandBtn" >
                                                     <i class="mdi mdi-delete font-size-18"></i>
                                                 </a>
                                             </div>

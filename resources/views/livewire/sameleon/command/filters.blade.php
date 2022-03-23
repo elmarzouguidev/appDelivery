@@ -74,9 +74,18 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <button wire:click.prevent="setfilter()" type="button" class="btn btn-primary">
-                            Appliquer le filtre
-                        </button>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <button wire:click.prevent="setfilter()" type="button" class="btn btn-sm btn-primary">
+                                    Appliquer
+                                </button>
+                            </div>
+                            <div class="col-lg-6">
+                                <button wire:click.prevent="resetfilter()" type="button" class="btn btn-sm btn-info">
+                                    Reset le filtre
+                                </button>
+                            </div>
+                        </div>
 
                     </div>
                 </div>

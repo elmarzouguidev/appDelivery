@@ -24,17 +24,17 @@ class Command extends Model
 
     protected $with = ['products'];
 
-    protected $fillable = ['status', 'price_total', 'frais','invoice_id'];
+    protected $fillable = ['status', 'price_total', 'frais', 'invoice_id'];
 
     protected  $casts = [
         'due_date' => 'date:Y-m-d',
         'delivered_at' => 'date:Y-m-d',
-        
+
     ];
-    
+
     public function client()
     {
-        return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function products()
@@ -74,6 +74,11 @@ class Command extends Model
         //return $this->products()->sum('price_ht');
 
         return number_format($this->products()->sum('price_total'), 2);
+    }
+
+    public function getDaysActiveAttribute()
+    {
+        return $this->created_at->diffInDays($this->updated_at);
     }
 
     public function scopeFromTo(Builder $query, $dateFrom, $dateTo): Builder

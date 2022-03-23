@@ -58,7 +58,7 @@ class Commands extends Component
             $commands = $command->withSum('products', 'product_command.price_total')
                 ->with('invoice:uuid,id')->get();
         }
-      //  $commands =  $command->with('products')->get();
+        //  $commands =  $command->with('products')->get();
 
         return view('livewire.sameleon.command.commands', compact('commands'));
     }
@@ -70,8 +70,8 @@ class Commands extends Component
         $this->reportTime = now()->format('d-m-Y');
 
         $this->reportComment = '';
-        if (auth()->user()->hasAnyRole('Admin','SuperAdmin')) {
-         $this->clients = User::role('Client')->select(['nom','prenom','id'])->get();
+        if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin')) {
+            $this->clients = User::role('Client')->select(['nom', 'prenom', 'id'])->get();
         }
     }
 
@@ -80,7 +80,6 @@ class Commands extends Component
 
         $this->class = "col-lg-10";
         $this->showFilters = !$this->showFilters;
-
     }
 
     public function editCommand(Command $command)
@@ -150,7 +149,7 @@ class Commands extends Component
             return;
         }
 
-        if ($this->data && array_key_exists('from_to', $this->data) && isset($this->data['from_to'])) {
+        if ($this->data && array_key_exists('from_to', $this->data) && isset($this->data['from_to']) && !is_string($this->data['from_to'])) {
 
             $this->data['from_to'] = implode(',', array_reverse($this->data['from_to']));
         }
@@ -159,6 +158,11 @@ class Commands extends Component
         $this->filter = $this->data;
 
         //$this->data = null;
-       // dd($this->data);
+        // dd($this->data);
+    }
+
+    public function resetfilter()
+    {
+        $this->data = null;
     }
 }

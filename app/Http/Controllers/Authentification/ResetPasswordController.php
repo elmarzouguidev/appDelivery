@@ -25,11 +25,10 @@ class ResetPasswordController extends Controller
     {
         $token = $request->route()->parameter('token');
 
-        return view('theme.Authentification.Password.reset')->with(
+        return view('Sameleon.Admin.Auth.Password.reset')->with(
             ['token' => $token, 'email' => $request->email]
         );
     }
-
 
     private function redirectTo()
     {

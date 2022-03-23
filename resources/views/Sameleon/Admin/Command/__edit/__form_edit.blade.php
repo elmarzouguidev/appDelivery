@@ -1,5 +1,4 @@
 <div class="row">
-
     <div class="col-lg-12">
         @if (session('success'))
             <div class="alert alert-success">
@@ -11,6 +10,11 @@
                 {{ session('error') }}
             </div>
         @endif
+        {{--<div class="card">
+            <div class="card-body">
+                <button type="button" class="btn btn-danger"> Supprimer cette command</button>
+            </div>
+        </div>--}}
         <form action="{{ $command->update_url }}" method="post">
             @csrf
             <div class="card">
@@ -24,20 +28,23 @@
                             @include('Sameleon.Admin.Command.__edit.__info')
 
                             <div class="col-lg-12">
-                                @include('Sameleon.Admin.Command.__edit.__date_commande')
-                                  
+                                @include(
+                                    'Sameleon.Admin.Command.__edit.__date_commande'
+                                )
+
                             </div>
                         </div>
 
                         <div class="col-lg-6">
-                    
-                            @include('Sameleon.Admin.Command.__edit.__select_city')
-                            
+
+                            @include(
+                                'Sameleon.Admin.Command.__edit.__select_city'
+                            )
+
                             <div class=" mb-4">
                                 <label>Adresse du client *</label>
-                                <textarea name="client_address" id="textarea"
-                                    class="form-control @error('client_address') is-invalid @enderror" maxlength="225"
-                                    rows="5">{{ $command->client_address }}</textarea>
+                                <textarea name="client_address" id="textarea" class="form-control @error('client_address') is-invalid @enderror"
+                                    maxlength="225" rows="5">{{ $command->client_address }}</textarea>
 
                                 @error('client_address')
                                     <span class="invalid-feedback" role="alert">
@@ -51,7 +58,7 @@
             </div>
             <div class="card">
                 <div class="card-body">
-             
+
                     <p class="card-title-desc">Entrer les information de la commande</p>
                     <div class="row">
                         <div class="col-lg-12 mb-4">
@@ -74,9 +81,9 @@
                                     <h5 class="my-0 text-info">
                                         <i class="mdi mdi-alarm-panel-outline me-3"></i>
                                         Frais de Livraison : 14.00 DH
-                                       
+
                                     </h5>
-                       
+
                                 </div>
                             </div>
                         </div>

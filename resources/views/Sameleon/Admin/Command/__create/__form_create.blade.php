@@ -34,7 +34,7 @@
                             <div class=" mb-4">
                                 <label>Adresse du client *</label>
                                 <textarea name="client_address" id="textarea"
-                                    class="form-control @error('client_address') is-invalid @enderror" maxlength="225"
+                                    class="form-control @error('client_address') is-invalid @enderror"
                                     rows="5" required></textarea>
 
                                 @error('client_address')
