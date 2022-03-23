@@ -17,24 +17,4 @@ class ForgotPasswordController extends Controller
         return view('theme.Authentification.Password.forgot');
     }
 
-    /**
-     * password broker for admin guard.
-     * 
-     * @return \Illuminate\Contracts\Auth\PasswordBroker
-     */
-    public function broker()
-    {
-        return Password::broker('admins');
-    }
-
-    /**
-     * Get the guard to be used during authentication
-     * after password reset.
-     * 
-     * @return \Illuminate\Contracts\Auth\StatefulGuard
-     */
-    public function guard()
-    {
-        return Auth::guard('admin');
-    }
 }

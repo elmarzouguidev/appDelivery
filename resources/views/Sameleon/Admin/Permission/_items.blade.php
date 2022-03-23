@@ -70,7 +70,7 @@
                     </div>
                 @endif
 
-                <form id="clientForm" action="{{route('admin:permissions.store')}}" method="post">
+                <form id="permissionForm" action="{{route('admin:permissions.store')}}" method="post">
                     @csrf
                     <div class="row">
                         <div class="col-sm-12">

@@ -41,7 +41,7 @@
                                 <a href="{{ route('home') }}" class="auth-logo-light">
                                     <div class="avatar-md profile-user-wid mb-4">
                                         <span class="avatar-title rounded-circle bg-light">
-                                            <img src="{{ asset('assets/images/logo-light.svg') }}" alt=""
+                                            <img src="{{ asset('images/logo.png') }}" alt=""
                                                 class="rounded-circle" height="34">
                                         </span>
                                     </div>
@@ -50,8 +50,8 @@
                                 <a href="{{ route('home') }}" class="auth-logo-dark">
                                     <div class="avatar-md profile-user-wid mb-4">
                                         <span class="avatar-title rounded-circle bg-light">
-                                            <img src="{{ asset('assets/images/logo.svg') }}" alt=""
-                                                class="rounded-circle" height="34">
+                                            <img src="{{ asset('images/logo.png') }}" alt=""
+                                                class="rounded-circle" height="80">
                                         </span>
                                     </div>
                                 </a>
@@ -129,7 +129,7 @@
                             <script>
                                 document.write(new Date().getFullYear())
                             </script>
-                            SAMELEON GROUP <i class="mdi mdi-heart text-danger"></i> by Elmarzougui.net
+                            SAMELEON GROUP <i class="mdi mdi-heart text-danger"></i> by <a href="https://elmarzougui.net" target="_blank"> Elmarzougui.net </a>
 
                         </div>
                     </div>
