@@ -164,5 +164,6 @@ class Commands extends Component
     public function resetfilter()
     {
         $this->data = null;
+        $this->render();
     }
 }

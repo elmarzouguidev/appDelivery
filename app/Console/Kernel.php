@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\Sameleon\DumpCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -13,7 +14,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        DumpCommand::class
     ];
 
     /**
@@ -25,13 +26,15 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command(\Spatie\Health\Commands\RunHealthChecksCommand::class)->everyMinute();
-        
+       /* $schedule->command(\Spatie\Health\Commands\RunHealthChecksCommand::class)->everyMinute();
+
         $schedule->command('model:prune', [
             '--model' => [
                 \Spatie\Health\Models\HealthCheckResultHistoryItem::class,
             ],
-        ])->daily();
+        ])->daily();*/
+        $schedule->command('dumper:run')->everyMinute();
+
     }
 
     /**
