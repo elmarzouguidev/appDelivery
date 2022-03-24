@@ -2,6 +2,7 @@
 
 namespace App\Models\Sameleon;
 
+use App\Notifications\Sameleon\ResetPasswordNotification;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -81,7 +82,7 @@ class User extends Authenticatable
 
     public function commands()
     {
-        return $this->hasMany(Command::class);
+        return $this->hasMany(Command::class)->orderBy('created_at', 'DESC');;
     }
 
     public function products()
@@ -91,12 +92,49 @@ class User extends Authenticatable
 
     public function invoices()
     {
-        return $this->hasMany(Invoice::class);
+        return $this->hasMany(Invoice::class)->orderBy('created_at', 'DESC');;
     }
 
     public function city()
     {
         return $this->belongsTo(City::class);
+    }
+
+    public function scopeWithLastLogin($query)
+    {
+        return $query->addSelect([
+            'last_logged_in_id' => UserLogin::select('id')
+                // ->whereColumn('customer_id', 'customers.id')
+                ->where('user_id', $this->id)
+                ->orderBy('logged_in_at', 'desc')
+                ->limit(1),
+        ])->with(['lastLogin'])->first();
+    }
+
+    //https://laravel.com/docs/8.x/collections#method-pop
+    public function GetLoginHistory()
+    {
+        $sessionsAll = $this->loginHistory()->get() ?? [];
+        $sessionsAll->pop(); //remove las login because it's getted from scopeWithLastLogin() function
+        return collect($sessionsAll->all());
+    }
+
+    public function lastLogin()
+    {
+        return $this->belongsTo(UserLogin::class, 'last_logged_in_id');
+    }
+
+    public function loginHistory()
+    {
+        return $this->hasMany(UserLogin::class);
+    }
+
+    
+    /*****Notifications */
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
     }
 
     public static function boot()

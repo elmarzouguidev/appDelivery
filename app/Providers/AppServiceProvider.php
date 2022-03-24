@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
+use App\Http\Middleware\Cache\CacheResponseMiddleware;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -29,8 +31,10 @@ class AppServiceProvider extends ServiceProvider
         Carbon::setLocale(config('app.locale'));
 
         Schema::defaultStringLength(125); // On MySQL 8.0 use defaultStringLength(125)
-      //  Schema::defaultStringLength(191);
+        //  Schema::defaultStringLength(191);
 
-      //  $this->app->make('Storage')::makeDirectory('Abdo');
+        //  $this->app->make('Storage')::makeDirectory('Abdo');
+
+        $this->app->singleton(CacheResponseMiddleware::class);
     }
 }

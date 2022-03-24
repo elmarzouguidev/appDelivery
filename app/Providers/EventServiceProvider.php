@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
+use App\Listeners\SaveLastLoginListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Auth\Events\Login;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -20,6 +22,10 @@ class EventServiceProvider extends ServiceProvider
         ],
         'Spatie\MediaLibrary\MediaCollections\Events\MediaHasBeenAdded' => [
             'App\Listeners\MediaListeners'
+        ],
+
+        Login::class => [
+            SaveLastLoginListener::class,
         ],
     ];
 
