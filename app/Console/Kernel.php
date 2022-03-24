@@ -33,7 +33,7 @@ class Kernel extends ConsoleKernel
                 \Spatie\Health\Models\HealthCheckResultHistoryItem::class,
             ],
         ])->daily();*/
-        $schedule->command('dumper:run')->everyMinute();
+       // $schedule->command('dumper:run')->everyMinute();
 
     }
 
