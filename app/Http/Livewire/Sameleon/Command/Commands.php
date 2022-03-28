@@ -79,7 +79,11 @@ class Commands extends Component
     {
 
         $this->class = "col-lg-10";
+        
         $this->showFilters = !$this->showFilters;
+
+        if(!$this->showFilters) $this->class = "col-lg-12";
+  
     }
 
     public function editCommand(Command $command)
