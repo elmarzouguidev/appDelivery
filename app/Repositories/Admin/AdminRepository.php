@@ -3,8 +3,7 @@
 
 namespace App\Repositories\Admin;
 
-
-use App\Models\User;
+use App\Models\Sameleon\User;
 use App\Repositories\AppRepository;
 use Illuminate\Database\Eloquent\Collection;
 

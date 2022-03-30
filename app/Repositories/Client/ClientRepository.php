@@ -3,7 +3,7 @@
 
 namespace App\Repositories\Client;
 
-use App\Models\Client;
+use App\Models\Sameleon\User;
 use App\Repositories\AppRepository;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -17,14 +17,14 @@ class ClientRepository extends AppRepository implements ClientInterface
 
     private $options;
 
-    public function __construct(Client $client)
+    public function __construct(User $client)
     {
         $this->client = $client;
 
         $this->options = config('app-config');
     }
 
-    public function __instance(): Client
+    public function __instance(): User
     {
         if (!$this->instance) {
             $this->instance = $this->client;
@@ -40,7 +40,7 @@ class ClientRepository extends AppRepository implements ClientInterface
     public function getClients($fields = [])
     {
         if ($this->useCache()) {
-           // dd('yes cache');
+            // dd('yes cache');
             return $this->setCache()->remember('all_clients_cache', $this->timeToLive(), function () use ($fields) {
 
                 return $this->client->all($fields);
@@ -69,7 +69,7 @@ class ClientRepository extends AppRepository implements ClientInterface
     {
         return $this->client->whereId($id);
     }
-    
+
     public function select(array $fields)
     {
         return $this->client->select($fields);

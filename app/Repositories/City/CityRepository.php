@@ -3,7 +3,7 @@
 
 namespace App\Repositories\City;
 
-use App\Models\Client;
+
 use App\Models\Sameleon\City;
 use App\Repositories\AppRepository;
 use Illuminate\Database\Eloquent\Collection;

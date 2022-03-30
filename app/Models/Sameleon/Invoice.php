@@ -14,14 +14,14 @@ class Invoice extends Model
     use GetModelByUuid;
 
 
-    protected $fillable = ['status', 'type','invoice_date'];
+    protected $fillable = ['status', 'type', 'invoice_date'];
 
     // protected $dates = ['due_date'];
 
     protected  $casts = [
 
-       'invoice_date' => 'date:Y-m-d',
-        
+        'invoice_date' => 'date:Y-m-d',
+
     ];
 
     public function getFormatedPriceHtAttribute()
@@ -46,7 +46,7 @@ class Invoice extends Model
 
     public function client()
     {
-        return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function articles()
