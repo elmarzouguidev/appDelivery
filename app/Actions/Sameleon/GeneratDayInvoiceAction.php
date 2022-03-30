@@ -14,14 +14,14 @@ class GeneratDayInvoiceAction
     public function handle()
     {
 
-        $this->invoice = Invoice::whereDay('created_at', now()->format('d'))->where('client_id', auth('client')->id())->first();
+        $this->invoice = Invoice::whereDay('created_at', now()->format('d'))->where('user_id', auth()->id())->first();
 
         if ($this->invoice) {
             $this->addItems();
         } else {
             $this->invoice = new Invoice();
             $this->invoice->invoice_date = now()->format('Y-m-d');
-            $this->invoice->client()->associate(auth('client')->id());
+            $this->invoice->client()->associate(auth()->id());
             $this->invoice->save();
         }
     }
@@ -29,7 +29,7 @@ class GeneratDayInvoiceAction
     private function addItems()
     {
 
-        $commands = auth('client')
+        $commands = auth()
             ->user()
             ->commands()
             ->whereStatus(Status::LIVRE)
