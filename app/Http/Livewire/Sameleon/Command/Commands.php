@@ -23,6 +23,8 @@ class Commands extends Component
 
     public $showEditStatus = false;
 
+    public $canPolled = false;
+
     public $cities;
 
     public $clients;
@@ -42,6 +44,9 @@ class Commands extends Component
         'reportTime' => 'required',
         'reportComment' => 'required|string',
     ];
+
+
+    protected $listeners = ['runPoll','closePoll'];
 
     public function render()
     {
@@ -63,6 +68,15 @@ class Commands extends Component
         return view('livewire.sameleon.command.commands', compact('commands'));
     }
 
+    public function runPoll()
+    {
+       $this->canPolled = true;
+    }
+    public function closePoll()
+    {
+       $this->canPolled = false;
+    }
+
     public function mount()
     {
         $this->showEdit = false;
@@ -79,11 +93,10 @@ class Commands extends Component
     {
 
         $this->class = "col-lg-10";
-        
+
         $this->showFilters = !$this->showFilters;
 
-        if(!$this->showFilters) $this->class = "col-lg-12";
-  
+        if (!$this->showFilters) $this->class = "col-lg-12";
     }
 
     public function editCommand(Command $command)
@@ -143,7 +156,7 @@ class Commands extends Component
         $this->dispatchBrowserEvent('status-updated');
     }
 
-    /********************Filters */
+    /********************Filters **************************/
 
     public function setfilter()
     {
@@ -168,6 +181,7 @@ class Commands extends Component
     public function resetfilter()
     {
         $this->data = null;
-        $this->render();
+
+        $this->emit('refresh');
     }
 }

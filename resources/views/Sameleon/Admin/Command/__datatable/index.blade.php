@@ -32,6 +32,19 @@
     <script src="{{ asset('js/pages/datatables.init.js') }}"></script>
 
     <script>
+
+        $(window).blur(function(){
+
+           Livewire.emit('runPoll');
+           console.log('run');
+        });
+
+        $(window).focus(function(){
+
+            Livewire.emit('closePoll');
+            console.log('close');
+        });
+
         window.addEventListener('show-edit', event => {
             $('.editCommandModal').modal('show');
         });

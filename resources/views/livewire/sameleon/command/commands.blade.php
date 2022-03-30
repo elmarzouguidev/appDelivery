@@ -8,7 +8,7 @@
 
             <div class="{{ $class }}" wire:key="appCommands">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body" {{ $canPolled ? 'wire:poll.10s':''}}>
                         <div class="row">
                             <div class="col-lg-8">
 
