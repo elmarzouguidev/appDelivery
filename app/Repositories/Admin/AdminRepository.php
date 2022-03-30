@@ -42,12 +42,11 @@ class AdminRepository extends AppRepository implements AdminInterface
             //dd('oui');
             return $this->setCache()->remember('all_admins_cache', $this->timeToLive(), function () {
 
-                return $this->admin->all();
-
+                return $this->admin->role(['Admin', 'SuperAdmin'])->get();
             });
         }
         //dd('nooo');
-        return $this->admin->all();
+        return $this->admin->role(['Admin', 'SuperAdmin'])->get();
     }
 
     /**
