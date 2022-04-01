@@ -185,6 +185,8 @@ return [
 
         App\Providers\HelpersServiceProvider::class,
 
+        App\Providers\GeneratorServiceProvider::class,
+
        // App\Providers\HealthServiceProvider::class
 
     ],

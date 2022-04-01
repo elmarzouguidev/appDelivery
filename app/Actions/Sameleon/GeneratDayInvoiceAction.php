@@ -14,14 +14,19 @@ class GeneratDayInvoiceAction
     public function handle()
     {
 
-        $this->invoice = Invoice::whereDay('created_at', now()->format('d'))->where('user_id', auth()->id())->first();
+        $this->invoice = Invoice::whereDay('created_at', now()->format('d'))
+            ->where('user_id', auth()->id())
+            ->where('user_uuid', auth()->user()->uuid)
+            ->first();
 
         if ($this->invoice) {
             $this->addItems();
         } else {
+
             $this->invoice = new Invoice();
             $this->invoice->invoice_date = now()->format('Y-m-d');
             $this->invoice->client()->associate(auth()->id());
+            $this->invoice->user_uuid = auth()->user()->uuid;
             $this->invoice->save();
         }
     }
@@ -33,7 +38,7 @@ class GeneratDayInvoiceAction
             ->user()
             ->commands()
             ->whereStatus(Status::LIVRE)
-            ->whereDay('created_at', now()->format('d'))
+            //->whereDay('created_at', now()->format('d'))
             ->doesntHave('articles')
             ->withSum('products', 'product_command.price_total')
             ->latest()->get();
@@ -42,10 +47,11 @@ class GeneratDayInvoiceAction
 
             $newCommands =  $commands->map(function ($item, $key) {
 
-                $item->update(['invoice_id' => $this->invoice->id]);
+                $item->update(['invoice_id' => $this->invoice->id, 'invoice_uuid' => $this->invoice->uuid]);
 
                 return [
                     'command_id' => $item->id,
+                    'command_uuid' => $item->uuid,
                     'code_command' => $item->code,
                     'date_command' => $item->created_at->format('d-m-Y'),
                     'city' => $item->city->name,

@@ -35,13 +35,13 @@
 
         $(window).blur(function(){
 
-           Livewire.emit('runPoll');
-           console.log('run');
+          // Livewire.emit('runPoll');
+          // console.log('run');
         });
 
         $(window).focus(function(){
 
-            Livewire.emit('closePoll');
+           // Livewire.emit('closePoll');
             console.log('close');
         });
 

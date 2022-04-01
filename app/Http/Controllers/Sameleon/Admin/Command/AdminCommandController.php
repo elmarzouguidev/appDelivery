@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Sameleon\Admin\Command;
 
+use App\Actions\Sameleon\GeneratDayInvoiceAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Sameleon\Command\CommandFormRequest;
 use App\Http\Requests\Sameleon\Command\CommandUpdateFormRequest;
@@ -13,6 +14,8 @@ class AdminCommandController extends Controller
 {
     public function index()
     {
+
+        GeneratDayInvoiceAction::run();
 
         $cities = app(CityInterface::class)->getCities();
 

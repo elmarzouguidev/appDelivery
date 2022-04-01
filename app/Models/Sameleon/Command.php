@@ -24,7 +24,13 @@ class Command extends Model
 
     protected $with = ['products'];
 
-    protected $fillable = ['status', 'price_total', 'frais', 'invoice_id'];
+    protected $fillable = [
+        'status',
+        'price_total',
+        'frais',
+        'invoice_id',
+        'invoice_uuid'
+    ];
 
     protected  $casts = [
         'due_date' => 'date:Y-m-d',

@@ -14,7 +14,12 @@ class Invoice extends Model
     use GetModelByUuid;
 
 
-    protected $fillable = ['status', 'type', 'invoice_date'];
+    protected $fillable = [
+        'status',
+        'type',
+        'invoice_date',
+        'user_id'
+    ];
 
     // protected $dates = ['due_date'];
 

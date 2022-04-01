@@ -20,7 +20,8 @@ class Article extends Model
         'status',
         'price_total',
         'frais',
-        'command_id'
+        'command_id',
+        'command_uuid'
     ];
 
     protected  $casts = [
@@ -49,5 +50,4 @@ class Article extends Model
     {
         return number_format($this->prix_unitaire, 2);
     }
-    
 }

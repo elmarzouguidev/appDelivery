@@ -57,7 +57,7 @@
                     <div class="col-lg-2 col-md-2">
                         <div class="input-daterange input-group" data-provide="datepicker">
                             <input type="text" wire:model.defer="data.from_to.to"
-                                class="form-control @error('date_fin') is-invalid @enderror" name="end"
+                                class="form-control @error('date_fin') is-invalid @enderror" name="end" placeholder="to"
                                 onchange="this.dispatchEvent(new InputEvent('input'))">
                         </div>
                     </div>
