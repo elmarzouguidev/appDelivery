@@ -1,12 +1,13 @@
 <div>
     <div>
+        @include('livewire.sameleon.command.__new_filters')
         <div class="row">
 
-            @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin') && $showFilters)
+            {{--@if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin') && $showFilters)
                 @include('livewire.sameleon.command.filters')
-            @endif
+            @endif--}}
 
-            <div class="{{ $class }}" wire:key="appCommands">
+            <div class="col-lg-12" wire:key="appCommands">
                 <div class="card">
                     <div class="card-body" {{ $canPolled ? 'wire:poll.10s':''}}>
                         <div class="row">
@@ -14,11 +15,11 @@
 
                                 <div class="col-lg-8 mb-4">
 
-                                    @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
+                                    {{--@if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
                                         <button wire:click="showUpFilter()" type="button" class="btn btn-primary">
                                             Filters
                                         </button>
-                                    @endif
+                                    @endif--}}
                                     <button class="btn btn-info" type="button" class="btn btn-info  btn-sm"
                                         data-bs-toggle="modal" data-bs-target=".addCommandModal">
                                         Ajouter une commande
