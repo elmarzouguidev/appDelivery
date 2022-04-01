@@ -1,6 +1,8 @@
 <div>
     <div>
-        @include('livewire.sameleon.command.__new_filters')
+        @if(auth()->user()->hasAnyRole('Admin','SuperAdmin'))
+         @include('livewire.sameleon.command.__new_filters')
+        @endif
         <div class="row">
 
             {{--@if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin') && $showFilters)
