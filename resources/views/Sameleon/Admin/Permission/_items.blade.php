@@ -15,7 +15,7 @@
                                 <th class="align-middle">Permission ID</th>
                                 <th class="align-middle">Nom</th>
                                 <th class="align-middle">Type</th>
-                                <th class="align-middle">Action</th>
+                                {{--<th class="align-middle">Action</th>--}}
                             </tr>
                         </thead>
                         <tbody>
@@ -30,7 +30,7 @@
                                     <td><a href="javascript: void(0);" class="text-body fw-bold">#{{$permission->id}}</a> </td>
                                     <td>{{$permission->name}}</td>
                                     <td>{{$permission->guard_name}}</td>
-                                    <td>
+                                    {{--<td>
                                         <div class="d-flex gap-3">
                                             <a href="#" class="text-danger"
                                             onclick="document.getElementById('delete-permission-{{$permission->id}}').submit();"
@@ -38,14 +38,14 @@
                                                 <i class="mdi mdi-delete font-size-18"></i>
                                             </a>
                                         </div>
-                                    </td>
+                                    </td>--}}
                                 </tr>
 
-                                <form id="delete-permission-{{$permission->id}}" method="post" action="{{route('admin:permissions.delete')}}">
+                                {{--<form id="delete-permission-{{$permission->id}}" method="post" action="{{route('admin:permissions.delete')}}">
                                     @csrf
                                     @method('DELETE')
                                     <input type="hidden" name="permissionId" value="{{$permission->id}}">
-                                </form>
+                                </form>--}}
 
                             @endforeach
                         </tbody>

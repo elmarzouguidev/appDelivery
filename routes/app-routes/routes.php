@@ -5,7 +5,7 @@ use App\Http\Controllers\Administration\Admin\DashboardController;
 use App\Http\Controllers\Administration\Client\ClientController;
 
 use App\Http\Controllers\Administration\Import\CSVImportController;
-use App\Http\Controllers\Administration\PermissionRole\PermissionRoleController;
+
 use App\Http\Controllers\Administration\Profil\ProfilController;
 use App\Http\Controllers\Administration\Setting\CompanySettingsController;
 use Illuminate\Support\Facades\Route;
@@ -46,17 +46,6 @@ Route::group(['prefix' => 'clients'], function () {
     Route::group(['prefix' => 'overview'], function () {
         Route::get('/client/{client}', [ClientController::class, 'show'])->name('clients.show');
     });
-});
-
-Route::group(['prefix' => 'permissions-and-roles', 'middleware' => ['role:SuperAdmin']], function () {
-
-    Route::get('/roles', [PermissionRoleController::class, 'index'])->name('permissions-roles.index');
-    Route::post('/roles', [PermissionRoleController::class, 'createRole'])->name('permissions-roles.add');
-    Route::delete('/roles', [PermissionRoleController::class, 'deleteRole'])->name('permissions-roles.delete');
-
-    Route::get('/permissions', [PermissionRoleController::class, 'indexPermission'])->name('permissions-roles.permissions');
-    Route::post('/permissions', [PermissionRoleController::class, 'createPermission'])->name('permissions-roles.add.permissions');
-    Route::delete('/permissions', [PermissionRoleController::class, 'deletePermission'])->name('permissions-roles.delete.permissions');
 });
 
 

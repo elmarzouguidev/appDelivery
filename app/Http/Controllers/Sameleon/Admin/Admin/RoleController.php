@@ -11,7 +11,7 @@ class RoleController extends Controller
 {
     public function index()
     {
-        $roles = Role::paginate(10);
+        $roles = Role::paginate(20);
 
         return view('Sameleon.Admin.Role.index', compact('roles'));
     }

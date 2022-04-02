@@ -87,7 +87,7 @@ Route::group(['prefix' => 'auth/admins'], function () {
     });
 });
 
-Route::group(['middleware' => ['role:SuperAdmin','cache_response']], function () {
+Route::group(['middleware' => ['role:SuperAdmin']], function () {
 
     Route::group(['prefix' => 'auth/permissions'], function () {
 

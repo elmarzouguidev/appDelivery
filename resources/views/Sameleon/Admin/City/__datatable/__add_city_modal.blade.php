@@ -24,9 +24,9 @@
                         </div>
                     </div>
                     <div class="row mb-4">
-                        <label for="name" class="col-form-label col-lg-2">Frais *</label>
+                        <label for="frais" class="col-form-label col-lg-2">Frais *</label>
                         <div class="col-lg-10">
-                            <input id="number" name="name" type="text"
+                            <input id="number" name="frais" type="text"
                                 class="form-control @error('frais') is-invalid @enderror"
                                 placeholder="Entrer le frais de livraison" required>
                             @error('frais')
