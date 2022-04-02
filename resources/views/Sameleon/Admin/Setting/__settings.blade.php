@@ -32,7 +32,7 @@
                     <div class="mb-3 row">
                         <label for="rc" class="col-md-2 col-form-label">RC</label>
                         <div class="col-md-10">
-                            <input class="form-control" type="number" value="{{ $setting->rc }}" placeholder="RC"
+                            <input class="form-control" name="rc" type="number" value="{{ $setting->rc }}" placeholder="RC"
                                 id="rc">
                         </div>
                     </div>

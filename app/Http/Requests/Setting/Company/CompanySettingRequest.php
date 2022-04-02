@@ -30,7 +30,7 @@ class CompanySettingRequest extends FormRequest
             'addresse' => ['required', 'string'],
             'telephone' => ['required', 'phone:MA'],
             'email' => ['required', 'email'],
-            'rc' => ['nullable', 'numeric'],
+            'rc' => ['required', 'numeric'],
             'ice' => ['required', 'numeric'],
             'cnss' => ['nullable', 'numeric'],
             'patente' => ['nullable', 'numeric'],
