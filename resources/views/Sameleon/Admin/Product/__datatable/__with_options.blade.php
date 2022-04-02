@@ -6,9 +6,9 @@
                     <div class="col-lg-8">
 
                         <div class="col-lg-4 mb-4">
-                            <a href="#" type="button" onclick="openFilters()" class="btn btn-primary" >
+                            {{--<a href="#" type="button" onclick="openFilters()" class="btn btn-primary" >
                                 Filters
-                            </a>
+                            </a>--}}
                             <a href="{{route('admin:products.create')}}" type="button" class="btn btn-info">
                                 Ajouter un Produit
                             </a>
