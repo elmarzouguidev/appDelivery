@@ -14,7 +14,11 @@ class AdminProductController extends Controller
     public function index()
     {
 
-        $products = Product::with('client')->get();
+        if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin')) {
+            $products = Product::with('client')->get();
+        } else {
+            $products = auth()->user()->products()->get();
+        }
 
         return view('Sameleon.Admin.Product.__datatable.index', compact('products'));
     }
@@ -29,7 +33,7 @@ class AdminProductController extends Controller
 
     public function store(ProductFormRequest $request)
     {
-       
+
         $this->authorize('create', Product::class);
         $product = new Product();
         $product->name = $request->name;

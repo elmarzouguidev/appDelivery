@@ -3,7 +3,6 @@
 use Spatie\Health\Http\Controllers\HealthCheckResultsController;
 use App\Http\Controllers\Developper\DevController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Artisan;
 
 Route::get('/clear-tables', [DevController::class, 'clearTables'])->name('truncateModels');
 Route::get('/link', [DevController::class, 'storageLink']);

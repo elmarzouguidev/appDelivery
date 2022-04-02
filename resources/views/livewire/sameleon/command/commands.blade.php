@@ -1,7 +1,7 @@
 <div>
     <div>
         @if(auth()->user()->hasAnyRole('Admin','SuperAdmin'))
-         @include('livewire.sameleon.command.__new_filters')
+          @include('livewire.sameleon.command.__new_filters')
         @endif
         <div class="row">
 
