@@ -125,7 +125,7 @@ Route::group(['middleware' => ['role:SuperAdmin']], function () {
 Route::group(['prefix' => 'auth/settings'], function () {
 
     Route::get('/', [SettingController::class, 'index'])->name('settings.index');
-    Route::post('/', [SettingController::class, 'store'])->name('settings.store');
+    Route::post('/', [SettingController::class, 'update'])->name('settings.store');
 });
 
 

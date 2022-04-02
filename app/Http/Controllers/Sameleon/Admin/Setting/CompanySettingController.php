@@ -1,20 +1,29 @@
 <?php
 
-namespace App\Http\Controllers\Sameleon\Admin\Admin;
+namespace App\Http\Controllers\Sameleon\Admin\Setting;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Setting\Company\CompanySettingRequest;
 use App\Settings\CompanySettings;
 
-class SettingController extends Controller
+class CompanySettingController extends Controller
 {
-
     public function index(CompanySettings $settings)
     {
 
-        return view('Sameleon.Admin.Setting.index', [
-            'setting' => $settings,
+        return view('theme.pages.Setting.index', [
+            'name' => $settings->name,
+            'website' => $settings->website,
+            'logo' => $settings->logo,
+            'addresse' => $settings->addresse,
+            'telephone' => $settings->telephone,
+            'email' => $settings->email,
+            'rc' => $settings->rc,
+            'ice' => $settings->ice,
+            'cnss' => $settings->cnss,
+            'patente' => $settings->patente,
+            'if' => $settings->if,
         ]);
     }
 
@@ -22,7 +31,6 @@ class SettingController extends Controller
         CompanySettingRequest $request,
         CompanySettings $settings
     ) {
-        dd('oui im here');
         $settings->name = $request->name;
         $settings->website = $request->website;
         $settings->logo = $request->logo;
