@@ -78,10 +78,23 @@
         </ul>
     </li>
 @endif
-<li>
-    <a href="{{ route('admin:settings.index') }}" class="waves-effect">
-        <i class="bx bx-wrench"></i>
-        <span key="t-settings">Settings</span>
-    </a>
 
+<li>
+
+    <a href="javascript: void(0);" class="has-arrow waves-effect">
+        <i class="bx bx-wrench"></i>
+        <span key="t-settings">{{ __('Settings') }}</span>
+    </a>
+     <ul class="sub-menu" aria-expanded="false">
+        <li>
+            <a href="{{ route('admin:settings.index') }}"
+                key="t-company">{{ __('Société') }}
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('admin:settings.invoice') }}"
+                key="t-invoice">{{ __('Facture') }}
+            </a>
+        </li>
+    </ul> 
 </li>

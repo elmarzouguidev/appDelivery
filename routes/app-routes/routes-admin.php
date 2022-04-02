@@ -126,6 +126,11 @@ Route::group(['prefix' => 'auth/settings'], function () {
 
     Route::get('/', [SettingController::class, 'index'])->name('settings.index');
     Route::post('/', [SettingController::class, 'update'])->name('settings.store');
+
+    Route::group(['prefix' => 'invoice'], function () {
+        Route::get('/', [SettingController::class, 'invoice'])->name('settings.invoice');
+        Route::post('/', [SettingController::class, 'invoiceUpdate'])->name('settings.invoice.store');
+    });
 });
 
 

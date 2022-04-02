@@ -13,7 +13,7 @@ class DocumentRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class DocumentRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'invoice_prefix' => ['required', 'string'],
+            'invoice_start' => ['required', 'numeric'],
         ];
     }
 }
