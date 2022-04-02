@@ -54,6 +54,7 @@ class SettingController extends Controller
     public function invoiceUpdate(DocumentRequest $request, DocumentSettings $settings)
     {
         $settings->invoice_start = (integer)$request->invoice_start;
+        
         $settings->invoice_prefix = $request->invoice_prefix;
 
         $settings->save();
