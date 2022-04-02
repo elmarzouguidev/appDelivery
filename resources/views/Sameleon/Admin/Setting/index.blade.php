@@ -3,7 +3,8 @@
 @section('content')
     <div class="container-fluid">
 
-        <h1>Encours ...<h1>
+        @include('Sameleon.Admin.Setting.__section_title')
+        @include('Sameleon.Admin.Setting.__settings')
 
     </div>
 @endsection

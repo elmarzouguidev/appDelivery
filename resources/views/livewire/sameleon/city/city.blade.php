@@ -78,7 +78,7 @@
                                             <a href="#" wire:click="editCity('{{ $city->uuid }}')" class="text-success">
                                                 <i class="mdi mdi-pencil font-size-18"></i>
                                             </a>
-                                            <a href="#" class="text-danger" onclick="
+                                            {{--<a href="#" class="text-danger" onclick="
                                                     var result = confirm('Are you sure you want to delete this city ?');
     
                                                     if(result){
@@ -86,15 +86,15 @@
                                                         document.getElementById('delete-city-{{ $city->uuid }}').submit();
                                                     }">
                                                 <i class="mdi mdi-delete font-size-18"></i>
-                                            </a>
+                                            </a>--}}
                                         </div>
                                     </td>
-                                    <form id="delete-city-{{ $city->uuid }}" method="post"
+                                    {{--<form id="delete-city-{{ $city->uuid }}" method="post"
                                         action="{{ route('admin:cities.delete') }}">
                                         @csrf
                                         @method('DELETE')
                                         <input type="hidden" name="cityId" value="{{ $city->uuid }}">
-                                    </form>
+                                    </form>--}}
                                 </tr>
                             @endforeach
 
