@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Sameleon\Admin\City;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Sameleon\City\CityFormRequest;
+use App\Http\Requests\Sameleon\City\CityUpdateFormRequest;
 use App\Models\Sameleon\City;
 use App\Repositories\City\CityInterface;
 use Illuminate\Http\Request;
@@ -13,16 +14,16 @@ class AdminCityController extends Controller
     public function index()
     {
 
-        $this->authorize('viewAny',City::class);
+        $this->authorize('viewAny', City::class);
 
-        $cities = app(CityInterface::class)->getCities();
+        //$cities = app(CityInterface::class)->getCities();
 
-        return view('Sameleon.Admin.City.__datatable.index', compact('cities'));
+        return view('Sameleon.Admin.City.__datatable.index');
     }
 
     public function store(CityFormRequest $request)
     {
-        $this->authorize('create',City::class);
+        $this->authorize('create', City::class);
 
         $city = City::create($request->validated());
 
@@ -33,10 +34,20 @@ class AdminCityController extends Controller
         return redirect()->back()->with('error', 'error ...');
     }
 
+    public function update(CityUpdateFormRequest $request, City $city)
+    {
+
+        $city->name = $request->name;
+        $city->frais = $request->frais;
+        $city->save();
+
+        return redirect()->back()->with('success', 'la ville a été modifier avec success');
+    }
+
     public function delete(Request $request)
     {
-        
-        $this->authorize('delete',City::class);
+
+        $this->authorize('delete', City::class);
 
         $request->validate(['cityId' => 'required|uuid']);
 

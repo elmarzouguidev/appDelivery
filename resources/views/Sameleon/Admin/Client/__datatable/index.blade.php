@@ -7,6 +7,8 @@
 
         @include('Sameleon.Admin.Product.__datatable.__with_options')
 
+       
+
     </div>
 @endsection
 
