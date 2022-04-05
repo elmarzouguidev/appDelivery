@@ -174,6 +174,15 @@ class Command extends Model
 
     public function scopeTotalCommandsCancled($query)
     {
+        if (auth()->user()->hasRole('Client')) {
+            return $query
+                ->whereUserId(auth()->id())
+                ->whereUuid(auth()->user()->uuid)
+                ->whereIn('status', [
+                    Status::ANNULE,
+                    Status::REFUSE
+                ])->count();
+        }
         return $query->whereIn('status', [
             Status::ANNULE,
             Status::REFUSE
@@ -182,6 +191,17 @@ class Command extends Model
 
     public function scopeTotalChiffre($query)
     {
+
+        if (auth()->user()->hasRole('Client')) {
+
+            return $query
+                ->whereUserId(auth()->id())
+                ->whereUuid(auth()->user()->uuid)
+                ->whereStatus(Status::LIVRE)
+                ->withSum('products', 'product_command.price_total')
+                ->get()
+                ->sum('products_sum_product_commandprice_total');
+        }
 
         return $query->whereStatus(Status::LIVRE)->withSum('products', 'product_command.price_total')->get()->sum('products_sum_product_commandprice_total');
         /*return $this->with('products')->get()->each(function ($command) {
