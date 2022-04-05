@@ -157,6 +157,15 @@ class Command extends Model
 
     public function scopeTotalCommandsReported($query)
     {
+        if (auth()->user()->hasRole('Client')) {
+            return $query
+                ->whereUserId(auth()->id())
+                ->whereUuid(auth()->user()->uuid)
+                ->whereIn('status', [
+                    Status::REPORTE,
+                    Status::INTERESSE
+                ])->count();
+        }
         return $query->whereIn('status', [
             Status::REPORTE,
             Status::INTERESSE
