@@ -18,25 +18,25 @@ class AdminController extends Controller
     public function index()
     {
 
-        $this->authorize('viewAny',User::class);
+        $this->authorize('viewAny', User::class);
 
-        $users = User::role(['Admin','SuperAdmin'])->get();
+        $users = User::role(['Admin', 'SuperAdmin'])->get();
 
         return view('Sameleon.Admin.Admin.index', compact('users'));
     }
 
     public function create()
     {
-        $this->authorize('create',User::class);
+        $this->authorize('create', User::class);
 
         $roles = Role::all();
-        
+
         return view('Sameleon.Admin.Admin.__create.index', compact('roles'));
     }
 
     public function store(AdminFormRequest $request)
     {
-        $this->authorize('create',User::class);
+        $this->authorize('create', User::class);
 
         $user = new User();
         $user->nom = $request->nom;
@@ -55,7 +55,7 @@ class AdminController extends Controller
 
     public function edit(User $user)
     {
-        $this->authorize('update',$user);
+        $this->authorize('update', $user);
 
         $permissions = Permission::all();
 
@@ -66,7 +66,7 @@ class AdminController extends Controller
 
     public function update(AdminUpdateFormRequest $request, User $user)
     {
-       $this->authorize('update',$user);
+        $this->authorize('update', $user);
 
         $user->nom = $request->nom;
         $user->prenom = $request->prenom;
@@ -95,16 +95,16 @@ class AdminController extends Controller
 
     public function delete(Request $request)
     {
-      
-        $request->validate(['userId'=> 'required|uuid']);
+
+        $request->validate(['userId' => 'required|uuid']);
 
         $admin = User::whereUuid($request->userId)->firstOrFail();
 
-        $this->authorize('delete',$admin);
+        $this->authorize('delete', $admin);
 
         if ($admin) {
 
-           // $admin->delete();
+            // $admin->delete();
 
             return redirect()->back()->with('success', "L' Admin  a éte supprimer  avec success");
         }

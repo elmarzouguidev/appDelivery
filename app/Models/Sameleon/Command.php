@@ -100,21 +100,51 @@ class Command extends Model
 
     public function scopeTotalCommands($query)
     {
+        if (auth()->user()->hasRole('Client')) {
+            return $query->whereUserId(auth()->id())
+                ->whereUuid(auth()->user()->uuid)
+                ->count();
+        }
         return $query->count();
     }
 
     public function scopeTotalCommandsLivred($query)
     {
+        if (auth()->user()->hasRole('Client')) {
+            return $query->whereUserId(auth()->id())
+                ->whereUuid(auth()->user()->uuid)
+                ->whereStatus(Status::LIVRE)
+                ->count();
+        }
+
         return $query->whereStatus(Status::LIVRE)->count();
     }
 
     public function scopeTotalCommandsEncours($query)
     {
+        if (auth()->user()->hasRole('Client')) {
+            return $query->whereUserId(auth()->id())
+                ->whereUuid(auth()->user()->uuid)
+                ->whereIn('status', [Status::ENCOURS, Status::EXPEDIE])->count();
+        }
         return $query->whereIn('status', [Status::ENCOURS, Status::EXPEDIE])->count();
     }
 
     public function scopeTotalCommandsNonResponde($query)
     {
+        if (auth()->user()->hasRole('Client')) {
+            return $query
+                ->whereUserId(auth()->id())
+                ->whereUuid(auth()->user()->uuid)
+                ->whereIn('status', [
+                    Status::PAS_DE_REPONSE,
+                    Status::PAS_DE_REPONSE_2,
+                    Status::PAS_DE_REPONSE_3,
+                    Status::PAS_DE_REPONSE_4,
+                    Status::PAS_DE_REPONSE_5,
+                    Status::INJOIGNABLE
+                ])->count();
+        }
         return $query->whereIn('status', [
             Status::PAS_DE_REPONSE,
             Status::PAS_DE_REPONSE_2,
