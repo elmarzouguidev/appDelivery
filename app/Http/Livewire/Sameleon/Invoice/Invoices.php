@@ -4,9 +4,12 @@ namespace App\Http\Livewire\Sameleon\Invoice;
 
 use App\Models\Sameleon\Invoice;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Invoices extends Component
 {
+    use WithFileUploads;
+
     //public $invoices;
 
     public $addBiller = false;
@@ -19,6 +22,7 @@ class Invoices extends Component
     public $mode;
     public $reference;
     public $notes;
+    public $recu;
 
     public function render()
     {
@@ -45,13 +49,9 @@ class Invoices extends Component
 
     public function storeBill(Invoice $invoice)
     {
-        // $validatedData = $this->validate();
-        //dd('Ouii  Im here', $validatedData);
-
-        //$this->authorize('create', Bill::class);
-
+        //dd($this->recu);
         $this->validate();
-        
+
         $invoice->loadSum('articles', 'price_total');
 
         $biller = [
@@ -64,9 +64,14 @@ class Invoices extends Component
             'price_tva' => $invoice->articles_sum_price_total,
         ];
 
-        $invoice->bill()->create($biller);
+        $bill = $invoice->bill()->create($biller);
 
         $invoice->update(['cloture' => true]);
+
+        if ($this->recu) {
+
+            $bill->addMedia($this->recu)->toMediaCollection('bills_recu');
+        }
 
         //return redirect(route('commercial:bills.index'))->with('success', "Le règlement  a éte ajouter avec success");
         $this->dispatchBrowserEvent('invoice-paid');
@@ -88,7 +93,8 @@ class Invoices extends Component
             'date' => ['required', 'date'],
             'mode' => ['required', 'string'],
             'reference' => ['nullable', 'string'],
-            'notes' => ['nullable', 'string']
+            'notes' => ['nullable', 'string'],
+            'recu' => ['nullable', 'file', 'mimes:png,jpg,jpeg'],
 
         ];
     }
