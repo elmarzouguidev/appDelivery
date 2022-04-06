@@ -13,7 +13,7 @@ class Invoice extends Model
     use HasFactory;
     use UuidGenerator;
     use GetModelByUuid;
-    
+
     use InvoiceScope;
 
 
@@ -50,6 +50,11 @@ class Invoice extends Model
     public function getFormatedTotalBrutAttribute()
     {
         return number_format($this->articles->sum('price_total'), 2);
+    }
+
+    public function bill()
+    {
+        return $this->morphOne(Bill::class, 'billable');
     }
 
     public function client()
