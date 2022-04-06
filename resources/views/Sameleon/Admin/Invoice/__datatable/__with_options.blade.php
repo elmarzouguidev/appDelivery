@@ -30,6 +30,8 @@
                             <th scope="col">Montant</th>
                             <th scope="col">Date création et cloture</th>
                             <th scope="col">Date versement</th>
+                            <th scope="col">Cloturé</th>
+                            <th scope="col">Versé</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -46,9 +48,12 @@
                                     </div>
                                 </td> --}}
                                 <td>
-                                    <a href="{{-- $invoice->url --}}" class="text-body fw-bold">
-                                        {{ $invoice->code }}
+                                    <a target="_blank" href="{{ route('public.show.invoice', [$invoice->uuid, 'has_header' => true]) }}" class="text-body fw-bold">
+                                    
+                                        <i class="mdi mdi-file-pdf-box font-size-18"></i>
+                                        {{ $invoice->full_number }}
                                     </a>
+
                                 </td>
                                 <td>
                                     <a href="{{-- $invoice->url --}}" class="text-body fw-bold">
@@ -64,6 +69,16 @@
                                 </td>
                                 <td>
                                     {{ $invoice->created_at->format('d-m-Y') }}
+                                </td>
+                                <td>
+                                    {{ $invoice->created_at->format('d-m-Y') }}
+                                </td>
+
+                                <td>
+                                    {{ $invoice->cloture}}
+                                </td>
+                                <td>
+                                    oui
                                 </td>
 
                                 <td>
