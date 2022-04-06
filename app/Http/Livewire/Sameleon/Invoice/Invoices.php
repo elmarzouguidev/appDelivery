@@ -15,7 +15,7 @@ class Invoices extends Component
     public $addBiller = false;
     public $invoicer;
 
-    /****Bill ***/
+    /****Bill ****/
 
     public $price;
     public $date;
@@ -72,7 +72,7 @@ class Invoices extends Component
 
             $bill->addMedia($this->recu)->toMediaCollection('bills_recu');
         }
-
+        $this->recu = null;
         //return redirect(route('commercial:bills.index'))->with('success', "Le règlement  a éte ajouter avec success");
         $this->dispatchBrowserEvent('invoice-paid');
     }
