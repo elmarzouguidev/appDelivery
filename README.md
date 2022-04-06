@@ -8,8 +8,6 @@
 
 ### Premium Partners
 
-- **[HaymacProduction](https://haymacproduction.ma/)**
-  
 - **[ElmarzouguiWeb](https://elmarzougui-web.com/)**
 
 

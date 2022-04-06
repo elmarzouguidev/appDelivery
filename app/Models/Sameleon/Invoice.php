@@ -18,7 +18,7 @@ class Invoice extends Model
 
 
     protected $fillable = [
-        'status',
+        'cloture',
         'type',
         'invoice_date',
         'user_id'
@@ -29,6 +29,7 @@ class Invoice extends Model
     protected  $casts = [
 
         'invoice_date' => 'date:Y-m-d',
+        'cloture' => 'boolean'
 
     ];
 

@@ -7,9 +7,16 @@ use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Bill extends Model
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+
+
+class Bill extends Model implements HasMedia
 {
     use HasFactory;
+    use InteractsWithMedia;
+
     use GetModelByUuid;
     use UuidGenerator;
 
@@ -43,16 +50,20 @@ class Bill extends Model
         return number_format($this->sum('price_total'), 2);
     }
 
-    public function getEditUrlAttribute()
+    public function registerMediaConversions(Media $media = null): void
     {
-        return route('commercial:bills.edit', $this->uuid);
+        $this->addMediaConversion('normal')
+            ->width(800)
+            ->height(800)
+            ->sharpen(10)
+            ->optimize();
     }
+
 
     public static function boot()
     {
 
         parent::boot();
-
         static::creating(function ($model) {
 
             $number = self::max('id') + 1;
