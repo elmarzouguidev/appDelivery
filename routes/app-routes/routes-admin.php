@@ -8,6 +8,7 @@ use App\Http\Controllers\Sameleon\Admin\AdminHomeController;
 use App\Http\Controllers\Sameleon\Admin\City\AdminCityController;
 use App\Http\Controllers\Sameleon\Admin\Client\ClientController;
 use App\Http\Controllers\Sameleon\Admin\Command\AdminCommandController;
+use App\Http\Controllers\Sameleon\Admin\Invoice\AdminInvoiceController;
 use App\Http\Controllers\Sameleon\Admin\Product\AdminProductController;
 
 use Illuminate\Support\Facades\Route;
@@ -70,6 +71,12 @@ Route::group(['prefix' => 'clients'], function () {
         Route::post('/{client}', [ClientController::class, 'update'])->name('clients.update');
     });
 });
+
+Route::group(['prefix' => 'invoices'], function () {
+
+    Route::get('/', [AdminInvoiceController::class, 'index'])->name('invoices.index');
+});
+
 
 Route::group(['prefix' => 'auth/admins'], function () {
 

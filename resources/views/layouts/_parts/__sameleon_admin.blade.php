@@ -36,6 +36,28 @@
     </ul> --}}
 </li>
 
+
+<li class="menu-title" key="t-invoices">Factures</li>
+
+<li>
+    <a href="{{ route('admin:invoices.index') }}">
+        <i class="bx bx-file"></i>
+        <span key="t-invoices">{{ __('Factures') }}</span>
+    </a>
+    {{-- <ul class="sub-menu" aria-expanded="false">
+        <li>
+            <a href="{{ route('admin:products.index') }}"
+                key="t-invoices">{{ __('Produits') }}
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('admin:products.create') }}"
+                key="t-invoices">{{ __('Ajouter un Produit') }}
+            </a>
+        </li>
+    </ul> --}}
+</li>
+
 @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
     <li class="menu-title" key="t-components">{{ __('navbar.advanced') }}</li>
 

@@ -2,6 +2,7 @@
 
 namespace App\Models\Sameleon;
 
+use App\Scopes\InvoiceScope;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,6 +13,8 @@ class Invoice extends Model
     use HasFactory;
     use UuidGenerator;
     use GetModelByUuid;
+    
+    use InvoiceScope;
 
 
     protected $fillable = [

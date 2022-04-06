@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 class InvoiceController extends Controller
 {
 
-
     public function showInvoice(Request $request, Invoice $invoice)
     {
         $request->validate(['has_header' => ['required', 'boolean']]);
