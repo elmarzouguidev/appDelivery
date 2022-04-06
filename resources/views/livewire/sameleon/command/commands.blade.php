@@ -89,8 +89,8 @@
                                             {{ $command->client_name }}
                                             <p class="text-strong mb-0"><strong>{{ $command->client_phone }}</strong>
                                             </p>
-                                            <p class="text-strong mb-0">{{ $command->client_address }}</p>
-                                            <p class="text-strong mb-0">{{ $command->client_city }}</p>
+                                            <p class="text-strong mb-0">{{ $command->city->name }}</p>
+                                            <p class="text-strong mb-0">{{ $command->client_address }}</p> 
                                         </td>
                                         <td>
                                             @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))

@@ -42,6 +42,7 @@ class AdminProductController extends Controller
         $product->qte_global = $request->qte_global;
 
         $product->client()->associate(auth()->id());
+        $product->user_uuid = auth()->user()->uuid;
 
         $product->save();
 
@@ -91,6 +92,8 @@ class AdminProductController extends Controller
 
         if ($product) {
 
+            $product->commands()->detach();
+            
             $product->delete();
 
             return redirect(route('admin:products.index'))->with('success', "Le produit a éte supprimer avec success");
