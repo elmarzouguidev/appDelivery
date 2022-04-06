@@ -48,7 +48,12 @@
                                     </div>
                                 </td> --}}
                                 <td>
-                                    <a target="_blank" href="{{ route('public.show.invoice', [$invoice->uuid, 'has_header' => true]) }}" class="text-body fw-bold">
+                                    <a 
+                                        target="_blank" 
+                                        href="{{ route('public.show.invoice', [$invoice->uuid, 'has_header' => true]) }}" 
+                                        class="text-body fw-bold"
+                                        style="color:blueviolet !important"
+                                    >
                                     
                                         <i class="mdi mdi-file-pdf-box font-size-18"></i>
                                         {{ $invoice->full_number }}
