@@ -14,7 +14,6 @@ Route::get('/seed', [DevController::class, 'migrateSeed']);
 Route::get('/cache', [DevController::class, 'cacheAll']);
 Route::get('/clear', [DevController::class, 'cleareAll']);
 
-
 Route::get('/app-up', [DevController::class, 'appUp']);
 Route::get('/app-down', [DevController::class, 'appDown']);
 

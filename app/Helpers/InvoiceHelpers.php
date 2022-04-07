@@ -17,19 +17,16 @@ trait InvoiceHelpers
 
     public function nextEstimateNumber()
     {
-
         return Estimate::max('code') + 1;
     }
 
     public function invoicePrefix()
     {
-
         return config('app-config.invoices.prefix');
     }
 
     public function estimatePrefix()
     {
-
         return config('app-config.estimates.prefix');
     }
 

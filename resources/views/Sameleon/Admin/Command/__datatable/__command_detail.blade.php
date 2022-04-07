@@ -39,17 +39,17 @@
                                     </tr>
                                 @endforeach
 
-                                <tr>
+                                {{--<tr>
                                     <td colspan="2">
                                         <h6 class="m-0 text-right">Frais : </h6>
                                     </td>
                                     <td>
                                         Free
                                     </td>
-                                </tr>
+                                </tr>--}}
                                 <tr>
                                     <td colspan="2">
-                                        <h6 class="m-0 text-right">Total : </h6>
+                                        <h6 class="m-0 text-right">Montant TOTAL : </h6>
                                     </td>
                                     <td>
                                    

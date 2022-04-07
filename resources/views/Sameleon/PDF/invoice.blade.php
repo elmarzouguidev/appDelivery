@@ -165,7 +165,7 @@
             <p>{{ optional(getCompany())->name }}</p>
             <p>
                 {{ optional(getCompany())->addresse }}
-                Tel : {{ optional(getCompany())->telephone }}
+                Tél : {{ optional(getCompany())->telephone }}
                 E-mail : {{ optional(getCompany())->email }}
             </p>
             <p>

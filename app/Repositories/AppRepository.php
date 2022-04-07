@@ -9,7 +9,6 @@ use Illuminate\Cache\CacheManager;
 class AppRepository
 {
 
-
     protected  $cache;
 
     /**

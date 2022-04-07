@@ -29,15 +29,4 @@ return [
         'due_date_after' => 10
     ],
 
-    'estimates' => [
-        'prefix' => 'DEVIS-',
-        'start_from' => 1501,
-        'due_date_after' => 10,
-        'default_condition' => "La majorité des dirigeants qui réalisent eux-mêmes leurs devis utilisent Excel pour faire leur modèle"
-    ],
-
-    'providers' => [
-        'prefix' => 'FRNS-',
-    ],
-
 ];
