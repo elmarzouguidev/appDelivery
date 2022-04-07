@@ -78,7 +78,9 @@
 
                                     <button
                                         wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::RETOURNE }})"
-                                        type="button" class="btn btn-sm btn-danger waves-effect">Retourné</button>
+                                        type="button" class="btn btn-sm btn-danger waves-effect">
+                                        Retourné
+                                    </button>
                                 </div>
                             </div>
                         </div>

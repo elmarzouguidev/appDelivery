@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Sameleon\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Sameleon\Register\FirstRegisterRequest;
 use App\Http\Requests\Sameleon\Register\RegisterFormRequest;
-use App\Models\User;
+use App\Models\Sameleon\User;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -14,10 +16,10 @@ class RegisterController extends Controller
 
     public function index()
     {
-        return view('theme.Sameleon.Register.index');
+        return view('Sameleon.Register.index');
     }
 
-    public function store(RegisterFormRequest $request)
+    public function store(FirstRegisterRequest $request)
     {
 
         $user = new User();

@@ -10,7 +10,7 @@
                 @include('livewire.sameleon.command.filters')
             @endif --}}
 
-            <div class="col-lg-12" wire:key="appCommands">
+            <div class="col-lg-12" >
                 <div class="card">
                     <div class="card-body" {{ $canPolled ? 'wire:poll.10s' : '' }}>
                         <div class="row">
@@ -70,7 +70,7 @@
                             <tbody>
 
                                 @foreach ($commands as $command)
-                                    <tr>
+                                    <tr wire:key="{{ $command->id }}">
                                         {{-- <td>
                                     <div class="form-check font-size-16">
                                         <input class="form-check-input" type="checkbox"

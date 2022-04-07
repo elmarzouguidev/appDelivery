@@ -4,7 +4,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Login | SAMELEON GROUP</title>
+    <title>Crée vote compte | SAMELEON GROUP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow" />
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
@@ -35,28 +35,12 @@
 
                                                 <h4 class="mb-3"><i
                                                         class="bx bxs-quote-alt-left text-primary h1 align-middle me-3"></i><span
-                                                        class="text-primary">5k</span>+ Satisfied clients</h4>
+                                                        class="text-primary">23</span>+ Satisfied clients</h4>
 
                                                 <div dir="ltr">
                                                     <div class="owl-carousel owl-theme auth-review-carousel"
                                                         id="auth-review-carousel">
-                                                        <div class="item">
-                                                            <div class="py-3">
-                                                                <p class="font-size-16 mb-4">" Fantastic theme with a
-                                                                    ton of options. If you just want the HTML to
-                                                                    integrate with your project, then this is the
-                                                                    package. You can find the files in the 'dist'
-                                                                    folder...no need to install git and all the other
-                                                                    stuff the documentation talks about. "</p>
-
-                                                                <div>
-                                                                    <h4 class="font-size-16 text-primary">Abs1981</h4>
-                                                                    <p class="font-size-14 mb-0">- Skote User</p>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-
+   
                                                         <div class="item">
                                                             <div class="py-3">
                                                                 <p class="font-size-16 mb-4">" If Every Vendor on Envato
@@ -109,8 +93,9 @@
                                                 {{ session('success') }}
                                             </div>
                                         @endif
+                                        {{$errors}}
                                         <form class="needs-validation" novalidate
-                                            action="{{ route('admin:auth:clients.store') }}" method="post">
+                                            action="{{ route('admin:auth:register.post') }}" method="post">
                                             @csrf
                                             @honeypot
                                             <div class="mb-3">
@@ -242,7 +227,7 @@
                                         <script>
                                             document.write(new Date().getFullYear())
                                         </script>
-                                        Sameleon GROUP <i class="mdi mdi-heart text-danger"></i> by Elmarzougui.net
+                                        Sameleon GROUP <i class="mdi mdi-heart text-danger"></i> {{--by Elmarzougui.net--}}
                                     </p>
                                 </div>
                             </div>
@@ -250,11 +235,11 @@
                         </div>
                     </div>
                 </div>
-                <!-- end col -->
+               
             </div>
-            <!-- end row -->
+      
         </div>
-        <!-- end container-fluid -->
+    
     </div>
     <script src="{{ asset('js/app.js') }}"></script>
 </body>

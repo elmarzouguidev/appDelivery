@@ -174,8 +174,10 @@ class Commands extends Component
 
         $this->filter = $this->data;
 
+        $this->dispatchBrowserEvent('refresh-datatable');
         //$this->data = null;
         // dd($this->data);
+
     }
 
     public function resetfilter()

@@ -32,16 +32,15 @@
     <script src="{{ asset('js/pages/datatables.init.js') }}"></script>
 
     <script>
+        $(window).blur(function() {
 
-        $(window).blur(function(){
-
-          // Livewire.emit('runPoll');
-          // console.log('run');
+            // Livewire.emit('runPoll');
+            // console.log('run');
         });
 
-        $(window).focus(function(){
+        $(window).focus(function() {
 
-           // Livewire.emit('closePoll');
+            // Livewire.emit('closePoll');
             console.log('close');
         });
 
@@ -107,5 +106,18 @@
                 }
             });
         });
+    </script>
+
+    <script>
+        window.addEventListener('refresh-datatable', event => {
+            console.log('oui loaded');
+            load_Datatables("{{ asset('js/pages/datatables.init.js') }}")
+        });
+
+        function load_Datatables(src) {
+            $('script[src="' + src + '"]').remove();
+            $('<script>').attr('src', src).appendTo('head');
+                
+        }
     </script>
 @endpush
