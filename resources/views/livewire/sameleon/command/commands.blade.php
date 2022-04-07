@@ -1,27 +1,28 @@
 <div>
     <div>
-        @if(auth()->user()->hasAnyRole('Admin','SuperAdmin'))
-          @include('livewire.sameleon.command.__new_filters')
+        @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
+            @include('livewire.sameleon.command.__new_filters')
         @endif
         <div class="row">
 
-            {{--@if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin') && $showFilters)
+            {{-- @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin') &&
+    $showFilters)
                 @include('livewire.sameleon.command.filters')
-            @endif--}}
+            @endif --}}
 
             <div class="col-lg-12" wire:key="appCommands">
                 <div class="card">
-                    <div class="card-body" {{ $canPolled ? 'wire:poll.10s':''}}>
+                    <div class="card-body" {{ $canPolled ? 'wire:poll.10s' : '' }}>
                         <div class="row">
                             <div class="col-lg-8">
 
                                 <div class="col-lg-8 mb-4">
 
-                                    {{--@if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
+                                    {{-- @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
                                         <button wire:click="showUpFilter()" type="button" class="btn btn-primary">
                                             Filters
                                         </button>
-                                    @endif--}}
+                                    @endif --}}
                                     <button class="btn btn-info" type="button" class="btn btn-info  btn-sm"
                                         data-bs-toggle="modal" data-bs-target=".addCommandModal">
                                         Ajouter une commande
@@ -90,7 +91,7 @@
                                             <p class="text-strong mb-0"><strong>{{ $command->client_phone }}</strong>
                                             </p>
                                             <p class="text-strong mb-0">{{ $command->city->name }}</p>
-                                            <p class="text-strong mb-0">{{ $command->client_address }}</p> 
+                                            <p class="text-strong mb-0">{{ $command->client_address }}</p>
                                         </td>
                                         <td>
                                             @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
@@ -147,13 +148,22 @@
                                                         <i class="mdi mdi-file-pdf-box font-size-18"></i>
                                                     </a>
                                                 @endif
-                                                <a href="#" wire:click="editCommand('{{ $command->uuid }}')"
+                                                {{-- <a href="#" wire:click="editCommand('{{ $command->uuid }}')"
                                                     class="text-success">
                                                     <i class="mdi mdi-pencil font-size-18"></i>
                                                 </a>
                                                 <a href="#" class="text-danger deleteCommandBtn" >
                                                     <i class="mdi mdi-delete font-size-18"></i>
-                                                </a>
+                                                </a> --}}
+
+                                                <button type="button" class="btn btn-danger btn-sm deleteCommandBtn">
+                                                    Supp
+                                                </button>
+                                                <button type="button"
+                                                    wire:click="editCommand('{{ $command->uuid }}')"
+                                                    class="btn btn-info btn-sm">
+                                                    Edit
+                                                </button>
                                             </div>
                                         </td>
                                         <form id="delete-order-{{ $command->uuid }}" method="post"
