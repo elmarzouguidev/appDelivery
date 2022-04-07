@@ -21,12 +21,12 @@
     @livewireStyles
 
 </head>
- 
+
 <body data-topbar="dark" data-sidebar-size="small-">
 
     <!-- <body data-layout="horizontal" data-topbar="dark"> -->
 
-    <div id="layout-wrapper" >
+    <div id="layout-wrapper">
 
         @include('layouts._parts.__header')
 
@@ -59,6 +59,14 @@
     <script src="{{ asset('js/app.js') }}"></script>
 
     @stack('scripts')
+
+    <script>
+        $('a[href="#"]').click(function(event) {
+
+            event.preventDefault();
+
+        });
+    </script>
 
 
 </body>
