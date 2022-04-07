@@ -10,7 +10,7 @@
                 @include('livewire.sameleon.command.filters')
             @endif --}}
 
-            <div class="col-lg-12" >
+            <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body" {{ $canPolled ? 'wire:poll.10s' : '' }}>
                         <div class="row">
@@ -156,9 +156,13 @@
                                                     <i class="mdi mdi-delete font-size-18"></i>
                                                 </a> --}}
 
-                                                <button type="button" class="btn btn-danger btn-sm deleteCommandBtn">
-                                                    Supp
-                                                </button>
+                                                @if ($command->user_id === auth()->id() && $command->user_uuid === auth()->user()->uuid)
+                                                    <button type="button"
+
+                                                        class="btn btn-danger btn-sm deleteCommandBtn">
+                                                        Supp
+                                                    </button>
+                                                @endif
                                                 <button type="button"
                                                     wire:click="editCommand('{{ $command->uuid }}')"
                                                     class="btn btn-info btn-sm">
@@ -166,12 +170,14 @@
                                                 </button>
                                             </div>
                                         </td>
-                                        <form id="delete-order-{{ $command->uuid }}" method="post"
-                                            action="{{ route('admin:commands.delete') }}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <input type="hidden" name="commandId" value="{{ $command->uuid }}">
-                                        </form>
+                                        @if ($command->user_id === auth()->id() && $command->user_uuid === auth()->user()->uuid)
+                                            <form id="delete-order-{{ $command->uuid }}" method="post"
+                                                action="{{ route('admin:commands.delete') }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <input type="hidden" name="commandId" value="{{ $command->uuid }}">
+                                            </form>
+                                        @endif
                                     </tr>
                                 @endforeach
 

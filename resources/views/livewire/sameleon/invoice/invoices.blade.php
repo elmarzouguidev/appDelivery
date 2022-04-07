@@ -83,8 +83,9 @@
                                     </td>
                                     <td>
                                         @if ($invoice->bill_count && $invoice->cloture)
-                                            <button type="button" class="btn btn-info  btn-sm" data-bs-toggle="modal"
-                                                data-bs-target=".invoiceBillDetail-{{ $invoice->id }}">
+                                            <button type="button" class="btn btn-info  btn-sm"
+                                                wire:click="billDetail('{{ $invoice->uuid }}')"
+                                            >
                                                 Détails
                                             </button>
                                         @else

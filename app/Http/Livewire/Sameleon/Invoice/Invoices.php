@@ -28,10 +28,15 @@ class Invoices extends Component
     {
 
         if (auth()->user()->hasRole('Client')) {
-            $invoices = Invoice::authClient()->get();
+            $invoices = Invoice::authClient()
+            ->with('bill')
+            ->withCount('bill')
+            ->get();
         } else {
             $invoices = Invoice::withCount('commands')
                 ->withSum('articles', 'price_total')
+                ->with('bill')
+                ->withCount('bill')
                 ->get();
             //dd($invoices);   
         }
@@ -55,6 +60,7 @@ class Invoices extends Component
         $invoice->loadSum('articles', 'price_total');
 
         $biller = [
+
             'bill_date' => $this->date,
             'bill_mode' => $this->mode,
             'reference' => $this->reference,
@@ -77,9 +83,13 @@ class Invoices extends Component
         $this->dispatchBrowserEvent('invoice-paid');
     }
 
+    public function billDetail()
+    {
+        
+    }
+
     /*public function updated($propertyName)
     {
-
         $this->validateOnly($propertyName);
     }*/
 
