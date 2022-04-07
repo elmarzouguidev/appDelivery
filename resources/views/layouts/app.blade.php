@@ -7,7 +7,7 @@
     <meta charset="utf-8" />
     <title>SAMELEON EXPRESS </title>
     <meta name="robots" content="noindex, nofollow" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta content="app_creator" name="Elmarzougui Abdelghafour" />
     <meta content="app_version" name="v 1.1" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
