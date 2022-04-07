@@ -111,7 +111,7 @@
     <script>
         window.addEventListener('refresh-datatable', event => {
             console.log('oui loaded');
-            load_Datatables("{{ asset('js/pages/datatables.init.js') }}")
+            //load_Datatables("{{ asset('js/pages/datatables.init.js') }}")
         });
 
         function load_Datatables(src) {

@@ -58,10 +58,13 @@ class Commands extends Component
             $commands =  $command->where('user_id', auth()->id())
                 ->withSum('products', 'product_command.price_total')
                 ->with(['invoice:uuid,id','city:id,name'])->get();
+
         } else {
 
             $commands = $command->withSum('products', 'product_command.price_total')
-                ->with(['invoice:uuid,id','city:id,name'])->get();
+                ->with(['invoice:uuid,id','city:id,name'])
+                ->orderBy('created_at', 'DESC')
+                ->get();
         }
         //  $commands =  $command->with('products')->get();
 
