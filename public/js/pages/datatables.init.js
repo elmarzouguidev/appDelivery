@@ -17,7 +17,7 @@ $(document).ready(function () {
         lengthChange: false,
         //buttons: ['copy', 'excel', 'pdf', 'colvis'],
         //buttons: ['excel'],
-        //order: [[0, "desc"]]
+        order: [[0, "desc"]]
     });
 
     table.buttons().container()

@@ -12,7 +12,7 @@
     <meta content="app_version" name="v 1.1" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
+    {{--<link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">--}}
 
     @yield('css')
 
