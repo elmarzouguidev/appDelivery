@@ -88,18 +88,19 @@
                                     </div>
 
                                     <div class="mt-4">
+
                                         @if (session('success'))
                                             <div class="alert alert-success">
                                                 {{ session('success') }}
                                             </div>
                                         @endif
-                                        {{$errors}}
+                                      
                                         <form class="needs-validation" novalidate
                                             action="{{ route('admin:auth:register.post') }}" method="post">
                                             @csrf
                                             @honeypot
                                             <div class="mb-3">
-                                                <label for="nom" class="form-label">Nom</label>
+                                                <label for="nom" class="form-label">Nom *</label>
                                                 <input type="text" name="nom"
                                                     class="form-control @error('nom') is-invalid @enderror" id="nom"
                                                     value="{{ old('nom') }}" placeholder="Entrer votre nom" required>
@@ -111,7 +112,7 @@
                                                 @enderror
                                             </div>
                                             <div class="mb-3">
-                                                <label for="prenom" class="form-label">Prénom</label>
+                                                <label for="prenom" class="form-label">Prénom *</label>
                                                 <input type="text" name="prenom"
                                                     class="form-control @error('prenom') is-invalid @enderror"
                                                     id="prenom" value="{{ old('prenom') }}"
@@ -124,7 +125,7 @@
                                             </div>
 
                                             <div class="mb-3">
-                                                <label for="telephone" class="form-label">Tél</label>
+                                                <label for="telephone" class="form-label">Tél *</label>
                                                 <input type="text" name="telephone"
                                                     class="form-control  @error('telephone') is-invalid @enderror"
                                                     id="telephone" value="{{ old('telephone') }}"
@@ -137,7 +138,7 @@
                                             </div>
 
                                             <div class="mb-3">
-                                                <label for="useremail" class="form-label">E-mail</label>
+                                                <label for="useremail" class="form-label">E-mail *</label>
                                                 <input type="email" name="email"
                                                     class="form-control  @error('email') is-invalid @enderror"
                                                     id="useremail" value="{{ old('email') }}"
@@ -177,7 +178,7 @@
 
                                             <div>
                                                 <p class="mb-0">By registering you agree to the Sameleon GROUP
-                                                    <a href="#" class="text-primary">Terms of Use</a>
+                                                    <a href="https://sameleon-express.ma/" target="_blank" class="text-primary">Terms of Use</a>
                                                 </p>
                                             </div>
 
@@ -187,7 +188,7 @@
                                             </div>
 
                                             <div class="mt-4 text-center">
-                                                <h5 class="font-size-14 mb-3">Sign up using</h5>
+                                                {{--<h5 class="font-size-14 mb-3">Sign up using</h5>--}}
 
                                                 {{-- <ul class="list-inline">
                                                     <li class="list-inline-item">

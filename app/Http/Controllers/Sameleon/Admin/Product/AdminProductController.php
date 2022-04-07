@@ -23,7 +23,6 @@ class AdminProductController extends Controller
         return view('Sameleon.Admin.Product.__datatable.index', compact('products'));
     }
 
-
     public function create()
     {
         $this->authorize('create', Product::class);
@@ -51,7 +50,7 @@ class AdminProductController extends Controller
             $product->addMediaFromRequest('photo')->toMediaCollection('products_photos');
         }
 
-        return redirect(route('admin:products.index'))->with('success', "L'ajoute a éte effectuer avec success");
+        return redirect(route('admin:products.index'))->with('success', "le produit a été ajouté avec succès");
     }
 
     public function edit(Product $product)
@@ -78,7 +77,7 @@ class AdminProductController extends Controller
             $product->addMediaFromRequest('photo')->toMediaCollection('products_photos');
         }
 
-        return redirect(route('admin:products.index'))->with('success', "L'update a éte effectuer avec success");
+        return redirect(route('admin:products.index'))->with('success', "L'update a éte effectuer avec succès");
     }
 
     public function delete(Request $request)
@@ -92,11 +91,11 @@ class AdminProductController extends Controller
 
         if ($product) {
 
-            $product->commands()->detach();
+            //$product->commands()->detach();
             
-            $product->delete();
+            //$product->delete();
 
-            return redirect(route('admin:products.index'))->with('success', "Le produit a éte supprimer avec success");
+            return redirect(route('admin:products.index'))->with('success', "Le produit a éte supprimer avec succès");
         }
         return redirect(route('admin:products.index'))->with('success', "error . . . ");
     }

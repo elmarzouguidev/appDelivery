@@ -34,6 +34,8 @@ class RegisterController extends Controller
 
         $user->assignRole('Client');
 
-        return redirect()->back()->with('success', 'Votre compte a été crée  avec success ');
+        //return redirect()->back()->with('success', 'Votre compte a été crée  avec success ');
+
+        return redirect(route('admin:auth:login'))->with('success', 'Votre compte a été crée  avec success ');
     }
 }

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class AuthAdminController extends Controller
 {
@@ -23,6 +24,24 @@ class AuthAdminController extends Controller
     {
         return view('Sameleon.Admin.Auth.login');
     }
+
+    /**
+     * The user has been authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function authenticated(Request $request, $user)
+    {
+        /*if (!Auth::user()->active) {
+
+            Auth::logout();
+
+            return redirect(route('admin:auth:login'))->withErrors(["votre compte n'est encore activé"]);
+        }*/
+    }
+
 
     public function logout(Request $request)
     {

@@ -10,7 +10,7 @@ Route::post('/login', [AuthAdminController::class, 'login'])->middleware('thrott
 Route::post('/logout', [AuthAdminController::class, 'logout'])->name('logout');
 
 
-Route::group(['prefix' => 'register'], function () {
+Route::group(['prefix' => 'register', 'middleware' => 'guest'], function () {
 
     Route::get('/', [RegisterController::class, 'index'])->name('register');
     Route::post('/', [RegisterController::class, 'store'])->name('register.post');
