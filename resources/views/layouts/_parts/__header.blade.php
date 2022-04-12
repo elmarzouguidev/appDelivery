@@ -89,7 +89,7 @@
                         <div class="row g-0">
                             <div class="col">
                                 <a class="dropdown-icon-item" href="#">
-                                    <img src="#" alt="Github">
+                                    
                                     <span>Support</span>
                                 </a>
                             </div>
@@ -137,7 +137,7 @@
                 </button>
             </div>
 
-            <div class="dropdown d-inline-block">
+            {{--<div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item noti-icon waves-effect"
                     id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
@@ -164,14 +164,14 @@
                                         <i class="bx bx-cart"></i>
                                     </span>
                                 </div>
-                                {{-- <div class="flex-grow-1">
+                                 <div class="flex-grow-1">
                                     <h6 class="mb-1" key="t-your-order">Ticket Confirmé</h6>
                                     <div class="font-size-12 text-muted">
                                         <p class="mb-1" key="t-grammer">Ticket Confirmé</p>
                                         <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span
                                                 key="t-min-ago">3 min ago</span></p>
                                     </div>
-                                </div> --}}
+                                </div>
                             </div>
                         </a>
                     </div>
@@ -181,7 +181,7 @@
                         </a>
                     </div>
                 </div>
-            </div>
+            </div>--}}
 
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
