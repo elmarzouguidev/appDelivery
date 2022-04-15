@@ -75,6 +75,11 @@ class Command extends Model
         return $this->belongsTo(City::class);
     }
 
+    public function reclamation()
+    {
+        return $this->hasOne(Reclamation::class);
+    }
+
     public function getTotalPriceAttribute()
     {
         //return $this->products()->sum('price_ht');

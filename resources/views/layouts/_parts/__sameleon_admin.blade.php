@@ -5,18 +5,7 @@
     </a>
 </li>
 
-<li class="menu-title" key="t-commands">Commandes</li>
-
-<li>
-    <a href="{{ route('admin:commands.index') }}" class="waves-effect">
-
-        <i class="bx bx-cart-alt"></i>
-        <span key="t-commands">{{ __('Commandes') }}</span>
-    </a>
-
-</li>
-<li class="menu-title" key="t-products">Produits</li>
-
+<li class="menu-title" key="t-stock">Stock</li>
 <li>
     <a href="{{ route('admin:products.index') }}">
         <i class="bx bx-store"></i>
@@ -36,30 +25,18 @@
     </ul> --}}
 </li>
 
-
-<li class="menu-title" key="t-invoices">Factures</li>
+<li class="menu-title" key="t-commands">Commandes</li>
 
 <li>
-    <a href="{{ route('admin:invoices.index') }}">
-        <i class="bx bx-file"></i>
-        <span key="t-invoices">{{ __('Factures') }}</span>
-    </a>
-    {{-- <ul class="sub-menu" aria-expanded="false">
-        <li>
-            <a href="{{ route('admin:products.index') }}"
-                key="t-invoices">{{ __('Produits') }}
-            </a>
-        </li>
-        <li>
-            <a href="{{ route('admin:products.create') }}"
-                key="t-invoices">{{ __('Ajouter un Produit') }}
-            </a>
-        </li>
-    </ul> --}}
-</li>
+    <a href="{{ route('admin:commands.index') }}" class="waves-effect">
 
+        <i class="bx bx-cart-alt"></i>
+        <span key="t-commands">{{ __('Commandes') }}</span>
+    </a>
+
+</li>
 @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
-    <li class="menu-title" key="t-components">{{ __('navbar.advanced') }}</li>
+    <li class="menu-title" key="t-components">{{ __('Clients') }}</li>
 
     <li>
         <a href="{{ route('admin:clients.index') }}" class="waves-effect">
@@ -69,6 +46,28 @@
         </a>
 
     </li>
+@endif    
+
+<li class="menu-title" key="t-invoices">Factures</li>
+
+<li>
+    <a href="{{ route('admin:invoices.index') }}">
+        <i class="bx bx-file"></i>
+        <span key="t-invoices">{{ __('Factures') }}</span>
+    </a>
+</li>
+
+<li class="menu-title" key="t-invoices">Réclamations</li>
+
+<li>
+    <a href="{{ route('admin:complaints.index') }}">
+        <i class='bx bx-file'></i>
+        <span key="t-complaints">{{ __('Réclamations') }}</span>
+    </a>
+</li>
+
+@if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
+    <li class="menu-title" key="t-components">{{ __('navbar.advanced') }}</li>
 
     <li>
         <a href="{{ route('admin:cities.index') }}" class="waves-effect">

@@ -10,7 +10,7 @@ use App\Http\Controllers\Sameleon\Admin\Client\ClientController;
 use App\Http\Controllers\Sameleon\Admin\Command\AdminCommandController;
 use App\Http\Controllers\Sameleon\Admin\Invoice\AdminInvoiceController;
 use App\Http\Controllers\Sameleon\Admin\Product\AdminProductController;
-
+use App\Http\Controllers\Sameleon\Admin\Reclamation\ReclamationController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [AdminHomeController::class, 'index'])->name('home');
@@ -148,4 +148,11 @@ Route::group(['prefix' => 'settings'], function () {
         Route::get('/', [SettingController::class, 'index'])->name('company');
         Route::post('/', [SettingController::class, 'store'])->name('company.store');
     });
+});
+
+Route::group(['prefix' => 'complaints'], function () {
+
+    Route::get('/', [ReclamationController::class, 'index'])->name('complaints.index');
+    Route::post('/', [ReclamationController::class, 'store'])->name('complaints.store');
+    Route::delete('/delete', [ReclamationController::class, 'delete'])->name('complaints.delete');
 });
