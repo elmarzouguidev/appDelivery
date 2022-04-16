@@ -16,14 +16,14 @@ class Reclamation extends Component
     {
         if (auth()->user()->hasRole('Client')) {
 
-            $commands  = Command::where('user_id',auth()->id())->select(['id','code'])->get();
+            $commands   = Command::where('user_id',auth()->id())->select(['id','code'])->get();
             $complaints =  SameleonReclamation::where('user_id', auth()->id())
                 ->with('command')
                 ->whereActive(true)
                 ->get();
         } else {
-            $commands  = Command::select(['id','code'])->get();
-            $complaints =  SameleonReclamation::with('client', 'command')
+            $commands   = Command::select(['id','code'])->get();
+            $complaints =  SameleonReclamation::with('user', 'command')
                 ->whereActive(true)
                 ->get();
         }

@@ -22,7 +22,7 @@ class Command extends Model
 
     //protected $appends  = ['update_url'];
 
-    protected $with = ['products'];
+    //protected $with = ['products'];
 
     protected $fillable = [
         'status',

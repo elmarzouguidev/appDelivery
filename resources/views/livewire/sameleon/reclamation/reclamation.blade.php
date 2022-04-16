@@ -17,16 +17,9 @@
                             </div>
                         </div>
                     </div>
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-                    @if (session('error'))
-                        <div class="alert alert-danger">
-                            {{ session('error') }}
-                        </div>
-                    @endif
+
+                     @include('layouts._parts.__messages')
+                     
                     <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
                         <thead>
                             <tr>
@@ -40,7 +33,7 @@
                                 <th scope="col">Command</th>
                                 <th scope="col">Message</th>
                                 <th scope="col">Client</th>
-                                <th scope="col">Date de commande</th>
+                                <th scope="col">Date de réclamation</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Action</th>
                             </tr>
@@ -65,21 +58,17 @@
                                     </td> --}}
                                     <td>
     
-                                        <p class="text-strong mb-0"><strong>{{ $complaint->code }}</strong></p>
-                                        {{ $complaint->client_name }}
-                                        <p class="text-strong mb-0"><strong>{{ $complaint->client_phone }}</strong></p>
+                                        <p class="text-strong mb-0"><strong>{{ $complaint->command->code }}</strong></p>
+                                        <p class="text-strong mb-0">{{ $complaint->command->created_at->format('d-m-Y H:i') }}</p>
                                         <p class="text-strong mb-0">{{ $complaint->client_address }}</p>
                                         <p class="text-strong mb-0">{{ $complaint->client_city }}</p>
                                     </td>
     
                                     <td>
-                                        {{ $complaint->total_price }}
+                                        {{ $complaint->message }}
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-info  btn-sm" data-bs-toggle="modal"
-                                            data-bs-target=".orderdetailsModal-{{ $order->id }}">
-                                            Détails
-                                        </button>
+                                        {{ $complaint->user->full_name }}
                                     </td>
                                     <td>
                                         <strong>date d'ajoute</strong>
@@ -98,9 +87,7 @@
                                             {{--<a href="{{ $complaint->edit_url }}" class="text-success">
                                                 <i class="mdi mdi-pencil font-size-18"></i>
                                             </a>--}}
-                                            <a href="#"  class="text-success">
-                                                <i class="mdi mdi-pencil font-size-18"></i>
-                                            </a>
+                                 
                                             <a href="#" class="text-danger" onclick="
                                                     var result = confirm('Are you sure you want to delete this complaint ?');
     

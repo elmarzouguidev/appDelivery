@@ -13,7 +13,7 @@
                     <div class="row mb-4">
                         <label for="command" class="col-form-label col-lg-2">Command *</label>
                         <div class="col-lg-10">
-                            <select wire:model.defer="command" class="form-control select2 chk-filter-client" name="command" id="clienter">
+                            <select wire:model.defer="command" class="form-control select2 chk-filter-client" name="command" id="clienter" required>
                                 <option value="">choisir la command</option>
         
                                 @foreach ($commands as $command)
@@ -29,7 +29,7 @@
                         <label for="message" class="col-form-label col-lg-2">Message *</label>
                         <div class="col-lg-10">
                         
-                            <textarea class="form-control" name="message" wire:model.defer="message" ></textarea>
+                            <textarea class="form-control" name="message" wire:model.defer="message" required></textarea>
                             @error('message')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
