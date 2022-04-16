@@ -11,6 +11,7 @@ use App\Http\Controllers\Sameleon\Admin\Command\AdminCommandController;
 use App\Http\Controllers\Sameleon\Admin\Invoice\AdminInvoiceController;
 use App\Http\Controllers\Sameleon\Admin\Product\AdminProductController;
 use App\Http\Controllers\Sameleon\Admin\Reclamation\ReclamationController;
+use App\Http\Controllers\Sameleon\Admin\Stock\StockController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [AdminHomeController::class, 'index'])->name('home');
@@ -42,6 +43,11 @@ Route::group(['prefix' => 'products'], function () {
         Route::get('/{product}', [AdminProductController::class, 'edit'])->name('products.edit');
         Route::post('/{product}', [AdminProductController::class, 'update'])->name('products.update');
     });
+});
+
+Route::group(['prefix' => 'stock'], function () {
+
+    Route::get('/', [StockController::class, 'index'])->name('stock.index');
 });
 
 

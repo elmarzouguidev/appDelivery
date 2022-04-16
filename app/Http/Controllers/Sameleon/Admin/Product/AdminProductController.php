@@ -44,6 +44,16 @@ class AdminProductController extends Controller
         $product->user_uuid = auth()->user()->uuid;
 
         $product->save();
+        
+        if ($product) {
+
+            $product->stock()->create([
+                'product_uuid' => $product->uuid,
+                'user_id' => auth()->id(),
+                'user_uuid' => auth()->user()->uuid,
+                'qte_global' => $request->qte_global
+            ]);
+        }
 
         if ($request->hasFile('photo')) {
 

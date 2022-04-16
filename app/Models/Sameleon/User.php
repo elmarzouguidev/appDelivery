@@ -100,6 +100,11 @@ class User extends Authenticatable
         return $this->belongsTo(City::class);
     }
 
+    public function stocks()
+    {
+        return $this->hasMany(Stock::class);
+    }
+
     public function scopeWithLastLogin($query)
     {
         return $query->addSelect([
@@ -129,7 +134,7 @@ class User extends Authenticatable
         return $this->hasMany(UserLogin::class);
     }
 
-    
+
     /*****Notifications */
 
     public function sendPasswordResetNotification($token)

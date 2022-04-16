@@ -1,0 +1,47 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateStocksTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('stocks', function (Blueprint $table) {
+            $table->id();
+
+            $table->uuid('uuid')->unique();
+            $table->foreignId('user_id')->constrained();
+            $table->string('user_uuid')->nullable();
+
+            $table->foreignId('product_id')->constrained();
+            $table->string('product_uuid')->nullable();
+
+            $table->unsignedBigInteger('qte_global')->default(0);
+            $table->unsignedBigInteger('qte_livre')->default(0);
+            $table->unsignedBigInteger('qte_expidite')->default(0);
+            $table->unsignedBigInteger('qte_endomage')->default(0);
+            $table->unsignedBigInteger('qte_rest')->default(0);
+
+            $table->longText('notes')->nullable();
+            $table->boolean('active')->default(true);
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('stocks');
+    }
+}

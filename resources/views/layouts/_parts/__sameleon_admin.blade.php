@@ -11,18 +11,15 @@
         <i class="bx bx-store"></i>
         <span key="t-products">{{ __('Produits') }}</span>
     </a>
-    {{-- <ul class="sub-menu" aria-expanded="false">
-        <li>
-            <a href="{{ route('admin:products.index') }}"
-                key="t-products">{{ __('Produits') }}
-            </a>
-        </li>
-        <li>
-            <a href="{{ route('admin:products.create') }}"
-                key="t-products">{{ __('Ajouter un Produit') }}
-            </a>
-        </li>
-    </ul> --}}
+</li>
+<li>
+    <a href="{{ route('admin:stock.index') }}" class="waves-effect">
+
+        <i class="bx bxs-box "></i>
+       
+        <span key="t-stock">{{ __('Stock') }}</span>
+    </a>
+
 </li>
 
 <li class="menu-title" key="t-commands">Commandes</li>

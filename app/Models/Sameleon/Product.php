@@ -22,6 +22,12 @@ class Product extends Model implements HasMedia
 
     use ModelRoutes;
 
+    
+    public function stock()
+    {
+        return $this->hasOne(Stock::class);
+    }
+
     public function client()
     {
         return $this->belongsTo(User::class,'user_id');

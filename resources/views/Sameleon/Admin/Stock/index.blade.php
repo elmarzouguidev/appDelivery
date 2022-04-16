@@ -3,9 +3,11 @@
 @section('content')
     <div class="container-fluid">
 
-        @include('Sameleon.Admin.Product.__title')
+        @include('Sameleon.Admin.Stock.__title')
 
-        @include('Sameleon.Admin.Product.__datatable.__with_options')
+        {{--@include('Sameleon.Admin.Stock.__datatable.__with_options')--}}
+
+        @livewire('sameleon.stock.stock')
 
     </div>
 @endsection
