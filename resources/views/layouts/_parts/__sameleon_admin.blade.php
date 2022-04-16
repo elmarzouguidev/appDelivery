@@ -41,7 +41,8 @@
     <li>
         <a href="{{ route('admin:clients.index') }}" class="waves-effect">
 
-            <i class="bx bx-user-circle"></i>
+            <i class="bx bxs-user-detail"></i>
+            
             <span key="t-clients">{{ __('Clients') }}</span>
         </a>
 
@@ -61,7 +62,7 @@
 
 <li>
     <a href="{{ route('admin:complaints.index') }}">
-        <i class='bx bx-file'></i>
+        <i class='bx bx-info-circle'></i>
         <span key="t-complaints">{{ __('Réclamations') }}</span>
     </a>
 </li>
@@ -72,7 +73,7 @@
     <li>
         <a href="{{ route('admin:cities.index') }}" class="waves-effect">
 
-            <i class="bx bx-user-circle"></i>
+            <i class="bx bxs-building-house"></i>
             <span key="t-cities">{{ __('Villes') }}</span>
         </a>
 
@@ -89,7 +90,7 @@
     <li>
         <a href="javascript: void(0);" class="waves-effect">
             <i class="bx bx-lock"></i>
-            <span key="t-authentication">{{ __('navbar.roles_permissions') }}</span>
+            <span key="t-authentication">{{ __('Permissions') }}</span>
         </a>
         <ul class="sub-menu" aria-expanded="false">
             <li><a href="{{ route('admin:roles.index') }}" key="t-roles">{{ __('navbar.roles') }}</a></li>
