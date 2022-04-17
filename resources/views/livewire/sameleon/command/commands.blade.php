@@ -56,12 +56,16 @@
                             </th> --}}
                                     {{-- <th scope="col">Numéro / client</th> --}}
                                     <th scope="col">Destinataire</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Prix Total</th>
-                                    <th scope="col">Détails</th>
+                                    <th scope="col">Produits</th>
+                                    <th scope="col">Prix</th>
                                     @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
                                         <th scope="col">Client</th>
                                     @endif
+                                    <th scope="col">Etat</th>
+                                    
+                                    {{--<th scope="col">Détails</th>--}}
+                                    <th scope="col">Notes</th>
+              
                                     <th scope="col">Date de commande</th>
                                     <th scope="col">Action</th>
                                 </tr>
@@ -71,21 +75,7 @@
 
                                 @foreach ($commands as $command)
                                     <tr wire:key="{{ $command->id }}">
-                                        {{-- <td>
-                                    <div class="form-check font-size-16">
-                                        <input class="form-check-input" type="checkbox"
-                                            id="client-{{ $client->id }}">
-                                        <label class="form-check-label" for="client-{{ $client->id }}"></label>
-                                    </div>
-                                </td> --}}
-                                        {{-- <td>
-                                    <a href="$client->url" class="text-body fw-bold">
-                                        {{ $order->code }}
-                                    </a>
-                                    <p class="text-strong mb-0">{{$order->client->full_name}}</p>
-                                </td> --}}
                                         <td>
-
                                             <p class="text-strong mb-0"><strong>{{ $command->code }}</strong></p>
                                             {{ $command->client_name }}
                                             <p class="text-strong mb-0"><strong>{{ $command->client_phone }}</strong>
@@ -93,6 +83,37 @@
                                             <p class="text-strong mb-0">{{ $command->city->name }}</p>
                                             <p class="text-strong mb-0">{{ $command->client_address }}</p>
                                         </td>
+                                        <td>
+                                            @foreach ($command->products as $product)
+                                                <p class="text-strong mb-0">
+                                                    <strong>{{ $product->name }}</strong>
+                                                </p>
+                                                <div>
+                                                  
+                                                    <p class="text-muted mb-0">{{ $product->price }}(DH) x
+                                                        {{ $product->pivot->quantity }}
+                                                    </p>
+                                                </div>
+
+                                            @endforeach
+
+                                        </td>
+                                        <td>
+                                            {{-- $command->products->sum('pivot.price_total') --}}
+                                            {{ number_format($command->products_sum_product_commandprice_total, 2) }}
+                                            DH
+                                        </td>
+                                        @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
+                                            <td>
+                                                @if (optional($command->client)->type === 'entreprise')
+                                                    <i class="fas fa-building me-1"></i>
+                                                @endif
+                                                @if (optional($command->client)->type === 'particulier')
+                                                    <i class="fas fa-user me-1"></i>
+                                                @endif
+                                                {{ optional($command->client)->full_name }}
+                                            </td>
+                                        @endif
                                         <td>
                                             @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
                                                 <button wire:click="editStatus('{{ $command->uuid }}')" type="button"
@@ -107,28 +128,18 @@
                                             @endif
 
                                         </td>
-                                        <td>
-                                            {{-- $command->products->sum('pivot.price_total') --}}
-                                            {{ number_format($command->products_sum_product_commandprice_total, 2) }}
-                                            DH
-                                        </td>
-                                        <td>
+                           
+                                       {{--<td>
                                             <button type="button" class="btn btn-info  btn-sm" data-bs-toggle="modal"
                                                 data-bs-target=".orderdetailsModal-{{ $command->id }}">
                                                 Détails
                                             </button>
+                                        </td>--}}
+                                        <td>
+                                            <p class=" mb-0">
+                                                {{ $command->comments()->latest()->value('content')}}
+                                            </p>
                                         </td>
-                                        @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
-                                            <td>
-                                                @if (optional($command->client)->type === 'entreprise')
-                                                    <i class="fas fa-building me-1"></i>
-                                                @endif
-                                                @if (optional($command->client)->type === 'particulier')
-                                                    <i class="fas fa-user me-1"></i>
-                                                @endif
-                                                {{ optional($command->client)->full_name }}
-                                            </td>
-                                        @endif
                                         <td>
                                             <strong>date d'ajoute</strong>
                                             <p class="text-strong mb-0">
@@ -158,7 +169,6 @@
 
                                                 @if ($command->user_id === auth()->id() && $command->user_uuid === auth()->user()->uuid)
                                                     <button type="button"
-
                                                         class="btn btn-danger btn-sm deleteCommandBtn">
                                                         Supp
                                                     </button>
@@ -205,6 +215,6 @@
             @endif
 
         </div>
-        @each('Sameleon.Admin.Command.__datatable.__command_detail',$commands ,'command' )
+        {{--@each('Sameleon.Admin.Command.__datatable.__command_detail',$commands ,'command' )--}}
     </div>
 </div>
