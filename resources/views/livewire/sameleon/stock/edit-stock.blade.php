@@ -169,19 +169,15 @@
                                                     <label>Date de modification</label>
                                                     <div class="input-group" id="datepicker1">
                                                         <input type="text" name="commande_date"
-                                                            class="form-control @error('commande_date') is-invalid @enderror"
+                                                            class="form-control"
                                                             data-date-format="dd-mm-yyyy"
-                                                            value="{{ $stock->created_at->format('d-m-Y') }}"
+                                                            value="{{ $stock->updated_at->format('d-m-Y') }}"
                                                             data-date-container='#datepicker1' data-provide="datepicker"
                                                             readonly>
 
                                                         <span class="input-group-text"><i
                                                                 class="mdi mdi-calendar"></i></span>
-                                                        @error('commande_date')
-                                                            <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $message }}</strong>
-                                                            </span>
-                                                        @enderror
+                       
                                                     </div>
                                                 </div>
 

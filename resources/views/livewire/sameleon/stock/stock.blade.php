@@ -16,7 +16,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     @include('layouts._parts.__messages')
 
                     <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
@@ -96,7 +96,7 @@
                                         </div>
                                     </td>
                                     <form id="delete-stock-{{ $stock->uuid }}" method="post"
-                                        action="{{ $stock->delete_url }}">
+                                        action="{{ route('admin:stock.delete') }}">
                                         @csrf
                                         @method('DELETE')
                                         <input type="hidden" name="stockId" value="{{ $stock->uuid }}">
