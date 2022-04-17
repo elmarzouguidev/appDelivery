@@ -1,22 +1,10 @@
-/*
-Template Name: Skote - Admin & Dashboard Template
-Author: Themesbrand
-Website: https://themesbrand.com/
-Contact: themesbrand@gmail.com
-File: Datatables Js File
-*/
-
 $(document).ready(function () {
-    $('#datatable').DataTable({
-        lengthChange: false,
-        order: [[0, "desc"]]
-    });
+    $('#datatable').DataTable();
 
     //Buttons examples
     var table = $('#datatable-buttons').DataTable({
         lengthChange: false,
-        //buttons: ['copy', 'excel', 'pdf', 'colvis'],
-        //buttons: ['excel'],
+        buttons: ['copy', 'excel', 'pdf', 'colvis'],
         order: [[0, "desc"]]
     });
 

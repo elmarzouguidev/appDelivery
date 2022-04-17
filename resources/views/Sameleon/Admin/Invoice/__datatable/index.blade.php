@@ -12,14 +12,15 @@
     </div>
 @endsection
 
+@include('layouts._parts.__datatables')
+
 @section('css')
 <link href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
 
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('assets/libs/datatables.js') }}"></script>
-    <script src="{{ asset('js/pages/datatables.init.js') }}"></script>
+
     <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
 
     <script>

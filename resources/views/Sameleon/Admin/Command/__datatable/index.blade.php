@@ -18,6 +18,8 @@
     </div>
 @endsection
 
+@include('layouts._parts.__datatables')
+
 @section('css')
     <link href="{{ asset('assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet"
         type="text/css">
@@ -28,8 +30,6 @@
     <script src="{{ asset('assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
     <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
 
-    <script src="{{ asset('assets/libs/datatables.js') }}"></script>
-    <script src="{{ asset('js/pages/datatables.init.js') }}"></script>
 
     <script>
         $(window).blur(function() {
@@ -106,18 +106,5 @@
                 }
             });
         });
-    </script>
-
-    <script>
-        window.addEventListener('refresh-datatable', event => {
-            console.log('oui loaded');
-            //load_Datatables("{{ asset('js/pages/datatables.init.js') }}")
-        });
-
-        function load_Datatables(src) {
-            $('script[src="' + src + '"]').remove();
-            $('<script>').attr('src', src).appendTo('head');
-                
-        }
     </script>
 @endpush

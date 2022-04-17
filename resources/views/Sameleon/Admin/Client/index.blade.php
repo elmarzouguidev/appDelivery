@@ -10,11 +10,4 @@
     </div>
 @endsection
 
-@section('css')
-
-@endsection
-
-@push('scripts')
-    <script src="{{ asset('assets/libs/datatables.js') }}"></script>
-    <script src="{{ asset('js/pages/datatables.init.js') }}"></script>
-@endpush
+@include('layouts._parts.__datatables')

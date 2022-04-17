@@ -5,8 +5,8 @@
         @endif
         <div class="row">
 
-            {{-- @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin') &&
-    $showFilters)
+            {{-- @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin') &&  $showFilters)
+  
                 @include('livewire.sameleon.command.filters')
             @endif --}}
 
@@ -45,7 +45,7 @@
                                 <div class="alert alert-danger">{{ $error }}</div>
                             @endforeach
                         @endif
-                        <table id="datatable" class="table table-bordered dt-responsive nowrap w-100">
+                        <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
                             <thead>
                                 <tr>
                                     {{-- <th style="width: 20px;" class="align-middle">
