@@ -36,7 +36,7 @@
                         <div class="flex-shrink-0 align-self-center">
                             <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
                                 <span class="avatar-title rounded-circle bg-primary">
-                                    <i class="bx bx-cart-alt font-size-24"></i>
+                                    <i class="bx bx-check-square font-size-24"></i>
                                 </span>
                             </div>
                         </div>

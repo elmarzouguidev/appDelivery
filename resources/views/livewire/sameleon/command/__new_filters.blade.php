@@ -75,7 +75,7 @@
                     <div class="col-lg-2 col-md-2">
                         <div class="input-daterange input-group" data-provide="datepicker">
                             <input type="text" wire:model.defer="data.from_to.from"
-                                class="form-control @error('date_depart') is-invalid @enderror" name="start"
+                                class="form-control @error('date_depart') is-invalid @enderror" name="start" placeholder="Date de début"
                                 onchange="this.dispatchEvent(new InputEvent('input'))">
 
                         </div>
@@ -83,7 +83,7 @@
                     <div class="col-lg-2 col-md-2">
                         <div class="input-daterange input-group" data-provide="datepicker">
                             <input type="text" wire:model.defer="data.from_to.to"
-                                class="form-control @error('date_fin') is-invalid @enderror" name="end" placeholder="to"
+                                class="form-control @error('date_fin') is-invalid @enderror" name="end" placeholder="Date de fin"
                                 onchange="this.dispatchEvent(new InputEvent('input'))">
                         </div>
                     </div>

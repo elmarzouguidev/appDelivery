@@ -36,7 +36,7 @@
                         <div class="flex-shrink-0 align-self-center">
                             <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
                                 <span class="avatar-title rounded-circle bg-primary">
-                                    <i class="bx bx-money font-size-24"></i>
+                                    <i class="bx bx-dollar-circle font-size-24"></i>
                                 </span>
                             </div>
                         </div>
@@ -56,7 +56,7 @@
                         <div class="flex-shrink-0 align-self-center ">
                             <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
                                 <span class="avatar-title rounded-circle bg-primary">
-                                    <i class="bx bx-money font-size-24"></i>
+                                    <i class="bx bx-dollar font-size-24"></i>
                                 </span>
                             </div>
                         </div>
