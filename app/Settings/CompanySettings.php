@@ -15,7 +15,7 @@ class CompanySettings extends Settings
     public string $email;
     public string $rc;
     public string $ice;
-    public string $cnss;
+    public ?string $cnss;
     public string $patente;
     public string $if;
 

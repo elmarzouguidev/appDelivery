@@ -38,6 +38,7 @@ class CreateCommandsTable extends Migration
  
             $table->unsignedBigInteger('price_total')->default(0);
 
+            
             $table->integer('status')->default(Status::NON_TRAITE);
             $table->timestamps();
         });
