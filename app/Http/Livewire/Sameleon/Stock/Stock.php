@@ -8,6 +8,11 @@ use Livewire\Component;
 class Stock extends Component
 {
 
+    public $stockEdit;
+
+    public $showEditStock = false;
+
+
     public function render()
     {
         if (auth()->user()->hasRole('Client')) {
@@ -21,5 +26,14 @@ class Stock extends Component
             $stocks = SameleonStock::with('product')->get();
         }
         return view('livewire.sameleon.stock.stock', compact('stocks'));
+    }
+
+    public function editStock(SameleonStock $stock)
+    {
+        $this->showEditStock = true;
+
+        $this->stockEdit = $stock;
+
+        $this->dispatchBrowserEvent('show-edit-stock');
     }
 }

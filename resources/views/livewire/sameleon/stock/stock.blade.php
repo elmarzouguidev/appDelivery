@@ -16,11 +16,9 @@
                             </div>
                         </div>
                     </div>
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
+                    
+                    @include('layouts._parts.__messages')
+
                     <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
                         <thead>
                             <tr>
@@ -83,7 +81,7 @@
                                     <td>
                                         <div class="d-flex gap-3">
 
-                                            <a href="{{ $stock->edit_url }}" class="text-success">
+                                            <a href="#" wire:click="editStock('{{ $stock->uuid }}')" class="text-success">
                                                 <i class="mdi mdi-pencil font-size-18"></i>
                                             </a>
                                             <a href="#" class="text-danger" onclick="
@@ -112,4 +110,9 @@
             </div>
         </div>
     </div>
+    @if ($showEditStock)
+        @include('livewire.sameleon.stock.edit-stock', [
+            'stock' => $stockEdit,
+        ])
+    @endif
 </div>

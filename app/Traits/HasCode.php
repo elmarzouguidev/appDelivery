@@ -17,7 +17,7 @@ trait HasCode
 
                 $number = (self::max('id') + 1);
 
-                $model->code = Str::singular($model->getTable()) . str_pad($number, 5, 0, STR_PAD_LEFT);
+                $model->code = Str::singular($model->getTable()) .'#'. str_pad($number, 5, 0, STR_PAD_LEFT);
             }
         });
     }

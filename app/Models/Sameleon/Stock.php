@@ -3,6 +3,7 @@
 namespace App\Models\Sameleon;
 
 use App\Traits\GetModelByUuid;
+use App\Traits\HasCode;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,9 +13,11 @@ class Stock extends Model
     use HasFactory;
     use GetModelByUuid;
     use UuidGenerator;
+    use HasCode;
 
     protected $fillable = [
         'uuid',
+        'code',
         'user_id',
         'user_uuid',
         'product_id',

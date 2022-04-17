@@ -13,7 +13,7 @@ class StockFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class StockFormRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'qte_global' => ['nullable', 'integer'],
+            'qte_endomage' => ['nullable', 'integer'],
+            'notes' => ['nullable', 'string']
         ];
     }
 }

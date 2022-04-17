@@ -48,6 +48,7 @@ Route::group(['prefix' => 'products'], function () {
 Route::group(['prefix' => 'stock'], function () {
 
     Route::get('/', [StockController::class, 'index'])->name('stock.index');
+    Route::post('update/{stock}', [StockController::class, 'update'])->name('stock.update');
 });
 
 
