@@ -5,7 +5,7 @@
                 <h5 class="card-title mb-4">Filters</h5>
 
                 <form class="row gy-2 gx-3 align-items-center">
-                    <div class="col-sm-auto">
+                    <div class="col-lg-2 col-md-2">
                         <label class="visually-hidden" for="autoSizingInput">Name</label>
                         <input type="text" class="form-control" id="autoSizingInput" placeholder="">
                     </div>
@@ -49,10 +49,10 @@
     
                         </select>
                     </div>
-                    <div class="col-sm-auto">
-                        <label class="visually-hidden" for="statusList">Status</label>
+                    <div class="col-lg-3 col-md-2">
+                        <label class="visually-hidden" for="statusList">Etat</label>
                         <select wire:model.defer="data.status" class="form-select" name="status" id="statusList">
-                            <option value="">Status</option>
+                            <option value="">Etat</option>
                             <option value="{{ App\Status\Status::ANNULE }}">Annulé</option>
                             <option value="{{ App\Status\Status::LIVRE }}">Livré</option>
                             <option value="{{ App\Status\Status::CHANGE }}">Change</option>
