@@ -10,6 +10,32 @@
                         <input type="text" class="form-control" id="autoSizingInput" placeholder="">
                     </div>
                     <div class="col-lg-2 col-md-2">
+                        <label class="visually-hidden" for="city">Ville</label>
+                        <select wire:model.defer="data.city" class="form-control select2 chk-filter-city" name="city" id="city">
+                            <option value="">Ville</option>
+    
+                            @foreach ($citiesList as $city)
+                                <option value="{{ $city->id }}" >
+                                    {{ $city->name }}
+                                </option>
+                            @endforeach
+    
+                        </select>
+                    </div>
+                    <div class="col-lg-2 col-md-2">
+                        <label class="visually-hidden" for="product">Produit</label>
+                        <select wire:model.defer="data.product" class="form-control select2 chk-filter-product" name="product" id="product">
+                            <option value="">Produit</option>
+    
+                            @foreach ($products as $product)
+                                <option value="{{ $product->id }}" >
+                                    {{ $product->name }}
+                                </option>
+                            @endforeach
+    
+                        </select>
+                    </div>
+                    <div class="col-lg-2 col-md-2">
                         <label class="visually-hidden" for="clienter">Client</label>
                         <select wire:model.defer="data.client" class="form-control select2 chk-filter-client" name="client" id="clienter">
                             <option value="">Client</option>

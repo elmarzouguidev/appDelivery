@@ -11,7 +11,7 @@ class ItemsQuery extends QueryBuilder
     public function __construct($model, array $filters = [])
     {
         //request()->query->set('filter', $filter);
-     
+
         //dd('ome 1');
         $query = $model->query();
         //dd('ome 2');
@@ -25,6 +25,9 @@ class ItemsQuery extends QueryBuilder
             //'client',
             AllowedFilter::scope('from_to'),
             AllowedFilter::exact('client', 'user_id'),
+            AllowedFilter::scope('product', 'product_filters'),
+            AllowedFilter::scope('city', 'cities_filters'),
+
         ]);
     }
 

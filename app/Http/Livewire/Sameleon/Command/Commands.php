@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Sameleon\Command;
 use App\Filters\ItemsQuery;
 use App\Models\Sameleon\Client;
 use App\Models\Sameleon\Command;
+use App\Models\Sameleon\Product;
 use App\Models\Sameleon\User;
 use App\Repositories\City\CityInterface;
 use Livewire\Component;
@@ -26,8 +27,10 @@ class Commands extends Component
     public $canPolled = false;
 
     public $cities;
+    public $citiesList;
 
     public $clients;
+    public $products;
 
     public $isRepoted = false;
     public $reportTime;
@@ -89,6 +92,8 @@ class Commands extends Component
         $this->reportComment = '';
         if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin')) {
             $this->clients = User::role('Client')->select(['nom', 'prenom', 'id'])->get();
+            $this->products = Product::select(['id','name'])->get();
+            $this->citiesList = app(CityInterface::class)->getCities();
         }
     }
 

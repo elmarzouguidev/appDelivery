@@ -62,10 +62,10 @@
                                         <th scope="col">Client</th>
                                     @endif
                                     <th scope="col">Etat</th>
-                                    
-                                    {{--<th scope="col">Détails</th>--}}
+
+                                    {{-- <th scope="col">Détails</th> --}}
                                     <th scope="col">Notes</th>
-              
+
                                     <th scope="col">Date de commande</th>
                                     <th scope="col">Action</th>
                                 </tr>
@@ -89,12 +89,11 @@
                                                     <strong>{{ $product->name }}</strong>
                                                 </p>
                                                 <div>
-                                                  
+
                                                     <p class="text-muted mb-0">{{ $product->price }}(DH) x
                                                         {{ $product->pivot->quantity }}
                                                     </p>
                                                 </div>
-
                                             @endforeach
 
                                         </td>
@@ -128,16 +127,16 @@
                                             @endif
 
                                         </td>
-                           
-                                       {{--<td>
+
+                                        {{-- <td>
                                             <button type="button" class="btn btn-info  btn-sm" data-bs-toggle="modal"
                                                 data-bs-target=".orderdetailsModal-{{ $command->id }}">
                                                 Détails
                                             </button>
-                                        </td>--}}
+                                        </td> --}}
                                         <td>
                                             <p class=" mb-0">
-                                                {{ $command->comments()->latest()->value('content')}}
+                                                {{ $command->comments()->latest()->value('content') }}
                                             </p>
                                         </td>
                                         <td>
@@ -196,25 +195,28 @@
                     </div>
                 </div>
             </div>
-            @if ($showEdit)
-                @include('livewire.sameleon.command.edit-command', [
-                    'command' => $commandEdit,
-                ])
-            @endif
 
-            @if ($showEditStatus)
-                @include('livewire.sameleon.command.update-status', [
-                    'command' => $commandEdit,
-                ])
-            @endif
-
-            @if ($isRepoted)
-                @include('livewire.sameleon.command.reported-status', [
-                    'command' => $commandEdit,
-                ])
-            @endif
 
         </div>
-        {{--@each('Sameleon.Admin.Command.__datatable.__command_detail',$commands ,'command' )--}}
+        
     </div>
+    @if ($showEdit)
+        @include('livewire.sameleon.command.edit-command', [
+            'command' => $commandEdit,
+        ])
+    @endif
+
+    @if ($showEditStatus)
+        @include('livewire.sameleon.command.update-status', [
+            'command' => $commandEdit,
+        ])
+    @endif
+
+    @if ($isRepoted)
+        @include('livewire.sameleon.command.reported-status', [
+            'command' => $commandEdit,
+        ])
+    @endif
+
+    {{-- @each('Sameleon.Admin.Command.__datatable.__command_detail',$commands ,'command' ) --}}
 </div>

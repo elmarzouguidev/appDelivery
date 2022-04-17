@@ -103,6 +103,18 @@ class Command extends Model
         );
     }
 
+    public function scopeProductFilters(Builder $query, $product): Builder
+    {
+        return $query->whereHas('products', function ($q) use ($product) {
+            $q->where('product_id', $product);
+        });
+    }
+
+    public function scopeCitiesFilters(Builder $query, $city): Builder
+    {
+        return $query->where('city_id',$city);
+    }
+
     public function scopeTotalCommands($query)
     {
         if (auth()->user()->hasRole('Client')) {
