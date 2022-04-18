@@ -39,6 +39,7 @@ class AdminCityController extends Controller
 
         $city->name = $request->name;
         $city->frais = $request->frais;
+        $city->code = $request->code;
         $city->save();
 
         return redirect()->back()->with('success', 'la ville a été modifier avec success');
@@ -47,15 +48,17 @@ class AdminCityController extends Controller
     public function delete(Request $request)
     {
 
-        $this->authorize('delete', City::class);
+        
 
         $request->validate(['cityId' => 'required|uuid']);
 
         $city = City::whereUuid($request->cityId)->firstOrFail();
 
+        $this->authorize('delete', $city);
+
         if ($city) {
 
-            //$city->delete();
+            $city->delete();
 
             return redirect()->back()->with('success', 'la ville a été supprimer avec success');
         }

@@ -13,12 +13,13 @@ class City extends Model
     use HasFactory;
     use UuidGenerator;
     use GetModelByUuid;
-    use HasCode;
+    //use HasCode;
 
     protected $fillable = [
         'name',
         'active',
-        'frais'
+        'frais',
+        'code'
     ];
 
     protected $casts = [

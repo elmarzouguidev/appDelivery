@@ -26,6 +26,7 @@ class CityFormRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'unique:cities'],
             'frais' => ['required', 'numeric'],
+            'code' => ['required', 'string', 'unique:cities'],
         ];
     }
 }

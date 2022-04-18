@@ -11,6 +11,19 @@
                 <form method="post" action="{{ route('admin:cities.update',$city->uuid) }}">
                     @csrf
                     <div class="row mb-4">
+                        <label for="code" class="col-form-label col-lg-2">Code *</label>
+                        <div class="col-lg-10">
+                            <input id="code" name="code" type="text"
+                                class="form-control @error('code') is-invalid @enderror"
+                                value="{{$city->code}}" required>
+                            @error('code')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row mb-4">
                         <label for="name" class="col-form-label col-lg-2">Nom *</label>
                         <div class="col-lg-10">
                             <input id="name" name="name" type="text"

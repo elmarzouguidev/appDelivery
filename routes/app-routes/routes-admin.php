@@ -53,7 +53,6 @@ Route::group(['prefix' => 'stock'], function () {
 });
 
 
-
 Route::group(['prefix' => 'cities'], function () {
 
     Route::get('/', [AdminCityController::class, 'index'])->name('cities.index');
