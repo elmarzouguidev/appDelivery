@@ -35,6 +35,7 @@
                             </th> --}}
                             <th scope="col">Code</th>
                             <th scope="col">Nom complet</th>
+                            <th scope="col">Role</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -57,6 +58,9 @@
                                 </td>
                                 <td>
                                     {{ $user->full_name }}
+                                </td>
+                                <td>
+                                    {{ $user->getRoleNames()->first() ?? 'User'}}
                                 </td>
 
                                 <td>

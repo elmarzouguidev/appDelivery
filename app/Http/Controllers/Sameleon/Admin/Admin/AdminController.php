@@ -20,7 +20,7 @@ class AdminController extends Controller
 
         $this->authorize('viewAny', User::class);
 
-        $users = User::role(['Admin', 'SuperAdmin'])->get();
+        $users = User::role(['Admin', 'SuperAdmin','Delivery'])->get();
 
         return view('Sameleon.Admin.Admin.index', compact('users'));
     }
@@ -29,7 +29,11 @@ class AdminController extends Controller
     {
         $this->authorize('create', User::class);
 
-        $roles = Role::all();
+        //$roles = Role::all();
+
+        $roles = Role::all()->reject(function ($role, $key) {
+            return $role->name === 'Developper' || $role->name === 'Client';
+        });
 
         return view('Sameleon.Admin.Admin.__create.index', compact('roles'));
     }
@@ -45,10 +49,10 @@ class AdminController extends Controller
         $user->email = $request->email;
         $user->addresse = $request->addresse;
         $user->password = Hash::make($request->password);
-        $user->super_admin = true;
+        $user->is_admin = true;
         $user->save();
 
-        $user->assignRole('SuperAdmin');
+        $user->assignRole($request->role);
 
         return redirect()->back()->with('success', "L'ajoute a éte effectuer avec success");
     }

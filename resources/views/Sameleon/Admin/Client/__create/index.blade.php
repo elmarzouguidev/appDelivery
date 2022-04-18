@@ -38,7 +38,7 @@
                                     <div class=" mb-4">
                                         <label>Adresse *</label>
                                         <textarea name="addresse" id="textarea" class="form-control @error('addresse') is-invalid @enderror"
-                                            maxlength="225" rows="5" placeholder="Entrer l'adresse du client" required></textarea>
+                                            maxlength="225" rows="5" placeholder="Entrer l'adresse du client" required>{{old('addresse')}}</textarea>
 
                                         @error('addresse')
                                             <span class="invalid-feedback" role="alert">
