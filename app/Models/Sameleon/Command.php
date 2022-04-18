@@ -93,6 +93,11 @@ class Command extends Model
         return $this->hasOne(Reclamation::class);
     }
 
+    public function setClientAddressAttribute($value)
+    {
+        $this->attributes['client_address'] = nl2br($value);
+    }
+
     public function getTotalPriceAttribute()
     {
         //return $this->products()->sum('price_ht');

@@ -87,7 +87,7 @@
                                             </p>
                                             <p class="text-strong mb-0">
                                                 {{ $command->city->name ?? $command->client_city }}</p>
-                                            <p class="text-strong mb-0">{{ $command->client_address }}</p>
+                                            <p class="text-strong mb-0">{!! $command->client_address !!}</p>
                                         </td>
                                         <td>
                                             @foreach ($command->products as $product)
