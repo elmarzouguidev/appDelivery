@@ -118,7 +118,7 @@ class ClientController extends Controller
         if ($client) {
 
             // dd('Yes client');
-            // $client->delete();
+            $client->delete();
 
             return redirect()->back()->with('success', 'le client a été modifier avec success');
         }
