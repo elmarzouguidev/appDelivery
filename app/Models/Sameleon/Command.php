@@ -248,15 +248,15 @@ class Command extends Model
 
         parent::boot();
 
-        $prefix = 'CMD-';
+        $prefix = 'ORD-';
 
         static::creating(function ($model) use ($prefix) {
 
             $number = ($model->max('id') + 1);
 
-            $code = str_pad($number, 5, 0, STR_PAD_LEFT);
+            $code = str_pad($number, 6, 0, STR_PAD_LEFT);
 
-            $model->code = $prefix . now()->format('dmY') . '-' . $code;
+            $model->code = $prefix . $code . '-' . now()->format('dmY');
 
             $model->track_code = str_pad(($model->max('id') + 1), 5, 0, STR_PAD_LEFT) . Str::random(10);
         });

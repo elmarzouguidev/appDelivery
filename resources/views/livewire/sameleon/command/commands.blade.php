@@ -5,7 +5,8 @@
         @endif
         <div class="row">
 
-            {{-- @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin') &&  $showFilters)
+            {{-- @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin') &&
+    $showFilters)
   
                 @include('livewire.sameleon.command.filters')
             @endif --}}
@@ -23,12 +24,12 @@
                                             Filters
                                         </button>
                                     @endif --}}
-                                    <button class="btn btn-info" type="button"
-                                        data-bs-toggle="modal" data-bs-target=".addCommandModal">
+                                    <button class="btn btn-info" type="button" data-bs-toggle="modal"
+                                        data-bs-target=".addCommandModal">
                                         Ajouter une commande
                                     </button>
-                                    <button class="btn btn-primary" type="button"
-                                        data-bs-toggle="modal" data-bs-target=".importCommandModal">
+                                    <button class="btn btn-primary" type="button" data-bs-toggle="modal"
+                                        data-bs-target=".importCommandModal">
                                         Importer des commands
                                     </button>
                                 </div>
@@ -84,7 +85,8 @@
                                             {{ $command->client_name }}
                                             <p class="text-strong mb-0"><strong>{{ $command->client_phone }}</strong>
                                             </p>
-                                            <p class="text-strong mb-0">{{ $command->city->name }}</p>
+                                            <p class="text-strong mb-0">
+                                                {{ $command->city->name ?? $command->client_city }}</p>
                                             <p class="text-strong mb-0">{{ $command->client_address }}</p>
                                         </td>
                                         <td>
@@ -200,27 +202,27 @@
                 </div>
             </div>
 
+            @if ($showEdit)
+                @include('livewire.sameleon.command.edit-command', [
+                    'command' => $commandEdit,
+                ])
+            @endif
 
+            @if ($showEditStatus)
+                @include('livewire.sameleon.command.update-status', [
+                    'command' => $commandEdit,
+                ])
+            @endif
+
+            @if ($isRepoted)
+                @include('livewire.sameleon.command.reported-status', [
+                    'command' => $commandEdit,
+                ])
+            @endif
+
+            {{-- @each('Sameleon.Admin.Command.__datatable.__command_detail',$commands ,'command' ) --}}
         </div>
-        
+
     </div>
-    @if ($showEdit)
-        @include('livewire.sameleon.command.edit-command', [
-            'command' => $commandEdit,
-        ])
-    @endif
 
-    @if ($showEditStatus)
-        @include('livewire.sameleon.command.update-status', [
-            'command' => $commandEdit,
-        ])
-    @endif
-
-    @if ($isRepoted)
-        @include('livewire.sameleon.command.reported-status', [
-            'command' => $commandEdit,
-        ])
-    @endif
-
-    {{-- @each('Sameleon.Admin.Command.__datatable.__command_detail',$commands ,'command' ) --}}
 </div>
