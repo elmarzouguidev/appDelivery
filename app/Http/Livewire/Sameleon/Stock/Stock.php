@@ -12,7 +12,6 @@ class Stock extends Component
 
     public $showEditStock = false;
 
-
     public function render()
     {
         if (auth()->user()->hasRole('Client')) {

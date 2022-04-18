@@ -37551,7 +37551,8 @@ body[data-layout="horizontal"] .footer {
 #sidebar-menu ul li a {
     color: #545a6d;
     display: block;
-    font-size: 15px;
+    font-size: 16px;
+    font-weight: 500;
     padding: 0.625rem 1.5rem;
     position: relative;
     transition: all 0.4s;
