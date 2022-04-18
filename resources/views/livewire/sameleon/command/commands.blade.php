@@ -16,16 +16,20 @@
                         <div class="row">
                             <div class="col-lg-8">
 
-                                <div class="col-lg-8 mb-4">
+                                <div class="col-lg-12 mb-4">
 
                                     {{-- @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
                                         <button wire:click="showUpFilter()" type="button" class="btn btn-primary">
                                             Filters
                                         </button>
                                     @endif --}}
-                                    <button class="btn btn-info" type="button" class="btn btn-info  btn-sm"
+                                    <button class="btn btn-info" type="button"
                                         data-bs-toggle="modal" data-bs-target=".addCommandModal">
                                         Ajouter une commande
+                                    </button>
+                                    <button class="btn btn-primary" type="button"
+                                        data-bs-toggle="modal" data-bs-target=".importCommandModal">
+                                        Importer des commands
                                     </button>
                                 </div>
                             </div>

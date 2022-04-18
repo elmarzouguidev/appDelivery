@@ -29,7 +29,19 @@ class Command extends Model
         'price_total',
         'frais',
         'invoice_id',
-        'invoice_uuid'
+        'invoice_uuid',
+        'user_id',
+        'user_uuid',
+        'client_name',
+        'client_phone',
+        'client_phone',
+        'client_city',
+        'client_address',
+        'product_ref',
+        'qte',
+        'price_total',
+        'source',
+        'boutique',
     ];
 
     protected  $casts = [
@@ -112,7 +124,7 @@ class Command extends Model
 
     public function scopeCitiesFilters(Builder $query, $city): Builder
     {
-        return $query->where('city_id',$city);
+        return $query->where('city_id', $city);
     }
 
     public function scopeTotalCommands($query)

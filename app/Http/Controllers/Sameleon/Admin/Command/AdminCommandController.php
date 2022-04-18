@@ -6,9 +6,12 @@ use App\Actions\Sameleon\GeneratDayInvoiceAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Sameleon\Command\CommandFormRequest;
 use App\Http\Requests\Sameleon\Command\CommandUpdateFormRequest;
+use App\Http\Requests\Sameleon\Imports\ImportCommandRequest;
+use App\Imports\CommandsImport;
 use App\Models\Sameleon\Command;
 use App\Repositories\City\CityInterface;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminCommandController extends Controller
 {
@@ -23,6 +26,14 @@ class AdminCommandController extends Controller
         // $commands = Command::with('products')->get();
 
         return view('Sameleon.Admin.Command.__datatable.index', compact('cities'));
+    }
+
+    public function import(ImportCommandRequest $request)
+    {
+        $file = $request->file('file');
+        Excel::import(new CommandsImport,  $file);
+       
+        return redirect()->back()->with('success', 'la list a été importé avec success');
     }
 
     public function store(CommandFormRequest $request)

@@ -9,9 +9,10 @@
 
         @livewire('sameleon.command.commands')
 
-        @include(
-            'Sameleon.Admin.Command.__datatable.__add_command_modal'
-        )
+        @include('Sameleon.Admin.Command.__datatable.__add_command_modal')
+            
+        @include('Sameleon.Admin.Command.__datatable.__import_command')
+            
 
         {{-- @each('Sameleon.Admin.Command.__datatable.__command_detail',$commands ,'command' ) --}}
 
