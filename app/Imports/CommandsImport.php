@@ -9,8 +9,9 @@ use Maatwebsite\Excel\Concerns\WithMappedCells;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\Importable;
+use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 
-class CommandsImport implements ToModel, WithHeadingRow
+class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow
 {
 
     /**
@@ -33,9 +34,9 @@ class CommandsImport implements ToModel, WithHeadingRow
             'boutique'    => $row["boutique"],
             'user_id' => auth()->id(),
             'user_uuid' => auth()->user()->uuid,
-            'is_imported'=>true
+            'is_imported' => true
         ];
-         //dd(array_filter($data));
+        //dd(array_filter($data));
         return Command::create($data);
     }
 

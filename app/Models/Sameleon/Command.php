@@ -42,6 +42,7 @@ class Command extends Model
         'price_total',
         'source',
         'boutique',
+        'is_imported'
     ];
 
     protected  $casts = [
