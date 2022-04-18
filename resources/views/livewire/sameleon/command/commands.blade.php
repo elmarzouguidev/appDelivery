@@ -202,26 +202,26 @@
                 </div>
             </div>
         </div>
-        
-        @if ($showEdit)
-            @include('livewire.sameleon.command.edit-command', [
-                'command' => $commandEdit,
-            ])
-        @endif
 
-        @if ($showEditStatus)
-            @include('livewire.sameleon.command.update-status', [
-                'command' => $commandEdit,
-            ])
-        @endif
 
-        @if ($isRepoted)
-            @include('livewire.sameleon.command.reported-status', [
-                'command' => $commandEdit,
-            ])
-        @endif
-
-        {{-- @each('Sameleon.Admin.Command.__datatable.__command_detail',$commands ,'command' ) --}}
     </div>
+    @if ($showEdit)
+        @include('livewire.sameleon.command.edit-command', [
+            'command' => $commandEdit,
+        ])
+    @endif
 
+    @if ($showEditStatus)
+        @include('livewire.sameleon.command.update-status', [
+            'command' => $commandEdit,
+        ])
+    @endif
+
+    @if ($isRepoted)
+        @include('livewire.sameleon.command.reported-status', [
+            'command' => $commandEdit,
+        ])
+    @endif
+
+    {{-- @each('Sameleon.Admin.Command.__datatable.__command_detail',$commands ,'command' ) --}}
 </div>
