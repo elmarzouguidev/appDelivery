@@ -58,7 +58,7 @@ class GeneratDayInvoiceAction
                     'date_command' => $item->created_at->format('d-m-Y'),
                     'city' => $item->city->name,
                     'status' => 'Livré',
-                    'price_total' => $item->products_sum_product_commandprice_total,
+                    'price_total' => $item->products_sum_product_commandprice_total ?? 0,
                     'frais' => $item->frais,
                 ];
             })->toArray();
