@@ -64,6 +64,15 @@
     </a>
 </li>
 
+<li class="menu-title" key="t-invoices">Contact</li>
+
+<li>
+    <a href="{{ route('admin:contact.index') }}">
+        <i class='bx bx-info-circle'></i>
+        <span key="t-contact">{{ __('Contact') }}</span>
+    </a>
+</li>
+
 @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
     <li class="menu-title" key="t-components">{{ __('navbar.advanced') }}</li>
 

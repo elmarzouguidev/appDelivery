@@ -48,12 +48,14 @@ class SendNewUserPassword extends Notification
         ], false));
 
         return (new MailMessage)
-            ->subject(Lang::get('Sameleon Express'))
-            ->line(Lang::get('Bienvenue !'))
-            ->line(Lang::get("Vote mot de pass : $this->password "))
-            ->line(Lang::get("Vote E-mail : $notifiable->email "))
+            ->subject(Lang::get('Sameleon-Express'))
+            ->line(Lang::get("Bienvenue $notifiable->full_name !"))
+            ->line(Lang::get("Votre mot de pass : $this->password "))
+            ->line(Lang::get("Votre E-mail : $notifiable->email "))
+            ->line(Lang::get("Merci pour votre confiance "))
+            ->lin(Lang::get("Pour la  connection a l'application veuillez utiliser le lien suivant"))
             ->action(Lang::get('Se connecter'), $url)
-            ->line(Lang::get('If you did not request a password reset, no further action is required.'));
+  
     }
 
 

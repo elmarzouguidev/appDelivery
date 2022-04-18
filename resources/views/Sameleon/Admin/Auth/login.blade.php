@@ -134,8 +134,7 @@
                             <script>
                                 document.write(new Date().getFullYear())
                             </script>
-                            SAMELEON GROUP <i class="mdi mdi-heart text-danger"></i> by <a
-                                href="https://elmarzougui.net" target="_blank"> Elmarzougui.net </a>
+                            SAMELEON GROUP
 
                         </div>
                     </div>

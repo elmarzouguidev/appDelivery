@@ -8,6 +8,7 @@ use App\Http\Controllers\Sameleon\Admin\AdminHomeController;
 use App\Http\Controllers\Sameleon\Admin\City\AdminCityController;
 use App\Http\Controllers\Sameleon\Admin\Client\ClientController;
 use App\Http\Controllers\Sameleon\Admin\Command\AdminCommandController;
+use App\Http\Controllers\Sameleon\Admin\Contact\ContactController;
 use App\Http\Controllers\Sameleon\Admin\Invoice\AdminInvoiceController;
 use App\Http\Controllers\Sameleon\Admin\Product\AdminProductController;
 use App\Http\Controllers\Sameleon\Admin\Reclamation\ReclamationController;
@@ -162,4 +163,11 @@ Route::group(['prefix' => 'complaints'], function () {
     Route::get('/', [ReclamationController::class, 'index'])->name('complaints.index');
     Route::post('/', [ReclamationController::class, 'store'])->name('complaints.store');
     Route::delete('/delete', [ReclamationController::class, 'delete'])->name('complaints.delete');
+});
+
+Route::group(['prefix' => 'contact'], function () {
+
+    Route::get('/', [ContactController::class, 'index'])->name('contact.index');
+    Route::post('/', [ContactController::class, 'store'])->name('contact.store');
+    Route::delete('/delete', [ContactController::class, 'delete'])->name('contact.delete');
 });
