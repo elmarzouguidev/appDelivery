@@ -1,20 +1,14 @@
 <div class="row">
     <div class="col-lg-12">
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-        @if (session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
+
         {{--<div class="card">
             <div class="card-body">
                 <button type="button" class="btn btn-danger"> Supprimer cette command</button>
             </div>
         </div>--}}
+
+        @include('layouts._parts.__messages')
+
         <form action="{{ $command->update_url }}" method="post">
             @csrf
             <div class="card">
@@ -28,19 +22,16 @@
                             @include('Sameleon.Admin.Command.__edit.__info')
 
                             <div class="col-lg-12">
-                                @include(
-                                    'Sameleon.Admin.Command.__edit.__date_commande'
-                                )
 
+                                @include('Sameleon.Admin.Command.__edit.__date_commande')
+                                    
                             </div>
                         </div>
 
                         <div class="col-lg-6">
 
-                            @include(
-                                'Sameleon.Admin.Command.__edit.__select_city'
-                            )
-
+                            @include('Sameleon.Admin.Command.__edit.__select_city')
+                                
                             <div class=" mb-4">
                                 <label>Adresse du client *</label>
                                 <textarea name="client_address" id="textarea" class="form-control @error('client_address') is-invalid @enderror"
@@ -60,14 +51,13 @@
                 <div class="card-body">
 
                     <p class="card-title-desc">Entrer les information de la commande</p>
+
                     <div class="row">
                         <div class="col-lg-12 mb-4">
-
-                            {{-- @include('theme.Sameleon.Command.__create.__add_articles') --}}
                             @livewire('sameleon.command.edit',['command' => $command])
-
                         </div>
                     </div>
+
                     <div class="col-lg-12">
                         <div class="justify-content-end">
                             <div class="card border border-primary">

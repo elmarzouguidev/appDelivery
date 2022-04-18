@@ -11,4 +11,9 @@ class ContactController extends Controller
     {
         return view('Sameleon.Admin.Contact.index');
     }
+
+    public function store()
+    {
+        
+    }
 }
