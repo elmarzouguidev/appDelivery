@@ -88,7 +88,7 @@
                                         <div class="input-group auth-pass-inputgroup">
                                             <input type="password" name="password"
                                                 class="form-control @error('password') is-invalid @enderror"
-                                                placeholder="Entrer votre password"  aria-label="Password"
+                                                placeholder="Entrer votre mot de pass"  aria-label="Password"
                                                 aria-describedby="password-addon">
                                             <button class="btn btn-light " type="button" id="password-addon"><i
                                                     class="mdi mdi-eye-outline"></i></button>
