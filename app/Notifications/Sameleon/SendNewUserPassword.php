@@ -53,8 +53,8 @@ class SendNewUserPassword extends Notification
             ->line(Lang::get("Votre mot de pass : $this->password "))
             ->line(Lang::get("Votre E-mail : $notifiable->email "))
             ->line(Lang::get("Merci pour votre confiance "))
-            ->lin(Lang::get("Pour la  connection a l'application veuillez utiliser le lien suivant"))
-            ->action(Lang::get('Se connecter'), $url)
+            ->line(Lang::get("Pour la  connection a l'application veuillez utiliser le lien suivant"))
+            ->action(Lang::get('Se connecter'), $url);
   
     }
 
