@@ -83,6 +83,7 @@ Route::group(['prefix' => 'clients'], function () {
 Route::group(['prefix' => 'invoices'], function () {
 
     Route::get('/', [AdminInvoiceController::class, 'index'])->name('invoices.index');
+    Route::delete('/delete', [AdminInvoiceController::class, 'delete'])->name('invoices.delete');
 });
 
 
