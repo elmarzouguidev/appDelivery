@@ -48,8 +48,6 @@ class AdminCityController extends Controller
     public function delete(Request $request)
     {
 
-        
-
         $request->validate(['cityId' => 'required|uuid']);
 
         $city = City::whereUuid($request->cityId)->firstOrFail();
