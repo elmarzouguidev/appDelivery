@@ -80,7 +80,7 @@
                                     <hr>
                                     <h5 class="my-0 text-info">
                                         <i class="mdi mdi-alarm-panel-outline me-3"></i>
-                                        Frais de Livraison : 14.00 DH
+                                        Frais de Livraison : {{$command->frais}} DH
 
                                     </h5>
 
