@@ -58,13 +58,13 @@ class CommandUpdateFormRequest extends FormRequest
             'orderProducts.*.product_id' => ['nullable', 'integer'],
             'orderProducts.*.designation' => ['nullable', 'string'],
             'orderProducts.*.quantity' => ['nullable', 'integer'],
-            'orderProducts.*.prix_unitaire' => ['nullable', 'numeric'],
+            'orderProducts.*.prix_unitaire' => ['nullable', 'numeric','digits_between:1,20'],
 
             'newOrderProducts' => ['nullable', 'array'],
             'newOrderProducts.*.product_id' => ['nullable', 'integer'],
             'newOrderProducts.*.designation' => ['nullable', 'string'],
-            'newOrderProducts.*.quantity' => ['nullable', 'integer'],
-            'newOrderProducts.*.prix_unitaire' => ['nullable', 'numeric'],
+            'newOrderProducts.*.quantity' => ['required', 'numeric','digits_between:1,20'],
+            'newOrderProducts.*.prix_unitaire' => ['required', 'numeric','digits_between:1,20'],
         ];
     }
 }

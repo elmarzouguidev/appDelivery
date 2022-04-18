@@ -36,8 +36,8 @@ class CommandFormRequest extends FormRequest
             'orderProducts.*.product_id' => ['required', 'integer'],
             'orderProducts.*.designation' => ['required', 'string'],
             'orderProducts.*.description' => ['nullable', 'string'],
-            'orderProducts.*.quantity' => ['required', 'integer'],
-            'orderProducts.*.prix_unitaire' => ['required', 'numeric'],
+            'orderProducts.*.quantity' => ['required', 'numeric','digits_between:1,20'],
+            'orderProducts.*.prix_unitaire' => ['required', 'numeric','digits_between:1,20'],
         ];
     }
 }
