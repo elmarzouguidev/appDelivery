@@ -5,7 +5,8 @@
     <select name="city" class="form-control select2-templating @error('city') is-invalid @enderror" required>
         <option value="">Choisir la ville</option>
         @foreach ($cities as $city)
-            <option value="{{ $city->id }}" {{ $command->city_id === $city->id ? 'selected' : '' }}>{{ $city->name }}
+            <option value="{{ $city->id }}" {{ $command->city_id === $city->id ? 'selected' : '' }}>
+                {{ $city->name }}
             </option>
         @endforeach
     </select>
