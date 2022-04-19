@@ -33,7 +33,7 @@
                                 <th scope="col">Date création et cloture</th>
                                 <th scope="col">Date versement</th>
                                 <th scope="col">Cloturé</th>
-                                <th scope="col">Versé</th>
+                                <th scope="col">Règlement</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -81,7 +81,7 @@
                                     <td>
                 
                                         <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
-                                            <input class="form-check-input" type="checkbox" id="SwitchCheckSizelg"{{ $invoice->cloture==true ?'checked' :''}}>
+                                            <input wire:click="clotureInvoice('{{$invoice->uuid}}')" class="form-check-input" type="checkbox" id="SwitchCheckSizelg"{{ $invoice->cloture==true ?'checked' :''}}>
                                            
                                         </div>
                                     </td>

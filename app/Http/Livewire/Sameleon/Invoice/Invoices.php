@@ -24,14 +24,18 @@ class Invoices extends Component
     public $notes;
     public $recu;
 
+    /****Cloture Invoice */
+
+    public $cloture = false;
+
     public function render()
     {
 
         if (auth()->user()->hasRole('Client')) {
             $invoices = Invoice::authClient()
-            ->with('bill')
-            ->withCount('bill')
-            ->get();
+                ->with('bill')
+                ->withCount('bill')
+                ->get();
         } else {
             $invoices = Invoice::withCount('commands')
                 ->withSum('articles', 'price_total')
@@ -83,9 +87,14 @@ class Invoices extends Component
         $this->dispatchBrowserEvent('invoice-paid');
     }
 
+    public function clotureInvoice(Invoice $invoice)
+    {
+       
+        $invoice->update(['cloture' => !$invoice->cloture]);
+    }
+
     public function billDetail()
     {
-        
     }
 
     /*public function updated($propertyName)
