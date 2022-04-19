@@ -22,8 +22,18 @@ class AdminCommandController extends Controller
 
         $cities = app(CityInterface::class)->getCities();
 
-        //$commands = Command::withSum('products', 'product_command.price_total')->get();
-        // $commands = Command::with('products')->get();
+        if (auth()->user()->hasRole('Client')) {
+
+            $commands =  Command::where('user_id', auth()->id())
+                ->withSum('products', 'product_command.price_total')
+                ->with(['invoice:uuid,id', 'city:id,name'])->get();
+        } else {
+
+            $commands = Command::withSum('products', 'product_command.price_total')
+                ->with(['invoice:uuid,id', 'city:id,name'])
+                ->orderBy('created_at', 'DESC')
+                ->get();
+        }
 
         return view('Sameleon.Admin.Command.__datatable.index', compact('cities'));
     }
@@ -32,7 +42,7 @@ class AdminCommandController extends Controller
     {
         $file = $request->file('file');
         Excel::import(new CommandsImport,  $file);
-       
+
         return redirect()->back()->with('success', 'la list a été importé avec success');
     }
 

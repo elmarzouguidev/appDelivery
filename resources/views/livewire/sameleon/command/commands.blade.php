@@ -5,11 +5,11 @@
         @endif
         <div class="row">
 
-            {{-- @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin') &&
-    $showFilters)
+               {{-- @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin') &&
+                  $showFilters)
   
-                @include('livewire.sameleon.command.filters')
-            @endif --}}
+                  @include('livewire.sameleon.command.filters')
+                @endif --}}
 
             <div class="col-lg-12">
                 <div class="card">

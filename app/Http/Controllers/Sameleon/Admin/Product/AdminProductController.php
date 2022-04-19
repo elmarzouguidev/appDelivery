@@ -101,9 +101,9 @@ class AdminProductController extends Controller
 
         if ($product) {
 
-            //$product->commands()->detach();
+            $product->commands()->detach();
 
-            //$product->delete();
+            $product->delete();
 
             return redirect(route('admin:products.index'))->with('success', "Le produit a éte supprimer avec succès");
         }
