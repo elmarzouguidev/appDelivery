@@ -172,7 +172,9 @@
                 -R.C:{{ optional(getCompany())->rc }}
                 -PATENTE:{{ optional(getCompany())->patente }}
                 -I.F:{{ optional(getCompany())->if }}
+                @if(isset(getCompany())->cnss))
                 -CNSS:{{ optional(getCompany())->cnss }}
+                @endif
                 -ICE:{{ optional(getCompany())->ice }}
             </p>
         </div>
