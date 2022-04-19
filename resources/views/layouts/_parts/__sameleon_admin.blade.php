@@ -54,6 +54,12 @@
         <span key="t-invoices">{{ __('Factures') }}</span>
     </a>
 </li>
+<li>
+    <a href="{{ route('admin:payments.index') }}">
+        <i class="bx bx-money"></i>
+        <span key="t-payments">{{ __('Paiements') }}</span>
+    </a>
+</li>
 
 <li class="menu-title" key="t-invoices">Réclamations</li>
 

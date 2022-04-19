@@ -10,6 +10,7 @@ use App\Http\Controllers\Sameleon\Admin\Client\ClientController;
 use App\Http\Controllers\Sameleon\Admin\Command\AdminCommandController;
 use App\Http\Controllers\Sameleon\Admin\Contact\ContactController;
 use App\Http\Controllers\Sameleon\Admin\Invoice\AdminInvoiceController;
+use App\Http\Controllers\Sameleon\Admin\Payment\PaymentController;
 use App\Http\Controllers\Sameleon\Admin\Product\AdminProductController;
 use App\Http\Controllers\Sameleon\Admin\Reclamation\ReclamationController;
 use App\Http\Controllers\Sameleon\Admin\Stock\StockController;
@@ -84,6 +85,12 @@ Route::group(['prefix' => 'invoices'], function () {
 
     Route::get('/', [AdminInvoiceController::class, 'index'])->name('invoices.index');
     Route::delete('/delete', [AdminInvoiceController::class, 'delete'])->name('invoices.delete');
+});
+
+Route::group(['prefix' => 'payments'], function () {
+
+    Route::get('/', [PaymentController::class, 'index'])->name('payments.index');
+    Route::delete('/delete', [PaymentController::class, 'delete'])->name('payments.delete');
 });
 
 

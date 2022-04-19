@@ -49,7 +49,7 @@
             </div>
 
             <div class="mb-3 col-lg-2">
-                <label for="prix_unitaire">Prix U.T*</label>
+                <label for="prix_unitaire">Prix UNI *</label>
                 <input type="text" name="orderProducts[{{ $index }}][prix_unitaire]"
                     wire:model="orderProducts.{{ $index }}.prix_unitaire"
                     wire:click="getPrice({{ $index }})"
