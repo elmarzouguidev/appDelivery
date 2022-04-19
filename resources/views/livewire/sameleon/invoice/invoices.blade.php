@@ -87,10 +87,10 @@
                                     </td>
                                     <td>
                                         @if ($invoice->bill_count && $invoice->cloture)
-                                            <button type="button" class="btn btn-info  btn-sm"
+                                            <button type="button" class="btn btn-info btn-sm"
                                                 wire:click="billDetail('{{ $invoice->uuid }}')"
                                             >
-                                                Détails
+                                                {{$invoice->bill->full_number}}
                                             </button>
                                         @else
                                             <button wire:click="addBill('{{ $invoice->uuid }}')" type="button"
@@ -101,7 +101,7 @@
                                     </td>
 
                                     <td>
-                                        <div class="d-flex gap-3">
+                                        {{--<div class="d-flex gap-3">
 
                                             <a href="{{ $invoice->edit_url }}" class="text-success">
                                                 <i class="mdi mdi-pencil font-size-18"></i>
@@ -115,14 +115,14 @@
                                                     }">
                                                 <i class="mdi mdi-delete font-size-18"></i>
                                             </a>
-                                        </div>
+                                        </div>--}}
                                     </td>
-                                    <form id="delete-invoice-{{ $invoice->uuid }}" method="post"
+                                    {{--<form id="delete-invoice-{{ $invoice->uuid }}" method="post"
                                         action="{{ $invoice->delete_url }}">
                                         @csrf
                                         @method('DELETE')
                                         <input type="hidden" name="invoiceId" value="{{ $invoice->uuid }}">
-                                    </form>
+                                    </form>--}}
                                 </tr>
                             @endforeach
 
