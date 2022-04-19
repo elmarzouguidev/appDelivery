@@ -76,7 +76,10 @@
 
                                 <td>
                                     <div>
-                                        <img class="avatar-md" src="{{$payment->getFirstMediaUrl('bills_recu','normal')}}" alt="">
+
+                                        <a class="image-popup-no-margins" href="{{$payment->getFirstMediaUrl('bills_recu','normal')}}">
+                                            <img class="img-fluid" alt="" src="{{$payment->getFirstMediaUrl('bills_recu','normal')}}" width="75">
+                                        </a>
                                     </div>
                                 </td>
                                 <td>

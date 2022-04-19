@@ -14,6 +14,7 @@
     <link rel="shortcut icon" href="{{ asset('images/logo.png') }}">
 
     @yield('css')
+    <link href="{{ asset('assets/libs/magnific-popup/magnific-popup.css') }}" rel="stylesheet" type="text/css" />
 
     <link href="{{ asset('css/app.css') }}?ver={{rand(1,500)}}" rel="stylesheet" type="text/css" />
 

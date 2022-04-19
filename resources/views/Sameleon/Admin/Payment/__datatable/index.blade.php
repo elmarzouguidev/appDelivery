@@ -15,13 +15,19 @@
 @include('layouts._parts.__datatables')
 
 @section('css')
+
 <link href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
+
 
 @endsection
 
 @push('scripts')
 
     <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
+
+    <script src="{{ asset('assets/libs/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
+
+    <script src="{{ asset('js/pages/lightbox.init.js') }}"></script>
 
     <script>
 
