@@ -76,7 +76,9 @@
         });
 
         window.addEventListener('show-edit', event => {
-            $('.editCommandModal').modal('show');
+
+              $('.editCommandModal').modal('show');
+          
         });
 
         window.addEventListener('hidden.bs.modal', event => {
@@ -86,7 +88,9 @@
         });
 
         window.addEventListener('show-edit-status', event => {
+
             $('.updateStatus').modal('show');
+            
         });
 
         window.addEventListener('status-updated', event => {
@@ -139,6 +143,6 @@
         });
     </script>
 
-    @include('Sameleon.Admin.Command.js')
+    {{--@include('Sameleon.Admin.Command.js')--}}
 @endpush
 
