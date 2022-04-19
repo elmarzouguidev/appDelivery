@@ -91,6 +91,8 @@ class Invoices extends Component
     {
        
         $invoice->update(['cloture' => !$invoice->cloture]);
+
+        $this->dispatchBrowserEvent('reloadbrowser');
     }
 
     public function billDetail()

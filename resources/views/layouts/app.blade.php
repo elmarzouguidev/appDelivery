@@ -66,9 +66,17 @@
             event.preventDefault();
 
         });
+
+        window.addEventListener('reloadbrowser', event => {
+            
+            setTimeout(function() {
+                window.location.reload();
+            }, 1000);
+
+        });
+
     </script>
-
-
+   
 </body>
 
 </html>
