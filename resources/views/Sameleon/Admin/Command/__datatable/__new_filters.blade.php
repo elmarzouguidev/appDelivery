@@ -11,10 +11,10 @@
                     </div>
                     <div class="col-lg-2 col-md-2">
                         <label class="visually-hidden" for="city">Ville</label>
-                        <select wire:model.defer="data.city" class="form-control select2 chk-filter-city" name="city" id="city">
+                        <select  class="form-control select2 chk-filter-city" name="city" id="city">
                             <option value="">Ville</option>
     
-                            @foreach ($citiesList as $city)
+                            @foreach ($cities as $city)
                                 <option value="{{ $city->id }}" >
                                     {{ $city->name }}
                                 </option>
@@ -24,7 +24,7 @@
                     </div>
                     <div class="col-lg-2 col-md-2">
                         <label class="visually-hidden" for="product">Produit</label>
-                        <select wire:model.defer="data.product" class="form-control select2 chk-filter-product" name="product" id="product">
+                        <select class="form-control select2 chk-filter-product" name="product" id="product">
                             <option value="">Produit</option>
     
                             @foreach ($products as $product)
@@ -37,7 +37,7 @@
                     </div>
                     <div class="col-lg-2 col-md-2">
                         <label class="visually-hidden" for="clienter">Client</label>
-                        <select wire:model.defer="data.client" class="form-control select2 chk-filter-client" name="client" id="clienter">
+                        <select  class="form-control select2 chk-filter-client" name="client" id="clienter">
                             <option value="">Client</option>
     
                             @foreach ($clients as $client)
@@ -51,7 +51,7 @@
                     </div>
                     <div class="col-lg-3 col-md-2">
                         <label class="visually-hidden" for="statusList">Etat</label>
-                        <select wire:model.defer="data.status" class="form-select" name="status" id="statusList">
+                        <select  class="form-select" name="status" id="statusList">
                             <option value="">Etat</option>
                             <option value="{{ App\Status\Status::ANNULE }}">Annulé</option>
                             <option value="{{ App\Status\Status::LIVRE }}">Livré</option>
@@ -74,7 +74,7 @@
                     </div>
                     <div class="col-lg-2 col-md-2">
                         <div class="input-daterange input-group" data-provide="datepicker">
-                            <input type="text" wire:model.defer="data.from_to.from"
+                            <input type="text" 
                                 class="form-control @error('date_depart') is-invalid @enderror" name="start" placeholder="Date de début"
                                 onchange="this.dispatchEvent(new InputEvent('input'))">
 
@@ -82,13 +82,13 @@
                     </div>
                     <div class="col-lg-2 col-md-2">
                         <div class="input-daterange input-group" data-provide="datepicker">
-                            <input type="text" wire:model.defer="data.from_to.to"
+                            <input type="text" 
                                 class="form-control @error('date_fin') is-invalid @enderror" name="end" placeholder="Date de fin"
                                 onchange="this.dispatchEvent(new InputEvent('input'))">
                         </div>
                     </div>
                     <div class="col-sm-auto">
-                        <button wire:click.prevent="setfilter()" class="btn btn-primary w-md">filter</button>
+                        <button class="btn btn-primary w-md">filter</button>
                     </div>
                 </form>
             </div>

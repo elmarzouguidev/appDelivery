@@ -67,7 +67,7 @@
                                         <div class="alert alert-danger">{{ $error }}</div>
                                     @endforeach
                                 @endif
-                                <form autocomplete="off" class="form-horizontal"
+                                <form  class="form-horizontal"
                                     action="{{ route('admin:auth:loginPost') }}" method="post">
                                     @csrf
                                     <div class="mb-3">

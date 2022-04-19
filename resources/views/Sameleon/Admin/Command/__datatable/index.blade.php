@@ -5,7 +5,7 @@
 
         @include('Sameleon.Admin.Command.__title')
 
-        {{-- @include('Sameleon.Admin.Command.__datatable.__with_options') --}}
+        {{--@include('Sameleon.Admin.Command.__datatable.__with_options')--}}
 
         @livewire('sameleon.command.commands')
 
@@ -32,6 +32,7 @@
 <link href="{{ asset('assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}"
     rel="stylesheet" type="text/css" />
 
+{{--<link href="{{ asset('assets/libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />--}}
 @endsection
 
 @push('scripts')
@@ -55,8 +56,13 @@
 
     
     <script src="{{ asset('js/pages/datatables.init.js') }}"></script>
+    {{--<script src="{{ asset('assets/libs/select2/js/select2.min.js') }}"></script>--}}
 
     <script>
+           /* $(".select2").select2({
+            width: '100%'
+        });*/
+
         $(window).blur(function() {
 
             // Livewire.emit('runPoll');
@@ -132,5 +138,7 @@
             });
         });
     </script>
+
+    @include('Sameleon.Admin.Command.js')
 @endpush
 

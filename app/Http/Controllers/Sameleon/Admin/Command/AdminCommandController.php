@@ -9,6 +9,8 @@ use App\Http\Requests\Sameleon\Command\CommandUpdateFormRequest;
 use App\Http\Requests\Sameleon\Imports\ImportCommandRequest;
 use App\Imports\CommandsImport;
 use App\Models\Sameleon\Command;
+use App\Models\Sameleon\Product;
+use App\Models\Sameleon\User;
 use App\Repositories\City\CityInterface;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -19,8 +21,6 @@ class AdminCommandController extends Controller
     {
 
         GeneratDayInvoiceAction::run();
-
-        $cities = app(CityInterface::class)->getCities();
 
         if (auth()->user()->hasRole('Client')) {
 
@@ -33,9 +33,13 @@ class AdminCommandController extends Controller
                 ->with(['invoice:uuid,id', 'city:id,name'])
                 ->orderBy('created_at', 'DESC')
                 ->get();
+
+            $products = Product::select(['id', 'name'])->get();
+            $cities = app(CityInterface::class)->getCities();
+            $clients = User::role('Client')->select(['nom', 'prenom', 'id'])->get();
         }
 
-        return view('Sameleon.Admin.Command.__datatable.index', compact('cities'));
+        return view('Sameleon.Admin.Command.__datatable.index', compact('commands', 'products', 'cities', 'clients'));
     }
 
     public function import(ImportCommandRequest $request)
@@ -170,6 +174,6 @@ class AdminCommandController extends Controller
 
             return redirect()->back()->with('success', "La command a été supprimer avec success");
         }
-        return redirect()->back()->with('success', "Problem ... !!");
+        return redirect()->back()->with('success', "Problem ... !");
     }
 }
