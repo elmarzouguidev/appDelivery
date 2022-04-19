@@ -84,7 +84,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="d-flex gap-3">
+                                    {{--<div class="d-flex gap-3">
 
                                         <a href="{{ $payment->edit_url }}" class="text-success">
                                             <i class="mdi mdi-pencil font-size-18"></i>
@@ -98,14 +98,14 @@
                                                 }">
                                             <i class="mdi mdi-delete font-size-18"></i>
                                         </a>
-                                    </div>
+                                    </div>--}}
                                 </td>
-                                <form id="delete-invoice-{{ $payment->uuid }}" method="post"
+                                {{--<form id="delete-invoice-{{ $payment->uuid }}" method="post"
                                     action="{{ $payment->delete_url }}">
                                     @csrf
                                     @method('DELETE')
                                     <input type="hidden" name="paymentId" value="{{ $payment->uuid }}">
-                                </form>
+                                </form>--}}
                             </tr>
                         @endforeach
 
