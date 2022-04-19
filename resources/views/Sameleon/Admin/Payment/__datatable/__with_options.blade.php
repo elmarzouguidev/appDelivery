@@ -61,11 +61,12 @@
                                     {{ $payment->billable->full_number }}
                                     <p class="text-muted mb-0"></p>
                                 </td>
-                                <td>
-                                    {{ $payment->bill_mode }}
-                                </td>
+
                                 <td>
                                     {{ $payment->price_total }} DH
+                                </td>
+                                <td>
+                                    {{ $payment->bill_mode }}
                                 </td>
                                 <td>
                                     {{ $payment->bill_date->format('d-m-Y') }}
