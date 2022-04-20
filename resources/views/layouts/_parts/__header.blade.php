@@ -148,7 +148,7 @@
                                 key="t-profile">Profile</span></a>
                     @endif
 
-                    <a class="dropdown-item d-block" href="{{-- route('admin:profile.settings') --}}">
+                    <a class="dropdown-item d-block" href="{{ route('admin:profil') }}">
 
                         <i class="bx bx-wrench font-size-16 align-middle me-1"></i>
                         <span key="t-settings">Paramètres</span>

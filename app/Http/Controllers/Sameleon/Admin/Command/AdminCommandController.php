@@ -31,6 +31,7 @@ class AdminCommandController extends Controller
     public function import(ImportCommandRequest $request)
     {
         $file = $request->file('file');
+        
         Excel::import(new CommandsImport,  $file);
 
         return redirect()->back()->with('success', 'la list a été importé avec success');

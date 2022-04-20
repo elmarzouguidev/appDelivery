@@ -71,10 +71,11 @@
                                     action="{{ route('admin:auth:loginPost') }}" method="post">
                                     @csrf
                                     <div class="mb-3">
-                                        <label for="email" class="form-label">Email</label>
+                                        <label for="email" class="form-label">E-mail</label>
                                         <input type="email" name="email"
                                             class="form-control  @error('email') is-invalid @enderror" id="email"
-                                            placeholder="Enter votre email">
+                                            value="{{old('email')}}"
+                                            placeholder="Entrer votre email">
 
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">

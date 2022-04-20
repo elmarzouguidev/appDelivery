@@ -4,6 +4,7 @@ use App\Http\Controllers\Sameleon\Admin\Admin\AdminController;
 use App\Http\Controllers\Sameleon\Admin\Admin\PermissionController;
 use App\Http\Controllers\Sameleon\Admin\Admin\RoleController;
 use App\Http\Controllers\Sameleon\Admin\Admin\SettingController;
+use App\Http\Controllers\Sameleon\Admin\Admin\ProfilController;
 use App\Http\Controllers\Sameleon\Admin\AdminHomeController;
 use App\Http\Controllers\Sameleon\Admin\City\AdminCityController;
 use App\Http\Controllers\Sameleon\Admin\Client\ClientController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\Sameleon\Admin\Payment\PaymentController;
 use App\Http\Controllers\Sameleon\Admin\Product\AdminProductController;
 use App\Http\Controllers\Sameleon\Admin\Reclamation\ReclamationController;
 use App\Http\Controllers\Sameleon\Admin\Stock\StockController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [AdminHomeController::class, 'index'])->name('home');
@@ -163,6 +165,16 @@ Route::group(['prefix' => 'settings'], function () {
 
         Route::get('/', [SettingController::class, 'index'])->name('company');
         Route::post('/', [SettingController::class, 'store'])->name('company.store');
+    });
+});
+
+Route::group(['prefix' => 'profil'], function () {
+
+    Route::group(['prefix' => 'info'], function () {
+
+        Route::get('/', [ProfilController::class, 'index'])->name('profil');
+        Route::post('/', [ProfilController::class, 'update'])->name('profil.update');
+        Route::post('/password', [ProfilController::class, 'updatePassword'])->name('profil.update.password');
     });
 });
 
