@@ -40,6 +40,18 @@
             window.location.reload();
         });
 
+        window.addEventListener('reloadbrowser', event => {
+
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'La réponse a été  est enregistrer avec succès. ',
+                showConfirmButton: false,
+                timer: 1900
+            })
+
+        });
+
     </script>
 
     <script>

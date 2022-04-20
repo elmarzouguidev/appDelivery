@@ -68,6 +68,7 @@
 
                                     <td>
                                         {{ $complaint->message }}
+                                        
                                     </td>
                                     <td>
                                         {{ $complaint->user->full_name }}
@@ -82,14 +83,20 @@
                                     </td>
                                     <td>
                                         <i class="mdi mdi-circle text-info font-size-10"></i>
-                                        {{ $complaint->status }}
+
+                                        @if ($complaint->status === 0)
+                                            Non traité
+                                        @elseif($complaint->status === 1)
+                                            traité
+                                        @endif
                                     </td>
 
                                     <td>
                                         <div class="d-flex gap-3">
 
-                                            <button wire:click="responseTo('{{$complaint->uuid}}')" class="btn btn-info btn-sm" type="button">
-                                                Repondre
+                                            <button wire:click="responseTo('{{ $complaint->uuid }}')"
+                                                class="btn btn-info btn-sm" type="button">
+                                                réponse
                                             </button>
 
                                             <a href="#" class="text-danger" onclick="
@@ -113,7 +120,7 @@
                             @endforeach
 
                         </tbody>
-                    </table>
+                    </table>s
                 </div>
             </div>
         </div>

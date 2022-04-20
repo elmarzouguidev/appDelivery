@@ -46,13 +46,14 @@ class Reclamation extends Component
 
         $this->canResponse = true;
         $this->reclamation = $reclamation;
+        $this->response = $reclamation->response ?? '';
         $this->dispatchBrowserEvent('response-modal');
     }
 
     public function saveResponse()
     {
 
-        $this->reclamation->update(['response' => $this->response, 'response_by' => auth()->user()->full_name]);
+        $this->reclamation->update(['status' => 1, 'response' => $this->response, 'response_by' => auth()->user()->full_name]);
 
         $this->dispatchBrowserEvent('reloadbrowser');
     }
