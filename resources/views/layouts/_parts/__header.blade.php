@@ -142,11 +142,6 @@
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
-                    @if (auth()->user()->hasRole('Client'))
-                        <a class="dropdown-item" href="{{ route('admin:company') }}"><i
-                                class="bx bx-user font-size-16 align-middle me-1"></i> <span
-                                key="t-profile">Profile</span></a>
-                    @endif
 
                     <a class="dropdown-item d-block" href="{{ route('admin:profil') }}">
 
