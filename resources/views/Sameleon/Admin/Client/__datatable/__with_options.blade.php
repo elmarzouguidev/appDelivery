@@ -56,7 +56,7 @@
                                 </td> --}}
                                 <td>
                                     <div>
-                                        <img class="img-fluid" alt="" src="{{ asset('storage/'.$client->logo) }}" width="60">
+                                        <img class="img-fluid rounded" alt="" src="{{ asset('storage/'.$client->logo) }}" width="50">
                                     </div>
                                 </td>
                                 <td>

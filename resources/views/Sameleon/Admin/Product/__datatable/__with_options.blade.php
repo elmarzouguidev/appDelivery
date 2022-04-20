@@ -52,7 +52,7 @@
                                 </td>--}}
                                 <td>
                                     <div>
-                                        <img class="img-fluid" alt="" src="{{$product->getFirstMediaUrl('products_photos','normal')}}" width="60">
+                                        <img class="img-fluid rounded" alt="" src="{{$product->getFirstMediaUrl('products_photos','normal')}}" width="50">
                                     </div>
                                 </td>
                                 <td>
