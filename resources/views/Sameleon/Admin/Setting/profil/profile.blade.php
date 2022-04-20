@@ -21,7 +21,7 @@
                 <p class="card-title-desc">
                     Editer les informations de votre Profile
                 </p>
-                <form method="POST" action="{{route('admin:profil.update')}}">
+                <form method="POST" action="{{route('admin:profil.update')}}" enctype="multipart/form-data">
                     <input type="hidden" name="userId" value="{{$user->uuid}}">
                     <div class="mb-3 row">
                         <label for="nom" class="col-md-2 col-form-label">Nom *</label>
@@ -68,7 +68,15 @@
                             </div>
                         </div>
                     @endif
+                    @if ($user->logo)
+                        <div class="col-lg-10">
+                            <div class="mb-4">
 
+                                <img src="{{ asset('storage/'.$user->logo) }}" class="img-fluid"  width="75">
+                               
+                            </div>
+                        </div>
+                    @endif
                     <div class="row mb-3">
                         <label class="col-form-label col-lg-2">Logo *</label>
                         <div class="col-lg-10">

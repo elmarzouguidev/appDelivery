@@ -35,7 +35,7 @@
                         <label for="website" class="col-md-2 col-form-label">website</label>
                         <div class="col-md-10">
                             <input class="form-control" type="text" name="website"
-                                value="{{ $company->website ?? '' }}" id="website"
+                                value="{{ $company->website ?? old('website') ?? '' }}" id="website"
                                 placeholder="Site web de votre société">
                         </div>
                     </div>

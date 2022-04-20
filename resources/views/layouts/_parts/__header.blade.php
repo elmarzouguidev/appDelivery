@@ -62,7 +62,7 @@
                 </div>
             </div>
 
-            {{--<div class="dropdown d-inline-block">
+            {{-- <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item waves-effect" data-bs-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
                     <img id="header-lang-img" src="{{ asset('assets/images/flags/french.jpg') }}"
@@ -77,15 +77,15 @@
                     </a>
 
                 </div>
-            </div>--}}
-            
+            </div> --}}
+
             <div class="dropdown d-none d-lg-inline-block ms-1">
                 <button type="button" class="btn header-item noti-icon waves-effect" data-toggle="fullscreen">
                     <i class="bx bx-fullscreen"></i>
                 </button>
             </div>
 
-            {{--<div class="dropdown d-inline-block">
+            {{-- <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item noti-icon waves-effect"
                     id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
@@ -129,15 +129,23 @@
                         </a>
                     </div>
                 </div>
-            </div>--}}
+            </div> --}}
 
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="rounded-circle header-profile-user" src="{{ asset('images/logo.png') }}"
-                        alt="Header Avatar">
+
+                    @if (auth()->user()->logo)
+                        <img class="rounded-circle header-profile-user" src="{{ asset('storage/'.auth()->user()->logo) }}"
+                            alt="Sameleon">
+                    @else
+                        <img class="rounded-circle header-profile-user" src="{{ asset('images/logo.png') }}"
+                            alt="Sameleon">
+                    @endif
+
+
                     <span class="d-none d-xl-inline-block ms-1" key="t-henry">
-                        {{ auth()->user()->nom ?? '' }}
+                        {{ auth()->user()->full_name ?? '' }}
                     </span>
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                 </button>

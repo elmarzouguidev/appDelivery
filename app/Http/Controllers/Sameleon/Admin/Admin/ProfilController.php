@@ -9,6 +9,7 @@ use App\Http\Requests\Sameleon\Admin\UpdateProfilPasswordFormRequest;
 use App\Models\Sameleon\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class ProfilController extends Controller
 {
@@ -40,6 +41,14 @@ class ProfilController extends Controller
 
                 $user->cnie = $request->cnie;
             }
+
+            if ($request->hasFile('logo')) {
+                
+                $old = $user->logo;
+                $user->logo = $request->file('logo')->store('users', ['disk' => 'public']);
+                Storage::disk('public')->delete($old);
+            }
+
             $user->save();
 
             return back()->with('success', 'Profile Updated');
@@ -73,7 +82,7 @@ class ProfilController extends Controller
         UpdateCompanyFormRequest $request,
 
     ) {
-      
+
         $company = auth()->user()->company()->updateOrCreate(
 
             ['user_uuid' => auth()->user()->uuid],
