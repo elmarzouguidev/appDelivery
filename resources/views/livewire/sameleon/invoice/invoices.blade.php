@@ -87,10 +87,10 @@
                                     </td>
                                     <td>
                                         @if ($invoice->bill_count && $invoice->cloture)
-                                            <button type="button" class="btn btn-info btn-sm"
-                                                wire:click="billDetail('{{ $invoice->uuid }}')"
-                                            >
-                                                {{$invoice->bill->full_number}}
+                                            <button type="button" class="btn btn-info btn-sm" >
+                
+                                                {{optional($invoice->bill)->full_number}}
+                                                
                                             </button>
                                         @else
                                             <button wire:click="addBill('{{ $invoice->uuid }}')" type="button"

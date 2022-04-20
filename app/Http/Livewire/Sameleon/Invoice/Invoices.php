@@ -95,16 +95,7 @@ class Invoices extends Component
         $this->dispatchBrowserEvent('reloadbrowser');
     }
 
-    public function billDetail()
-    {
-    }
-
-    /*public function updated($propertyName)
-    {
-        $this->validateOnly($propertyName);
-    }*/
-
-
+    
     /*** Validation Rules  ***/
     protected function rules()
     {

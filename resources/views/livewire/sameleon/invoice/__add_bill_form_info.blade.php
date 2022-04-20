@@ -35,9 +35,9 @@
             <label class="form-label">Mode de règlement *</label>
 
             <select wire:model.defer="mode" class="form-select @error('mode') is-invalid @enderror">
-                <option value="espece">Espèce</option>
-                <option value="virement">Virement</option>
-                <option value="cheque">Chèque</option>
+                <option value="Espèce">Espèce</option>
+                <option value="Virement">Virement</option>
+                <option value="Chèque">Chèque</option>
             </select>
             @error('mode')
                 <span class="invalid-feedback" role="alert">
@@ -91,7 +91,7 @@
     <div class="col-lg-10">
         <input class="form-control @error('recu') is-invalid @enderror" wire:model.lazy="recu" type="file"
             accept="image/*" />
-        @error('photo')
+        @error('recu')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
