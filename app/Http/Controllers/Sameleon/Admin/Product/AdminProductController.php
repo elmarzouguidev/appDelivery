@@ -15,9 +15,9 @@ class AdminProductController extends Controller
     {
 
         if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin')) {
-            $products = Product::with('client')->get();
+            $products = Product::with('client','media')->get();
         } else {
-            $products = auth()->user()->products()->get();
+            $products = auth()->user()->products()->with('media')->get();
         }
 
         return view('Sameleon.Admin.Product.__datatable.index', compact('products'));
