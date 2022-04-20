@@ -136,8 +136,8 @@
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                     @if (auth()->user()->logo)
-                        <img class="rounded-circle header-profile-user" src="{{ asset('storage/'.auth()->user()->logo) }}"
-                            alt="Sameleon">
+                        <img class="rounded-circle header-profile-user"
+                            src="{{ asset('storage/' . auth()->user()->logo) }}" alt="Sameleon">
                     @else
                         <img class="rounded-circle header-profile-user" src="{{ asset('images/logo.png') }}"
                             alt="Sameleon">
@@ -154,7 +154,7 @@
                     <a class="dropdown-item d-block" href="{{ route('admin:profil') }}">
 
                         <i class="bx bx-wrench font-size-16 align-middle me-1"></i>
-                        <span key="t-settings">Paramètres</span>
+                        <span key="t-profile">Profil</span>
                     </a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item text-danger" href="#"

@@ -118,7 +118,7 @@
 
         <a href="javascript: void(0);" class="has-arrow waves-effect">
             <i class="bx bx-wrench"></i>
-            <span key="t-settings">{{ __('Settings') }}</span>
+            <span key="t-settings">{{ __('Paramètres') }}</span>
         </a>
         <ul class="sub-menu" aria-expanded="false">
             <li>
