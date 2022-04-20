@@ -11,10 +11,11 @@ class GeneratDayInvoiceAction
 {
     use AsAction;
     protected $invoice;
+
     public function handle()
     {
 
-        if (auth()->user()->hasRole('Client') && auth()->user()->commands()->count() > 0) {
+        if (!now()->isWeekend() && auth()->user()->hasRole('Client') && auth()->user()->commands()->count() > 0) {
             $this->invoice = Invoice::whereDay('created_at', now()->format('d'))
                 ->where('user_id', auth()->id())
                 ->where('user_uuid', auth()->user()->uuid)
@@ -39,8 +40,8 @@ class GeneratDayInvoiceAction
         $commands = auth()
             ->user()
             ->commands()
-            ->whereStatus(Status::LIVRE)
-            //->whereDay('created_at', now()->format('d'))
+            ->whereIn('status', [Status::LIVRE, Status::REFUSE])
+            ->whereDay('created_at', now()->format('d'))
             ->doesntHave('articles')
             ->withSum('products', 'product_command.price_total')
             ->latest()->get();

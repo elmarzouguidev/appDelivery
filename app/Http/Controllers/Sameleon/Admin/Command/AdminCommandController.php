@@ -32,7 +32,7 @@ class AdminCommandController extends Controller
     {
         $file = $request->file('file');
         Excel::import(new CommandsImport,  $file);
-       
+
         return redirect()->back()->with('success', 'la list a été importé avec success');
     }
 
@@ -50,6 +50,7 @@ class AdminCommandController extends Controller
         $command->client_address = $request->client_address;
 
         $command->client()->associate(auth()->id());
+        $command->user_uuid = auth()->user()->uuid;
         $command->city()->associate($request->city);
         $command->frais = $command->city->frais;
         $command->save();
@@ -155,6 +156,7 @@ class AdminCommandController extends Controller
         if ($command) {
             // dd('Oui command');
             $command->products()->detach();
+            $command->comments()->delete();
 
             $command->delete();
 
