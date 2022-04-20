@@ -65,6 +65,7 @@ class AdminProductController extends Controller
 
     public function edit(Product $product)
     {
+        
         $this->authorize('update', $product);
 
         return view('Sameleon.Admin.Product.__edit.index', compact('product'));

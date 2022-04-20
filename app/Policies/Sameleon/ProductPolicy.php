@@ -19,7 +19,7 @@ class ProductPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->hasAnyRole('SuperAdmin','Admin');
+        return $user->hasAnyRole('SuperAdmin', 'Admin');
     }
 
     /**
@@ -32,7 +32,9 @@ class ProductPolicy
     public function view(User $user, Product $product)
     {
 
-        return $user->id === $product->user_id;
+        return $user->id === $product->user_id
+            &&
+            $user->uuid === $product->user_uuid;
     }
 
     /**
@@ -43,7 +45,7 @@ class ProductPolicy
      */
     public function create(User $user)
     {
-        return $user->hasAnyRole('Client', 'SuperAdmin','Admin');
+        return $user->hasAnyRole('Client', 'SuperAdmin', 'Admin');
     }
 
     /**
@@ -56,7 +58,9 @@ class ProductPolicy
     public function update(User $user, Product $product)
     {
 
-        return $user->id === $product->user_id;
+        return $user->id === $product->user_id
+            &&
+            $user->uuid === $product->user_uuid;
     }
 
     /**
@@ -68,7 +72,9 @@ class ProductPolicy
      */
     public function delete(User $user, Product $product)
     {
-        return $user->id === $product->user_id;
+        return $user->id === $product->user_id
+            &&
+            $user->uuid === $product->user_uuid;
     }
 
     /**
@@ -80,7 +86,9 @@ class ProductPolicy
      */
     public function restore(User $user, Product $product)
     {
-        return $user->id === $product->user_id;
+        return $user->id === $product->user_id
+            &&
+            $user->uuid === $product->user_uuid;
     }
 
     /**
@@ -92,6 +100,8 @@ class ProductPolicy
      */
     public function forceDelete(User $user, Product $product)
     {
-        return $user->id === $product->user_id;
+        return $user->id === $product->user_id
+            &&
+            $user->uuid === $product->user_uuid;
     }
 }
