@@ -20,8 +20,6 @@ class Commands extends Component
 
     public $showFilters;
 
-    public $class = 'col-12';
-
     public $showEditStatus = false;
 
     public $canPolled = false;
@@ -45,7 +43,7 @@ class Commands extends Component
 
     protected $rules = [
         'reportTime' => 'required',
-        'reportComment' => 'required|string',
+        'reportComment' => 'nullable|string',
     ];
 
 
@@ -95,16 +93,6 @@ class Commands extends Component
             $this->products = Product::select(['id','name'])->get();
             $this->citiesList = app(CityInterface::class)->getCities();
         }
-    }
-
-    public function showUpFilter()
-    {
-
-        $this->class = "col-lg-10";
-
-        $this->showFilters = !$this->showFilters;
-
-        if (!$this->showFilters) $this->class = "col-lg-12";
     }
 
     public function editCommand(Command $command)

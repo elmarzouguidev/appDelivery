@@ -5,8 +5,8 @@
         @endif
         <div class="row">
 
-               {{-- @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin') &&
-                  $showFilters)
+            {{-- @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin') &&
+    $showFilters)
   
                   @include('livewire.sameleon.command.filters')
                 @endif --}}
@@ -121,7 +121,8 @@
                                         @endif
                                         <td>
                                             @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
-                                                <button id="editStatus" wire:click="editStatus('{{ $command->uuid }}')" type="button"
+                                                <button id="editStatus"
+                                                    wire:click="editStatus('{{ $command->uuid }}')" type="button"
                                                     class="btn btn-sm {{ __('status.classes.' . $command->status) }} waves-effect waves-light">
                                                     {{ __('status.statuses.' . $command->status) }}
                                                 </button>
@@ -130,6 +131,11 @@
                                                     class="btn btn-sm {{ __('status.classes.' . $command->status) }} waves-effect waves-light">
                                                     {{ __('status.statuses.' . $command->status) }}
                                                 </button>
+                                            @endif
+                                            @if ($command->status === App\Status\Status::REPORTE)
+                                                <p class="text-strong mb-0 mt-2" style="color:red">
+                                                    <b>{{ $command->comments()->latest()->value('reported_at')->format('d-m-Y') }}</b>
+                                                </p>
                                             @endif
 
                                         </td>

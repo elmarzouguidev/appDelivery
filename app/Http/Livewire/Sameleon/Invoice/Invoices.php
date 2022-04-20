@@ -89,19 +89,20 @@ class Invoices extends Component
 
     public function clotureInvoice(Invoice $invoice)
     {
-       
+
         $invoice->update(['cloture' => !$invoice->cloture]);
 
         $this->dispatchBrowserEvent('reloadbrowser');
     }
 
-    
+
     /*** Validation Rules  ***/
     protected function rules()
     {
 
         return [
-            'price' => ['required', 'numeric'],
+            
+            'price' => ['required', 'numeric', 'digits_between:1,20'],
             'date' => ['required', 'date'],
             'mode' => ['required', 'string'],
             'reference' => ['nullable', 'string'],
