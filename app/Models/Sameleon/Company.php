@@ -14,6 +14,7 @@ class Company extends Model
     use GetModelByUuid;
 
     protected $fillable = [
+        'user_uuid',
         'name',
         'website',
         'logo',

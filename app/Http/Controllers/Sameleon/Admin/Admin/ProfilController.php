@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Sameleon\Admin\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Sameleon\Admin\UpdateCompanyFormRequest;
 use App\Http\Requests\Sameleon\Admin\UpdateProfilFormRequest;
 use App\Http\Requests\Sameleon\Admin\UpdateProfilPasswordFormRequest;
 use App\Models\Sameleon\User;
@@ -66,5 +67,36 @@ class ProfilController extends Controller
         }
 
         return back()->with('error', 'Profile Not Updated');
+    }
+
+    public function updateCompany(
+        UpdateCompanyFormRequest $request,
+
+    ) {
+      
+        $company = auth()->user()->company()->updateOrCreate(
+
+            ['user_uuid' => auth()->user()->uuid],
+            [
+                'user_uuid' => auth()->user()->uuid,
+                'name' => $request->name,
+                'website' => $request->website,
+                'logo' => $request->logo,
+                'city' => $request->city,
+                'addresse' => $request->addresse,
+                'telephone' => $request->telephone,
+                'email' => $request->email,
+                'rc' => $request->rc,
+                'ice' => $request->ice,
+                'cnss' => $request->cnss,
+                'patente' => $request->patente,
+                'if' => $request->if,
+            ]
+        );
+        if ($company) {
+            return redirect()->back()->with('success', "Update a éte effectuer avec success");
+        }
+
+        return redirect()->back()->with('error', "Error");
     }
 }

@@ -175,6 +175,8 @@ Route::group(['prefix' => 'profil'], function () {
         Route::get('/', [ProfilController::class, 'index'])->name('profil');
         Route::post('/', [ProfilController::class, 'update'])->name('profil.update');
         Route::post('/password', [ProfilController::class, 'updatePassword'])->name('profil.update.password');
+
+        Route::post('/company', [ProfilController::class, 'updateCompany'])->name('profil.update.company');
     });
 });
 
