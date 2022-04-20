@@ -34,6 +34,8 @@ class UpdateProfilFormRequest extends FormRequest
             'addresse' => ['required', 'string'],
 
             'cnie' => ['nullable', 'string', Rule::unique('users')->ignore(auth()->id())],
+
+            'logo' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:1024'],
         ];
     }
 }

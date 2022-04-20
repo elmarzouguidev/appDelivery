@@ -68,6 +68,21 @@
                             </div>
                         </div>
                     @endif
+
+                    <div class="row mb-3">
+                        <label class="col-form-label col-lg-2">Logo *</label>
+                        <div class="col-lg-10">
+                            <input class="form-control @error('logo') is-invalid @enderror" name="logo" type="file"
+                                accept="image/*"/>
+                            @error('logo')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                    </div>
+
                     <div class="d-flex flex-wrap gap-2">
                         <button type="submit" class="btn btn-primary waves-effect waves-light">update</button>
                     </div>
