@@ -17,7 +17,7 @@ class ProfilController extends Controller
 
         $user = auth()->user();
 
-        return view('Sameleon.Admin.Setting.Profil.index', compact('user'));
+        return view('Sameleon.Admin.Setting.profil.index', compact('user'));
     }
 
     public function update(UpdateProfilFormRequest $request)

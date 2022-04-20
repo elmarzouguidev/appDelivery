@@ -5,9 +5,9 @@
 
         @include('Sameleon.Admin.Setting.__section_title')
         
-        @include('Sameleon.Admin.Setting.Profil.profile')
+        @include('Sameleon.Admin.Setting.profil.profile')
 
-        @include('Sameleon.Admin.Setting.Profil.password')
+        @include('Sameleon.Admin.Setting.profil.password')
 
     </div>
 @endsection
