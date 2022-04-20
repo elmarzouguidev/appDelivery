@@ -15,12 +15,19 @@ class Reclamation extends Model
     use UuidGenerator;
     use HasCode;
 
-    protected $fillable = ['message','active','status','uuid','code'];
+    protected $fillable = [
+        'message',
+        'active',
+        'status',
+        'uuid',
+        'code',
+        'response_by',
+        'response'
+    ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
-
     }
 
     public function command()

@@ -8,7 +8,7 @@
             </div>
             <div class="modal-body">
 
-                <form method="post" action="{{ route('admin:complaints.store') }}">
+                <form wire:submit.prevent="saveResponse()" method="post">
                     @csrf
                     <div class="row mb-4">
                         <label for="message" class="col-form-label col-lg-2">N° du Command *</label>
@@ -40,11 +40,11 @@
                     </div>
                     
                     <div class="row mb-4">
-                        <label for="message" class="col-form-label col-lg-2">Votre réponse *</label>
+                        <label for="response" class="col-form-label col-lg-2">Votre réponse *</label>
                         <div class="col-lg-10">
                         
-                            <textarea class="form-control" name="message" wire:model.defer="message" required></textarea>
-                            @error('message')
+                            <textarea class="form-control" name="response" wire:model.defer="response" required></textarea>
+                            @error('response')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

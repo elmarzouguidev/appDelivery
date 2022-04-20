@@ -14,6 +14,8 @@ class Reclamation extends Component
     public $canResponse = false;
     public $reclamation;
 
+    public $response;
+
     public function render()
     {
         if (auth()->user()->hasRole('Client')) {
@@ -39,11 +41,19 @@ class Reclamation extends Component
         dd("Woowah");
     }
 
-    public function responseToCompnail(SameleonReclamation $reclamation)
+    public function responseTo(SameleonReclamation $reclamation)
     {
-        
+
         $this->canResponse = true;
         $this->reclamation = $reclamation;
         $this->dispatchBrowserEvent('response-modal');
+    }
+
+    public function saveResponse()
+    {
+
+        $this->reclamation->update(['response' => $this->response, 'response_by' => auth()->user()->full_name]);
+
+        $this->dispatchBrowserEvent('reloadbrowser');
     }
 }

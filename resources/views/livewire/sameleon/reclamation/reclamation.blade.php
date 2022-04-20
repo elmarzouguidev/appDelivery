@@ -88,7 +88,7 @@
                                     <td>
                                         <div class="d-flex gap-3">
 
-                                            <button wire:click="responseToCompnail('{{$complaint->uuid}}')" class="btn btn-info btn-sm" type="button">
+                                            <button wire:click="responseTo('{{$complaint->uuid}}')" class="btn btn-info btn-sm" type="button">
                                                 Repondre
                                             </button>
 
