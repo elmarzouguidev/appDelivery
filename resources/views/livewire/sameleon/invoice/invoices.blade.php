@@ -16,7 +16,7 @@
                             </div>
                         </div>
                     </div>
-                    {{--$errors--}}
+                    {{-- $errors --}}
                     <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
                         <thead>
                             <tr>
@@ -79,29 +79,51 @@
                                     </td>
 
                                     <td>
-                
-                                        <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
-                                            <input wire:click="clotureInvoice('{{$invoice->uuid}}')" class="form-check-input" type="checkbox" id="SwitchCheckSizelg"{{ $invoice->cloture==true ?'checked' :''}}>
-                                           
-                                        </div>
+                                        @if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin'))
+                                            <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
+                                                <input wire:click="clotureInvoice('{{ $invoice->uuid }}')"
+                                                    class="form-check-input" type="checkbox" id="SwitchCheckSizelg"
+                                                    {{ $invoice->cloture == true ? 'checked' : '' }}>
+
+                                            </div>
+                                        @else
+                                            @if ($invoice->cloture)
+                                                Oui
+                                            @else
+                                                Non
+                                            @endif
+                                        @endif
+
                                     </td>
                                     <td>
-                                        @if ($invoice->bill_count && $invoice->cloture)
-                                            <button type="button" class="btn btn-info btn-sm" >
-                
-                                                {{optional($invoice->bill)->full_number}}
-                                                
-                                            </button>
+                                        @if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin'))
+                                            @if ($invoice->bill_count && $invoice->cloture)
+                                                <button type="button" class="btn btn-info btn-sm">
+
+                                                    {{ optional($invoice->bill)->full_number }}
+
+                                                </button>
+                                            @else
+                                                <button wire:click="addBill('{{ $invoice->uuid }}')" type="button"
+                                                    class="btn btn-warning btn-sm">
+                                                    Régler
+                                                </button>
+                                            @endif
                                         @else
-                                            <button wire:click="addBill('{{ $invoice->uuid }}')" type="button"
-                                                class="btn btn-warning btn-sm">
-                                                Régler
-                                            </button>
+                                            @if ($invoice->bill_count && $invoice->cloture)
+                                                <button type="button" class="btn btn-info btn-sm">
+
+                                                    {{ optional($invoice->bill)->full_number }}
+
+                                                </button>
+                                            @else
+                                                non Régler
+                                            @endif
                                         @endif
                                     </td>
 
                                     <td>
-                                        {{--<div class="d-flex gap-3">
+                                        {{-- <div class="d-flex gap-3">
 
                                             <a href="{{ $invoice->edit_url }}" class="text-success">
                                                 <i class="mdi mdi-pencil font-size-18"></i>
@@ -115,14 +137,14 @@
                                                     }">
                                                 <i class="mdi mdi-delete font-size-18"></i>
                                             </a>
-                                        </div>--}}
+                                        </div> --}}
                                     </td>
-                                    {{--<form id="delete-invoice-{{ $invoice->uuid }}" method="post"
+                                    {{-- <form id="delete-invoice-{{ $invoice->uuid }}" method="post"
                                         action="{{ $invoice->delete_url }}">
                                         @csrf
                                         @method('DELETE')
                                         <input type="hidden" name="invoiceId" value="{{ $invoice->uuid }}">
-                                    </form>--}}
+                                    </form> --}}
                                 </tr>
                             @endforeach
 
