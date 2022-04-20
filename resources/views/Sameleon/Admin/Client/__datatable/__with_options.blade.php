@@ -33,6 +33,7 @@
                                     <label class="form-check-label" for="checkAll"></label>
                                 </div>
                             </th> --}}
+                            <th scope="col">Logo</th>
                             <th scope="col">Code</th>
                             <th scope="col">Nom complet</th>
                             <th scope="col">Tél</th>
@@ -53,6 +54,11 @@
                                         <label class="form-check-label" for="client-{{ $client->id }}"></label>
                                     </div>
                                 </td> --}}
+                                <td>
+                                    <div>
+                                        <img class="img-fluid" alt="" src="{{ asset('storage/'.$client->logo) }}" width="60">
+                                    </div>
+                                </td>
                                 <td>
                                     <a href="{{-- $client->url --}}" class="text-body fw-bold">
                                         {{ $client->code }}
