@@ -30,55 +30,16 @@
     <script src="{{ asset('js/pages/datatables.init.js') }}"></script>
 
     <script>
-        $(window).blur(function() {
 
-            // Livewire.emit('runPoll');
-            // console.log('run');
-        });
-
-        $(window).focus(function() {
-
-            // Livewire.emit('closePoll');
-            console.log('close');
-        });
-
-        window.addEventListener('show-edit', event => {
-            $('.editCommandModal').modal('show');
+        window.addEventListener('response-modal', event => {
+            $('.responseReclamationModal').modal('show');
         });
 
         window.addEventListener('hidden.bs.modal', event => {
-            //$("#commands_list").load(window.location.href + " #commands_list");
 
             window.location.reload();
         });
 
-        window.addEventListener('show-edit-status', event => {
-            $('.updateStatus').modal('show');
-        });
-
-        window.addEventListener('status-updated', event => {
-            //$("#commands_list").load(window.location.href + " #commands_list");
-            setTimeout(function() {
-                window.location.reload();
-            }, 3000);
-
-        });
-
-        window.addEventListener('status-reported', event => {
-            $('.isReportedModal').modal('show');
-        });
-
-        window.addEventListener('notify-change', event => {
-
-            Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: 'Le Status est modifier avec succès. ',
-                showConfirmButton: false,
-                timer: 1900
-            })
-
-        });
     </script>
 
     <script>
@@ -104,18 +65,5 @@
                 }
             });
         });
-    </script>
-
-    <script>
-        window.addEventListener('refresh-datatable', event => {
-            console.log('oui loaded');
-            //load_Datatables("{{ asset('js/pages/datatables.init.js') }}")
-        });
-
-        function load_Datatables(src) {
-            $('script[src="' + src + '"]').remove();
-            $('<script>').attr('src', src).appendTo('head');
-                
-        }
     </script>
 @endpush
