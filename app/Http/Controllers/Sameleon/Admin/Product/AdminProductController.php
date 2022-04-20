@@ -103,6 +103,8 @@ class AdminProductController extends Controller
         if ($product) {
 
             $product->commands()->detach();
+            
+            $product->stock()->delete();
 
             $product->delete();
 
