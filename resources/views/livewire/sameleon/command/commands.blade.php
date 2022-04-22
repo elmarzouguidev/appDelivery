@@ -28,10 +28,10 @@
                                         data-bs-target=".addCommandModal">
                                         Ajouter une commande
                                     </button>
-                                    <button class="btn btn-primary" type="button" data-bs-toggle="modal"
+                                    {{--<button class="btn btn-primary" type="button" data-bs-toggle="modal"
                                         data-bs-target=".importCommandModal">
                                         Importer des commands
-                                    </button>
+                                    </button>--}}
                                 </div>
                             </div>
                         </div>

@@ -9,7 +9,7 @@
                                 Filters
                             </a> --}}
                             <a href="{{ route('admin:admins.create') }}" type="button" class="btn btn-info">
-                                Ajouter un Admin
+                                Ajouter un utilisateur
                             </a>
                         </div>
                     </div>
