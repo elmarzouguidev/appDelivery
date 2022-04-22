@@ -50,7 +50,8 @@
 
 <li>
     <a href="{{ route('admin:invoices.index') }}">
-        <i class="bx bx-file"></i>
+        <i class="bx bx-file"></i><span class="badge rounded-pill bg-info float-end">{{$invoice_non_closed}}</span>
+
         <span key="t-invoices">{{ __('Factures') }}</span>
     </a>
 </li>

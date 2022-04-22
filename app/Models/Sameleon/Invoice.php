@@ -78,6 +78,15 @@ class Invoice extends Model
         return $this->hasMany(Command::class);
     }
 
+    public function scopeInvoiceNonClosed($query)
+    {
+        if (auth()->user()->hasRole('SuperAdmin')) {
+            return $query->whereCloture(false)
+                ->latest()->count();
+        }
+        return 0;
+    }
+
     public static function boot()
     {
 

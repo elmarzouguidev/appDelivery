@@ -3,6 +3,7 @@
 namespace App\Http\View\Composers;
 
 use App\Models\Sameleon\Command;
+use App\Models\Sameleon\Invoice;
 use App\Models\Sameleon\Reclamation;
 use Illuminate\View\View;
 use Illuminate\Cache\CacheManager;
@@ -12,14 +13,17 @@ class NavBarComposer
 
     protected Command $command;
     protected Reclamation $reclamation;
+    protected Invoice $invoice;
 
     protected CacheManager $cache;
 
-    public function __construct(Command $command, Reclamation $reclamation, CacheManager $cache)
+    public function __construct(Command $command, Reclamation $reclamation, Invoice $invoice, CacheManager $cache)
     {
         $this->command = $command;
 
         $this->reclamation = $reclamation;
+
+        $this->invoice = $invoice;
 
         $this->cache = $cache;
     }
@@ -36,6 +40,7 @@ class NavBarComposer
 
         $view->with('total_new_command', $this->command->totalNewCommands());
         $view->with('total_new_reclamations', $this->reclamation->totalNewReclamations());
+        $view->with('invoice_non_closed', $this->invoice->invoiceNonClosed());
 
         /*$view->with('categoriesMenu', $this->cache->remember('categoriesMenu', $this->timeToLive(), function () {
              return $this->categories->categoryInMenu();
