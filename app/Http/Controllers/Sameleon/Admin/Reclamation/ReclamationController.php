@@ -11,7 +11,6 @@ class ReclamationController extends Controller
 {
     public function index()
     {
-
         return view('Sameleon.Admin.Reclamation.index');
     }
 

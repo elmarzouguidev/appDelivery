@@ -27,7 +27,11 @@
 <li>
     <a href="{{ route('admin:commands.index') }}" class="waves-effect">
 
-        <i class="bx bx-cart-alt"></i><span class="badge rounded-pill bg-info float-end">{{$total_new_command}}</span>
+        
+        <i class="bx bx-cart-alt"></i>
+        @if($total_new_command)
+         <span class="badge rounded-pill bg-info float-end">{{$total_new_command}}</span>
+        @endif
         <span key="t-commands">{{ __('Commandes') }}</span>
     </a>
 
@@ -50,8 +54,10 @@
 
 <li>
     <a href="{{ route('admin:invoices.index') }}">
-        <i class="bx bx-file"></i><span class="badge rounded-pill bg-info float-end">{{$invoice_non_closed}}</span>
-
+        <i class="bx bx-file"></i>
+        @if($invoice_non_closed)
+          <span class="badge rounded-pill bg-info float-end">{{$invoice_non_closed}}</span>
+        @endif
         <span key="t-invoices">{{ __('Factures') }}</span>
     </a>
 </li>
@@ -66,7 +72,10 @@
 
 <li>
     <a href="{{ route('admin:complaints.index') }}">
-        <i class='bx bx-info-circle'></i><span class="badge rounded-pill bg-info float-end">{{$total_new_reclamations}}</span>
+        <i class='bx bx-info-circle'></i>
+        @if($total_new_reclamations)
+         <span class="badge rounded-pill bg-info float-end">{{$total_new_reclamations}}</span>
+        @endif
         <span key="t-complaints">{{ __('Réclamations') }}</span>
     </a>
 </li>
