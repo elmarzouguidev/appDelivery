@@ -2,7 +2,11 @@
 
 @section('content')
     <div class="container-fluid">
-        <h1>Comming Song ...</h1>
+
+        @include('Sameleon.Admin.Contact.__title')
+        
+        @include('Sameleon.Admin.Contact.section')
+
     </div>
 @endsection
 
