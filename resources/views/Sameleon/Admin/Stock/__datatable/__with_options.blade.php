@@ -54,7 +54,7 @@
                                 </td>
                                 <td>
                                     <a href="{{--$client->url--}}" class="text-body fw-bold">
-                                        {{ $stock->product->name }}
+                                        {{ optional($stock->product)->name }}
                                     </a>
                                 </td>
                                 <td>
@@ -97,7 +97,7 @@
                                     </div>
                                 </td>
                                  <form id="delete-stock-{{ $stock->uuid }}" method="post"
-                                    action="{{ $stock->delete_url }}">
+                                    action="{{ route('admin:stock.delete') }}">
                                     @csrf
                                     @method('DELETE')
                                     <input type="hidden" name="stockId" value="{{ $stock->uuid }}">
