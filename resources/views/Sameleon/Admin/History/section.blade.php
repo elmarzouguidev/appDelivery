@@ -97,7 +97,8 @@
                             <tr>
                                 <th class="align-middle">Date</th>
                                 <th class="align-middle">IP</th>
-                                <th class="align-middle">device</th>
+                                <th class="align-middle">Navigateur</th>
+                                <th class="align-middle">System</th>
 
                             </tr>
                         </thead>
@@ -120,6 +121,12 @@
 
 
                                     </td>
+                                    <td>
+
+                                        {{ $connections->lastLogin->system ?? '' }}
+
+
+                                    </td>
                                 </tr>
                             @endif
                             @foreach ($sessionsAll as $session)
@@ -135,6 +142,11 @@
                                     <td>
 
                                         {{ $session->machine }}
+
+                                    </td>
+                                    <td>
+
+                                        {{ $session->system }}
 
                                     </td>
                                 </tr>
