@@ -31,10 +31,11 @@
                             </th>--}}
                             <th scope="col">Image</th>
                             <th scope="col">Code</th>
-                            <th scope="col">Client</th>
+                            
                             <th scope="col">Nom</th>
                             <th scope="col">Prix</th>
                             <th scope="col">Quantité</th>
+                            <th scope="col">Client</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -60,11 +61,7 @@
                                         {{ $product->code }}
                                     </a>
                                 </td>
-                                <td>
-                                    <a href="{{--$client->url--}}" class="text-body fw-bold">
-                                        {{ optional($product->client)->full_name }}
-                                    </a>
-                                </td>
+
                                 <td>
                                     {{ $product->name }}
                                     <p class="text-muted mb-0"></p>
@@ -75,7 +72,11 @@
                                 <td>
                                     {{ $product->qte_global }}
                                 </td>
-            
+                                <td>
+                                    <a href="{{--$client->url--}}" class="text-body fw-bold">
+                                        {{ optional($product->client)->full_name }}
+                                    </a>
+                                </td>
                                 <td>
                                     <div class="d-flex gap-3">
 

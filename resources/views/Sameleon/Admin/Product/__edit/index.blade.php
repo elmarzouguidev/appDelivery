@@ -102,7 +102,9 @@
 @endsection
 
 @section('css')
+
 @endsection
 
 @push('scripts')
+
 @endpush
