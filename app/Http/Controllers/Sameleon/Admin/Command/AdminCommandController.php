@@ -172,12 +172,7 @@ class AdminCommandController extends Controller
             $command->products()->detach();
             $command->comments()->delete();
 
-            $command->histories()->create([
-                'user_id' => auth()->id(),
-                'user_uuid' => auth()->user()->uuid,
-                'description' => 'a supprimer la command',
-                'action' => 'delete'
-            ]);
+            $command->histories()->delete();
 
             $command->delete();
 
