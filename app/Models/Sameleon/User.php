@@ -105,6 +105,11 @@ class User extends Authenticatable
         return $this->hasMany(Stock::class);
     }
 
+    public function documents()
+    {
+        return $this->hasMany(Document::class);
+    }
+
     public function scopeWithLastLogin($query)
     {
         return $query->addSelect([

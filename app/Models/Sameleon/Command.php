@@ -93,6 +93,11 @@ class Command extends Model
         return $this->hasOne(Reclamation::class);
     }
 
+    public function histories()
+    {
+        return $this->morphMany(History::class, 'historyable');
+    }
+
     public function setClientAddressAttribute($value)
     {
         $this->attributes['client_address'] = nl2br($value);

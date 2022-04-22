@@ -18,6 +18,7 @@ class ProfilController extends Controller
     {
 
         $user = auth()->user();
+        $user->load('documents');
 
         return view('Sameleon.Admin.Setting.profil.index', compact('user'));
     }
