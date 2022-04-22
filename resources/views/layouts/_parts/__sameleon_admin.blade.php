@@ -27,7 +27,7 @@
 <li>
     <a href="{{ route('admin:commands.index') }}" class="waves-effect">
 
-        <i class="bx bx-cart-alt"></i>
+        <i class="bx bx-cart-alt"></i><span class="badge rounded-pill bg-info float-end">{{$total_new_command}}</span>
         <span key="t-commands">{{ __('Commandes') }}</span>
     </a>
 
@@ -65,7 +65,7 @@
 
 <li>
     <a href="{{ route('admin:complaints.index') }}">
-        <i class='bx bx-info-circle'></i>
+        <i class='bx bx-info-circle'></i><span class="badge rounded-pill bg-info float-end">{{$total_new_reclamations}}</span>
         <span key="t-complaints">{{ __('Réclamations') }}</span>
     </a>
 </li>

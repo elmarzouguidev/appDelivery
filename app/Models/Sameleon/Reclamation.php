@@ -22,7 +22,9 @@ class Reclamation extends Model
         'uuid',
         'code',
         'response_by',
-        'response'
+        'response',
+        'user_uuid',
+        'user_id'
     ];
 
     public function user()
@@ -33,5 +35,18 @@ class Reclamation extends Model
     public function command()
     {
         return $this->belongsTo(Command::class);
+    }
+
+
+    public function scopeTotalNewReclamations($query)
+    {
+        if (auth()->user()->hasRole('Client')) {
+            return $query->whereUserId(auth()->id())
+                ->whereUserUuid(auth()->user()->uuid)
+                ->whereStatus(0)
+                ->count();
+        }
+        return $query->whereStatus(0)
+            ->count();
     }
 }

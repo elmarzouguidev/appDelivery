@@ -143,6 +143,18 @@ class Command extends Model
         return $query->count();
     }
 
+    public function scopeTotalNewCommands($query)
+    {
+        if (auth()->user()->hasRole('Client')) {
+            return $query->whereUserId(auth()->id())
+                ->whereUserUuid(auth()->user()->uuid)
+                ->whereStatus(Status::NON_TRAITE)
+                ->count();
+        }
+        return $query->whereStatus(Status::NON_TRAITE)
+            ->count();
+    }
+
     public function scopeTotalCommandsLivred($query)
     {
         if (auth()->user()->hasRole('Client')) {
