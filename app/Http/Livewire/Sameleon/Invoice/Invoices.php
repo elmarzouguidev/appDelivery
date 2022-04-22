@@ -39,6 +39,7 @@ class Invoices extends Component
         } else {
             $invoices = Invoice::withCount('commands')
                 ->withSum('articles', 'price_total')
+                ->with('client:id,nom,prenom')
                 ->with('bill')
                 ->withCount('bill')
                 ->get();
