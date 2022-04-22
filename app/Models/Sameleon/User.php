@@ -110,6 +110,11 @@ class User extends Authenticatable
         return $this->hasMany(Document::class);
     }
 
+    public function histories()
+    {
+        return $this->hasMany(History::class);
+    }
+
     public function scopeWithLastLogin($query)
     {
         return $query->addSelect([

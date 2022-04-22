@@ -78,7 +78,7 @@ class AdminCommandController extends Controller
         $command->histories()->create([
             'user_id' => auth()->id(),
             'user_uuid' => auth()->user()->uuid,
-            'description' => 'a crée la command',
+            'description' => "a crée la command <strong>$command->code</strong>",
             'action' => 'create'
         ]);
 
@@ -151,7 +151,7 @@ class AdminCommandController extends Controller
         $command->histories()->create([
             'user_id' => auth()->id(),
             'user_uuid' => auth()->user()->uuid,
-            'description' => 'a modifier la command',
+            'description' => "a modifier la command <strong>$command->code</strong>",
             'action' => 'update'
         ]);
         // return redirect($command->edit_url)->with('success', 'la commande a été modifier avec success');

@@ -15,7 +15,9 @@ class HistoryController extends Controller
 
         $sessionsAll = auth()->user()->GetLoginHistory() ?? [];
 
-        return view('Sameleon.Admin.History.index', compact('connections', 'sessionsAll'));
+        $actions = auth()->user()->histories()->get();
+
+        return view('Sameleon.Admin.History.index', compact('connections', 'sessionsAll', 'actions'));
     }
 
     public function delete()
