@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Sameleon\Admin\Admin\AdminController;
+use App\Http\Controllers\Sameleon\Admin\Admin\HistoryController;
 use App\Http\Controllers\Sameleon\Admin\Admin\PermissionController;
 use App\Http\Controllers\Sameleon\Admin\Admin\RoleController;
 use App\Http\Controllers\Sameleon\Admin\Admin\SettingController;
@@ -177,6 +178,13 @@ Route::group(['prefix' => 'profil'], function () {
         Route::post('/password', [ProfilController::class, 'updatePassword'])->name('profil.update.password');
 
         Route::post('/company', [ProfilController::class, 'updateCompany'])->name('profil.update.company');
+    });
+
+    Route::group(['prefix' => 'history'], function () {
+
+        Route::get('/', [HistoryController::class, 'index'])->name('history');
+        Route::delete('/', [HistoryController::class, 'delete'])->name('history.delete');
+        
     });
 });
 

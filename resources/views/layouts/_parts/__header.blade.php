@@ -157,6 +157,12 @@
                         <span key="t-profile">Profil</span>
                     </a>
                     <div class="dropdown-divider"></div>
+                    <a class="dropdown-item d-block" href="{{ route('admin:history') }}">
+
+                        <i class="bx bx-history font-size-16 align-middle me-1"></i>
+                        <span key="t-profile">Historique</span>
+                    </a>
+                    <div class="dropdown-divider"></div>
                     <a class="dropdown-item text-danger" href="#"
                         onclick="document.getElementById('logoutForm').submit();">
                         <i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i>

@@ -20,11 +20,12 @@ class UserLogin extends Model
      */
     protected $fillable = [
         'user_id',
-        'customer_id',
         'ip',
         'type',
         'logged_in_at',
-        'device'
+        'device',
+        'device_name',
+        'system'
     ];
 
 
@@ -37,5 +38,4 @@ class UserLogin extends Model
     {
         return str_replace('_', ' ', $this->device);
     }
-
 }

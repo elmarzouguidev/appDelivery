@@ -114,7 +114,7 @@ class User extends Authenticatable
     {
         return $query->addSelect([
             'last_logged_in_id' => UserLogin::select('id')
-                // ->whereColumn('customer_id', 'customers.id')
+                ->whereColumn('user_id', 'users.id')
                 ->where('user_id', $this->id)
                 ->orderBy('logged_in_at', 'desc')
                 ->limit(1),
