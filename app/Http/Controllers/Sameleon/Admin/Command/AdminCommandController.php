@@ -31,7 +31,7 @@ class AdminCommandController extends Controller
     public function import(ImportCommandRequest $request)
     {
         $file = $request->file('file');
-        
+
         Excel::import(new CommandsImport,  $file);
 
         return redirect()->back()->with('success', 'la list a été importé avec success');
@@ -74,6 +74,13 @@ class AdminCommandController extends Controller
             //$priceTotal = $command->products()->sum('pivot.price_total');
             // $command->update(['price_total' => $priceTotal]);
         }
+
+        $command->histories()->create([
+            'user_id' => auth()->id(),
+            'user_uuid' => auth()->user()->uuid,
+            'description' => 'a crée la command',
+            'action' => 'create'
+        ]);
 
         return redirect()->back()->with('success', 'la commande a été ajouter avec success');
     }
@@ -141,6 +148,12 @@ class AdminCommandController extends Controller
             }
         }
 
+        $command->histories()->create([
+            'user_id' => auth()->id(),
+            'user_uuid' => auth()->user()->uuid,
+            'description' => 'a modifier la command',
+            'action' => 'update'
+        ]);
         // return redirect($command->edit_url)->with('success', 'la commande a été modifier avec success');
         return redirect()->back()->with('success', 'la commande a été modifier avec success');
     }
@@ -158,6 +171,13 @@ class AdminCommandController extends Controller
             // dd('Oui command');
             $command->products()->detach();
             $command->comments()->delete();
+
+            $command->histories()->create([
+                'user_id' => auth()->id(),
+                'user_uuid' => auth()->user()->uuid,
+                'description' => 'a supprimer la command',
+                'action' => 'delete'
+            ]);
 
             $command->delete();
 
