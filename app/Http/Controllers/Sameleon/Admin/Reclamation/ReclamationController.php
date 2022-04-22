@@ -22,6 +22,7 @@ class ReclamationController extends Controller
         $reclamation->command_id = $request->command;
         $reclamation->message = $request->message;
         $reclamation->user_id = auth()->id();
+        $reclamation->user_uuid = auth()->user()->uuid;
 
         $reclamation->save();
 
@@ -36,13 +37,12 @@ class ReclamationController extends Controller
 
         if ($rec) {
 
-           // dd("oui i find it");
+            // dd("oui i find it");
             $rec->delete();
 
             return redirect()->back()->with('success', "La réclamation  a éte supprimer avec success");
         }
 
         return redirect()->back()->with('error', "error !!");
-
     }
 }
