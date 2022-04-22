@@ -27,6 +27,8 @@ class StockController extends Controller
 
     public function update(StockFormRequest $request, Stock $stock)
     {
+        
+        $this->authorize('update', $stock);
 
         // dd($request->all(), "##", $stock);
 
@@ -54,8 +56,10 @@ class StockController extends Controller
 
         $stock = Stock::whereUuid($request->stockId)->first();
 
+        $this->authorize('delete', $stock);
+
         if ($stock) {
-            
+
             $stock->delete();
 
             return redirect()->back()->with('success', "le stock a été supprimer avec succès");

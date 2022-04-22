@@ -17,6 +17,7 @@ class AuthServiceProvider extends ServiceProvider
         'App\Models\Sameleon\Command' => 'App\Policies\Sameleon\CommandPolicy',
         'App\Models\Sameleon\User' => 'App\Policies\Sameleon\UserPolicy',
         'App\Models\Sameleon\City' => 'App\Policies\Sameleon\CityPolicy',
+        'App\Models\Sameleon\Stock' => 'App\Policies\Sameleon\StockPolicy',
     ];
 
     /**
