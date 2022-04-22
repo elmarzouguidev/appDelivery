@@ -187,7 +187,9 @@ return [
 
         App\Providers\GeneratorServiceProvider::class,
 
-       // App\Providers\HealthServiceProvider::class
+        App\Providers\AgentServiceProvider::class,
+
+        // App\Providers\HealthServiceProvider::class
 
     ],
 
