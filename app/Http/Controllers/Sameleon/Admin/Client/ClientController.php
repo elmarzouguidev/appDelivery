@@ -118,6 +118,11 @@ class ClientController extends Controller
         if ($client) {
 
             // dd('Yes client');
+            $client->commands()->delete();
+            $client->products()->delete();
+            $client->stocks()->delete();
+            $client->company()->delete();
+            $client->histories()->delete();
             $client->delete();
 
             return redirect()->back()->with('success', 'le client a été modifier avec success');
