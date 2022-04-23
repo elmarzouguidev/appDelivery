@@ -119,7 +119,7 @@ class ClientController extends Controller
 
             // dd('Yes client');
             $client->commands()->delete();
-            $client->commands()->products()->detach();
+            $client->commands()->products()->delete();
             $client->products()->delete();
             $client->stocks()->delete();
             $client->company()->delete();
