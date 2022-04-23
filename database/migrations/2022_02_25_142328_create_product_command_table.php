@@ -19,15 +19,15 @@ class CreateProductCommandTable extends Migration
             $table->uuid('uuid')->nullable();
             $table->string('code')->unique()->nullable();
 
-            $table->foreignId('product_id')->index()->constrained();
-            $table->foreignId('command_id')->index()->constrained();
+            $table->foreignId('product_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('command_id')->constrained()->cascadeOnDelete();
             $table->uuid('command_uuid')->nullable();
 
             $table->longText('designation')->nullable();
 
             $table->unsignedBigInteger('quantity');
             $table->float('price_ht')->default(0);
-            
+
             $table->timestamps();
         });
     }

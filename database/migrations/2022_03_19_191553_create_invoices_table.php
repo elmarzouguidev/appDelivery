@@ -25,7 +25,7 @@ class CreateInvoicesTable extends Migration
 
             $table->date('invoice_date')->nullable();
     
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->uuid('user_uuid')->nullable();
 
             $table->boolean('cloture')->default(false);
