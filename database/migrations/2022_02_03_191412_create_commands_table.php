@@ -21,7 +21,7 @@ class CreateCommandsTable extends Migration
             $table->string('code')->unique();
             $table->string('track_code')->unique();
 
-            $table->foreignId('user_id')->index()->constrained();
+            $table->foreignId('user_id')->index()->constrained()->cascadeOnDelete();
             $table->uuid('user_uuid')->nullable();
             
             $table->foreignId('city_id')->index()->nullable();

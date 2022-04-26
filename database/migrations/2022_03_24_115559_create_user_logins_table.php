@@ -20,7 +20,7 @@ class CreateUserLoginsTable extends Migration
             $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
 
             $table->string('ip', 20);
-            $table->enum('type', ['client', 'admin'])->default('user');
+            $table->string('type')->default('user');
             $table->timestamp('logged_in_at')->nullable();
 
             $table->timestamps();

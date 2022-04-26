@@ -21,9 +21,9 @@ class CreateReclamationsTable extends Migration
 
             $table->foreignId('command_id')
                 ->nullable()
-                ->constrained();
+                ->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')
-                ->constrained();
+                ->constrained()->cascadeOnDelete();
             $table->longText('message');  
             $table->boolean('active')->default(true);
             $table->integer('status')->default(0);  

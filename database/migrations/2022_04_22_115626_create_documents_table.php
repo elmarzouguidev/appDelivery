@@ -18,7 +18,7 @@ class CreateDocumentsTable extends Migration
             $table->uuid('uuid')->unique();
             $table->string('name');
             $table->longText('description')->nullable();
-            $table->foreignId('user_id')->index()->constrained();
+            $table->foreignId('user_id')->index()->constrained()->cascadeOnDelete();
             $table->uuid('user_uuid')->unique()->nullable();
             $table->boolean('active')->default(true);
             $table->timestamps();

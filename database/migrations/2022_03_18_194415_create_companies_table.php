@@ -17,7 +17,7 @@ class CreateCompaniesTable extends Migration
 
             $table->id();
 
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->uuid('user_uuid')->nullable();
             
 

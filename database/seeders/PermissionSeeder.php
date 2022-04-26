@@ -28,6 +28,8 @@ class PermissionSeeder extends Seeder
         ['name' => 'commands.edit', 'guard_name' => 'admin'],
         ['name' => 'commands.delete', 'guard_name' => 'admin'],
 
+        ['name' => 'excel.import', 'guard_name' => 'admin'],
+
     ];
 
 
