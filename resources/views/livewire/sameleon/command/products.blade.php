@@ -52,7 +52,7 @@
                 <label for="prix_unitaire">Prix UNI *</label>
                 <input type="text" name="orderProducts[{{ $index }}][prix_unitaire]"
                     wire:model="orderProducts.{{ $index }}.prix_unitaire"
-                    wire:click="getPrice({{ $index }})"
+                    {{--wire:click="getPrice({{ $index }})"--}}
                     class="form-control @error('articles.*.prix_unitaire') is-invalid @enderror" value="" required />
 
                 @error('prix_unitaire')

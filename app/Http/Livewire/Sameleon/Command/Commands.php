@@ -139,17 +139,24 @@ class Commands extends Component
                 // $product->stock()->update(['qte_livre' => $product->pivot->quantity]);
                 // $product->stock()->update(['qte_rest' => $qteRest]);
 
-                $product->stock()->increment('qte_livre', $product->pivot->quantity);
-                $product->stock()->increment('qte_rest', $qteRest);
-                
+                if ($qteRest < $qteGlobal) {
+                    $product->stock()->increment('qte_livre', $product->pivot->quantity);
+                    $product->stock()->increment('qte_rest', $qteRest);
+                }
             });
         } else {
 
             $command->update(['delivered_at' => null]);
+
             $products->each(function ($product, $key) {
 
-                $product->stock()->update(['qte_livre' => 0]);
-                $product->stock()->update(['qte_rest' => 0]);
+                $qteGlobal = $product->stock->qte_global;
+
+                $qteRest = ($qteGlobal - $product->pivot->quantity);
+                if ($qteRest < $qteGlobal) {
+                    $product->stock()->decrement('qte_livre', $product->pivot->quantity);
+                    $product->stock()->decrement('qte_rest', $qteRest);
+                }
             });
         }
 

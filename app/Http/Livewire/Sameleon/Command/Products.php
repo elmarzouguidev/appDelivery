@@ -29,6 +29,7 @@ class Products extends Component
                 'designation' => '',
                 'description' => '',
                 'prix_unitaire' => '',
+                'prix_total'=>'',
                 'readonly' => ''
             ]
         ];
@@ -59,16 +60,9 @@ class Products extends Component
             'designation' => '',
             'description' => '',
             'prix_unitaire' => '',
+            'prix_total'=>'',
             'readonly' => ''
         ];
-    }
-
-    public function getPrice($index)
-    {
-
-        if ($this->orderProducts[$index]['product_id'] !== "") {
-            $this->orderProducts[$index]['prix_unitaire'] =  $this->products->firstWhere('id', $this->orderProducts[$index]['product_id'])->price;
-        }
     }
 
     public function updated($property, $value)
@@ -76,15 +70,18 @@ class Products extends Component
 
         $key =  substr($property, strrpos($property, '.') + 1);
         $array =  explode('.', $property);
-        //dd($array,"##",$key);
+       // dd($array,"##",$key);
 
         if ($key === 'quantity') {
-
+         
             $prod = $this->products->firstWhere('id', $this->orderProducts[$array[1]]['product_id']);
 
             if ($prod->isOutOfStock($value)) {
                 $this->dispatchBrowserEvent('out-of-stock', ['product' => $prod->name]);
             }
+
+            $this->orderProducts[$array[1]]['prix_unitaire'] = $prod->price; 
+            $this->orderProducts[$array[1]]['prix_total'] = $prod->price * $value; 
         }
     }
 
