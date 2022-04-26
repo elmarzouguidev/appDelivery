@@ -35,9 +35,10 @@ class Products extends Component
         $this->totalPrice = 0;
 
         if (auth()->user()->hasRole('Client')) {
+
             $this->products = auth()->user()->products()->get();
         } else {
-            $this->products = Product::with('media')->get();
+            $this->products = Product::all();
         }
     }
 
@@ -67,6 +68,22 @@ class Products extends Component
 
         if ($this->orderProducts[$index]['product_id'] !== "") {
             $this->orderProducts[$index]['prix_unitaire'] =  $this->products->firstWhere('id', $this->orderProducts[$index]['product_id'])->price;
+        }
+    }
+
+    public function updated($property, $value)
+    {
+        // dd($property,"###",$value);
+        $key =  substr($property, strrpos($property, '.') + 1);
+        $array =  explode('.', $property);
+        // dd($array,"##",$key);
+
+        if ($key === 'quantity') {
+            $prod = $this->products->firstWhere('id', $this->orderProducts[$array[1]]['product_id']);
+
+            if ($prod->isOutOfStock($value)) {
+                $this->dispatchBrowserEvent('out-of-stock', ['product' => $prod->name]);
+            }
         }
     }
 

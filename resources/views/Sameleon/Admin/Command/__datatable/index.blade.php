@@ -116,6 +116,18 @@
             })
 
         });
+
+        window.addEventListener('out-of-stock', event => {
+
+            Swal.fire({
+                position: 'top-end',
+                icon: 'info',
+                title: `Le Produit : ${event.detail.product} est en rupture de stock`,
+                showConfirmButton: false,
+                timer: 2000
+            })
+
+        });
     </script>
 
     <script>
