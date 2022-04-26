@@ -24,10 +24,16 @@
                                             Filters
                                         </button>
                                     @endif --}}
+                                    @if(auth()->user()->products()->count()<=0)
+                                    <a href="{{route('admin:products.create',['shoud_product'=>true])}}" class="btn btn-info">
+                                        Ajouter un produit
+                                    </a>
+                                    @else
                                     <button class="btn btn-info" type="button" data-bs-toggle="modal"
                                         data-bs-target=".addCommandModal">
                                         Ajouter une commande
                                     </button>
+                                    @endif
                                     {{--<button class="btn btn-primary" type="button" data-bs-toggle="modal"
                                         data-bs-target=".importCommandModal">
                                         Importer des commands

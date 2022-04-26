@@ -33,6 +33,8 @@ class Invoices extends Component
 
         if (auth()->user()->hasRole('Client')) {
             $invoices = Invoice::authClient()
+                ->withCount('commands')
+                ->withSum('articles', 'price_total')
                 ->with('bill')
                 ->withCount('bill')
                 ->get();
