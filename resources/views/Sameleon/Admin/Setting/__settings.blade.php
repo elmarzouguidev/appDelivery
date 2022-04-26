@@ -81,8 +81,15 @@
                     <div class="mb-3 row">
                         <label for="telephone" class="col-md-2 col-form-label">Telephone *</label>
                         <div class="col-md-10">
-                            <input class="form-control" type="tel" name="telephone" value="{{ $setting->telephone }}"
+                            <input class="form-control" type="tel" name="telephone_a" value="{{ $setting->telephone_a }}"
                                 id="telephone" required>
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="telephone_b" class="col-md-2 col-form-label">Telephone 2</label>
+                        <div class="col-md-10">
+                            <input class="form-control" type="tel" name="telephone_b" value="{{ $setting->telephone_b }}"
+                                id="telephone_b">
                         </div>
                     </div>
                     <div class="mb-3 row">
