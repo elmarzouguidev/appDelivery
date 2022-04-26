@@ -87,12 +87,16 @@
                                 @foreach ($commands as $command)
                                     <tr wire:key="{{ $command->id }}">
                                         <td>
-                                            <p class="text-strong mb-0"><strong>{{ $command->code }}</strong></p>
+                                            <p class="text-strong mb-0">
+                                                <strong>
+                                                <a href="{{route('admin:commands.edit',$command->uuid)}}"> {{ $command->code }}</a>
+                                                </strong>
+                                            </p>
                                             {{ $command->client_name }}
                                             <p class="text-strong mb-0"><strong>{{ $command->client_phone }}</strong>
                                             </p>
                                             <p class="text-strong mb-0">
-                                                {{ $command->city->name ?? $command->client_city }}</p>
+                                                {{ $command->city->name ?? $command->client_city ?? '' }}</p>
                                             <p class="text-strong mb-0">{!! $command->client_address !!}</p>
                                         </td>
                                         <td>
@@ -170,12 +174,14 @@
                                         <td>
                                             <div class="d-flex gap-3">
                                                 @if ($command->invoice)
-                                                    <a target="_blank"
+                                                    <a title="Facture : {{$command->invoice->full_number}}" style="color:blue !important" target="_blank"
                                                         href="{{ route('public.show.invoice', [$command->invoice->uuid, 'has_header' => true]) }}"
                                                         class="text-success">
-                                                        <i class="mdi mdi-file-pdf-box font-size-18"></i>
+
+                                                        <i class="mdi mdi-file-pdf-box font-size-24"></i>
                                                     </a>
                                                 @endif
+                                                
                                                 {{-- <a href="#" wire:click="editCommand('{{ $command->uuid }}')"
                                                     class="text-success">
                                                     <i class="mdi mdi-pencil font-size-18"></i>
@@ -184,10 +190,10 @@
                                                     <i class="mdi mdi-delete font-size-18"></i>
                                                 </a> --}}
 
-                                                @if ($command->user_id === auth()->id() && $command->user_uuid === auth()->user()->uuid)
+                                                @if ($command->user_id == auth()->id() && $command->user_uuid == auth()->user()->uuid)
                                                     <button type="button"
                                                         class="btn btn-danger btn-sm deleteCommandBtn">
-                                                        Supp
+                                                        Del
                                                     </button>
                                                 @endif
                                                 <button type="button"
@@ -197,7 +203,7 @@
                                                 </button>
                                             </div>
                                         </td>
-                                        @if ($command->user_id === auth()->id() && $command->user_uuid === auth()->user()->uuid)
+                                        @if ($command->user_id == auth()->id() && $command->user_uuid == auth()->user()->uuid)
                                             <form id="delete-order-{{ $command->uuid }}" method="post"
                                                 action="{{ route('admin:commands.delete') }}">
                                                 @csrf

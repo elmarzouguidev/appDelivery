@@ -57,12 +57,15 @@ class Commands extends Component
         if (auth()->user()->hasRole('Client')) {
 
             $commands =  $command->where('user_id', auth()->id())
+                ->where('user_uuid',auth()->user()->uuid)
                 ->withSum('products', 'product_command.price_total')
-                ->with(['invoice:uuid,id', 'city:id,name'])->get();
+                ->with(['invoice:uuid,id,full_number', 'city:id,name'])
+                ->orderBy('created_at', 'DESC')
+                ->get();
         } else {
 
             $commands = $command->withSum('products', 'product_command.price_total')
-                ->with(['invoice:uuid,id', 'city:id,name'])
+                ->with(['invoice:uuid,id,full_number', 'city:id,name'])
                 ->orderBy('created_at', 'DESC')
                 ->get();
         }
@@ -142,6 +145,7 @@ class Commands extends Component
             $products->each(function ($product, $key) {
 
                 $product->stock()->update(['qte_livre' => 0]);
+                $product->stock()->update(['qte_rest' => 0]);
             });
         }
 
