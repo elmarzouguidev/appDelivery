@@ -6,16 +6,17 @@ class CreateCompanySettings extends SettingsMigration
 {
     public function up(): void
     {
-        $this->migrator->add('company.name', 'Elmarzougui WEB');
-        $this->migrator->add('company.website', 'https://elmarzougui.net');
+        $this->migrator->add('company.name', 'SAMELEON');
+        $this->migrator->add('company.website', 'https://sameleon-express.ma');
         $this->migrator->add('company.logo', 'logo.png');
-        $this->migrator->add('company.addresse', 'casablanca sidi massoud');
-        $this->migrator->add('company.telephone', '+212677512753');
-        $this->migrator->add('company.email', 'abdelgha4or@gmail.com');
-        $this->migrator->add('company.rc', '00000000');
-        $this->migrator->add('company.ice', '002621028000049');
-        $this->migrator->add('company.cnss', '114375337');
-        $this->migrator->add('company.patente', '32902003');
-        $this->migrator->add('company.if', '45960204');
+        $this->migrator->add('company.addresse', 'RUE SOUMAYA IMM 82 ETAGE04 N16 PALMIERS');
+        $this->migrator->add('company.telephone_a', '+212664000165');
+        $this->migrator->add('company.telephon_b', '+212664000169');
+        $this->migrator->add('company.email', 'info@sameleon-express.ma');
+        $this->migrator->add('company.rc', '507491');
+        $this->migrator->add('company.ice', '002749195000015');
+        $this->migrator->add('company.cnss', '000');
+        $this->migrator->add('company.patente', '34778172');
+        $this->migrator->add('company.if', '50316039');
     }
 }

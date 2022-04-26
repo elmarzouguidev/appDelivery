@@ -56,6 +56,11 @@ class Command extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function company()
+    {
+        return $this->belongsTo(Company::class, 'company_id');
+    }
+
     public function products()
     {
         return $this->belongsToMany(Product::class, 'product_command', 'command_id', 'product_id')

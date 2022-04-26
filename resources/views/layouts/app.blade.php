@@ -56,7 +56,7 @@
 
     @livewireScripts
 
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}" data-pagespeed-no-defer></script>
 
     @stack('scripts')
 
