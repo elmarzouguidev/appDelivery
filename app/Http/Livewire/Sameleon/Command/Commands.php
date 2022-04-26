@@ -119,11 +119,24 @@ class Commands extends Component
     public function changeStatus(Command $command, int $status)
     {
         $command->update(['status' => $status]);
+        $products = $command->products;
 
         if ($status == Status::LIVRE) {
+
             $command->update(['delivered_at' => now()]);
+
+            $products->each(function ($product, $key) {
+
+                $product->stock()->update(['qte_livre' => $product->pivot->quantity]);
+            });
+
         } else {
+            
             $command->update(['delivered_at' => null]);
+            $products->each(function ($product, $key) {
+
+                $product->stock()->update(['qte_livre' => 0]);
+            });
         }
 
         $this->isRepoted = true;
