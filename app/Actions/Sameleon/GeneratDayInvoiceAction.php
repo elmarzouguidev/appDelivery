@@ -15,7 +15,13 @@ class GeneratDayInvoiceAction
     public function handle()
     {
 
-        if (!now()->isWeekend() && auth()->user()->hasRole('Client') && auth()->user()->commands()->count() > 0) {
+        if (
+            !now()->isWeekend() && auth()->user()->hasRole('Client') && auth()->user()->commands()
+            ->whereIn('status', [Status::LIVRE, Status::REFUSE])
+            ->whereDay('created_at', now()->format('d'))
+            ->count() > 0
+        ) {
+
             $this->invoice = Invoice::whereDay('created_at', now()->format('d'))
                 ->where('user_id', auth()->id())
                 ->where('user_uuid', auth()->user()->uuid)
@@ -24,9 +30,9 @@ class GeneratDayInvoiceAction
             if ($this->invoice) {
                 $this->addItems();
             } else {
-
+          
                 $this->invoice = new Invoice();
-                $this->invoice->invoice_date = now()->format('d-m-Y');
+                $this->invoice->invoice_date = now()->format('Y-m-d');
                 $this->invoice->client()->associate(auth()->id());
                 $this->invoice->user_uuid = auth()->user()->uuid;
                 $this->invoice->save();
