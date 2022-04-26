@@ -73,12 +73,13 @@ class Products extends Component
 
     public function updated($property, $value)
     {
-        // dd($property,"###",$value);
+
         $key =  substr($property, strrpos($property, '.') + 1);
         $array =  explode('.', $property);
-        // dd($array,"##",$key);
+        //dd($array,"##",$key);
 
         if ($key === 'quantity') {
+
             $prod = $this->products->firstWhere('id', $this->orderProducts[$array[1]]['product_id']);
 
             if ($prod->isOutOfStock($value)) {
