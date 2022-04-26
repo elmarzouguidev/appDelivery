@@ -89,7 +89,7 @@
                                         <td>
                                             <p class="text-strong mb-0">
                                                 <strong>
-                                                <a href="{{route('admin:commands.edit',$command->uuid)}}"> {{ $command->code }}</a>
+                                                <a style="color:#2f5393 !important" href="{{route('admin:commands.edit',$command->uuid)}}"> {{ $command->code }}</a>
                                                 </strong>
                                             </p>
                                             {{ $command->client_name }}
@@ -174,12 +174,13 @@
                                         <td>
                                             <div class="d-flex gap-3">
                                                 @if ($command->invoice)
-                                                    <a title="Facture : {{$command->invoice->full_number}}" style="color:blue !important" target="_blank"
+                                                    <a title="Facture : {{$command->invoice->full_number}}" style="color:#2f5393 !important" target="_blank"
                                                         href="{{ route('public.show.invoice', [$command->invoice->uuid, 'has_header' => true]) }}"
-                                                        class="text-success">
+                                                        class="btn btn-sm text-success">
 
                                                         <i class="mdi mdi-file-pdf-box font-size-24"></i>
                                                     </a>
+     
                                                 @endif
                                                 
                                                 {{-- <a href="#" wire:click="editCommand('{{ $command->uuid }}')"
@@ -193,7 +194,7 @@
                                                 @if ($command->user_id == auth()->id() && $command->user_uuid == auth()->user()->uuid)
                                                     <button type="button"
                                                         class="btn btn-danger btn-sm deleteCommandBtn">
-                                                        Del
+                                                        <i class="mdi mdi-delete font-size-18"></i>
                                                     </button>
                                                 @endif
                                                 <button type="button"
