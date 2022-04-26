@@ -26,7 +26,7 @@ class GeneratDayInvoiceAction
             } else {
 
                 $this->invoice = new Invoice();
-                $this->invoice->invoice_date = now()->format('Y-m-d');
+                $this->invoice->invoice_date = now()->format('d-m-Y');
                 $this->invoice->client()->associate(auth()->id());
                 $this->invoice->user_uuid = auth()->user()->uuid;
                 $this->invoice->save();
