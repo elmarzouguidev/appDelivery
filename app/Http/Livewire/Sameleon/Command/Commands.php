@@ -57,7 +57,7 @@ class Commands extends Component
         if (auth()->user()->hasRole('Client')) {
 
             $commands =  $command->where('user_id', auth()->id())
-                ->where('user_uuid',auth()->user()->uuid)
+                ->where('user_uuid', auth()->user()->uuid)
                 ->withSum('products', 'product_command.price_total')
                 ->with(['invoice:uuid,id,full_number', 'city:id,name'])
                 ->orderBy('created_at', 'DESC')
@@ -136,8 +136,12 @@ class Commands extends Component
 
                 //dd($qteRest,"##",$qteGlobal);
 
-                $product->stock()->update(['qte_livre' => $product->pivot->quantity]);
-                $product->stock()->update(['qte_rest' => $qteRest]);
+                // $product->stock()->update(['qte_livre' => $product->pivot->quantity]);
+                // $product->stock()->update(['qte_rest' => $qteRest]);
+
+                $product->stock()->increment('qte_livre', $product->pivot->quantity);
+                $product->stock()->increment('qte_rest', $qteRest);
+                
             });
         } else {
 
