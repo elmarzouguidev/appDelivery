@@ -42,12 +42,12 @@ class Command extends Model
         'price_total',
         'source',
         'boutique',
-        'is_imported'
+        'is_imported',
+        'delivered_at'
     ];
 
     protected  $casts = [
-        'due_date' => 'date:Y-m-d',
-        'delivered_at' => 'date:Y-m-d',
+        'delivered_at' => 'date:d-m-Y',
 
     ];
 

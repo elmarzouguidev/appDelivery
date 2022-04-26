@@ -19,6 +19,7 @@ class GeneratDayInvoiceAction
             !now()->isWeekend() && auth()->user()->hasRole('Client') && auth()->user()->commands()
             ->whereIn('status', [Status::LIVRE, Status::REFUSE])
             ->whereDay('created_at', now()->format('d'))
+            ->whereNotNull('delivered_at')
             ->count() > 0
         ) {
 
@@ -48,6 +49,7 @@ class GeneratDayInvoiceAction
             ->commands()
             ->whereIn('status', [Status::LIVRE, Status::REFUSE])
             ->whereDay('created_at', now()->format('d'))
+            ->whereNotNull('delivered_at')
             ->doesntHave('articles')
             ->withSum('products', 'product_command.price_total')
             ->latest()->get();

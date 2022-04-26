@@ -47,7 +47,7 @@ class Commands extends Component
     ];
 
 
-    protected $listeners = ['runPoll','closePoll'];
+    protected $listeners = ['runPoll', 'closePoll'];
 
     public function render()
     {
@@ -58,12 +58,11 @@ class Commands extends Component
 
             $commands =  $command->where('user_id', auth()->id())
                 ->withSum('products', 'product_command.price_total')
-                ->with(['invoice:uuid,id','city:id,name'])->get();
-
+                ->with(['invoice:uuid,id', 'city:id,name'])->get();
         } else {
 
             $commands = $command->withSum('products', 'product_command.price_total')
-                ->with(['invoice:uuid,id','city:id,name'])
+                ->with(['invoice:uuid,id', 'city:id,name'])
                 ->orderBy('created_at', 'DESC')
                 ->get();
         }
@@ -74,11 +73,11 @@ class Commands extends Component
 
     public function runPoll()
     {
-       $this->canPolled = true;
+        $this->canPolled = true;
     }
     public function closePoll()
     {
-       $this->canPolled = false;
+        $this->canPolled = false;
     }
 
     public function mount()
@@ -90,7 +89,7 @@ class Commands extends Component
         $this->reportComment = '';
         if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin')) {
             $this->clients = User::role('Client')->select(['nom', 'prenom', 'id'])->get();
-            $this->products = Product::select(['id','name'])->get();
+            $this->products = Product::select(['id', 'name'])->get();
             $this->citiesList = app(CityInterface::class)->getCities();
         }
     }
@@ -120,6 +119,12 @@ class Commands extends Component
     public function changeStatus(Command $command, int $status)
     {
         $command->update(['status' => $status]);
+
+        if ($status == Status::LIVRE) {
+            $command->update(['delivered_at' => now()]);
+        } else {
+            $command->update(['delivered_at' => null]);
+        }
 
         $this->isRepoted = true;
 
