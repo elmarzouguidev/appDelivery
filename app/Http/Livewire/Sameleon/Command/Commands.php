@@ -143,6 +143,9 @@ class Commands extends Component
                     $product->stock()->increment('qte_livre', $product->pivot->quantity);
                     $product->stock()->increment('qte_rest', $qteRest);
                 }
+                if ($product->stock->qte_livre == $product->stock->qte_global) {
+                    $product->stock()->update(['qte_rest' => 0]);
+                }
             });
         } else {
 
