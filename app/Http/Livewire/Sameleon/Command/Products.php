@@ -25,7 +25,7 @@ class Products extends Component
         $this->orderProducts = [
             [
                 'product_id' => '',
-                'quantity' => 1,
+                'quantity' => 0,
                 'designation' => '',
                 'description' => '',
                 'prix_unitaire' => '',
@@ -57,7 +57,7 @@ class Products extends Component
         if (count($this->orderProducts) < $this->products->count()) {
             $this->orderProducts[] = [
                 'product_id' => '',
-                'quantity' => 1,
+                'quantity' => 0,
                 'designation' => '',
                 'description' => '',
                 'prix_unitaire' => '',
