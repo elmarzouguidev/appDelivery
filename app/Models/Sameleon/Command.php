@@ -147,10 +147,11 @@ class Command extends Model
     {
         if (auth()->user()->hasRole('Client')) {
             return $query->whereUserId(auth()->id())
-                ->whereUuid(auth()->user()->uuid)
+                ->whereUserUuid(auth()->user()->uuid)
                 ->count();
+        } else {
+            return $query->count();
         }
-        return $query->count();
     }
 
     public function scopeTotalNewCommands($query)
@@ -160,31 +161,33 @@ class Command extends Model
                 ->whereUserUuid(auth()->user()->uuid)
                 ->whereStatus(Status::NON_TRAITE)
                 ->count();
+        } else {
+            return $query->whereStatus(Status::NON_TRAITE)
+                ->count();
         }
-        return $query->whereStatus(Status::NON_TRAITE)
-            ->count();
     }
 
     public function scopeTotalCommandsLivred($query)
     {
         if (auth()->user()->hasRole('Client')) {
             return $query->whereUserId(auth()->id())
-                ->whereUuid(auth()->user()->uuid)
+                ->whereUserUuid(auth()->user()->uuid)
                 ->whereStatus(Status::LIVRE)
                 ->count();
+        } else {
+            return $query->whereStatus(Status::LIVRE)->count();
         }
-
-        return $query->whereStatus(Status::LIVRE)->count();
     }
 
     public function scopeTotalCommandsEncours($query)
     {
         if (auth()->user()->hasRole('Client')) {
             return $query->whereUserId(auth()->id())
-                ->whereUuid(auth()->user()->uuid)
+                ->whereUserUuid(auth()->user()->uuid)
                 ->whereIn('status', [Status::ENCOURS, Status::EXPEDIE])->count();
+        } else {
+            return $query->whereIn('status', [Status::ENCOURS, Status::EXPEDIE])->count();
         }
-        return $query->whereIn('status', [Status::ENCOURS, Status::EXPEDIE])->count();
     }
 
     public function scopeTotalCommandsNonResponde($query)
@@ -192,7 +195,7 @@ class Command extends Model
         if (auth()->user()->hasRole('Client')) {
             return $query
                 ->whereUserId(auth()->id())
-                ->whereUuid(auth()->user()->uuid)
+                ->whereUserUuid(auth()->user()->uuid)
                 ->whereIn('status', [
                     Status::PAS_DE_REPONSE,
                     Status::PAS_DE_REPONSE_2,
@@ -201,15 +204,18 @@ class Command extends Model
                     Status::PAS_DE_REPONSE_5,
                     Status::INJOIGNABLE
                 ])->count();
+        } else {
+
+
+            return $query->whereIn('status', [
+                Status::PAS_DE_REPONSE,
+                Status::PAS_DE_REPONSE_2,
+                Status::PAS_DE_REPONSE_3,
+                Status::PAS_DE_REPONSE_4,
+                Status::PAS_DE_REPONSE_5,
+                Status::INJOIGNABLE
+            ])->count();
         }
-        return $query->whereIn('status', [
-            Status::PAS_DE_REPONSE,
-            Status::PAS_DE_REPONSE_2,
-            Status::PAS_DE_REPONSE_3,
-            Status::PAS_DE_REPONSE_4,
-            Status::PAS_DE_REPONSE_5,
-            Status::INJOIGNABLE
-        ])->count();
     }
 
     public function scopeTotalCommandsReported($query)
@@ -217,16 +223,17 @@ class Command extends Model
         if (auth()->user()->hasRole('Client')) {
             return $query
                 ->whereUserId(auth()->id())
-                ->whereUuid(auth()->user()->uuid)
+                ->whereUserUuid(auth()->user()->uuid)
                 ->whereIn('status', [
                     Status::REPORTE,
                     Status::INTERESSE
                 ])->count();
+        } else {
+            return $query->whereIn('status', [
+                Status::REPORTE,
+                Status::INTERESSE
+            ])->count();
         }
-        return $query->whereIn('status', [
-            Status::REPORTE,
-            Status::INTERESSE
-        ])->count();
     }
 
     public function scopeTotalCommandsCancled($query)
@@ -234,16 +241,17 @@ class Command extends Model
         if (auth()->user()->hasRole('Client')) {
             return $query
                 ->whereUserId(auth()->id())
-                ->whereUuid(auth()->user()->uuid)
+                ->whereUserUuid(auth()->user()->uuid)
                 ->whereIn('status', [
                     Status::ANNULE,
                     Status::REFUSE
                 ])->count();
+        } else {
+            return $query->whereIn('status', [
+                Status::ANNULE,
+                Status::REFUSE
+            ])->count();
         }
-        return $query->whereIn('status', [
-            Status::ANNULE,
-            Status::REFUSE
-        ])->count();
     }
 
     public function scopeTotalChiffre($query)
@@ -253,14 +261,14 @@ class Command extends Model
 
             return $query
                 ->whereUserId(auth()->id())
-                ->whereUuid(auth()->user()->uuid)
+                ->whereUserUuid(auth()->user()->uuid)
                 ->whereStatus(Status::LIVRE)
                 ->withSum('products', 'product_command.price_total')
                 ->get()
                 ->sum('products_sum_product_commandprice_total');
+        } else {
+            return $query->whereStatus(Status::LIVRE)->withSum('products', 'product_command.price_total')->get()->sum('products_sum_product_commandprice_total');
         }
-
-        return $query->whereStatus(Status::LIVRE)->withSum('products', 'product_command.price_total')->get()->sum('products_sum_product_commandprice_total');
         /*return $this->with('products')->get()->each(function ($command) {
              dd($command->products->sum('pivot.price_total'));
             return  $command->products->each(function ($product) {
