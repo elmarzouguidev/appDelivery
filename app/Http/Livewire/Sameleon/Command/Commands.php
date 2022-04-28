@@ -49,6 +49,11 @@ class Commands extends Component
 
     protected $listeners = ['runPoll', 'closePoll'];
 
+    public function hydrate()
+    {
+        $this->emit('datatable');
+    }
+
     public function render()
     {
 
