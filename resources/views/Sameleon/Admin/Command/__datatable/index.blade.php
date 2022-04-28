@@ -122,7 +122,7 @@
             Swal.fire({
                 position: 'top-end',
                 icon: 'info',
-                title: `Le Produit : ${event.detail.product} est en rupture de stock`,
+                title: `Le Produit : ${event.detail.product} est en Rupture de stock`,
                 showConfirmButton: false,
                 timer: 2000
             })

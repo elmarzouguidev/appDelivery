@@ -50,7 +50,7 @@ class Invoice extends Model
 
     public function getFormatedTotalBrutAttribute()
     {
-        return number_format($this->articles->sum('price_total'), 2);
+        return $this->articles->sum('price_total');
     }
 
     public function bill()

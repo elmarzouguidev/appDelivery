@@ -15,7 +15,7 @@ class InvoiceController extends Controller
 
         $hasHeader = $request->has_header;
 
-        $invoice->load('articles', 'client', 'client.commands');
+        $invoice->load('articles','articles.command', 'client', 'client.commands','client.company');
 
         $companyLogo = "data:image/jpg;base64," . base64_encode(file_get_contents(public_path('storage/company/' . getCompany()->logo)));
 

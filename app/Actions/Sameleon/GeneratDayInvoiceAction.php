@@ -14,12 +14,13 @@ class GeneratDayInvoiceAction
 
     public function handle()
     {
-
+        
         if (
             !now()->isWeekend() && auth()->user()->hasRole('Client') && auth()->user()->commands()
             ->whereIn('status', [Status::LIVRE, Status::REFUSE])
             ->whereDay('created_at', now()->format('d'))
             ->whereNotNull('delivered_at')
+            //->whereDay('delivered_at', now()->format('d'))
             ->count() > 0
         ) {
 
@@ -31,7 +32,7 @@ class GeneratDayInvoiceAction
             if ($this->invoice) {
                 $this->addItems();
             } else {
-          
+
                 $this->invoice = new Invoice();
                 $this->invoice->invoice_date = now()->format('Y-m-d');
                 $this->invoice->client()->associate(auth()->id());
@@ -48,9 +49,10 @@ class GeneratDayInvoiceAction
             ->user()
             ->commands()
             ->whereIn('status', [Status::LIVRE, Status::REFUSE])
+            ->doesntHave('articles')
             ->whereDay('created_at', now()->format('d'))
             ->whereNotNull('delivered_at')
-            ->doesntHave('articles')
+            //->whereDay('delivered_at', now()->format('d'))
             ->withSum('products', 'product_command.price_total')
             ->latest()->get();
 
@@ -66,7 +68,7 @@ class GeneratDayInvoiceAction
                     'code_command' => $item->code,
                     'date_command' => $item->created_at->format('d-m-Y'),
                     'city' => $item->city->name,
-                    'status' => 'Livré',
+                    'status' => __('status.statuses.' . $item->status),
                     'price_total' => $item->products_sum_product_commandprice_total ?? 0,
                     'frais' => $item->frais,
                 ];

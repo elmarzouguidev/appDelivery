@@ -26,7 +26,6 @@ class Article extends Model
 
     protected  $casts = [
         'date_command' => 'date',
-        'status' => 'integer',
         'price_total' => 'float'
     ];
 

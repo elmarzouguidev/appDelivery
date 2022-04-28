@@ -17,7 +17,7 @@ class AddCompanyColumnsToCommandsTable extends Migration
             $table->after('user_uuid',function($table){
 
                 $table->foreignId('company_id')->nullable();
-                $table->foreignId('company_uuid')->nullable();
+                $table->uuid('company_uuid')->nullable();
             });
         });
     }

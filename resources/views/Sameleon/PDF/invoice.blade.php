@@ -203,7 +203,12 @@
                         <tr>
                             <td style="width: 50% ;">
                                 <strong>Client : {{ optional($invoice->client)->full_name }}</strong> <br />
-                                ICE : {{ optional($invoice->client)->ice }}<br />
+                                @if($invoice->client->type =='particulier')
+                                 CNIE : {{ optional($invoice->client)->cnie }}<br />
+                                @endif
+                                @if($invoice->client->type=='entreprise' && $invoice->client->company)
+                                 ICE : {{ optional($invoice->client)->ice }}<br />
+                                @endif
                                 Adresse : {{ optional($invoice->client)->addresse }} <br />
 
                             </td>
@@ -234,15 +239,18 @@
                 <td>Code d'envoi</td>
                 <td>Date livraison</td>
                 <td>Ville</td>
+                <td>Etat</td>
                 <td>Prix</td>
                 <td>Frais</td>
             </tr>
 
             @foreach ($invoice->articles as $article)
+         
                 <tr class="item {{ $loop->last ? 'last' : '' }}">
                     <td style="width: 30% ;">{{ $article->code_command }}</td>
-                    <td>{{ $article->date_command->format('d-m-Y') }}</td>
+                    <td>{{ optional($article->command)->delivered_at->format('d-m-Y') }}</td>
                     <td>{{ $article->city }}</td>
+                    <td>{{ $article->status }}</td>
                     <td>{{ $article->formated_price_total }}</td>
                     <td>{{ number_format($article->frais,2) }} DH</td>
                 </tr>
@@ -250,13 +258,19 @@
 
             <div class="pricer">
                 <tr class="heading-price lefter">
-                    <td colspan="5">Montant BRUT : {{ $invoice->formated_total_brut}} DH</td>
+                    <td colspan="6">Montant BRUT : {{ number_format($invoice->formated_total_brut,2)}} DH</td>
                 </tr>
                 <tr class="heading-price lefter">
-                    <td colspan="5">Frais : {{ number_format($invoice->articles->sum('frais'),2) }} DH</td>
+                    @php
+                     $frais = $invoice->articles->sum('frais')
+                    @endphp
+                    <td colspan="6">Frais : {{ number_format($frais,2) }} DH</td>
                 </tr>
                 <tr class="heading-price lefter">
-                    <td colspan="5">Montant TTC : {{ $invoice->formated_price_total }} DH</td>
+                    @php 
+                    $net = $invoice->formated_total_brut - $frais
+                    @endphp
+                    <td colspan="6">Montant NET : {{ number_format($net,2) }} DH</td>
                 </tr>
             </div>
 

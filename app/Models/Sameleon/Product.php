@@ -61,7 +61,7 @@ class Product extends Model implements HasMedia
     {
         parent::boot();
 
-        $prefixer = "PROD-";
+        $prefixer = "SM.PROD-";
 
         static::creating(function ($model) use ($prefixer) {
 
