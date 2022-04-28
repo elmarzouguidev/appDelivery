@@ -13,7 +13,7 @@ class Products extends Component
         //'selectedProduct',
     ];
 
-    public $products = [];
+    public $products ;
 
     public $totalPrice;
 
