@@ -13,7 +13,7 @@ class Products extends Component
         //'selectedProduct',
     ];
 
-    public $products ;
+    public $products;
 
     public $totalPrice;
 
@@ -72,20 +72,21 @@ class Products extends Component
 
         $key =  substr($property, strrpos($property, '.') + 1);
         $array =  explode('.', $property);
-        // dd($array,"##",$key);
+        //dd($array,"##",$key);
 
-        if ($key === 'quantity') {
+        if ($key === 'quantity' && !is_null($value) && is_numeric($value)) {
 
+            //dd('Oui okey',"##",$value,"###",$key);
             $prod = $this->products->firstWhere('id', $this->orderProducts[$array[1]]['product_id']);
 
-            if ($prod->isOutOfStock($value)) {
+            if ($prod->isOutOfStock((int)$value)) {
                 $this->dispatchBrowserEvent('out-of-stock', ['product' => $prod->name]);
             }
 
             $this->orderProducts[$array[1]]['prix_unitaire'] = $prod->price;
-            $this->orderProducts[$array[1]]['prix_total'] = $prod->price * $value;
+            $this->orderProducts[$array[1]]['prix_total'] = $prod->price * (int)$value;
 
-           /* dd($this->products);
+            /* dd($this->products);
             $this->products->filter(function ($value, $key) use ($array) {
 
                 return $value->id == $this->orderProducts[$array[1]]['product_id'];
