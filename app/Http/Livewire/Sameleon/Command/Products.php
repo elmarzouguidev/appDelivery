@@ -29,7 +29,7 @@ class Products extends Component
                 'designation' => '',
                 'description' => '',
                 'prix_unitaire' => '',
-                'prix_total' => '',
+                'prix_total' => 0,
                 'readonly' => ''
             ]
         ];
@@ -50,18 +50,14 @@ class Products extends Component
 
     public function addProduct()
     {
-        //$data = collect($this->orderProducts);
-
-        // $this->products = auth()->user()->products()->get()->diffKeys($data);
-
-        if (count($this->orderProducts) < $this->products->count()) {
+        if (count($this->orderProducts) <= $this->products->count()) {
             $this->orderProducts[] = [
                 'product_id' => '',
                 'quantity' => 0,
                 'designation' => '',
                 'description' => '',
                 'prix_unitaire' => '',
-                'prix_total' => '',
+                'prix_total' => 0,
                 'readonly' => ''
             ];
         }
@@ -79,7 +75,9 @@ class Products extends Component
             //dd('Oui okey',"##",$value,"###",$key);
             $prod = $this->products->firstWhere('id', $this->orderProducts[$array[1]]['product_id']);
 
-            if ($prod->isOutOfStock((int)$value)) {
+            //dd($prod,"##",$value);
+            //dd($prod->isOutOfStock($value));
+            if ($prod->isOutOfStock($value)) {
                 $this->dispatchBrowserEvent('out-of-stock', ['product' => $prod->name]);
             }
 
@@ -92,6 +90,11 @@ class Products extends Component
                 return $value->id == $this->orderProducts[$array[1]]['product_id'];
             });*/
             //unset($this->products[$array[1]]);
+
+            /*$this->products = $this->products->reject(function ($item) use($array) {
+               // dd($array,"###",$item->id ,(int)$this->orderProducts[$array[1]]['product_id']);
+                return $item->id === (int)$this->orderProducts[$array[1]]['product_id'];
+            });*/
         }
     }
 
