@@ -135,11 +135,17 @@ class Commands extends Component
 
             $products->each(function ($product, $key) {
 
-                $qteGlobal = $product->stock->qte_global;
+                if ($product->stock->qte_rest <= 0) {
+                    info('yes one');
+                    $qteGlobal = $product->stock->qte_global;
+                } else {
+                    info('yes tow');
+                    $qteGlobal = $product->stock->qte_rest;
+                }
 
                 $qteRest = ($qteGlobal - $product->pivot->quantity);
 
-                //dd($qteRest,"##",$qteGlobal);
+               // dd($qteRest,"##",$qteGlobal);
 
                 // $product->stock()->update(['qte_livre' => $product->pivot->quantity]);
                 // $product->stock()->update(['qte_rest' => $qteRest]);
