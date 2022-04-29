@@ -2,6 +2,7 @@
 
 namespace Database\Factories\Sameleon;
 
+use App\Models\Sameleon\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class StockFactory extends Factory
@@ -21,6 +22,7 @@ class StockFactory extends Factory
             'qte_rest' => 0,
 
             'active' => rand(1, 0),
+            'product_id' => rand(1, Product::count())
         ];
     }
 }

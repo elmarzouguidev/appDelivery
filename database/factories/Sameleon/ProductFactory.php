@@ -32,7 +32,7 @@ class ProductFactory extends Factory
             'sku' => $this->faker->unique()->regexify('[A-Z0-9]{10}'),
             'active' => rand(1, 0),
 
-            //'user_id' =>  rand(1, User::count())
+            'user_id' =>  rand(1, User::count())
         ];
     }
 

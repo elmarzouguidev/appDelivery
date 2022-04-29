@@ -28,10 +28,10 @@ class DatabaseSeeder extends Seeder
 
     //\App\Models\Sameleon\Product::factory(5)->create();
 
-    User::factory(600)->create();
+    User::factory(200)->create();
 
-    //Product::factory(150)->create();
+    Product::factory(150)->create();
 
-    // Stock::factory(150)->create();
+    Stock::factory(150)->create();
   }
 }

@@ -48,7 +48,7 @@ class UserFactory extends Factory
     {
         return $this->afterCreating(function (User $user) {
             $user->assignRole('Client');
-            Product::factory(150)->create(['user_id' => $user->id]);
+           // Product::factory(150)->create(['user_id' => $user->id]);
         });
     }
 }
