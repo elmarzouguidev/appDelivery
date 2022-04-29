@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Sameleon\Product;
+use App\Models\Sameleon\Stock;
 use App\Models\Sameleon\User;
 use Illuminate\Database\Seeder;
 
@@ -27,9 +28,10 @@ class DatabaseSeeder extends Seeder
 
     //\App\Models\Sameleon\Product::factory(5)->create();
 
-    User::factory(150)->create()->each(function ($user) {
+    User::factory(600)->create();
 
-      Product::factory(150)->create(['user_id' => $user->id]);
-    });
+    //Product::factory(150)->create();
+
+    // Stock::factory(150)->create();
   }
 }

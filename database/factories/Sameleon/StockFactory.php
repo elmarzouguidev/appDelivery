@@ -14,7 +14,13 @@ class StockFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'qte_global' => rand(1, 193),
+            'qte_livre' => 0,
+            'qte_expidite' => 0,
+            'qte_endomage' => 0,
+            'qte_rest' => 0,
+
+            'active' => rand(1, 0),
         ];
     }
 }
