@@ -22,7 +22,7 @@ class Product extends Model implements HasMedia
 
     use ModelRoutes;
 
-    
+
     public function stock()
     {
         return $this->hasOne(Stock::class);
@@ -30,17 +30,23 @@ class Product extends Model implements HasMedia
 
     public function client()
     {
-        return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function commands()
     {
-        return $this->belongsToMany(Command::class,'product_command','product_id','command_id')->withPivot(['quantity','price_ht']);
+        return $this->belongsToMany(Command::class, 'product_command', 'product_id', 'command_id')->withPivot(['quantity', 'price_ht']);
     }
 
     public function isOutOfStock(int $qte)
     {
-         return $qte > $this->stock->qte_rest;
+        if ($this->stock->qte_rest > 0) {
+            //dd('one');
+            return $qte > $this->stock->qte_rest;
+        } else {
+            //dd('tow');
+            return $qte > $this->stock->qte_global;
+        }
     }
 
     public function getFormatedPriceAttribute()
