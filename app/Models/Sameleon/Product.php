@@ -22,6 +22,10 @@ class Product extends Model implements HasMedia
 
     use ModelRoutes;
 
+    protected $fillable = [
+        'user_uuid',
+        'user_id'
+    ];
 
     public function stock()
     {

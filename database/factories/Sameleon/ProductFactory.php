@@ -21,17 +21,17 @@ class ProductFactory extends Factory
             'name' => $this->faker->word,
             'description' => $this->faker->text(),
        
-            'qte_global' => rand(1, 60),
-            'qte_livre' => rand(1, 10),
-            'qte_expidite' => rand(1, 20),
-            'qte_endomage' => rand(1, 10),
-            'qte_rest' => rand(1, 30),
+            'qte_global' => rand(1, 193),
+            'qte_livre' => 0,
+            'qte_expidite' => 0,
+            'qte_endomage' => 0,
+            'qte_rest' => 0,
 
-            'price' => $this->faker->numberBetween(100, 500),
+            'price' => $this->faker->numberBetween(100, 2000),
             'sku' => $this->faker->unique()->regexify('[A-Z0-9]{10}'),
             'active' => rand(1, 0),
 
-            'user_id' => 2
+            //'user_id' => 2
         ];
     }
 
@@ -41,7 +41,7 @@ class ProductFactory extends Factory
             $url = 'https://source.unsplash.com/random/900x900';
             $item
                 ->addMediaFromUrl($url)
-                ->toMediaCollection('products_images');
+                ->toMediaCollection('products_photos');
         });
     }
 }

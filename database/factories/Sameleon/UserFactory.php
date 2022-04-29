@@ -1,7 +1,8 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Sameleon;
 
+use App\Models\Sameleon\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -19,7 +20,7 @@ class UserFactory extends Factory
             'prenom' => $this->faker->name(),
             'telephone' => $this->faker->phoneNumber(),
             'addresse' => $this->faker->address(),
-            'city' => $this->faker->city(),
+            //'city' => $this->faker->city(),
             'type' => 'particulier',
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
@@ -39,6 +40,13 @@ class UserFactory extends Factory
             return [
                 'email_verified_at' => null,
             ];
+        });
+    }
+
+    public function configure()
+    {
+        return $this->afterCreating(function (User $user) {
+            $user->assignRole('Client');
         });
     }
 }

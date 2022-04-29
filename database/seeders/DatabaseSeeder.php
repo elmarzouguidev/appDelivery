@@ -2,7 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Sameleon\Product;
+use App\Models\Sameleon\User;
 use Illuminate\Database\Seeder;
+
 class DatabaseSeeder extends Seeder
 {
   /**
@@ -23,5 +26,10 @@ class DatabaseSeeder extends Seeder
     $this->call(ClientSeed::class);
 
     //\App\Models\Sameleon\Product::factory(5)->create();
+
+    User::factory(150)->create()->each(function ($user) {
+
+      Product::factory(150)->create(['user_id' => $user->id]);
+    });
   }
 }

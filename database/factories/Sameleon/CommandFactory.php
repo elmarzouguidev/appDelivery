@@ -14,7 +14,9 @@ class CommandFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'client_name' => $this->faker->name(),
+            'client_phone' => $this->faker->phoneNumber(),
+            'client_address' => $this->faker->address(),
         ];
     }
 }

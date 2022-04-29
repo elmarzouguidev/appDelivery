@@ -35,7 +35,9 @@
                             <th scope="col">Nom</th>
                             <th scope="col">Prix</th>
                             <th scope="col">Quantité</th>
+                            @if(auth()->user()->hasAnyRole('Admin','SuperAdmin'))
                             <th scope="col">Client</th>
+                            @endif
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -72,11 +74,13 @@
                                 <td>
                                     {{ $product->qte_global }}
                                 </td>
+                                @if(auth()->user()->hasAnyRole('Admin','SuperAdmin'))
                                 <td>
                                     <a href="{{--$client->url--}}" class="text-body fw-bold">
                                         {{ optional($product->client)->full_name }}
                                     </a>
                                 </td>
+                                @endif
                                 <td>
                                     <div class="d-flex gap-3">
 
