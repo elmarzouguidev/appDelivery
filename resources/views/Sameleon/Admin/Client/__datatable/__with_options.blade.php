@@ -36,6 +36,7 @@
                             <th scope="col">Logo</th>
                             <th scope="col">Code</th>
                             <th scope="col">Nom complet</th>
+                            <th scope="col">E-mail</th>
                             <th scope="col">Tél</th>
                             <th scope="col">type</th>
                             <th scope="col">Adresse</th>
@@ -72,6 +73,9 @@
                                         <br>
                                         {{ $client->cnie }}
                                     @endif
+                                </td>
+                                <td>
+                                    {{ $client->email }}
                                 </td>
                                 <td>
                                     {{ $client->telephone }}
