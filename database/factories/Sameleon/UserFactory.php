@@ -2,6 +2,7 @@
 
 namespace Database\Factories\Sameleon;
 
+use App\Models\Sameleon\Product;
 use App\Models\Sameleon\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -47,6 +48,7 @@ class UserFactory extends Factory
     {
         return $this->afterCreating(function (User $user) {
             $user->assignRole('Client');
+            Product::factory(150)->create(['user_id' => $user->id]);
         });
     }
 }
