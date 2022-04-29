@@ -22,7 +22,7 @@ class Stock extends Component
                 ->get();
         } else {
 
-            $stocks = SameleonStock::with('product')->get();
+            $stocks = SameleonStock::with('product','user')->get();
         }
         return view('livewire.sameleon.stock.stock', compact('stocks'));
     }

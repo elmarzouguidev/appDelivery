@@ -28,6 +28,9 @@
                                         <label class="form-check-label" for="checkAll"></label>
                                     </div>
                                 </th>
+                                @if(auth()->user()->hasAnyRole('Admin','SuperAdmin'))
+                                <th scope="col">Client</th>
+                                @endif
                                 <th scope="col">Produit</th>
                                 <th scope="col">Qté initial</th>
                                 <th scope="col">Qté Livré</th>
@@ -51,11 +54,19 @@
                                             <label class="form-check-label" for="client-{{ $stock->id }}"></label>
                                         </div>
                                     </td>
+                                    @if(auth()->user()->hasAnyRole('Admin','SuperAdmin'))
+                                    <td>
+                                        <a href="{{-- $client->url --}}" class="text-body fw-bold">
+                                            {{ $stock->user->full_name }}
+                                        </a>
+                                    </td>
+                                    @endif
                                     <td>
                                         <a href="{{-- $client->url --}}" class="text-body fw-bold">
                                             {{ $stock->product->name }}
                                         </a>
                                     </td>
+
                                     <td>
                                         {{ $stock->qte_global }}
                                     </td>
