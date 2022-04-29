@@ -16,9 +16,16 @@ class AllSeeder extends Seeder
     {
         $this->call(RoleSeeder::class);
         $this->call(PermissionSeeder::class);
-    
         $this->call(CitySeeder::class);
+        $this->call(AdminSeeder::class);
 
-        User::factory(600)->create();
+        $users =  User::factory(100)->create();
+
+        foreach ($users as $user) {
+            
+            $products = $user->products()->factory(100)->create();
+
+            $products->stock()->factory(100)->create();
+        }
     }
 }

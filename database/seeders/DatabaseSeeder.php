@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
   {
 
 
-    $this->call(RoleSeeder::class);
+    $this->call(AllSeeder::class);
+    /*$this->call(RoleSeeder::class);
     $this->call(PermissionSeeder::class);
 
     $this->call(CitySeeder::class);
@@ -32,6 +33,6 @@ class DatabaseSeeder extends Seeder
 
     Product::factory(150)->create();
 
-    Stock::factory(150)->create();
+    Stock::factory(150)->create();*/
   }
 }
