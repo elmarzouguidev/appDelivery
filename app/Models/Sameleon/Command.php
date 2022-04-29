@@ -283,7 +283,7 @@ class Command extends Model
 
         parent::boot();
 
-        $prefix = 'ORD-';
+        $prefix = 'SM.ORD-';
 
         static::creating(function ($model) use ($prefix) {
 

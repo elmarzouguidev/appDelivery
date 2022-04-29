@@ -23,11 +23,11 @@ class CreateStocksTable extends Migration
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
             $table->string('product_uuid')->nullable();
 
-            $table->unsignedBigInteger('qte_global')->default(0);
-            $table->unsignedBigInteger('qte_livre')->default(0);
-            $table->unsignedBigInteger('qte_expidite')->default(0);
-            $table->unsignedBigInteger('qte_endomage')->default(0);
-            $table->unsignedBigInteger('qte_rest')->default(0);
+            $table->string('qte_global')->default(0);
+            $table->string('qte_livre')->default(0);
+            $table->string('qte_expidite')->default(0);
+            $table->string('qte_endomage')->default(0);
+            $table->string('qte_rest')->default(0);
 
             $table->longText('notes')->nullable();
             $table->boolean('active')->default(true);
