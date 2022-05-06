@@ -50,6 +50,10 @@ class RepositoryServiceProvider extends ServiceProvider
         [
             'abstract' => "App\Repositories\City\CityInterface",
             'concrete' => "App\Repositories\City\CityRepository"
+        ],
+        [
+            'abstract' => "App\Repositories\Region\RegionInterface",
+            'concrete' => "App\Repositories\Region\RegionRepository"
         ]
     ];
     /**

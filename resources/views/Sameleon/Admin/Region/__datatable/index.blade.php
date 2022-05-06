@@ -9,7 +9,7 @@
 
         @include('Sameleon.Admin.Region.__datatable.__add_region_modal')
 
-        @livewire('sameleon.city.city')
+        @livewire('sameleon.region.region')
 
     </div>
 @endsection

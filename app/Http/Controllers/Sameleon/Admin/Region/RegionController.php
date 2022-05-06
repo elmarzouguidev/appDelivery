@@ -14,9 +14,7 @@ class RegionController extends Controller
     {
 
         $this->authorize('viewAny', Region::class);
-
-        //$cities = app(CityInterface::class)->getCities();
-
+        
         return view('Sameleon.Admin.Region.__datatable.index');
     }
 

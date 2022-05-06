@@ -144,7 +144,7 @@
                                             @endif
                                             @if ($command->status == App\Status\Status::REPORTE)
                                                 <p class="text-strong mb-0 mt-2" style="color:red">
-                                                    <b>{{ $command->comments()->latest()->value('reported_at')->format('d-m-Y') }}</b>
+                                                    <b>{{ $command->comments()->latest()->value('reported_at')->format('d-m-Y') ?? '' }}</b>
                                                 </p>
                                             @endif
 
