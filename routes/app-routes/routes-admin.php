@@ -15,6 +15,7 @@ use App\Http\Controllers\Sameleon\Admin\Invoice\AdminInvoiceController;
 use App\Http\Controllers\Sameleon\Admin\Payment\PaymentController;
 use App\Http\Controllers\Sameleon\Admin\Product\AdminProductController;
 use App\Http\Controllers\Sameleon\Admin\Reclamation\ReclamationController;
+use App\Http\Controllers\Sameleon\Admin\Region\RegionController;
 use App\Http\Controllers\Sameleon\Admin\Stock\StockController;
 
 use Illuminate\Support\Facades\Route;
@@ -67,6 +68,19 @@ Route::group(['prefix' => 'cities'], function () {
 
     Route::delete('/', [AdminCityController::class, 'delete'])->name('cities.delete');
 });
+
+
+Route::group(['prefix' => 'regions'], function () {
+
+    Route::get('/', [RegionController::class, 'index'])->name('regions.index');
+
+    Route::post('/', [RegionController::class, 'store'])->name('regions.store');
+    Route::post('/region/{region}', [RegionController::class, 'update'])->name('regions.update');
+
+    Route::delete('/', [RegionController::class, 'delete'])->name('regions.delete');
+});
+
+
 
 Route::group(['prefix' => 'clients'], function () {
 
@@ -184,7 +198,6 @@ Route::group(['prefix' => 'profil'], function () {
 
         Route::get('/', [HistoryController::class, 'index'])->name('history');
         Route::delete('/', [HistoryController::class, 'delete'])->name('history.delete');
-        
     });
 });
 

@@ -1,0 +1,30 @@
+<?php
+
+namespace App\Models\Sameleon;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use App\Traits\GetModelByUuid;
+use App\Traits\HasCode;
+use App\Traits\UuidGenerator;
+
+class Region extends Model
+{
+    use HasFactory;
+    use UuidGenerator;
+    use GetModelByUuid;
+    //use HasCode;
+
+    protected $fillable = [
+        'name',
+        'active',
+        'description',
+        'code',
+        'frais'
+    ];
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+}

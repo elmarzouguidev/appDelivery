@@ -93,12 +93,16 @@
     <li class="menu-title" key="t-components">{{ __('navbar.advanced') }}</li>
 
     <li>
-        <a href="{{ route('admin:cities.index') }}" class="waves-effect">
-
-            <i class="bx bxs-building-house"></i>
-            <span key="t-cities">{{ __('Villes') }}</span>
+        <a href="javascript: void(0);" class="has-arrow waves-effect">
+            <i class="bx bx-lock"></i>
+            <span key="t-ci-reg">{{ __('Villes') }}</span>
         </a>
-
+        <ul class="sub-menu" aria-expanded="false">
+            <li><a href="{{ route('admin:cities.index') }}" key="t-cities">{{ __('Villes') }}</a></li>
+            <li><a href="{{ route('admin:regions.index') }}"
+                    key="t-regions">{{ __('Régions') }}</a>
+            </li>
+        </ul>
     </li>
 
     <li>
