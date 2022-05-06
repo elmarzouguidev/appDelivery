@@ -142,7 +142,7 @@
                                                     {{ __('status.statuses.' . $command->status) }}
                                                 </button>
                                             @endif
-                                            @if ($command->status == App\Status\Status::REPORTE)
+                                            @if ($command->status == App\Status\Status::REPORTE && $command->comments()->count())
                                                 <p class="text-strong mb-0 mt-2" style="color:red">
                                                     <b>{{ $command->comments()->latest()->value('reported_at')->format('d-m-Y') ?? '' }}</b>
                                                 </p>
