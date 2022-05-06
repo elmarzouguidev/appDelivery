@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id=orderdetailsModalLabel">Ajouter une ville </h5>
+                <h5 class="modal-title" id=orderdetailsModalLabel">Ajouter une Région </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -15,7 +15,7 @@
                         <div class="col-lg-10">
                             <input id="name" name="name" type="text"
                                 class="form-control @error('name') is-invalid @enderror"
-                                placeholder="Entrer le nom de la ville" required>
+                                placeholder="Entrer le nom de la région" required>
                             @error('name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -23,7 +23,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="row mb-4">
+                    {{--<div class="row mb-4">
                         <label for="frais" class="col-form-label col-lg-2">Frais *</label>
                         <div class="col-lg-10">
                             <input id="number" name="frais" type="text"
@@ -35,8 +35,26 @@
                                 </span>
                             @enderror
                         </div>
-                    </div>
+                    </div>--}}
+                    <div class="row mb-4">
 
+                        <label class="form-label col-lg-2">Ville *</label>
+                        <div class="col-lg-10">
+                            <select name="city" class="form-control @error('city') is-invalid @enderror"
+                                required>
+                                <option value="">Choisir la ville</option>
+                                @foreach ($cities as $city)
+                                    <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('city')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    
+                    </div>
                     <div class="row justify-content-end">
                         <div class="col-lg-10">
                             <button type="submit" class="btn btn-primary">Ajouter</button>

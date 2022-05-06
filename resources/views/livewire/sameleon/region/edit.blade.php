@@ -3,26 +3,13 @@
     <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id=orderdetailsModalLabel">{{$region->name}} </h5>
+                <h5 class="modal-title" id=orderdetailsModalLabel">Editer la région : {{$region->name}} </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
 
                 <form method="post" action="{{ route('admin:regions.update',$region->uuid) }}">
                     @csrf
-                    <div class="row mb-4">
-                        <label for="code" class="col-form-label col-lg-2">Code *</label>
-                        <div class="col-lg-10">
-                            <input id="code" name="code" type="text"
-                                class="form-control @error('code') is-invalid @enderror"
-                                value="{{$region->code}}" required>
-                            @error('code')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
                     <div class="row mb-4">
                         <label for="name" class="col-form-label col-lg-2">Nom *</label>
                         <div class="col-lg-10">
@@ -36,7 +23,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="row mb-4">
+                    {{--<div class="row mb-4">
                         <label for="frais" class="col-form-label col-lg-2">Frais *</label>
                         <div class="col-lg-10">
                             <input id="number" name="frais" type="text"
@@ -48,7 +35,7 @@
                                 </span>
                             @enderror
                         </div>
-                    </div>
+                    </div>--}}
 
                     <div class="row justify-content-end">
                         <div class="col-lg-10">

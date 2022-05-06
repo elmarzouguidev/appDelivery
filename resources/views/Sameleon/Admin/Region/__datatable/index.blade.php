@@ -26,7 +26,7 @@
 
 
         window.addEventListener('show-edit', event => {
-            $('.editCityModal').modal('show');
+            $('.editRegionModal').modal('show');
         });
 
         window.addEventListener('hidden.bs.modal', event => {
@@ -47,21 +47,6 @@
 
         });
 
-        window.addEventListener('status-reported', event => {
-            $('.isReportedModal').modal('show');
-        });
-
-        window.addEventListener('notify-change', event => {
-
-            Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: 'Le Status est modifier avec succès. ',
-                showConfirmButton: false,
-                timer: 1900
-            })
-
-        });
     </script>
 
 @endpush

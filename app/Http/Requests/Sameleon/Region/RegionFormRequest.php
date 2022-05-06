@@ -13,7 +13,7 @@ class RegionFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,12 @@ class RegionFormRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => ['required', 'string', 'unique:regions'],
+            'city' => ['required', 'integer'],
+            
+            'frais' => ['nullable', 'numeric'],
+            'code' => ['nullable', 'string', 'unique:regions'],
+            
         ];
     }
 }

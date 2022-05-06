@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Sameleon\Region\RegionFormRequest;
 use App\Http\Requests\Sameleon\Region\UpdateRegionFormRequest;
 use App\Models\Sameleon\Region;
+use App\Repositories\City\CityInterface;
 use Illuminate\Http\Request;
 
 class RegionController extends Controller
@@ -14,30 +15,37 @@ class RegionController extends Controller
     {
 
         $this->authorize('viewAny', Region::class);
-        
-        return view('Sameleon.Admin.Region.__datatable.index');
+
+        $cities = app(CityInterface::class)->getCities();
+
+        return view('Sameleon.Admin.Region.__datatable.index', compact('cities'));
     }
 
     public function store(RegionFormRequest $request)
     {
+       // dd('yes','##',$request->all());
         $this->authorize('create', Region::class);
 
-        $city = Region::create($request->validated());
+        $region = new Region();
+        $region->name = $request->name;
+        $region->description = $request->description;
+        $region->city()->associate($request->city);
+        $region->save();
 
-        if ($city) {
+        if ($region) {
+            
             return redirect()->back()->with('success', 'la région a été crée avec success');
         }
 
         return redirect()->back()->with('error', 'error ...');
     }
 
-    public function update(UpdateRegionFormRequest $request, Region $city)
+    public function update(UpdateRegionFormRequest $request, Region $region)
     {
 
-        $city->name = $request->name;
-        $city->frais = $request->frais;
-        $city->code = $request->code;
-        $city->save();
+        $region->name = $request->name;
+        $region->description = $request->description;
+        $region->save();
 
         return redirect()->back()->with('success', 'la région a été modifier avec success');
     }
@@ -47,13 +55,14 @@ class RegionController extends Controller
 
         $request->validate(['regionId' => 'required|uuid']);
 
-        $city = Region::whereUuid($request->regionId)->firstOrFail();
+        $region = Region::whereUuid($request->regionId)->firstOrFail();
 
-        $this->authorize('delete', $city);
+        $this->authorize('delete', $region);
 
-        if ($city) {
+        if ($region) {
 
-            $city->delete();
+            //dd("yes region");
+            $region->delete();
 
             return redirect()->back()->with('success', 'la région a été supprimer avec success');
         }

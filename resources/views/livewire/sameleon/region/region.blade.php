@@ -43,7 +43,7 @@
                                 </th> --}}
                                 <th scope="col">Code</th>
                                 <th scope="col">Nom</th>
-                                <th scope="col">Frais</th>
+                                <th scope="col">Ville</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -69,13 +69,13 @@
                                         <p class="text-muted mb-0"></p>
                                     </td>
                                     <td>
-                                        {{ $region->frais }} DH
+                                        {{ optional($region->city)->name }}
                                         <p class="text-muted mb-0"></p>
                                     </td>
                                     <td>
                                         <div class="d-flex gap-3">
 
-                                            <a href="#" wire:click="editCity('{{ $region->uuid }}')" class="text-success">
+                                            <a href="#" wire:click="editRegion('{{ $region->uuid }}')" class="text-success">
                                                 <i class="mdi mdi-pencil font-size-18"></i>
                                             </a>
                                             <a href="#" class="text-danger" onclick="
@@ -90,7 +90,7 @@
                                         </div>
                                     </td>
                                     <form id="delete-region-{{ $region->uuid }}" method="post"
-                                        action="{{ route('admin:cities.delete') }}">
+                                        action="{{ route('admin:regions.delete') }}">
                                         @csrf
                                         @method('DELETE')
                                         <input type="hidden" name="regionId" value="{{ $region->uuid }}">
