@@ -65,7 +65,7 @@
                 <label for="prix_total">Prix TOTAL*</label>
                 <input type="text" name="orderProducts[{{ $index }}][prix_total]"
                     wire:model="orderProducts.{{ $index }}.prix_total"
-                    wire:click="getPrice({{ $index }})"
+                    {{--wire:click="getPrice({{ $index }})"--}}
                     class="form-control @error('articles.*.prix_total') is-invalid @enderror" readonly/>
 
                 @error('prix_total')
