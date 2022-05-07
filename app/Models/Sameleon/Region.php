@@ -20,11 +20,17 @@ class Region extends Model
         'active',
         'description',
         'code',
-        'frais'
+        'frais',
+
     ];
 
     public function city()
     {
         return $this->belongsTo(City::class);
+    }
+
+    public function commands()
+    {
+        return $this->hasMany(Command::class);
     }
 }

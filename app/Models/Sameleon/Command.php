@@ -43,7 +43,11 @@ class Command extends Model
         'source',
         'boutique',
         'is_imported',
-        'delivered_at'
+        'delivered_at',
+        'region_id',
+        'region_uuid',
+        'company_uuid',
+        'company_id'
     ];
 
     protected  $casts = [
@@ -92,6 +96,12 @@ class Command extends Model
     {
         return $this->belongsTo(City::class);
     }
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class);
+    }
+
 
     public function reclamation()
     {
