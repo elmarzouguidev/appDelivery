@@ -43,11 +43,11 @@ class CityRepository extends AppRepository implements CityInterface
             // dd('yes cache');
             return $this->setCache()->remember('all_cities_cache', $this->timeToLive(), function () {
 
-                return $this->city->all();
+                return $this->city->with('regions:id,name')->get();
             });
         }
         //dd('no cache');
-        return $this->city->all();
+        return $this->city->with('regions:id,name')->get();
     }
 
     /**

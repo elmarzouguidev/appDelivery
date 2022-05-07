@@ -43,11 +43,11 @@ class RegionRepository extends AppRepository implements RegionInterface
             // dd('yes cache');
             return $this->setCache()->remember('all_regions_cache', $this->timeToLive(), function () {
 
-                return $this->region->all();
+                return $this->region->with('city:id,name')->get();
             });
         }
         //dd('no cache');
-        return $this->region->all();
+        return $this->region->with('city:id,name')->get();
     }
 
     /**
