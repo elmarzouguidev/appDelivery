@@ -94,7 +94,7 @@
 
     <li>
         <a href="javascript: void(0);" class="has-arrow waves-effect">
-            <i class="bx bx-lock"></i>
+            <i class="bx bx-building-house"></i>
             <span key="t-ci-reg">{{ __('Villes') }}</span>
         </a>
         <ul class="sub-menu" aria-expanded="false">
