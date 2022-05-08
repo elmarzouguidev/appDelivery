@@ -76,7 +76,7 @@ class Commands extends Component
                     return $value->status == Status::NON_TRAITE ||
                         $value->status == Status::ENCOURS;
                 });*/
-                ->get()->sortBy('status');
+                ->get();
         }
         //  $commands =  $command->with('products')->get();
 
