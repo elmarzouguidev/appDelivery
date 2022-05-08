@@ -2,7 +2,7 @@
 
     <label class="form-label">Ville *</label>
 
-    <select name="city" class="form-control select2-templating @error('city') is-invalid @enderror" required>
+    <select name="city" class="form-control @error('city') is-invalid @enderror" required>
         <option value="">Choisir la ville</option>
         @foreach ($cities as $city)
             <option value="{{ $city->id }}" {{ $command->city_id == $city->id ? 'selected' : '' }}>

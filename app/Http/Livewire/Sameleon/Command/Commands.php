@@ -71,7 +71,9 @@ class Commands extends Component
 
             $commands = $command->withSum('products', 'product_command.price_total')
                 ->with(['invoice:uuid,id,full_number', 'city:id,name'])
+                //->orderBy('status')
                 ->orderBy('created_at', 'DESC')
+                
                 ->get();
         }
         //  $commands =  $command->with('products')->get();
