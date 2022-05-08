@@ -71,7 +71,7 @@ class Commands extends Component
 
             $commands = $command->withSum('products', 'product_command.price_total')
                 ->with(['invoice:uuid,id,full_number', 'city:id,name'])
-                ->orderByRaw("created_at DESC, delivered_at ASC")
+                ->orderByRaw("created_at DESC")
                /* ->get()->map(function ($value, $key) {
                     return $value->status == Status::NON_TRAITE ||
                         $value->status == Status::ENCOURS;
