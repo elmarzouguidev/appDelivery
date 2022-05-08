@@ -65,14 +65,18 @@ class Commands extends Component
                 ->where('user_uuid', auth()->user()->uuid)
                 ->withSum('products', 'product_command.price_total')
                 ->with(['invoice:uuid,id,full_number', 'city:id,name'])
-                ->orderByRaw("created_at DESC, status ASC")
+                ->orderByRaw("created_at DESC")
                 ->get();
         } else {
 
             $commands = $command->withSum('products', 'product_command.price_total')
                 ->with(['invoice:uuid,id,full_number', 'city:id,name'])
-               
-                ->get();
+                ->orderByRaw("created_at DESC, delivered_at ASC")
+               /* ->get()->map(function ($value, $key) {
+                    return $value->status == Status::NON_TRAITE ||
+                        $value->status == Status::ENCOURS;
+                });*/
+                ->get()->sortBy('status');
         }
         //  $commands =  $command->with('products')->get();
 
@@ -145,7 +149,7 @@ class Commands extends Component
 
                 $qteRest = ($qteGlobal - $product->pivot->quantity);
 
-               // dd($qteRest,"##",$qteGlobal);
+                // dd($qteRest,"##",$qteGlobal);
 
                 // $product->stock()->update(['qte_livre' => $product->pivot->quantity]);
                 // $product->stock()->update(['qte_rest' => $qteRest]);
