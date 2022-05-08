@@ -66,7 +66,9 @@ class Commands extends Component
                 ->withSum('products', 'product_command.price_total')
                 ->with(['invoice:uuid,id,full_number', 'city:id,name'])
                 ->orderByRaw("created_at DESC")
-                ->get();
+                ->get()->prioritize(function ($item) {
+                    return $item->status == Status::LIVRE
+                });
         } else {
 
             $commands = $command->withSum('products', 'product_command.price_total')
@@ -77,9 +79,9 @@ class Commands extends Component
                         $value->status == Status::ENCOURS;
                 });*/
                 ->get()->prioritize(function ($item) {
-                    return $item->status == Status::NON_TRAITE
+                    return $item->status == Status::ENCOURS
                         ||
-                        $item->status == Status::ENCOURS;
+                        $item->status == Status::NON_TRAITE;
                 });
         }
         //  $commands =  $command->with('products')->get();
