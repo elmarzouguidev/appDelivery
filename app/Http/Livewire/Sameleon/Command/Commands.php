@@ -79,9 +79,9 @@ class Commands extends Component
                         $value->status == Status::ENCOURS;
                 });*/
                 ->get()->prioritize(function ($item) {
-                    return $item->status == Status::ENCOURS
+                    return $item->status == Status::NON_TRAITE
                         ||
-                        $item->status == Status::NON_TRAITE;
+                        $item->status == Status::ENCOURS;
                 });
         }
         //  $commands =  $command->with('products')->get();
