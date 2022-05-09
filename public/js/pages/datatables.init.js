@@ -6,7 +6,8 @@ $(document).ready(function () {
         lengthChange: false,
         buttons: ['copy', 'excel', 'pdf', 'colvis'],
         //order: [[0, "desc"]]
-        ordering: false
+        ordering: false,
+        pageLength: 30
     });
 
     table.buttons().container()
