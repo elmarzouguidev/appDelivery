@@ -212,7 +212,7 @@
                                 Adresse : {{ optional($invoice->client)->addresse }} <br />
 
                             </td>
-                            <td>
+                            <td style="width: 50% ; text-align: right; !important">
                                 <strong>FACTURE N° : {{ $invoice->code }}</strong><br />
                                 Date : {{ $invoice->invoice_date->format('d-m-Y') }}<br />
                                 {{-- Date d'échéance : {{ $estimate->due_date }} --}}
