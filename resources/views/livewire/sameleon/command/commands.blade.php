@@ -13,7 +13,7 @@
 
             <div class="col-lg-12">
                 <div class="card">
-                    <div class="card-body" {{ $canPolled ? 'wire:poll.10s' : '' }}>
+                    <div   class="card-body" {{ $canPolled ? 'wire:poll.10s' : '' }}>
                         <div class="row">
                             <div class="col-lg-8">
 
@@ -72,9 +72,9 @@
                                 <div class="alert alert-danger">{{ $error }}</div>
                             @endforeach
                         @endif
-                        <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
+                        <table data-auto-responsive="false"  id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
                             <thead>
-                                <tr>
+                                <tr >
                                     <th style="width: 20px;" class="align-middle">
                                       
                                     </th>

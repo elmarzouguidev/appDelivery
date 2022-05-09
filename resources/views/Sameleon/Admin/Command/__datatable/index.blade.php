@@ -62,6 +62,16 @@
            /* $(".select2").select2({
             width: '100%'
         });*/
+        /*Livewire.hook('element.updated', (fromEl, toEl, component) => {
+ 
+                $("#datatable-buttons").dataTable().fnDestroy()
+                $('#datatable-buttons').DataTable({
+                    stateSave: true,
+                    processing: true,
+                    
+                });
+
+        })*/
 
         $(window).blur(function() {
 
