@@ -6,7 +6,7 @@
         <div class="row">
 
             {{-- @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin') &&
-    $showFilters)
+             $showFilters)
   
                   @include('livewire.sameleon.command.filters')
                 @endif --}}

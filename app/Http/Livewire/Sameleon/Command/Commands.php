@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Sameleon\Command;
 
 use App\Filters\ItemsQuery;
-use App\Models\Sameleon\Client;
 use App\Models\Sameleon\Command;
 use App\Models\Sameleon\Product;
 use App\Models\Sameleon\User;

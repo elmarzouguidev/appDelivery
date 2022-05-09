@@ -118,12 +118,28 @@ class ClientController extends Controller
         if ($client) {
 
             // dd('Yes client');
-            $client->commands()->delete();
-            $client->commands()->products()->delete();
-            $client->products()->delete();
-            $client->stocks()->delete();
-            $client->company()->delete();
-            $client->histories()->delete();
+            if($client->commands()->count())
+            {
+                $client->commands()->delete();
+                $client->commands()->products()->delete();
+            }
+            if($client->products()->count())
+            {
+                $client->products()->delete();
+            }
+            if($client->stocks()->count())
+            {
+                $client->stocks()->delete();
+            }
+            if($client->company()->count())
+            {
+                $client->company()->delete();
+            }
+            if($client->histories()->count())
+            {
+                $client->histories()->delete();
+            }
+  
             $client->delete();
 
             return redirect()->back()->with('success', 'le client a été supprimer avec success');
