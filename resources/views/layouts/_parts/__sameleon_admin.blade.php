@@ -117,7 +117,7 @@
         <a href="{{ route('admin:admins.index') }}" class="waves-effect">
 
             <i class="bx bx-user-circle"></i>
-            <span key="t-authentication">{{ __('Authentification') }}</span>
+            <span key="t-authentication">{{ __('Utilisateurs') }}</span>
         </a>
 
     </li>

@@ -20,7 +20,7 @@ class AdminController extends Controller
 
         $this->authorize('viewAny', User::class);
 
-        $users = User::role(['Admin', 'SuperAdmin','Delivery'])->get();
+        $users = User::role(['Admin', 'SuperAdmin'])->get();
 
         return view('Sameleon.Admin.Admin.index', compact('users'));
     }
@@ -32,7 +32,7 @@ class AdminController extends Controller
         //$roles = Role::all();
 
         $roles = Role::all()->reject(function ($role, $key) {
-            return $role->name === 'Developper' || $role->name === 'Client';
+            return $role->name == 'Developper' || $role->name == 'Client' || $role->name == 'Delivery';
         });
 
         return view('Sameleon.Admin.Admin.__create.index', compact('roles'));
