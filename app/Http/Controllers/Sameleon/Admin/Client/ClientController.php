@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+
 class ClientController extends Controller
 {
 
@@ -118,28 +119,23 @@ class ClientController extends Controller
         if ($client) {
 
             // dd('Yes client');
-            if($client->commands()->count())
-            {
+            if ($client->commands()->count()) {
                 $client->commands()->delete();
                 $client->commands()->products()->delete();
             }
-            if($client->products()->count())
-            {
+            if ($client->products()->count()) {
                 $client->products()->delete();
             }
-            if($client->stocks()->count())
-            {
+            if ($client->stocks()->count()) {
                 $client->stocks()->delete();
             }
-            if($client->company()->count())
-            {
+            if ($client->company()->count()) {
                 $client->company()->delete();
             }
-            if($client->histories()->count())
-            {
+            if ($client->histories()->count()) {
                 $client->histories()->delete();
             }
-  
+
             $client->delete();
 
             return redirect()->back()->with('success', 'le client a été supprimer avec success');

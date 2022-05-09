@@ -54,7 +54,7 @@ class Command extends Model
 
     protected  $casts = [
         'delivered_at' => 'date:d-m-Y',
-        'is_imported'=>'boolean'
+        'is_imported' => 'boolean'
 
     ];
 
