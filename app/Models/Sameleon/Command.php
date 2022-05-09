@@ -47,7 +47,9 @@ class Command extends Model
         'region_id',
         'region_uuid',
         'company_uuid',
-        'company_id'
+        'company_id',
+        'delivery_id',
+        'delivery_uuid'
     ];
 
     protected  $casts = [
@@ -58,6 +60,11 @@ class Command extends Model
     public function client()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function delivery()
+    {
+        return $this->belongsTo(User::class, 'delivery_id');
     }
 
     public function company()

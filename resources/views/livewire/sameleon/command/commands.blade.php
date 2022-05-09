@@ -38,6 +38,14 @@
                                         data-bs-target=".importCommandModal">
                                         Importer des commands
                                     </button>--}}
+                                    @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
+                                        @if(count($selectedCommands))
+                                            <button class="btn btn-primary" type="button" data-bs-toggle="modal"
+                                                data-bs-target=".attachCommandModal">
+                                                Envoyer au Livreur : @json($selectedCommands)
+                                            </button>
+                                        @endif
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -59,12 +67,12 @@
                         <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
                             <thead>
                                 <tr>
-                                    {{-- <th style="width: 20px;" class="align-middle">
-                                <div class="form-check font-size-16">
-                                    <input class="form-check-input" type="checkbox" id="checkAll">
-                                    <label class="form-check-label" for="checkAll"></label>
-                                </div>
-                            </th> --}}
+                                    <th style="width: 20px;" class="align-middle">
+                                            <div class="form-check font-size-16">
+                                                <input class="form-check-input" type="checkbox" id="checkAll">
+                                                <label class="form-check-label" for="checkAll"></label>
+                                            </div>
+                                    </th>
                                     {{-- <th scope="col">Numéro / client</th> --}}
                                     <th scope="col">Destinataire</th>
                                     <th scope="col">Produits</th>
@@ -86,6 +94,13 @@
 
                                 @foreach ($commands as $command)
                                     <tr wire:key="{{ $command->id }}">
+                                        <td>
+                                            <div class="form-check font-size-16">
+                                                <input wire:model="selectedCommands" class="form-check-input" type="checkbox"
+                                                    id="command-{{ $command->id }}" value="{{$command->id}}" >
+                                                <label class="form-check-label" for="command-{{ $command->id }}"></label>
+                                            </div>
+                                        </td>
                                         <td>
                                             <p class="text-strong mb-0">
                                                 <strong>
@@ -240,6 +255,10 @@
         @include('livewire.sameleon.command.reported-status', [
             'command' => $commandEdit,
         ])
+    @endif
+
+    @if (count($selectedCommands))
+        @include('livewire.sameleon.command.attache_to_delivery')
     @endif
 
     {{-- @each('Sameleon.Admin.Command.__datatable.__command_detail',$commands ,'command' ) --}}

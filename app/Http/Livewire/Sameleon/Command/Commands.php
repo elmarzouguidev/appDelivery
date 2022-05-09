@@ -49,6 +49,10 @@ class Commands extends Component
 
     protected $listeners = ['runPoll', 'closePoll'];
 
+    public $selectedCommands = [];
+
+    public $selectedDelivery;
+
     public function hydrate()
     {
         $this->emit('datatable');
@@ -83,10 +87,11 @@ class Commands extends Component
                         ||
                         $item->status == Status::ENCOURS;
                 });
+            $delivries = User::role('Delivery')->select(['uuid','id', 'nom', 'prenom'])->get();
         }
         //  $commands =  $command->with('products')->get();
 
-        return view('livewire.sameleon.command.commands', compact('commands'));
+        return view('livewire.sameleon.command.commands', compact('commands', 'delivries'));
     }
 
     public function runPoll()
@@ -109,6 +114,25 @@ class Commands extends Component
             $this->clients = User::role('Client')->select(['nom', 'prenom', 'id'])->get();
             $this->products = Product::select(['id', 'name'])->get();
             $this->citiesList = app(CityInterface::class)->getCities();
+        }
+    }
+
+    public function updatedSelectedCommands()
+    {
+        // dd($this->selectedCommands);
+    }
+
+    public function attachToDelivery()
+    {
+        if (count($this->selectedCommands) && is_int($this->selectedDelivery)); {
+            
+            $delivery = User::find($this->selectedDelivery);
+
+            Command::find($this->selectedCommands)->each->update(['delivery_id' => $delivery->id,'delivery_uuid'=>$delivery->uuid]);
+
+            $this->dispatchBrowserEvent('notify-global',['message'=>'les commands envoyer avec succsé']);
+
+            $this->dispatchBrowserEvent('status-updated');
         }
     }
 

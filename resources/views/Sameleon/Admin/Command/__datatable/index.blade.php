@@ -128,6 +128,19 @@
             })
 
         });
+
+        /****Global notofy ****/
+        window.addEventListener('notify-global', event => {
+
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: `${event.detail.message}`,
+                showConfirmButton: false,
+                timer: 1900
+            })
+
+        });
     </script>
 
     <script>

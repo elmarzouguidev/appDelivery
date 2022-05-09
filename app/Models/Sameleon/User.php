@@ -82,8 +82,14 @@ class User extends Authenticatable
 
     public function commands()
     {
-        return $this->hasMany(Command::class)->orderBy('created_at', 'ASC');
+        if (auth()->user()->hasRole('Client')) {
+            return $this->hasMany(Command::class)->orderBy('created_at', 'ASC');
+        } elseif (auth()->user()->hasRole('Delivery')) {
+            return $this->hasMany(Command::class)->where('delivery_id', auth()->id())->orderBy('created_at', 'ASC');
+        }
     }
+
+
 
     public function products()
     {
