@@ -5,6 +5,7 @@ namespace App\Policies\Sameleon;
 use App\Models\Sameleon\Client;
 use App\Models\Sameleon\Command;
 use App\Models\Sameleon\User;
+use App\Status\Status;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
@@ -72,7 +73,7 @@ class CommandPolicy
      */
     public function delete(User $user, Command $command)
     {
-        return $command->client()->is($user)
+        return $command->client()->is($user) && $command->status == Status::NON_TRAITE
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de supprimer à cette command.");
     }

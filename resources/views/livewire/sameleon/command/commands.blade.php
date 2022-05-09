@@ -169,9 +169,11 @@
                                             </button>
                                         </td> --}}
                                         <td>
-                                            <p class=" mb-0">
-                                                {{ $command->comments()->latest()->value('content') }}
-                                            </p>
+                                            @if ($command->comments()->count())
+                                                <p class=" mb-0">
+                                                    {{ $command->comments()->latest()->value('content') }}
+                                                </p>
+                                            @endif
                                         </td>
                                         <td>
                                             <strong>date d'ajoute</strong>
@@ -205,7 +207,7 @@
 
                                                 @if ($command->user_id == auth()->id() && $command->user_uuid == auth()->user()->uuid)
                                                     <button type="button"
-                                                        class="btn btn-danger btn-sm deleteCommandBtn">
+                                                        class="btn btn-danger btn-sm deleteCommandBtn" data-command="{{$command->uuid}}">
                                                         <i class="mdi mdi-delete font-size-18"></i>
                                                     </button>
                                                 @endif
@@ -217,7 +219,7 @@
                                             </div>
                                         </td>
                                         @if ($command->user_id == auth()->id() && $command->user_uuid == auth()->user()->uuid)
-                                            <form id="delete-order-{{ $command->uuid }}" method="post"
+                                            <form id="{{ $command->uuid }}" method="post"
                                                 action="{{ route('admin:commands.delete') }}">
                                                 @csrf
                                                 @method('DELETE')

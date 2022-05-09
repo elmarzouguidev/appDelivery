@@ -146,6 +146,7 @@
     <script>
         //Warning Message
         $('.deleteCommandBtn').click(function() {
+           let command = this.getAttribute('data-command');
             Swal.fire({
                 title: "Est-ce que vous êtes sûr ?",
                 text: "vous ne pouvez pas annuler la suppression de cette Commande !",
@@ -160,7 +161,7 @@
 
 
                     setTimeout(function() {
-                        document.getElementById('delete-invoice-single-')
+                        document.getElementById(command)
                             .submit();
                     }, 2000);
                 }
