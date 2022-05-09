@@ -27,7 +27,9 @@
                                     </div>
                                 </th> --}}
                                 <th scope="col">Code</th>
+                                @if(auth()->user()->hasAnyRole('Admin','SuperAdmin'))
                                 <th scope="col">Client</th>
+                                @endif
                                 <th scope="col">N° Commands</th>
                                 <th scope="col">Montant</th>
                                 <th scope="col">Date création et cloture</th>
@@ -59,11 +61,13 @@
                                         </a>
 
                                     </td>
+                                    @if(auth()->user()->hasAnyRole('Admin','SuperAdmin'))
                                     <td>
                                         <a href="{{-- $invoice->url --}}" class="text-body fw-bold">
                                             {{ optional($invoice->client)->full_name }}
                                         </a>
                                     </td>
+                                    @endif
                                     <td>
                                         {{ $invoice->commands_count }}
                                         <p class="text-muted mb-0"></p>
