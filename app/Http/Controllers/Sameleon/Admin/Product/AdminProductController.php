@@ -51,7 +51,8 @@ class AdminProductController extends Controller
                 'product_uuid' => $product->uuid,
                 'user_id' => auth()->id(),
                 'user_uuid' => auth()->user()->uuid,
-                'qte_global' => $request->qte_global
+                'qte_global' => $request->qte_global,
+                'qte_rest' => $request->qte_global
             ]);
         }
 

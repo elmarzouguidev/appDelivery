@@ -73,6 +73,7 @@ class Commands extends Component
                 ->get()->prioritize(function ($item) {
                     return $item->status == Status::LIVRE;
                 });
+            $delivries = [];
         } else {
 
             $commands = $command->withSum('products', 'product_command.price_total')
@@ -89,6 +90,7 @@ class Commands extends Component
                 });
             $delivries = User::role('Delivery')->select(['uuid','id', 'nom', 'prenom'])->get();
         }
+        
         //  $commands =  $command->with('products')->get();
 
         return view('livewire.sameleon.command.commands', compact('commands', 'delivries'));
@@ -169,24 +171,18 @@ class Commands extends Component
 
             $products->each(function ($product, $key) {
 
-                if ($product->stock->qte_rest <= 0) {
-                    info('yes one');
-                    $qteGlobal = $product->stock->qte_global;
-                } else {
-                    info('yes tow');
-                    $qteGlobal = $product->stock->qte_rest;
-                }
-
-                $qteRest = ($qteGlobal - $product->pivot->quantity);
+                $qteGlobal = $product->stock->qte_rest;
+                
+                $qteRest = $qteGlobal - $product->pivot->quantity;
 
                 // dd($qteRest,"##",$qteGlobal);
 
                 // $product->stock()->update(['qte_livre' => $product->pivot->quantity]);
                 // $product->stock()->update(['qte_rest' => $qteRest]);
 
-                if ($qteRest < $qteGlobal) {
+                if ($qteRest < $qteGlobal && $product->stock->qte_livre != $product->stock->qte_global) {
                     $product->stock()->increment('qte_livre', $product->pivot->quantity);
-                    $product->stock()->increment('qte_rest', $qteRest);
+                    $product->stock()->update(['qte_rest' => $product->stock->qte_rest - $product->pivot->quantity]);
                 }
                 if ($product->stock->qte_livre == $product->stock->qte_global) {
                     $product->stock()->update(['qte_rest' => 0]);
