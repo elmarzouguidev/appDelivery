@@ -159,6 +159,28 @@
                 if (result.value) {
                    
                     setTimeout(function() {
+                        Livewire.emit('deleteSelectedCommand');
+                    }, 1000);
+
+                    Swal.fire("Supprimé!", "La Commande est supprimé avec succès.", "success");
+                }
+            });
+        });
+
+        $('.deleteCMD').click(function() {
+            console.log('Oosodododod');
+            Swal.fire({
+                title: "Est-ce que vous êtes sûr ?",
+                text: "vous ne pouvez pas annuler la suppression !",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#34c38f",
+                cancelButtonColor: "#f46a6a",
+                confirmButtonText: "Oui, supprimer les !"
+            }).then(function(result) {
+                if (result.value) {
+                   
+                    setTimeout(function() {
                         document.getElementById(command)
                             .submit();
                     }, 2000);

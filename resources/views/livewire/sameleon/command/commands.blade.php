@@ -46,6 +46,14 @@
                                             </button>
                                         @endif
                                     @endif
+
+                                    @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
+                                      
+                                            <button class="btn btn-danger deleteCMD" type="button">
+                                              
+                                                Supprimer {{--: @json($selectedCommands)--}}
+                                            </button>
+                                    @endif
                                 </div>
                             </div>
                         </div>
