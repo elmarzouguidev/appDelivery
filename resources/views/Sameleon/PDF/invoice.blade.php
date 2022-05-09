@@ -60,15 +60,15 @@
         }
 
         .invoice-box table tr td:nth-child(2) {
-            text-align: right;
+            text-align: left;
         }
 
         .invoice-box table tr td:nth-child(3) {
-            text-align: right;
+            text-align: left;
         }
 
         .invoice-box table tr td:nth-child(4) {
-            text-align: right;
+            text-align: left;
         }
 
         .invoice-box table tr.top table td {
@@ -188,8 +188,8 @@
                 <td colspan="6">
                     <table>
                         <tr>
-                            <td class="title" style="text-align: center;">
-                                <img src="{{ $companyLogo }}" style="height: 80px" />
+                            <td class="title" style="text-align: left;">
+                                <img src="{{ $companyLogo }}" style="height: 100px" />
                             </td>
 
                         </tr>
