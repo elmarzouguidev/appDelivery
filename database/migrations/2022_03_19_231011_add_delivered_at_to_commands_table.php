@@ -14,7 +14,7 @@ class AddDeliveredAtToCommandsTable extends Migration
     public function up()
     {
         Schema::table('commands', function (Blueprint $table) {
-            $table->dateTime('delivered_at')->nullable()->after('price_total');
+            $table->string('delivered_at')->nullable()->after('price_total');
         });
     }
 

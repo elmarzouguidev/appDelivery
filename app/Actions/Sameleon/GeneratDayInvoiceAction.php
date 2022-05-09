@@ -97,7 +97,7 @@ class GeneratDayInvoiceAction
 
             $commands->map(function ($item, $key) {
 
-                //dd($item);
+               dd($item);
                 $item->articles()->delete();
                 $item->update(['invoice_id' => null, 'invoice_uuid' => null]);
             });

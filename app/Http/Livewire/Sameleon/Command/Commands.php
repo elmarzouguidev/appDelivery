@@ -171,6 +171,7 @@ class Commands extends Component
     public function changeStatus(Command $command, int $status)
     {
         $command->update(['status' => $status]);
+        
         $products = $command->products;
 
         if ($status == Status::LIVRE) {
@@ -193,7 +194,7 @@ class Commands extends Component
             });
         } else {
 
-            $command->update(['delivered_at' => null]);
+            $command->update(['delivered_at' => '00:00:00']);
 
             $products->each(function ($product, $key) {
 
