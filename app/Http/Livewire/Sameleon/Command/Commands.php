@@ -88,9 +88,9 @@ class Commands extends Component
                         ||
                         $item->status == Status::ENCOURS;
                 });
-            $delivries = User::role('Delivery')->select(['uuid','id', 'nom', 'prenom'])->get();
+            $delivries = User::role('Delivery')->select(['uuid', 'id', 'nom', 'prenom'])->get();
         }
-        
+
         //  $commands =  $command->with('products')->get();
 
         return view('livewire.sameleon.command.commands', compact('commands', 'delivries'));
@@ -127,12 +127,12 @@ class Commands extends Component
     public function attachToDelivery()
     {
         if (count($this->selectedCommands) && is_int($this->selectedDelivery)); {
-            
+
             $delivery = User::find($this->selectedDelivery);
 
-            Command::find($this->selectedCommands)->each->update(['delivery_id' => $delivery->id,'delivery_uuid'=>$delivery->uuid]);
+            Command::find($this->selectedCommands)->each->update(['delivery_id' => $delivery->id, 'delivery_uuid' => $delivery->uuid]);
 
-            $this->dispatchBrowserEvent('notify-global',['message'=>'les commands envoyer avec succsé']);
+            $this->dispatchBrowserEvent('notify-global', ['message' => 'les commands envoyer avec succsé']);
 
             $this->dispatchBrowserEvent('status-updated');
         }
@@ -172,13 +172,8 @@ class Commands extends Component
             $products->each(function ($product, $key) {
 
                 $qteGlobal = $product->stock->qte_rest;
-                
+
                 $qteRest = $qteGlobal - $product->pivot->quantity;
-
-                // dd($qteRest,"##",$qteGlobal);
-
-                // $product->stock()->update(['qte_livre' => $product->pivot->quantity]);
-                // $product->stock()->update(['qte_rest' => $qteRest]);
 
                 if ($qteRest < $qteGlobal && $product->stock->qte_livre != $product->stock->qte_global) {
                     $product->stock()->increment('qte_livre', $product->pivot->quantity);
@@ -194,13 +189,8 @@ class Commands extends Component
 
             $products->each(function ($product, $key) {
 
-                $qteGlobal = $product->stock->qte_global;
-
-                $qteRest = ($qteGlobal - $product->pivot->quantity);
-                if ($qteRest < $qteGlobal) {
-                    $product->stock()->decrement('qte_livre', $product->pivot->quantity);
-                    $product->stock()->decrement('qte_rest', $qteRest);
-                }
+                $product->stock()->decrement('qte_livre', $product->pivot->quantity);
+                $product->stock()->update(['qte_rest' => $product->stock->qte_rest + $product->pivot->quantity]);
             });
         }
 
