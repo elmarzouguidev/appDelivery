@@ -8,6 +8,7 @@ use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Invoice extends Model
 {
@@ -53,11 +54,15 @@ class Invoice extends Model
     {
         $refused = $this->commands()->where('status', Status::REFUSE)
             ->whereDay('created_at', now()->format('d'))
-            ->whereNotNull('delivered_at');
-        $articles = $refused->withSum('articles', 'articles.price_total')->first();
-        //dd($articles->articles_sum_articlesprice_total);
-        if ($refused->count() && $articles->articles_sum_articlesprice_total > 0) {
-            return $this->articles->sum('price_total') - $articles->articles_sum_articlesprice_total;
+            ->whereNotNull('delivered_at')
+            ->orWhereDay('created_at', Carbon::yesterday()->format('d'));
+        $articles = $refused->withSum('articles', 'articles.price_total')->get()->map(function($item,$key){
+            //dd($item);
+            return $item->articles_sum_articlesprice_total;
+        })->sum();
+        //dd($articles);
+        if ($refused->count() && $articles > 0) {
+            return $this->articles->sum('price_total') - $articles;
         } else {
             return $this->articles->sum('price_total');
         }

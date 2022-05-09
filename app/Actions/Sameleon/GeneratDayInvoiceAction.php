@@ -4,6 +4,7 @@ namespace App\Actions\Sameleon;
 
 use App\Models\Sameleon\Invoice;
 use App\Status\Status;
+use Illuminate\Support\Carbon;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 class GeneratDayInvoiceAction
@@ -31,6 +32,7 @@ class GeneratDayInvoiceAction
             if ($this->invoice) {
                 $this->deleteCommands();
                 $this->addItems();
+                $this->addOldItems();
             } else {
 
                 $this->invoice = new Invoice();
@@ -80,6 +82,43 @@ class GeneratDayInvoiceAction
         }
     }
 
+    private function addOldItems()
+    {
+        $commands = auth()
+        ->user()
+        ->commands()
+        ->whereIn('status', [Status::LIVRE, Status::REFUSE])
+        ->doesntHave('articles')
+        ->whereDay('created_at', Carbon::yesterday()->format('d'))
+        ->whereNotNull('delivered_at')
+        //->whereDay('delivered_at',now()->format('d'))
+        ->withSum('products', 'product_command.price_total')
+        ->latest()->get();
+
+    if ($commands) {
+
+        $newCommands =  $commands->map(function ($item, $key) {
+
+            $item->update(['invoice_id' => $this->invoice->id, 'invoice_uuid' => $this->invoice->uuid]);
+            return [
+                'command_id' => $item->id,
+                'command_uuid' => $item->uuid,
+                'code_command' => $item->code,
+                'date_command' => $item->created_at->format('d-m-Y'),
+                'city' => $item->city->name,
+                'status' => __('status.statuses.' . $item->status),
+                'price_total' => $item->products_sum_product_commandprice_total ?? 0,
+                'frais' => $item->frais,
+            ];
+        })->toArray();
+
+        //dd($newCommands, $commands);
+        //return redirect()->route('public.show.invoice', [$this->invoice->uuid, 'has_header' => true]);
+
+        $this->invoice->articles()->createMany($newCommands);
+    } 
+    }
+
     private function deleteCommands()
     {
         $commands = auth()
@@ -87,8 +126,10 @@ class GeneratDayInvoiceAction
             ->commands()
             ->whereNotIn('status', [Status::LIVRE, Status::REFUSE])
             ->has('articles')
-            ->whereDay('created_at', now()->format('d'))
             ->where('delivered_at','00:00:00')
+            ->whereDay('created_at', now()->format('d'))
+            //->orWhereDay('created_at', Carbon::yesterday()->format('d'))
+            
             //->whereDay('delivered_at', now()->format('d'))
             //->withSum('products', 'product_command.price_total')
             ->latest()->get();
@@ -96,8 +137,6 @@ class GeneratDayInvoiceAction
         if ($commands) {
 
             $commands->map(function ($item, $key) {
-
-               //dd($item);
                 $item->articles()->delete();
                 $item->update(['invoice_id' => null, 'invoice_uuid' => null]);
             });
