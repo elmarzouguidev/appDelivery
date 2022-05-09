@@ -39,7 +39,7 @@ class AdminCityController extends Controller
 
         $city->name = $request->name;
         $city->frais = $request->frais;
-        $city->code = $request->code;
+        //$city->code = $request->code;
         $city->save();
 
         return redirect()->back()->with('success', 'la ville a été modifier avec success');
@@ -56,6 +56,7 @@ class AdminCityController extends Controller
 
         if ($city) {
 
+            $city->regions()->delete();
             $city->delete();
 
             return redirect()->back()->with('success', 'la ville a été supprimer avec success');

@@ -28,7 +28,7 @@ class CityUpdateFormRequest extends FormRequest
 
             'name' => ['required', 'string', Rule::unique('cities')->ignore($this->route('city'), 'uuid')],
             'frais' => ['required', 'numeric'],
-            'code' => ['required', 'string',  Rule::unique('cities')->ignore($this->route('city'), 'uuid')],
+            //'code' => ['required', 'string',  Rule::unique('cities')->ignore($this->route('city'), 'uuid')],
         ];
     }
 }

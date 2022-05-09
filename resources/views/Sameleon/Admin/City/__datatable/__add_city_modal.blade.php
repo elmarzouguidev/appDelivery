@@ -10,7 +10,7 @@
 
                 <form method="post" action="{{ route('admin:cities.store') }}">
                     @csrf
-                    <div class="row mb-4">
+                    {{--<div class="row mb-4">
                         <label for="code" class="col-form-label col-lg-2">Code *</label>
                         <div class="col-lg-10">
                             <input id="code" name="code" type="text"
@@ -22,7 +22,7 @@
                                 </span>
                             @enderror
                         </div>
-                    </div>
+                    </div>--}}
                     <div class="row mb-4">
                         <label for="name" class="col-form-label col-lg-2">Nom *</label>
                         <div class="col-lg-10">
