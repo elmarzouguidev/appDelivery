@@ -2,7 +2,6 @@
 
 namespace App\Actions\Sameleon;
 
-use App\Models\Sameleon\Client;
 use App\Models\Sameleon\Invoice;
 use App\Status\Status;
 use Lorisleiva\Actions\Concerns\AsAction;
@@ -14,7 +13,7 @@ class GeneratDayInvoiceAction
 
     public function handle()
     {
-        
+
         if (
             !now()->isWeekend() && auth()->user()->hasRole('Client') && auth()->user()->commands()
             ->whereIn('status', [Status::LIVRE, Status::REFUSE])
@@ -30,6 +29,7 @@ class GeneratDayInvoiceAction
                 ->first();
 
             if ($this->invoice) {
+                $this->deleteCommands();
                 $this->addItems();
             } else {
 
@@ -61,7 +61,6 @@ class GeneratDayInvoiceAction
             $newCommands =  $commands->map(function ($item, $key) {
 
                 $item->update(['invoice_id' => $this->invoice->id, 'invoice_uuid' => $this->invoice->uuid]);
-
                 return [
                     'command_id' => $item->id,
                     'command_uuid' => $item->uuid,
@@ -78,6 +77,32 @@ class GeneratDayInvoiceAction
             //return redirect()->route('public.show.invoice', [$this->invoice->uuid, 'has_header' => true]);
 
             $this->invoice->articles()->createMany($newCommands);
+        }
+    }
+
+    private function deleteCommands()
+    {
+        $commands = auth()
+            ->user()
+            ->commands()
+            ->whereNotIn('status', [Status::LIVRE, Status::REFUSE])
+            ->has('articles')
+            ->whereDay('created_at', now()->format('d'))
+            ->whereNull('delivered_at')
+            //->whereDay('delivered_at', now()->format('d'))
+            //->withSum('products', 'product_command.price_total')
+            ->latest()->get();
+
+        if ($commands) {
+
+            $commands->map(function ($item, $key) {
+
+                //dd($item);
+                $item->articles()->delete();
+                $item->update(['invoice_id' => null, 'invoice_uuid' => null]);
+            });
+
+            //dd($commands);
         }
     }
 }
