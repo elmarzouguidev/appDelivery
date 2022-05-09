@@ -33,4 +33,9 @@ class Region extends Model
     {
         return $this->hasMany(Command::class);
     }
+
+    public function delivery()
+    {
+        return $this->belongsTo(User::class, 'delivery_id');
+    }
 }

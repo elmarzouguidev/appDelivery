@@ -34,7 +34,6 @@
                                 </div>
                             </th> --}}
                             <th scope="col">Logo</th>
-                            <th scope="col">Code</th>
                             <th scope="col">Nom complet</th>
                             <th scope="col">E-mail</th>
                             <th scope="col">Tél</th>
@@ -62,14 +61,9 @@
                                 </td>
                                 <td>
                                     <a href="{{-- $client->url --}}" class="text-body fw-bold">
-                                        {{ $client->code }}
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="{{-- $client->url --}}" class="text-body fw-bold">
                                         {{ $client->full_name }}
                                     </a>
-                                    @if ($client->type === 'particulier')
+                                    @if ($client->type == 'particulier')
                                         <br>
                                         {{ $client->cnie }}
                                     @endif

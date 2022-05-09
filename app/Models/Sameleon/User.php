@@ -106,6 +106,11 @@ class User extends Authenticatable
         return $this->belongsTo(City::class);
     }
 
+    public function regions()
+    {
+        return $this->hasMany(Region::class);
+    }
+
     public function stocks()
     {
         return $this->hasMany(Stock::class);
