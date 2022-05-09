@@ -157,13 +157,13 @@
                 confirmButtonText: "Oui, supprimer le!"
             }).then(function(result) {
                 if (result.value) {
-                    Swal.fire("Supprimé!", "La Commande est supprimé avec succès.", "success");
-
-
+                   
                     setTimeout(function() {
                         document.getElementById(command)
                             .submit();
                     }, 2000);
+
+                    //Swal.fire("Supprimé!", "La Commande est supprimé avec succès.", "success");
                 }
             });
         });

@@ -62,10 +62,12 @@ class AdminCommandController extends Controller
                 $command->products()->attach(
                     (int)$product['product_id'],
                     [
+                        'command_uuid' => $command->uuid,
                         'quantity' => $product['quantity'],
                         'price_ht' => $product['prix_unitaire'],
                         'price_total' => $product['quantity'] * $product['prix_unitaire'],
-                        'designation' => $product['designation']
+                        'designation' => $product['designation'],
+
                     ],
 
                 );
@@ -137,6 +139,7 @@ class AdminCommandController extends Controller
                     $command->products()->attach(
                         (int)$product['product_id'],
                         [
+                            'command_uuid' => $command->uuid,
                             'quantity' => $product['quantity'],
                             'price_ht' => $product['prix_unitaire'],
                             'price_total' => $product['quantity'] * $product['prix_unitaire'],
