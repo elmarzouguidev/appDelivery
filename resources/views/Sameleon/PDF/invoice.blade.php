@@ -260,7 +260,11 @@
                     @endif
                     <td>{{ $article->city }}</td>
                     <td>{{ __('status.statuses.' . $article->command->status) }}</td>
-                    <td>{{ $article->formated_price_total }}</td>
+                    @if(optional($article->command)->status == App\Status\Status::REFUSE)
+                    <td>####</td>
+                    @else
+                    <td>{{$article->formated_price_total}}</td>
+                    @endif
                     <td>{{ number_format($article->frais,2) }} DH</td>
                 </tr>
 
