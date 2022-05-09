@@ -42,7 +42,7 @@
                                         @if(count($selectedCommands))
                                             <button class="btn btn-primary" type="button" data-bs-toggle="modal"
                                                 data-bs-target=".attachCommandModal">
-                                                Envoyer au Livreur : @json($selectedCommands)
+                                                Envoyer au Livreur {{--: @json($selectedCommands)--}}
                                             </button>
                                         @endif
                                     @endif
@@ -68,10 +68,7 @@
                             <thead>
                                 <tr>
                                     <th style="width: 20px;" class="align-middle">
-                                            <div class="form-check font-size-16">
-                                                <input class="form-check-input" type="checkbox" id="checkAll">
-                                                <label class="form-check-label" for="checkAll"></label>
-                                            </div>
+                                      
                                     </th>
                                     {{-- <th scope="col">Numéro / client</th> --}}
                                     <th scope="col">Destinataire</th>
