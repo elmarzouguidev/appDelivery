@@ -51,12 +51,16 @@ class Invoice extends Model
 
     public function getFormatedTotalBrutAttribute()
     {
-        $refused = $this->commands()->where('status',Status::REFUSE)
-        ->whereDay('created_at', now()->format('d'))
-        ->whereNotNull('delivered_at');
-        $articles = $refused->withSum('articles','articles.price_total')->first();
+        $refused = $this->commands()->where('status', Status::REFUSE)
+            ->whereDay('created_at', now()->format('d'))
+            ->whereNotNull('delivered_at');
+        $articles = $refused->withSum('articles', 'articles.price_total')->first();
         //dd($articles->articles_sum_articlesprice_total);
-        return $this->articles->sum('price_total') - $articles->articles_sum_articlesprice_total;
+        if ($articles->articles_sum_articlesprice_total > 0) {
+            return $this->articles->sum('price_total') - $articles->articles_sum_articlesprice_total;
+        } else {
+            return $this->articles->sum('price_total');
+        }
     }
 
     public function bill()
