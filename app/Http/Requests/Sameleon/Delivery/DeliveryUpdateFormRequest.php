@@ -34,6 +34,9 @@ class DeliveryUpdateFormRequest extends FormRequest
             'cnie' => ['nullable', 'required_if:type,particulier', 'string', Rule::unique('users')->ignore($this->route('delivery'), 'uuid')],
             'email' => ['required', 'email', Rule::unique('users')->ignore($this->route('delivery'), 'uuid')],
             //'password' => ['required', 'string', 'min:6'],
+
+            'regions' => ['nullable', 'array'],
+            'regions.*' => ['nullable', 'integer'],
         ];
     }
 }

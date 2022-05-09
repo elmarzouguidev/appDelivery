@@ -34,6 +34,10 @@ class DeliveryCreateFormRequest extends FormRequest
             'cnie' => ['nullable', 'required_if:type,particulier', 'string', Rule::unique('users')],
             'email' => ['required', 'email', Rule::unique('users')],
             //'password' => ['required', 'string', 'min:6'],
+
+
+            'regions' => ['nullable', 'array'],
+            'regions.*' => ['nullable', 'integer'],
         ];
     }
 }

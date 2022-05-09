@@ -30,10 +30,12 @@
                                     @include('Sameleon.Admin.Delivery.__create.__info')
                                        
                                 </div>
-
+                                <div class="col-lg-6">
+                                    @livewire('sameleon.delivery.create')
+                                </div>
                                 <div class="col-lg-6">
 
-                                   @include('Sameleon.Admin.Delivery.__create.__select_city')
+                                   {{--@include('Sameleon.Admin.Delivery.__create.__select_city')--}}
 
                                     <div class=" mb-4">
                                         <label>Adresse *</label>
@@ -68,8 +70,18 @@
     </div>
 @endsection
 
+
 @section('css')
+
+   <link href="{{asset('assets/libs/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
+
 @endsection
 
 @push('scripts')
+<script src="{{asset('assets/libs/select2/js/select2.min.js')}}"></script>
+<script>
+            $(".select2").select2({
+            width: '100%'
+        });
+</script>
 @endpush

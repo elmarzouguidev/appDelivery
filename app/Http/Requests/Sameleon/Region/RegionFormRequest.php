@@ -29,6 +29,7 @@ class RegionFormRequest extends FormRequest
             
             'frais' => ['nullable', 'numeric'],
             'code' => ['nullable', 'string', 'unique:regions'],
+
             
         ];
     }

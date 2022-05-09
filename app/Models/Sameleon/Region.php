@@ -21,7 +21,8 @@ class Region extends Model
         'description',
         'code',
         'frais',
-
+        'delivery_id',
+        'delivery_uuid'
     ];
 
     public function city()

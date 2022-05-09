@@ -85,7 +85,7 @@ class User extends Authenticatable
         if (auth()->user()->hasRole('Client')) {
             return $this->hasMany(Command::class)->orderBy('created_at', 'ASC');
         } elseif (auth()->user()->hasRole('Delivery')) {
-            return $this->hasMany(Command::class)->where('delivery_id', auth()->id())->orderBy('created_at', 'ASC');
+            return $this->hasMany(Command::class, 'delivery_id')->where('delivery_id', auth()->id())->orderBy('created_at', 'ASC');
         }
     }
 
@@ -108,7 +108,7 @@ class User extends Authenticatable
 
     public function regions()
     {
-        return $this->hasMany(Region::class);
+        return $this->hasMany(Region::class, 'delivery_id');
     }
 
     public function stocks()

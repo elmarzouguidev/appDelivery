@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Sameleon\Admin\Delivery;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Sameleon\Delivery\DeliveryCreateFormRequest;
 use App\Http\Requests\Sameleon\Delivery\DeliveryUpdateFormRequest;
+use App\Models\Sameleon\Region;
 use App\Models\Sameleon\User;
 use App\Notifications\Sameleon\SendNewUserPassword;
 use App\Repositories\City\CityInterface;
@@ -40,6 +41,8 @@ class DeliveryController extends Controller
     public function store(DeliveryCreateFormRequest $request)
     {
 
+        //dd($request->all());
+
         $this->authorize('create', User::class);
 
         $delivery = new User();
@@ -63,13 +66,18 @@ class DeliveryController extends Controller
 
         $delivery->assignRole('Delivery');
 
-        if (CheckConnection::isConnected()) {
+        if ($request->has('regions') && $request->filled('regions')) {
+
+            Region::find($request->regions)->each->update(['delivery_id' => $delivery->id, 'delivery_uuid' => $delivery->uuid]);
+        }
+
+        if (app()->environment('production') && CheckConnection::isConnected()) {
 
             $delivery->notify(new SendNewUserPassword($pass));
 
-            return redirect()->back()->with('success', 'le livreure a été ajouter avec success');
+            return redirect()->back()->with('success', 'le livreure a été ajouter avec success est le mot de pass a été envoyer');
         }
-        return redirect()->back()->with('error', 'Email not send');
+        return redirect()->back()->with('error', 'le livreure a été ajouter avec success');
     }
 
     public function edit(User $delivery)
@@ -78,12 +86,14 @@ class DeliveryController extends Controller
 
         $cities = app(CityInterface::class)->getCities();
 
+        $delivery->load('regions');
+        
         return view('Sameleon.Admin.Delivery.__edit.index', compact('delivery', 'cities'));
     }
 
     public function update(DeliveryUpdateFormRequest $request, User $delivery)
     {
-        
+
         $this->authorize('update', $delivery);
 
         $delivery->nom = $request->nom;
