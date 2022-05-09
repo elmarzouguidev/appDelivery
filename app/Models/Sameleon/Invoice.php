@@ -56,7 +56,7 @@ class Invoice extends Model
             ->whereNotNull('delivered_at');
         $articles = $refused->withSum('articles', 'articles.price_total')->first();
         //dd($articles->articles_sum_articlesprice_total);
-        if ($articles->articles_sum_articlesprice_total > 0) {
+        if ($refused->count() && $articles->articles_sum_articlesprice_total > 0) {
             return $this->articles->sum('price_total') - $articles->articles_sum_articlesprice_total;
         } else {
             return $this->articles->sum('price_total');
