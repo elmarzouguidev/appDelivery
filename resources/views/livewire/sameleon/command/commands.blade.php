@@ -205,7 +205,7 @@
                                                     <i class="mdi mdi-delete font-size-18"></i>
                                                 </a> --}}
 
-                                                @if ($command->user_id == auth()->id() && $command->user_uuid == auth()->user()->uuid)
+                                                @if ( $command->status == App\Status\Status::NON_TRAITE && $command->user_id == auth()->id() && $command->user_uuid == auth()->user()->uuid)
                                                     <button type="button"
                                                         class="btn btn-danger btn-sm deleteCommandBtn" data-command="{{$command->uuid}}">
                                                         <i class="mdi mdi-delete font-size-18"></i>
