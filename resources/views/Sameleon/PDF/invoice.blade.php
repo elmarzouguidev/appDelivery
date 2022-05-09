@@ -261,7 +261,7 @@
                     <td>{{ $article->city }}</td>
                     <td>{{ __('status.statuses.' . $article->command->status) }}</td>
                     @if(optional($article->command)->status == App\Status\Status::REFUSE)
-                    <td>####</td>
+                    <td>----</td>
                     @else
                     <td>{{$article->formated_price_total}}</td>
                     @endif
