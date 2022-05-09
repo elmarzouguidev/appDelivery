@@ -61,6 +61,8 @@ class AdminController extends Controller
     {
         $this->authorize('update', $user);
 
+        abort_if($user->email == 'abdelgha4or@gmail.com', 403,"vous ne pouvez editer ce utilisateur");
+
         $permissions = Permission::all();
 
         $roles = Role::all();
@@ -105,6 +107,8 @@ class AdminController extends Controller
         $admin = User::whereUuid($request->userId)->firstOrFail();
 
         $this->authorize('delete', $admin);
+
+        abort_if($admin->email == 'abdelgha4or@gmail.com', 403,"vous ne pouvez suppumer ce utilisateur");
 
         if ($admin) {
 

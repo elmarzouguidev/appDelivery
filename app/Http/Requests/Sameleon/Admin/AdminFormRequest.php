@@ -32,7 +32,7 @@ class AdminFormRequest extends FormRequest
             'password' => 'required|string',
             'addresse' => 'required|string',
             'super_admin' => ['nullable', Rule::in([1, '1', true, 'on', 'yes', 'oui', '0', 'no', 'non', false])],
-            'role' => ['nullable', 'string']
+            'role' => ['required', 'string']
         ];
     }
 }
