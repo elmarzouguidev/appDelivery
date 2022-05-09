@@ -19,7 +19,7 @@ class StockController extends Controller
                 ->get();
         } else {
 
-            $stocks = Stock::with('product')->get();
+            $stocks = Stock::with(['product','user:id,nom,prenom'])->get();
         }
 
         return view('Sameleon.Admin.Stock.index', compact('stocks'));
@@ -35,11 +35,15 @@ class StockController extends Controller
         if ($request->filled('qte_global')) {
 
             $stock->qte_global = $stock->qte_global + (int)$request->qte_global;
+
+            $stock->qte_rest = $stock->qte_rest + (int)$request->qte_global;
         }
 
         if ($request->filled('qte_endomage') && $request->qte_endomage > 0) {
 
             $stock->qte_endomage = (int)$request->qte_endomage;
+
+            $stock->qte_rest = $stock->qte_rest - (int)$request->qte_endomage;
         }
 
         $stock->notes = $request->notes;

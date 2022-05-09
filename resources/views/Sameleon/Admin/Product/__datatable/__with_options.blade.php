@@ -30,8 +30,6 @@
                                 </div>
                             </th>--}}
                             <th scope="col">Image</th>
-                            <th scope="col">Code</th>
-                            
                             <th scope="col">Nom</th>
                             <th scope="col">Prix</th>
                             <th scope="col">Quantité</th>
@@ -58,12 +56,6 @@
                                         <img class="img-fluid rounded" alt="" src="{{$product->getFirstMediaUrl('products_photos','normal')}}" width="50">
                                     </div>
                                 </td>
-                                <td>
-                                    <a href="{{--$client->url--}}" class="text-body fw-bold">
-                                        {{ $product->code }}
-                                    </a>
-                                </td>
-
                                 <td>
                                     {{ $product->name }}
                                     <p class="text-muted mb-0"></p>

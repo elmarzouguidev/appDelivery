@@ -57,13 +57,13 @@
                                     @if(auth()->user()->hasAnyRole('Admin','SuperAdmin'))
                                     <td>
                                         <a href="{{-- $client->url --}}" class="text-body fw-bold">
-                                            {{ $stock->user->full_name }}
+                                            {{ optional($stock->user)->full_name }}
                                         </a>
                                     </td>
                                     @endif
                                     <td>
                                         <a href="{{-- $client->url --}}" class="text-body fw-bold">
-                                            {{ $stock->product->name }}
+                                            {{ optional($stock->product)->name }}
                                         </a>
                                     </td>
 

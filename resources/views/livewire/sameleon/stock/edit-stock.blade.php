@@ -26,7 +26,7 @@
                                                     <label class="form-label">Nom du produit</label>
                                                     <input type="text"
                                                         class="form-control @error('client_name') is-invalid @enderror"
-                                                        name="client_name" value="{{ $stock->product->name }}"
+                                                        name="client_name" value="{{ optional($stock->product)->name }}"
                                                         readonly>
                                                     @error('client_name')
                                                         <span class="invalid-feedback" role="alert">
@@ -41,7 +41,7 @@
                                                     <label class="form-label">Nom du client </label>
                                                     <input type="text"
                                                         class="form-control @error('client_email') is-invalid @enderror"
-                                                        name="client_email" value="{{ $stock->user->full_name }}"
+                                                        name="client_email" value="{{ optional($stock->user)->full_name }}"
                                                         readonly>
                                                     @error('client')
                                                         <span class="invalid-feedback" role="alert">
