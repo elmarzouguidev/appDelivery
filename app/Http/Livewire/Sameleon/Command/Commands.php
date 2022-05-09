@@ -189,8 +189,11 @@ class Commands extends Component
 
             $products->each(function ($product, $key) {
 
-                $product->stock()->decrement('qte_livre', $product->pivot->quantity);
-                $product->stock()->update(['qte_rest' => $product->stock->qte_rest + $product->pivot->quantity]);
+                if($product->stock->qte_livre > 0)
+                {
+                    $product->stock()->decrement('qte_livre', $product->pivot->quantity);
+                    $product->stock()->update(['qte_rest' => $product->stock->qte_rest + $product->pivot->quantity]);
+                }
             });
         }
 
