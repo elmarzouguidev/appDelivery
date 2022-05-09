@@ -3,6 +3,7 @@
 namespace App\Models\Sameleon;
 
 use App\Scopes\InvoiceScope;
+use App\Status\Status;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -50,7 +51,12 @@ class Invoice extends Model
 
     public function getFormatedTotalBrutAttribute()
     {
-        return $this->articles->sum('price_total');
+        $refused = $this->commands()->where('status',Status::REFUSE)
+        ->whereDay('created_at', now()->format('d'))
+        ->whereNotNull('delivered_at');
+        $articles = $refused->withSum('articles','articles.price_total')->first();
+        //dd($articles->articles_sum_articlesprice_total);
+        return $this->articles->sum('price_total') - $articles->articles_sum_articlesprice_total;
     }
 
     public function bill()
