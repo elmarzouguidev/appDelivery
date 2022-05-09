@@ -203,10 +203,10 @@
                         <tr>
                             <td style="width: 50% ;">
                                 <strong>Client : {{ optional($invoice->client)->full_name }}</strong> <br />
-                                @if($invoice->client->type =='particulier')
+                                @if(optional($invoice->client)->type == 'particulier')
                                  CNIE : {{ optional($invoice->client)->cnie }}<br />
                                 @endif
-                                @if($invoice->client->type=='entreprise' && $invoice->client->company)
+                                @if(optional($invoice->client)->type == 'entreprise' && optional($invoice->client)->company)
                                  ICE : {{ optional($invoice->client)->ice }}<br />
                                 @endif
                                 Adresse : {{ optional($invoice->client)->addresse }} <br />
@@ -285,8 +285,7 @@
         </div>
     @endif
 
-
-
+    
     <script type="text/php">
 
         if (isset($pdf) && $PAGE_COUNT > 1) {
