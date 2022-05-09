@@ -41,7 +41,6 @@
                                         <label class="form-check-label" for="checkAll"></label>
                                     </div>
                                 </th> --}}
-                                <th scope="col">Code</th>
                                 <th scope="col">Nom</th>
                                 <th scope="col">Frais</th>
                                 <th scope="col">Action</th>
@@ -59,11 +58,6 @@
                                             <label class="form-check-label" for="client-{{ $client->id }}"></label>
                                         </div>
                                     </td> --}}
-                                    <td>
-                                        <a href="{{-- $client->url --}}" class="text-body fw-bold">
-                                            {{ $city->code }}
-                                        </a>
-                                    </td>
                                     <td>
                                         {{ $city->name }}
                                         <p class="text-muted mb-0"></p>
