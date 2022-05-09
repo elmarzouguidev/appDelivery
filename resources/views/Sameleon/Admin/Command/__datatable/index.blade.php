@@ -62,16 +62,16 @@
            /* $(".select2").select2({
             width: '100%'
         });*/
-        /*Livewire.hook('element.updated', (fromEl, toEl, component) => {
+        Livewire.hook('element.updated', (fromEl, toEl, component) => {
  
-                $("#datatable-buttons").dataTable().fnDestroy()
-                $('#datatable-buttons').DataTable({
-                    stateSave: true,
-                    processing: true,
-                    
-                });
+            //reload_js("{{ asset('js/pages/datatables.init.js') }}");
 
-        })*/
+        })
+        function reload_js(src) {
+            $('script[src="' + src + '"]').remove();
+            $('<script>').attr('src', src).appendTo('head');
+        }
+        //reload_js("{{ asset('js/pages/datatables.init.js') }}");
 
         $(window).blur(function() {
 
