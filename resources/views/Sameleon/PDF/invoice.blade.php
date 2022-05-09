@@ -185,7 +185,7 @@
     <div class="invoice-box">
         <table>
             <tr class="top">
-                <td colspan="4">
+                <td colspan="6">
                     <table>
                         <tr>
                             <td class="title" style="text-align: center;">
@@ -198,7 +198,7 @@
             </tr>
 
             <tr class="information">
-                <td colspan="5">
+                <td colspan="6">
                     <table>
                         <tr>
                             <td style="width: 50% ;">
@@ -285,7 +285,7 @@
         </div>
     @endif
 
-    
+
     <script type="text/php">
 
         if (isset($pdf) && $PAGE_COUNT > 1) {
