@@ -20,6 +20,7 @@ class DeliverySeeder extends Seeder
             'nom' => 'Mohammed',
             'prenom' => 'Chaligui',
             'email' => 'chaligui@gmail.com',
+            'telephone'=>'0677512754',
             'email_verified_at' => now(),
             'password' => Hash::make('123456789@'),
             'remember_token' => Str::random(10),

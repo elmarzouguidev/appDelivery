@@ -11,6 +11,7 @@ use App\Http\Controllers\Sameleon\Admin\City\AdminCityController;
 use App\Http\Controllers\Sameleon\Admin\Client\ClientController;
 use App\Http\Controllers\Sameleon\Admin\Command\AdminCommandController;
 use App\Http\Controllers\Sameleon\Admin\Contact\ContactController;
+use App\Http\Controllers\Sameleon\Admin\Delivery\DeliveryController;
 use App\Http\Controllers\Sameleon\Admin\Invoice\AdminInvoiceController;
 use App\Http\Controllers\Sameleon\Admin\Payment\PaymentController;
 use App\Http\Controllers\Sameleon\Admin\Product\AdminProductController;
@@ -95,6 +96,22 @@ Route::group(['prefix' => 'clients'], function () {
 
         Route::get('/{client}', [ClientController::class, 'edit'])->name('clients.edit');
         Route::post('/{client}', [ClientController::class, 'update'])->name('clients.update');
+    });
+});
+
+Route::group(['prefix' => 'delivery-guys'], function () {
+
+    Route::get('/', [DeliveryController::class, 'index'])->name('delivery.index');
+
+    Route::get('/create', [DeliveryController::class, 'create'])->name('delivery.create');
+    Route::post('/create', [DeliveryController::class, 'store'])->name('delivery.store');
+
+    Route::delete('/', [DeliveryController::class, 'delete'])->name('delivery.delete');
+
+    Route::group(['prefix' => 'edit'], function () {
+
+        Route::get('/{delivery}', [DeliveryController::class, 'edit'])->name('delivery.edit');
+        Route::post('/{delivery}', [DeliveryController::class, 'update'])->name('delivery.update');
     });
 });
 
