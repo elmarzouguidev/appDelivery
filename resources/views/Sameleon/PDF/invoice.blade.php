@@ -246,7 +246,12 @@
 
             @foreach ($invoice->articles as $article)
          
-                <tr class="item {{ $loop->last ? 'last' : '' }}">
+
+                @php
+                 $color = '';
+                 optional($article->command)->status == App\Status\Status::REFUSE ? $color = 'red':''
+                @endphp
+                <tr class="item {{ $loop->last ? 'last' : '' }}" style="color:{{$color}} !important">
                     <td style="width: 30% ;">{{ $article->code_command }}</td>
                     @if(optional($article->command)->status != App\Status\Status::LIVRE)
                      <td>{{ optional($article->command)->updated_at->format('d-m-Y') ?? '' }}</td>
@@ -254,10 +259,11 @@
                      <td>{{ optional($article->command)->delivered_at->format('d-m-Y') ?? '' }}</td>
                     @endif
                     <td>{{ $article->city }}</td>
-                    <td>{{ $article->status }}</td>
+                    <td>{{ __('status.statuses.' . $article->command->status) }}</td>
                     <td>{{ $article->formated_price_total }}</td>
                     <td>{{ number_format($article->frais,2) }} DH</td>
                 </tr>
+
             @endforeach
 
             <div class="pricer">
