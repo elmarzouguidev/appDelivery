@@ -204,7 +204,7 @@
                             <td style="width: 50% ;">
                                 <strong>Client : {{ optional($invoice->client)->full_name }}</strong> <br />
                                 @if(optional($invoice->client)->type == 'particulier')
-                                 CNIE : {{ optional($invoice->client)->cnie }}<br />
+                                 CNIE : {{ strtoupper(optional($invoice->client)->cnie) }}<br />
                                 @endif
                                 @if(optional($invoice->client)->type == 'entreprise' && optional($invoice->client)->company)
                                  ICE : {{ optional($invoice->client)->ice }}<br />
