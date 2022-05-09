@@ -248,7 +248,9 @@
          
                 <tr class="item {{ $loop->last ? 'last' : '' }}">
                     <td style="width: 30% ;">{{ $article->code_command }}</td>
+                    @if($article->command)->delivered_at)
                     <td>{{ optional($article->command)->delivered_at->format('d-m-Y') ?? '' }}</td>
+                    @endif
                     <td>{{ $article->city }}</td>
                     <td>{{ $article->status }}</td>
                     <td>{{ $article->formated_price_total }}</td>
