@@ -74,6 +74,14 @@ class Commands extends Component
                     return $item->status == Status::LIVRE;
                 });
             $delivries = [];
+        } elseif (auth()->user()->hasRole('Delivery')) {
+            $commands =  $command->where('delivery_id', auth()->id())
+                ->where('delivery_uuid', auth()->user()->uuid)
+                ->withSum('products', 'product_command.price_total')
+                ->with(['city:id,name'])
+                ->orderByRaw("created_at DESC")
+                ->get();
+            $delivries = [];
         } else {
 
             $commands = $command->withSum('products', 'product_command.price_total')
@@ -189,8 +197,7 @@ class Commands extends Component
 
             $products->each(function ($product, $key) {
 
-                if($product->stock->qte_livre > 0 && $product->pivot->quantity > 0)
-                {
+                if ($product->stock->qte_livre > 0 && $product->pivot->quantity > 0) {
                     $product->stock()->decrement('qte_livre', $product->pivot->quantity);
                     $product->stock()->update(['qte_rest' => $product->stock->qte_rest + $product->pivot->quantity]);
                 }

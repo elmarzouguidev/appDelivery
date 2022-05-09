@@ -142,7 +142,7 @@
                                             </td>
                                         @endif
                                         <td>
-                                            @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
+                                            @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin','Delivery'))
                                                 <button id="editStatus"
                                                     wire:click="editStatus('{{ $command->uuid }}')" type="button"
                                                     class="btn btn-sm {{ __('status.classes.' . $command->status) }} waves-effect waves-light">
