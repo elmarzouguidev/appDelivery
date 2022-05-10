@@ -2,35 +2,49 @@
 
 namespace App\Actions\Sameleon;
 
+use App\Models\Sameleon\Command;
 use App\Models\Sameleon\Invoice;
+use App\Models\Sameleon\User;
 use App\Status\Status;
 use Illuminate\Support\Carbon;
 use Lorisleiva\Actions\Concerns\AsAction;
 
-class GeneratDayInvoiceAction
+class InvoiceGenerator
 {
     use AsAction;
+
     protected $invoice;
+
+    protected $client;
 
     public function handle()
     {
 
         if (
-            !now()->isWeekend() && auth()->user()->hasRole('Client') && auth()->user()->commands()
+            !now()->isWeekend() && Command::whereDay('created_at', now()->format('d'))
             ->whereIn('status', [Status::LIVRE, Status::REFUSE])
-            ->whereDay('created_at', now()->format('d'))
             ->whereNotNull('delivered_at')
+            ->doesntHave('articles')
             //->whereDay('delivered_at', now()->format('d'))
             ->count() > 0
         ) {
 
+            $commands =  Command::whereDay('created_at', now()->format('d'))
+                ->whereIn('status', [Status::LIVRE, Status::REFUSE])
+                ->whereNotNull('delivered_at')
+                ->doesntHave('articles')
+                //->whereDay('delivered_at', now()->format('d'))
+                ->latest()->get();
+           // $commands->dd();
+            $this->client = User::find($commands->user_id);
+
             $this->invoice = Invoice::whereDay('created_at', now()->format('d'))
-                ->where('user_id', auth()->id())
-                ->where('user_uuid', auth()->user()->uuid)
+                ->where('user_id', $commands->user_id)
+                ->where('user_uuid', $this->client->uuid)
                 ->first();
 
             if ($this->invoice) {
-                $this->deleteCommands();
+                //$this->deleteCommands();
                 $this->addItems();
                 $this->addOldItems();
                 $this->checkArticles();
@@ -38,8 +52,8 @@ class GeneratDayInvoiceAction
 
                 $this->invoice = new Invoice();
                 $this->invoice->invoice_date = now()->format('Y-m-d');
-                $this->invoice->client()->associate(auth()->id());
-                $this->invoice->user_uuid = auth()->user()->uuid;
+                $this->invoice->client()->associate($commands->user_id);
+                $this->invoice->user_uuid = $this->client->uuid;
                 $this->invoice->save();
             }
         }
@@ -47,9 +61,7 @@ class GeneratDayInvoiceAction
 
     private function addItems()
     {
-
-        $commands = auth()
-            ->user()
+        $commands = $this->client
             ->commands()
             ->whereIn('status', [Status::LIVRE, Status::REFUSE])
             ->doesntHave('articles')
@@ -86,28 +98,27 @@ class GeneratDayInvoiceAction
 
     private function checkArticles()
     {
-        $commandsLivred = auth()
-            ->user()
+        
+        $commandsLivred =  $this->client
             ->commands()
             ->where('status', Status::LIVRE)
             ->whereDay('created_at', now()->format('d'))
             //->orWhereDay('created_at', Carbon::yesterday()->format('d'))
             ->whereNotNull('delivered_at')
-            ->whereHas('articles', function ( $query) {
+            ->whereHas('articles', function ($query) {
                 $query->where('price_total', '<=', 0);
             })
 
             //->whereDay('delivered_at', now()->format('d'))
             ->withSum('products', 'product_command.price_total')
             ->get();
-        $commandsRefused = auth()
-            ->user()
+        $commandsRefused =  $this->client
             ->commands()
             ->where('status', Status::REFUSE)
             //->whereDay('created_at', now()->format('d'))
             //->orWhereDay('created_at', Carbon::yesterday()->format('d'))
             ->whereNotNull('delivered_at')
-            ->whereHas('articles', function ( $query) {
+            ->whereHas('articles', function ($query) {
                 $query->where('price_total', '>', 0);
             })
 
@@ -116,7 +127,7 @@ class GeneratDayInvoiceAction
             ->get();
 
         if ($commandsLivred) {
-        // dd('wwwD',$commands);
+            // dd('wwwD',$commands);
             $commandsLivred->map(function ($item, $key) {
                 $price = $item->products_sum_product_commandprice_total;
                 $item->articles()->update(['price_total' => $price]);
@@ -124,17 +135,18 @@ class GeneratDayInvoiceAction
         }
         if ($commandsRefused) {
             // dd('wwwD',$commands);
-                $commandsRefused->map(function ($item, $key) {
-                    ///$price = $item->products_sum_product_commandprice_total;
-                    $item->articles()->update(['price_total' => 0]);
-                });
-            }
+            $commandsRefused->map(function ($item, $key) {
+                ///$price = $item->products_sum_product_commandprice_total;
+                $item->articles()->update(['price_total' => 0]);
+            });
+        }
     }
 
     private function addOldItems()
     {
-        $commands = auth()
-            ->user()
+  
+        $commands = $this->client
+
             ->commands()
             ->whereIn('status', [Status::LIVRE, Status::REFUSE])
             ->doesntHave('articles')
@@ -173,8 +185,8 @@ class GeneratDayInvoiceAction
 
     private function deleteCommands()
     {
-        $commands = auth()
-            ->user()
+
+        $commands = $this->client
             ->commands()
             ->whereNotIn('status', [Status::LIVRE, Status::REFUSE])
             ->has('articles')
