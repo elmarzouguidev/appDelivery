@@ -138,7 +138,7 @@ class GeneratDayInvoiceAction
             ->commands()
             ->whereIn('status', [Status::LIVRE, Status::REFUSE])
             ->doesntHave('articles')
-            ->whereDay('created_at', Carbon::yesterday()->format('d'))
+            //->whereDay('created_at', Carbon::yesterday()->format('d'))
             ->whereDay('created_at', '!=',now()->format('d'))
             ->whereNotNull('delivered_at')
             //->whereDay('delivered_at',now()->format('d'))
