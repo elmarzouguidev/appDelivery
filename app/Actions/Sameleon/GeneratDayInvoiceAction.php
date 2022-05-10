@@ -104,7 +104,7 @@ class GeneratDayInvoiceAction
             ->user()
             ->commands()
             ->where('status', Status::REFUSE)
-            ->whereDay('created_at', now()->format('d'))
+            //->whereDay('created_at', now()->format('d'))
             //->orWhereDay('created_at', Carbon::yesterday()->format('d'))
             ->whereNotNull('delivered_at')
             ->whereHas('articles', function ( $query) {
