@@ -86,7 +86,7 @@ class GeneratDayInvoiceAction
 
     private function checkArticles()
     {
-        $commands = auth()
+        $commandsLivred = auth()
             ->user()
             ->commands()
             ->where('status', Status::LIVRE)
@@ -100,14 +100,35 @@ class GeneratDayInvoiceAction
             //->whereDay('delivered_at', now()->format('d'))
             ->withSum('products', 'product_command.price_total')
             ->get();
+        $commandsRefused = auth()
+            ->user()
+            ->commands()
+            ->where('status', Status::REFUSE)
+            ->whereDay('created_at', now()->format('d'))
+            //->orWhereDay('created_at', Carbon::yesterday()->format('d'))
+            ->whereNotNull('delivered_at')
+            ->whereHas('articles', function ( $query) {
+                $query->where('price_total', '>', 0);
+            })
 
-        if ($commands) {
+            //->whereDay('delivered_at', now()->format('d'))
+            //->withSum('products', 'product_command.price_total')
+            ->get();
+
+        if ($commandsLivred) {
         // dd('wwwD',$commands);
-            $commands->map(function ($item, $key) {
+            $commandsLivred->map(function ($item, $key) {
                 $price = $item->products_sum_product_commandprice_total;
                 $item->articles()->update(['price_total' => $price]);
             });
         }
+        if ($commandsRefused) {
+            // dd('wwwD',$commands);
+                $commandsRefused->map(function ($item, $key) {
+                    ///$price = $item->products_sum_product_commandprice_total;
+                    $item->articles()->update(['price_total' => 0]);
+                });
+            }
     }
 
     private function addOldItems()
