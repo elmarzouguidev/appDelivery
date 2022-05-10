@@ -15,6 +15,8 @@ class GeneratDayInvoiceAction
     public function handle()
     {
 
+
+       // dd(now()->format('H:i') =='17:16');
         if (
             !now()->isWeekend() && auth()->user()->hasRole('Client') && auth()->user()->commands()
             ->whereIn('status', [Status::LIVRE, Status::REFUSE])
