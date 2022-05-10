@@ -52,7 +52,8 @@ class Invoice extends Model
 
     public function getFormatedTotalBrutAttribute()
     {
-        $refused = $this->commands()->where('status', Status::REFUSE)
+        //dd(Carbon::yesterday()->format('d'));
+        /*$refused = $this->commands()->where('status', Status::REFUSE)
             ->whereDay('created_at', now()->format('d'))
             ->whereNotNull('delivered_at');
         $total = $refused->withSum('articles', 'articles.price_total')->get()->map(function($item,$key){
@@ -60,8 +61,9 @@ class Invoice extends Model
             return $item->articles_sum_articlesprice_total;
         })->sum();
         //dd($total);
-        //return $articles; 
-        return ($this->articles->sum('price_total') - $total);
+        //return $articles; */
+        //return ($this->articles->sum('price_total') - $total);
+        return $this->articles->sum('price_total');
         
     }
 

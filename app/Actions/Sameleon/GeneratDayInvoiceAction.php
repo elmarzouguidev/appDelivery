@@ -33,6 +33,7 @@ class GeneratDayInvoiceAction
                 $this->deleteCommands();
                 $this->addItems();
                 $this->addOldItems();
+                $this->checkArticles();
             } else {
 
                 $this->invoice = new Invoice();
@@ -63,6 +64,7 @@ class GeneratDayInvoiceAction
             $newCommands =  $commands->map(function ($item, $key) {
 
                 $item->update(['invoice_id' => $this->invoice->id, 'invoice_uuid' => $this->invoice->uuid]);
+                $price = $item->status == Status::REFUSE ? 0 : $item->products_sum_product_commandprice_total;
                 return [
                     'command_id' => $item->id,
                     'command_uuid' => $item->uuid,
@@ -70,7 +72,7 @@ class GeneratDayInvoiceAction
                     'date_command' => $item->created_at->format('d-m-Y'),
                     'city' => $item->city->name,
                     'status' => __('status.statuses.' . $item->status),
-                    'price_total' => $item->products_sum_product_commandprice_total ?? 0,
+                    'price_total' => $price ?? 0,
                     'frais' => $item->frais,
                 ];
             })->toArray();
@@ -82,41 +84,70 @@ class GeneratDayInvoiceAction
         }
     }
 
+    private function checkArticles()
+    {
+        $commands = auth()
+            ->user()
+            ->commands()
+            ->where('status', Status::LIVRE)
+            ->whereDay('created_at', now()->format('d'))
+            //->orWhereDay('created_at', Carbon::yesterday()->format('d'))
+            ->whereNotNull('delivered_at')
+            ->whereHas('articles', function ( $query) {
+                $query->where('price_total', '<=', 0);
+            })
+
+            //->whereDay('delivered_at', now()->format('d'))
+            ->withSum('products', 'product_command.price_total')
+            ->get();
+
+        if ($commands) {
+        // dd('wwwD',$commands);
+            $commands->map(function ($item, $key) {
+                $price = $item->products_sum_product_commandprice_total;
+                $item->articles()->update(['price_total' => $price]);
+            });
+        }
+    }
+
     private function addOldItems()
     {
         $commands = auth()
-        ->user()
-        ->commands()
-        ->whereIn('status', [Status::LIVRE, Status::REFUSE])
-        ->doesntHave('articles')
-        ->whereDay('created_at', Carbon::yesterday()->format('d'))
-        ->whereNotNull('delivered_at')
-        //->whereDay('delivered_at',now()->format('d'))
-        ->withSum('products', 'product_command.price_total')
-        ->latest()->get();
+            ->user()
+            ->commands()
+            ->whereIn('status', [Status::LIVRE, Status::REFUSE])
+            ->doesntHave('articles')
+            ->whereDay('created_at', Carbon::yesterday()->format('d'))
+            ->whereNotNull('delivered_at')
+            //->whereDay('delivered_at',now()->format('d'))
+            ->withSum('products', 'product_command.price_total')
+            ->latest()->get();
 
-    if ($commands) {
+        if ($commands) {
 
-        $newCommands =  $commands->map(function ($item, $key) {
+            $newCommands =  $commands->map(function ($item, $key) {
 
-            $item->update(['invoice_id' => $this->invoice->id, 'invoice_uuid' => $this->invoice->uuid]);
-            return [
-                'command_id' => $item->id,
-                'command_uuid' => $item->uuid,
-                'code_command' => $item->code,
-                'date_command' => $item->created_at->format('d-m-Y'),
-                'city' => $item->city->name,
-                'status' => __('status.statuses.' . $item->status),
-                'price_total' => $item->products_sum_product_commandprice_total ?? 0,
-                'frais' => $item->frais,
-            ];
-        })->toArray();
+                $item->update(['invoice_id' => $this->invoice->id, 'invoice_uuid' => $this->invoice->uuid]);
 
-        //dd($newCommands, $commands);
-        //return redirect()->route('public.show.invoice', [$this->invoice->uuid, 'has_header' => true]);
+                $price = $item->status == Status::REFUSE ? 0 : $item->products_sum_product_commandprice_total;
 
-        $this->invoice->articles()->createMany($newCommands);
-    } 
+                return [
+                    'command_id' => $item->id,
+                    'command_uuid' => $item->uuid,
+                    'code_command' => $item->code,
+                    'date_command' => $item->created_at->format('d-m-Y'),
+                    'city' => $item->city->name,
+                    'status' => __('status.statuses.' . $item->status),
+                    'price_total' => $price ?? 0,
+                    'frais' => $item->frais,
+                ];
+            })->toArray();
+
+            //dd($newCommands, $commands);
+            //return redirect()->route('public.show.invoice', [$this->invoice->uuid, 'has_header' => true]);
+
+            $this->invoice->articles()->createMany($newCommands);
+        }
     }
 
     private function deleteCommands()
@@ -126,10 +157,10 @@ class GeneratDayInvoiceAction
             ->commands()
             ->whereNotIn('status', [Status::LIVRE, Status::REFUSE])
             ->has('articles')
-            ->where('delivered_at','00:00:00')
+            ->where('delivered_at', '00:00:00')
             ->whereDay('created_at', now()->format('d'))
             //->orWhereDay('created_at', Carbon::yesterday()->format('d'))
-            
+
             //->whereDay('delivered_at', now()->format('d'))
             //->withSum('products', 'product_command.price_total')
             ->latest()->get();

@@ -269,7 +269,7 @@
                 </tr>
 
             @endforeach
-
+            
             <div class="pricer">
                 <tr class="heading-price lefter">
                     <td colspan="6">Montant BRUT : {{ number_format($invoice->formated_total_brut,2)}} DH</td>
