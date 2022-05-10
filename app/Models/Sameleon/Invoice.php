@@ -54,18 +54,15 @@ class Invoice extends Model
     {
         $refused = $this->commands()->where('status', Status::REFUSE)
             ->whereDay('created_at', now()->format('d'))
-            ->whereNotNull('delivered_at')
-            ->orWhereDay('created_at', Carbon::yesterday()->format('d'));
-        $articles = $refused->withSum('articles', 'articles.price_total')->get()->map(function($item,$key){
-            //dd($item);
+            ->whereNotNull('delivered_at');
+        $total = $refused->withSum('articles', 'articles.price_total')->get()->map(function($item,$key){
+           // dd($item);
             return $item->articles_sum_articlesprice_total;
         })->sum();
-        //dd($articles);
-        if ($refused->count() && $articles > 0) {
-            return $this->articles->sum('price_total') - $articles;
-        } else {
-            return $this->articles->sum('price_total');
-        }
+        //dd($total);
+        //return $articles; 
+        return ($this->articles->sum('price_total') - $total);
+        
     }
 
     public function bill()
