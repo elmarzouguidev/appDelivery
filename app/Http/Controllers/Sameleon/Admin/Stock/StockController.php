@@ -37,6 +37,8 @@ class StockController extends Controller
             $stock->qte_global = $stock->qte_global + (int)$request->qte_global;
 
             $stock->qte_rest = $stock->qte_rest + (int)$request->qte_global;
+            
+            $stock->is_out = false;
         }
 
         if ($request->filled('qte_endomage') && $request->qte_endomage > 0) {
