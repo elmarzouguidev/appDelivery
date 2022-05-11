@@ -22,6 +22,7 @@ class Stock extends Model
         'user_uuid',
         'product_id',
         'product_uuid',
+        'is_out',
         'qte_global',
         'qte_livre',
         'qte_expidite',
@@ -29,6 +30,10 @@ class Stock extends Model
         'qte_rest',
         'notes',
         'active'
+    ];
+
+    protected $casts = [
+        'is_out' => 'boolean'
     ];
 
     public function user()

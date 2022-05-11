@@ -71,8 +71,8 @@ class Commands extends Component
                 ->orderByRaw("created_at DESC")
                 ->get()->prioritize(function ($item) {
                     return $item->status == Status::LIVRE
-                    ||
-                    $item->status == Status::ENCOURS;
+                        ||
+                        $item->status == Status::ENCOURS;
                 });
             $delivries = [];
         } elseif (auth()->user()->hasRole('Delivery')) {
@@ -172,7 +172,7 @@ class Commands extends Component
     public function changeStatus(Command $command, int $status)
     {
         $command->update(['status' => $status]);
-        
+
         $products = $command->products;
 
         if ($status == Status::LIVRE) {
@@ -185,6 +185,11 @@ class Commands extends Component
 
                 $qteRest = $qteGlobal - $product->pivot->quantity;
 
+                if ($qteGlobal < $product->pivot->quantity) {
+                    dd('ouiiii');
+
+                    $product->stock()->update(['qte_rest' => 0, 'is_out' => true]);
+                }
                 if ($qteRest < $qteGlobal && $product->stock->qte_livre != $product->stock->qte_global && $product->pivot->quantity > 0) {
                     $product->stock()->increment('qte_livre', $product->pivot->quantity);
                     $product->stock()->update(['qte_rest' => $product->stock->qte_rest - $product->pivot->quantity]);
