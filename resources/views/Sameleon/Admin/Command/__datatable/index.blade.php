@@ -164,12 +164,14 @@
                 showCancelButton: true,
                 confirmButtonColor: "#34c38f",
                 cancelButtonColor: "#f46a6a",
-                confirmButtonText: "Oui, supprimer le!"
+                confirmButtonText: "Oui, supprimer la!"
             }).then(function(result) {
                 if (result.value) {
                    
                     setTimeout(function() {
-                        Livewire.emit('deleteSelectedCommand');
+                       
+                        document.getElementById(command)
+                            .submit();
                     }, 1000);
 
                     Swal.fire("Supprimé!", "La Commande est supprimé avec succès.", "success");
@@ -191,8 +193,7 @@
                 if (result.value) {
                    
                     setTimeout(function() {
-                        document.getElementById(command)
-                            .submit();
+                        Livewire.emit('deleteSelectedCommand');
                     }, 2000);
 
                     //Swal.fire("Supprimé!", "La Commande est supprimé avec succès.", "success");

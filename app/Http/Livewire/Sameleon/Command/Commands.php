@@ -174,16 +174,16 @@ class Commands extends Component
     }
     public function changeStatus(Command $command, int $status)
     {
-        
+
         $command->update(['status' => $status]);
-        
+
         $products = $command->products;
 
         if ($status == Status::LIVRE) {
 
             $command->update(['delivered_at' => now()]);
 
-            $products->each(function ($product, $key) use($command) {
+            $products->each(function ($product, $key) use ($command) {
 
                 $qteGlobal = $product->stock->qte_rest;
 
@@ -194,7 +194,6 @@ class Commands extends Component
                     $product->stock()->update(['qte_rest' => 0, 'is_out' => true, 'qte_livre' => 0]);
 
                     $command->update(['status' => Status::MANQUE_DE_STOCK]);
-
                 } else {
 
                     if ($qteRest < $qteGlobal && $product->stock->qte_livre != $product->stock->qte_global && $product->pivot->quantity > 0) {
@@ -210,7 +209,7 @@ class Commands extends Component
 
             $command->update(['delivered_at' => '00:00:00']);
 
-            $products->each(function ($product, $key) {
+            $products->each(function ($product, $key) use ($command, $status) {
 
                 if ($product->stock->qte_rest < $product->pivot->quantity) {
 
@@ -221,11 +220,10 @@ class Commands extends Component
                     $product->stock()->decrement('qte_livre', $product->pivot->quantity);
                     $product->stock()->update(['qte_rest' => $product->stock->qte_rest + $product->pivot->quantity]);
                 }
+                $command->update(['status' => $status]);
             });
         }
         
-        
-
         $this->isRepoted = true;
 
         if ($this->commandEdit->comments()->latest()->count()) {
