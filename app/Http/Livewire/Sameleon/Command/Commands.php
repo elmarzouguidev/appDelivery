@@ -67,6 +67,7 @@ class Commands extends Component
             $commands =  $command->where('user_id', auth()->id())
                 ->where('user_uuid', auth()->user()->uuid)
                 ->withSum('products', 'product_command.price_total')
+                ->with('products.stock')
                 ->with(['invoice:uuid,id,full_number', 'city:id,name'])
                 ->orderByRaw("created_at DESC")
                 ->get()->prioritize(function ($item) {
@@ -79,6 +80,7 @@ class Commands extends Component
             $commands =  $command->where('delivery_id', auth()->id())
                 ->where('delivery_uuid', auth()->user()->uuid)
                 ->withSum('products', 'product_command.price_total')
+                ->with('products.stock')
                 ->with(['city:id,name'])
                 ->orderByRaw("created_at DESC")
                 ->get();
@@ -87,6 +89,7 @@ class Commands extends Component
 
             $commands = $command->withSum('products', 'product_command.price_total')
                 ->with(['invoice:uuid,id,full_number', 'city:id,name'])
+                ->with('products.stock')
                 ->orderByRaw("created_at DESC")
                 /* ->get()->map(function ($value, $key) {
                     return $value->status == Status::NON_TRAITE ||
@@ -171,7 +174,7 @@ class Commands extends Component
     }
     public function changeStatus(Command $command, int $status)
     {
-        $command->update(['status' => $status]);
+        
 
         $products = $command->products;
 
@@ -188,6 +191,7 @@ class Commands extends Component
                 if ($qteGlobal < $product->pivot->quantity) {
 
                     $product->stock()->update(['qte_rest' => 0, 'is_out' => true, 'qte_livre' => 0]);
+
                 } else {
 
                     if ($qteRest < $qteGlobal && $product->stock->qte_livre != $product->stock->qte_global && $product->pivot->quantity > 0) {
@@ -216,6 +220,8 @@ class Commands extends Component
                 }
             });
         }
+        
+        $command->update(['status' => $status]);
 
         $this->isRepoted = true;
 

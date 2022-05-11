@@ -129,6 +129,10 @@
                                                     <p class="text-muted mb-0">{{ $product->price }}(DH) x
                                                         {{ $product->pivot->quantity }}
                                                     </p>
+                                                    <br>
+                                                    @if($product->stock->is_out)
+                                                    <p style="color:red">rupture de stock</p>
+                                                    @endif
                                                 </div>
                                             @endforeach
 
@@ -151,11 +155,13 @@
                                         @endif
                                         <td>
                                             @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin','Delivery'))
-                                                <button id="editStatus"
-                                                    wire:click="editStatus('{{ $command->uuid }}')" type="button"
-                                                    class="btn btn-sm {{ __('status.classes.' . $command->status) }} waves-effect waves-light">
-                                                    {{ __('status.statuses.' . $command->status) }}
-                                                </button>
+                                               
+                                                    <button id="editStatus"
+                                                        wire:click="editStatus('{{ $command->uuid }}')" type="button"
+                                                        class="btn btn-sm {{ __('status.classes.' . $command->status) }} waves-effect waves-light">
+                                                        {{ __('status.statuses.' . $command->status) }}
+                                                    </button>
+               
                                             @else
                                                 <button type="button"
                                                     class="btn btn-sm {{ __('status.classes.' . $command->status) }} waves-effect waves-light">
