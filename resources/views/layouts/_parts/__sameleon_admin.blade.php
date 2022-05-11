@@ -16,7 +16,9 @@
     <a href="{{ route('admin:stock.index') }}" class="waves-effect">
 
         <i class="bx bxs-box "></i>
-       
+        @if($stock_out)
+            <span class="badge rounded-pill bg-danger float-end">{{$stock_out}}</span>
+        @endif
         <span key="t-stock">{{ __('Stock') }}</span>
     </a>
 
