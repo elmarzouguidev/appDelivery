@@ -169,7 +169,6 @@
                 if (result.value) {
                    
                     setTimeout(function() {
-                       
                         document.getElementById(command)
                             .submit();
                     }, 1000);
@@ -201,7 +200,11 @@
             });
         });
     </script>
-
+   <script>
+    /*Livewire.on('updateStock',function() {
+        alert('A post was added with the id of: ');
+    })*/
+    </script>
     {{--@include('Sameleon.Admin.Command.js')--}}
 @endpush
 

@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Sameleon\Command;
 use App\Filters\ItemsQuery;
 use App\Models\Sameleon\Command;
 use App\Models\Sameleon\Product;
+use App\Models\Sameleon\Stock;
 use App\Models\Sameleon\User;
 use App\Repositories\City\CityInterface;
 use Livewire\Component;
@@ -45,8 +46,10 @@ class Commands extends Component
         'reportComment' => 'nullable|string',
     ];
 
-
-    protected $listeners = ['runPoll', 'closePoll'];
+    protected $listeners = [
+        'data:update' => '$refresh',
+        'updateStock' => 'updateStock'
+    ];
 
     public $selectedCommands = [];
 
@@ -223,7 +226,7 @@ class Commands extends Component
                 $command->update(['status' => $status]);
             });
         }
-        
+
         $this->isRepoted = true;
 
         if ($this->commandEdit->comments()->latest()->count()) {
@@ -273,7 +276,7 @@ class Commands extends Component
 
         $this->filter = $this->data;
 
-        $this->dispatchBrowserEvent('refresh-datatable', ['componentName' => '#datatable-buttons']);
+        $this->emit('data:update');
         //$this->data = null;
         // dd($this->data);
 

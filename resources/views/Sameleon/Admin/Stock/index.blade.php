@@ -24,6 +24,11 @@
     <script src="{{ asset('js/pages/datatables.init.js') }}"></script>
 
     <script>
+        window.addEventListener('editStock', event => {
+            alert('Name updated to: ' + event.detail.newName);
+        })
+        </script>
+    <script>
         $(window).blur(function() {
 
             // Livewire.emit('runPoll');

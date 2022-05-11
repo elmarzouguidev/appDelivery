@@ -48,9 +48,20 @@
                             @foreach ($stocks as $stock)
                                 @php
                                     $color ='';
-                                    $stock->is_out ? $color='red' :$color='';
+                                    $stock->is_out ? $color='white' :$color='';
                                 @endphp
-                                <tr style="color :{{$color}} !important" >
+                                @php
+                                if(request()->has('isOut'))
+                                {
+                                    $selected = request()->isOut;
+
+                                   // dd($selected);
+                                }
+                                else{
+                                    $selected = '' ;
+                                }
+                                @endphp
+                                <tr style="color :{{$color}} !important" {{ $selected == $stock->uuid ? 'bgcolor=#2f5393' : ''}} >
                                     <td>
                                         <div class="form-check font-size-16">
                                             <input class="form-check-input" type="checkbox"
@@ -60,15 +71,15 @@
                                     </td>
                                     @if(auth()->user()->hasAnyRole('Admin','SuperAdmin'))
                                     <td>
-                                        <a href="{{-- $client->url --}}" class="text-body fw-bold">
+                                       
                                             {{ optional($stock->user)->full_name }}
-                                        </a>
+                                       
                                     </td>
                                     @endif
                                     <td>
-                                        <a href="{{-- $client->url --}}" class="text-body fw-bold">
+                                      
                                             {{ optional($stock->product)->name }}
-                                        </a>
+                                        
                                     </td>
 
                                     <td>
