@@ -31,7 +31,7 @@ class Stock extends Component
 
     public function editStock(SameleonStock $stock)
     {
-        info('yes claeed');
+        
         $this->showEditStock = true;
 
         $this->stockEdit = $stock;
