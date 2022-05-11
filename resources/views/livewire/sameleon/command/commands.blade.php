@@ -121,18 +121,11 @@
                                         </td>
                                         <td>
                                             @foreach ($command->products as $product)
-                                                @if($product->stock->is_out)
-                                                <p class="text-strong mb-0">
-                                                    <a  href="{{route('admin:stock.index',['isOut'=>$product->stock->uuid])}}">
-                                                        augmenter le stock
-                                                    </a>
-                                                </p>
-                                                @else
 
                                                 <p class="text-strong mb-0">
                                                     <strong>{{ $product->name }}</strong>
                                                 </p>
-                                                @endif
+                                              
                                                 <div>
 
                                                     <p class="text-muted mb-0">{{ $product->price }}(DH) x
@@ -140,7 +133,11 @@
                                                     </p>
                                                     <br>
                                                     @if($product->stock->is_out)
-                                                    <p style="color:red">rupture de stock</p>
+                                                    {{--<p style="color:red">rupture de stock</p>--}}
+                            
+                                                    <a class="btn btn-primary btn-sm"  href="{{route('admin:stock.index',['isOut'=>$product->stock->uuid])}}">
+                                                        augmenter le stock
+                                                    </a>
                                                     @endif
                                                 </div>
                                             @endforeach
