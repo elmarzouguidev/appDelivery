@@ -187,14 +187,16 @@ class Commands extends Component
 
                 if ($qteGlobal < $product->pivot->quantity) {
 
-                    $product->stock()->update(['qte_rest' => 0, 'is_out' => true]);
-                }
-                if ($qteRest < $qteGlobal && $product->stock->qte_livre != $product->stock->qte_global && $product->pivot->quantity > 0) {
-                    $product->stock()->increment('qte_livre', $product->pivot->quantity);
-                    $product->stock()->update(['qte_rest' => $product->stock->qte_rest - $product->pivot->quantity]);
-                }
-                if ($product->stock->qte_livre == $product->stock->qte_global) {
-                    $product->stock()->update(['qte_rest' => 0]);
+                    $product->stock()->update(['qte_rest' => 0, 'is_out' => true, 'qte_livre' => 0]);
+                } else {
+
+                    if ($qteRest < $qteGlobal && $product->stock->qte_livre != $product->stock->qte_global && $product->pivot->quantity > 0) {
+                        $product->stock()->increment('qte_livre', $product->pivot->quantity);
+                        $product->stock()->update(['qte_rest' => $product->stock->qte_rest - $product->pivot->quantity]);
+                    }
+                    if ($product->stock->qte_livre == $product->stock->qte_global) {
+                        $product->stock()->update(['qte_rest' => 0]);
+                    }
                 }
             });
         } else {
@@ -204,10 +206,10 @@ class Commands extends Component
             $products->each(function ($product, $key) {
 
                 if ($product->stock->qte_rest < $product->pivot->quantity) {
-                    
+
                     $product->stock()->update(['qte_rest' => 0, 'is_out' => true]);
                 }
-                
+
                 if ($product->stock->qte_livre > 0 && $product->pivot->quantity > 0) {
                     $product->stock()->decrement('qte_livre', $product->pivot->quantity);
                     $product->stock()->update(['qte_rest' => $product->stock->qte_rest + $product->pivot->quantity]);

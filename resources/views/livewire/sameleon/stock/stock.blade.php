@@ -46,7 +46,11 @@
                         <tbody>
 
                             @foreach ($stocks as $stock)
-                                <tr>
+                                @php
+                                    $color ='';
+                                    $stock->is_out ? $color='red' :$color='';
+                                @endphp
+                                <tr style="color :{{$color}} !important" >
                                     <td>
                                         <div class="form-check font-size-16">
                                             <input class="form-check-input" type="checkbox"
