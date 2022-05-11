@@ -48,7 +48,7 @@
                             @foreach ($stocks as $stock)
                                 @php
                                     $color ='';
-                                    $stock->is_out ? $color='white' :$color='';
+                                    $stock->is_out ? $color='#2f5393' :$color='';
                                 @endphp
                                 @php
                                 if(request()->has('isOut'))
@@ -61,7 +61,7 @@
                                     $selected = '' ;
                                 }
                                 @endphp
-                                <tr style="color :{{$color}} !important" {{ $selected == $stock->uuid ? 'bgcolor=#2f5393' : ''}} >
+                                <tr style="color :{{$color}} !important" {{ $selected == $stock->uuid ? 'bgcolor=#50a5f1' : ''}} >
                                     <td>
                                         <div class="form-check font-size-16">
                                             <input class="form-check-input" type="checkbox"
