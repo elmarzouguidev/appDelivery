@@ -113,7 +113,10 @@
                                                 </strong>
                                             </p>
                                             {{ $command->client_name }}
-                                            <p class="text-strong mb-0"><strong>{{ $command->client_phone }}</strong>
+                                            <p class="text-strong mb-0">
+                                                <strong>
+                                                    <a style="color:#2f5393 !important" href="tel:{{ $command->client_phone }}">{{ $command->client_phone }}</a>
+                                                </strong>
                                             </p>
                                             <p class="text-strong mb-0">
                                                 {{ $command->city->name ?? $command->client_city ?? '' }}</p>
