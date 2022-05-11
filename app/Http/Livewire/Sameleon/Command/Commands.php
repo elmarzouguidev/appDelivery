@@ -186,7 +186,6 @@ class Commands extends Component
                 $qteRest = $qteGlobal - $product->pivot->quantity;
 
                 if ($qteGlobal < $product->pivot->quantity) {
-                    dd('ouiiii');
 
                     $product->stock()->update(['qte_rest' => 0, 'is_out' => true]);
                 }
@@ -204,6 +203,11 @@ class Commands extends Component
 
             $products->each(function ($product, $key) {
 
+                if ($product->stock->qte_rest < $product->pivot->quantity) {
+                    
+                    $product->stock()->update(['qte_rest' => 0, 'is_out' => true]);
+                }
+                
                 if ($product->stock->qte_livre > 0 && $product->pivot->quantity > 0) {
                     $product->stock()->decrement('qte_livre', $product->pivot->quantity);
                     $product->stock()->update(['qte_rest' => $product->stock->qte_rest + $product->pivot->quantity]);
