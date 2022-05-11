@@ -109,7 +109,12 @@
                                         <td>
                                             <p class="text-strong mb-0">
                                                 <strong>
-                                                <a style="color:#2f5393 !important" href="{{route('admin:commands.edit',$command->uuid)}}"> {{ $command->code }}</a>
+                                                    @if($command->status == App\Status\Status::LIVRE)
+                                                     <a style="color:#2f5393 !important" href="#"> {{ $command->code }}</a>
+                                                     @else
+                                                     <a style="color:#2f5393 !important" href="{{route('admin:commands.edit',$command->uuid)}}"> {{ $command->code }}</a>
+
+                                                    @endif
                                                 </strong>
                                             </p>
                                             {{ $command->client_name }}
@@ -234,7 +239,7 @@
                                                         <i class="mdi mdi-delete font-size-18"></i>
                                                     </button>
                                                 @endif
-                                                <button type="button"
+                                                <button type="button" {{$command->status == App\Status\Status::LIVRE ? 'disabled' :''}}
                                                     wire:click="editCommand('{{ $command->uuid }}')"
                                                     class="btn btn-info btn-sm">
                                                     Edit
