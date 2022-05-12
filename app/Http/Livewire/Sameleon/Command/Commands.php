@@ -89,7 +89,7 @@ class Commands extends Component
                 ->get();
             $delivries = [];
 
-        return view('livewire.sameleon.command.commands-delivery', compact('commands', 'delivries'));
+           return view('livewire.sameleon.command.commands-delivery', compact('commands', 'delivries'));
 
         } else {
 
