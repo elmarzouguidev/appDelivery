@@ -17,9 +17,10 @@ class GeneratDayInvoiceAction
 
     public function handle()
     {
+        $this->getYesterdayInvoice();
 
         $this->deleteCommands();
-        
+
         $this->updateRefusedCommand();
 
         // dd(now()->format('H:i') =='17:16');
@@ -199,7 +200,13 @@ class GeneratDayInvoiceAction
             $commands->map(function ($item, $key) {
                 $item->articles()->update(['price_total' => 0]);
             });
-
         }
+    }
+
+    private function getYesterdayInvoice()
+    {
+        $invoices = Invoice::whereDay('created_at', Carbon::yesterday()->format('d'))->select(['id','cloture'])->get();
+
+        $invoices->each->update(['cloture' => true]);
     }
 }

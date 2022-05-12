@@ -23,7 +23,8 @@ class Invoice extends Model
         'cloture',
         'type',
         'invoice_date',
-        'user_id'
+        'user_id',
+        'user_uuid'
     ];
 
     // protected $dates = ['due_date'];
@@ -32,7 +33,6 @@ class Invoice extends Model
 
         'invoice_date' => 'date:Y-m-d',
         'cloture' => 'boolean'
-
     ];
 
     public function getFormatedPriceHtAttribute()
