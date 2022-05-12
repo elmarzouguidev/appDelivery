@@ -156,10 +156,10 @@ class Commands extends Component
                 'delivery_id' => $delivery->id,
                 'delivery_uuid' => $delivery->uuid,
                 'status' => Status::ENCOURS
-                
+
             ]);
 
-            $this->dispatchBrowserEvent('notify-global', ['message' => 'les commands envoyer avec succsé']);
+            $this->dispatchBrowserEvent('notify-global', ['message' => 'les commands envoyer avec succès']);
 
             $this->dispatchBrowserEvent('status-updated');
         }
