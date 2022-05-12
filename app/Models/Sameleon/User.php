@@ -36,7 +36,9 @@ class User extends Authenticatable
         'cnie',
         'addresse',
         'city',
-        'type'
+        'type',
+        'active',
+        'is_completed'
     ];
 
     /**
@@ -57,7 +59,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'is_admin' => 'boolean',
-        'active' => 'boolean'
+        'active' => 'boolean',
+        'is_completed'=> 'boolean',
     ];
 
 

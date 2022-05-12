@@ -61,7 +61,7 @@ class GeneratDayInvoiceAction
             ->doesntHave('articles')
             ->where(function ($q) {
                 $q->whereDay('delivered_at', now()->format('d'))
-                    ->orWhereDay('delivered_at', '03');
+                    ->orWhereYear('delivered_at', '1993');
             })
 
             ->withSum('products', 'product_command.price_total')
@@ -109,7 +109,7 @@ class GeneratDayInvoiceAction
             ->user()
             ->commands()
             ->where('status', Status::REFUSE)
-            ->whereDay('delivered_at', '03')
+            ->whereYear('delivered_at', '1993')
             ->whereNotNull('delivered_at')
             ->whereHas('articles', function ($query) {
                 $query->where('price_total', '>', 0);
@@ -140,7 +140,7 @@ class GeneratDayInvoiceAction
             ->whereDay('created_at', '!=', now()->format('d'))
             ->where(function ($q) {
                 $q->whereDay('delivered_at', now()->format('d'))
-                    ->orWhereDay('delivered_at', '03');
+                   ->orWhereYear('delivered_at', '1993');
             })
             ->whereNotNull('delivered_at')
             ->withSum('products', 'product_command.price_total')
