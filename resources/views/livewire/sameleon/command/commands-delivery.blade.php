@@ -6,7 +6,9 @@
                     <div class="card-body">
                         <div class=" mx-auto mb-4">
                             <span class="avatar-title bg-primary bg-soft text-primary font-size-16">
-                                {{ $command->code }}
+                            
+                                {{ number_format($command->products_sum_product_commandprice_total, 2) }}DH
+                                
                             </span>
                         </div>
                         <p class="font-size-15"><strong>{{ $command->client_name }}</strong></p> 
