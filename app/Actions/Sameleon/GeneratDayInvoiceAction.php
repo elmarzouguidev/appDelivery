@@ -2,6 +2,7 @@
 
 namespace App\Actions\Sameleon;
 
+use App\Models\Sameleon\Command;
 use App\Models\Sameleon\Invoice;
 use App\Status\Status;
 use Illuminate\Support\Carbon;
@@ -14,10 +15,10 @@ class GeneratDayInvoiceAction
 
     public function handle()
     {
-
-        $this->deleteCommands();
         
-       // dd(now()->format('H:i') =='17:16');
+        $this->deleteCommands();
+
+        // dd(now()->format('H:i') =='17:16');
         if (
             !now()->isWeekend() && auth()->user()->hasRole('Client') && auth()->user()->commands()
             ->whereIn('status', [Status::LIVRE, Status::REFUSE])
@@ -32,10 +33,10 @@ class GeneratDayInvoiceAction
                 ->where('user_uuid', auth()->user()->uuid)
                 ->first();
 
-            
+
 
             if ($this->invoice) {
-                
+
                 $this->addItems();
                 $this->addOldItems();
                 $this->checkArticles();
@@ -98,7 +99,7 @@ class GeneratDayInvoiceAction
             ->whereDay('created_at', now()->format('d'))
             //->orWhereDay('created_at', Carbon::yesterday()->format('d'))
             ->whereNotNull('delivered_at')
-            ->whereHas('articles', function ( $query) {
+            ->whereHas('articles', function ($query) {
                 $query->where('price_total', '<=', 0);
             })
 
@@ -112,7 +113,7 @@ class GeneratDayInvoiceAction
             //->whereDay('created_at', now()->format('d'))
             //->orWhereDay('created_at', Carbon::yesterday()->format('d'))
             ->whereNotNull('delivered_at')
-            ->whereHas('articles', function ( $query) {
+            ->whereHas('articles', function ($query) {
                 $query->where('price_total', '>', 0);
             })
 
@@ -121,7 +122,7 @@ class GeneratDayInvoiceAction
             ->get();
 
         if ($commandsLivred) {
-        // dd('wwwD',$commands);
+            // dd('wwwD',$commands);
             $commandsLivred->map(function ($item, $key) {
                 $price = $item->products_sum_product_commandprice_total;
                 $item->articles()->update(['price_total' => $price]);
@@ -129,11 +130,11 @@ class GeneratDayInvoiceAction
         }
         if ($commandsRefused) {
             // dd('wwwD',$commands);
-                $commandsRefused->map(function ($item, $key) {
-                    ///$price = $item->products_sum_product_commandprice_total;
-                    $item->articles()->update(['price_total' => 0]);
-                });
-            }
+            $commandsRefused->map(function ($item, $key) {
+                ///$price = $item->products_sum_product_commandprice_total;
+                $item->articles()->update(['price_total' => 0]);
+            });
+        }
     }
 
     private function addOldItems()
@@ -144,7 +145,7 @@ class GeneratDayInvoiceAction
             ->whereIn('status', [Status::LIVRE, Status::REFUSE])
             ->doesntHave('articles')
             //->whereDay('created_at', Carbon::yesterday()->format('d'))
-            ->whereDay('created_at', '!=',now()->format('d'))
+            ->whereDay('created_at', '!=', now()->format('d'))
             ->whereNotNull('delivered_at')
             //->whereDay('delivered_at',now()->format('d'))
             ->withSum('products', 'product_command.price_total')
@@ -179,10 +180,8 @@ class GeneratDayInvoiceAction
 
     private function deleteCommands()
     {
-        $commands = auth()
-            ->user()
-            ->commands()
-            ->whereNotIn('status', [Status::LIVRE, Status::REFUSE])
+
+        $commands = Command::whereNotIn('status', [Status::LIVRE, Status::REFUSE])
             ->has('articles')
             //->where('delivered_at', '00:00:00')
             //->whereDay('created_at', now()->format('d'))
@@ -195,7 +194,7 @@ class GeneratDayInvoiceAction
         if ($commands) {
 
             $commands->map(function ($item, $key) {
-                
+
                 $item->articles()->delete();
                 $item->update(['invoice_id' => null, 'invoice_uuid' => null]);
             });
