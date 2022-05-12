@@ -23,9 +23,10 @@ class GeneratDayInvoiceAction
 
         $this->updateRefusedCommand();
 
+        //!now()->isWeekend();
         // dd(now()->format('H:i') =='17:16');
         if (
-            !now()->isWeekend() && auth()->user()->hasRole('Client') && auth()->user()->commands()
+             auth()->user()->hasRole('Client') && auth()->user()->commands()
             ->whereIn('status', [Status::LIVRE, Status::REFUSE])
             ->whereDay('created_at', now()->format('d'))
             ->count() > 0
@@ -205,8 +206,9 @@ class GeneratDayInvoiceAction
 
     private function getYesterdayInvoice()
     {
-        $invoices = Invoice::whereDay('created_at', Carbon::yesterday()->format('d'))->select(['id','cloture'])->get();
-
+        $invoices = Invoice::whereDay('created_at', Carbon::yesterday()->format('d'))
+            ->wher('cloture',false)
+            ->select(['id','cloture'])->get();
         $invoices->each->update(['cloture' => true]);
     }
 }

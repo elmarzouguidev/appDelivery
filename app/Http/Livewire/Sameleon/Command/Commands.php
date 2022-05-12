@@ -197,6 +197,7 @@ class Commands extends Component
                     $product->stock()->update(['qte_rest' => 0, 'is_out' => true, 'qte_livre' => 0]);
 
                     $command->update(['status' => Status::MANQUE_DE_STOCK]);
+                    
                 } else {
 
                     if ($qteRest < $qteGlobal && $product->stock->qte_livre != $product->stock->qte_global && $product->pivot->quantity > 0) {
