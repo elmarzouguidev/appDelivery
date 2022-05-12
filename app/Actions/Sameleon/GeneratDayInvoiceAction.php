@@ -15,7 +15,8 @@ class GeneratDayInvoiceAction
     public function handle()
     {
 
-
+        $this->deleteCommands();
+        
        // dd(now()->format('H:i') =='17:16');
         if (
             !now()->isWeekend() && auth()->user()->hasRole('Client') && auth()->user()->commands()
@@ -30,8 +31,8 @@ class GeneratDayInvoiceAction
                 ->where('user_id', auth()->id())
                 ->where('user_uuid', auth()->user()->uuid)
                 ->first();
-                
-            $this->deleteCommands();
+
+            
 
             if ($this->invoice) {
                 
@@ -194,6 +195,7 @@ class GeneratDayInvoiceAction
         if ($commands) {
 
             $commands->map(function ($item, $key) {
+                
                 $item->articles()->delete();
                 $item->update(['invoice_id' => null, 'invoice_uuid' => null]);
             });
