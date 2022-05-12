@@ -60,7 +60,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'is_admin' => 'boolean',
         'active' => 'boolean',
-        'is_completed'=> 'boolean',
+        'is_completed' => 'boolean',
     ];
 
 
@@ -71,6 +71,17 @@ class User extends Authenticatable
         return new Attribute(
             fn () => $this->nom . ' ' . $this->prenom,
         );
+    }
+
+    public function completProfile()
+    {
+        if (auth()->user()->hasRole('Client')) {
+            return  is_null($this->attributes['cnie']) ||
+                is_null($this->attributes['addresse']) ||
+                is_null($this->attributes['telephone']) ? false : true;
+        } else {
+            return true;
+        }
     }
 
     public function group()
@@ -85,7 +96,7 @@ class User extends Authenticatable
 
     public function commands()
     {
-        if (auth()->user()->hasAnyRole('Client','Admin','SuperAdmin')) {
+        if (auth()->user()->hasAnyRole('Client', 'Admin', 'SuperAdmin')) {
             return $this->hasMany(Command::class)->orderBy('created_at', 'ASC');
         } elseif (auth()->user()->hasRole('Delivery')) {
             return $this->hasMany(Command::class, 'delivery_id')->where('delivery_id', auth()->id())->orderBy('created_at', 'ASC');
