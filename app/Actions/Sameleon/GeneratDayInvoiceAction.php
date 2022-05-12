@@ -30,9 +30,11 @@ class GeneratDayInvoiceAction
                 ->where('user_id', auth()->id())
                 ->where('user_uuid', auth()->user()->uuid)
                 ->first();
+                
+            $this->deleteCommands();
 
             if ($this->invoice) {
-                $this->deleteCommands();
+                
                 $this->addItems();
                 $this->addOldItems();
                 $this->checkArticles();
