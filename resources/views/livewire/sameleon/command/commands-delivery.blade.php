@@ -32,22 +32,23 @@
                     <div class="card-footer bg-transparent border-top">
                         <div class="contact-links d-flex font-size-17">
                             <div class="flex-fill">
+
                                 @foreach ($command->products as $product)
                                 
-                                <div>
+                                    <div>
 
-                                    <p class="text-strong mb-0">
-                                        <strong>{{ $product->name }}</strong>
-                                    </p>
+                                        <p class="text-strong mb-0">
+                                            <strong>{{ $product->name }}</strong>
+                                        </p>
 
-                                    <p class="text-muted mb-0">{{ $product->price }} (DH) x
-                                        {{ $product->pivot->quantity }}
-                                    </p>
-                                    <br>
+                                        <p class="text-muted mb-0">{{ $product->price }} (DH) x
+                                            {{ $product->pivot->quantity }}
+                                        </p>
+                                        <br>
 
-                                </div>
-                                <hr>
-                            @endforeach
+                                    </div>
+                                    <hr>
+                               @endforeach
                             </div>
 
                         </div>
