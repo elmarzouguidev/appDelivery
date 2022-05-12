@@ -6,27 +6,42 @@
                     <div class="card-body">
                         <div class=" mx-auto mb-4">
                             <span class="avatar-title bg-primary bg-soft text-primary font-size-20">
-                            
+
                                 {{ number_format($command->products_sum_product_commandprice_total, 2) }}DH
-                                
+
                             </span>
                         </div>
-                        <p class="font-size-15"><strong>{{ $command->client_name }}</strong></p> 
+                        <p class="font-size-15"><strong>{{ $command->client_name }}</strong></p>
                         <hr>
                         <p class="font-size-15">{!! $command->client_address !!}</p>
                         <hr>
                         <h5 class="font-size-15 mb-1">
                             <a href="tel:{{ $command->client_phone }}" class="text-primary">
-                             {{ $command->client_phone }}
+                                {{ $command->client_phone }}
                             </a>
                         </h5>
-                    
+
                         <hr>
                         <div>
-                            <a href="javascript: void(0);" class="btn btn-success font-size-18 m-1">Livré</a>
-                            <a href="javascript: void(0);" class="btn btn-danger font-size-18 m-1">Non livre</a>
-                            <a href="javascript: void(0);" class="btn btn-warning font-size-18 m-1">Non interese</a>
-                            <a href="javascript: void(0);" class="btn btn-primary font-size-18 m-1">Pas de reponse</a>
+                            <a href="#" class="btn btn-success font-size-18 m-1"
+                                wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::LIVRE }})">
+                                Livré
+                            </a>
+                            <a href="javascript: void(0);" class="btn btn-danger font-size-18 m-1"
+                                wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::ANNULE }})">
+
+                                Non livré
+                            </a>
+                            <a href="javascript: void(0);" 
+                                class="btn btn-warning font-size-18 m-1"
+                                wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::NON_INTERESSE }})"
+                                >
+                                Non intéressé
+                            </a>
+                            <a href="javascript: void(0);" class="btn btn-primary font-size-18 m-1"
+                                wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::PAS_DE_REPONSE }})">
+                                Pas de reponse
+                            </a>
                         </div>
                     </div>
                     <div class="card-footer bg-transparent border-top">
@@ -34,7 +49,6 @@
                             <div class="flex-fill">
 
                                 @foreach ($command->products as $product)
-                                
                                     <div>
 
                                         <p class="text-strong mb-0">
@@ -48,7 +62,7 @@
 
                                     </div>
                                     <hr>
-                               @endforeach
+                                @endforeach
                             </div>
 
                         </div>

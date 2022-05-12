@@ -23,4 +23,6 @@ class Status
     public const REFUSE = 16;
     public const REPORTE = 17;
     public const RETOURNE = 18;
+
+    public const NON_INTERESSE = 19;
 }

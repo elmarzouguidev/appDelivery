@@ -235,16 +235,26 @@ class Commands extends Component
 
         $this->isRepoted = true;
 
-        if ($this->commandEdit->comments()->latest()->count()) {
+        if (auth()->user()->hasAnyRole('Admin','SuperAdmin')) {
+            
+            if ($this->commandEdit->comments()->latest()->count()) {
 
-            $this->reportTime = $this->commandEdit->comments()->latest()->value('reported_at')->format('d-m-Y');
-            $this->reportComment = $this->commandEdit->comments()->latest()->value('content');
-        }
+                $this->reportTime = $this->commandEdit->comments()->latest()->value('reported_at')->format('d-m-Y');
+                $this->reportComment = $this->commandEdit->comments()->latest()->value('content');
+            }
 
         //dd($this->reportTime,$this->reportComment);
 
-        $this->dispatchBrowserEvent('status-reported');
+         $this->dispatchBrowserEvent('status-reported');
+        }
 
+        if (auth()->user()->hasRole('Delivery')) {
+
+            $this->dispatchBrowserEvent('status-updated');
+            
+            $this->dispatchBrowserEvent('notify-change');
+           
+        }
 
         //$this->dispatchBrowserEvent('status-updated');
     }

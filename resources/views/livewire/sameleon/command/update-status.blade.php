@@ -35,6 +35,10 @@
                                         wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::INTERESSE }})"
                                         type="button"
                                         class="btn btn-sm btn-dark waves-effect waves-light">Interessé</button>
+                                    <button
+                                        wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::NON_INTERESSE }})"
+                                        type="button"
+                                        class="btn btn-sm btn-dark waves-effect waves-light">Non interessé</button>
 
                                     <button
                                         wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::MANQUE_DE_STOCK }})"
