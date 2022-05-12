@@ -181,13 +181,13 @@ class GeneratDayInvoiceAction
             ->commands()
             ->whereNotIn('status', [Status::LIVRE, Status::REFUSE])
             ->has('articles')
-            ->where('delivered_at', '00:00:00')
-            ->whereDay('created_at', now()->format('d'))
+            //->where('delivered_at', '00:00:00')
+            //->whereDay('created_at', now()->format('d'))
             //->orWhereDay('created_at', Carbon::yesterday()->format('d'))
 
             //->whereDay('delivered_at', now()->format('d'))
             //->withSum('products', 'product_command.price_total')
-            ->latest()->get();
+            ->get();
 
         if ($commands) {
 
