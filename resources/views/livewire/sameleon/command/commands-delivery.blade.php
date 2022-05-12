@@ -23,10 +23,10 @@
                     
                         <hr>
                         <div>
-                            <a href="javascript: void(0);" class="badge bg-success font-size-18 m-1">Livré</a>
-                            <a href="javascript: void(0);" class="badge bg-danger font-size-18 m-1">Non livre</a>
-                            <a href="javascript: void(0);" class="badge bg-warning font-size-18 m-1">Non interese</a>
-                            <a href="javascript: void(0);" class="badge bg-primary font-size-18 m-1">Pas de reponse</a>
+                            <a href="javascript: void(0);" class="btn btn-success font-size-18 m-1">Livré</a>
+                            <a href="javascript: void(0);" class="btn btn-danger font-size-18 m-1">Non livre</a>
+                            <a href="javascript: void(0);" class="btn btn-warning font-size-18 m-1">Non interese</a>
+                            <a href="javascript: void(0);" class="btn btn-primary font-size-18 m-1">Pas de reponse</a>
                         </div>
                     </div>
                     <div class="card-footer bg-transparent border-top">
