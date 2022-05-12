@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddDeliveredAtToCommandsTable extends Migration
+class AddRefusedAtToCommandsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddDeliveredAtToCommandsTable extends Migration
     public function up()
     {
         Schema::table('commands', function (Blueprint $table) {
-            $table->dateTime('delivered_at')->nullable()->after('price_total');
+            $table->dateTime('refused_at')->nullable()->after('delivered_at');
         });
     }
 
@@ -26,7 +26,7 @@ class AddDeliveredAtToCommandsTable extends Migration
     public function down()
     {
         Schema::table('commands', function (Blueprint $table) {
-            $table->dropColumn('delivered_at');
+          $table->dropColumn('refused_at');
         });
     }
 }

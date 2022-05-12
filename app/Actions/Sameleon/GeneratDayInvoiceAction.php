@@ -15,7 +15,7 @@ class GeneratDayInvoiceAction
 
     public function handle()
     {
-        
+
         $this->deleteCommands();
 
         // dd(now()->format('H:i') =='17:16');
@@ -23,8 +23,6 @@ class GeneratDayInvoiceAction
             !now()->isWeekend() && auth()->user()->hasRole('Client') && auth()->user()->commands()
             ->whereIn('status', [Status::LIVRE, Status::REFUSE])
             ->whereDay('created_at', now()->format('d'))
-            ->whereNotNull('delivered_at')
-            //->whereDay('delivered_at', now()->format('d'))
             ->count() > 0
         ) {
 
@@ -33,13 +31,12 @@ class GeneratDayInvoiceAction
                 ->where('user_uuid', auth()->user()->uuid)
                 ->first();
 
-
-
             if ($this->invoice) {
 
                 $this->addItems();
                 $this->addOldItems();
                 $this->checkArticles();
+
             } else {
 
                 $this->invoice = new Invoice();
@@ -59,9 +56,11 @@ class GeneratDayInvoiceAction
             ->commands()
             ->whereIn('status', [Status::LIVRE, Status::REFUSE])
             ->doesntHave('articles')
-            ->whereDay('created_at', now()->format('d'))
-            ->whereNotNull('delivered_at')
-            //->whereDay('delivered_at', now()->format('d'))
+            ->where(function($query){
+               $query->whereDay('delivered_at', now()->format('d'));
+               //->orWhereDay('delivered_at', Carbon::yesterday()->format('d'));
+             })
+
             ->withSum('products', 'product_command.price_total')
             ->latest()->get();
 
@@ -96,40 +95,34 @@ class GeneratDayInvoiceAction
             ->user()
             ->commands()
             ->where('status', Status::LIVRE)
-            ->whereDay('created_at', now()->format('d'))
-            //->orWhereDay('created_at', Carbon::yesterday()->format('d'))
+            ->whereDay('delivered_at', now()->format('d'))
             ->whereNotNull('delivered_at')
             ->whereHas('articles', function ($query) {
                 $query->where('price_total', '<=', 0);
             })
 
-            //->whereDay('delivered_at', now()->format('d'))
             ->withSum('products', 'product_command.price_total')
             ->get();
         $commandsRefused = auth()
             ->user()
             ->commands()
             ->where('status', Status::REFUSE)
-            //->whereDay('created_at', now()->format('d'))
+             //->whereDay('delivered_at', null)
             //->orWhereDay('created_at', Carbon::yesterday()->format('d'))
-            ->whereNotNull('delivered_at')
             ->whereHas('articles', function ($query) {
                 $query->where('price_total', '>', 0);
             })
-
-            //->whereDay('delivered_at', now()->format(s'd'))
-            //->withSum('products', 'product_command.price_total')
             ->get();
 
         if ($commandsLivred) {
-            // dd('wwwD',$commands);
+            // dd('wwwDzzz',$commandsLivred);
             $commandsLivred->map(function ($item, $key) {
                 $price = $item->products_sum_product_commandprice_total;
                 $item->articles()->update(['price_total' => $price]);
             });
         }
         if ($commandsRefused) {
-            // dd('wwwD',$commands);
+            // dd('wwwDccc',$commandsRefused);
             $commandsRefused->map(function ($item, $key) {
                 ///$price = $item->products_sum_product_commandprice_total;
                 $item->articles()->update(['price_total' => 0]);
@@ -183,12 +176,6 @@ class GeneratDayInvoiceAction
 
         $commands = Command::whereNotIn('status', [Status::LIVRE, Status::REFUSE])
             ->has('articles')
-            //->where('delivered_at', '00:00:00')
-            //->whereDay('created_at', now()->format('d'))
-            //->orWhereDay('created_at', Carbon::yesterday()->format('d'))
-
-            //->whereDay('delivered_at', now()->format('d'))
-            //->withSum('products', 'product_command.price_total')
             ->get();
 
         if ($commands) {

@@ -44,6 +44,7 @@ class Command extends Model
         'boutique',
         'is_imported',
         'delivered_at',
+        'refused_at',
         'region_id',
         'region_uuid',
         'company_uuid',
@@ -54,6 +55,7 @@ class Command extends Model
 
     protected  $casts = [
         'delivered_at' => 'date:d-m-Y',
+        'refused_at' => 'date:d-m-Y',
         'is_imported' => 'boolean'
 
     ];
