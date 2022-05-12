@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Sameleon\Product;
-use App\Models\Sameleon\Stock;
-use App\Models\Sameleon\User;
 use Illuminate\Database\Seeder;
+
+use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,6 +15,7 @@ class DatabaseSeeder extends Seeder
    */
   public function run()
   {
+
 
 
    // $this->call(AllSeeder::class);

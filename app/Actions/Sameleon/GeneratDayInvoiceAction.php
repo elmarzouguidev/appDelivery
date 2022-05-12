@@ -6,17 +6,21 @@ use App\Models\Sameleon\Command;
 use App\Models\Sameleon\Invoice;
 use App\Status\Status;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 class GeneratDayInvoiceAction
 {
     use AsAction;
+
     protected $invoice;
 
     public function handle()
     {
 
         $this->deleteCommands();
+        
+        $this->updateRefusedCommand();
 
         // dd(now()->format('H:i') =='17:16');
         if (
@@ -36,7 +40,6 @@ class GeneratDayInvoiceAction
                 $this->addItems();
                 $this->addOldItems();
                 $this->checkArticles();
-
             } else {
 
                 $this->invoice = new Invoice();
@@ -50,16 +53,15 @@ class GeneratDayInvoiceAction
 
     private function addItems()
     {
-
         $commands = auth()
             ->user()
             ->commands()
             ->whereIn('status', [Status::LIVRE, Status::REFUSE])
             ->doesntHave('articles')
-            ->where(function($query){
-               $query->whereDay('delivered_at', now()->format('d'));
-               //->orWhereDay('delivered_at', Carbon::yesterday()->format('d'));
-             })
+            ->where(function ($q) {
+                $q->whereDay('delivered_at', now()->format('d'))
+                    ->orWhereDay('delivered_at', '03');
+            })
 
             ->withSum('products', 'product_command.price_total')
             ->latest()->get();
@@ -100,31 +102,27 @@ class GeneratDayInvoiceAction
             ->whereHas('articles', function ($query) {
                 $query->where('price_total', '<=', 0);
             })
-
             ->withSum('products', 'product_command.price_total')
             ->get();
         $commandsRefused = auth()
             ->user()
             ->commands()
             ->where('status', Status::REFUSE)
-             //->whereDay('delivered_at', null)
-            //->orWhereDay('created_at', Carbon::yesterday()->format('d'))
+            ->whereDay('delivered_at', '03')
+            ->whereNotNull('delivered_at')
             ->whereHas('articles', function ($query) {
                 $query->where('price_total', '>', 0);
             })
             ->get();
 
         if ($commandsLivred) {
-            // dd('wwwDzzz',$commandsLivred);
             $commandsLivred->map(function ($item, $key) {
                 $price = $item->products_sum_product_commandprice_total;
                 $item->articles()->update(['price_total' => $price]);
             });
         }
         if ($commandsRefused) {
-            // dd('wwwDccc',$commandsRefused);
             $commandsRefused->map(function ($item, $key) {
-                ///$price = $item->products_sum_product_commandprice_total;
                 $item->articles()->update(['price_total' => 0]);
             });
         }
@@ -139,8 +137,11 @@ class GeneratDayInvoiceAction
             ->doesntHave('articles')
             //->whereDay('created_at', Carbon::yesterday()->format('d'))
             ->whereDay('created_at', '!=', now()->format('d'))
+            ->where(function ($q) {
+                $q->whereDay('delivered_at', now()->format('d'))
+                    ->orWhereDay('delivered_at', '03');
+            })
             ->whereNotNull('delivered_at')
-            //->whereDay('delivered_at',now()->format('d'))
             ->withSum('products', 'product_command.price_total')
             ->latest()->get();
 
@@ -164,9 +165,6 @@ class GeneratDayInvoiceAction
                 ];
             })->toArray();
 
-            //dd($newCommands, $commands);
-            //return redirect()->route('public.show.invoice', [$this->invoice->uuid, 'has_header' => true]);
-
             $this->invoice->articles()->createMany($newCommands);
         }
     }
@@ -187,6 +185,21 @@ class GeneratDayInvoiceAction
             });
 
             //dd($commands);
+        }
+    }
+
+    private function updateRefusedCommand()
+    {
+        $commands = Command::whereIn('status', [Status::REFUSE])
+            ->has('articles')
+            ->get();
+
+        if ($commands) {
+
+            $commands->map(function ($item, $key) {
+                $item->articles()->update(['price_total' => 0]);
+            });
+
         }
     }
 }

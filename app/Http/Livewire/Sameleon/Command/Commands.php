@@ -210,7 +210,7 @@ class Commands extends Component
             });
         } else {
 
-            $command->update(['delivered_at' => null]);
+            $command->update(['delivered_at' => '1993-03-03 00:00:00']);
 
             $products->each(function ($product, $key) use ($command, $status) {
 
