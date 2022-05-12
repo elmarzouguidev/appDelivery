@@ -5,7 +5,7 @@
                 <div class="card text-center">
                     <div class="card-body">
                         <div class=" mx-auto mb-4">
-                            <span class="avatar-title bg-primary bg-soft text-primary font-size-16">
+                            <span class="avatar-title bg-primary bg-soft text-primary font-size-18">
                             
                                 {{ number_format($command->products_sum_product_commandprice_total, 2) }}DH
                                 
