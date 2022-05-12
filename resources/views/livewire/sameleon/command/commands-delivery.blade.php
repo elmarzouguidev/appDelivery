@@ -13,7 +13,7 @@
                         </div>
                         <p class="font-size-15"><strong>{{ $command->client_name }}</strong></p> 
                         <hr>
-                        <p class="font-size-15">{{ $command->client_address }}</p>
+                        <p class="font-size-15">{!! $command->client_address !!}</p>
                         <hr>
                         <h5 class="font-size-15 mb-1">
                             <a href="tel:{{ $command->client_phone }}" class="text-primary">
