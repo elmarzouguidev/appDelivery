@@ -62,7 +62,7 @@ class Commands extends Component
 
     public function render()
     {
-   
+
         $command = new ItemsQuery(new Command, $this->filter);
 
         if (auth()->user()->hasRole('Client')) {
@@ -80,22 +80,23 @@ class Commands extends Component
                 });
             $delivries = [];
         } elseif (auth()->user()->hasRole('Delivery')) {
+
             $commands =  $command->where('delivery_id', auth()->id())
                 ->where('delivery_uuid', auth()->user()->uuid)
+                ->where('status', Status::ENCOURS)
                 ->withSum('products', 'product_command.price_total')
-                ->with('products.stock')
+                //->with('products.stock')
                 ->with(['city:id,name'])
                 ->orderByRaw("created_at DESC")
                 ->get();
             $delivries = [];
 
-           return view('livewire.sameleon.command.commands-delivery', compact('commands', 'delivries'));
-
+            return view('livewire.sameleon.command.commands-delivery', compact('commands', 'delivries'));
         } else {
 
 
             $commands = $command->withSum('products', 'product_command.price_total')
-                ->with(['invoice:uuid,id,full_number', 'city:id,name'])
+                ->with(['invoice:uuid,id,full_number', 'city:id,name', 'delivery:id,nom,prenom'])
                 ->with('products.stock')
                 ->orderByRaw("created_at DESC")
                 /* ->get()->map(function ($value, $key) {
@@ -126,7 +127,7 @@ class Commands extends Component
 
     public function mount()
     {
-      
+
         $this->showEdit = false;
 
         $this->reportTime = now()->format('d-m-Y');
@@ -150,7 +151,13 @@ class Commands extends Component
 
             $delivery = User::find($this->selectedDelivery);
 
-            Command::find($this->selectedCommands)->each->update(['delivery_id' => $delivery->id, 'delivery_uuid' => $delivery->uuid]);
+            Command::find($this->selectedCommands)->each->update([
+
+                'delivery_id' => $delivery->id,
+                'delivery_uuid' => $delivery->uuid,
+                'status' => Status::ENCOURS
+                
+            ]);
 
             $this->dispatchBrowserEvent('notify-global', ['message' => 'les commands envoyer avec succsé']);
 
@@ -202,7 +209,6 @@ class Commands extends Component
                     $product->stock()->update(['qte_rest' => 0, 'is_out' => true, 'qte_livre' => 0]);
 
                     $command->update(['status' => Status::MANQUE_DE_STOCK]);
-                    
                 } else {
 
                     if ($qteRest < $qteGlobal && $product->stock->qte_livre != $product->stock->qte_global && $product->pivot->quantity > 0) {
@@ -235,25 +241,24 @@ class Commands extends Component
 
         $this->isRepoted = true;
 
-        if (auth()->user()->hasAnyRole('Admin','SuperAdmin')) {
-            
+        if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin')) {
+
             if ($this->commandEdit->comments()->latest()->count()) {
 
                 $this->reportTime = $this->commandEdit->comments()->latest()->value('reported_at')->format('d-m-Y');
                 $this->reportComment = $this->commandEdit->comments()->latest()->value('content');
             }
 
-        //dd($this->reportTime,$this->reportComment);
+            //dd($this->reportTime,$this->reportComment);
 
-         $this->dispatchBrowserEvent('status-reported');
+            $this->dispatchBrowserEvent('status-reported');
         }
 
         if (auth()->user()->hasRole('Delivery')) {
 
             $this->dispatchBrowserEvent('status-updated');
-            
+
             $this->dispatchBrowserEvent('notify-change');
-           
         }
 
         //$this->dispatchBrowserEvent('status-updated');

@@ -174,6 +174,10 @@
                                                         wire:click="editStatus('{{ $command->uuid }}')" type="button"
                                                         class="btn btn-sm {{ __('status.classes.' . $command->status) }} waves-effect waves-light">
                                                         {{ __('status.statuses.' . $command->status) }}
+                                                        <br>
+                                                        @if($command->status == App\Status\Status::ENCOURS && $command->delivery)
+                                                         {{$command->status == App\Status\Status::ENCOURS ? $command->delivery->full_name :'' }}
+                                                        @endif
                                                     </button>
                
                                             @else

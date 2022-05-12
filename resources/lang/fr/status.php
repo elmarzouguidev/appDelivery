@@ -29,7 +29,7 @@ return [
         \App\Status\Status::ANNULE => 'btn-danger',
         \App\Status\Status::LIVRE => 'btn-success',
         \App\Status\Status::CHANGE => 'btn-info',
-        \App\Status\Status::ENCOURS => 'btn-secondary',
+        \App\Status\Status::ENCOURS => 'btn-info',
         \App\Status\Status::EXPEDIE => 'btn-danger',
         \App\Status\Status::INJOIGNABLE => 'btn-danger',
         \App\Status\Status::INTERESSE => 'btn-info',
