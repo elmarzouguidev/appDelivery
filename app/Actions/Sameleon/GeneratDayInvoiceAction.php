@@ -207,7 +207,7 @@ class GeneratDayInvoiceAction
     private function getYesterdayInvoice()
     {
         $invoices = Invoice::whereDay('created_at', Carbon::yesterday()->format('d'))
-            ->wher('cloture',false)
+            ->where('cloture',false)
             ->select(['id','cloture'])->get();
         $invoices->each->update(['cloture' => true]);
     }

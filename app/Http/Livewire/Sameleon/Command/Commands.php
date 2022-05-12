@@ -62,7 +62,7 @@ class Commands extends Component
 
     public function render()
     {
-
+   
         $command = new ItemsQuery(new Command, $this->filter);
 
         if (auth()->user()->hasRole('Client')) {
@@ -88,7 +88,11 @@ class Commands extends Component
                 ->orderByRaw("created_at DESC")
                 ->get();
             $delivries = [];
+
+        return view('livewire.sameleon.command.commands-delivery', compact('commands', 'delivries'));
+
         } else {
+
 
             $commands = $command->withSum('products', 'product_command.price_total')
                 ->with(['invoice:uuid,id,full_number', 'city:id,name'])
@@ -122,6 +126,7 @@ class Commands extends Component
 
     public function mount()
     {
+      
         $this->showEdit = false;
 
         $this->reportTime = now()->format('d-m-Y');
