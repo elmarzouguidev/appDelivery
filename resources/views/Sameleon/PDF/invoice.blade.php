@@ -282,7 +282,14 @@
                 </tr>
                 <tr class="heading-price lefter">
                     @php 
-                    $net = $invoice->formated_total_brut - $frais
+                        if($invoice->formated_total_brut == 0 || $frais > $invoice->formated_total_brut)
+                        {
+                            $net = 00;
+                        }
+                        else{
+                            $net = $invoice->formated_total_brut - $frais;
+                        }
+        
                     @endphp
                     <td colspan="6">Montant NET : {{ number_format($net,2) }} DH</td>
                 </tr>
