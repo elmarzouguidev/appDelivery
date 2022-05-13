@@ -267,7 +267,9 @@ class Commands extends Component
     public function saveReportDetail()
     {
         $this->validate();
+        
         // dd($this->reportComment, "---", $this->reportTime, '***', $this->commandEdit);
+
         $this->commandEdit->comments()->updateOrCreate(['commentable_id' => $this->commandEdit->id], [
             'user_id' => auth()->id(),
             'content' => $this->reportComment,

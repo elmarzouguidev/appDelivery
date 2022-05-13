@@ -28,7 +28,8 @@ class GeneratDayInvoiceAction
         if (
              auth()->user()->hasRole('Client') && auth()->user()->commands()
             ->whereIn('status', [Status::LIVRE, Status::REFUSE])
-            ->whereDay('created_at', now()->format('d'))
+            ->doesntHave('articles')
+            ->whereDay('delivered_at', now()->format('d'))
             ->count() > 0
         ) {
 
