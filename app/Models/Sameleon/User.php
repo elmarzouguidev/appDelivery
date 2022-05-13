@@ -140,6 +140,11 @@ class User extends Authenticatable
         return $this->hasMany(History::class);
     }
 
+    public function testimonial()
+    {
+        return $this->hasOne(Testimonial::class);
+    }
+
     public function scopeWithLastLogin($query)
     {
         return $query->addSelect([
