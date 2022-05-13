@@ -20,7 +20,7 @@ class ProductFactory extends Factory
             'name' => $this->faker->word,
             'description' => $this->faker->text(),
 
-            'qte_global' => rand(1, 200),
+            'qte_global' => 100,
             'qte_livre' => 0,
             'qte_expidite' => 0,
             'qte_endomage' => 0,
@@ -37,7 +37,7 @@ class ProductFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(function (Product $item) {
-            $url = 'https://source.unsplash.com/random/800x700';
+            $url = 'https://source.unsplash.com/random/1000x900';
             $item
                 ->addMediaFromUrl($url)
                 ->toMediaCollection('products_photos');
