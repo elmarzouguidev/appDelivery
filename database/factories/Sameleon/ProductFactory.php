@@ -37,7 +37,7 @@ class ProductFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(function (Product $item) {
-            $url = 'https://source.unsplash.com/random/500x500';
+            $url = 'https://source.unsplash.com/random/900x700';
             $item
                 ->addMediaFromUrl($url)
                 ->toMediaCollection('products_photos');
