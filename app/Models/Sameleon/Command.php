@@ -28,6 +28,7 @@ class Command extends Model
         'status',
         'price_total',
         'frais',
+        'is_closed',
         'invoice_id',
         'invoice_uuid',
         'user_id',
@@ -56,7 +57,8 @@ class Command extends Model
     protected  $casts = [
         'delivered_at' => 'date:d-m-Y',
         'refused_at' => 'date:d-m-Y',
-        'is_imported' => 'boolean'
+        'is_imported' => 'boolean',
+        'is_closed' => 'boolean'
 
     ];
 

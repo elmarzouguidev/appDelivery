@@ -36,6 +36,10 @@
 
             <div class="page-content">
 
+                @if(!auth()->user()->completProfile())
+                        @include('layouts._parts.__warning')
+                @endif
+
                 @yield('content')
 
             </div>
