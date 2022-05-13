@@ -28,7 +28,7 @@ class GeneratDayInvoiceAction
         if (
              auth()->user()->hasRole('Client') && auth()->user()->commands()
             ->whereIn('status', [Status::LIVRE, Status::REFUSE])
-            ->doesntHave('articles')
+            //->doesntHave('articles')
             ->whereDay('delivered_at', now()->format('d'))
             ->count() > 0
         ) {
@@ -43,6 +43,7 @@ class GeneratDayInvoiceAction
                 $this->addItems();
                 $this->addOldItems();
                 $this->checkArticles();
+
             } else {
 
                 $this->invoice = new Invoice();
@@ -65,7 +66,6 @@ class GeneratDayInvoiceAction
                 $q->whereDay('delivered_at', now()->format('d'))
                     ->orWhereYear('delivered_at', '1993');
             })
-
             ->withSum('products', 'product_command.price_total')
             ->latest()->get();
 
@@ -74,7 +74,9 @@ class GeneratDayInvoiceAction
             $newCommands =  $commands->map(function ($item, $key) {
 
                 $item->update(['invoice_id' => $this->invoice->id, 'invoice_uuid' => $this->invoice->uuid]);
+
                 $price = $item->status == Status::REFUSE ? 0 : $item->products_sum_product_commandprice_total;
+
                 return [
                     'command_id' => $item->id,
                     'command_uuid' => $item->uuid,
@@ -85,10 +87,8 @@ class GeneratDayInvoiceAction
                     'price_total' => $price ?? 0,
                     'frais' => $item->frais,
                 ];
-            })->toArray();
 
-            // dd($newCommands, $commands);
-            //return redirect()->route('public.show.invoice', [$this->invoice->uuid, 'has_header' => true]);
+            })->toArray();
 
             $this->invoice->articles()->createMany($newCommands);
         }
