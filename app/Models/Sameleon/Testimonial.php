@@ -16,6 +16,7 @@ class Testimonial extends Model
     protected $fillable = [
         'uuid',
         'user_id',
+        'user_uuid',
         'content',
         'approved',
         'rating'
