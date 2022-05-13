@@ -17,6 +17,7 @@ class CreateTestimonialsTable extends Migration
             $table->id();
             $table->uuid('uuid');
             $table->foreignId('user_id')->index()->nullable();
+            $table->uuid('user_uuid')->nullable();
             $table->longText('content');
             $table->boolean('approved')->default(false);
             $table->integer('rating')->default(1);
