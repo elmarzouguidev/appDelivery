@@ -209,7 +209,10 @@
                                 @if(optional($invoice->client)->type == 'entreprise' && optional($invoice->client)->company)
                                  ICE : {{ optional($invoice->client->company)->ice }}<br />
                                 @endif
-                                Adresse : {{ optional($invoice->client->company)->addresse }} <br />
+                                @if(optional($invoice->client)->type == 'entreprise' && optional($invoice->client)->company)
+                                 Adresse : {{ optional($invoice->client->company)->addresse }} <br />
+                                @endif
+                                 Adresse : {{ optional($invoice->client)->addresse }} <br />
 
                             </td>
                             <td style="width: 50% ; text-align: right; !important">
