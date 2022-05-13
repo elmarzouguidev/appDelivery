@@ -211,8 +211,9 @@
                                 @endif
                                 @if(optional($invoice->client)->type == 'entreprise' && optional($invoice->client)->company)
                                  Adresse : {{ optional($invoice->client->company)->addresse }} <br />
-                                @endif
+                                @else
                                  Adresse : {{ optional($invoice->client)->addresse }} <br />
+                                @endif
 
                             </td>
                             <td style="width: 50% ; text-align: right; !important">
