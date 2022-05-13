@@ -16,19 +16,17 @@ class ProductFactory extends Factory
     public function definition()
     {
 
-        $name = $this->faker->sentence(20);
-
         return [
             'name' => $this->faker->word,
             'description' => $this->faker->text(),
 
-            'qte_global' => rand(1, 193),
+            'qte_global' => rand(1, 200),
             'qte_livre' => 0,
             'qte_expidite' => 0,
             'qte_endomage' => 0,
             'qte_rest' => 0,
 
-            'price' => $this->faker->numberBetween(100, 2000),
+            'price' => $this->faker->numberBetween(100, 900),
             'sku' => $this->faker->unique()->regexify('[A-Z0-9]{10}'),
             'active' => rand(1, 0),
 

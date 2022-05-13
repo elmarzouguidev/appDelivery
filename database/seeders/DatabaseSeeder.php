@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Sameleon\Product;
+use App\Models\Sameleon\User;
 use Illuminate\Database\Seeder;
 
 use Illuminate\Support\Facades\Storage;
@@ -18,7 +20,7 @@ class DatabaseSeeder extends Seeder
 
 
 
-   // $this->call(AllSeeder::class);
+    // $this->call(AllSeeder::class);
     $this->call(RoleSeeder::class);
     $this->call(PermissionSeeder::class);
 
@@ -26,15 +28,22 @@ class DatabaseSeeder extends Seeder
 
     $this->call(AdminSeeder::class);
     $this->call(ClientSeed::class);
-    
+
     $this->call(DeliverySeeder::class);
 
     //\App\Models\Sameleon\Product::factory(5)->create();
 
-    /*User::factory(200)->create();
+    $users = User::factory(50)->create();
 
-    Product::factory(150)->create();
+    foreach ($users as $user) {
+      $this->callWith(ProductSeeder::class, ['user' => $user]);
+    }
 
-    Stock::factory(150)->create();*/
+    $products = Product::all();
+
+    foreach ($products as $product) {
+      $this->callWith(StockSeeder::class, ['product' => $product]);
+    }
+    
   }
 }
