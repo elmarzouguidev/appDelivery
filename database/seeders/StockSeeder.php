@@ -14,6 +14,6 @@ class StockSeeder extends Seeder
      */
     public function run($product)
     {
-        Stock::factory(50)->create(['product_id' => $product->id, 'product_uuid' => $product->uuid]);
+        Stock::factory(10)->create(['product_id' => $product->id, 'product_uuid' => $product->uuid]);
     }
 }
