@@ -38,7 +38,7 @@
                             <th scope="col">E-mail</th>
                             <th scope="col">Tél</th>
                             <th scope="col">type</th>
-                            <th scope="col">Adresse</th>
+                            <th scope="col">Etat</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -79,7 +79,13 @@
                                     <p class="text-muted mb-0"></p>
                                 </td>
                                 <td>
-                                    {{ $client->addresse }}
+                                    
+                                    <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
+                                        <input
+                                            class="form-check-input" type="checkbox" id="SwitchCheckSizelg"
+                                            {{ $client->active == true ? 'checked' : '' }}>
+
+                                    </div>
                                 </td>
 
                                 <td>
