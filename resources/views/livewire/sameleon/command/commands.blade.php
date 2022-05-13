@@ -4,14 +4,6 @@
             @include('livewire.sameleon.command.__new_filters')
         @endif
         <div class="row">
-
-            {{-- @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin') &&
-             $showFilters)
-  
-                  @include('livewire.sameleon.command.filters')
-                @endif --}}
-
-
             <div class="col-lg-12">
                 <div class="card">
                     <div   class="card-body" {{ $canPolled ? 'wire:poll.10s' : '' }}>
