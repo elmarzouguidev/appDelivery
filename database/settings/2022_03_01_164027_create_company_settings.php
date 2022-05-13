@@ -15,7 +15,7 @@ class CreateCompanySettings extends SettingsMigration
         $this->migrator->add('company.email', 'info@sameleon-express.ma');
         $this->migrator->add('company.rc', '507491');
         $this->migrator->add('company.ice', '002749195000015');
-        $this->migrator->add('company.cnss', '000');
+        $this->migrator->add('company.cnss', null);
         $this->migrator->add('company.patente', '34778172');
         $this->migrator->add('company.if', '50316039');
     }
