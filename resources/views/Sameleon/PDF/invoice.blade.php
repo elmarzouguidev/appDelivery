@@ -207,9 +207,9 @@
                                  CNIE : {{ strtoupper(optional($invoice->client)->cnie) }}<br />
                                 @endif
                                 @if(optional($invoice->client)->type == 'entreprise' && optional($invoice->client)->company)
-                                 ICE : {{ optional($invoice->client)->ice }}<br />
+                                 ICE : {{ optional($invoice->client->company)->ice }}<br />
                                 @endif
-                                Adresse : {{ optional($invoice->client)->addresse }} <br />
+                                Adresse : {{ optional($invoice->client->company)->addresse }} <br />
 
                             </td>
                             <td style="width: 50% ; text-align: right; !important">
