@@ -75,7 +75,7 @@ class User extends Authenticatable
 
     public function completProfile()
     {
-        if (auth()->user()->hasRole('Client')) {
+        if (auth()->user()->hasRole('Client') && auth()->user()->type == 'particulier' ) {
             return  is_null($this->attributes['cnie']) ||
                 is_null($this->attributes['addresse']) ||
                 is_null($this->attributes['telephone']) ? false : true;
