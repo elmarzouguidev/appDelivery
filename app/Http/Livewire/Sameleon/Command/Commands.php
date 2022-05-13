@@ -74,9 +74,9 @@ class Commands extends Component
                 ->with(['invoice:uuid,id,full_number', 'city:id,name'])
                 ->orderByRaw("created_at DESC")
                 ->get()->prioritize(function ($item) {
-                    return $item->status == Status::LIVRE
+                    return $item->status == Status::NON_TRAITE
                         ||
-                        $item->status == Status::ENCOURS;
+                        $item->status == Status::LIVRE;
                 });
             $delivries = [];
         } elseif (auth()->user()->hasRole('Delivery')) {
