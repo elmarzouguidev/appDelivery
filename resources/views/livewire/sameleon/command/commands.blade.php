@@ -68,9 +68,11 @@
                         <table data-auto-responsive="false"  id="datatable-buttons" class="table table-bordered dt-responsive nowrap w-100">
                             <thead>
                                 <tr >
+                                    @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
                                     <th style="width: 20px;" class="align-middle">
                                       
                                     </th>
+                                    @endif
                                     {{-- <th scope="col">Numéro / client</th> --}}
                                     <th scope="col">Destinataire</th>
                                     <th scope="col">Produits</th>
@@ -92,13 +94,15 @@
 
                                 @foreach ($commands as $command)
                                     <tr wire:key="{{ $command->id }}">
-                                        <td>
-                                            <div class="form-check font-size-16">
-                                                <input wire:model="selectedCommands" class="form-check-input" type="checkbox"
-                                                    id="command-{{ $command->id }}" value="{{$command->id}}" >
-                                                <label class="form-check-label" for="command-{{ $command->id }}"></label>
-                                            </div>
-                                        </td>
+                                        @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
+                                            <td>
+                                                <div class="form-check font-size-16">
+                                                    <input wire:model="selectedCommands" class="form-check-input" type="checkbox"
+                                                        id="command-{{ $command->id }}" value="{{$command->id}}" >
+                                                    <label class="form-check-label" for="command-{{ $command->id }}"></label>
+                                                </div>
+                                            </td>
+                                        @endif
                                         <td>
                                             <p class="text-strong mb-0">
                                                 <strong>
