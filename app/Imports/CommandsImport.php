@@ -12,8 +12,9 @@ use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
+use Maatwebsite\Excel\Concerns\WithValidation;
 
-class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow
+class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithValidation
 {
 
     /**
@@ -71,4 +72,17 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow
     {
         return 1;
     }*/
+
+    public function rules(): array
+    {
+        return [
+            'destinataire' => ['required', 'string'],
+            'telephone' => ['required', 'phone:MA'],
+            'ville' => ['required', 'string'],
+            'adresse' => ['required', 'string'],
+            'produit_ref' => ['required', 'string'],
+            'qte' => ['required', 'numeric'],
+            'prix' => ['required', 'numeric'],
+        ];
+    }
 }
