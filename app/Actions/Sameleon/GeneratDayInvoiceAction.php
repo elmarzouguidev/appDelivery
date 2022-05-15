@@ -82,7 +82,7 @@ class GeneratDayInvoiceAction
                     'command_uuid' => $item->uuid,
                     'code_command' => $item->code,
                     'date_command' => $item->created_at->format('d-m-Y'),
-                    'city' => $item->city->name,
+                    'city' => $item->city->name ?? $item->client_city,
                     'status' => __('status.statuses.' . $item->status),
                     'price_total' => $price ?? 0,
                     'frais' => $item->frais,
