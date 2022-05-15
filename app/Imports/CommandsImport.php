@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Models\Sameleon\City;
 use App\Models\Sameleon\Command;
 use App\Models\Sameleon\Product;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -23,25 +24,23 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow
     public function model(array $row)
     {
 
+        $product = Product::whereName($row["produit_ref"])->first();
+
+        $ville = City::whereName($row["ville"])->first();
+
+
         $data = [
             'client_name'     => $row["destinataire"],
             'client_phone'    => $row["telephone"],
             'client_city'    => $row["ville"],
             'client_address'    => $row["adresse"],
-
-            /*'product_ref'    => $row["produit_ref"],
-            'qte'    => $row["qte"],
-            'price_total'    => $row["prix"],
-            'source'    => $row["source"],
-            'boutique'    => $row["boutique"],*/
+            'city_id' => $ville ? $ville->id : null,
             'user_id' => auth()->id(),
             'user_uuid' => auth()->user()->uuid,
             'is_imported' => true
         ];
         //dd($data);
         $command =  Command::create($data);
-
-        $product = Product::whereName($row["produit_ref"])->first();
 
         if ($product) {
 
@@ -52,7 +51,7 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow
                 'designation' => $row["produit_ref"],
                 'product' => $row["produit_ref"],
                 'quantity' => $row["qte"],
-                'prix_uni' => $row["prix"] / 2,
+                'prix_uni' => $row["prix"] / $row["qte"],
                 'prix_total' => $row["prix"],
             ]);
         } else {
@@ -62,7 +61,7 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow
                 'designation' => $row["produit_ref"],
                 'product' => $row["produit_ref"],
                 'quantity' => $row["qte"],
-                'prix_uni' => $row["prix"] / 2,
+                'prix_uni' => $row["prix"] / $row["qte"],
                 'prix_total' => $row["prix"],
             ]);
         }

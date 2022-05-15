@@ -43,6 +43,7 @@ class Command extends Model
         'delivered_at',
         'refused_at',
         'reported_at',
+        'city_id',
         'region_id',
         'region_uuid',
         'company_uuid',
