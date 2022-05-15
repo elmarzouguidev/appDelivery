@@ -203,6 +203,7 @@ class Commands extends Component
         $command->update(['status' => $status]);
 
         $items = $command->items;
+        /***Okey  */
 
         //dd($products);
 
