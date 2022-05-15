@@ -72,13 +72,13 @@
                                     @if(auth()->user()->hasAnyRole('Admin','SuperAdmin'))
                                     <td>
                                        
-                                            {{ optional($stock->user)->full_name }}
+                                            {{ optional($stock->client)->full_name }}
                                        
                                     </td>
                                     @endif
                                     <td>
                                       
-                                            {{ optional($stock->product)->name }}
+                                            {{ $stock->name }}
                                         
                                     </td>
 
@@ -111,7 +111,7 @@
                                                 class="text-success">
                                                 <i class="mdi mdi-pencil font-size-18"></i>
                                             </a>
-                                            <a href="#" class="text-danger" onclick="
+                                            {{--<a href="#" class="text-danger" onclick="
                                                     var result = confirm('Are you sure you want to delete this stock ?');
     
                                                     if(result){
@@ -119,15 +119,15 @@
                                                         document.getElementById('delete-stock-{{ $stock->uuid }}').submit();
                                                     }">
                                                 <i class="mdi mdi-delete font-size-18"></i>
-                                            </a>
+                                            </a>--}}
                                         </div>
                                     </td>
-                                    <form id="delete-stock-{{ $stock->uuid }}" method="post"
+                                    {{--<form id="delete-stock-{{ $stock->uuid }}" method="post"
                                         action="{{ route('admin:stock.delete') }}">
                                         @csrf
                                         @method('DELETE')
                                         <input type="hidden" name="stockId" value="{{ $stock->uuid }}">
-                                    </form>
+                                    </form>--}}
                                 </tr>
                             @endforeach
 

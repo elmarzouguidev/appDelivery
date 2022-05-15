@@ -64,7 +64,7 @@
                                 <div class="card-header bg-transparent border-primary">
                                     <h5 class="my-0 text-primary">
                                         <i class="mdi mdi-alarm-panel-outline me-3"></i>
-                                        Total du Command: {{ $command->total_price }} DH
+                                        Total du Command: {{ $command->items_sum_prix_total }} DH
                                         
                                     </h5>
                                     <hr>

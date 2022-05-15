@@ -9,6 +9,7 @@ class Edit extends Component
 {
     public function render()
     {
+       
         return view('livewire.sameleon.command.edit');
     }
 
@@ -24,14 +25,14 @@ class Edit extends Component
 
     public function mount()
     {
-
+        
         if (auth()->user()->hasRole('Client')) {
-            $this->products = auth()->user()->products()->with('media')->get();
+            $this->products = auth()->user()->products()->get();
         } else {
             $this->products = Product::with('media')->get();
         }
-
-        $this->orderProducts = $this->command->products()->get();
+        
+        $this->orderProducts = $this->command->items()->get();
 
         $this->newOrderProducts = [
             [
@@ -42,17 +43,21 @@ class Edit extends Component
                 'prix_unitaire' => ''
             ]
         ];
+
+        //dd('ffOnevvvvvvvvvvvvvvr');
     }
 
     public function booted()
     {
-        $this->orderProducts = $this->command->products()->get();
+        //
+        $this->orderProducts = $this->command->items()->get();
     }
 
     public function removeProduct($id)
     {
-        //dd($id);
-        $this->command->products()->wherePivot('id', $id)->detach();
+
+        $this->command->items()->where('uuid', $id)->delete();
+        
         $this->mount();
     }
 

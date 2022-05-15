@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Sameleon\Admin\Stock;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Sameleon\Stock\StockFormRequest;
+use App\Models\Sameleon\Product;
 use App\Models\Sameleon\Stock;
 use Illuminate\Http\Request;
 
@@ -11,21 +12,20 @@ class StockController extends Controller
 {
     public function index()
     {
-        if (auth()->user()->hasRole('Client')) {
+        if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin')) {
 
-            $stocks = Stock::whereUserId(auth()->id())
-                ->whereUserUuid(auth()->user()->uuid)
-                ->with('product')
-                ->get();
+            $stocks = Product::with('client')->get();
+
         } else {
 
-            $stocks = Stock::with(['product','user:id,nom,prenom'])->get();
+            $stocks = auth()->user()->products()->with('media')->get();
+
         }
 
         return view('Sameleon.Admin.Stock.index', compact('stocks'));
     }
 
-    public function update(StockFormRequest $request, Stock $stock)
+    public function update(StockFormRequest $request, Product $stock)
     {
         
         $this->authorize('update', $stock);
@@ -53,24 +53,5 @@ class StockController extends Controller
         $stock->save();
 
         return redirect()->back()->with('success', "le stock a été modifier avec succès");
-    }
-
-    public function delete(Request $request)
-    {
-
-        $request->validate(['stockId' => 'required|uuid']);
-
-        $stock = Stock::whereUuid($request->stockId)->first();
-
-        $this->authorize('delete', $stock);
-
-        if ($stock) {
-
-            $stock->delete();
-
-            return redirect()->back()->with('success', "le stock a été supprimer avec succès");
-        }
-
-        return redirect()->back()->with('error', "Error");
     }
 }

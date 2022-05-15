@@ -10,6 +10,7 @@ use App\Http\Requests\Sameleon\Command\CommandUpdateFormRequest;
 use App\Http\Requests\Sameleon\Imports\ImportCommandRequest;
 use App\Imports\CommandsImport;
 use App\Models\Sameleon\Command;
+use App\Models\Sameleon\Product;
 use App\Repositories\City\CityInterface;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -61,7 +62,7 @@ class AdminCommandController extends Controller
 
         if ($command) {
 
-            foreach ($request->orderProducts as $product) {
+            /*foreach ($request->orderProducts as $product) {
                 $command->products()->attach(
                     (int)$product['product_id'],
                     [
@@ -74,6 +75,22 @@ class AdminCommandController extends Controller
                     ],
 
                 );
+            }*/
+
+            foreach ($request->orderProducts as $product) {
+
+                $prod = Product::find($product['product_id']);
+
+                $command->items()->create([
+                    'command_uuid' => $command->uuid,
+                    'product_id' => $product['product_id'],
+                    'product_uuid' => $prod->uuid,
+                    'designation' => $product['designation'],
+                    'product' => $prod->name,
+                    'quantity' => $product['quantity'],
+                    'prix_uni' => $product['prix_unitaire'],
+                    'prix_total' => $product['quantity'] * $product['prix_unitaire'],
+                ]);
             }
 
             //$priceTotal = $command->products()->sum('pivot.price_total');
@@ -95,7 +112,7 @@ class AdminCommandController extends Controller
 
         $this->authorize('update', $command);
 
-        $command->load('products');
+        $command->load('items');
 
         $cities = app(CityInterface::class)->getCities();
 
@@ -118,7 +135,7 @@ class AdminCommandController extends Controller
         $command->save();
 
         if ($command) {
-            if (count($request->getOldArticles())) {
+            /*if (count($request->getOldArticles())) {
 
                 foreach ($request->orderProducts as $product) {
 
@@ -133,28 +150,31 @@ class AdminCommandController extends Controller
 
                     );
                 }
-            }
+            }*/
 
             if (count($request->getNewArticles())) {
 
+
                 foreach ($request->newOrderProducts as $product) {
 
-                    $command->products()->attach(
-                        (int)$product['product_id'],
-                        [
-                            'command_uuid' => $command->uuid,
-                            'quantity' => $product['quantity'],
-                            'price_ht' => $product['prix_unitaire'],
-                            'price_total' => $product['quantity'] * $product['prix_unitaire'],
-                            'designation' => $product['designation']
-                        ],
-
-                    );
+                    $prod = Product::find($product['product_id']);
+    
+                    $command->items()->create([
+                        'command_uuid' => $command->uuid,
+                        'product_id' => $product['product_id'],
+                        'product_uuid' => $prod->uuid,
+                        'designation' => $product['designation'],
+                        'product' => $prod->name,
+                        'quantity' => $product['quantity'],
+                        'prix_uni' => $product['prix_unitaire'],
+                        'prix_total' => $product['quantity'] * $product['prix_unitaire'],
+                    ]);
                 }
             }
         }
 
         $command->histories()->create([
+
             'user_id' => auth()->id(),
             'user_uuid' => auth()->user()->uuid,
             'description' => "a modifier la command <strong>$command->code</strong>",
@@ -175,9 +195,8 @@ class AdminCommandController extends Controller
 
         if ($command) {
             // dd('Oui command');
-            $command->products()->detach();
-            $command->comments()->delete();
-
+            $command->items()->delete();
+            
             $command->histories()->delete();
 
             $command->delete();

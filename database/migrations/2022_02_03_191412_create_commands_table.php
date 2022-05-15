@@ -21,6 +21,10 @@ class CreateCommandsTable extends Migration
             $table->string('code')->unique();
             $table->string('track_code')->unique();
 
+            $table->integer('status')->default(Status::NON_TRAITE);
+            $table->boolean('is_closed')->default(false);
+            $table->boolean('is_imported')->default(false);
+
             $table->foreignId('user_id')->index()->constrained()->cascadeOnDelete();
             $table->uuid('user_uuid')->nullable();
             
@@ -34,12 +38,8 @@ class CreateCommandsTable extends Migration
 
             $table->longText('comment')->nullable();
 
-            $table->longText('designation')->nullable();
- 
-            $table->unsignedBigInteger('price_total')->default(0);
-
+            $table->string('price_total')->default(0);
             
-            $table->integer('status')->default(Status::NON_TRAITE);
             $table->timestamps();
         });
     }

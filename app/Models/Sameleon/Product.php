@@ -24,7 +24,13 @@ class Product extends Model implements HasMedia
 
     protected $fillable = [
         'user_uuid',
-        'user_id'
+        'user_id',
+        'total_commands',
+        'is_out'
+    ];
+    
+    protected $casts = [
+        'is_out' => 'boolean'
     ];
 
     public function stock()
@@ -44,7 +50,7 @@ class Product extends Model implements HasMedia
 
     public function isOutOfStock(int $qte)
     {
-        return $qte > $this->stock->qte_rest;
+        return $qte > $this->qte_rest;
     }
 
     public function getFormatedPriceAttribute()

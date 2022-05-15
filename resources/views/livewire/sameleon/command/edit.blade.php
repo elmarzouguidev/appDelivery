@@ -13,7 +13,7 @@
                 <label for="designation">{{ __('invoice.form.article_designation') }} *</label>
                 <textarea name="orderProducts[{{ $index }}][designation]" rows="3"
                     class="form-control @error('articles.*.designation') is-invalid @enderror"
-                    required {{$readonly}} > {{ $orderProduct->pivot->designation }}</textarea>
+                    required disabled > {{ $orderProduct->designation }}</textarea>
 
                 @error('articles.*.designation')
                     <span class="invalid-feedback" role="alert">
@@ -25,10 +25,10 @@
             <div class="mb-3 col-lg-3">
                 <label for="product">Produit *</label>
                 <select wire:ignore class="form-control" name="orderProducts[{{ $index }}][product_id]"
-                    data-indexer="{{ $index }}" {{$readonly}} >
+                    data-indexer="{{ $index }}" disabled >
 
                     <option value="{{ $orderProduct->id }}">
-                        {{ $orderProduct->name }}
+                        {{ $orderProduct->product }}
                     </option>
 
                 </select>
@@ -44,8 +44,8 @@
                 <label for="quantity">{{ __('invoice.form.article_qte') }} *</label>
 
                 <input type="number" name="orderProducts[{{ $index }}][quantity]" min="1"
-                    value="{{ $orderProduct->pivot->quantity }}"
-                    class="form-control @error('articles.*.quantity') is-invalid @enderror"  {{$readonly}} required />
+                    value="{{ $orderProduct->quantity }}"
+                    class="form-control @error('articles.*.quantity') is-invalid @enderror" disabled required />
 
                 @error('orderProducts.quantity')
                     <span class="invalid-feedback" role="alert">
@@ -57,8 +57,8 @@
             <div class="mb-3 col-lg-2">
                 <label for="prix_unitaire">Prix U.T *</label>
                 <input type="number" name="orderProducts[{{ $index }}][prix_unitaire]"
-                    value="{{ $orderProduct->pivot->price_ht }}"
-                    class="form-control @error('articles.*.prix_unitaire') is-invalid @enderror" {{$readonly}} />
+                    value="{{ $orderProduct->prix_uni }}"
+                    class="form-control @error('articles.*.prix_unitaire') is-invalid @enderror" disabled />
 
                 @error('prix_unitaire')
                     <span class="invalid-feedback" role="alert">
@@ -69,8 +69,8 @@
             <div class="mb-3 col-lg-2">
                 <label for="price_total">Prix TOTAL *</label>
                 <input type="text" name="orderProducts[{{ $index }}][price_total]"
-                    value="{{ $orderProduct->pivot->price_total }}"
-                    class="form-control @error('articles.*.price_total') is-invalid @enderror" readonly />
+                    value="{{ $orderProduct->prix_total }}"
+                    class="form-control @error('articles.*.price_total') is-invalid @enderror" readonly disabled />
 
                 @error('price_total')
                     <span class="invalid-feedback" role="alert">
@@ -81,7 +81,7 @@
 
             <div class="mb-3 col-lg-1">
 
-                <button {{$disabled}} wire:click.prevent="removeProduct({{ $orderProduct->pivot->id }})" type="button"
+                <button {{$disabled}} wire:click.prevent="removeProduct('{{ $orderProduct->uuid }}')" type="button"
                     class="mt-4 btn btn-danger waves-effect waves-light">
                     <i class="fas fa-trash-alt font-size-16"></i>
                 </button>

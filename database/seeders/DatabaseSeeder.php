@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
 
     //\App\Models\Sameleon\Product::factory(5)->create();
 
-    $users = User::factory(10)->create();
+    /*$users = User::factory(10)->create();
 
     foreach ($users as $user) {
       $this->callWith(ProductSeeder::class, ['user' => $user]);
@@ -43,7 +43,6 @@ class DatabaseSeeder extends Seeder
 
     foreach ($products as $product) {
       $this->callWith(StockSeeder::class, ['product' => $product]);
-    }
-
+    }*/
   }
 }

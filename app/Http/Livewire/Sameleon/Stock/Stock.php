@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Sameleon\Stock;
 
+use App\Models\Sameleon\Product;
 use App\Models\Sameleon\Stock as SameleonStock;
 use Livewire\Component;
 
@@ -18,18 +19,17 @@ class Stock extends Component
     {
         if (auth()->user()->hasRole('Client')) {
 
-            $stocks = SameleonStock::whereUserId(auth()->id())
+            $stocks = Product::whereUserId(auth()->id())
                 ->whereUserUuid(auth()->user()->uuid)
-                ->with('product')
                 ->get();
         } else {
 
-            $stocks = SameleonStock::with('product','user')->get();
+            $stocks = Product::with('client')->get();
         }
         return view('livewire.sameleon.stock.stock', compact('stocks'));
     }
 
-    public function editStock(SameleonStock $stock)
+    public function editStock(Product $stock)
     {
         
         $this->showEditStock = true;

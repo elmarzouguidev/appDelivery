@@ -17,8 +17,8 @@
                                             Filters
                                         </button>
                                     @endif --}}
-                                    @if(auth()->user()->products()->count()<=0)
-                                    <a href="{{route('admin:products.create',['shoud_product'=>true])}}" class="btn btn-info">
+                                    @if(auth()->user()->products()->count() <= 0)
+                                    <a href="{{route('admin:products.create',['shoud_product' => true])}}" class="btn btn-info">
                                         Ajouter un produit
                                     </a>
                                     @else
@@ -27,10 +27,10 @@
                                         Ajouter une commande
                                     </button>
                                     @endif
-                                    {{--<button class="btn btn-primary" type="button" data-bs-toggle="modal"
+                                    <button class="btn btn-primary" type="button" data-bs-toggle="modal"
                                         data-bs-target=".importCommandModal">
                                         Importer des commands
-                                    </button>--}}
+                                    </button>
                                     @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
                                         @if(count($selectedCommands))
                                             <button class="btn btn-primary" type="button" data-bs-toggle="modal"
@@ -110,7 +110,6 @@
                                                      <a style="color:#2f5393 !important" href="#"> {{ $command->code }}</a>
                                                      @else
                                                      <a style="color:#2f5393 !important" href="{{route('admin:commands.edit',$command->uuid)}}"> {{ $command->code }}</a>
-
                                                     @endif
                                                 </strong>
                                             </p>
@@ -125,22 +124,22 @@
                                             <p class="text-strong mb-0">{!! $command->client_address !!}</p>
                                         </td>
                                         <td>
-                                            @foreach ($command->products as $product)
+                                            @foreach ($command->items as $item)
 
                                                 <p class="text-strong mb-0">
-                                                    <strong>{{ $product->name }}</strong>
+                                                    <strong>{{ $item->product }}</strong>
                                                 </p>
                                               
                                                 <div>
 
-                                                    <p class="text-muted mb-0">{{ $product->price }}(DH) x
-                                                        {{ $product->pivot->quantity }}
+                                                    <p class="text-muted mb-0">{{ $item->prix_uni }} (DH) x
+                                                        {{ $item->quantity }}
                                                     </p>
                                                     <br>
-                                                    @if($product->stock->is_out)
+                                                    @if($item->is_out)
                                                     {{--<p style="color:red">rupture de stock</p>--}}
                             
-                                                    <a class="btn btn-primary btn-sm"  href="{{route('admin:stock.index',['isOut'=>$product->stock->uuid])}}">
+                                                    <a class="btn btn-primary btn-sm"  href="{{route('admin:stock.index',['isOut' => $item->uuid])}}">
                                                         augmenter le stock
                                                     </a>
                                                     @endif
@@ -150,7 +149,7 @@
                                         </td>
                                         <td>
                                             {{-- $command->products->sum('pivot.price_total') --}}
-                                            {{ number_format($command->products_sum_product_commandprice_total, 2) }}
+                                            {{ number_format($command->items_sum_prix_total, 2) }}
                                             DH
                                         </td>
                                         @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
@@ -167,7 +166,12 @@
                                         <td>
                                             @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin','Delivery'))
                                                
-                                                    <button id="editStatus"
+                                                  @php
+                                                      $disabled = '';
+                                                      $command->invoice && optional($command->invoice)->cloture == 1 ? $disabled = "disabled" : '' 
+                                                  @endphp
+                                                    <button id="editStatus" {{$disabled}}
+                                                       
                                                         wire:click="editStatus('{{ $command->uuid }}')" type="button"
                                                         class="btn btn-sm {{ __('status.classes.' . $command->status) }} waves-effect waves-light">
                                                         {{ __('status.statuses.' . $command->status) }}
@@ -183,9 +187,9 @@
                                                     {{ __('status.statuses.' . $command->status) }}
                                                 </button>
                                             @endif
-                                            @if ($command->status == App\Status\Status::REPORTE && $command->comments()->count())
+                                            @if ($command->status == App\Status\Status::REPORTE && $command->comment != null && $command->reported_at != null)
                                                 <p class="text-strong mb-0 mt-2" style="color:red">
-                                                    <b>{{ $command->comments()->latest()->value('reported_at')->format('d-m-Y') ?? '' }}</b>
+                                                    <b>{{ $command->reported_at->format('d-m-Y') ?? '' }}</b>
                                                 </p>
                                             @endif
 
@@ -198,9 +202,9 @@
                                             </button>
                                         </td> --}}
                                         <td>
-                                            @if ($command->comments()->count())
+                                            @if ($command->comment != null && $command->reported_at != null)
                                                 <p class=" mb-0">
-                                                    {{ $command->comments()->latest()->value('content') }}
+                                                    {!! $command->comment !!}
                                                 </p>
                                             @endif
                                         </td>

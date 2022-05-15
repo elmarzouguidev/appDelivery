@@ -39,13 +39,14 @@ class AdminProductController extends Controller
         $product->description = $request->description;
         $product->price = $request->price;
         $product->qte_global = $request->qte_global;
+        $product->qte_rest = $request->qte_global;
 
         $product->client()->associate(auth()->id());
         $product->user_uuid = auth()->user()->uuid;
 
         $product->save();
         
-        if ($product) {
+        /*if ($product) {
 
             $product->stock()->create([
                 'product_uuid' => $product->uuid,
@@ -54,7 +55,7 @@ class AdminProductController extends Controller
                 'qte_global' => $request->qte_global,
                 'qte_rest' => $request->qte_global
             ]);
-        }
+        }*/
 
         if ($request->hasFile('photo')) {
 
@@ -81,6 +82,7 @@ class AdminProductController extends Controller
         $product->description = $request->description;
         $product->price = $request->price;
         $product->qte_global = $request->qte_global;
+        $product->qte_rest = $request->qte_global;
 
         $product->save();
 
@@ -103,9 +105,9 @@ class AdminProductController extends Controller
 
         if ($product) {
 
-            $product->commands()->detach();
+            //$product->commands()->detach();
             
-            $product->stock()->delete();
+           // $product->stock()->delete();
 
             $product->delete();
 

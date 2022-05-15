@@ -46,7 +46,6 @@ class CommandComposer
 
     private function timeToLive()
     {
-
         return \Carbon\Carbon::now()->addDays(30);
     }
 }

@@ -10,6 +10,7 @@ use App\Models\Sameleon\User;
 use App\Repositories\City\CityInterface;
 use Livewire\Component;
 use App\Status\Status;
+use Illuminate\Support\Carbon;
 
 class Commands extends Component
 {
@@ -42,7 +43,7 @@ class Commands extends Component
     protected $updatesQueryString = ['filter'];
 
     protected $rules = [
-        'reportTime' => 'required',
+        'reportTime' => 'required|date',
         'reportComment' => 'nullable|string',
     ];
 
@@ -69,22 +70,25 @@ class Commands extends Component
 
             $commands =  $command->where('user_id', auth()->id())
                 ->where('user_uuid', auth()->user()->uuid)
-                ->withSum('products', 'product_command.price_total')
-                ->with('products.stock')
-                ->with(['invoice:uuid,id,full_number', 'city:id,name'])
+                ->with('items')
+                ->withSum('items', 'prix_total')
+                ->with(['invoice:uuid,id,full_number,cloture', 'city:id,name'])
                 ->orderByRaw("created_at DESC")
                 ->get()->prioritize(function ($item) {
                     return $item->status == Status::NON_TRAITE
                         ||
                         $item->status == Status::LIVRE;
                 });
+
+            //dd( $commands);
             $delivries = [];
         } elseif (auth()->user()->hasRole('Delivery')) {
 
             $commands =  $command->where('delivery_id', auth()->id())
                 ->where('delivery_uuid', auth()->user()->uuid)
                 ->where('status', Status::ENCOURS)
-                ->withSum('products', 'product_command.price_total')
+                ->with('items')
+                ->withSum('items', 'prix_total')
                 //->with('products.stock')
                 ->with(['city:id,name'])
                 ->orderByRaw("created_at DESC")
@@ -95,9 +99,10 @@ class Commands extends Component
         } else {
 
 
-            $commands = $command->withSum('products', 'product_command.price_total')
-                ->with(['invoice:uuid,id,full_number', 'city:id,name', 'delivery:id,nom,prenom'])
-                ->with('products.stock')
+            $commands = $command
+                ->with('items')
+                ->withSum('items', 'prix_total')
+                ->with(['invoice:uuid,id,full_number,cloture', 'city:id,name', 'delivery:id,nom,prenom'])
                 ->orderByRaw("created_at DESC")
                 /* ->get()->map(function ($value, $key) {
                     return $value->status == Status::NON_TRAITE ||
@@ -133,7 +138,9 @@ class Commands extends Component
         $this->reportTime = now()->format('d-m-Y');
 
         $this->reportComment = '';
+
         if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin')) {
+
             $this->clients = User::role('Client')->select(['nom', 'prenom', 'id'])->get();
             $this->products = Product::select(['id', 'name'])->get();
             $this->citiesList = app(CityInterface::class)->getCities();
@@ -168,13 +175,15 @@ class Commands extends Component
     public function editCommand(Command $command)
     {
 
+        //dd('fff');
         $this->showEdit = true;
 
         $this->cities = app(CityInterface::class)->getCities();
 
-        $this->commandEdit = $command->load('products');
+        $this->commandEdit = $command->load('items')->loadSum('items', 'prix_total');
 
-        //dd(  $this->command);
+        //dd($this->commandEdit);
+
         $this->dispatchBrowserEvent('show-edit');
     }
 
@@ -187,36 +196,42 @@ class Commands extends Component
 
         $this->dispatchBrowserEvent('show-edit-status');
     }
+
     public function changeStatus(Command $command, int $status)
     {
 
         $command->update(['status' => $status]);
 
-        $products = $command->products;
+        $items = $command->items;
+
+        //dd($products);
 
         if ($status == Status::LIVRE) {
 
             $command->update(['delivered_at' => now()]);
 
-            $products->each(function ($product, $key) use ($command) {
+            $items->each(function ($item, $key) use ($command) {
 
-                $qteGlobal = $product->stock->qte_rest;
+                $prod = Product::find($item->product_id);
 
-                $qteRest = $qteGlobal - $product->pivot->quantity;
+                $qteGlobal = $prod->qte_rest;
 
-                if ($qteGlobal < $product->pivot->quantity) {
+                $qteRest = $qteGlobal - $item->quantity;
 
-                    $product->stock()->update(['qte_rest' => 0, 'is_out' => true, 'qte_livre' => 0]);
+                if ($qteGlobal < $item->quantity) {
+
+                    $prod->update(['qte_rest' => 0, 'is_out' => true, 'qte_livre' => 0]);
 
                     $command->update(['status' => Status::MANQUE_DE_STOCK]);
                 } else {
 
-                    if ($qteRest < $qteGlobal && $product->stock->qte_livre != $product->stock->qte_global && $product->pivot->quantity > 0) {
-                        $product->stock()->increment('qte_livre', $product->pivot->quantity);
-                        $product->stock()->update(['qte_rest' => $product->stock->qte_rest - $product->pivot->quantity]);
+                    if ($qteRest < $qteGlobal && $prod->qte_livre != $prod->qte_global && $item->quantity > 0) {
+                        $prod->increment('qte_livre', $item->quantity);
+                        $prod->increment('total_commands', $item->quantity);
+                        $prod->decrement('qte_rest', $item->quantity);
                     }
-                    if ($product->stock->qte_livre == $product->stock->qte_global) {
-                        $product->stock()->update(['qte_rest' => 0]);
+                    if ($prod->qte_livre == $prod->qte_global) {
+                        $prod->update(['qte_rest' => 0]);
                     }
                 }
             });
@@ -224,18 +239,24 @@ class Commands extends Component
 
             $command->update(['delivered_at' => '1993-03-03 00:00:00']);
 
-            $products->each(function ($product, $key) use ($command, $status) {
+            $items->each(function ($item, $key) use ($command, $status) {
 
-                if ($product->stock->qte_rest < $product->pivot->quantity) {
+                $prod = Product::find($item->product_id);
 
-                    $product->stock()->update(['qte_rest' => 0, 'is_out' => true]);
+                if ($prod->qte_rest < $item->quantity) {
+
+                    $prod->update(['qte_rest' => 0, 'is_out' => true]);
                 }
 
-                if ($product->stock->qte_livre > 0 && $product->pivot->quantity > 0) {
-                    $product->stock()->decrement('qte_livre', $product->pivot->quantity);
-                    $product->stock()->update(['qte_rest' => $product->stock->qte_rest + $product->pivot->quantity]);
+                if ($prod->qte_livre > 0 && $item->quantity > 0) {
+
+                    $prod->decrement('qte_livre', $item->quantity);
+                    $prod->decrement('total_commands', $item->quantity);
+                    $prod->increment('qte_rest', $item->quantity);
                 }
+
                 $command->update(['status' => $status]);
+
             });
         }
 
@@ -243,13 +264,13 @@ class Commands extends Component
 
         if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin')) {
 
-            if ($this->commandEdit->comments()->latest()->count()) {
+            if ($this->commandEdit->reported_at != null) {
 
-                $this->reportTime = $this->commandEdit->comments()->latest()->value('reported_at')->format('d-m-Y');
-                $this->reportComment = $this->commandEdit->comments()->latest()->value('content');
+                $this->reportTime = $this->commandEdit->reported_at->format('d-m-Y');
+
             }
 
-            //dd($this->reportTime,$this->reportComment);
+            $this->reportComment =  str_replace('<br />','', $this->commandEdit->comment);
 
             $this->dispatchBrowserEvent('status-reported');
         }
@@ -266,15 +287,19 @@ class Commands extends Component
 
     public function saveReportDetail()
     {
-        $this->validate();
-        
-        // dd($this->reportComment, "---", $this->reportTime, '***', $this->commandEdit);
 
-        $this->commandEdit->comments()->updateOrCreate(['commentable_id' => $this->commandEdit->id], [
-            'user_id' => auth()->id(),
-            'content' => $this->reportComment,
-            'reported_at' => $this->reportTime,
-        ]);
+        $this->validate();
+
+        if ($this->commandEdit->status == Status::LIVRE) {
+
+            $this->commandEdit->update(['comment' => null, 'reported_at' => null]);
+
+        } else {
+
+            $reportedDate = Carbon::createFromFormat('d-m-Y', $this->reportTime)->format('Y-m-d');
+
+            $this->commandEdit->update(['comment' => $this->reportComment, 'reported_at' => $reportedDate]);
+        }
 
         $this->dispatchBrowserEvent('notify-change');
 
@@ -295,6 +320,7 @@ class Commands extends Component
 
             $this->data['from_to'] = implode(',', array_reverse($this->data['from_to']));
         }
+        
         $this->data = array_filter(array_map('trim', $this->data));
 
         $this->filter = $this->data;

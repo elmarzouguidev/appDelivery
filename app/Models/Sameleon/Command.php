@@ -29,6 +29,7 @@ class Command extends Model
         'price_total',
         'frais',
         'is_closed',
+        'is_imported',
         'invoice_id',
         'invoice_uuid',
         'user_id',
@@ -38,29 +39,34 @@ class Command extends Model
         'client_phone',
         'client_city',
         'client_address',
-        'product_ref',
-        'qte',
-        'price_total',
-        'source',
-        'boutique',
-        'is_imported',
+
         'delivered_at',
         'refused_at',
+        'reported_at',
         'region_id',
         'region_uuid',
         'company_uuid',
         'company_id',
         'delivery_id',
-        'delivery_uuid'
+        'delivery_uuid',
+        'comment'
     ];
 
     protected  $casts = [
+
         'delivered_at' => 'date:d-m-Y',
         'refused_at' => 'date:d-m-Y',
+        'reported_at' => 'date:d-m-Y',
         'is_imported' => 'boolean',
         'is_closed' => 'boolean'
 
     ];
+
+
+    public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
 
     public function client()
     {
@@ -94,11 +100,6 @@ class Command extends Model
         return $this->belongsTo(Invoice::class);
     }
 
-    public function comments()
-    {
-        return $this->morphMany(Comment::class, 'commentable');
-    }
-
     public function articles()
     {
         return $this->hasMany(Article::class);
@@ -129,6 +130,16 @@ class Command extends Model
     {
         $this->attributes['client_address'] = nl2br($value);
     }
+
+    public function setCommentAttribute($value)
+    {
+        $this->attributes['comment'] = nl2br($value);
+    }
+
+    /*public function getCommentAttribute()
+    {
+        return str_replace('<br />','', $this->attributes['comment']);
+    }*/
 
     public function getTotalPriceAttribute()
     {
@@ -285,11 +296,11 @@ class Command extends Model
                 ->whereUserId(auth()->id())
                 ->whereUserUuid(auth()->user()->uuid)
                 ->whereStatus(Status::LIVRE)
-                ->withSum('products', 'product_command.price_total')
+                ->withSum('items', 'prix_total')
                 ->get()
-                ->sum('products_sum_product_commandprice_total');
+                ->sum('items_sum_prix_total');
         } else {
-            return $query->whereStatus(Status::LIVRE)->withSum('products', 'product_command.price_total')->get()->sum('products_sum_product_commandprice_total');
+            return $query->whereStatus(Status::LIVRE)->withSum('items', 'prix_total')->get()->sum('items_sum_prix_total');
         }
         /*return $this->with('products')->get()->each(function ($command) {
              dd($command->products->sum('pivot.price_total'));
@@ -311,11 +322,11 @@ class Command extends Model
 
             $number = ($model->max('id') + 1);
 
-            $code = str_pad($number, 6, 0, STR_PAD_LEFT);
+            $code = str_pad($number, 4, 0, STR_PAD_LEFT);
 
             $model->code = $prefix . $code . '-' . now()->format('dmY');
 
-            $model->track_code = str_pad(($model->max('id') + 1), 5, 0, STR_PAD_LEFT) . Str::random(10);
+            $model->track_code = str_pad(($model->max('id') + 1), 4, 0, STR_PAD_LEFT) . Str::random(10);
         });
     }
 }

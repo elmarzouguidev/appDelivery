@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddIsImportedToCommandsTable extends Migration
+class AddTotalCommandsToProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddIsImportedToCommandsTable extends Migration
      */
     public function up()
     {
-        Schema::table('commands', function (Blueprint $table) {
-            $table->boolean('is_imported')->default(false)->after('boutique');
+        Schema::table('products', function (Blueprint $table) {
+            $table->string('total_commands')->default(0)->after('code');
         });
     }
 
@@ -25,8 +25,8 @@ class AddIsImportedToCommandsTable extends Migration
      */
     public function down()
     {
-        Schema::table('commands', function (Blueprint $table) {
-            $table->dropColumn('is_imported');
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn('total_commands');
         });
     }
 }

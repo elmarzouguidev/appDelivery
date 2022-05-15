@@ -66,7 +66,7 @@ class GeneratDayInvoiceAction
                 $q->whereDay('delivered_at', now()->format('d'))
                     ->orWhereYear('delivered_at', '1993');
             })
-            ->withSum('products', 'product_command.price_total')
+            ->withSum('items', 'prix_total')
             ->latest()->get();
 
         if ($commands) {
@@ -75,7 +75,7 @@ class GeneratDayInvoiceAction
 
                 $item->update(['invoice_id' => $this->invoice->id, 'invoice_uuid' => $this->invoice->uuid]);
 
-                $price = $item->status == Status::REFUSE ? 0 : $item->products_sum_product_commandprice_total;
+                $price = $item->status == Status::REFUSE ? 0 : $item->items_sum_prix_total;
 
                 return [
                     'command_id' => $item->id,
@@ -105,7 +105,7 @@ class GeneratDayInvoiceAction
             ->whereHas('articles', function ($query) {
                 $query->where('price_total', '<=', 0);
             })
-            ->withSum('products', 'product_command.price_total')
+            ->withSum('items', 'prix_total')
             ->get();
         $commandsRefused = auth()
             ->user()
@@ -120,7 +120,7 @@ class GeneratDayInvoiceAction
 
         if ($commandsLivred) {
             $commandsLivred->map(function ($item, $key) {
-                $price = $item->products_sum_product_commandprice_total;
+                $price = $item->items_sum_prix_total;
                 $item->articles()->update(['price_total' => $price]);
             });
         }
@@ -145,7 +145,7 @@ class GeneratDayInvoiceAction
                    ->orWhereYear('delivered_at', '1993');
             })
             ->whereNotNull('delivered_at')
-            ->withSum('products', 'product_command.price_total')
+            ->withSum('items', 'prix_total')
             ->latest()->get();
 
         if ($commands) {
@@ -154,7 +154,7 @@ class GeneratDayInvoiceAction
 
                 $item->update(['invoice_id' => $this->invoice->id, 'invoice_uuid' => $this->invoice->uuid]);
 
-                $price = $item->status == Status::REFUSE ? 0 : $item->products_sum_product_commandprice_total;
+                $price = $item->status == Status::REFUSE ? 0 : $item->items_sum_prix_total;
 
                 return [
                     'command_id' => $item->id,

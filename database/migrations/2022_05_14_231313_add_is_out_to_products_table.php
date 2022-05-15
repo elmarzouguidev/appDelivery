@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class IsClosedToCommandsTable extends Migration
+class AddIsOutToProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class IsClosedToCommandsTable extends Migration
      */
     public function up()
     {
-        Schema::table('commands', function (Blueprint $table) {
-            $table->boolean('is_closed')->default(false)->after('track_code');
+        Schema::table('products', function (Blueprint $table) {
+            $table->boolean('is_out')->default(0)->after('total_commands');
         });
     }
 
@@ -25,8 +25,8 @@ class IsClosedToCommandsTable extends Migration
      */
     public function down()
     {
-        Schema::table('commands', function (Blueprint $table) {
-            $table->dropColumn('is_closed');
+        Schema::table('products', function (Blueprint $table) {
+            $table->dropColumn('is_out');
         });
     }
 }

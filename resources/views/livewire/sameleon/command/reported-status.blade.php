@@ -37,7 +37,9 @@
                                     <label>Comment</label>
                                     <textarea wire:model.defer="reportComment" name="reportComment" id="textarea"
                                         class="form-control @error('reportComment') is-invalid @enderror"
-                                         rows="5"></textarea>
+                                         rows="5">
+                                      
+                                        </textarea>
 
                                     @error('reportComment')
                                         <span class="invalid-feedback" role="alert">
