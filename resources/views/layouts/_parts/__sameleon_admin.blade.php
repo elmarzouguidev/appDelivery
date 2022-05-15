@@ -1,3 +1,4 @@
+@if(auth()->user()->hasAnyRole('Client','SuperAdmin','Admin'))
 <li>
     <a href="{{ route('admin:home') }}" class="waves-effect">
         <i class="bx bx-home-circle"></i>{{-- <span class="badge rounded-pill bg-info float-end">04</span> --}}
@@ -23,7 +24,7 @@
     </a>
 
 </li>
-
+@endif
 <li class="menu-title" key="t-commands">Commandes</li>
 
 <li>
@@ -52,6 +53,7 @@
     </li>
 @endif    
 
+@if(auth()->user()->hasAnyRole('Client','SuperAdmin','Admin'))
 <li class="menu-title" key="t-invoices">Factures</li>
 
 <li>
@@ -90,6 +92,8 @@
         <span key="t-contact">{{ __('Contact') }}</span>
     </a>
 </li>
+
+@endif  
 
 @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
     <li class="menu-title" key="t-components">{{ __('navbar.advanced') }}</li>
