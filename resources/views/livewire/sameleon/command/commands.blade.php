@@ -40,13 +40,13 @@
                                         @endif
                                     @endif
 
-                                    @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
+                                    {{--@if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
                                       
                                             <button class="btn btn-danger deleteCMD" type="button">
                                               
-                                                Supprimer {{--: @json($selectedCommands)--}}
+                                                Supprimer
                                             </button>
-                                    @endif
+                                    @endif--}}
                                 </div>
                             </div>
                         </div>
