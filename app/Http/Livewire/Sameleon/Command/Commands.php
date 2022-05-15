@@ -236,6 +236,7 @@ class Commands extends Component
                         }
                         if ($prod->qte_livre == $prod->qte_global) {
                             $prod->update(['qte_rest' => 0]);
+                            /***ok */
                         }
                     }
                 }
