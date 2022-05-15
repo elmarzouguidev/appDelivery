@@ -7,7 +7,7 @@
                         <div class=" mx-auto mb-4">
                             <span class="avatar-title bg-primary bg-soft text-primary font-size-20">
 
-                                {{ number_format($command->products_sum_product_commandprice_total, 2) }}DH
+                                {{ number_format($command->items_sum_prix_total, 2) }}DH
 
                             </span>
                         </div>
@@ -48,16 +48,13 @@
                         <div class="contact-links d-flex font-size-17">
                             <div class="flex-fill">
 
-                                @foreach ($command->products as $product)
+                                @foreach ($command->items as $item)
                                     <div>
 
-                                        <p class="text-strong mb-0">
-                                            <strong>{{ $product->name }}</strong>
+                                        <p class="text-muted mb-0">{{ $item->prix_uni }} (DH) x
+                                                        {{ $item->quantity }}
                                         </p>
 
-                                        <p class="text-muted mb-0">{{ $product->price }} (DH) x
-                                            {{ $product->pivot->quantity }}
-                                        </p>
                                         <br>
 
                                     </div>
