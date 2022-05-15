@@ -25,10 +25,9 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
     public function model(array $row)
     {
 
-        $product = Product::whereName($row["produit_ref"])->first();
+        $product = Product::whereName($row["produit_ref"])->whereUserId(auth()->id())->first();
 
         $ville = City::whereName($row["ville"])->first();
-
 
         $data = [
             'client_name'     => $row["destinataire"],
@@ -43,29 +42,17 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
         //dd($data);
         $command =  Command::create($data);
 
-        if ($product) {
+        $command->items()->create([
 
-            $command->items()->create([
-                'command_uuid' => $command->uuid,
-                'product_id' => $product->id,
-                'product_uuid' => $product->uuid,
-                'designation' => $row["produit_ref"],
-                'product' => $row["produit_ref"],
-                'quantity' => $row["qte"],
-                'prix_uni' => $row["prix"] / $row["qte"],
-                'prix_total' => $row["prix"],
-            ]);
-        } else {
-
-            $command->items()->create([
-                'command_uuid' => $command->uuid,
-                'designation' => $row["produit_ref"],
-                'product' => $row["produit_ref"],
-                'quantity' => $row["qte"],
-                'prix_uni' => $row["prix"] / $row["qte"],
-                'prix_total' => $row["prix"],
-            ]);
-        }
+            'command_uuid' => $command->uuid,
+            'product_id' => $product ?  $product->id : null,
+            'product_uuid' => $product ? $product->uuid : null,
+            'designation' => $row["produit_ref"],
+            'product' => $row["produit_ref"],
+            'quantity' => $row["qte"],
+            'prix_uni' => $row["prix"] / $row["qte"],
+            'prix_total' => $row["prix"],
+        ]);
     }
 
     /*public function headingRow(): int
