@@ -214,24 +214,28 @@ class Commands extends Component
 
                 $prod = Product::find($item->product_id);
 
-                $qteGlobal = $prod->qte_rest;
+                if ($prod) {
 
-                $qteRest = $qteGlobal - $item->quantity;
+                    $qteGlobal = $prod->qte_rest;
 
-                if ($qteGlobal < $item->quantity) {
+                    $qteRest = $qteGlobal - $item->quantity;
 
-                    $prod->update(['qte_rest' => 0, 'is_out' => true, 'qte_livre' => 0]);
+                    if ($qteGlobal < $item->quantity) {
 
-                    $command->update(['status' => Status::MANQUE_DE_STOCK]);
-                } else {
+                        $prod->update(['qte_rest' => 0, 'is_out' => true, 'qte_livre' => 0]);
 
-                    if ($qteRest < $qteGlobal && $prod->qte_livre != $prod->qte_global && $item->quantity > 0) {
-                        $prod->increment('qte_livre', $item->quantity);
-                        $prod->increment('total_commands', $item->quantity);
-                        $prod->decrement('qte_rest', $item->quantity);
-                    }
-                    if ($prod->qte_livre == $prod->qte_global) {
-                        $prod->update(['qte_rest' => 0]);
+                        $command->update(['status' => Status::MANQUE_DE_STOCK]);
+                        
+                    } else {
+
+                        if ($qteRest < $qteGlobal && $prod->qte_livre != $prod->qte_global && $item->quantity > 0) {
+                            $prod->increment('qte_livre', $item->quantity);
+                            $prod->increment('total_commands', $item->quantity);
+                            $prod->decrement('qte_rest', $item->quantity);
+                        }
+                        if ($prod->qte_livre == $prod->qte_global) {
+                            $prod->update(['qte_rest' => 0]);
+                        }
                     }
                 }
             });
@@ -243,21 +247,23 @@ class Commands extends Component
 
                 $prod = Product::find($item->product_id);
 
-                if ($prod->qte_rest < $item->quantity) {
+                if ($prod) {
 
-                    $prod->update(['qte_rest' => 0, 'is_out' => true]);
+                    if ($prod->qte_rest < $item->quantity) {
+
+                        $prod->update(['qte_rest' => 0, 'is_out' => true]);
+                    }
+
+                    if ($prod->qte_livre > 0 && $item->quantity > 0) {
+
+                        $prod->decrement('qte_livre', $item->quantity);
+                        $prod->decrement('total_commands', $item->quantity);
+                        $prod->increment('qte_rest', $item->quantity);
+                    }
                 }
-
-                if ($prod->qte_livre > 0 && $item->quantity > 0) {
-
-                    $prod->decrement('qte_livre', $item->quantity);
-                    $prod->decrement('total_commands', $item->quantity);
-                    $prod->increment('qte_rest', $item->quantity);
-                }
-
-                $command->update(['status' => $status]);
-
             });
+
+            $command->update(['status' => $status]);
         }
 
         $this->isRepoted = true;
@@ -267,10 +273,9 @@ class Commands extends Component
             if ($this->commandEdit->reported_at != null) {
 
                 $this->reportTime = $this->commandEdit->reported_at->format('d-m-Y');
-
             }
 
-            $this->reportComment =  str_replace('<br />','', $this->commandEdit->comment);
+            $this->reportComment =  str_replace('<br />', '', $this->commandEdit->comment);
 
             $this->dispatchBrowserEvent('status-reported');
         }
@@ -293,7 +298,6 @@ class Commands extends Component
         if ($this->commandEdit->status == Status::LIVRE) {
 
             $this->commandEdit->update(['comment' => null, 'reported_at' => null]);
-
         } else {
 
             $reportedDate = Carbon::createFromFormat('d-m-Y', $this->reportTime)->format('Y-m-d');
@@ -320,7 +324,7 @@ class Commands extends Component
 
             $this->data['from_to'] = implode(',', array_reverse($this->data['from_to']));
         }
-        
+
         $this->data = array_filter(array_map('trim', $this->data));
 
         $this->filter = $this->data;
