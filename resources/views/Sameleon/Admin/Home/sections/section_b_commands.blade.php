@@ -12,7 +12,7 @@
                         <div class="flex-shrink-0 align-self-center">
                             <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
 
-                                <a href="">
+                                <a href="{{ route('admin:commands.index') }}">
                                     <span class="avatar-title">
                                         <i class="bx bx-cart-alt font-size-24"></i>
                                     </span>
