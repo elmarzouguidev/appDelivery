@@ -39,7 +39,9 @@
                                 <th scope="col">Qté Restant</th>
                                 <th scope="col">Détail</th>
                                 <th scope="col">Date</th>
+                                @if(auth()->user()->hasAnyRole('Admin','SuperAdmin'))
                                 <th scope="col">Action</th>
+                                @endif
                             </tr>
                         </thead>
 
@@ -104,6 +106,7 @@
                                     <td>
                                         {{ $stock->created_at }}
                                     </td>
+                                    @endif
                                     <td>
                                         <div class="d-flex gap-3">
 
@@ -128,6 +131,7 @@
                                         @method('DELETE')
                                         <input type="hidden" name="stockId" value="{{ $stock->uuid }}">
                                     </form>--}}
+                                    @endif
                                 </tr>
                             @endforeach
 
