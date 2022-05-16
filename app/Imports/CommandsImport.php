@@ -50,7 +50,7 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
             'designation' => $row["produit_ref"],
             'product' => $row["produit_ref"],
             'quantity' => $row["qte"],
-            'prix_uni' => $row["prix"] / $row["qte"],
+            'prix_uni' => round($row["prix"] / $row["qte"]),
             'prix_total' => $row["prix"],
         ]);
     }
