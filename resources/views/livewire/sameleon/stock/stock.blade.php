@@ -106,7 +106,7 @@
                                     <td>
                                         {{ $stock->created_at }}
                                     </td>
-                                    @endif
+                                    @if(auth()->user()->hasAnyRole('Admin','SuperAdmin'))
                                     <td>
                                         <div class="d-flex gap-3">
 
