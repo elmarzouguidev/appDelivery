@@ -276,7 +276,7 @@ class Commands extends Component
                     }
                 }
             });
-        } else {
+        } elseif($status == Status::REFUSE) {
 
             $command->update(['delivered_at' => '1993-03-03 00:00:00']);
 
@@ -300,9 +300,11 @@ class Commands extends Component
                 }
             });
 
-            $command->update(['status' => $status]);
+            
         }
 
+        $command->update(['status' => $status]);
+        
         $this->isRepoted = true;
 
         if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin')) {
