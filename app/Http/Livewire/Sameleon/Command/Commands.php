@@ -63,6 +63,44 @@ class Commands extends Component
 
     public function render()
     {
+        if (request()->has('livred') && request()->livred == true) {
+            //array_push($this->filter['status'],['status'=>Status::LIVRE]);
+
+            $this->filter += ['status' => Status::LIVRE];
+
+            $this->emit('refresh');
+        }
+        if (request()->has('encours') && request()->encours == true) {
+            //array_push($this->filter['status'],['status'=>Status::LIVRE]);
+
+            $this->filter += ['status' => Status::ENCOURS];
+
+            $this->emit('refresh');
+        }
+
+        if (request()->has('pdr') && request()->pdr == true) {
+            //array_push($this->filter['status'],['status'=>Status::LIVRE]);
+
+            $this->filter += ['status' => Status::PAS_DE_REPONSE];
+
+            $this->emit('refresh');
+        }
+
+        if (request()->has('reported') && request()->reported == true) {
+            //array_push($this->filter['status'],['status'=>Status::LIVRE]);
+
+            $this->filter += ['status' => Status::REPORTE];
+
+            $this->emit('refresh');
+        }
+
+        if (request()->has('cancled') && request()->cancled == true) {
+            //array_push($this->filter['status'],['status'=>Status::LIVRE]);
+
+            $this->filter += ['status' => Status::REFUSE];
+
+            $this->emit('refresh');
+        }
 
         $command = new ItemsQuery(new Command, $this->filter);
 
@@ -226,7 +264,6 @@ class Commands extends Component
                         $prod->update(['qte_rest' => 0, 'is_out' => true, 'qte_livre' => 0]);
 
                         $command->update(['status' => Status::MANQUE_DE_STOCK]);
-                        
                     } else {
 
                         if ($qteRest < $qteGlobal && $prod->qte_livre != $prod->qte_global && $item->quantity > 0) {

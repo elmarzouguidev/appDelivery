@@ -35,9 +35,11 @@
 
                         <div class="flex-shrink-0 align-self-center">
                             <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
-                                <span class="avatar-title rounded-circle bg-primary">
-                                    <i class="bx bx-check-square font-size-24"></i>
-                                </span>
+                                <a href="{{ route('admin:commands.index', ['livred' => true]) }}">
+                                    <span class="avatar-title rounded-circle bg-primary">
+                                        <i class="bx bx-check-square font-size-24"></i>
+                                    </span>
+                                </a>
                             </div>
                         </div>
                     </div>

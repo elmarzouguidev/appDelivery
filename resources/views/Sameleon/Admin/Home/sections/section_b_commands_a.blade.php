@@ -12,7 +12,7 @@
                         <div class="flex-shrink-0 align-self-center">
                             <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
 
-                                <a href="">
+                                <a href="{{ route('admin:commands.index', ['encours' => true]) }}">
                                     <span class="avatar-title">
                                         <i class="bx bx-time-five font-size-24"></i>
                                     </span>
@@ -35,9 +35,11 @@
 
                         <div class="flex-shrink-0 align-self-center">
                             <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
-                                <span class="avatar-title rounded-circle bg-primary">
-                                    <i class="bx bx-phone-incoming font-size-24"></i>
-                                </span>
+                                <a href="{{ route('admin:commands.index', ['pdr' => true]) }}">
+                                    <span class="avatar-title rounded-circle bg-primary">
+                                        <i class="bx bx-phone-incoming font-size-24"></i>
+                                    </span>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -55,9 +57,11 @@
 
                         <div class="flex-shrink-0 align-self-center">
                             <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
-                                <span class="avatar-title rounded-circle bg-primary">
-                                    <i class="bx bx-history font-size-24"></i>
-                                </span>
+                                <a href="{{ route('admin:commands.index', ['reported' => true]) }}">
+                                    <span class="avatar-title rounded-circle bg-primary">
+                                        <i class="bx bx-history font-size-24"></i>
+                                    </span>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -75,9 +79,11 @@
 
                         <div class="flex-shrink-0 align-self-center">
                             <div class="avatar-sm rounded-circle bg-primary mini-stat-icon">
-                                <span class="avatar-title rounded-circle bg-primary">
-                                    <i class="bx bx-window-close font-size-24"></i>
-                                </span>
+                                <a href="{{ route('admin:commands.index', ['cancled' => true]) }}">
+                                    <span class="avatar-title rounded-circle bg-primary">
+                                        <i class="bx bx-window-close font-size-24"></i>
+                                    </span>
+                                </a>
                             </div>
                         </div>
                     </div>
