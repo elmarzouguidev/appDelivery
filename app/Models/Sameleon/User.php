@@ -84,6 +84,15 @@ class User extends Authenticatable
         }
     }
 
+    public function isActive()
+    {
+        if (auth()->user()->hasRole('Client')) {
+            return $this->active ? true : false;
+        } else {
+            return true;
+        }  
+    }
+
     public function group()
     {
         return $this->hasOne(Group::class);

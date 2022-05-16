@@ -40,7 +40,16 @@
                         @include('layouts._parts.__warning')
                 @endif
 
-                @yield('content')
+                @if(auth()->user()->isActive())
+
+                 @yield('content')
+
+                @else
+
+                 @include('layouts._parts.__disabled_account')
+                 
+                @endif
+
 
             </div>
 
