@@ -63,31 +63,29 @@ class Commands extends Component
 
     public function render()
     {
+        
+
         if (request()->has('livred') && request()->livred == true) {
-            //array_push($this->filter['status'],['status'=>Status::LIVRE]);
 
             $this->filter += ['status' => Status::LIVRE];
 
             $this->emit('refresh');
         }
         if (request()->has('encours') && request()->encours == true) {
-            //array_push($this->filter['status'],['status'=>Status::LIVRE]);
-
+       
             $this->filter += ['status' => Status::ENCOURS];
 
             $this->emit('refresh');
         }
 
         if (request()->has('pdr') && request()->pdr == true) {
-            //array_push($this->filter['status'],['status'=>Status::LIVRE]);
-
+      
             $this->filter += ['status' => Status::PAS_DE_REPONSE];
 
             $this->emit('refresh');
         }
 
         if (request()->has('reported') && request()->reported == true) {
-            //array_push($this->filter['status'],['status'=>Status::LIVRE]);
 
             $this->filter += ['status' => Status::REPORTE];
 
@@ -95,7 +93,6 @@ class Commands extends Component
         }
 
         if (request()->has('cancled') && request()->cancled == true) {
-            //array_push($this->filter['status'],['status'=>Status::LIVRE]);
 
             $this->filter += ['status' => Status::REFUSE];
 
@@ -136,7 +133,6 @@ class Commands extends Component
             return view('livewire.sameleon.command.commands-delivery', compact('commands', 'delivries'));
         } else {
 
-
             $commands = $command
                 ->with('items')
                 ->withSum('items', 'prix_total')
@@ -170,6 +166,8 @@ class Commands extends Component
 
     public function mount()
     {
+
+        $this->emit('refresh');
 
         $this->showEdit = false;
 
@@ -367,11 +365,8 @@ class Commands extends Component
         $this->data = array_filter(array_map('trim', $this->data));
 
         $this->filter = $this->data;
-
-        $this->emit('data:update');
-        //$this->data = null;
-        // dd($this->data);
-
+        //$this->emit('data:update');
+        $this->emit('refresh');
     }
 
     public function resetfilter()

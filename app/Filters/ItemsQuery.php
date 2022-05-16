@@ -29,6 +29,8 @@ class ItemsQuery extends QueryBuilder
             AllowedFilter::scope('city', 'cities_filters'),
 
         ]);
+
+       
     }
 
     /*public function app()
