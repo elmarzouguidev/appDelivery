@@ -82,7 +82,8 @@ class Products extends Component
             }
 
             $this->orderProducts[$array[1]]['prix_unitaire'] = $prod->price;
-            $this->orderProducts[$array[1]]['prix_total'] = $prod->price * (int)$value;
+            $this->orderProducts[$array[1]]['prix_total'] = $this->orderProducts[$array[1]]['prix_unitaire']  * (int)$value;
+            //$this->orderProducts[$array[1]]['prix_total'] = $prod->price * (int)$value;
 
             /* dd($this->products);
             $this->products->filter(function ($value, $key) use ($array) {
