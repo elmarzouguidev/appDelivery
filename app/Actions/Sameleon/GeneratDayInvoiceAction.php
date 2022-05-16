@@ -29,7 +29,11 @@ class GeneratDayInvoiceAction
              auth()->user()->hasRole('Client') && auth()->user()->commands()
             ->whereIn('status', [Status::LIVRE, Status::REFUSE])
             //->doesntHave('articles')
-            ->whereDay('delivered_at', now()->format('d'))
+            //->whereDay('delivered_at', now()->format('d'))
+            ->where(function ($q) {
+                $q->whereDay('delivered_at', now()->format('d'))
+                    ->orWhereYear('delivered_at', '1993');
+            })
             ->count() > 0
         ) {
 
