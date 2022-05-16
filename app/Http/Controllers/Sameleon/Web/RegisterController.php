@@ -16,7 +16,7 @@ class RegisterController extends Controller
 
     public function index()
     {
-        return view('Sameleon.Register.index');
+        return view('Sameleon.Register.index2');
     }
 
     public function store(FirstRegisterRequest $request)
