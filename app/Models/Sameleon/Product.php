@@ -26,7 +26,8 @@ class Product extends Model implements HasMedia
         'user_uuid',
         'user_id',
         'total_commands',
-        'is_out'
+        'is_out',
+        'notes'
     ];
     
     protected $casts = [
