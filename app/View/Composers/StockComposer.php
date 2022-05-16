@@ -2,6 +2,7 @@
 
 namespace App\Http\View\Composers;
 
+use App\Models\Sameleon\Product;
 use App\Models\Sameleon\Stock;
 use Illuminate\View\View;
 use Illuminate\Cache\CacheManager;
@@ -26,10 +27,10 @@ class StockComposer
     public function compose(View $view)
     {
         if (auth()->user()->hasRole('Client')) {
-            $stock =  Stock::where('user_id', auth()->id())
+            $stock =  Product::where('user_id', auth()->id())
                 ->where('is_out', true)->count();
         } elseif (auth()->user()->hasAnyRole('Admin', 'SuperAdmin')) {
-            $stock =   Stock::where('is_out', true)->count();
+            $stock =   Product::where('is_out', true)->count();
         } else {
             $stock = null;
         }
