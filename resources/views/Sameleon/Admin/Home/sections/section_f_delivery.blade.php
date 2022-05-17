@@ -12,7 +12,6 @@
                                 <th class="align-middle">Total commands Livé</th>
                                 <th class="align-middle">Date</th>
                                 <th class="align-middle">Total</th>
-                                <th class="align-middle">View Details</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -21,16 +20,10 @@
                                     <td><a href="javascript: void(0);" class="text-body fw-bold">{{$delivery->full_name}}</a> </td>
                                     <td class="text-body fw-bold">{{$delivery->commands_delivery_sum_count}}</td>
                                     <td class="text-body fw-bold">
-                                        07 Oct, 2019
+                                        {{now()->format('d-m-Y')}}
                                     </td>
                                     <td class="text-body fw-bold">
                                         {{$delivery->items_sum_prix_total}}
-                                    </td>
-                                    <td>
-                                        <!-- Button trigger modal -->
-                                        <button type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light" data-bs-toggle="modal" data-bs-target=".transaction-detailModal">
-                                            View Details
-                                        </button>
                                     </td>
                                 </tr>
                             @endforeach
