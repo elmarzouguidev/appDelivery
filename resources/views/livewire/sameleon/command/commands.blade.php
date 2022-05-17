@@ -213,7 +213,7 @@
                                             </button>
                                         </td> --}}
                                         <td>
-                                            @if ($command->comment != null && $command->reported_at != null)
+                                            @if ($command->comment != null)
                                                 <p class=" mb-0">
                                                     {!! $command->comment !!}
                                                 </p>
