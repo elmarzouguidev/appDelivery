@@ -14,8 +14,8 @@ class AdminHomeController extends Controller
     public function index()
     {
         $deliviers = User::role('Delivery')
-        ->with('commandsDeliverySum')
-        ->withCount('commandsDeliverySum')
+        ->withCount('commandsDelivery')
+
         ->get();
 
         return view('Sameleon.Admin.Home.index',compact('deliviers'));

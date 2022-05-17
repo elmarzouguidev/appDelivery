@@ -120,10 +120,15 @@ class User extends Authenticatable
 
     public function commandsDeliverySum()
     {
-        return $this->hasMany(Command::class, 'delivery_id')
+        $commands =  $this->hasMany(Command::class, 'delivery_id')
             ->where('status', Status::LIVRE)
             ->whereDay('delivered_at', now()->format('d'))
-            ->withSum('items', 'prix_total');
+            ->withSum('items', 'prix_total')
+            ->get();
+
+        $total = collect($commands)->sum('items_sum_prix_total');
+
+        return number_format($total,2);
     }
 
     public function products()

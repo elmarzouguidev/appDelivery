@@ -18,12 +18,12 @@
                             @foreach($deliviers as $delivery)
                                 <tr>
                                     <td><a href="javascript: void(0);" class="text-body fw-bold">{{$delivery->full_name}}</a> </td>
-                                    <td class="text-body fw-bold">{{$delivery->commands_delivery_sum_count}}</td>
+                                    <td class="text-body fw-bold">{{$delivery->commands_delivery_count}}</td>
                                     <td class="text-body fw-bold">
                                         {{now()->format('d-m-Y')}}
                                     </td>
                                     <td class="text-body fw-bold">
-                                        {{$delivery->items_sum_prix_total}}
+                                        {{$delivery->commandsDeliverySum()}}
                                     </td>
                                 </tr>
                             @endforeach
