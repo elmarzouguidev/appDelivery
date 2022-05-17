@@ -20,7 +20,18 @@ class DeliverySeeder extends Seeder
             'nom' => 'Mohammed',
             'prenom' => 'Chaligui',
             'email' => 'chaligui@gmail.com',
-            'telephone'=>'0677512754',
+            'telephone' => '0677512754',
+            'email_verified_at' => now(),
+            'password' => Hash::make('123456789@'),
+            'remember_token' => Str::random(10),
+            'is_admin' => false
+        ];
+
+        $user2 =  [
+            'nom' => 'Anas',
+            'prenom' => 'Anas',
+            'email' => 'anas@gmail.com',
+            'telephone' => '0677512758',
             'email_verified_at' => now(),
             'password' => Hash::make('123456789@'),
             'remember_token' => Str::random(10),
@@ -28,14 +39,21 @@ class DeliverySeeder extends Seeder
         ];
 
         $delivery = User::whereEmail('chaligui@gmail.com')->first();
+        $delivery2 = User::whereEmail('anas@gmail.com')->first();
 
-        if (!$delivery) {
+        if (!$delivery && !$delivery2) {
 
             $newAdmin =  User::create($user);
             $newAdmin->assignRole('Delivery');
+
+            $newAdmin2 =  User::create($user2);
+            $newAdmin2->assignRole('Delivery');
+            
         } else {
 
             $delivery->assignRole('Delivery');
+
+            $delivery2->assignRole('Delivery');
         }
     }
 }
