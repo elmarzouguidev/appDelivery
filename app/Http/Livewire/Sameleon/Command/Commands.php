@@ -63,7 +63,7 @@ class Commands extends Component
 
     public function render()
     {
-        
+
 
         if (request()->has('livred') && request()->livred == true) {
 
@@ -72,14 +72,14 @@ class Commands extends Component
             $this->emit('refresh');
         }
         if (request()->has('encours') && request()->encours == true) {
-       
+
             $this->filter += ['status' => Status::ENCOURS];
 
             $this->emit('refresh');
         }
 
         if (request()->has('pdr') && request()->pdr == true) {
-      
+
             $this->filter += ['status' => Status::PAS_DE_REPONSE];
 
             $this->emit('refresh');
@@ -243,7 +243,7 @@ class Commands extends Component
 
         //dd($products);
 
-        if ($status == Status::LIVRE) {
+        if ($status == Status::LIVRE && $command->status != Status::LIVRE) {
 
             $command->update(['delivered_at' => now()]);
 
@@ -265,18 +265,20 @@ class Commands extends Component
                     } else {
 
                         if ($qteRest < $qteGlobal && $prod->qte_livre != $prod->qte_global && $item->quantity > 0) {
+
                             $prod->increment('qte_livre', $item->quantity);
                             $prod->increment('total_commands', $item->quantity);
                             $prod->decrement('qte_rest', $item->quantity);
                         }
                         if ($prod->qte_livre == $prod->qte_global) {
+                            
                             $prod->update(['qte_rest' => 0]);
                             /***ok */
                         }
                     }
                 }
             });
-        } elseif($status == Status::REFUSE) {
+        } elseif ($status == Status::REFUSE && $command->status != Status::REFUSE) {
 
             $command->update(['delivered_at' => '1993-03-03 00:00:00']);
 
@@ -299,12 +301,10 @@ class Commands extends Component
                     }
                 }
             });
-
-            
         }
 
         $command->update(['status' => $status]);
-        
+
         $this->isRepoted = true;
 
         if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin')) {
@@ -341,11 +341,10 @@ class Commands extends Component
             //$this->commandEdit->update(['comment' => null, 'reported_at' => null]);
 
             $reportedDate = Carbon::createFromFormat('d-m-Y', $this->reportTime)->format('Y-m-d');
-
         }
 
         $this->commandEdit->update(['comment' => $this->reportComment, 'reported_at' => $reportedDate]);
-        
+
         $this->dispatchBrowserEvent('notify-change');
 
         $this->dispatchBrowserEvent('status-updated');
