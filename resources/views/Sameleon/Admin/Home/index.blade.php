@@ -47,8 +47,9 @@
             {{-- @include('Sameleon.Admin.Home.sections.section_a_a') --}}
         </div>
 
- 
-        @include('Sameleon.Admin.Home.sections.section_f_delivery')
+        @if(auth()->user()->hasAnyRole('Admin','SuperAdmin'))
+          @include('Sameleon.Admin.Home.sections.section_f_delivery')
+        @endif
   
 
     </div>

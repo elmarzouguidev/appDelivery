@@ -128,7 +128,7 @@ class User extends Authenticatable
 
         $total = collect($commands)->sum('items_sum_prix_total');
 
-        return number_format($total,2);
+        return number_format($total, 2);
     }
 
     public function products()
