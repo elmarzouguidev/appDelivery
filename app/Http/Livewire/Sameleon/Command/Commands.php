@@ -117,6 +117,7 @@ class Commands extends Component
 
             //dd( $commands);
             $delivries = [];
+            
         } elseif (auth()->user()->hasRole('Delivery')) {
 
             $commands =  $command->where('delivery_id', auth()->id())
@@ -243,7 +244,7 @@ class Commands extends Component
 
         //dd($products);
 
-        if ($status == Status::LIVRE && $command->status != Status::LIVRE) {
+        if ($status == Status::LIVRE) {
 
             $command->update(['delivered_at' => now()]);
 
@@ -271,14 +272,14 @@ class Commands extends Component
                             $prod->decrement('qte_rest', $item->quantity);
                         }
                         if ($prod->qte_livre == $prod->qte_global) {
-                            
+
                             $prod->update(['qte_rest' => 0]);
                             /***ok */
                         }
                     }
                 }
             });
-        } elseif ($status == Status::REFUSE && $command->status != Status::REFUSE) {
+        } elseif ($status == Status::REFUSE) {
 
             $command->update(['delivered_at' => '1993-03-03 00:00:00']);
 

@@ -111,6 +111,13 @@
                                     @method('DELETE')
                                     <input type="hidden" name="clientId" value="{{ $client->uuid }}">
                                 </form>
+
+                                <form id="activate-client-{{ $client->uuid }}" method="post"
+                                    action="{{ route('admin:clients.delete') }}">
+                                    @csrf
+                                    @method('PUT')
+                                    <input type="hidden" name="clientId" value="{{ $client->uuid }}">
+                                </form>
                             </tr>
                         @endforeach
 
