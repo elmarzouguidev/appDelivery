@@ -81,6 +81,27 @@
                                 </div>
 
                             </div>
+                            @if(auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
+                                <div class="row mb-3">
+
+                                    <label class="col-lg-2 form-label">Client</label>
+                                    <div class="col-lg-10">
+                                        <select name="client" class="form-control select2-templating @error('client') is-invalid @enderror"
+                                            >
+                                            <option value="">Choisir le client</option>
+                                            @foreach ($clients as $client)
+                                                <option value="{{ $client->id }}">{{ $client->full_name }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('client')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                
+                                </div>
+                            @endif
                             <div class="row justify-content-end">
                                 <div class="col-lg-10">
                                     <button type="submit" class="btn btn-primary">Ajouter</button>

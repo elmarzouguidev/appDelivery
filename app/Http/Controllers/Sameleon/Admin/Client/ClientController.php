@@ -138,14 +138,11 @@ class ClientController extends Controller
             // dd('Yes client');
             if ($client->commands()->count()) {
                 $client->commands()->delete();
-                $client->commands()->products()->delete();
             }
             if ($client->products()->count()) {
                 $client->products()->delete();
             }
-            if ($client->stocks()->count()) {
-                $client->stocks()->delete();
-            }
+
             if ($client->company()->count()) {
                 $client->company()->delete();
             }

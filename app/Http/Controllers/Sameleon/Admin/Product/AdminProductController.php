@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Sameleon\Product\ProductFormRequest;
 use App\Http\Requests\Sameleon\Product\ProductUpdateFormRequest;
 use App\Models\Sameleon\Product;
+use App\Models\Sameleon\User;
 use Illuminate\Http\Request;
 
 class AdminProductController extends Controller
@@ -15,7 +16,7 @@ class AdminProductController extends Controller
     {
 
         if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin')) {
-            $products = Product::with('client','media')->get();
+            $products = Product::with('client', 'media')->get();
         } else {
             $products = auth()->user()->products()->with('media')->get();
         }
@@ -27,13 +28,17 @@ class AdminProductController extends Controller
     {
         $this->authorize('create', Product::class);
 
-        return view('Sameleon.Admin.Product.__create.index');
+        $clients = User::role('Client')->get();
+
+        return view('Sameleon.Admin.Product.__create.index', compact('clients'));
     }
 
     public function store(ProductFormRequest $request)
     {
 
+
         $this->authorize('create', Product::class);
+        
         $product = new Product();
         $product->name = $request->name;
         $product->description = $request->description;
@@ -41,11 +46,18 @@ class AdminProductController extends Controller
         $product->qte_global = $request->qte_global;
         $product->qte_rest = $request->qte_global;
 
-        $product->client()->associate(auth()->id());
-        $product->user_uuid = auth()->user()->uuid;
+        if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin') && $request->has('client') && $request->filled('client')) {
+            $user = User::find($request->client);
+            $product->client()->associate($user);
+            $product->user_uuid = $user->uuid;
+        } else {
+
+            $product->client()->associate(auth()->id());
+            $product->user_uuid = auth()->user()->uuid;
+        }
 
         $product->save();
-        
+
         /*if ($product) {
 
             $product->stock()->create([
@@ -67,7 +79,7 @@ class AdminProductController extends Controller
 
     public function edit(Product $product)
     {
-        
+
         $this->authorize('update', $product);
 
         return view('Sameleon.Admin.Product.__edit.index', compact('product'));
@@ -106,8 +118,8 @@ class AdminProductController extends Controller
         if ($product) {
 
             //$product->commands()->detach();
-            
-           // $product->stock()->delete();
+
+            // $product->stock()->delete();
 
             $product->delete();
 

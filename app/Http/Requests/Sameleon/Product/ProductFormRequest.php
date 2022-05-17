@@ -25,11 +25,12 @@ class ProductFormRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'description' =>['required','string'],
-            'price' =>['required','numeric'],
-            'qte_global' =>['required','integer'],
+            'description' => ['required', 'string'],
+            'price' => ['required', 'numeric'],
+            'qte_global' => ['required', 'integer'],
             'photo' => 'required|file|mimes:png,jpg,jpeg',
-            'category' => 'nullable|integer'
+            'category' => 'nullable|integer',
+            'client' => 'nullable|integer',
         ];
     }
 }
