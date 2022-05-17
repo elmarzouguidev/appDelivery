@@ -241,7 +241,7 @@
 
             <tr class="heading">
                 <td>Code d'envoi</td>
-                <td>Date </td>
+                <td>Date livraison</td>
                 <td>Ville</td>
                 <td>Etat</td>
                 <td>Prix</td>
