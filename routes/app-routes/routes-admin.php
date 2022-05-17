@@ -92,6 +92,9 @@ Route::group(['prefix' => 'clients'], function () {
 
     Route::delete('/', [ClientController::class, 'delete'])->name('clients.delete');
 
+    Route::put('/', [ClientController::class, 'activate'])->name('clients.activate');
+
+
     Route::group(['prefix' => 'edit'], function () {
 
         Route::get('/{client}', [ClientController::class, 'edit'])->name('clients.edit');

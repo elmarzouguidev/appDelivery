@@ -81,8 +81,8 @@
                                 <td>
                                     
                                     <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
-                                        <input
-                                            class="form-check-input" type="checkbox" id="SwitchCheckSizelg"
+                                        <input data-client="{{$client->uuid}}"
+                                            class="form-check-input activeUser" type="checkbox" id="SwitchCheckSizelg"
                                             {{ $client->active == true ? 'checked' : '' }}>
 
                                     </div>
@@ -113,7 +113,7 @@
                                 </form>
 
                                 <form id="activate-client-{{ $client->uuid }}" method="post"
-                                    action="{{ route('admin:clients.delete') }}">
+                                    action="{{ route('admin:clients.activate') }}">
                                     @csrf
                                     @method('PUT')
                                     <input type="hidden" name="clientId" value="{{ $client->uuid }}">

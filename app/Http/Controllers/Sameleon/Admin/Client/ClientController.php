@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Sameleon\Admin\Client;
 
 use App\Http\Controllers\Controller;
+
 use App\Http\Requests\Sameleon\Register\RegisterFormRequest;
 use App\Http\Requests\Sameleon\Register\RegisterUpdateFormRequest;
 use App\Mail\Sameleon\Client\SendPasswordMail;
@@ -105,6 +106,22 @@ class ClientController extends Controller
         $client->save();
 
         return redirect()->back()->with('success', 'le client a été modifier avec success');
+    }
+
+    public function activate(Request $request)
+    {
+        $request->validate(['clientId' => 'required', 'uuid']);
+
+        $client = User::whereUuid($request->clientId)->firstOrFail();
+
+        if ($client) {
+
+            $client->update(['active' => !$client->active]);
+
+            return redirect()->back()->with('success', 'le client a été activé avec success');
+        }
+
+        return redirect()->back()->with('error', 'error !!!');
     }
 
     public function delete(Request $request)

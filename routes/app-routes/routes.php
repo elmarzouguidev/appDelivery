@@ -36,6 +36,8 @@ Route::group(['prefix' => 'clients'], function () {
     Route::post('/create', [ClientController::class, 'store'])->name('clients.createPost');
     Route::delete('/', [ClientController::class, 'delete'])->name('clients.delete');
 
+    Route::put('/activate', [ClientController::class, 'activate'])->name('clients.activate');
+
     Route::get('/edit/{client}', [ClientController::class, 'edit'])->name('client.edit');
     Route::post('/edit/{client}', [ClientController::class, 'update'])->name('client.update');
     Route::post('/edit/{client}/emails', [ClientController::class, 'addEmails'])->name('client.add.emails');
