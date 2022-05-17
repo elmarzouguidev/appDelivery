@@ -2,7 +2,7 @@
     @foreach ($orderProducts as $index => $orderProduct)
         <div class="row">
             <div class="mb-3 col-lg-3">
-                <label for="designation">{{ __('invoice.form.article_designation') }} *</label>
+                <label for="designation">Note *</label>
                 <textarea name="orderProducts[{{ $index }}][designation]" rows="3"
                     wire:model="orderProducts.{{ $index }}.designation"
                     class="form-control @error('orderProducts.'.$index.'.designation') is-invalid @enderror" required>{{old('orderProducts.'.$index.'.designation')}}</textarea>

@@ -143,7 +143,10 @@
                                                     <p class="text-muted mb-0">{{ $item->prix_uni }} (DH) x
                                                         {{ $item->quantity }}
                                                     </p>
-                                                    <br>
+                                                    <hr>
+                                                    <p class="text-muted mb-0">
+                                                        {{ $item->designation }}
+                                                    </p>
                                                     @if($item->is_out)
                                                     {{--<p style="color:red">rupture de stock</p>--}}
                             

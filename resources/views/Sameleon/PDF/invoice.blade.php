@@ -250,7 +250,6 @@
 
             @foreach ($invoice->articles as $article)
          
-
                 @php
                  $color = '';
                  optional($article->command)->status == App\Status\Status::REFUSE ? $color = 'red':''
