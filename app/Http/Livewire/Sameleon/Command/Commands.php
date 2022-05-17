@@ -334,16 +334,18 @@ class Commands extends Component
 
         $this->validate();
 
-        if ($this->commandEdit->status == Status::LIVRE) {
+        $reportedDate = null;
 
-            $this->commandEdit->update(['comment' => null, 'reported_at' => null]);
-        } else {
+        if ($this->commandEdit->status == Status::REPORTE) {
+
+            //$this->commandEdit->update(['comment' => null, 'reported_at' => null]);
 
             $reportedDate = Carbon::createFromFormat('d-m-Y', $this->reportTime)->format('Y-m-d');
 
-            $this->commandEdit->update(['comment' => $this->reportComment, 'reported_at' => $reportedDate]);
         }
 
+        $this->commandEdit->update(['comment' => $this->reportComment, 'reported_at' => $reportedDate]);
+        
         $this->dispatchBrowserEvent('notify-change');
 
         $this->dispatchBrowserEvent('status-updated');
