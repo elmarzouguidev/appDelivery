@@ -3,6 +3,7 @@
 namespace App\Models\Sameleon;
 
 use App\Notifications\Sameleon\ResetPasswordNotification;
+use App\Status\Status;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -75,7 +76,7 @@ class User extends Authenticatable
 
     public function completProfile()
     {
-        if (auth()->user()->hasRole('Client') && auth()->user()->type == 'particulier' ) {
+        if (auth()->user()->hasRole('Client') && auth()->user()->type == 'particulier') {
             return  is_null($this->attributes['cnie']) ||
                 is_null($this->attributes['addresse']) ||
                 is_null($this->attributes['telephone']) ? false : true;
@@ -90,7 +91,7 @@ class User extends Authenticatable
             return $this->active ? true : false;
         } else {
             return true;
-        }  
+        }
     }
 
     public function group()
@@ -112,7 +113,18 @@ class User extends Authenticatable
         }
     }
 
+    public function commandsDelivery()
+    {
+        return $this->hasMany(Command::class, 'delivery_id');
+    }
 
+    public function commandsDeliverySum()
+    {
+        return $this->hasMany(Command::class, 'delivery_id')
+            ->where('status', Status::LIVRE)
+            ->whereDay('delivered_at', now()->format('d'))
+            ->withSum('items', 'prix_total');
+    }
 
     public function products()
     {

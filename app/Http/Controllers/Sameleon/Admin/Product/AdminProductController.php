@@ -58,17 +58,6 @@ class AdminProductController extends Controller
 
         $product->save();
 
-        /*if ($product) {
-
-            $product->stock()->create([
-                'product_uuid' => $product->uuid,
-                'user_id' => auth()->id(),
-                'user_uuid' => auth()->user()->uuid,
-                'qte_global' => $request->qte_global,
-                'qte_rest' => $request->qte_global
-            ]);
-        }*/
-
         if ($request->hasFile('photo')) {
 
             $product->addMediaFromRequest('photo')->toMediaCollection('products_photos');
@@ -116,10 +105,6 @@ class AdminProductController extends Controller
         $this->authorize('delete', $product);
 
         if ($product) {
-
-            //$product->commands()->detach();
-
-            // $product->stock()->delete();
 
             $product->delete();
 

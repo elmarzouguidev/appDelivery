@@ -47,6 +47,10 @@
             {{-- @include('Sameleon.Admin.Home.sections.section_a_a') --}}
         </div>
 
+ 
+        @include('Sameleon.Admin.Home.sections.section_f_delivery')
+  
+
     </div>
 @endsection
 

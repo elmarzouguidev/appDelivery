@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Http\View\Composers\CommandComposer;
+use App\Http\View\Composers\DeliveryComposer;
 use App\Http\View\Composers\InvoiceOfDay;
 use App\Http\View\Composers\NavBarComposer;
 use App\Http\View\Composers\StockComposer;
@@ -29,6 +30,8 @@ class ViewComposerServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer(['Sameleon.Admin.Home.*'], CommandComposer::class);
+        //View::composer(['Sameleon.Admin.Home.*'], DeliveryComposer::class);
+
         View::composer(['livewire.sameleon.command.*'], InvoiceOfDay::class);
         View::composer(['layouts._parts.__sameleon_admin'], NavBarComposer::class);
 
