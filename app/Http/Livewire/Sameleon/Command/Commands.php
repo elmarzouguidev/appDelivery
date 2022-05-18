@@ -112,7 +112,7 @@ class Commands extends Component
                 ->get()->prioritize(function ($item) {
                     return $item->status == Status::NON_TRAITE
                         ||
-                        $item->status == Status::LIVRE;
+                        $item->status == Status::ENCOURS;
                 });
 
             //dd( $commands);
