@@ -50,7 +50,7 @@
                             @foreach ($stocks as $stock)
                                 @php
                                     $color ='';
-                                    $stock->is_out ? $color='#2f5393' :$color='';
+                                    $stock->is_out ? $color='red' :$color='';
                                 @endphp
                                 @php
                                 if(request()->has('isOut'))
