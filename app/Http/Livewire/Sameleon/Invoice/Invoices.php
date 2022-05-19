@@ -28,6 +28,12 @@ class Invoices extends Component
 
     public $cloture = false;
 
+
+    protected $messages = [
+        //'recu.required' => "You must use the 'Choose file' button to select which file you wish to upload",
+        'recu.max' => "Maximum file size to upload is 2MB (2048 KB)."
+    ];
+
     public function render()
     {
 
@@ -110,7 +116,7 @@ class Invoices extends Component
             'mode' => ['required', 'string'],
             'reference' => ['nullable', 'string'],
             'notes' => ['nullable', 'string'],
-            'recu' => ['nullable', 'file', 'mimes:png,jpg,jpeg'],
+            'recu' => ['nullable','file','mimes:png,jpg,jpeg','max:2048'],
 
         ];
     }
