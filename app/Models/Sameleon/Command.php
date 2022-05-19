@@ -154,15 +154,26 @@ class Command extends Model
         return $this->created_at->diffInDays($this->updated_at);
     }
 
-    public function scopeFromTo(Builder $query, $dateFrom, $dateTo): Builder
+    public function scopeFromTo(Builder $query, $dateFrom = null, $dateTo = null): Builder
     {
-        return $query->whereBetween(
-            'created_at',
-            [
-                Carbon::createFromFormat('m/d/Y', $dateFrom)->format('Y-m-d'),
-                Carbon::createFromFormat('m/d/Y', $dateTo)->format('Y-m-d')
-            ]
-        );
+        if (isset($dateFrom) && isset($dateTo)) {
+            return $query->whereBetween(
+                'created_at',
+                [
+                    Carbon::createFromFormat('m/d/Y', $dateFrom)->format('Y-m-d'),
+                    Carbon::createFromFormat('m/d/Y', $dateTo)->format('Y-m-d')
+                ]
+            );
+        } elseif (isset($dateFrom) && !isset($dateTo)) {
+
+            return $query->where('created_at', Carbon::createFromFormat('m/d/Y', $dateFrom)->format('Y-m-d'));
+        } elseif (isset($dateTo) && !isset($dateFrom)) {
+
+            return $query->where('created_at', Carbon::createFromFormat('m/d/Y', $dateTo)->format('Y-m-d'));
+        } else {
+
+            return $query->where('created_at', now());
+        }
     }
 
     public function scopeProductFilters(Builder $query, $product): Builder

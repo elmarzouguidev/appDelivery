@@ -78,7 +78,7 @@
     <a href="{{ route('admin:complaints.index') }}">
         <i class='bx bx-info-circle'></i>
         @if($total_new_reclamations)
-         <span class="badge rounded-pill bg-info float-end">{{$total_new_reclamations}}</span>
+         <span class="badge rounded-pill bg-danger float-end">{{$total_new_reclamations}}</span>
         @endif
         <span key="t-complaints">{{ __('Réclamations') }}</span>
     </a>
