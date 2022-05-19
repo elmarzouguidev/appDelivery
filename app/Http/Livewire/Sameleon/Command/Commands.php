@@ -121,7 +121,7 @@ class Commands extends Component
 
             $commands =  $command->where('delivery_id', auth()->id())
                 ->where('delivery_uuid', auth()->user()->uuid)
-                ->where('status', '!=', Status::LIVRE)
+                ->whereIn('status', [Status::LIVRE, Status::ENCOURS])
                 //->where('updated_at', now())
                 ->with('items')
                 ->withSum('items', 'prix_total')
