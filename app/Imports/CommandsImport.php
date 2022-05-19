@@ -43,10 +43,16 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
         //dd($data);
         $command =  Command::create($data);
 
+        if ($product && round($product->price) !== $prixExcel = round($row["prix"] / $row["qte"])) {
+
+            throw ValidationException::withMessages([
+                'produit' => "le prix unitaire de  {$product->name} dans le fichier EXCEL ($prixExcel DH) ne correspond pas au prix entrée dans le système ($product->price DH)"
+            ]);
+        }
+
         if ($product && $product->qte_rest < $row["qte"]) {
 
             throw ValidationException::withMessages(['produit' => "le produit {$product->name} est en rupture de stock"]);
-
         } else {
 
             $command->items()->create([
