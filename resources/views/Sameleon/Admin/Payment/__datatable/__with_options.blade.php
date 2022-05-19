@@ -63,7 +63,9 @@
                                 </td>
 
                                 <td>
-                                    {{ $payment->price_total }} DH
+
+                                    {{ number_format($payment->price_total, 2) }} DH
+                                    
                                 </td>
                                 <td>
                                     {{ $payment->bill_mode }}
