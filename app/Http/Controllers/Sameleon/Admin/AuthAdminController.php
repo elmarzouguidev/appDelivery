@@ -66,6 +66,13 @@ class AuthAdminController extends Controller
      */
     private function redirectTo()
     {
-        return route('admin:home');
+        if (auth()->user()->hasRole('Delivery')) {
+
+            return route('admin:commands.index');
+
+        } else {
+            
+            return route('admin:home');
+        }
     }
 }
