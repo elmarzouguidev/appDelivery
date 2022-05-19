@@ -47,15 +47,15 @@
                                     </div>
                                 </td> --}}
                                 <td>
-                                    <a 
+                                     {{--<a 
                                         target="_blank" 
-                                        href="#{{--route('public.show.invoice', [$payment->uuid, 'has_header' => true]) --}}" 
+                                        href="#" 
                                         class="text-body fw-bold"
                                         style="color:blue !important"
                                     >
                                         {{ $payment->full_number }}
-                                    </a>
-
+                                    </a>--}}
+                                    {{ $payment->full_number }}
                                 </td>
                                 <td>
                                     {{ $payment->billable->full_number }}
