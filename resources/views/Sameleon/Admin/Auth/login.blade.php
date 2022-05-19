@@ -114,7 +114,10 @@
                                         <button class="btn btn-primary waves-effect waves-light" type="submit">Log In
                                         </button>
                                     </div>
-
+                                    <div class="mt-3 d-grid">
+                                        <a href="{{route('admin:auth:register')}}" class="btn btn-primary waves-effect waves-light" type="submit">Crée Votre Compte
+                                        </a>
+                                    </div>
                                     @if (Route::has('forgotpassword'))
                                         <div class="mt-4 text-center">
                                             <a href="{{ route('forgotpassword') }}" class="text-muted">
