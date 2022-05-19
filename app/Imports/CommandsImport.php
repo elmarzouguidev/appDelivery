@@ -9,6 +9,7 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithMappedCells;
 use Illuminate\Support\Collection;
+use Illuminate\Validation\ValidationException;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
@@ -42,17 +43,24 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
         //dd($data);
         $command =  Command::create($data);
 
-        $command->items()->create([
+        if ($product && $product->qte_rest < $row["qte"]) {
 
-            'command_uuid' => $command->uuid,
-            'product_id' => $product ?  $product->id : null,
-            'product_uuid' => $product ? $product->uuid : null,
-            'designation' => $row["produit_ref"],
-            'product' => $row["produit_ref"],
-            'quantity' => $row["qte"],
-            'prix_uni' => round($row["prix"] / $row["qte"]),
-            'prix_total' => $row["prix"],
-        ]);
+            throw ValidationException::withMessages(['produit' => "le produit {$product->name} est en rupture de stock"]);
+
+        } else {
+
+            $command->items()->create([
+
+                'command_uuid' => $command->uuid,
+                'product_id' => $product ?  $product->id : null,
+                'product_uuid' => $product ? $product->uuid : null,
+                'designation' => $row["produit_ref"],
+                'product' => $row["produit_ref"],
+                'quantity' => $row["qte"],
+                'prix_uni' => round($row["prix"] / $row["qte"]),
+                'prix_total' => $row["prix"],
+            ]);
+        }
     }
 
     /*public function headingRow(): int
