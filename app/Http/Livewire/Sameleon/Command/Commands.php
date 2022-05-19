@@ -129,9 +129,7 @@ class Commands extends Component
                 ->with(['city:id,name'])
                 ->orderByRaw("created_at DESC")
                 ->get()->prioritize(function ($item) {
-                    return $item->status == Status::ENCOURS
-                        ||
-                        $item->status == Status::LIVRE;
+                    return $item->status == Status::ENCOURS;
                 });
             $delivries = [];
 
