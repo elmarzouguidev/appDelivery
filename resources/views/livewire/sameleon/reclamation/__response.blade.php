@@ -22,7 +22,7 @@
                         <label for="message" class="col-form-label col-lg-2">Nom du client *</label>
                         <div class="col-lg-10">
                         
-                            <input type="text" class="form-control" value="{{$reclamation->message}}" readonly>
+                            <input type="text" class="form-control" value="{{optional($reclamation->user)->full_name}}" readonly>
 
                         </div>
                     </div>
