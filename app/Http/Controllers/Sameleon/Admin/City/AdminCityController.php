@@ -57,6 +57,7 @@ class AdminCityController extends Controller
         if ($city) {
 
             $city->regions()->delete();
+            
             $city->delete();
 
             return redirect()->back()->with('success', 'la ville a été supprimer avec success');
