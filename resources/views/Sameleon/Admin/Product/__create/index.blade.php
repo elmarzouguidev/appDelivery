@@ -47,7 +47,7 @@
                             </div>
 
                             <div class="row mb-4">
-                                <label for="price" class="col-form-label col-lg-2">Prix *</label>
+                                <label for="price" class="col-form-label col-lg-2">Prix unitaire *</label>
                                 <div class="col-lg-10">
                                     <input id="price" name="price" type="number" min="1" placeholder="Entrer le prix du produit" class="form-control @error('price') is-invalid @enderror" required>
                                     @error('price')
