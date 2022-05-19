@@ -81,6 +81,8 @@ class Invoices extends Component
             'price_ht' => $invoice->articles_sum_price_total,
             'price_total' => $invoice->articles_sum_price_total,
             'price_tva' => $invoice->articles_sum_price_total,
+            'client_id' => $invoice->user_id,
+            'client_uuid' => $invoice->user_uuid,
         ];
 
         $bill = $invoice->bill()->create($biller);
@@ -98,7 +100,6 @@ class Invoices extends Component
 
     public function clotureInvoice(Invoice $invoice)
     {
-
         $invoice->update(['cloture' => !$invoice->cloture]);
 
         $this->dispatchBrowserEvent('reloadbrowser');
@@ -110,16 +111,13 @@ class Invoices extends Component
     {
 
         return [
-            
+
             'price' => ['required', 'numeric', 'digits_between:1,20'],
             'date' => ['required', 'date'],
             'mode' => ['required', 'string'],
             'reference' => ['nullable', 'string'],
             'notes' => ['nullable', 'string'],
-            'recu' => ['nullable','file','mimes:png,jpg,jpeg','max:2048'],
-
-            
-
+            'recu' => ['nullable', 'file', 'mimes:png,jpg,jpeg', 'max:2048'],
         ];
     }
 }
