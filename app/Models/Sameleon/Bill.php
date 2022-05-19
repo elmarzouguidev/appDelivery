@@ -28,6 +28,8 @@ class Bill extends Model implements HasMedia
         'price_total',
         'billable_id',
         'billable_type',
+        'client_id',
+        'client_uuid'
     ];
 
     protected  $casts = [
@@ -39,6 +41,10 @@ class Bill extends Model implements HasMedia
         return $this->morphTo();
     }
 
+    public function client()
+    {
+        return $this->belongsTo(User::class, 'client_id');
+    }
 
     public function getFormatedPriceTotalAttribute()
     {

@@ -11,8 +11,16 @@ class PaymentController extends Controller
 {
     public function index()
     {
-        $payments = Bill::with('media','billable')->get();
-        
+        if(auth()->user()->hasRole('Client'))
+        {
+            $payments = Bill::with('media','billable')
+            ->where
+            ->get();
+        }
+        else{
+            $payments = Bill::with('media','billable')->get();
+        }
+    
         return view('Sameleon.Admin.Payment.__datatable.index', compact('payments'));
     }
 }
