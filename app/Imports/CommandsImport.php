@@ -53,6 +53,7 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
         if ($product && $product->qte_rest < $row["qte"]) {
 
             throw ValidationException::withMessages(['produit' => "le produit {$product->name} est en rupture de stock"]);
+            
         } else {
 
             $command->items()->create([

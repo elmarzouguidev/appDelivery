@@ -84,9 +84,9 @@
                                     <td>
                                         <i class="mdi mdi-circle text-info font-size-10"></i>
 
-                                        @if ($complaint->status === 0)
+                                        @if ($complaint->status == 0)
                                             Non traité
-                                        @elseif($complaint->status === 1)
+                                        @elseif($complaint->status == 1)
                                             traité
                                         @endif
                                     </td>
@@ -120,7 +120,7 @@
                             @endforeach
 
                         </tbody>
-                    </table>s
+                    </table>
                 </div>
             </div>
         </div>
