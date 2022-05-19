@@ -237,14 +237,11 @@ class Commands extends Component
     public function changeStatus(Command $command, int $status)
     {
 
-        $command->update(['status' => $status]);
+       // $command->update(['status' => $status]);
 
         $items = $command->items;
-        /***Okey  */
 
-        //dd($products);
-
-        if ($status == Status::LIVRE) {
+        if ($status == Status::LIVRE && $command->status != Status::LIVRE) {
 
             $command->update(['delivered_at' => now()]);
 
@@ -279,7 +276,8 @@ class Commands extends Component
                     }
                 }
             });
-        } elseif ($status == Status::REFUSE) {
+            
+        } elseif ($status == Status::REFUSE && $command->status != Status::REFUSE) {
 
             $command->update(['delivered_at' => '1993-03-03 00:00:00']);
 
