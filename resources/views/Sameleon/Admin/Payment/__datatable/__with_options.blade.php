@@ -26,7 +26,7 @@
                             </th> --}}
                             <th scope="col">Code</th>
                             <th scope="col">Facture N°</th>
-                            <th scope="col">Montant</th>
+                            <th scope="col">Montant (hors frais)</th>
                             <th scope="col">Mode de paiment</th>
                             <th scope="col">Date de paiment</th>
                             <th scope="col">Note</th>
