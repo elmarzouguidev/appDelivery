@@ -59,7 +59,10 @@
 
                                 @foreach ($command->items as $item)
                                     <div>
-
+                                        <p class="text-strong mb-0">
+                                            <strong>{{ $item->product }}</strong>
+                                        </p>
+                                      
                                         <p class="text-muted mb-0">{{ $item->prix_uni }} (DH) x
                                                         {{ $item->quantity }}
                                         </p>
