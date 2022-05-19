@@ -115,7 +115,8 @@
                                         </button>
                                     </div>
                                     <div class="mt-3 d-grid">
-                                        <a href="{{route('admin:auth:register')}}" class="btn btn-primary waves-effect waves-light" type="submit">Crée Votre Compte
+                                        <a href="{{route('admin:auth:register')}}" class="btn btn-success waves-effect waves-light" type="submit">
+                                            Devenir client
                                         </a>
                                     </div>
                                     @if (Route::has('forgotpassword'))
