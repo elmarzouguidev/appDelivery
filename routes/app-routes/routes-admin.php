@@ -22,7 +22,7 @@ use App\Http\Controllers\Sameleon\Admin\Stock\StockController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [AdminHomeController::class, 'index'])
-    ->middleware(['role:SuperAdmin|Admin'])
+    ->middleware(['role:SuperAdmin|Admin|Client'])
     ->name('home');
 
 Route::group(['prefix' => 'commands'], function () {
