@@ -117,18 +117,21 @@ class Commands extends Component
 
             //dd( $commands);
             $delivries = [];
-            
         } elseif (auth()->user()->hasRole('Delivery')) {
 
             $commands =  $command->where('delivery_id', auth()->id())
                 ->where('delivery_uuid', auth()->user()->uuid)
-                ->where('status', Status::ENCOURS)
+                //->where('status', Status::ENCOURS)
                 ->with('items')
                 ->withSum('items', 'prix_total')
                 //->with('products.stock')
                 ->with(['city:id,name'])
                 ->orderByRaw("created_at DESC")
-                ->get();
+                ->get()->prioritize(function ($item) {
+                    return $item->status == Status::ENCOURS
+                        ||
+                        $item->status == Status::LIVRE;
+                });
             $delivries = [];
 
             return view('livewire.sameleon.command.commands-delivery', compact('commands', 'delivries'));
@@ -237,7 +240,7 @@ class Commands extends Component
     public function changeStatus(Command $command, int $status)
     {
 
-       // $command->update(['status' => $status]);
+        // $command->update(['status' => $status]);
 
         $items = $command->items;
 
@@ -276,7 +279,6 @@ class Commands extends Component
                     }
                 }
             });
-            
         } elseif ($status == Status::REFUSE && $command->status != Status::REFUSE) {
 
             $command->update(['delivered_at' => '1993-03-03 00:00:00']);

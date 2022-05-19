@@ -24,26 +24,33 @@
                         </h5>
 
                         <hr>
+                        @php
+                            $disabled = '';
+                            if($command->status == App\Status\Status::LIVRE)
+                            {
+                                $disabled = 'disabled'; 
+                            }
+                        @endphp
                         <div>
-                            <a href="#" class="btn btn-success font-size-18 m-1"
+                            <button {{$disabled}} class="btn btn-success font-size-18 m-1"
                                 wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::LIVRE }})">
                                 Livré
-                            </a>
-                            <a href="javascript: void(0);" class="btn btn-danger font-size-18 m-1"
+                            </button>
+                            <button {{$disabled}} class="btn btn-danger font-size-18 m-1"
                                 wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::ANNULE }})">
 
                                 Non livré
-                            </a>
-                            <a href="javascript: void(0);" 
+                            </button>
+                            <button {{$disabled}} 
                                 class="btn btn-warning font-size-18 m-1"
                                 wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::NON_INTERESSE }})"
                                 >
                                 Non intéressé
-                            </a>
-                            <a href="javascript: void(0);" class="btn btn-primary font-size-18 m-1"
+                            </button>
+                            <button {{$disabled}}  class="btn btn-primary font-size-18 m-1"
                                 wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::PAS_DE_REPONSE }})">
                                 Pas de reponse
-                            </a>
+                            </button>
                         </div>
                     </div>
                     <div class="card-footer bg-transparent border-top">
