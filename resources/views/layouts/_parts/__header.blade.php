@@ -121,8 +121,8 @@
                                         <p class="mb-1" key="t-grammer">
                                             nous vous invitons à compléter votre profil
                                         </p>
-                                        <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span
-                                                key="t-min-ago">3 min ago</span></p>
+                                        {{--<p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span
+                                                key="t-min-ago">3 min ago</span></p>--}}
                                     </div>
                                 </div>
                                 
