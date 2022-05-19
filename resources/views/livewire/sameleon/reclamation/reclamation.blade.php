@@ -3,20 +3,22 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-lg-8">
+                    @if(auth()->user()->hasRole('Client'))
+                        <div class="row">
+                            <div class="col-lg-8">
 
-                            <div class="col-lg-8 mb-4">
-                                {{-- <a href="#" type="button" onclick="openFilters()" class="btn btn-primary" >
-                                    Filters
-                                </a> --}}
-                                <button class="btn btn-info" type="button" class="btn btn-info  btn-sm"
-                                    data-bs-toggle="modal" data-bs-target=".addReclamationModal">
-                                    Ajouter une réclamation
-                                </button>
+                                <div class="col-lg-8 mb-4">
+                                    {{-- <a href="#" type="button" onclick="openFilters()" class="btn btn-primary" >
+                                        Filters
+                                    </a> --}}
+                                    <button class="btn btn-info" type="button" class="btn btn-info  btn-sm"
+                                        data-bs-toggle="modal" data-bs-target=".addReclamationModal">
+                                        Ajouter une réclamation
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
 
                     @include('layouts._parts.__messages')
 
