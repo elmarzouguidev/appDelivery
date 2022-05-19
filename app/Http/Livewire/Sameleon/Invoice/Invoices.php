@@ -118,6 +118,8 @@ class Invoices extends Component
             'notes' => ['nullable', 'string'],
             'recu' => ['nullable','file','mimes:png,jpg,jpeg','max:2048'],
 
+            
+
         ];
     }
 }
