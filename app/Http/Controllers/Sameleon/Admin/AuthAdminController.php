@@ -34,12 +34,12 @@ class AuthAdminController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        /*if (!Auth::user()->active) {
+        if (!Auth::user()->isActive()) {
 
             Auth::logout();
 
-            return redirect(route('admin:auth:login'))->withErrors(["votre compte n'est encore activé"]);
-        }*/
+            return redirect(route('admin:auth:login'))->withErrors(["votre compte n'est pas encore activé"]);
+        }
     }
 
 
