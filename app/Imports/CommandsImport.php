@@ -46,7 +46,7 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
         if ($product && round($product->price) !== $prixExcel = round($row["prix"] / $row["qte"])) {
 
             throw ValidationException::withMessages([
-                'produit' => "le prix unitaire de  {$product->name} dans le fichier EXCEL ($prixExcel DH) ne correspond pas au prix entrée dans le système ($product->price DH)"
+                'produit' => "le prix unitaire de  {$product->name} dans le fichier EXCEL ($prixExcel DH) n'est pas égal au prix entrée dans le système ($product->price DH)"
             ]);
         }
 
