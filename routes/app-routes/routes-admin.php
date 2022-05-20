@@ -212,9 +212,12 @@ Route::group(['prefix' => 'profil'], function () {
 
         Route::get('/', [ProfilController::class, 'index'])->name('profil');
         Route::post('/', [ProfilController::class, 'update'])->name('profil.update');
+
         Route::post('/password', [ProfilController::class, 'updatePassword'])->name('profil.update.password');
 
         Route::post('/company', [ProfilController::class, 'updateCompany'])->name('profil.update.company');
+
+        Route::post('/token', [ProfilController::class, 'createToken'])->name('profil.update.token');
     });
 
     Route::group(['prefix' => 'history'], function () {
@@ -237,7 +240,6 @@ Route::group(['prefix' => 'ramassage'], function () {
     Route::get('/', [RamassageController::class, 'index'])->name('ramassage.index');
     Route::post('/', [RamassageController::class, 'store'])->name('ramassage.store');
     Route::delete('/delete', [RamassageController::class, 'delete'])->name('ramassage.delete');
-    
 });
 
 

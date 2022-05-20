@@ -10,6 +10,7 @@ use App\Models\Sameleon\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ProfilController extends Controller
 {
@@ -44,7 +45,7 @@ class ProfilController extends Controller
             }
 
             if ($request->hasFile('logo')) {
-                
+
                 $old = $user->logo;
                 $user->logo = $request->file('logo')->store('users', ['disk' => 'public']);
                 Storage::disk('public')->delete($old);
@@ -108,5 +109,17 @@ class ProfilController extends Controller
         }
 
         return redirect()->back()->with('error', "Error");
+    }
+
+    public function createToken()
+    {
+        // $token = auth()->user()->createToken(auth()->user()->email);
+        $secretToken = Str::random(32);
+
+        $publicToken = Str::random(16);
+
+        auth()->user()->update(['public_key_api' => $publicToken, 'secret_key_api' => $secretToken]);
+
+        return redirect()->back()->with('success', "la clé  a éte crée avec success");
     }
 }

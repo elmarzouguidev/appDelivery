@@ -7,6 +7,8 @@
 
         @include('Sameleon.Admin.Setting.profil.profile')
 
+        @include('Sameleon.Admin.Setting.profil.api_token')
+
         @include('Sameleon.Admin.Setting.profil.password')
 
         @if (auth()->user()->hasRole('Client') && $user->type === 'entreprise')
