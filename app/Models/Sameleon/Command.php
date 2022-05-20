@@ -30,6 +30,7 @@ class Command extends Model
         'frais',
         'is_closed',
         'is_imported',
+        'is_api',
         'invoice_id',
         'invoice_uuid',
         'user_id',
