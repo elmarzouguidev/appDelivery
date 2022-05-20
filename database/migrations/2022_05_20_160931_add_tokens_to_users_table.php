@@ -15,8 +15,8 @@ class AddTokensToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->after('is_admin',function($table){
-                $table->longText('public_key')->nullable()->unique();
-                $table->longText('secret_key')->nullable()->unique();
+                $table->longText('public_key')->unique()->nullable();
+                $table->longText('secret_key')->unique()->nullable();
             });
         });
     }
