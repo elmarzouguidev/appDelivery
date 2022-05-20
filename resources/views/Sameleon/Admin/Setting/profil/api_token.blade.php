@@ -12,15 +12,15 @@
                         <label for="public_key_api" class="col-md-2 col-form-label">Public key</label>
                         <div class="col-md-10">
                             <input class="form-control" type="text" name="public_key_api" id="public_key_api"
-                            value="{{ auth()->user()->public_key_api }}"   >
+                            value="{{ auth()->user()->public_key_api ?? '' }}"  readonly >
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label for="secret_key_api" class="col-md-2 col-form-label">Secret key
-                            *</label>
+                            </label>
                         <div class="col-md-10">
                             <input class="form-control" type="text" name="secret_key_api"
-                                id="secret_key_api" value="{{ auth()->user()->secret_key_api }}">
+                                id="secret_key_api" value="{{ auth()->user()->secret_key_api ?? ''}}" readonly>
                         </div>
                     </div>
 
