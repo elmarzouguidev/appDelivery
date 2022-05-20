@@ -30,6 +30,12 @@ class PermissionSeeder extends Seeder
 
         ['name' => 'excel.import', 'guard_name' => 'admin'],
 
+        ['name' => 'api.browse', 'guard_name' => 'admin'],
+        ['name' => 'api.read', 'guard_name' => 'admin'],
+        ['name' => 'api.create', 'guard_name' => 'admin'],
+        ['name' => 'api.edit', 'guard_name' => 'admin'],
+        ['name' => 'api.delete', 'guard_name' => 'admin'],
+
     ];
 
 
