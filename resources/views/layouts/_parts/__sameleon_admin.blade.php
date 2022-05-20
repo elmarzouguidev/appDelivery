@@ -84,6 +84,18 @@
     </a>
 </li>
 
+<li class="menu-title" key="t-ramassage">Ramassage</li>
+
+<li>
+    <a href="{{ route('admin:ramassage.index') }}">
+        <i class='bx bx-info-circle'></i>
+        {{--@if($total_new_reclamations)
+         <span class="badge rounded-pill bg-danger float-end">{{$total_new_reclamations}}</span>
+        @endif--}}
+        <span key="t-ramassage">{{ __('Ramassage') }}</span>
+    </a>
+</li>
+
 <li class="menu-title" key="t-invoices">Contact</li>
 
 <li>

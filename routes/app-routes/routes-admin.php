@@ -15,6 +15,7 @@ use App\Http\Controllers\Sameleon\Admin\Delivery\DeliveryController;
 use App\Http\Controllers\Sameleon\Admin\Invoice\AdminInvoiceController;
 use App\Http\Controllers\Sameleon\Admin\Payment\PaymentController;
 use App\Http\Controllers\Sameleon\Admin\Product\AdminProductController;
+use App\Http\Controllers\Sameleon\Admin\Ramassage\RamassageController;
 use App\Http\Controllers\Sameleon\Admin\Reclamation\ReclamationController;
 use App\Http\Controllers\Sameleon\Admin\Region\RegionController;
 use App\Http\Controllers\Sameleon\Admin\Stock\StockController;
@@ -229,6 +230,16 @@ Route::group(['prefix' => 'complaints'], function () {
     Route::post('/', [ReclamationController::class, 'store'])->name('complaints.store');
     Route::delete('/delete', [ReclamationController::class, 'delete'])->name('complaints.delete');
 });
+
+
+Route::group(['prefix' => 'ramassage'], function () {
+
+    Route::get('/', [RamassageController::class, 'index'])->name('ramassage.index');
+    Route::post('/', [RamassageController::class, 'store'])->name('ramassage.store');
+    Route::delete('/delete', [RamassageController::class, 'delete'])->name('ramassage.delete');
+    
+});
+
 
 Route::group(['prefix' => 'contact'], function () {
 
