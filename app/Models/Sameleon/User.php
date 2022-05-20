@@ -39,7 +39,9 @@ class User extends Authenticatable
         'city',
         'type',
         'active',
-        'is_completed'
+        'is_completed',
+        'public_key',
+        'secret_key'
     ];
 
     /**
