@@ -88,7 +88,7 @@
 
 <li>
     <a href="{{ route('admin:ramassage.index') }}">
-        <i class='bx bx-info-circle'></i>
+        <i class='bx bx-archive-in'></i>
         {{--@if($total_new_reclamations)
          <span class="badge rounded-pill bg-danger float-end">{{$total_new_reclamations}}</span>
         @endif--}}
