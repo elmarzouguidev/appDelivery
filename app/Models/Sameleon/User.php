@@ -87,6 +87,16 @@ class User extends Authenticatable
         }
     }
 
+    public function hasApiKey()
+    {
+        if (auth()->user()->hasRole('Client')) {
+            return  is_null($this->attributes['public_key_api']) ||
+                is_null($this->attributes['secret_key_api']) ? false : true;
+        } else {
+            return true;
+        }
+    }
+
     public function isActive()
     {
         if (auth()->user()->hasRole('Client')) {
