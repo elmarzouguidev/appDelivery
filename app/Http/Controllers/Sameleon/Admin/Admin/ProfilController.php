@@ -29,7 +29,7 @@ class ProfilController extends Controller
 
         $user = auth()->user();
 
-        if ($user->uuid === $request->userId) {
+        if ($user->uuid == $request->userId) {
 
             $user->nom = $request->nom;
             $user->prenom = $request->prenom;
@@ -63,7 +63,7 @@ class ProfilController extends Controller
     {
         $user = auth()->user();
 
-        if ($user->uuid === $request->hasPassword) {
+        if ($user->uuid == $request->hasPassword) {
 
             if (
                 $request->has(['oldpassword', 'new_password', 'new_confirm_password']) &&
@@ -111,15 +111,5 @@ class ProfilController extends Controller
         return redirect()->back()->with('error', "Error");
     }
 
-    public function createToken()
-    {
-        // $token = auth()->user()->createToken(auth()->user()->email);
-        $secretToken = Str::random(32);
 
-        $publicToken = Str::random(16);
-
-        auth()->user()->update(['public_key_api' => $publicToken, 'secret_key_api' => $secretToken]);
-
-        return redirect()->back()->with('success', "la clé  a éte crée avec success");
-    }
 }

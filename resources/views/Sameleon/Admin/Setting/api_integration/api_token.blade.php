@@ -15,7 +15,7 @@
             <div class="card-body">
                 <h4 class="card-title mb-5">API</h4>
 
-                <form method="POST" action="{{ route('admin:profil.update.token') }}">
+                <form method="POST" action="{{ route('admin:api.update.token') }}">
                     <input type="hidden" name="hasToekn" value="{{ auth()->user()->uuid }}">
 
                     @csrf

@@ -165,6 +165,15 @@
                         <span key="t-profile">Profil</span>
                     </a>
                     <div class="dropdown-divider"></div>
+
+                    <a class="dropdown-item d-block" href="{{ route('admin:api.index') }}">
+
+                        <i class="bx bx-stats font-size-16 align-middle me-1"></i>
+                        <span key="t-profile">API & integration</span>
+                    </a>
+
+                    <div class="dropdown-divider"></div>
+                    
                     <a class="dropdown-item d-block" href="{{ route('admin:history') }}">
 
                         <i class="bx bx-history font-size-16 align-middle me-1"></i>

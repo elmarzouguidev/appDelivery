@@ -18,6 +18,7 @@ use App\Http\Controllers\Sameleon\Admin\Product\AdminProductController;
 use App\Http\Controllers\Sameleon\Admin\Ramassage\RamassageController;
 use App\Http\Controllers\Sameleon\Admin\Reclamation\ReclamationController;
 use App\Http\Controllers\Sameleon\Admin\Region\RegionController;
+use App\Http\Controllers\Sameleon\Admin\Setting\API\APIController;
 use App\Http\Controllers\Sameleon\Admin\Stock\StockController;
 
 use Illuminate\Support\Facades\Route;
@@ -217,7 +218,7 @@ Route::group(['prefix' => 'profil'], function () {
 
         Route::post('/company', [ProfilController::class, 'updateCompany'])->name('profil.update.company');
 
-        Route::post('/token', [ProfilController::class, 'createToken'])->name('profil.update.token');
+    
     });
 
     Route::group(['prefix' => 'history'], function () {
@@ -225,6 +226,14 @@ Route::group(['prefix' => 'profil'], function () {
         Route::get('/', [HistoryController::class, 'index'])->name('history');
         Route::delete('/', [HistoryController::class, 'delete'])->name('history.delete');
     });
+
+    Route::group(['prefix' => 'api'], function () {
+
+        Route::get('/', [APIController::class, 'index'])->name('api.index');
+        Route::post('/', [APIController::class, 'createToken'])->name('api.update.token');
+    });
+
+
 });
 
 Route::group(['prefix' => 'complaints'], function () {
