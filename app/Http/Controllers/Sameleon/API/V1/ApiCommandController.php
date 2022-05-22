@@ -32,6 +32,17 @@ class ApiCommandController extends Controller
             $user = User::where('public_key_api', $request->public_key)
                 ->where('secret_key_api', $request->secret_key)
                 ->first();
+            if (!$user) {
+                return response()->json(
+                    [
+
+                        '_response' => ['msg' => "désole cette clé n'exists pas"]
+                    ],
+                    404
+                );
+                exit();
+            }
+
             if ($user && $user->hasRole('Client')) {
 
                 $command  =  Command::create([
@@ -69,7 +80,7 @@ class ApiCommandController extends Controller
                 return response()->json(
                     [
 
-                        '_response' => ['msg' => 'successfully Created Order']
+                        '_response' => ['msg' => 'votre commande est crée avec succès']
                     ],
                     200
                 );
@@ -81,7 +92,7 @@ class ApiCommandController extends Controller
 
                     '_response' => ['msg' => 'error']
                 ],
-                200
+                402
             );
         }
     }
