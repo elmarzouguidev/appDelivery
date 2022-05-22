@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\API\V1\Application\ClientController;
+use App\Http\Controllers\Sameleon\API\V1\ApiCommandController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,8 +19,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['prefix' => 'clients'], function () {
+Route::group(['prefix' => 'orders'], function () {
 
-    Route::get('/', [ClientController::class, 'index'])->name('clients.list');
-    /****/
+    Route::get('/{command}', [ApiCommandController::class, 'single'])->name('order.single');
+
+    Route::post('/create', [ApiCommandController::class, 'store'])->name('order.store');
 });

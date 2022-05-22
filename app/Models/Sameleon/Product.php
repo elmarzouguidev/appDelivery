@@ -23,6 +23,7 @@ class Product extends Model implements HasMedia
     use ModelRoutes;
 
     protected $fillable = [
+        'slug',
         'user_uuid',
         'user_id',
         'total_commands',

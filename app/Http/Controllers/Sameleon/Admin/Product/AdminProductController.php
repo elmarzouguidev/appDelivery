@@ -8,6 +8,7 @@ use App\Http\Requests\Sameleon\Product\ProductUpdateFormRequest;
 use App\Models\Sameleon\Product;
 use App\Models\Sameleon\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class AdminProductController extends Controller
 {
@@ -36,9 +37,8 @@ class AdminProductController extends Controller
     public function store(ProductFormRequest $request)
     {
 
-
         $this->authorize('create', Product::class);
-        
+
         $product = new Product();
         $product->name = $request->name;
         $product->description = $request->description;
@@ -50,10 +50,12 @@ class AdminProductController extends Controller
             $user = User::find($request->client);
             $product->client()->associate($user);
             $product->user_uuid = $user->uuid;
+            $product->slug = Str::slug($request->name) . '-' . $user->uuid;
         } else {
 
             $product->client()->associate(auth()->id());
             $product->user_uuid = auth()->user()->uuid;
+            $product->slug = Str::slug($request->name) . '-' . auth()->user()->uuid;
         }
 
         $product->save();
