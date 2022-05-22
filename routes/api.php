@@ -19,9 +19,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['prefix' => 'orders'], function () {
+Route::group(['prefix' => 'v1'], function () {
 
-    Route::get('/{command}', [ApiCommandController::class, 'single'])->name('order.single');
+    Route::group(['prefix' => 'orders'], function () {
 
-    Route::post('/create', [ApiCommandController::class, 'store'])->name('order.store');
+        Route::get('/{command}', [ApiCommandController::class, 'single'])->name('order.single');
+
+        Route::post('/create', [ApiCommandController::class, 'store'])->name('order.store');
+    });
 });
