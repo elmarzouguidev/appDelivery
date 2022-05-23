@@ -15,6 +15,7 @@ use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithValidation
 {
@@ -27,18 +28,23 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
     public function model(array $row)
     {
 
-        $slug = Str::slug(str_replace(' ','',$row["produit_ref"])) . '-' . auth()->user()->uuid;
+        $productName = $row["produit_ref"] ?? $row["produit"] ?? throw ValidationException::withMessages([
+
+            'produit_field' => "veuillez vérifier la structure  votre fichier excel le column (produit ref) ou (produit) n'existe pas dans le fichier excel "
+
+        ]);
+
+        $slug = Str::slug(str_replace(' ', '', $productName)) . '-' . auth()->user()->uuid;
 
         $product = Product::whereUserId(auth()->id())->whereSlug($slug)->first();
 
-        
         $ville = City::whereName($row["ville"])->first();
 
         if (!$product) {
 
             throw ValidationException::withMessages([
-                'produit_not_found' => "Le produit ( {$row["produit_ref"]} ) n'existe pas dans le systeme !",
-                'produit_add' => "Aucun command a été importé a cause de ce problem veuillez ajouter ce produit ( {$row["produit_ref"]} ) avant de continuer ! "
+                'produit_not_found' => "Le produit ( {$productName} ) n'existe pas dans le systeme !",
+                'produit_add' => "Aucun command a été importé a cause de ce problem veuillez ajouter ce produit ( {$productName} ) avant de continuer ! "
             ]);
             exit();
         }
@@ -78,8 +84,8 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
                 'command_uuid' => $command->uuid,
                 'product_id' => $product ?  $product->id : null,
                 'product_uuid' => $product ? $product->uuid : null,
-                'designation' => $row["produit_ref"],
-                'product' => $row["produit_ref"],
+                'designation' => $row["produit_ref"] ?? $row["produit"],
+                'product' => $row["produit_ref"] ?? $row["produit"],
                 'quantity' => $row["qte"],
                 'prix_uni' => round($row["prix"] / $row["qte"]),
                 'prix_total' => $row["prix"],
@@ -99,7 +105,8 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
             'telephone' => ['required', 'phone:MA'],
             'ville' => ['required', 'string'],
             'adresse' => ['required', 'string'],
-            'produit_ref' => ['required', 'string'],
+            'produit_ref' => ['nullable', 'string'],
+            'produit' => ['required_if:produit_ref,=,null', 'string'],
             'qte' => ['required', 'numeric'],
             'prix' => ['required', 'numeric'],
         ];
