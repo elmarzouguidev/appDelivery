@@ -61,7 +61,7 @@ class ApiCommandController extends Controller
 
                     foreach ($request->items as $item) {
 
-                        $slug = Str::slug(str_replace(' ', '', $item['name'])) . '-' . $user->uuid;
+                        $slug = Str::slug($item['name']) . '-' . $user->uuid;
 
                         $product = Product::whereUserId($user->id)->whereSlug($slug)->first();
                         // dd($product,$slug);
