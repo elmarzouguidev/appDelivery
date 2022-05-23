@@ -70,7 +70,7 @@ class ApiCommandController extends Controller
                             return response()->json(
                                 [
 
-                                    '_response' => ['msg' => "désole le produit : {$item['name']} n'existe pas dans notre systeme"]
+                                    '_response' => ['msg' => "désole le produit ( {$item['name']} ) n'existe pas dans notre systeme"]
                                 ],
                                 404
                             );
