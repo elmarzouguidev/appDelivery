@@ -31,8 +31,7 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
 
         $product = Product::whereUserId(auth()->id())->whereSlug($slug)->first();
 
-        dd($slug,"##",$product);
-
+        
         $ville = City::whereName($row["ville"])->first();
 
         if (!$product) {
