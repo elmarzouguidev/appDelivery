@@ -35,7 +35,7 @@ class InvoiceGenerator
             //->with('client:id,uuid')
             ->get();
 
-        if ($commands->count() > 0) {
+        if ($commands && $commands->count() > 0) {
 
             $users =  $commands->map(function ($command, $key) {
 
