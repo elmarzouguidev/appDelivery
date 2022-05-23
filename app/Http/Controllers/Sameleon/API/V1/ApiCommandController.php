@@ -33,6 +33,7 @@ class ApiCommandController extends Controller
                 ->where('secret_key_api', $request->secret_key)
                 ->first();
             if (!$user) {
+
                 return response()->json(
                     [
 
@@ -56,9 +57,9 @@ class ApiCommandController extends Controller
                     'is_api' => true
                 ]);
 
-                if ($command) {
+                if ($command &&  $request->has('items') && $request->filled('items')) {
 
-                    foreach ($request->items as $index => $item) {
+                    foreach ($request->items as $item) {
 
                         $slug = Str::slug(str_replace(' ', '', $item['name'])) . '-' . $user->uuid;
 
