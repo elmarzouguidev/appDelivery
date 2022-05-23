@@ -36,8 +36,7 @@ class ApiCommandController extends Controller
 
                 return response()->json(
                     [
-
-                        '_response' => ['msg' => "désole cette clé n'exists pas"]
+                        '_response' => ['msg' => "désole cette clé n'existe pas dans notre systeme veuillez vérifier votre public_key est secret_key !!"]
                     ],
                     404
                 );
@@ -65,17 +64,29 @@ class ApiCommandController extends Controller
 
                         $product = Product::whereUserId($user->id)->whereSlug($slug)->first();
                         // dd($product,$slug);
-                        Item::create([
-                            'command_id' => $command->id,
-                            'command_uuid' => $command->uuid,
-                            'product_id' => $product ?  $product->id : null,
-                            'product_uuid' => $product ? $product->uuid : null,
-                            'designation' => $item['name'],
-                            'product' => $item['name'],
-                            'quantity' => $item['quantity'],
-                            'prix_uni' => round($item['prix_total'] / $item['quantity']),
-                            'prix_total' => $item['prix_total'],
-                        ]);
+                        if (!$product) {
+
+                            return response()->json(
+                                [
+
+                                    '_response' => ['msg' => "désole ce produit {$product->name} n'existe pas dans notre systeme"]
+                                ],
+                                404
+                            );
+                            exit();
+                        } else {
+                            Item::create([
+                                'command_id' => $command->id,
+                                'command_uuid' => $command->uuid,
+                                'product_id' => $product ?  $product->id : null,
+                                'product_uuid' => $product ? $product->uuid : null,
+                                'designation' => $item['name'],
+                                'product' => $item['name'],
+                                'quantity' => $item['quantity'],
+                                'prix_uni' => round($item['prix_total'] / $item['quantity']),
+                                'prix_total' => $item['prix_total'],
+                            ]);
+                        }
                     }
                 }
                 return response()->json(
