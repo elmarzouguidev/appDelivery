@@ -339,7 +339,7 @@ class Command extends Model
 
             $model->code = $prefix . $code . '-' . now()->format('dmY');
 
-            $model->track_code = str_pad(($model->max('id') + 1), 4, 0, STR_PAD_LEFT) . Str::random(10);
+            $model->track_code = "TR-SM-" . $code . '-' . now()->format('dmY');
         });
     }
 }

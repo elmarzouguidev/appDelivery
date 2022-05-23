@@ -19,8 +19,9 @@ class ApiCommandController extends Controller
     {
     }
 
-    public function single()
+    public function track(string $code)
     {
+        
     }
 
     public function store(CommandRequest $request)

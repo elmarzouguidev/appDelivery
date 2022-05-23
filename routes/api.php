@@ -25,7 +25,7 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::group(['prefix' => 'orders'], function () {
 
-        Route::get('/{command}', [ApiCommandController::class, 'single'])->name('order.single');
+        Route::get('/track/{command}', [ApiCommandController::class, 'track'])->name('order.track');
 
         Route::post('/create', [ApiCommandController::class, 'store'])->name('order.store');
     });
