@@ -15,19 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::domain('api.sameleon-express.ma')->group(function () {
-    
-    Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-        return $request->user();
-    });
 
-    Route::group(['prefix' => 'v1'], function () {
 
-        Route::group(['prefix' => 'orders'], function () {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
 
-            Route::get('/{command}', [ApiCommandController::class, 'single'])->name('order.single');
+Route::group(['prefix' => 'v1'], function () {
 
-            Route::post('/create', [ApiCommandController::class, 'store'])->name('order.store');
-        });
+    Route::group(['prefix' => 'orders'], function () {
+
+        Route::get('/{command}', [ApiCommandController::class, 'single'])->name('order.single');
+
+        Route::post('/create', [ApiCommandController::class, 'store'])->name('order.store');
     });
 });
