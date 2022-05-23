@@ -14,6 +14,7 @@ use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\WithValidation;
+use Illuminate\Support\Str;
 
 class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithValidation
 {
@@ -26,9 +27,20 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
     public function model(array $row)
     {
 
-        $product = Product::whereName($row["produit_ref"])->whereUserId(auth()->id())->first();
+        $slug = Str::slug($row["produit_ref"]) . '-' . auth()->user()->uuid;
+
+        $product = Product::whereUserId(auth()->id())->whereSlug($slug)->first();
 
         $ville = City::whereName($row["ville"])->first();
+
+        if (!$product) {
+
+            throw ValidationException::withMessages([
+                'produit_not_found' => "Le produit ( {$row["produit_ref"]} ) n'existe pas dans le systeme !",
+                'produit_add' => "Aucun command a été importé a cause de ce problem veuillez ajouter ce produit ( {$row["produit_ref"]} ) avant de continuer ! "
+            ]);
+            exit();
+        }
 
         $data = [
             'client_name'     => $row["destinataire"],
@@ -58,7 +70,6 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
                 'produit_price' => "Le produit {$product->name} est en rupture de stock",
                 'produit_error' => "Aucun command a été importé a cause de ce problem veuillez augmenter votre Stock !! "
             ]);
-            
         } else {
 
             $command->items()->create([
