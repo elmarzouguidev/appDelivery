@@ -35,7 +35,7 @@ class DeliveryCreateFormRequest extends FormRequest
             'email' => ['required', 'email', Rule::unique('users')],
             //'password' => ['required', 'string', 'min:6'],
 
-
+            'generate_password' => ['nullable', Rule::in([1, '1', true, 'on', 'yes', 'oui', '0', 'no', 'non', false])],
             'regions' => ['nullable', 'array'],
             'regions.*' => ['nullable', 'integer'],
         ];

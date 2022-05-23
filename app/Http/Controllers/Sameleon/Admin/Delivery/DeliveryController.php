@@ -40,9 +40,7 @@ class DeliveryController extends Controller
 
     public function store(DeliveryCreateFormRequest $request)
     {
-
-        //dd($request->all());
-
+        
         $this->authorize('create', User::class);
 
         $delivery = new User();
@@ -56,7 +54,11 @@ class DeliveryController extends Controller
         $delivery->type = $request->type;
         $delivery->cnie = $request->cnie;
 
-        $pass = Str::random(9);
+        $pass = $request->email;
+
+        if ($request->boolean('generate_password')) {
+            $pass = Str::random(9);
+        }
 
         $delivery->password = Hash::make($pass);
 
@@ -71,13 +73,12 @@ class DeliveryController extends Controller
             Region::find($request->regions)->each->update(['delivery_id' => $delivery->id, 'delivery_uuid' => $delivery->uuid]);
         }
 
-        if (app()->environment('production') && CheckConnection::isConnected()) {
+        if ($request->boolean('generate_password') && CheckConnection::isConnected()) {
 
             $delivery->notify(new SendNewUserPassword($pass));
-
-            return redirect()->back()->with('success', 'le livreure a été ajouter avec success est le mot de pass a été envoyer');
         }
-        return redirect()->back()->with('error', 'le livreure a été ajouter avec success');
+
+        return redirect()->back()->with('success', 'le livreure a été ajouter avec success est le mot de pass a été envoyer');
     }
 
     public function edit(User $delivery)
@@ -87,7 +88,7 @@ class DeliveryController extends Controller
         $cities = app(CityInterface::class)->getCities();
 
         $delivery->load('regions');
-        
+
         return view('Sameleon.Admin.Delivery.__edit.index', compact('delivery', 'cities'));
     }
 
