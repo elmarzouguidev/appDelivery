@@ -6,6 +6,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Support\Str;
 use Swift_TransportException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -49,6 +50,7 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $exception)
     {
+
         /*if ($exception instanceof \ErrorException) {
              return response()->json([
                  'data' => 'Resource not found'
@@ -76,7 +78,7 @@ class Handler extends ExceptionHandler
             return response()->json(['_response' => ['msg' => $message, 'is_send' => false]], 500);
         }
 
-        if (request()->is('api/*')) {
+        if ($request->is('api/*','api/v1/*')) {
 
             if ($exception instanceof MethodNotAllowedHttpException) {
                 return response()->json([
@@ -84,7 +86,7 @@ class Handler extends ExceptionHandler
                 ], 405);
             }
 
-            /* if ($exception instanceof NotFoundHttpException) {
+           /* if ($exception instanceof NotFoundHttpException) {
 
                 return redirect()->route('home');
             }*/
