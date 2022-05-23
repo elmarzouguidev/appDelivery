@@ -28,7 +28,7 @@ class StockController extends Controller
     public function update(StockFormRequest $request, Product $stock)
     {
         
-        $this->authorize('update', $stock);
+      //  $this->authorize('update', $stock);
 
         // dd($request->all(), "##", $stock);
 

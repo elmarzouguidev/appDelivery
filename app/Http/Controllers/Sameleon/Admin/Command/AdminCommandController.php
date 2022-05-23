@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Sameleon\Command\CommandFormRequest;
 use App\Http\Requests\Sameleon\Command\CommandUpdateFormRequest;
 use App\Http\Requests\Sameleon\Imports\ImportCommandRequest;
+use App\Imports\CommandsCollectionImport;
 use App\Imports\CommandsImport;
 use App\Models\Sameleon\Command;
 use App\Models\Sameleon\Product;

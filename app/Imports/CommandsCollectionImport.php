@@ -17,26 +17,34 @@ use Maatwebsite\Excel\Concerns\WithValidation;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
-class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithValidation
+class CommandsCollectionImport implements ToCollection, SkipsEmptyRows, WithHeadingRow, WithValidation
 {
 
-    /**
-     * @param array $row
-     *
-     * @return \Illuminate\Database\Eloquent\Model|null
-     */
-    public function model(array $row)
+
+    public function collection(Collection  $rows)
     {
 
-        $productName = $row["produit_ref"] ?? $row["produit"] ?? throw ValidationException::withMessages([
+        /* foreach ($rows as $row) 
+        {
+            dd($row);
+        }*/
+
+        /*$productName = $rows["produit_ref"] ?? throw ValidationException::withMessages([
 
             'produit_field' => "veuillez vérifier la structure de  votre fichier excel le column (produit ref) ou (produit) n'existe pas dans le fichier excel "
 
-        ]);
+        ]);*/
 
-        /*$products = collect($productName);
-        $groups = $products->duplicates();
-        dd($groups, $row);*/
+        $products = collect($rows);
+        $groups = $products->groupBy('produit_ref');
+
+        $quantities = $groups->map(function ($group) {
+
+            return $group->map(function ($item) {
+                return ['produit' => $item['produit_ref'], 'qte' => $item['qte']];
+            })->sum('qte');
+        });
+        dd($groups, $quantities);
 
         $slug = Str::slug(str_replace(' ', '', $productName)) . '-' . auth()->user()->uuid;
 
