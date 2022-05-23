@@ -33,6 +33,7 @@ class RegisterFormRequest extends FormRequest
             'city' => ['required', 'integer'],
             'cnie' => ['nullable','required_if:type,particulier', 'string', Rule::unique('users')],
             'email' => ['required', 'email', Rule::unique('users')],
+            'generate_password' => ['nullable', Rule::in([1, '1', true, 'on', 'yes', 'oui', '0', 'no', 'non', false])],
             //'password' => ['required', 'string', 'min:6'],
         ];
     }

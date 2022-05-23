@@ -28,7 +28,12 @@
                                 <div class="col-lg-6">
 
                                     @include('Sameleon.Admin.Client.__create.__info')
-                                       
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input" name="generate_password" type="checkbox" id="generate_password">
+                                        <label class="form-check-label" for="generate_password">
+                                            Générer un mot de passe est envoyer le par mail
+                                        </label>
+                                    </div> 
                                 </div>
 
                                 <div class="col-lg-6">
@@ -46,6 +51,7 @@
                                             </span>
                                         @enderror
                                     </div>
+                         
                                 </div>
                             </div>
                         </div>

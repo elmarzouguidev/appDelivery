@@ -56,7 +56,12 @@ class ClientController extends Controller
         $client->type = $request->type;
         $client->cnie = $request->cnie;
 
-        $pass = Str::random(9);
+        $pass = $request->email;
+
+        if ($request->boolean('generate_password')) {
+            
+            $pass = Str::random(9);
+        }
 
         $client->password = Hash::make($pass);
 
@@ -66,13 +71,12 @@ class ClientController extends Controller
 
         $client->assignRole('Client');
 
-        if (CheckConnection::isConnected()) {
+        if ($request->boolean('generate_password') && CheckConnection::isConnected()) {
 
             $client->notify(new SendNewUserPassword($pass));
-
-            return redirect()->back()->with('success', 'le client a été ajouter avec success');
+            
         }
-        return redirect()->back()->with('error', 'Email not send');
+        return redirect()->back()->with('success', 'le client a été ajouter avec success');
     }
 
     public function edit(User $client)

@@ -40,7 +40,7 @@ class DeliveryController extends Controller
 
     public function store(DeliveryCreateFormRequest $request)
     {
-        
+
         $this->authorize('create', User::class);
 
         $delivery = new User();
@@ -57,6 +57,7 @@ class DeliveryController extends Controller
         $pass = $request->email;
 
         if ($request->boolean('generate_password')) {
+            
             $pass = Str::random(9);
         }
 
