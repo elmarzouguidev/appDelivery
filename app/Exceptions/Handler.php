@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use Swift_TransportException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -39,7 +40,6 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->reportable(function (Throwable $e) {
-
         });
     }
 
@@ -78,18 +78,18 @@ class Handler extends ExceptionHandler
             return response()->json(['_response' => ['msg' => $message, 'is_send' => false]], 500);
         }
 
-        if ($request->is('api/*','api/v1/*')) {
+        if ($exception instanceof ThrottleRequestsException && $request->is('api/*')) {
 
-            if ($exception instanceof MethodNotAllowedHttpException) {
-                return response()->json([
-                    'msg' => ['error' => 'sorry this URL is not Allowed from Browser Directly']
-                ], 405);
-            }
+            return response()->json([
+                'msg' => ['error' => "désolé vous avez depassé le limit de l'api"]
+            ], 405);
+        }
 
-           /* if ($exception instanceof NotFoundHttpException) {
 
-                return redirect()->route('home');
-            }*/
+        if ($exception instanceof MethodNotAllowedHttpException && $request->is('api/*')) {
+            return response()->json([
+                'msg' => ['error' => 'sorry this URL is not Allowed from Browser Directly']
+            ], 405);
         }
 
         return parent::render($request, $exception);
