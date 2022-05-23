@@ -108,7 +108,7 @@
 
                                                 </button>
                                             @else
-                                                <button wire:click="addBill('{{ $invoice->uuid }}')" type="button"
+                                                <button {{ $invoice->cloture == true ? '' : 'disabled' }} wire:click="addBill('{{ $invoice->uuid }}')" type="button"
                                                     class="btn btn-warning btn-sm">
                                                     Régler
                                                 </button>
