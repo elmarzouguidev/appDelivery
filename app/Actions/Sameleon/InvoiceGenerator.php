@@ -7,6 +7,7 @@ use App\Models\Sameleon\Invoice;
 use App\Models\Sameleon\User;
 use App\Status\Status;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 class InvoiceGenerator
@@ -15,146 +16,148 @@ class InvoiceGenerator
 
     protected $invoice;
 
-    protected $client;
-
     public function handle()
     {
+        $this->CloseYesterdayInvoice();
 
-        if (
-            !now()->isWeekend() && Command::whereDay('created_at', now()->format('d'))
-            ->whereIn('status', [Status::LIVRE, Status::REFUSE])
-            ->whereNotNull('delivered_at')
-            ->doesntHave('articles')
-            //->whereDay('delivered_at', now()->format('d'))
-            ->count() > 0
-        ) {
+        $this->deleteCommands();
 
-            $commands =  Command::whereDay('created_at', now()->format('d'))
-                ->whereIn('status', [Status::LIVRE, Status::REFUSE])
-                ->whereNotNull('delivered_at')
-                ->doesntHave('articles')
-                //->whereDay('delivered_at', now()->format('d'))
-                ->latest()->get();
-           // $commands->dd();
-            $this->client = User::find($commands->user_id);
+        $this->updateRefusedCommand();
 
-            $this->invoice = Invoice::whereDay('created_at', now()->format('d'))
-                ->where('user_id', $commands->user_id)
-                ->where('user_uuid', $this->client->uuid)
-                ->first();
+        //!now()->isWeekend();
+        // dd(now()->format('H:i') =='17:16');
+        $commands = Command::whereIn('status', [Status::LIVRE, Status::REFUSE])
 
-            if ($this->invoice) {
-                //$this->deleteCommands();
-                $this->addItems();
-                $this->addOldItems();
-                $this->checkArticles();
-            } else {
+            ->where(function ($q) {
+                $q->whereDay('delivered_at', now()->format('d'))
+                    ->orWhereYear('delivered_at', '1993');
+            })
+            //->with('client:id,uuid')
+            ->get();
 
-                $this->invoice = new Invoice();
-                $this->invoice->invoice_date = now()->format('Y-m-d');
-                $this->invoice->client()->associate($commands->user_id);
-                $this->invoice->user_uuid = $this->client->uuid;
-                $this->invoice->save();
+        if ($commands->count() > 0) {
+
+            $users =  $commands->map(function ($command, $key) {
+
+                return ['user_id' => $command->user_id, 'user_uuid' => $command->user_uuid];
+            });
+
+           // dd($users,"##");
+            foreach ($users as $user) {
+               // dd($user);
+
+                $this->invoice = Invoice::whereDay('created_at', now()->format('d'))
+                    ->where('user_id', $user['user_id'])
+                    ->where('user_uuid', $user['user_uuid'])
+                    ->first();
+
+                if ($this->invoice) {
+
+                    $this->addItems($user['user_id']);
+                    $this->addOldItems($user['user_id']);
+                    $this->checkArticles($user['user_id']);
+                } else {
+
+                    $this->invoice = new Invoice();
+                    $this->invoice->invoice_date = now()->format('Y-m-d');
+                    $this->invoice->client()->associate($user['user_id']);
+                    $this->invoice->user_uuid = $user['user_uuid'];
+                    $this->invoice->save();
+                }
             }
         }
     }
 
-    private function addItems()
+    private function addItems($userId)
     {
-        $commands = $this->client
+        $user = User::find($userId);
+        $commands = $user
             ->commands()
             ->whereIn('status', [Status::LIVRE, Status::REFUSE])
             ->doesntHave('articles')
-            ->whereDay('created_at', now()->format('d'))
-            ->whereNotNull('delivered_at')
-            //->whereDay('delivered_at', now()->format('d'))
-            ->withSum('products', 'product_command.price_total')
-            ->latest()->get();
+            ->where(function ($q) {
+                $q->whereDay('delivered_at', now()->format('d'))
+                    ->orWhereYear('delivered_at', '1993');
+            })
+            ->withSum('items', 'prix_total')
+            ->get();
 
         if ($commands) {
 
             $newCommands =  $commands->map(function ($item, $key) {
 
                 $item->update(['invoice_id' => $this->invoice->id, 'invoice_uuid' => $this->invoice->uuid]);
-                $price = $item->status == Status::REFUSE ? 0 : $item->products_sum_product_commandprice_total;
+
+                $price = $item->status == Status::REFUSE ? 0 : $item->items_sum_prix_total;
+
                 return [
                     'command_id' => $item->id,
                     'command_uuid' => $item->uuid,
                     'code_command' => $item->code,
                     'date_command' => $item->created_at->format('d-m-Y'),
-                    'city' => $item->city->name,
+                    'city' => $item->city->name ?? $item->client_city,
                     'status' => __('status.statuses.' . $item->status),
                     'price_total' => $price ?? 0,
                     'frais' => $item->frais,
                 ];
             })->toArray();
-
-            // dd($newCommands, $commands);
-            //return redirect()->route('public.show.invoice', [$this->invoice->uuid, 'has_header' => true]);
 
             $this->invoice->articles()->createMany($newCommands);
         }
     }
 
-    private function checkArticles()
+    private function checkArticles($userId)
     {
-        
-        $commandsLivred =  $this->client
+        $user = User::find($userId);
+        $commandsLivred = $user
             ->commands()
             ->where('status', Status::LIVRE)
-            ->whereDay('created_at', now()->format('d'))
-            //->orWhereDay('created_at', Carbon::yesterday()->format('d'))
+            ->whereDay('delivered_at', now()->format('d'))
             ->whereNotNull('delivered_at')
             ->whereHas('articles', function ($query) {
                 $query->where('price_total', '<=', 0);
             })
-
-            //->whereDay('delivered_at', now()->format('d'))
-            ->withSum('products', 'product_command.price_total')
+            ->withSum('items', 'prix_total')
             ->get();
-        $commandsRefused =  $this->client
+        $commandsRefused = $user
             ->commands()
             ->where('status', Status::REFUSE)
-            //->whereDay('created_at', now()->format('d'))
-            //->orWhereDay('created_at', Carbon::yesterday()->format('d'))
+            ->whereYear('delivered_at', '1993')
             ->whereNotNull('delivered_at')
             ->whereHas('articles', function ($query) {
                 $query->where('price_total', '>', 0);
             })
-
-            //->whereDay('delivered_at', now()->format(s'd'))
-            //->withSum('products', 'product_command.price_total')
             ->get();
 
         if ($commandsLivred) {
-            // dd('wwwD',$commands);
             $commandsLivred->map(function ($item, $key) {
-                $price = $item->products_sum_product_commandprice_total;
+                $price = $item->items_sum_prix_total;
                 $item->articles()->update(['price_total' => $price]);
             });
         }
         if ($commandsRefused) {
-            // dd('wwwD',$commands);
             $commandsRefused->map(function ($item, $key) {
-                ///$price = $item->products_sum_product_commandprice_total;
                 $item->articles()->update(['price_total' => 0]);
             });
         }
     }
 
-    private function addOldItems()
+    private function addOldItems($userId)
     {
-  
-        $commands = $this->client
-
+        $user = User::find($userId);
+        $commands = $user
             ->commands()
             ->whereIn('status', [Status::LIVRE, Status::REFUSE])
             ->doesntHave('articles')
-            ->whereDay('created_at', Carbon::yesterday()->format('d'))
+            //->whereDay('created_at', Carbon::yesterday()->format('d'))
+            ->whereDay('created_at', '!=', now()->format('d'))
+            ->where(function ($q) {
+                $q->whereDay('delivered_at', now()->format('d'))
+                    ->orWhereYear('delivered_at', '1993');
+            })
             ->whereNotNull('delivered_at')
-            //->whereDay('delivered_at',now()->format('d'))
-            ->withSum('products', 'product_command.price_total')
-            ->latest()->get();
+            ->withSum('items', 'prix_total')
+            ->get();
 
         if ($commands) {
 
@@ -162,22 +165,19 @@ class InvoiceGenerator
 
                 $item->update(['invoice_id' => $this->invoice->id, 'invoice_uuid' => $this->invoice->uuid]);
 
-                $price = $item->status == Status::REFUSE ? 0 : $item->products_sum_product_commandprice_total;
+                $price = $item->status == Status::REFUSE ? 0 : $item->items_sum_prix_total;
 
                 return [
                     'command_id' => $item->id,
                     'command_uuid' => $item->uuid,
                     'code_command' => $item->code,
                     'date_command' => $item->created_at->format('d-m-Y'),
-                    'city' => $item->city->name,
+                    'city' => $item->city->name ?? $item->client_city,
                     'status' => __('status.statuses.' . $item->status),
                     'price_total' => $price ?? 0,
                     'frais' => $item->frais,
                 ];
             })->toArray();
-
-            //dd($newCommands, $commands);
-            //return redirect()->route('public.show.invoice', [$this->invoice->uuid, 'has_header' => true]);
 
             $this->invoice->articles()->createMany($newCommands);
         }
@@ -186,26 +186,41 @@ class InvoiceGenerator
     private function deleteCommands()
     {
 
-        $commands = $this->client
-            ->commands()
-            ->whereNotIn('status', [Status::LIVRE, Status::REFUSE])
+        $commands = Command::whereNotIn('status', [Status::LIVRE, Status::REFUSE])
             ->has('articles')
-            ->where('delivered_at', '00:00:00')
-            ->whereDay('created_at', now()->format('d'))
-            //->orWhereDay('created_at', Carbon::yesterday()->format('d'))
-
-            //->whereDay('delivered_at', now()->format('d'))
-            //->withSum('products', 'product_command.price_total')
-            ->latest()->get();
+            ->get();
 
         if ($commands) {
 
             $commands->map(function ($item, $key) {
+
                 $item->articles()->delete();
                 $item->update(['invoice_id' => null, 'invoice_uuid' => null]);
             });
 
             //dd($commands);
         }
+    }
+
+    private function updateRefusedCommand()
+    {
+        $commands = Command::whereIn('status', [Status::REFUSE])
+            ->has('articles')
+            ->get();
+
+        if ($commands) {
+
+            $commands->map(function ($item, $key) {
+                $item->articles()->update(['price_total' => 0]);
+            });
+        }
+    }
+
+    private function CloseYesterdayInvoice()
+    {
+        $invoices = Invoice::whereDay('created_at', Carbon::yesterday()->format('d'))
+            ->where('cloture', false)
+            ->select(['id', 'cloture'])->get();
+        $invoices->each->update(['cloture' => true]);
     }
 }

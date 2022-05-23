@@ -20,9 +20,9 @@ class AdminCommandController extends Controller
     public function index()
     {
 
-        GeneratDayInvoiceAction::run();
+        //GeneratDayInvoiceAction::run();
 
-        //InvoiceGenerator::run();
+        InvoiceGenerator::run();
 
         $cities = app(CityInterface::class)->getCities();
 
