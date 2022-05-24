@@ -32,6 +32,7 @@ class InvoiceGenerator
                 $q->whereDay('delivered_at', now()->format('d'))
                     ->orWhereYear('delivered_at', '1993');
             })
+            ->doesntHave('articles')
             //->with('client:id,uuid')
             ->get();
 
