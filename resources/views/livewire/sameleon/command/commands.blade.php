@@ -40,12 +40,12 @@
                                     @endif
                                     
                                     @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
-                                        @if(count($selectedCommands))
-                                            <button class="btn btn-primary" type="button" data-bs-toggle="modal"
+                                    
+                                            <button {{count($selectedCommands) ? '' : 'disabled' }} class="btn btn-primary" type="button" data-bs-toggle="modal"
                                                 data-bs-target=".attachCommandModal">
                                                 Envoyer au Livreur {{--: @json($selectedCommands)--}}
                                             </button>
-                                        @endif
+                                        
                                     @endif
 
                                     {{--@if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
