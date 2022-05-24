@@ -42,7 +42,7 @@ return [
         \App\Status\Status::PAS_DE_REPONSE_5 => 'btn-warning',
         \App\Status\Status::RECONFIRMER => 'btn-info',
         \App\Status\Status::REFUSE => 'btn-danger',
-        \App\Status\Status::REPORTE => 'btn-info',
+        \App\Status\Status::REPORTE => 'btn-dark',
         \App\Status\Status::RETOURNE => 'btn-info',
 
     ],
