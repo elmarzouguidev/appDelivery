@@ -225,7 +225,9 @@ class InvoiceGenerator
             //->where('cloture', false)
             ->select(['id', 'cloture'])->get();
         $invoices->each->update(['cloture' => true]);
-        $invoices->each->commands->each->update(['is_closed'=>true]);
+        $invoices->map(function($invoice){
+            $invoice->commands()->update(['is_closed'=>true]);
+        });
     }
 
     private function deleteNullInvoices()
