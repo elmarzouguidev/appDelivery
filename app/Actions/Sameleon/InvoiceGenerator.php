@@ -222,9 +222,10 @@ class InvoiceGenerator
     private function CloseYesterdayInvoice()
     {
         $invoices = Invoice::whereDay('created_at', Carbon::yesterday()->format('d'))
-            ->where('cloture', false)
+            //->where('cloture', false)
             ->select(['id', 'cloture'])->get();
         $invoices->each->update(['cloture' => true]);
+        $invoices->each->commands()->update(['is_closed'=>true]);
     }
 
     private function deleteNullInvoices()
