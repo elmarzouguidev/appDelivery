@@ -18,6 +18,8 @@ class InvoiceGenerator
 
     public function handle()
     {
+        $this->deleteNullInvoices();
+        
         $this->CloseYesterdayInvoice();
 
         $this->deleteCommands();
@@ -32,7 +34,7 @@ class InvoiceGenerator
                 $q->whereDay('delivered_at', now()->format('d'))
                     ->orWhereYear('delivered_at', '1993');
             })
-            ->doesntHave('articles')
+            //->doesntHave('articles')
             //->with('client:id,uuid')
             ->get();
 
@@ -43,9 +45,9 @@ class InvoiceGenerator
                 return ['user_id' => $command->user_id, 'user_uuid' => $command->user_uuid];
             });
 
-           // dd($users,"##");
+            // dd($users,"##");
             foreach ($users as $user) {
-               // dd($user);
+                // dd($user);
 
                 $this->invoice = Invoice::whereDay('created_at', now()->format('d'))
                     ->where('user_id', $user['user_id'])
@@ -223,5 +225,16 @@ class InvoiceGenerator
             ->where('cloture', false)
             ->select(['id', 'cloture'])->get();
         $invoices->each->update(['cloture' => true]);
+    }
+
+    private function deleteNullInvoices()
+    {
+        $invoices = Invoice::doesntHave('articles')->get();
+
+        if ($invoices) {
+            foreach ($invoices as $invoice) {
+                $invoice->delete();
+            }
+        }
     }
 }
