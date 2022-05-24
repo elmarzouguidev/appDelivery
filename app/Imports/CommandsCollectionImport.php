@@ -24,74 +24,90 @@ class CommandsCollectionImport implements ToCollection, SkipsEmptyRows, WithHead
     public function collection(Collection  $rows)
     {
 
-        /* foreach ($rows as $row) 
-        {
-            dd($row);
-        }*/
-
-        /*$productName = $rows["produit_ref"] ?? throw ValidationException::withMessages([
-
-            'produit_field' => "veuillez vérifier la structure de  votre fichier excel le column (produit ref) ou (produit) n'existe pas dans le fichier excel "
-
-        ]);*/
-
+        /*$prod = collect($rows);
+        dd($prod);*/
         $products = collect($rows);
+
         $groups = $products->groupBy('produit_ref');
 
-        $quantities = $groups->map(function ($group) {
+        $productsData = $groups->map(function ($group) {
+            // dd($group->sum('qte'));
 
             return $group->map(function ($item) {
                 return ['produit' => $item['produit_ref'], 'qte' => $item['qte']];
-            })->sum('qte');
-        });
-        dd($groups, $quantities);
+            });
+        })->toArray();
+        //dd($productsData);
+        foreach ($rows as $row) {
 
-        $slug = Str::slug(str_replace(' ', '', $productName)) . '-' . auth()->user()->uuid;
 
-        $product = Product::whereUserId(auth()->id())
-            ->whereUserUuid(auth()->user()->uuid)
-            ->whereSlug($slug)->first();
+            /*$productField = $row["produit_ref"] ?? $row["produit"] ?? throw ValidationException::withMessages([
 
-        $ville = City::whereName($row["ville"])->first();
+                'produit_field' => "veuillez vérifier la structure de  votre fichier excel le column (produit ref) ou (produit) n'existe pas dans le fichier excel "
+    
+            ]);*/
+            $ville = City::whereName($row["ville"])->first();
 
-        if (!$product) {
+            $data = [
+                'client_name'     => $row["destinataire"],
+                'client_phone'    => $row["telephone"],
+                'client_city'    => $row["ville"],
+                'client_address'    => $row["adresse"],
+                'city_id' => $ville ? $ville->id : null,
+                'user_id' => auth()->id(),
+                'user_uuid' => auth()->user()->uuid,
+                'is_imported' => true
+            ];
+            //dd($data);
+            $command =  Command::create($data);
 
-            throw ValidationException::withMessages([
-                'produit_not_found' => "Le produit ( {$productName} ) n'existe pas dans le systeme !",
-                'produit_add' => "Aucun command a été importé a cause de ce problem veuillez ajouter ce produit ( {$productName} ) avant de continuer ! "
-            ]);
-            exit();
-        }
+            $product = null;
 
-        $data = [
-            'client_name'     => $row["destinataire"],
-            'client_phone'    => $row["telephone"],
-            'client_city'    => $row["ville"],
-            'client_address'    => $row["adresse"],
-            'city_id' => $ville ? $ville->id : null,
-            'user_id' => auth()->id(),
-            'user_uuid' => auth()->user()->uuid,
-            'is_imported' => true
-        ];
-        //dd($data);
-        $command =  Command::create($data);
+            foreach ($productsData as $name => $productData) {
 
-        if ($product && round($product->price) !== $prixExcel = round($row["prix"] / $row["qte"])) {
+                $productName = str_replace(' ', '', $name);
 
-            throw ValidationException::withMessages([
-                'produit_price' => "Le prix unitaire de ( {$product->name} ) dans le fichier EXCEL ( $prixExcel DH ) n'est pas égal au prix entrée dans le système ( $product->price DH )",
-                'produit_error' => "Aucun command a été importé a cause de ce problem veuillez vérifier votre fichier excel !! "
+                $productQte = collect($productData)->sum('qte');
 
-            ]);
-        }
+                //dd($name, "##f", $productQte);
 
-        if ($product && $product->qte_rest < $row["qte"]) {
+                $slug = Str::slug($productName) . '-' . auth()->user()->uuid;
 
-            throw ValidationException::withMessages([
-                'produit_price' => "Le produit ( {$product->name} ) est en rupture de stock",
-                'produit_error' => "Aucun command a été importé a cause de ce problem veuillez augmenter votre Stock !! "
-            ]);
-        } else {
+                // dd($slug);
+
+                $product = Product::whereUserId(auth()->id())
+                    ->whereUserUuid(auth()->user()->uuid)
+                    ->whereSlug($slug)->first();
+
+                //dd($product);
+                // dd($rows);
+
+                //dd($product->total_commands_qte);
+                if (!$product) {
+
+                    throw ValidationException::withMessages([
+                        'produit_not_found' => "Le produit ( {$productName} ) n'existe pas dans le systeme !",
+                        'produit_add' => "Aucun command a été importé a cause de ce problem veuillez ajouter ce produit ( {$productName} ) avant de continuer ! "
+                    ]);
+                    exit();
+                }
+                if ($product && $product->qte_rest < $productQte) {
+
+                    throw ValidationException::withMessages([
+                        'produit_price' => "Le produit ( {$product->name} ) est en rupture de stock",
+                        'produit_error' => "Aucun command a été importé a cause de ce problem veuillez augmenter votre Stock !! "
+                    ]);
+                }
+
+                /*if ($product && round($product->price) !== $prixExcel = round($row["prix"] / $row["qte"])) {
+
+                    throw ValidationException::withMessages([
+                        'produit_price' => "Le prix unitaire de ( {$product->name} ) dans le fichier EXCEL ( $prixExcel DH ) n'est pas égal au prix entrée dans le système ( $product->price DH )",
+                        'produit_error' => "Aucun command a été importé a cause de ce problem veuillez vérifier votre fichier excel !! "
+
+                    ]);
+                }*/
+            }
 
             $command->items()->create([
 

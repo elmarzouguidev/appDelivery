@@ -257,7 +257,7 @@ class Commands extends Component
 
                     $qteRest = $qteGlobal - $item->quantity;
 
-                    if ($qteGlobal < $item->quantity) {
+                    if ($prod->qte_rest == 0 || $prod->qte_rest < $item->quantity) {
 
                         $prod->update(['qte_rest' => 0, 'is_out' => true, 'qte_livre' => 0]);
 
@@ -288,7 +288,7 @@ class Commands extends Component
 
                 if ($prod) {
 
-                    if ($prod->qte_rest < $item->quantity) {
+                    if ($prod->qte_rest == 0 || $prod->qte_rest < $item->quantity) {
 
                         $prod->update(['qte_rest' => 0, 'is_out' => true]);
                     }

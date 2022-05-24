@@ -26,6 +26,11 @@ class Item extends Model
         'prix_uni',
         'prix_total',
         'options',
+        'delivred'
+    ];
+
+    protected $casts = [
+        'delivred' => 'boolean'
     ];
 
     public function command()
@@ -33,4 +38,8 @@ class Item extends Model
         return $this->belongsTo(Command::class);
     }
 
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

@@ -50,6 +50,11 @@ class Product extends Model implements HasMedia
         return $this->belongsToMany(Command::class, 'product_command', 'product_id', 'command_id')->withPivot(['quantity', 'price_ht']);
     }
 
+    public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
+
     public function isOutOfStock(int $qte)
     {
         return $qte > $this->qte_rest;
@@ -58,6 +63,11 @@ class Product extends Model implements HasMedia
     public function getFormatedPriceAttribute()
     {
         return number_format($this->price, 2);
+    }
+
+    public function getTotalCommandsQteAttribute()
+    {
+        return $this->items->sum('quantity');
     }
 
     public function registerMediaConversions(Media $media = null): void

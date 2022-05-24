@@ -14,11 +14,21 @@ use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\WithValidation;
+use Maatwebsite\Excel\Row;
+use Maatwebsite\Excel\Concerns\OnEachRow;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithValidation
 {
+
+
+    /*public function onRow(Row $row)
+    {
+        $rowIndex = $row->getIndex();
+        $row      = $row->toArray();
+        dd($rowIndex, "###", $row);
+    }*/
 
     /**
      * @param array $row
@@ -28,15 +38,13 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
     public function model(array $row)
     {
 
+
+        //dd(count($row["produit_ref"]));
         $productName = $row["produit_ref"] ?? $row["produit"] ?? throw ValidationException::withMessages([
 
             'produit_field' => "veuillez vérifier la structure de  votre fichier excel le column (produit ref) ou (produit) n'existe pas dans le fichier excel "
 
         ]);
-
-        /*$products = collect($productName);
-        $groups = $products->duplicates();
-        dd($groups, $row);*/
 
         $slug = Str::slug(str_replace(' ', '', $productName)) . '-' . auth()->user()->uuid;
 
@@ -45,6 +53,8 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
             ->whereSlug($slug)->first();
 
         $ville = City::whereName($row["ville"])->first();
+
+        //dd($product->total_commands_qte);
 
         if (!$product) {
 
@@ -68,16 +78,17 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
         //dd($data);
         $command =  Command::create($data);
 
-        if ($product && round($product->price) !== $prixExcel = round($row["prix"] / $row["qte"])) {
+        /* if ($product && round($product->price) !== $prixExcel = round($row["prix"] / $row["qte"])) {
 
             throw ValidationException::withMessages([
                 'produit_price' => "Le prix unitaire de ( {$product->name} ) dans le fichier EXCEL ( $prixExcel DH ) n'est pas égal au prix entrée dans le système ( $product->price DH )",
                 'produit_error' => "Aucun command a été importé a cause de ce problem veuillez vérifier votre fichier excel !! "
 
             ]);
-        }
+        }*/
 
-        if ($product && $product->qte_rest < $row["qte"]) {
+        //dd($product && $product->total_commands_qte > 0  && $product->qte_rest <  $product->total_commands_qte);
+        if ($product && $row["qte"] > $product->qte_rest || $product->qte_rest == 0) {
 
             throw ValidationException::withMessages([
                 'produit_price' => "Le produit ( {$product->name} ) est en rupture de stock",
