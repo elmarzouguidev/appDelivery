@@ -18,7 +18,7 @@ class InvoiceGenerator
 
     public function handle()
     {
-        $this->deleteNullInvoices();
+        //$this->deleteNullInvoices();
 
         $this->CloseYesterdayInvoice();
 
@@ -34,7 +34,7 @@ class InvoiceGenerator
                 $q->whereDay('delivered_at', now()->format('d'))
                     ->orWhereYear('delivered_at', '1993');
             })
-            ->doesntHave('articles')
+            //->doesntHave('articles')
             //->with('client:id,uuid')
             ->get();
 
