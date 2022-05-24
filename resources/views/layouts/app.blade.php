@@ -5,7 +5,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>SAMELEON EXPRESS Application</title>
+    <title>SAMELEON EXPRESS System</title>
     <meta name="robots" content="noindex, nofollow" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="app_version" name="v 1.1" />
@@ -16,7 +16,7 @@
     @yield('css')
     <link href="{{ asset('assets/libs/magnific-popup/magnific-popup.css') }}" rel="stylesheet" type="text/css" />
 
-    <link href="{{ asset('css/app.css') }}?ver={{rand(1,500)}}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css" />
 
     @livewireStyles
 
