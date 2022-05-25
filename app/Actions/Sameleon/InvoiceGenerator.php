@@ -224,7 +224,7 @@ class InvoiceGenerator
     {
         $invoices = Invoice::whereDay('created_at', '!=', now()->format('d'))
             //->whereDay('created_at', Carbon::yesterday()->format('d'))
-            //->where('cloture', false)
+            ->where('cloture', false)
             ->select(['id', 'cloture'])->get();
         $invoices->each->update(['cloture' => true]);
         $invoices->each(function ($invoice) {
