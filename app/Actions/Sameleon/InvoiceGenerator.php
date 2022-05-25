@@ -34,6 +34,7 @@ class InvoiceGenerator
                 $q->whereDay('delivered_at', now()->format('d'))
                     ->orWhereYear('delivered_at', '1993');
             })
+            ->where('is_closed', false)
             //->doesntHave('articles')
             //->with('client:id,uuid')
             ->get();
@@ -221,12 +222,13 @@ class InvoiceGenerator
 
     private function CloseYesterdayInvoice()
     {
-        $invoices = Invoice::whereDay('created_at', Carbon::yesterday()->format('d'))
+        $invoices = Invoice::whereDay('created_at', '!=', now()->format('d'))
+            //->whereDay('created_at', Carbon::yesterday()->format('d'))
             //->where('cloture', false)
             ->select(['id', 'cloture'])->get();
         $invoices->each->update(['cloture' => true]);
-        $invoices->each(function($invoice){
-            $invoice->commands()->update(['is_closed'=>true]);
+        $invoices->each(function ($invoice) {
+            $invoice->commands()->update(['is_closed' => true]);
         });
     }
 
