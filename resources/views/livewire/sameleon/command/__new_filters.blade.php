@@ -6,8 +6,15 @@
 
                 <form class="row gy-2 gx-3 align-items-center">
                     <div class="col-lg-2 col-md-2">
-                        <label class="visually-hidden" for="autoSizingInput">Name</label>
-                        <input type="text" class="form-control" id="autoSizingInput" placeholder="">
+                        <label class="visually-hidden" for="delivery">Livreure</label>
+                        <select wire:model.defer="data.delivery" class="form-control select2 chk-filter-city" name="delivery" id="delivery">
+                            <option value="">Livreure</option>
+
+                            @foreach ($delivries as $delivery)
+                                <option value="{{ $delivery->id }}">{{ $delivery->full_name }}</option>
+                            @endforeach
+    
+                        </select>
                     </div>
                     <div class="col-lg-2 col-md-2">
                         <label class="visually-hidden" for="city">Ville</label>

@@ -80,6 +80,8 @@
                                 <td>
                                     <div>
 
+
+
                                         <a class="image-popup-no-margins" href="{{$payment->getFirstMediaUrl('bills_recu','normal')}}">
                                             <img class="img-fluid" alt="" src="{{$payment->getFirstMediaUrl('bills_recu','normal')}}" width="75">
                                         </a>
