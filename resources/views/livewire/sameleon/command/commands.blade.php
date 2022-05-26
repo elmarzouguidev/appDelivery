@@ -117,7 +117,7 @@
                                                     @if($command->status == App\Status\Status::LIVRE && $command->invoice)
                                                      <a target="_blank" title="Facture : {{$command->invoice->full_number}}" style="color:#2f5393 !important" href="{{ route('public.show.invoice', [$command->invoice->uuid, 'has_header' => true]) }}"> {{ $command->code }}</a>
                                                      @else
-                                                     <a style="color:#2f5393 !important" href="{{route('admin:commands.edit',$command->uuid)}}"> {{ $command->code }}</a>
+                                                     <a style="color:#2f5393 !important" href="{{ $command->is_closed ? '#' : route('admin:commands.edit',$command->uuid) }}"> {{ $command->code }}</a>
                                                     @endif
                                                 </strong>
                                             </p>
