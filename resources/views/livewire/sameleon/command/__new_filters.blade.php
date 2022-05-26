@@ -13,7 +13,7 @@
                             @foreach ($delivries as $delivery)
                                 <option value="{{ $delivery->id }}">{{ $delivery->full_name }}</option>
                             @endforeach
-                            <!--->
+                         
     
                         </select>
                     </div>
@@ -70,10 +70,10 @@
                             <option value="{{ App\Status\Status::INTERESSE }}">Interessé</option>
                             <option value="{{ App\Status\Status::MANQUE_DE_STOCK }}">Manque De Stock</option>
                             <option value="{{ App\Status\Status::PAS_DE_REPONSE }}">Pas de réponse</option>
-                            <option value="{{ App\Status\Status::PAS_DE_REPONSE_2 }}">Pas de réponse 2 fois</option>
+                            {{--<option value="{{ App\Status\Status::PAS_DE_REPONSE_2 }}">Pas de réponse 2 fois</option>
                             <option value="{{ App\Status\Status::PAS_DE_REPONSE_3 }}">Pas de réponse 3 fois</option>
                             <option value="{{ App\Status\Status::PAS_DE_REPONSE_4 }}">Pas de réponse 4 fois</option>
-                            <option value="{{ App\Status\Status::PAS_DE_REPONSE_5 }}">Pas de réponse 5 fois</option>
+                            <option value="{{ App\Status\Status::PAS_DE_REPONSE_5 }}">Pas de réponse 5 fois</option>--}}
                             <option value="{{ App\Status\Status::RECONFIRMER }}">Reconfirmer</option>
                             <option value="{{ App\Status\Status::REFUSE }}">Refusé</option>
                             <option value="{{ App\Status\Status::REPORTE }}">Reporté</option>
