@@ -27,6 +27,7 @@ class ItemsQuery extends QueryBuilder
             AllowedFilter::exact('client', 'user_id'),
             AllowedFilter::scope('product', 'product_filters'),
             AllowedFilter::scope('city', 'cities_filters'),
+            AllowedFilter::scope('delivery', 'delivery_filters'),
 
         ]);
 

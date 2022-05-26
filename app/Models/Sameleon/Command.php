@@ -189,6 +189,11 @@ class Command extends Model
         return $query->where('city_id', $city);
     }
 
+    public function scopeDeliveryFilters(Builder $query, $delivery): Builder
+    {
+        return $query->where('delivery_id', $delivery);
+    }
+
     public function scopeTotalCommands($query)
     {
         if (auth()->user()->hasRole('Client')) {

@@ -93,7 +93,7 @@
                                     {{-- <th scope="col">Détails</th> --}}
                                     <th scope="col">Notes</th>
 
-                                    <th scope="col">Date de commande</th>
+                                    {{--<th scope="col">Date de commande</th>--}}
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -114,8 +114,8 @@
                                         <td>
                                             <p class="text-strong mb-0">
                                                 <strong>
-                                                    @if($command->status == App\Status\Status::LIVRE)
-                                                     <a style="color:#2f5393 !important" href="#"> {{ $command->code }}</a>
+                                                    @if($command->status == App\Status\Status::LIVRE && $command->invoice)
+                                                     <a target="_blank" title="Facture : {{$command->invoice->full_number}}" style="color:#2f5393 !important" href="{{ route('public.show.invoice', [$command->invoice->uuid, 'has_header' => true]) }}"> {{ $command->code }}</a>
                                                      @else
                                                      <a style="color:#2f5393 !important" href="{{route('admin:commands.edit',$command->uuid)}}"> {{ $command->code }}</a>
                                                     @endif
@@ -219,7 +219,7 @@
                                                 </p>
                                             @endif
                                         </td>
-                                        <td>
+                                        {{--<td>
                                             <strong>date d'ajoute</strong>
                                             <p class="text-strong mb-0">
                                                 {{ $command->created_at->format('d-m-Y H:i') }}
@@ -228,10 +228,10 @@
                                             <p class="text-strong mb-0">
                                                 {{ $command->updated_at->format('d-m-Y H:i') }}
                                             </p>
-                                        </td>
+                                        </td>--}}
                                         <td>
                                             <div class="d-flex gap-3">
-                                                @if ($command->invoice)
+                                                {{--@if ($command->invoice)
                                                     <a title="Facture : {{$command->invoice->full_number}}" style="color:#2f5393 !important" target="_blank"
                                                         href="{{ route('public.show.invoice', [$command->invoice->uuid, 'has_header' => true]) }}"
                                                         class="btn btn-sm text-success">
@@ -239,7 +239,7 @@
                                                         <i class="mdi mdi-file-pdf-box font-size-24"></i>
                                                     </a>
      
-                                                @endif
+                                                @endif--}}
                                                 
                                                 {{-- <a href="#" wire:click="editCommand('{{ $command->uuid }}')"
                                                     class="text-success">
