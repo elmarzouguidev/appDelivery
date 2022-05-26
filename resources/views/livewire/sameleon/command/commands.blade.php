@@ -114,7 +114,7 @@
                                         <td>
                                             <p class="text-strong mb-0">
                                                 <strong>
-                                                    @if($command->status == App\Status\Status::LIVRE && $command->invoice)
+                                                    @if($command->status == App\Status\Status::LIVRE || $command->status == App\Status\Status::REFUSE && $command->invoice)
                                                      <a target="_blank" title="Facture : {{$command->invoice->full_number}}" style="color:#2f5393 !important" href="{{ route('public.show.invoice', [$command->invoice->uuid, 'has_header' => true]) }}"> {{ $command->code }}</a>
                                                      @else
                                                      <a style="color:#2f5393 !important" href="{{ $command->is_closed ? '#' : route('admin:commands.edit',$command->uuid) }}"> {{ $command->code }}</a>
