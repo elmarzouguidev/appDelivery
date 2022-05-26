@@ -13,6 +13,7 @@
                             @foreach ($delivries as $delivery)
                                 <option value="{{ $delivery->id }}">{{ $delivery->full_name }}</option>
                             @endforeach
+                            <!--->
     
                         </select>
                     </div>
