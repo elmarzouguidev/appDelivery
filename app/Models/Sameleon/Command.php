@@ -128,9 +128,14 @@ class Command extends Model
         return $this->morphMany(History::class, 'historyable');
     }
 
-    public function setClientAddressAttribute($value)
+    /* public function setClientAddressAttribute($value)
     {
         $this->attributes['client_address'] = nl2br($value);
+    }*/
+
+    public function setClientAddressAttribute($value)
+    {
+        $this->attributes['client_address'] = wordwrap($value, 20, "<br>\n");
     }
 
     public function setCommentAttribute($value)

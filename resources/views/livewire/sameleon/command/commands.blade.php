@@ -128,7 +128,8 @@
                                                 </strong>
                                             </p>
                                             <p class="text-strong mb-0">
-                                                {{ $command->city->name ?? $command->client_city ?? '' }}</p>
+                                                <b>{{ $command->city->name ?? $command->client_city ?? '' }}</b>
+                                            </p>
                                             <p class="text-strong mb-0">{!! $command->client_address !!}</p>
                                         </td>
                                         <td>
