@@ -48,7 +48,7 @@
                                         wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::PAS_DE_REPONSE }})"
                                         type="button" class="btn btn-sm btn-light waves-effect">Pas de réponse</button>
 
-                                    <button
+                                    {{--<button
                                         wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::PAS_DE_REPONSE_2 }})"
                                         type="button" class="btn btn-sm btn-light waves-effect">Pas de réponse 2
                                         fois</button>
@@ -66,7 +66,7 @@
                                     <button
                                         wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::PAS_DE_REPONSE_5 }})"
                                         type="button" class="btn btn-sm btn-light waves-effect">Pas de réponse 5
-                                        fois</button>
+                                        fois</button>--}}
 
                                     <button
                                         wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::RECONFIRMER }})"

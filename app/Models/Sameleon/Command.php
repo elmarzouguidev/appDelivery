@@ -254,10 +254,10 @@ class Command extends Model
                 ->whereUserUuid(auth()->user()->uuid)
                 ->whereIn('status', [
                     Status::PAS_DE_REPONSE,
-                    Status::PAS_DE_REPONSE_2,
+                    /*Status::PAS_DE_REPONSE_2,
                     Status::PAS_DE_REPONSE_3,
                     Status::PAS_DE_REPONSE_4,
-                    Status::PAS_DE_REPONSE_5,
+                    Status::PAS_DE_REPONSE_5,*/
                     Status::INJOIGNABLE
                 ])->count();
         } else {
@@ -265,10 +265,10 @@ class Command extends Model
 
             return $query->whereIn('status', [
                 Status::PAS_DE_REPONSE,
-                Status::PAS_DE_REPONSE_2,
+                /*Status::PAS_DE_REPONSE_2,
                 Status::PAS_DE_REPONSE_3,
                 Status::PAS_DE_REPONSE_4,
-                Status::PAS_DE_REPONSE_5,
+                Status::PAS_DE_REPONSE_5,*/
                 Status::INJOIGNABLE
             ])->count();
         }
