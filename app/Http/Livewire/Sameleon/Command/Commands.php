@@ -255,26 +255,31 @@ class Commands extends Component
 
                     $qteGlobal = $prod->qte_rest;
 
-                    $qteRest = $qteGlobal - $item->quantity;
+                    if ($qteGlobal > 0) {
 
-                    if ($prod->qte_rest == 0 || $prod->qte_rest < $item->quantity) {
+                        $qteRest = $qteGlobal - $item->quantity;
 
-                        $prod->update(['qte_rest' => 0, 'is_out' => true, 'qte_livre' => 0]);
+                        if ($prod->qte_rest == 0 || $prod->qte_rest < $item->quantity) {
 
-                        $command->update(['status' => Status::MANQUE_DE_STOCK]);
+                            $prod->update(['qte_rest' => 0, 'is_out' => true]);
+
+                            $command->update(['status' => Status::MANQUE_DE_STOCK]);
+                        } else {
+
+                            if ($qteRest < $qteGlobal && $prod->total_commands != $prod->qte_global && $item->quantity > 0) {
+
+                                $prod->increment('qte_livre', $item->quantity);
+                                $prod->increment('total_commands', $item->quantity);
+                                $prod->decrement('qte_rest', $item->quantity);
+                            }
+                            if ($prod->qte_livre == $prod->qte_global) {
+
+                                $prod->update(['qte_rest' => 0]);
+                                /***ok */
+                            }
+                        }
                     } else {
-
-                        if ($qteRest < $qteGlobal && $prod->qte_livre != $prod->qte_global && $item->quantity > 0) {
-
-                            $prod->increment('qte_livre', $item->quantity);
-                            $prod->increment('total_commands', $item->quantity);
-                            $prod->decrement('qte_rest', $item->quantity);
-                        }
-                        if ($prod->qte_livre == $prod->qte_global) {
-
-                            $prod->update(['qte_rest' => 0]);
-                            /***ok */
-                        }
+                        $prod->update(['qte_rest' => 0, 'is_out' => true]);
                     }
                 }
             });
@@ -292,7 +297,7 @@ class Commands extends Component
 
                         $prod->update(['qte_rest' => 0, 'is_out' => true]);
                     }
-                   // if ($prod->qte_livre > 0 || $prod->qte_livre == $item->quantity  && $item->quantity > 0) {
+                    // if ($prod->qte_livre > 0 || $prod->qte_livre == $item->quantity  && $item->quantity > 0) {
                     if ($prod->qte_livre > 0 && $item->quantity > 0) {
 
                         $prod->decrement('qte_livre', $item->quantity);
