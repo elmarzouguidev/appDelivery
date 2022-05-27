@@ -313,6 +313,9 @@ class Command extends Model
     public function scopeTotalChiffre($query)
     {
 
+
+        /**** */
+
         if (auth()->user()->hasRole('Client')) {
 
             return $query
