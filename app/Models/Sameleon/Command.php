@@ -197,6 +197,8 @@ class Command extends Model
     public function scopeDeliveryFilters(Builder $query, $delivery): Builder
     {
         return $query->where('delivery_id', $delivery);
+
+        /***** */
     }
 
     public function scopeTotalCommands($query)
