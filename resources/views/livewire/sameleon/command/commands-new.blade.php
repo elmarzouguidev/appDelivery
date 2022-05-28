@@ -180,8 +180,8 @@
                                                 <td>
                                                     @if (optional($command->client)->type == 'entreprise')
                                                         <i class="fas fa-building me-1"></i>
-                                                    @endif
-                                                    @if (optional($command->client)->type == 'particulier')
+                                                    
+                                                    @else
                                                         <i class="fas fa-user me-1"></i>
                                                     @endif
                                                     {{ optional($command->client)->full_name }}
