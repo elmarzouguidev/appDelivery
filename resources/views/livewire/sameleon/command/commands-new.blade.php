@@ -108,10 +108,10 @@
                                             @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
                                                 <td>
                                                     <div class="form-check font-size-16">
-                                                        <input wire:model="selectedCommands" class="form-check-input"
+                                                        <input {{$command->is_closed ?'disabled':''}} wire:model="selectedCommands" class="form-check-input"
                                                             type="checkbox" id="command-{{ $command->id }}"
                                                             value="{{ $command->id }}">
-                                                        <label class="form-check-label"
+                                                        <label {{$command->is_closed ?'disabled':''}} class="form-check-label"
                                                             for="command-{{ $command->id }}"></label>
                                                     </div>
                                                 </td>
