@@ -110,6 +110,7 @@ class Commands extends Component
                 ->where('user_uuid', auth()->user()->uuid)
                 ->with('items')
                 ->withSum('items', 'prix_total')
+                ->withCount('invoice')
                 ->with(['invoice:uuid,id,full_number,cloture', 'city:id,name'])
                 ->orderByRaw('FIELD(`status`,"1","5","16","3")')
                 ->orderByRaw("created_at DESC")
@@ -140,6 +141,7 @@ class Commands extends Component
             $commands = $command
                 ->with('items')
                 ->withSum('items', 'prix_total')
+                ->withCount('invoice')
                 ->with(['invoice:uuid,id,full_number,cloture', 'city:id,name', 'delivery:id,nom,prenom','client:id,nom,prenom'])
                 ->orderByRaw('FIELD(`status`,"1","5","16","3")')
                 ->orderByRaw("created_at DESC")
