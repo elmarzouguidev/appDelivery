@@ -15,6 +15,8 @@ use Livewire\WithPagination;
 class Commands extends Component
 {
     use WithPagination;
+
+    protected $paginationTheme = 'bootstrap';
     
     public $commandEdit;
 
@@ -141,7 +143,7 @@ class Commands extends Component
                 ->with(['invoice:uuid,id,full_number,cloture', 'city:id,name', 'delivery:id,nom,prenom'])
                 ->orderByRaw('FIELD(`status`,"1","5","16","3")')
                 ->orderByRaw("created_at DESC")
-                ->paginate(60);
+                ->paginate(1);
             $delivries = User::role('Delivery')->select(['uuid', 'id', 'nom', 'prenom'])->get();
         }
 

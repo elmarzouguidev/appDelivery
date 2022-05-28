@@ -290,9 +290,8 @@
                                 </tbody>
                             </table>
                         </div>
-                        <ul class="pagination pagination-rounded justify-content-end mb-2">
-                            {{ $commands->links('vendor.pagination.bootstrap-4') }}
-                        </ul>
+               
+                        {{ $commands->links() }}
                     </div>
                 </div>
             </div>
