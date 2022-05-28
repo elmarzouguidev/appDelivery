@@ -74,7 +74,7 @@
                             @endforeach
                         @endif
                         <div class="table-responsive">
-                            <table class="table align-middle table-nowrap table-check">
+                            <table class="table table-bordered border-danger table-hover align-middle table-nowrap table-check">
                                 <thead class="table-light">
                                     <tr>
                                         @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
@@ -97,7 +97,7 @@
                                         {{-- <th class="align-middle">Détails</th> --}}
                                         <th class="align-middle">Notes</th>
 
-                                        {{-- <th class="align-middle">Date de commande</th> --}}
+                                        <th class="align-middle">Date</th>
                                         <th class="align-middle">Action</th>
                                     </tr>
                                 </thead>
@@ -121,9 +121,9 @@
                                                     <strong>
                                                         @if ($command->invoice_count > 0 && $command->status == App\Status\Status::LIVRE || $command->status == App\Status\Status::REFUSE)
                                                             <a target="_blank"
-                                                                title="Facture : {{ $command->invoice->full_number }}"
+                                                                title="Facture : {{ optional($command->invoice)->full_number }}"
                                                                 style="color:#2f5393 !important"
-                                                                href="{{ route('public.show.invoice', [$command->invoice->uuid, 'has_header' => true]) }}">
+                                                                href="{{ $command->invoice ? route('public.show.invoice', [$command->invoice->uuid, 'has_header' => true]) :'#' }}">
                                                                 {{ $command->code }}</a>
                                                         @else
                                                             <a style="color:#2f5393 !important"
@@ -140,7 +140,7 @@
                                                     </strong>
                                                 </p>
                                                 <p class="text-strong mb-0">
-                                                    <b>{{ $command->city->name ?? ($command->client_city ?? '') }}</b>
+                                                    <b>{{ $command->city->name ?? $command->client_city ?? '' }}</b>
                                                 </p>
                                                 <p class="text-strong mb-0">{!! $command->client_address !!}</p>
                                             </td>
@@ -229,16 +229,16 @@
                                                     </p>
                                                 @endif
                                             </td>
-                                            {{-- <td>
-                                            <strong>date d'ajoute</strong>
-                                            <p class="text-strong mb-0">
-                                                {{ $command->created_at->format('d-m-Y H:i') }}
-                                            </p>
-                                            <strong>date de modification</strong>
-                                            <p class="text-strong mb-0">
-                                                {{ $command->updated_at->format('d-m-Y H:i') }}
-                                            </p>
-                                        </td> --}}
+                                            <td>
+                                                <strong>date d'ajoute</strong>
+                                                <p class="text-strong mb-0">
+                                                    {{ $command->created_at->format('d-m-Y H:i') }}
+                                                </p>
+                                                <strong>date de modification</strong>
+                                                <p class="text-strong mb-0">
+                                                    {{ $command->updated_at->format('d-m-Y H:i') }}
+                                                </p>
+                                            </td> 
                                             <td>
                                                 <div class="d-flex gap-3">
                                                     {{-- @if ($command->invoice)
