@@ -28,6 +28,7 @@ class StockComposer
     {
         if (auth()->user()->hasRole('Client')) {
             $stock =  Product::where('user_id', auth()->id())
+                ->where('user_uuid', auth()->user()->uuid)
                 ->whereOutOfStock()->count();
         } elseif (auth()->user()->hasAnyRole('Admin', 'SuperAdmin')) {
             $stock =   Product::whereOutOfStock()->count();

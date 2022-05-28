@@ -242,7 +242,7 @@ class Commands extends Component
 
             $command->update(['delivered_at' => now()]);
 
-            $items->each(function ($item, $key) use ($command) {
+            $items->each(function ($item, $key) use ($command, $status) {
 
                 $prod = Product::find($item->product_id);
 
@@ -252,11 +252,17 @@ class Commands extends Component
 
                     if ($prod->inStock() && $prod->inStock($qte)) {
 
+                    
                         $prod->decreaseStock($qte);
                         $prod->increment('qte_livre', $qte);
                         $prod->increment('total_commands', $qte);
+
+                        $command->update(['status' => $status]);
+
                     } else {
 
+                        $prod->update(['is_out' => true]);
+                        //dd('oui ici');
                         $command->update(['status' => Status::MANQUE_DE_STOCK]);
                     }
                 }
@@ -270,20 +276,28 @@ class Commands extends Component
                 $prod = Product::find($item->product_id);
 
                 if ($prod) {
-                    
+
                     $qte = (int)$item->quantity;
 
                     $prod->increaseStock($qte);
                     $prod->decrement('qte_livre',  $qte);
                     $prod->decrement('total_commands',  $qte);
 
-                    //$command->update(['status' => Status::MANQUE_DE_STOCK]);
+                    $command->update(['status' => $status]);
 
+                    if (!$prod->inStock() && !$prod->inStock($qte)) {
+
+                        $prod->update(['is_out' => true]);
+
+                        $command->update(['status' => Status::MANQUE_DE_STOCK]);
+                    }
                 }
             });
+        } else {
+
+            $command->update(['status' => $status]);
         }
 
-        $command->update(['status' => $status]);
 
         $this->isRepoted = true;
 
