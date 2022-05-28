@@ -40,6 +40,11 @@ class Product extends Model implements HasMedia
         return $this->hasOne(Stock::class);
     }
 
+    public function ramassage()
+    {
+        return $this->hasOne(Ramassage::class);
+    }
+
     public function client()
     {
         return $this->belongsTo(User::class, 'user_id');

@@ -148,6 +148,11 @@ class User extends Authenticatable
         return $this->hasMany(Product::class);
     }
 
+    public function ramassages()
+    {
+        return $this->hasMany(Ramassage::class);
+    }
+
     public function invoices()
     {
         return $this->hasMany(Invoice::class)->orderBy('created_at', 'DESC');;
