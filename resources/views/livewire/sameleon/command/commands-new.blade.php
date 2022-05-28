@@ -119,7 +119,7 @@
                                             <td>
                                                 <p class="text-strong mb-0">
                                                     <strong>
-                                                        @if ($command->status == App\Status\Status::LIVRE || ($command->status == App\Status\Status::REFUSE && $command->invoice_count > 0))
+                                                        @if ($command->invoice_count > 0 && $command->status == App\Status\Status::LIVRE || $command->status == App\Status\Status::REFUSE)
                                                             <a target="_blank"
                                                                 title="Facture : {{ $command->invoice->full_number }}"
                                                                 style="color:#2f5393 !important"
