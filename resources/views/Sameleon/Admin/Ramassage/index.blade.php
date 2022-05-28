@@ -4,7 +4,7 @@
     <div class="container-fluid">
 
         @include('Sameleon.Admin.Ramassage.__title')
-        @include('Sameleon.Admin.Ramassage.products')
+        {{--@include('Sameleon.Admin.Ramassage.products')--}}
         
     </div>
 @endsection
