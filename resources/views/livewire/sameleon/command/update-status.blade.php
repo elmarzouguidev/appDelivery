@@ -7,7 +7,7 @@
                     <div class="col-xl-12">
                         <div class="card">
                             <div class="card-body">
-                                <div class="button-items">
+                                <div class="button-items d-flex align-content-start flex-wrap">
 
                                     <button {{$command->status == App\Status\Status::ANNULE ? 'disabled' :' '}}
                                         wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::ANNULE }})"
