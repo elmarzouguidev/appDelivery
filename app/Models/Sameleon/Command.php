@@ -60,7 +60,8 @@ class Command extends Model
         'refused_at' => 'date:d-m-Y',
         'reported_at' => 'date:d-m-Y',
         'is_imported' => 'boolean',
-        'is_closed' => 'boolean'
+        'is_closed' => 'boolean',
+        'is_api' => 'boolean',
 
     ];
 
@@ -330,13 +331,6 @@ class Command extends Model
         } else {
             return $query->whereStatus(Status::LIVRE)->withSum('items', 'prix_total')->get()->sum('items_sum_prix_total');
         }
-        /*return $this->with('products')->get()->each(function ($command) {
-             dd($command->products->sum('pivot.price_total'));
-            return  $command->products->each(function ($product) {
-                //dd($product->pivot->sum('price_total'));
-               
-            });
-        });*/
     }
 
     public static function boot()

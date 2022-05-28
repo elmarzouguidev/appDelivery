@@ -11,10 +11,11 @@ use App\Repositories\City\CityInterface;
 use Livewire\Component;
 use App\Status\Status;
 use Illuminate\Support\Carbon;
-
+use Livewire\WithPagination;
 class Commands extends Component
 {
-
+    use WithPagination;
+    
     public $commandEdit;
 
     public $showEdit = false;
@@ -108,12 +109,9 @@ class Commands extends Component
                 ->with('items')
                 ->withSum('items', 'prix_total')
                 ->with(['invoice:uuid,id,full_number,cloture', 'city:id,name'])
+                ->orderByRaw('FIELD(`status`,"1","5","16","3")')
                 ->orderByRaw("created_at DESC")
-                ->get()->prioritize(function ($item) {
-                    return $item->status == Status::NON_TRAITE
-                        ||
-                        $item->status == Status::ENCOURS;
-                });
+                ->paginate(60);
 
             //dd( $commands);
             $delivries = [];
@@ -127,35 +125,29 @@ class Commands extends Component
                 ->withSum('items', 'prix_total')
                 //->with('products.stock')
                 ->with(['city:id,name'])
+                
                 ->orderByRaw("created_at DESC")
-                ->get()->prioritize(function ($item) {
-                    return $item->status == Status::ENCOURS;
-                });
+                ->orderByRaw('FIELD(`status`,1,5,16,3)')
+                ->paginate(60);
             $delivries = [];
 
             return view('livewire.sameleon.command.commands-delivery', compact('commands', 'delivries'));
         } else {
+            $status = [Status::NON_TRAITE,Status::ENCOURS,Status::LIVRE,Status::REFUSE];
 
             $commands = $command
                 ->with('items')
                 ->withSum('items', 'prix_total')
                 ->with(['invoice:uuid,id,full_number,cloture', 'city:id,name', 'delivery:id,nom,prenom'])
+                ->orderByRaw('FIELD(`status`,"1","5","16","3")')
                 ->orderByRaw("created_at DESC")
-                /* ->get()->map(function ($value, $key) {
-                    return $value->status == Status::NON_TRAITE ||
-                        $value->status == Status::ENCOURS;
-                });*/
-                ->get()->prioritize(function ($item) {
-                    return $item->status == Status::NON_TRAITE
-                        ||
-                        $item->status == Status::ENCOURS;
-                });
+                ->paginate(60);
             $delivries = User::role('Delivery')->select(['uuid', 'id', 'nom', 'prenom'])->get();
         }
 
         //  $commands =  $command->with('products')->get();
 
-        return view('livewire.sameleon.command.commands', compact('commands', 'delivries'));
+        return view('livewire.sameleon.command.commands-new', compact('commands', 'delivries'));
     }
 
     public function runPoll()
