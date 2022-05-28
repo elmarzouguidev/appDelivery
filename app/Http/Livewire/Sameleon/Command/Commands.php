@@ -12,12 +12,13 @@ use Livewire\Component;
 use App\Status\Status;
 use Illuminate\Support\Carbon;
 use Livewire\WithPagination;
+
 class Commands extends Component
 {
     use WithPagination;
 
     protected $paginationTheme = 'bootstrap';
-    
+
     public $commandEdit;
 
     public $showEdit = false;
@@ -128,7 +129,7 @@ class Commands extends Component
                 ->withSum('items', 'prix_total')
                 //->with('products.stock')
                 ->with(['city:id,name'])
-            
+
                 ->orderByRaw('FIELD(`status`,"1","5","16","3")')
                 ->orderByRaw("created_at DESC")
                 ->paginate(60);
@@ -136,13 +137,13 @@ class Commands extends Component
 
             return view('livewire.sameleon.command.commands-delivery', compact('commands', 'delivries'));
         } else {
-            $status = [Status::NON_TRAITE,Status::ENCOURS,Status::LIVRE,Status::REFUSE];
+            $status = [Status::NON_TRAITE, Status::ENCOURS, Status::LIVRE, Status::REFUSE];
 
             $commands = $command
                 ->with('items')
                 ->withSum('items', 'prix_total')
                 ->withCount('invoice')
-                ->with(['invoice:uuid,id,full_number,cloture', 'city:id,name', 'delivery:id,nom,prenom','client:id,nom,prenom'])
+                ->with(['invoice:uuid,id,full_number,cloture', 'city:id,name', 'delivery:id,nom,prenom', 'client:id,nom,prenom'])
                 ->orderByRaw('FIELD(`status`,"1","5","16","3")')
                 ->orderByRaw("created_at DESC")
                 ->paginate(60);
@@ -235,8 +236,6 @@ class Commands extends Component
     public function changeStatus(Command $command, int $status)
     {
 
-        // $command->update(['status' => $status]);
-
         $items = $command->items;
 
         if ($status == Status::LIVRE && $command->status != Status::LIVRE) {
@@ -249,33 +248,16 @@ class Commands extends Component
 
                 if ($prod) {
 
-                    $qteGlobal = $prod->qte_rest;
+                    $qte = (int)$item->quantity;
 
-                    if ($qteGlobal > 0) {
+                    if ($prod->inStock() && $prod->inStock($qte)) {
 
-                        $qteRest = $qteGlobal - $item->quantity;
-
-                        if ($prod->qte_rest == 0 || $prod->qte_rest < $item->quantity) {
-
-                            $prod->update(['qte_rest' => 0, 'is_out' => true]);
-
-                            $command->update(['status' => Status::MANQUE_DE_STOCK]);
-                        } else {
-
-                            if ($qteRest < $qteGlobal && $prod->total_commands != $prod->qte_global && $item->quantity > 0) {
-
-                                $prod->increment('qte_livre', $item->quantity);
-                                $prod->increment('total_commands', $item->quantity);
-                                $prod->decrement('qte_rest', $item->quantity);
-                            }
-                            if ($prod->qte_livre == $prod->qte_global) {
-
-                                $prod->update(['qte_rest' => 0]);
-                                /***ok */
-                            }
-                        }
+                        $prod->decreaseStock($qte);
+                        $prod->increment('qte_livre', $qte);
+                        $prod->increment('total_commands', $qte);
                     } else {
-                        $prod->update(['qte_rest' => 0, 'is_out' => true]);
+
+                        $command->update(['status' => Status::MANQUE_DE_STOCK]);
                     }
                 }
             });
@@ -288,18 +270,15 @@ class Commands extends Component
                 $prod = Product::find($item->product_id);
 
                 if ($prod) {
+                    
+                    $qte = (int)$item->quantity;
 
-                    if ($prod->qte_rest == 0 || $prod->qte_rest < $item->quantity) {
+                    $prod->increaseStock($qte);
+                    $prod->decrement('qte_livre',  $qte);
+                    $prod->decrement('total_commands',  $qte);
 
-                        $prod->update(['qte_rest' => 0, 'is_out' => true]);
-                    }
-                    // if ($prod->qte_livre > 0 || $prod->qte_livre == $item->quantity  && $item->quantity > 0) {
-                    if ($prod->qte_livre > 0 && $item->quantity > 0) {
+                    //$command->update(['status' => Status::MANQUE_DE_STOCK]);
 
-                        $prod->decrement('qte_livre', $item->quantity);
-                        $prod->decrement('total_commands', $item->quantity);
-                        $prod->increment('qte_rest', $item->quantity);
-                    }
                 }
             });
         }

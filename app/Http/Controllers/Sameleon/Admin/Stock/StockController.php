@@ -12,7 +12,7 @@ class StockController extends Controller
 {
     public function index()
     {
-        if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin')) {
+        /*if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin')) {
 
             $stocks = Product::with('client')->get();
 
@@ -20,9 +20,9 @@ class StockController extends Controller
 
             $stocks = auth()->user()->products()->with('media')->get();
 
-        }
+        }*/
 
-        return view('Sameleon.Admin.Stock.index', compact('stocks'));
+        return view('Sameleon.Admin.Stock.index');
     }
 
     public function update(StockFormRequest $request, Product $stock)
