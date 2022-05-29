@@ -22,7 +22,7 @@ class AdminProductController extends Controller
             $products = auth()->user()->products()->with('media')->get();
         }
 
-        return view('Sameleon.Admin.Product.__datatable.index', compact('products'));
+        return view('Sameleon.Admin.Product.__normal_table.index', compact('products'));
     }
 
     public function create()
