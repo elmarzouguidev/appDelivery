@@ -98,7 +98,8 @@
                                         {{ $stock->qte_endomage }}
                                     </td>
                                     <td>
-                                        {{ $stock->qte_rest }}
+                                        {{-- $stock->qte_rest --}}
+                                        {{ $stock->stock }}
                                     </td>
                                     <td>
                                         {{ $stock->notes }}

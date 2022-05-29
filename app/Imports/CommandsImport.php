@@ -88,10 +88,10 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
         }*/
 
         //dd($product && $product->total_commands_qte > 0  && $product->qte_rest <  $product->total_commands_qte);
-        if ($product && $row["qte"] > $product->qte_rest || $product->qte_rest == 0) {
+        if ($product && $product->isOutOfStock($row["qte"])) {
 
             throw ValidationException::withMessages([
-                'produit_price' => "Le produit ( {$product->name} ) est en rupture de stock",
+                'produit_rupture' => "Le produit ( {$product->name} ) est en rupture de stock",
                 'produit_error' => "Aucun command a été importé a cause de ce problem veuillez augmenter votre Stock !! "
             ]);
         } else {

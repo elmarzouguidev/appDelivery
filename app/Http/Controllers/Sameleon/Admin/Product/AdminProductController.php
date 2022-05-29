@@ -50,15 +50,18 @@ class AdminProductController extends Controller
             $user = User::find($request->client);
             $product->client()->associate($user);
             $product->user_uuid = $user->uuid;
-            $product->slug = Str::slug(str_replace(' ','',$request->name)) . '-' . $user->uuid;
+            $product->slug = Str::slug(str_replace(' ', '', $request->name)) . '-' . $user->uuid;
         } else {
 
             $product->client()->associate(auth()->id());
             $product->user_uuid = auth()->user()->uuid;
-            $product->slug = Str::slug(str_replace(' ','',$request->name)) . '-' . auth()->user()->uuid;
+            $product->slug = Str::slug(str_replace(' ', '', $request->name)) . '-' . auth()->user()->uuid;
         }
 
+    
         $product->save();
+
+        $product->increaseStock($request->qte_global);
 
         if ($request->hasFile('photo')) {
 

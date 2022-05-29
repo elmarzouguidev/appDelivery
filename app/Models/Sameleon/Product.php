@@ -13,6 +13,8 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
 
+use Appstract\Stock\HasStock;
+
 class Product extends Model implements HasMedia
 {
     use HasFactory;
@@ -22,6 +24,8 @@ class Product extends Model implements HasMedia
 
     use ModelRoutes;
 
+    use HasStock;
+
     protected $fillable = [
         'slug',
         'user_uuid',
@@ -30,15 +34,17 @@ class Product extends Model implements HasMedia
         'is_out',
         'notes'
     ];
-    
+
     protected $casts = [
         'is_out' => 'boolean'
     ];
 
-    public function stock()
+    protected $with = ['stockMutations'];
+
+    /*public function stock()
     {
         return $this->hasOne(Stock::class);
-    }
+    }*/
 
     public function ramassage()
     {
@@ -62,7 +68,8 @@ class Product extends Model implements HasMedia
 
     public function isOutOfStock(int $qte)
     {
-        return $qte > $this->qte_rest;
+        //dd($this->inStock($qte));
+        return !$this->inStock($qte);
     }
 
     public function getFormatedPriceAttribute()

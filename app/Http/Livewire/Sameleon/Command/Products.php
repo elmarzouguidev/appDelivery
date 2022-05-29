@@ -72,11 +72,8 @@ class Products extends Component
 
         if ($key === 'quantity' && !is_null($value) && is_numeric($value)) {
 
-            //dd('Oui okey',"##",$value,"###",$key);
             $prod = $this->products->firstWhere('id', $this->orderProducts[$array[1]]['product_id']);
 
-            //dd($prod,"##",$value);
-            //dd($prod->isOutOfStock($value));
             if ($prod->isOutOfStock($value)) {
                 $this->dispatchBrowserEvent('out-of-stock', ['product' => $prod->name]);
             }
@@ -85,17 +82,6 @@ class Products extends Component
             $this->orderProducts[$array[1]]['prix_total'] = $this->orderProducts[$array[1]]['prix_unitaire']  * (int)$value;
             //$this->orderProducts[$array[1]]['prix_total'] = $prod->price * (int)$value;
 
-            /* dd($this->products);
-            $this->products->filter(function ($value, $key) use ($array) {
-
-                return $value->id == $this->orderProducts[$array[1]]['product_id'];
-            });*/
-            //unset($this->products[$array[1]]);
-
-            /*$this->products = $this->products->reject(function ($item) use($array) {
-               // dd($array,"###",$item->id ,(int)$this->orderProducts[$array[1]]['product_id']);
-                return $item->id === (int)$this->orderProducts[$array[1]]['product_id'];
-            });*/
         }
     }
 
