@@ -26,7 +26,7 @@ class Stock extends Component
 
             $stocks = Product::with('client')->get();
         }
-        return view('livewire.sameleon.stock.stock', compact('stocks'));
+        return view('livewire.sameleon.stock.stock-new', compact('stocks'));
     }
 
     public function editStock(Product $stock)
