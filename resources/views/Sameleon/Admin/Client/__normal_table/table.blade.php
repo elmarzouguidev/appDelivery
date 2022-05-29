@@ -57,10 +57,12 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div>
-                                            <img class="img-fluid rounded" alt=""
-                                                src="{{ asset('storage/' . $client->logo) }}" width="50">
-                                        </div>
+                                        @if(!is_null($client->logo))
+                                            <div>
+                                                <img class="img-fluid rounded" alt=""
+                                                    src="{{ asset('storage/' . $client->logo) }}" width="50">
+                                            </div>
+                                        @endif
                                     </td>
                                     <td>
                                         <a href="{{-- $client->url --}}" class="text-body fw-bold">

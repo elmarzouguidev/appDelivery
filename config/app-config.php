@@ -5,7 +5,7 @@ return [
 
     'cache' => [
 
-        'use-cache' => false,
+        'use-cache' => true,
 
         'cache-live-time' => 30,
 

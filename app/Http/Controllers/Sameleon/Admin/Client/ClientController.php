@@ -10,6 +10,7 @@ use App\Mail\Sameleon\Client\SendPasswordMail;
 use App\Models\Sameleon\User;
 use App\Notifications\Sameleon\SendNewUserPassword;
 use App\Repositories\City\CityInterface;
+use App\Repositories\Client\ClientInterface;
 use App\Services\Mail\CheckConnection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -25,7 +26,7 @@ class ClientController extends Controller
 
         $this->authorize('viewAny', User::class);
 
-        $clients = User::role('Client')->get();
+        $clients = app(ClientInterface::class)->getClients();
 
         return  view('Sameleon.Admin.Client.__normal_table.index', compact('clients'));
     }
