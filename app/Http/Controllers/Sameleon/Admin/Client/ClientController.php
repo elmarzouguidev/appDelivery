@@ -60,7 +60,7 @@ class ClientController extends Controller
         $pass = $request->email;
 
         if ($request->boolean('generate_password')) {
-            
+
             $pass = Str::random(9);
         }
 
@@ -75,7 +75,6 @@ class ClientController extends Controller
         if ($request->boolean('generate_password') && CheckConnection::isConnected()) {
 
             $client->notify(new SendNewUserPassword($pass));
-            
         }
         return redirect()->back()->with('success', 'le client a été ajouter avec success');
     }
@@ -123,7 +122,9 @@ class ClientController extends Controller
 
             $client->update(['active' => !$client->active]);
 
-            return redirect()->back()->with('success', 'le client a été activé avec success');
+            $client->active ? $msg = "activé" : $msg = "desactivé";
+
+            return redirect()->back()->with('success', "le client a été $msg avec success");
         }
 
         return redirect()->back()->with('error', 'error !!!');

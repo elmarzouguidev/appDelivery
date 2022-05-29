@@ -12,50 +12,46 @@
 
                                 <div class="col-lg-12 mb-4">
 
-                                    {{-- @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
-                                        <button wire:click="showUpFilter()" type="button" class="btn btn-primary">
-                                            Filters
-                                        </button>
-                                    @endif --}}
-                                    @if(auth()->user()->hasRole('Client'))
+                                    
+                                        @if (auth()->user()->hasRole('Client'))
 
-                                        @if(auth()->user()->products()->count() <= 0)
-                                            <a href="{{route('admin:products.create',['shoud_product' => true])}}" class="btn btn-info">
-                                                Ajouter un produit
-                                            </a>
-                                        @else
+                                            @if (auth()->user()->products()->count() <= 0)
+                                                <a href="{{ route('admin:products.create', ['shoud_product' => true]) }}"
+                                                    class="btn btn-info mr-3">
+                                                    Ajouter un produit
+                                                </a>
+                                            @else
+                                                <button class="btn btn-info mr-3 mb-2" type="button" data-bs-toggle="modal"
+                                                    data-bs-target=".addCommandModal">
+                                                    Ajouter une commande
+                                                </button>
 
-                                        <button class="btn btn-info" type="button" data-bs-toggle="modal"
-                                            data-bs-target=".addCommandModal">
-                                            Ajouter une commande
-                                        </button>
-                                        
-                                        <button class="btn btn-primary" type="button" data-bs-toggle="modal"
-                                            data-bs-target=".importCommandModal">
-                                            Importer des commands
-                                        </button>
+                                                <button class="btn btn-primary mr-3 mb-2" type="button" data-bs-toggle="modal"
+                                                    data-bs-target=".importCommandModal">
+                                                    Importer des commands
+                                                </button>
+                                            @endif
 
                                         @endif
 
-                                    @endif
-                                    
-                                    @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
-                                    
-                                            <button {{count($selectedCommands) ? '' : 'disabled' }} class="btn btn-primary" type="button" data-bs-toggle="modal"
+                                        @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
+                                            <button {{ count($selectedCommands) ? '' : 'disabled' }}
+                                                class="btn btn-primary mr-3 mb-2" type="button" data-bs-toggle="modal"
                                                 data-bs-target=".attachCommandModal">
-                                                Envoyer au Livreur {{--: @json($selectedCommands)--}}
+                                                Envoyer au Livreur {{-- : @json($selectedCommands) --}}
                                             </button>
-                                        
-                                    @endif
+                                        @endif
+                                    
+                            
+                                        <a href="{{ route('admin:commands.archived') }}" class="btn btn-secondary mr-3 mb-2">
+                                            <i class="bx bx-archive font-size-16 align-middle me-2"></i>
+                                            Archive
+                                        </a>
+                                  
 
-                                    {{--@if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
-                                      
-                                            <button class="btn btn-danger deleteCMD" type="button">
-                                              
-                                                Supprimer
-                                            </button>
-                                    @endif--}}
+
                                 </div>
+
                             </div>
                         </div>
                         @if (session('success'))
@@ -74,7 +70,8 @@
                             @endforeach
                         @endif
                         <div class="table-responsive">
-                            <table class="table table-bordered border-danger table-hover align-middle table-nowrap table-check">
+                            <table
+                                class="table table-bordered border-danger table-hover align-middle table-nowrap table-check">
                                 <thead class="table-light">
                                     <tr>
                                         @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
@@ -108,10 +105,12 @@
                                             @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
                                                 <td>
                                                     <div class="form-check font-size-16">
-                                                        <input {{$command->is_closed ?'disabled':''}} wire:model="selectedCommands" class="form-check-input"
+                                                        <input {{ $command->is_closed ? 'disabled' : '' }}
+                                                            wire:model="selectedCommands" class="form-check-input"
                                                             type="checkbox" id="command-{{ $command->id }}"
                                                             value="{{ $command->id }}">
-                                                        <label {{$command->is_closed ?'disabled':''}} class="form-check-label"
+                                                        <label {{ $command->is_closed ? 'disabled' : '' }}
+                                                            class="form-check-label"
                                                             for="command-{{ $command->id }}"></label>
                                                     </div>
                                                 </td>
@@ -119,11 +118,11 @@
                                             <td>
                                                 <p class="text-strong mb-0">
                                                     <strong>
-                                                        @if ($command->invoice_count > 0 && $command->status == App\Status\Status::LIVRE || $command->status == App\Status\Status::REFUSE)
+                                                        @if (($command->invoice_count > 0 && $command->status == App\Status\Status::LIVRE) || $command->status == App\Status\Status::REFUSE)
                                                             <a target="_blank"
                                                                 title="Facture : {{ optional($command->invoice)->full_number }}"
                                                                 style="color:#2f5393 !important"
-                                                                href="{{ $command->invoice ? route('public.show.invoice', [$command->invoice->uuid, 'has_header' => true]) :'#' }}">
+                                                                href="{{ $command->invoice ? route('public.show.invoice', [$command->invoice->uuid, 'has_header' => true]) : '#' }}">
                                                                 {{ $command->code }}</a>
                                                         @else
                                                             <a style="color:#2f5393 !important"
@@ -140,7 +139,7 @@
                                                     </strong>
                                                 </p>
                                                 <p class="text-strong mb-0">
-                                                    <b>{{ $command->city->name ?? $command->client_city ?? '' }}</b>
+                                                    <b>{{ $command->city->name ?? ($command->client_city ?? '') }}</b>
                                                 </p>
                                                 <p class="text-strong mb-0">{!! $command->client_address !!}</p>
                                             </td>
@@ -180,7 +179,6 @@
                                                 <td>
                                                     @if (optional($command->client)->type == 'entreprise')
                                                         <i class="fas fa-building me-1"></i>
-                                                    
                                                     @else
                                                         <i class="fas fa-user me-1"></i>
                                                     @endif
@@ -238,7 +236,7 @@
                                                 <p class="text-strong mb-0">
                                                     {{ $command->updated_at->format('d-m-Y H:i') }}
                                                 </p>
-                                            </td> 
+                                            </td>
                                             <td>
                                                 <div class="d-flex gap-3">
                                                     {{-- @if ($command->invoice)
@@ -290,7 +288,7 @@
                                 </tbody>
                             </table>
                         </div>
-               
+
                         {{ $commands->links() }}
                     </div>
                 </div>
@@ -320,6 +318,4 @@
     @if (count($selectedCommands))
         @include('livewire.sameleon.command.attache_to_delivery')
     @endif
-
-    {{-- @each('Sameleon.Admin.Command.__datatable.__command_detail',$commands ,'command' ) --}}
 </div>

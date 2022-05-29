@@ -13,22 +13,7 @@ class RepositoryServiceProvider extends ServiceProvider
             'abstract' => "App\Repositories\Admin\AdminInterface",
             'concrete' => "App\Repositories\Admin\AdminRepository"
         ],
-        [
-            'abstract' => "App\Repositories\Technicien\TechnicienInterface",
-            'concrete' => "App\Repositories\Technicien\TechnicienRepository"
-        ],
-        [
-            'abstract' => "App\Repositories\Reception\ReceptionInterface",
-            'concrete' => "App\Repositories\Reception\ReceptionRepository"
-        ],
-        [
-            'abstract' => "App\Repositories\Ticket\TicketInterface",
-            'concrete' => "App\Repositories\Ticket\TicketRepository"
-        ],
-        [
-            'abstract' => "App\Repositories\Category\CategoryInterface",
-            'concrete' => "App\Repositories\Category\CategoryRepository"
-        ],
+
         [
             'abstract' => "App\Repositories\Client\ClientInterface",
             'concrete' => "App\Repositories\Client\ClientRepository"
@@ -36,15 +21,6 @@ class RepositoryServiceProvider extends ServiceProvider
         [
             'abstract' => "App\Repositories\Company\CompanyInterface",
             'concrete' => "App\Repositories\Company\CompanyRepository"
-        ],
-        [
-            'abstract' => "App\Repositories\Provider\ProviderInterface",
-            'concrete' => "App\Repositories\Provider\ProviderRepository"
-        ],
-
-        [
-            'abstract' => "App\Repositories\Document\DocumentInterface",
-            'concrete' => "App\Repositories\Document\DocumentRepository"
         ],
 
         [
@@ -54,6 +30,22 @@ class RepositoryServiceProvider extends ServiceProvider
         [
             'abstract' => "App\Repositories\Region\RegionInterface",
             'concrete' => "App\Repositories\Region\RegionRepository"
+        ],
+        [
+            'abstract' => "App\Repositories\Invoice\InvoiceInterface",
+            'concrete' => "App\Repositories\Invoice\InvoiceRepository"
+        ],
+        [
+            'abstract' => "App\Repositories\Product\ProductInterface",
+            'concrete' => "App\Repositories\Product\ProductRepository"
+        ],
+        [
+            'abstract' => "App\Repositories\Bill\BillInterface",
+            'concrete' => "App\Repositories\Bill\BillRepository"
+        ],
+        [
+            'abstract' => "App\Repositories\Command\CommandInterface",
+            'concrete' => "App\Repositories\Command\CommandRepository"
         ]
     ];
     /**

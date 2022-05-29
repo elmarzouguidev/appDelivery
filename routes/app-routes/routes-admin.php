@@ -38,6 +38,12 @@ Route::group(['prefix' => 'commands'], function () {
         Route::get('/{command}', [AdminCommandController::class, 'edit'])->name('commands.edit');
         Route::post('/{command}', [AdminCommandController::class, 'update'])->name('commands.update');
     });
+
+    Route::group(['prefix' => 'archived'], function () {
+
+        Route::get('/', [AdminCommandController::class, 'archived'])->name('commands.archived');
+        
+    });
 });
 
 Route::group(['prefix' => 'products'], function () {

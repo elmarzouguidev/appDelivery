@@ -13,6 +13,7 @@ use App\Imports\CommandsImport;
 use App\Models\Sameleon\Command;
 use App\Models\Sameleon\Product;
 use App\Repositories\City\CityInterface;
+use App\Repositories\Command\CommandInterface;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -205,5 +206,12 @@ class AdminCommandController extends Controller
             return redirect()->back()->with('success', "La command a été supprimer avec success");
         }
         return redirect()->back()->with('success', "Problem ... !!");
+    }
+
+    public function archived()
+    {
+        $commands = app(CommandInterface::class)->getArchivedCommands();
+
+        return view('Sameleon.Admin.Command.Archive.index', compact('commands'));
     }
 }
