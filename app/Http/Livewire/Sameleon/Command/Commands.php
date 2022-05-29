@@ -252,7 +252,6 @@ class Commands extends Component
 
                     if ($prod->inStock() && $prod->inStock($qte)) {
 
-                    
                         $prod->decreaseStock($qte);
                         $prod->increment('qte_livre', $qte);
                         $prod->increment('total_commands', $qte);
