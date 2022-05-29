@@ -1,19 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+
     <div class="container-fluid">
 
         @include('Sameleon.Admin.Admin.__title')
 
-        @include('Sameleon.Admin.Admin.__datatable.__with_options')
+        @include('Sameleon.Admin.Admin.__normal_table.table')
 
     </div>
-@endsection
-
-@section('css')
 
 @endsection
-
-@push('scripts')
-
-@endpush

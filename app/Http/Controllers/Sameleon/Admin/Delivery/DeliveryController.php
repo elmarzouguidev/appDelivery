@@ -25,7 +25,7 @@ class DeliveryController extends Controller
 
         $deliveries = User::role('Delivery')->get();
 
-        return  view('Sameleon.Admin.Delivery.index', compact('deliveries'));
+        return  view('Sameleon.Admin.Delivery.__normal_table.index', compact('deliveries'));
     }
 
     public function create()

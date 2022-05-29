@@ -17,7 +17,7 @@ class Region extends Component
     {
         $regions = app(RegionInterface::class)->getRegions();
 
-        return view('livewire.sameleon.region.region', compact('regions'));
+        return view('livewire.sameleon.region.region-new', compact('regions'));
     }
 
     public function editRegion(SameleonRegion $region)

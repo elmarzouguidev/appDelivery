@@ -33,7 +33,7 @@ class Reclamation extends Component
                 ->whereActive(true)
                 ->get();
         }
-        return view('livewire.sameleon.reclamation.reclamation', compact('complaints', 'commands'));
+        return view('livewire.sameleon.reclamation.reclamation-new', compact('complaints', 'commands'));
     }
 
     public function addComplaint()

@@ -40,10 +40,10 @@
                     </div>
                     
                     <div class="row mb-4">
-                        <label for="response" class="col-form-label col-lg-2">Votre réponse *</label>
+                        <label for="response" class="col-form-label col-lg-2">La réponse </label>
                         <div class="col-lg-10">
                         
-                            <textarea class="form-control" name="response" wire:model.defer="response" required></textarea>
+                            <textarea {{(auth()->user()->hasAnyRole('Admin','SuperAdmin')) ? "" : 'disabled'}} class="form-control" name="response" wire:model.defer="response" required></textarea>
                             @error('response')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -51,12 +51,13 @@
                             @enderror
                         </div>
                     </div>
-
+                    @if(auth()->user()->hasAnyRole('Admin','SuperAdmin'))
                     <div class="row justify-content-end">
                         <div class="col-lg-10">
                             <button type="submit" class="btn btn-primary">Ajouter</button>
                         </div>
                     </div>
+                    @endif
                 </form>
 
             </div>

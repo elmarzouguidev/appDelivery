@@ -19,8 +19,6 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('assets/libs/datatables.js') }}"></script>
-    <script src="{{ asset('js/pages/datatables.init.js') }}"></script>
 
     <script>
 
@@ -30,21 +28,8 @@
         });
 
         window.addEventListener('hidden.bs.modal', event => {
-            //$("#commands_list").load(window.location.href + " #commands_list");
-
+            
             window.location.reload();
-        });
-
-        window.addEventListener('show-edit-status', event => {
-            $('.updateStatus').modal('show');
-        });
-
-        window.addEventListener('status-updated', event => {
-            //$("#commands_list").load(window.location.href + " #commands_list");
-            setTimeout(function() {
-                window.location.reload();
-            }, 3000);
-
         });
 
     </script>

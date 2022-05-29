@@ -18,7 +18,7 @@ class City extends Component
 
         $cities = app(CityInterface::class)->getCities();
 
-        return view('livewire.sameleon.city.city', compact('cities'));
+        return view('livewire.sameleon.city.city-new', compact('cities'));
     }
 
     public function editCity(SameleonCity $city)

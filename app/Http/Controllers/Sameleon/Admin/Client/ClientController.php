@@ -27,7 +27,7 @@ class ClientController extends Controller
 
         $clients = User::role('Client')->get();
 
-        return  view('Sameleon.Admin.Client.index', compact('clients'));
+        return  view('Sameleon.Admin.Client.__normal_table.index', compact('clients'));
     }
 
     public function create()

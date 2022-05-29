@@ -22,7 +22,7 @@ class AdminController extends Controller
 
         $users = User::role(['Admin', 'SuperAdmin'])->get();
 
-        return view('Sameleon.Admin.Admin.index', compact('users'));
+        return view('Sameleon.Admin.Admin.__normal_table.index', compact('users'));
     }
 
     public function create()

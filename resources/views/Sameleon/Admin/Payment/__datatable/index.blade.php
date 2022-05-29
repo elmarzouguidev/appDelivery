@@ -7,8 +7,6 @@
 
         @include('Sameleon.Admin.Payment.__datatable.__with_options')
 
-        {{--@livewire('sameleon.invoice.invoices')--}}
-
     </div>
 @endsection
 

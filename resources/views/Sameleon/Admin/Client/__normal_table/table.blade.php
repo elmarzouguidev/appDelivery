@@ -1,0 +1,134 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-8">
+
+                        <div class="col-lg-4 mb-4">
+                            {{-- <a href="#" type="button" onclick="openFilters()" class="btn btn-primary" >
+                                Filters
+                            </a> --}}
+                            <a href="{{ route('admin:clients.create') }}" type="button" class="btn btn-info">
+                                Ajouter un client
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+                <div class="table-responsive">
+                    <table class="table table-bordered border-danger table-hover align-middle table-nowrap table-check">
+                        <thead class="table-light">
+                            <tr>
+                                @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
+                                    <th style="width: 20px;" class="align-middle">
+                                        <div class="form-check font-size-16">
+                                            <input class="form-check-input" type="checkbox" id="checkAll">
+                                            <label class="form-check-label" for="checkAll"></label>
+                                        </div>
+                                    </th>
+                                @endif
+                                <th class="align-middle">Logo</th>
+                                <th class="align-middle">Nom complet</th>
+                                <th class="align-middle">E-mail</th>
+                                <th class="align-middle">Tél</th>
+                                <th class="align-middle">Type</th>
+                                <th class="align-middle">Etat</th>
+                                <th class="align-middle">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($clients as $client)
+                                <tr>
+                                    <td>
+                                        <div class="form-check font-size-16">
+                                            <input class="form-check-input" type="checkbox"
+                                                id="client-{{ $client->id }}">
+                                            <label class="form-check-label" for="client-{{ $client->id }}"></label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <img class="img-fluid rounded" alt=""
+                                                src="{{ asset('storage/' . $client->logo) }}" width="50">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <a href="{{-- $client->url --}}" class="text-body fw-bold">
+                                            {{ $client->full_name }}
+                                        </a>
+                                        @if ($client->type == 'particulier')
+                                            <br>
+                                            {{ $client->cnie }}
+                                        @endif
+                                    </td>
+                                    <td>
+                                        {{ $client->email }}
+                                    </td>
+                                    <td>
+                                        {{ $client->telephone }}
+                                    </td>
+                                    <td>
+                                        {{ $client->type }}
+                                        <p class="text-muted mb-0"></p>
+                                    </td>
+                                    <td>
+
+                                        <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
+                                            <input data-client="{{ $client->uuid }}" class="form-check-input activeUser"
+                                                type="checkbox" id="SwitchCheckSizelg"
+                                                {{ $client->active == true ? 'checked' : '' }}>
+
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <div class="d-flex gap-3">
+
+                                            <a href="{{ route('admin:clients.edit', $client->uuid) }}"
+                                                class="text-success">
+                                                <i class="mdi mdi-pencil font-size-18"></i>
+                                            </a>
+                                            <a href="#" class="text-danger" onclick="
+                                                var result = confirm('Are you sure you want to delete this client ?');
+
+                                                if(result){
+                                                    event.preventDefault();
+                                                    document.getElementById('delete-client-{{ $client->uuid }}').submit();
+                                                }">
+                                                <i class="mdi mdi-delete font-size-18"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <form id="delete-client-{{ $client->uuid }}" method="post"
+                                        action="{{ route('admin:clients.delete') }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="hidden" name="clientId" value="{{ $client->uuid }}">
+                                    </form>
+
+                                    <form id="activate-client-{{ $client->uuid }}" method="post"
+                                        action="{{ route('admin:clients.activate') }}">
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="hidden" name="clientId" value="{{ $client->uuid }}">
+                                    </form>
+                                </tr>
+                            @endforeach
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->

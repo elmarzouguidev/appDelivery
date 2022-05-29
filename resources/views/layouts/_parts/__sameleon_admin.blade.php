@@ -110,13 +110,10 @@
 @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
     <li class="menu-title" key="t-components">{{ __('navbar.advanced') }}</li>
     <li>
-        <a href="javascript: void(0);" class="has-arrow waves-effect">
-            <i class="bx bxs-truck"></i>
-            <span key="t-ci-reg">{{ __('Livreurs') }}</span>
+        <a href="{{ route('admin:delivery.index') }}">
+            <i class='bx bxs-truck'></i>
+            <span key="t-delivery">{{ __('Livreurs') }}</span>
         </a>
-        <ul class="sub-menu" aria-expanded="false">
-            <li><a href="{{ route('admin:delivery.index') }}" key="t-delivery">{{ __('Livreurs') }}</a></li>
-        </ul>
     </li>
     <li>
         <a href="javascript: void(0);" class="has-arrow waves-effect">

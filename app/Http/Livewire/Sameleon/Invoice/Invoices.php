@@ -53,7 +53,7 @@ class Invoices extends Component
                 ->get();
             //dd($invoices);   
         }
-        return view('livewire.sameleon.invoice.invoices', compact('invoices'));
+        return view('livewire.sameleon.invoice.invoices-new', compact('invoices'));
     }
 
     public function addBill(Invoice $invoice)

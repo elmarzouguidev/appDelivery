@@ -20,6 +20,6 @@ class PaymentController extends Controller
         } else {
             $payments = Bill::with('media', 'billable')->get();
         }
-        return view('Sameleon.Admin.Payment.__datatable.index', compact('payments'));
+        return view('Sameleon.Admin.Payment.__normal_table.index', compact('payments'));
     }
 }
