@@ -14,7 +14,7 @@ class CommandObserver
      */
     public function created(Command $command)
     {
-        //
+        $this->clearAllCachedArchive();
     }
 
     /**
@@ -67,8 +67,8 @@ class CommandObserver
         if (auth()->user()->hasRole('Client')) {
 
             $cacheKey = "all_commands_archived_cache_" . auth()->user()->uuid;
-
             cache()->pull($cacheKey);
+            cache()->pull('all_commands_archived_cache');
         } else {
             cache()->pull('all_commands_archived_cache');
         }

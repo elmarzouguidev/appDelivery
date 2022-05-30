@@ -89,7 +89,7 @@
                                         <p class="text-strong mb-0">
                                             <strong>
                                                 <a style="color:#2f5393 !important"
-                                                    href="tel:{{ $command->client_phone }}">{{ $command->client_phone }}</a>
+                                                    href="#">{{ $command->client_phone }}</a>
                                             </strong>
                                         </p>
                                         <p class="text-strong mb-0">
@@ -134,7 +134,7 @@
                                     @endif
                                     <td>
 
-                                        <button type="button"
+                                        <button type="button" disabled
                                             class="btn btn-sm {{ __('status.classes.' . $command->status) }} waves-effect waves-light">
                                             {{ __('status.statuses.' . $command->status) }}
                                         </button>

@@ -39,7 +39,7 @@ class Product extends Model implements HasMedia
         'is_out' => 'boolean'
     ];
 
-    protected $with = ['stockMutations'];
+    //protected $with = ['stockMutations'];
 
     /*public function stock()
     {

@@ -63,6 +63,13 @@ class ProductObserver
 
     private function clearAllCache()
     {
-        cache()->pull('all_products_cache');
+
+        if (auth()->user()->hasRole('Client')) {
+            $cacheKey = "all_products_cache_" . auth()->user()->uuid;
+            cache()->pull($cacheKey);
+            cache()->pull('all_products_cache');
+        } else {
+            cache()->pull('all_products_cache');
+        }
     }
 }

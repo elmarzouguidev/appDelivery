@@ -6,6 +6,7 @@ namespace App\Repositories\Product;
 use App\Models\Sameleon\Product;
 use App\Repositories\AppRepository;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class ProductRepository extends AppRepository implements ProductInterface
 {
@@ -39,14 +40,42 @@ class ProductRepository extends AppRepository implements ProductInterface
     public function getProducts()
     {
         if ($this->useCache()) {
-            // dd('yes cache');
-            return $this->setCache()->remember('all_products_cache', $this->timeToLive(), function () {
 
-                return $this->product->get();
-            });
+            if (auth()->user()->hasRole('Client')) {
+
+                $cacheKey = "all_products_cache_" . auth()->user()->uuid;
+
+                return $this->setCache()->remember($cacheKey, $this->timeToLive(), function () {
+
+                    return $this->product
+                        ->where('user_id', auth()->id())
+                        ->where('user_uuid', auth()->user()->uuid)
+                        ->with('media', 'stockMutations')
+                        ->get();
+                });
+            } else {
+                return $this->setCache()->remember('all_products_cache', $this->timeToLive(), function () {
+                    return $this->product->with('media', 'client:id,nom,prenom')
+                        ->with(['stockMutations.stockable' => function (MorphTo $morphTo) {
+                            $morphTo->morphWith([$this->product]);
+                        }])
+
+                        ->get();
+                });
+            }
+        } else {
+            if (auth()->user()->hasRole('Client')) {
+
+                return $this->product
+                    ->where('user_id', auth()->id())
+                    ->where('user_uuid', auth()->user()->uuid)
+                    ->with('media')->get();
+            } else {
+
+                return $this->product->with('media', 'client:id,nom,prenom', 'stockMutations')->get();
+            }
         }
-        //dd('no cache');
-        return $this->product->get();
+        return [];
     }
 
     /**

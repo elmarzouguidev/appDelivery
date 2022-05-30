@@ -54,7 +54,7 @@ class CommandRepository extends AppRepository implements CommandInterface
         if (auth()->user()->hasRole('Client')) {
 
             $cacheKey = "all_commands_archived_cache_" . auth()->user()->uuid;
-            
+
             return $this->setCache()->remember($cacheKey, $this->timeToLive(), function () {
 
                 return $this->command
@@ -62,6 +62,7 @@ class CommandRepository extends AppRepository implements CommandInterface
                     ->where('user_uuid', auth()->user()->uuid)
                     ->where('is_closed', true)
                     ->with('items', 'city:id,name')
+                    ->withSum('items', 'prix_total')
                     ->get();
             });
         } else {
@@ -72,6 +73,7 @@ class CommandRepository extends AppRepository implements CommandInterface
                 return $this->command
                     ->where('is_closed', true)
                     ->with('client:id,nom,prenom', 'items', 'city:id,name')
+                    ->withSum('items', 'prix_total')
                     ->get();
             });
         }

@@ -7,6 +7,8 @@ use App\Http\Requests\Sameleon\Product\ProductFormRequest;
 use App\Http\Requests\Sameleon\Product\ProductUpdateFormRequest;
 use App\Models\Sameleon\Product;
 use App\Models\Sameleon\User;
+use App\Repositories\Client\ClientInterface;
+use App\Repositories\Product\ProductInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -16,11 +18,13 @@ class AdminProductController extends Controller
     public function index()
     {
 
-        if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin')) {
+        /*if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin')) {
             $products = Product::with('client', 'media')->get();
         } else {
             $products = auth()->user()->products()->with('media')->get();
-        }
+        }*/
+
+        $products = app(ProductInterface::class)->getProducts();
 
         return view('Sameleon.Admin.Product.__normal_table.index', compact('products'));
     }
@@ -29,7 +33,7 @@ class AdminProductController extends Controller
     {
         $this->authorize('create', Product::class);
 
-        $clients = User::role('Client')->get();
+        $clients = app(ClientInterface::class)->getClients();
 
         return view('Sameleon.Admin.Product.__create.index', compact('clients'));
     }
