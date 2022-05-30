@@ -42,6 +42,7 @@
                                 <th class="align-middle">E-mail</th>
                                 <th class="align-middle">Tél</th>
                                 <th class="align-middle">Type</th>
+                                <th class="align-middle">Compte bancaire</th>
                                 <th class="align-middle">Etat</th>
                                 <th class="align-middle">Action</th>
                             </tr>
@@ -82,6 +83,17 @@
                                     <td>
                                         {{ $client->type }}
                                         <p class="text-muted mb-0"></p>
+                                    </td>
+                                    <td>
+                                       
+                                        @foreach ($client->banks as $bnk)
+                                        
+                                            <strong>{{ $bnk->name }}</strong>
+                                            <p class="text-muted mb-0">
+                                                {{ $bnk->account->rib }}
+                                            </p> 
+                                        @endforeach
+                     
                                     </td>
                                     <td>
 

@@ -64,5 +64,6 @@ class BankObserver
     private function clearAllCache()
     {
         cache()->pull('all_banks_cache');
+        cache()->pull('all_clients_cache');
     }
 }

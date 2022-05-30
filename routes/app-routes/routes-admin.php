@@ -223,6 +223,8 @@ Route::group(['prefix' => 'profil'], function () {
         Route::post('/password', [ProfilController::class, 'updatePassword'])->name('profil.update.password');
 
         Route::post('/company', [ProfilController::class, 'updateCompany'])->name('profil.update.company');
+
+        Route::post('/bank', [ProfilController::class, 'updateBank'])->name('profil.update.bank');
     });
 
     Route::group(['prefix' => 'history'], function () {

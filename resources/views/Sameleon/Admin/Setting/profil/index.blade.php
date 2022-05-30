@@ -9,6 +9,8 @@
 
         @include('Sameleon.Admin.Setting.profil.password')
 
+        @include('Sameleon.Admin.Setting.profil.bank')
+
         @if (auth()->user()->hasRole('Client') && $user->type == 'entreprise')
             @php
                 $company =

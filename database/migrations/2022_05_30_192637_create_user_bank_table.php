@@ -13,7 +13,7 @@ class CreateUserBankTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_bank', function (Blueprint $table) {
+        Schema::create('bank_user', function (Blueprint $table) {
             $table->id();
 
             $table->uuid('uuid')->nullable();
@@ -44,6 +44,6 @@ class CreateUserBankTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_bank');
+        Schema::dropIfExists('bank_user');
     }
 }

@@ -64,7 +64,8 @@ class UserObserver
     private function clearAllCache()
     {
 
-        if (request()->routeIs('admin:clients.store','admin:clients.activate')) {
+
+        if (request()->routeIs('admin:clients.store','admin:clients.activate','admin:profil.update','admin:profil.update.bank')) {
 
             cache()->pull('all_clients_cache');
         }

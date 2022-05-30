@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Sameleon\Admin\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Sameleon\Admin\UpdateBankFormRequest;
 use App\Http\Requests\Sameleon\Admin\UpdateCompanyFormRequest;
 use App\Http\Requests\Sameleon\Admin\UpdateProfilFormRequest;
 use App\Http\Requests\Sameleon\Admin\UpdateProfilPasswordFormRequest;
+use App\Models\Sameleon\Bank;
 use App\Models\Sameleon\User;
+use App\Repositories\Bank\BankInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -19,9 +22,15 @@ class ProfilController extends Controller
     {
 
         $user = auth()->user();
+
         $user->load('documents');
 
-        return view('Sameleon.Admin.Setting.profil.index', compact('user'));
+        $banks = app(BankInterface::class)->getBanks();
+
+        $bankAccount = $user->bank()->first();
+        //dd($bank->account->rib);
+
+        return view('Sameleon.Admin.Setting.profil.index', compact('user', 'banks', 'bankAccount'));
     }
 
     public function update(UpdateProfilFormRequest $request)
@@ -111,5 +120,33 @@ class ProfilController extends Controller
         return redirect()->back()->with('error', "Error");
     }
 
+    public function updateBank(UpdateBankFormRequest $request)
+    {
+        $user = auth()->user();
 
+        $bankAccount = $user->bank()->first();
+
+        if (!$bankAccount) {
+
+            $user->banks()->attach(
+                (int)$request->bank,
+                [
+                    'type' => 'client',
+                    'rib' => $request->code_rib,
+                    'user_uuid' => $user->uuid,
+                    'bank_uuid' => Bank::find($request->bank)->uuid
+                ],
+            );
+        } else {
+            
+            $user->banks()->updateExistingPivot((int)$request->bank, [
+                'type' => 'client',
+                'rib' => $request->code_rib,
+                'user_uuid' => $user->uuid,
+                'bank_uuid' => Bank::find($request->bank)->uuid
+            ]);
+        }
+
+        return redirect()->back()->with('success', "Le compte a été ajouter");
+    }
 }

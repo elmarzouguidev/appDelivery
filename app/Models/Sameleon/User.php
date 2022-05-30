@@ -22,6 +22,8 @@ class User extends Authenticatable
     use UuidGenerator;
 
     use HasRoles;
+
+    use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
     /**
      * The attributes that are mass assignable.
      *
@@ -190,9 +192,20 @@ class User extends Authenticatable
 
     public function banks()
     {
-        return $this->belongsToMany(Bank::class, 'user_bank', 'user_id', 'bank_id')
-
+        return $this->belongsToMany(Bank::class)
+            ->using(UserBank::class)
+            ->as('account')
             ->withPivot(['id', 'rib', 'type']);
+    }
+
+    public function bank()
+    {
+        return $this->belongsToMany(Bank::class)
+            ->using(UserBank::class)
+            ->as('account')
+            ->wherePivot('user_id', $this->id)
+            ->wherePivot('user_uuid', $this->uuid)
+            ->withPivot(['id', 'rib', 'type','user_uuid','bank_uuid','bank_id']);
     }
 
     public function scopeWithLastLogin($query)

@@ -43,11 +43,11 @@ class ClientRepository extends AppRepository implements ClientInterface
             // dd('yes cache');
             return $this->setCache()->remember('all_clients_cache', $this->timeToLive(), function () {
 
-                return $this->client->role('Client')->get();
+                return $this->client->role('Client')->with('banks')->get();
             });
         }
         //dd('no cache');
-        return $this->client->role('Client')->get();
+        return $this->client->role('Client')->with('banks')->get();
     }
 
     /**
