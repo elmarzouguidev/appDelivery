@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-6">
+    <div class="col-12">
         @php
             $disabled = '';
             
@@ -58,26 +58,5 @@
             </div>
         </div>
     </div>
-    <div class="col-6">
-        <div class="card">
-            <div class="card-body">
-                <div class="tab-content" id="v-pills-tabContent">
-                    <div class="tab-pane fade show active" id="v-pills-gen-ques" role="tabpanel"
-                        aria-labelledby="v-pills-gen-ques-tab">
-                        <div class="faq-box d-flex mb-4">
-                            <div class="flex-shrink-0 me-3 faq-icon">
-                                <i class="bx bx-help-circle font-size-20 text-success"></i>
-                            </div>
-                            <div class="flex-grow-1">
-                                <h5 class="font-size-15">Comment utiliser l'API ?</h5>
-                                <p class="text-muted">New common language will be more simple and regular than
-                                    the existing European languages. It will be as simple as occidental.</p>
-                            </div>
-                        </div>
-                    </div>
 
-                </div>
-            </div>
-        </div>
-    </div>
 </div>

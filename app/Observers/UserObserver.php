@@ -68,11 +68,11 @@ class UserObserver
 
             cache()->pull('all_clients_cache');
         }
-        if (request()->routeIs('admin:admins.store')) {
+        if (request()->routeIs('admin:admins.store','admin:admins.update')) {
 
             cache()->pull('all_admins_cache');
         }
-        if (request()->routeIs('admin:delivery.store')) {
+        if (request()->routeIs('admin:delivery.store','admin:delivery.update')) {
 
             cache()->pull('all_deliveries_cache');
         }

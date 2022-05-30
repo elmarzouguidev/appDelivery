@@ -50,6 +50,10 @@ class RepositoryServiceProvider extends ServiceProvider
         [
             'abstract' => "App\Repositories\Command\CommandInterface",
             'concrete' => "App\Repositories\Command\CommandRepository"
+        ],
+        [
+            'abstract' => "App\Repositories\Bank\BankInterface",
+            'concrete' => "App\Repositories\Bank\BankRepository"
         ]
     ];
     /**

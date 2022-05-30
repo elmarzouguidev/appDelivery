@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-
+use App\Models\Sameleon\Bank;
 use App\Models\Sameleon\Bill;
 use App\Models\Sameleon\City;
 use App\Models\Sameleon\Command;
@@ -10,6 +10,7 @@ use App\Models\Sameleon\Invoice;
 use App\Models\Sameleon\Product;
 use App\Models\Sameleon\Region;
 use App\Models\Sameleon\User;
+use App\Observers\BankObserver;
 use App\Observers\BillObserver;
 use App\Observers\CityObserver;
 use App\Observers\CommandObserver;
@@ -45,5 +46,6 @@ class ObserverServiceProvider extends ServiceProvider
         Command::observe(CommandObserver::class);
         City::observe(CityObserver::class);
         Region::observe(RegionObserver::class);
+        Bank::observe(BankObserver::class);
     }
 }

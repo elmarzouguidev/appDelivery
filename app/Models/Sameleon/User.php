@@ -188,6 +188,13 @@ class User extends Authenticatable
         return $this->hasOne(Testimonial::class);
     }
 
+    public function banks()
+    {
+        return $this->belongsToMany(Bank::class, 'user_bank', 'user_id', 'bank_id')
+
+            ->withPivot(['id', 'rib', 'type']);
+    }
+
     public function scopeWithLastLogin($query)
     {
         return $query->addSelect([

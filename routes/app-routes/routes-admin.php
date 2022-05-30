@@ -7,6 +7,7 @@ use App\Http\Controllers\Sameleon\Admin\Admin\RoleController;
 use App\Http\Controllers\Sameleon\Admin\Admin\SettingController;
 use App\Http\Controllers\Sameleon\Admin\Admin\ProfilController;
 use App\Http\Controllers\Sameleon\Admin\AdminHomeController;
+use App\Http\Controllers\Sameleon\Admin\Bank\BankController;
 use App\Http\Controllers\Sameleon\Admin\City\AdminCityController;
 use App\Http\Controllers\Sameleon\Admin\Client\ClientController;
 use App\Http\Controllers\Sameleon\Admin\Command\AdminCommandController;
@@ -42,7 +43,6 @@ Route::group(['prefix' => 'commands'], function () {
     Route::group(['prefix' => 'archived'], function () {
 
         Route::get('/', [AdminCommandController::class, 'archived'])->name('commands.archived');
-        
     });
 });
 
@@ -223,8 +223,6 @@ Route::group(['prefix' => 'profil'], function () {
         Route::post('/password', [ProfilController::class, 'updatePassword'])->name('profil.update.password');
 
         Route::post('/company', [ProfilController::class, 'updateCompany'])->name('profil.update.company');
-
-    
     });
 
     Route::group(['prefix' => 'history'], function () {
@@ -238,8 +236,6 @@ Route::group(['prefix' => 'profil'], function () {
         Route::get('/', [APIController::class, 'index'])->name('api.index');
         Route::post('/', [APIController::class, 'createToken'])->name('api.update.token');
     });
-
-
 });
 
 Route::group(['prefix' => 'complaints'], function () {
@@ -263,4 +259,20 @@ Route::group(['prefix' => 'contact'], function () {
     Route::get('/', [ContactController::class, 'index'])->name('contact.index');
     Route::post('/', [ContactController::class, 'store'])->name('contact.store');
     Route::delete('/delete', [ContactController::class, 'delete'])->name('contact.delete');
+});
+
+
+Route::group(['prefix' => 'banks'], function () {
+
+    Route::get('/', [BankController::class, 'index'])->name('banks.index');
+
+    Route::get('/create', [BankController::class, 'create'])->name('banks.create');
+    Route::post('/create', [BankController::class, 'store'])->name('banks.store');
+
+    Route::get('/edit/{bank}', [BankController::class, 'edit'])->name('banks.edit');
+    Route::post('/edit/{bank}', [BankController::class, 'update'])->name('banks.update');
+
+    Route::delete('/delete', [BankController::class, 'delete'])->name('banks.delete');
+
+    Route::put('/', [BankController::class, 'activate'])->name('banks.activate');
 });
