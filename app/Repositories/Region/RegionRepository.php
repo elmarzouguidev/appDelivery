@@ -14,14 +14,11 @@ class RegionRepository extends AppRepository implements RegionInterface
     private $region;
 
     private $instance;
-
-    private $options;
-
+    
     public function __construct(Region $region)
     {
         $this->region = $region;
 
-        $this->options = config('app-config');
     }
 
     public function __instance(): Region

@@ -19,6 +19,10 @@ class RepositoryServiceProvider extends ServiceProvider
             'concrete' => "App\Repositories\Client\ClientRepository"
         ],
         [
+            'abstract' => "App\Repositories\Delivery\DeliveryInterface",
+            'concrete' => "App\Repositories\Delivery\DeliveryRepository"
+        ],
+        [
             'abstract' => "App\Repositories\Company\CompanyInterface",
             'concrete' => "App\Repositories\Company\CompanyRepository"
         ],

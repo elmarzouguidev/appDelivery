@@ -9,6 +9,7 @@ use App\Models\Sameleon\Region;
 use App\Models\Sameleon\User;
 use App\Notifications\Sameleon\SendNewUserPassword;
 use App\Repositories\City\CityInterface;
+use App\Repositories\Delivery\DeliveryInterface;
 use App\Services\Mail\CheckConnection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -23,7 +24,7 @@ class DeliveryController extends Controller
 
         $this->authorize('viewAny', User::class);
 
-        $deliveries = User::role('Delivery')->get();
+        $deliveries = app(DeliveryInterface::class)->getDeliveries();
 
         return  view('Sameleon.Admin.Delivery.__normal_table.index', compact('deliveries'));
     }

@@ -7,6 +7,7 @@ use App\Http\Requests\Sameleon\Admin\AdminFormRequest;
 use App\Http\Requests\Sameleon\Admin\AdminPermissionFormRequest;
 use App\Http\Requests\Sameleon\Admin\AdminUpdateFormRequest;
 use App\Models\Sameleon\User;
+use App\Repositories\Admin\AdminInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
@@ -20,7 +21,7 @@ class AdminController extends Controller
 
         $this->authorize('viewAny', User::class);
 
-        $users = User::role(['Admin', 'SuperAdmin'])->get();
+        $users = app(AdminInterface::class)->getAdmins();
 
         return view('Sameleon.Admin.Admin.__normal_table.index', compact('users'));
     }

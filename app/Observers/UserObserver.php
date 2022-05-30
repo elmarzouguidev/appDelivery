@@ -14,7 +14,7 @@ class UserObserver
      */
     public function created(User $user)
     {
-        $this->clearAllCache();
+        $this->clearAllCache($user);
     }
 
     /**
@@ -25,7 +25,7 @@ class UserObserver
      */
     public function updated(User $user)
     {
-        $this->clearAllCache();
+        $this->clearAllCache($user);
     }
 
     /**
@@ -36,7 +36,7 @@ class UserObserver
      */
     public function deleted(User $user)
     {
-        $this->clearAllCache();
+        $this->clearAllCache($user);
     }
 
     /**
@@ -47,7 +47,7 @@ class UserObserver
      */
     public function restored(User $user)
     {
-        $this->clearAllCache();
+        $this->clearAllCache($user);
     }
 
     /**
@@ -58,11 +58,19 @@ class UserObserver
      */
     public function forceDeleted(User $user)
     {
-        $this->clearAllCache();
+        $this->clearAllCache($user);
     }
 
-    private function clearAllCache()
+    private function clearAllCache(User $user)
     {
-        cache()->pull('all_clients_cache');
+        if ($user->hasRole('Client')) {
+            cache()->pull('all_clients_cache');
+        }
+        if ($user->hasAnyRole('Admin', 'SuperAdmin')) {
+            cache()->pull('all_admins_cache');
+        }
+        if ($user->hasRole('Delivery')) {
+            cache()->pull('all_deliveries_cache');
+        }
     }
 }

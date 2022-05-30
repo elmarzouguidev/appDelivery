@@ -14,13 +14,9 @@ class AdminRepository extends AppRepository implements AdminInterface
 
     private $instance;
 
-    private $options;
-
     public function __construct(User $admin)
     {
         $this->admin = $admin;
-
-        $this->options = config('app-config');
     }
 
     public function __instance(): User
@@ -39,14 +35,14 @@ class AdminRepository extends AppRepository implements AdminInterface
     public function getAdmins()
     {
         if ($this->useCache()) {
-            //dd('oui');
+
             return $this->setCache()->remember('all_admins_cache', $this->timeToLive(), function () {
 
-                return $this->admin->role(['Admin', 'SuperAdmin'])->get();
+                return $this->admin->role(['Admin', 'SuperAdmin'])->with('roles:id,name')->get();
             });
         }
-        //dd('nooo');
-        return $this->admin->role(['Admin', 'SuperAdmin'])->get();
+
+        return $this->admin->role(['Admin', 'SuperAdmin'])->with('roles:id,name')->get();
     }
 
     /**

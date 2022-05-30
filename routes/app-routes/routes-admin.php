@@ -112,7 +112,7 @@ Route::group(['prefix' => 'clients'], function () {
     });
 });
 
-Route::group(['prefix' => 'delivery-guys'], function () {
+Route::group(['prefix' => 'drivers'], function () {
 
     Route::get('/', [DeliveryController::class, 'index'])->name('delivery.index');
 
