@@ -257,7 +257,6 @@ class Commands extends Component
                         $prod->increment('total_commands', $qte);
 
                         $command->update(['status' => $status]);
-
                     } else {
 
                         $prod->update(['is_out' => true]);
@@ -278,9 +277,11 @@ class Commands extends Component
 
                     $qte = (int)$item->quantity;
 
-                    $prod->increaseStock($qte);
-                    $prod->decrement('qte_livre',  $qte);
-                    $prod->decrement('total_commands',  $qte);
+                    if ($prod->qte_livre != 0 && $prod->qte_livre > $item->quantity) {
+                        $prod->increaseStock($qte);
+                        $prod->decrement('qte_livre',  $qte);
+                        $prod->decrement('total_commands',  $qte);
+                    }
 
                     $command->update(['status' => $status]);
 
