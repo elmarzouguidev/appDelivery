@@ -32,21 +32,60 @@ class InvoiceRepository extends AppRepository implements InvoiceInterface
         return $this->instance;
     }
 
-
     /**
      * @return Invoice[]|Collection|string[]
      */
     public function getInvoices()
     {
         if ($this->useCache()) {
-            // dd('yes cache');
-            return $this->setCache()->remember('all_invoices_cache', $this->timeToLive(), function () {
 
-                return $this->invoice->get();
-            });
+            if (auth()->user()->hasRole('Client')) {
+
+                $cacheKey = "all_invoices_cache_" . auth()->user()->uuid;
+
+                return $this->setCache()->remember($cacheKey, $this->timeToLive(), function () {
+
+                    return $this->invoice
+                        ->authClient()
+                        ->withCount('commands')
+                        ->withSum('articles', 'price_total')
+                        ->with('bill')
+                        ->withCount('bill')
+                        ->get();
+                });
+            } else {
+                return $this->setCache()->remember('all_invoices_cache', $this->timeToLive(), function () {
+                    return $this->invoice
+                        ->withCount('commands')
+                        ->withSum('articles', 'price_total')
+                        ->with('bill')
+                        ->withCount('bill')
+
+                        ->get();
+                });
+            }
+        } else {
+            if (auth()->user()->hasRole('Client')) {
+
+                return $this->invoice
+                    ->authClient()
+                    ->withCount('commands')
+                    ->withSum('articles', 'price_total')
+                    ->with('bill')
+                    ->withCount('bill')
+                    ->get();
+            } else {
+
+                return $this->invoice
+                    ->withCount('commands')
+                    ->withSum('articles', 'price_total')
+                    ->with('bill')
+                    ->withCount('bill')
+
+                    ->get();
+            }
         }
-        //dd('no cache');
-        return $this->invoice->get();
+        return [];
     }
 
     /**

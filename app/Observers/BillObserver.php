@@ -14,7 +14,7 @@ class BillObserver
      */
     public function created(Bill $bill)
     {
-        //
+        $this->clearAllCachedBills();
     }
 
     /**
@@ -25,7 +25,7 @@ class BillObserver
      */
     public function updated(Bill $bill)
     {
-        //
+        $this->clearAllCachedBills();
     }
 
     /**
@@ -36,7 +36,7 @@ class BillObserver
      */
     public function deleted(Bill $bill)
     {
-        //
+        $this->clearAllCachedBills();
     }
 
     /**
@@ -47,7 +47,7 @@ class BillObserver
      */
     public function restored(Bill $bill)
     {
-        //
+        $this->clearAllCachedBills();
     }
 
     /**
@@ -58,6 +58,20 @@ class BillObserver
      */
     public function forceDeleted(Bill $bill)
     {
-        //
+        $this->clearAllCachedBills();
+    }
+
+    private function clearAllCachedBills()
+    {
+        if (auth()->user()->hasRole('Client')) {
+
+            $cacheKey = "all_bills_cache_" . auth()->user()->uuid;
+
+            cache()->pull($cacheKey);
+            cache()->pull('all_bills_cache');
+        } else {
+
+            cache()->pull('all_bills_cache');
+        }
     }
 }

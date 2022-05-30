@@ -14,6 +14,7 @@ use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
 
 use Appstract\Stock\HasStock;
+use Illuminate\Support\Facades\Cache;
 
 class Product extends Model implements HasMedia
 {
@@ -81,6 +82,13 @@ class Product extends Model implements HasMedia
     {
         return $this->items->sum('quantity');
     }
+
+    /*public function getStockAttribute()
+    {
+        Cache::remember('stockablded', 500, function () {
+            return $this->stock();
+        });
+    }*/
 
     public function registerMediaConversions(Media $media = null): void
     {

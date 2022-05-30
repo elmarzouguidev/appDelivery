@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Sameleon\Invoice;
 
 use App\Models\Sameleon\Invoice;
+use App\Repositories\Invoice\InvoiceInterface;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -37,7 +38,7 @@ class Invoices extends Component
     public function render()
     {
 
-        if (auth()->user()->hasRole('Client')) {
+        /*if (auth()->user()->hasRole('Client')) {
             $invoices = Invoice::authClient()
                 ->withCount('commands')
                 ->withSum('articles', 'price_total')
@@ -50,9 +51,9 @@ class Invoices extends Component
                 ->with('client:id,nom,prenom')
                 ->with('bill')
                 ->withCount('bill')
-                ->get();
-            //dd($invoices);   
-        }
+                ->get();  
+        }*/
+        $invoices = app(InvoiceInterface::class)->getInvoices();
         return view('livewire.sameleon.invoice.invoices-new', compact('invoices'));
     }
 

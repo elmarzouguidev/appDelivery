@@ -63,6 +63,12 @@ class InvoiceObserver
 
     private function clearAllCache()
     {
-        cache()->pull('all_invoices_cache');
+        if (auth()->user()->hasRole('Client')) {
+            $cacheKey = "all_invoices_cache_" . auth()->user()->uuid;
+            cache()->pull($cacheKey);
+            //cache()->pull('all_invoices_cache');
+        } else {
+            cache()->pull('all_invoices_cache');
+        }
     }
 }

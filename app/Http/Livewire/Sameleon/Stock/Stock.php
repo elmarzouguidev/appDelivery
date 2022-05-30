@@ -29,6 +29,7 @@ class Stock extends Component
         }*/
 
         $stocks = app(ProductInterface::class)->getProducts();
+        
         return view('livewire.sameleon.stock.stock-new', compact('stocks'));
     }
 
