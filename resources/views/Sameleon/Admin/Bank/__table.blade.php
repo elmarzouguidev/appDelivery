@@ -66,7 +66,10 @@
                                     </td>
                                     <td>
                                         <a href="{{-- $client->url --}}" class="text-body fw-bold">
-                                            {{ $bank->name }}
+                                            {{ $bank->name }}<br>
+                                            <p class="text-muted mb-0">
+                                             users : {{$bank->users_count}}
+                                            </p>
                                         </a>
                                     </td>
                                     <td>

@@ -39,11 +39,11 @@ class BankRepository extends AppRepository implements BankInterface
 
             return $this->setCache()->remember('all_banks_cache', $this->timeToLive(), function () {
 
-                return $this->bank->get();
+                return $this->bank->withCount('users')->get();
             });
         }
 
-        return $this->bank->get();
+        return $this->withCount('users')->get();
     }
 
     /**

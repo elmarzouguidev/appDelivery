@@ -87,11 +87,19 @@
                                     <td>
                                        
                                         @foreach ($client->banks as $bnk)
-                                        
-                                            <strong>{{ $bnk->name }}</strong>
-                                            <p class="text-muted mb-0">
-                                                {{ $bnk->account->rib }}
-                                            </p> 
+                                            <div class="align-content-center">
+                                                <strong>{{ $bnk->name }}</strong>
+                                                <p class="text-muted mb-0">
+                                                    {{ $bnk->account->rib }}
+                                                </p> 
+                                           
+                                            {{--@if(!is_null($bnk->logo))
+                                                <div class="float-end">
+                                                    <img class="img-fluid rounded" alt=""
+                                                        src="{{ asset('storage/' . $bnk->logo) }}" width="50">
+                                                </div>
+                                            @endif--}}
+                                        </div>
                                         @endforeach
                      
                                     </td>
