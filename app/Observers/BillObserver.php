@@ -67,11 +67,16 @@ class BillObserver
 
             $cacheKey = "all_bills_cache_" . auth()->user()->uuid;
 
+            $cacheKeye = "all_invoices_cache_" . auth()->user()->uuid;
+            cache()->pull($cacheKeye);
+
             cache()->pull($cacheKey);
             cache()->pull('all_bills_cache');
         } else {
 
             cache()->pull('all_bills_cache');
+            cache()->pull('all_invoices_cache');
         }
+
     }
 }
