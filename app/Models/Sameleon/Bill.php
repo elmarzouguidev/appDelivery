@@ -48,7 +48,7 @@ class Bill extends Model implements HasMedia
 
     public function getFormatedPriceTotalAttribute()
     {
-        return number_format($this->price_total, 2);
+        return number_format($this->price_total - $this->billable->formated_frais, 2);
     }
 
     public function getFormatedTotalAttribute()

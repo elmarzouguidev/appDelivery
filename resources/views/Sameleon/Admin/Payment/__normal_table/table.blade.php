@@ -34,7 +34,8 @@
 
                                 <th class="align-middle">Code</th>
                                 <th class="align-middle">Facture N°</th>
-                                <th class="align-middle">Montant (hors frais)</th>
+                                <th class="align-middle">Montant FACTURE (hors frais)</th>
+                                <th class="align-middle">Montant REGLEMENT</th>
                                 <th class="align-middle">Mode de paiment</th>
                                 <th class="align-middle">Date de paiment</th>
                                 <th class="align-middle">Note</th>
@@ -64,8 +65,16 @@
                                         {{-- $payment->full_number --}}
                                     </td>
                                     <td>
+                                        {{-- $payment->billable->full_number --}}
+                                         {{--<p class="text-muted mb-0"></p>--}}
+                                        <a 
+                                            target="_blank" 
+                                            href="{{route('public.show.invoice',[$payment->billable->uuid,'has_header'=>true])}}" 
+                                            class="text-body fw-bold"
+                                            style="color:blue !important"
+                                        >
                                         {{ $payment->billable->full_number }}
-                                        <p class="text-muted mb-0"></p>
+                                        </a>
                                     </td>
 
                                     <td>
@@ -73,6 +82,11 @@
                                         {{ number_format($payment->price_total, 2) }} DH
 
                                     </td>
+
+                                    <td>
+                                     {{ $payment->formated_price_total }} DH
+                                    </td>
+
                                     <td>
                                         {{ $payment->bill_mode }}
                                     </td>

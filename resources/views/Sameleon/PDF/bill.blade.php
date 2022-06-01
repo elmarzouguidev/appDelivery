@@ -219,6 +219,7 @@
 
                         </tr>
                         <tr>
+                            
                             <td style="width: 100% ; text-align: left; !important">
                                 <strong>Facture N° : {{ $bill->billable->full_number }}</strong><br />
                                 Date : {{ $bill->billable->invoice_date->format('d-m-Y') }}<br />

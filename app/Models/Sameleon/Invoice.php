@@ -64,7 +64,13 @@ class Invoice extends Model
         //return $articles; */
         //return ($this->articles->sum('price_total') - $total);
         return $this->articles->sum('price_total');
-        
+    }
+
+    public function getFormatedFraisAttribute()
+    {
+        $frais = $this->articles->sum('frais');
+
+        return number_format($frais, 2);
     }
 
     public function bill()
