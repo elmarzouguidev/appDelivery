@@ -39,7 +39,8 @@
                                 </th>
                     
                                 <th class="align-middle">Nom</th>
-                                <th class="align-middle">Reponsable</th>
+                                <th class="align-middle">Responsable</th>
+                                <th class="align-middle">Description</th>
                                 <th class="align-middle">Clients N°</th>
                                 <th class="align-middle">Etat</th>
                                 <th class="align-middle">Action</th>
@@ -62,6 +63,9 @@
                                     </td>
                                     <td>
                                         {{ $group->moderator->full_name }}
+                                    </td>
+                                    <td>
+                                        {{ $group->description }}
                                     </td>
                                     <td>
                                         {{ $group->clients_count }}
