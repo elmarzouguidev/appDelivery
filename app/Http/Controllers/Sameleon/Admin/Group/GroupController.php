@@ -64,6 +64,8 @@ class GroupController extends Controller
 
         $group->description = $request->description;
 
+        $group->moderator()->associate($request->admin);
+        
         $group->save();
 
         return redirect()->back()->with('success', 'Group updated Successfully');
