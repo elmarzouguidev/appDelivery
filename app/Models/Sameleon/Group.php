@@ -2,7 +2,6 @@
 
 namespace App\Models\Sameleon;
 
-use App\Models\User;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,9 +15,22 @@ class Group extends Model
     use GetModelByUuid;
 
 
-    public function user()
+    protected $fillable = [
+        'uuid',
+        'user_uuid',
+        'user_id',
+        'name',
+        'description',
+        'active'
+    ];
+
+    protected $casts = [
+        'active' => 'boolean'
+    ];
+
+    public function moderator()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function clients()

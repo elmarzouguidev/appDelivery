@@ -13,6 +13,7 @@ use App\Http\Controllers\Sameleon\Admin\Client\ClientController;
 use App\Http\Controllers\Sameleon\Admin\Command\AdminCommandController;
 use App\Http\Controllers\Sameleon\Admin\Contact\ContactController;
 use App\Http\Controllers\Sameleon\Admin\Delivery\DeliveryController;
+use App\Http\Controllers\Sameleon\Admin\Group\GroupController;
 use App\Http\Controllers\Sameleon\Admin\Invoice\AdminInvoiceController;
 use App\Http\Controllers\Sameleon\Admin\Payment\PaymentController;
 use App\Http\Controllers\Sameleon\Admin\Product\AdminProductController;
@@ -277,4 +278,20 @@ Route::group(['prefix' => 'banks'], function () {
     Route::delete('/delete', [BankController::class, 'delete'])->name('banks.delete');
 
     Route::put('/', [BankController::class, 'activate'])->name('banks.activate');
+});
+
+
+Route::group(['prefix' => 'groups'], function () {
+
+    Route::get('/', [GroupController::class, 'index'])->name('groups.index');
+
+    Route::get('/create', [GroupController::class, 'create'])->name('groups.create');
+    Route::post('/create', [GroupController::class, 'store'])->name('groups.store');
+
+    Route::get('/edit/{group}', [GroupController::class, 'edit'])->name('groups.edit');
+    Route::post('/edit/{group}', [GroupController::class, 'update'])->name('groups.update');
+
+    Route::delete('/delete', [GroupController::class, 'delete'])->name('groups.delete');
+
+    Route::put('/', [GroupController::class, 'activate'])->name('groups.activate');
 });

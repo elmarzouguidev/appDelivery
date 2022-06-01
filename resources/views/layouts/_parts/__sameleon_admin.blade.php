@@ -40,6 +40,7 @@
 
 </li>
 @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
+
     <li class="menu-title" key="t-components">{{ __('Clients') }}</li>
 
     <li>
@@ -48,6 +49,15 @@
             <i class="bx bxs-user-detail"></i>
             
             <span key="t-clients">{{ __('Clients') }}</span>
+        </a>
+
+    </li>
+    <li>
+        <a href="{{ route('admin:groups.index') }}" class="waves-effect">
+
+            <i class="bx bx-group"></i>
+            
+            <span key="t-groups">{{ __('Groups') }}</span>
         </a>
 
     </li>

@@ -56,9 +56,7 @@ class ProductRepository extends AppRepository implements ProductInterface
             } else {
                 return $this->setCache()->remember('all_products_cache', $this->timeToLive(), function () {
                     return $this->product->with('media', 'client:id,nom,prenom')
-                        ->with(['stockMutations.stockable' => function (MorphTo $morphTo) {
-                            $morphTo->morphWith([$this->product]);
-                        }])
+                        ->with('stockMutations')
 
                         ->get();
                 });

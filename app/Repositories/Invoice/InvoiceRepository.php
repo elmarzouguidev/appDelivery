@@ -13,14 +13,10 @@ class InvoiceRepository extends AppRepository implements InvoiceInterface
     private $invoice;
 
     private $instance;
-
-    private $options;
-
+    
     public function __construct(Invoice $invoice)
     {
         $this->invoice = $invoice;
-
-        $this->options = config('app-config');
     }
 
     public function __instance(): Invoice

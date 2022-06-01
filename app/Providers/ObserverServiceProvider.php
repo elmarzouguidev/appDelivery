@@ -6,6 +6,7 @@ use App\Models\Sameleon\Bank;
 use App\Models\Sameleon\Bill;
 use App\Models\Sameleon\City;
 use App\Models\Sameleon\Command;
+use App\Models\Sameleon\Group;
 use App\Models\Sameleon\Invoice;
 use App\Models\Sameleon\Product;
 use App\Models\Sameleon\Region;
@@ -15,6 +16,7 @@ use App\Observers\BankObserver;
 use App\Observers\BillObserver;
 use App\Observers\CityObserver;
 use App\Observers\CommandObserver;
+use App\Observers\GroupObserver;
 use App\Observers\InvoiceObserver;
 use App\Observers\ProductObserver;
 use App\Observers\RegionObserver;
@@ -50,5 +52,7 @@ class ObserverServiceProvider extends ServiceProvider
         Region::observe(RegionObserver::class);
         Bank::observe(BankObserver::class);
         UserBank::observe(UserBankObserver::class);
+
+        Group::observe(GroupObserver::class);
     }
 }
