@@ -32,7 +32,7 @@
                                     </div>
                                 </th>
 
-                                <th class="align-middle">Code</th>
+                                <th class="align-middle">RÈGLEMENT N°</th>
                                 <th class="align-middle">Facture N°</th>
                                 <th class="align-middle">Montant FACTURE (hors frais)</th>
                                 <th class="align-middle">Montant REGLEMENT</th>
