@@ -43,7 +43,8 @@ class User extends Authenticatable
         'active',
         'is_completed',
         'public_key_api',
-        'secret_key_api'
+        'secret_key_api',
+        'last_seen'
     ];
 
     /**

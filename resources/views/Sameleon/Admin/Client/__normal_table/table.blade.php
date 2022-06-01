@@ -43,6 +43,7 @@
                                 <th class="align-middle">Tél</th>
                                 <th class="align-middle">Type</th>
                                 <th class="align-middle">Compte bancaire</th>
+                                <th class="align-middle">Status</th>
                                 <th class="align-middle">Etat</th>
                                 <th class="align-middle">Action</th>
                             </tr>
@@ -102,6 +103,16 @@
                                         </div>
                                         @endforeach
                      
+                                    </td>
+                                    <td>
+                                        @if(Cache::has('user-is-online-' . $client->id))
+                                        <strong><span class="text-success">Online</span></strong>
+                                        {{--<div class="spinner-grow text-primary m-1" role="status">
+                                            <span class="sr-only">Online...</span>
+                                        </div>--}}
+                                        @else
+                                        <strong><span class="text-secondary">Offline</span></strong>
+                                        @endif
                                     </td>
                                     <td>
 
