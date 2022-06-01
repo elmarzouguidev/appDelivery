@@ -50,10 +50,18 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div>
+                                        {{--<div>
                                             <img class="img-fluid rounded" alt=""
                                                 src="{{ $product->getFirstMediaUrl('products_photos', 'normal') }}"
                                                 width="50">
+                                        </div>--}}
+                                        <div>
+                                            <a class="image-popup-no-margins"
+                                                href="{{ $product->getFirstMediaUrl('products_photos', 'normal') }}">
+                                                <img class="img-fluid" alt=""
+                                                    src="{{ $product->getFirstMediaUrl('products_photos', 'normal') }}"
+                                                    width="50">
+                                            </a>
                                         </div>
                                     </td>
                                     <td>

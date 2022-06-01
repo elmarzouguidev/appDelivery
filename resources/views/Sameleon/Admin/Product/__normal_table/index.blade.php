@@ -9,3 +9,5 @@
 
     </div>
 @endsection
+
+@include('Sameleon.Admin.Product.__js')
