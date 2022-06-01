@@ -3,7 +3,7 @@
 use App\Http\Controllers\Authentification\ForgotPasswordController;
 use App\Http\Controllers\Authentification\ResetPasswordController;
 use App\Http\Controllers\Sameleon\Admin\Invoice\InvoiceController;
-
+use App\Http\Controllers\Sameleon\Admin\Payment\PDFPaymentController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -13,6 +13,10 @@ Route::group(['prefix' => 'views', 'middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'invoices'], function () {
         Route::get('/invoice/{invoice}', [InvoiceController::class, 'showInvoice'])->name('public.show.invoice');
+    });
+
+    Route::group(['prefix' => 'bills'], function () {
+        Route::get('/bill/{bill}', [PDFPaymentController::class, 'showBill'])->name('public.show.bill');
     });
 
 });

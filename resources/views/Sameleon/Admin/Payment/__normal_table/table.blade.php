@@ -53,15 +53,15 @@
                                         </div>
                                     </td>
                                     <td>
-                                        {{-- <a 
-                                        target="_blank" 
-                                        href="#" 
-                                        class="text-body fw-bold"
-                                        style="color:blue !important"
-                                    >
-                                        {{ $payment->full_number }}
-                                    </a> --}}
-                                        {{ $payment->full_number }}
+                                        <a 
+                                            target="_blank" 
+                                            href="{{route('public.show.bill',[$payment->uuid,'has_header'=>true])}}" 
+                                            class="text-body fw-bold"
+                                            style="color:blue !important"
+                                        >
+                                           {{ $payment->full_number }}
+                                        </a>
+                                        {{-- $payment->full_number --}}
                                     </td>
                                     <td>
                                         {{ $payment->billable->full_number }}
@@ -85,9 +85,6 @@
 
                                     <td>
                                         <div>
-
-
-
                                             <a class="image-popup-no-margins"
                                                 href="{{ $payment->getFirstMediaUrl('bills_recu', 'normal') }}">
                                                 <img class="img-fluid" alt=""

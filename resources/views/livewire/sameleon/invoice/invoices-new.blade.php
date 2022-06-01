@@ -107,7 +107,15 @@
                                         <td>
                                             @if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin'))
                                                 @if ($invoice->bill_count && $invoice->cloture)
-                                                    <strong> {{ optional($invoice->bill)->full_number }}</strong>
+                                                    {{--<strong> {{ optional($invoice->bill)->full_number }}</strong>--}}
+
+                                                    <a target="__blank" href="{{ route('public.show.bill', [$invoice->bill->uuid,'has_header'=>true]) }}"
+                                                        type="button"
+                                                        class="btn btn-info btn-sm">
+                                                        <i class="mdi mdi-file-pdf-box font-size-16 align-middle me-2"></i>
+                                                        {{ optional($invoice->bill)->full_number }}
+                                                    </a>
+
                                                 @else
                                                     <button {{ $invoice->cloture == true ? '' : 'disabled' }}
                                                         wire:click="addBill('{{ $invoice->uuid }}')" type="button"
@@ -117,11 +125,18 @@
                                                 @endif
                                             @else
                                                 @if ($invoice->bill_count && $invoice->cloture)
-                                                    <strong>
+                                                    {{--<strong>
 
                                                         {{ optional($invoice->bill)->full_number }}
 
-                                                    </strong>
+                                                    </strong>--}}
+
+                                                    <a target="__blank" href="{{ route('public.show.bill', [$invoice->bill->uuid,'has_header'=>true]) }}"
+                                                        type="button"
+                                                        class="btn btn-info btn-sm">
+                                                        <i class="mdi mdi-file-pdf-box font-size-16 align-middle me-2"></i>
+                                                        {{ optional($invoice->bill)->full_number }}
+                                                    </a>
                                                 @else
                                                     Non Régler
                                                 @endif
