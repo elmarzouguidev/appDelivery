@@ -39,6 +39,8 @@ class StockController extends Controller
             $stock->qte_livre =  0;
             
             $stock->is_out = false;
+            
+            $stock->can_ramassage = false;
 
             $stock->increaseStock((int)$request->qte_global);
         }

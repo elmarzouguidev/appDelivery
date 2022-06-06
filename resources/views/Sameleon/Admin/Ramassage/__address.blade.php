@@ -1,4 +1,4 @@
-<form method="post" action="{{ route('admin:ramassage.store') }}" enctype="multipart/form-data">
+<form method="post" action="{{ route('admin:ramassage.store') }}">
     @csrf
 
     @php
@@ -9,7 +9,7 @@
         <input type="hidden" name="products" value="{{ $productsIds }}">
         <div class="col-lg-12">
             <textarea class="form-control @error('address') is-invalid @enderror" id="address" name="address" rows="8"
-               ></textarea>
+               required></textarea>
             @error('address')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>

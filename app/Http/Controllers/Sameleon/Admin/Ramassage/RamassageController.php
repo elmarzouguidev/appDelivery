@@ -24,7 +24,7 @@ class RamassageController extends Controller
                 ->with('media')
                 ->get();
         } else {
-            $products = Product::with('client:id,nom,prenom','ramassage')
+            $products = Product::with('client:id,nom,prenom', 'ramassage')
                 ->whereOutOfStock()
                 //->where('can_ramassage', false)
                 ->with('media')
@@ -55,7 +55,7 @@ class RamassageController extends Controller
             ]);
         }
 
-        return redirect()->back()->with('success', "Le ramassage  a éte crée avec success");
+        return redirect()->back()->with('success', "L'adresse de ramassage a éte envoyer avec success");
     }
 
     public function demande(Request $request)
