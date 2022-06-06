@@ -24,7 +24,14 @@ class Reclamation extends Model
         'response_by',
         'response',
         'user_uuid',
-        'user_id'
+        'user_id',
+        'priority',
+        'is_closed',
+        'object'
+    ];
+
+    protected $casts = [
+        'is_closed' => 'boolean',
     ];
 
     public function user()

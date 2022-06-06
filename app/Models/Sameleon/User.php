@@ -67,6 +67,7 @@ class User extends Authenticatable
         'is_admin' => 'boolean',
         'active' => 'boolean',
         'is_completed' => 'boolean',
+        'last_seen' => 'datetime'
     ];
 
 
@@ -206,7 +207,7 @@ class User extends Authenticatable
             ->as('account')
             ->wherePivot('user_id', $this->id)
             ->wherePivot('user_uuid', $this->uuid)
-            ->withPivot(['id', 'rib', 'type','user_uuid','bank_uuid','bank_id']);
+            ->withPivot(['id', 'rib', 'type', 'user_uuid', 'bank_uuid', 'bank_id']);
     }
 
     public function scopeWithLastLogin($query)

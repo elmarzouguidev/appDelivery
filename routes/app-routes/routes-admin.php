@@ -246,6 +246,13 @@ Route::group(['prefix' => 'complaints'], function () {
     Route::get('/', [ReclamationController::class, 'index'])->name('complaints.index');
     Route::post('/', [ReclamationController::class, 'store'])->name('complaints.store');
     Route::delete('/delete', [ReclamationController::class, 'delete'])->name('complaints.delete');
+
+    Route::group(['prefix' => 'show'], function () {
+
+        Route::get('/{reclamation}', [ReclamationController::class, 'show'])->name('complaints.show');
+        Route::post('/{reclamation}', [ReclamationController::class, 'update'])->name('complaints.update');
+
+    });
 });
 
 

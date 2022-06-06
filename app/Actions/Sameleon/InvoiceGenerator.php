@@ -230,6 +230,8 @@ class InvoiceGenerator
         $invoices->each(function ($invoice) {
             $invoice->commands()->update(['is_closed' => true]);
         });
+
+        $this->clearAllCachedArchive();
     }
 
     private function deleteNullInvoices()
@@ -240,6 +242,19 @@ class InvoiceGenerator
             foreach ($invoices as $invoice) {
                 $invoice->delete();
             }
+        }
+    }
+
+    private function clearAllCachedArchive()
+    {
+
+        if (auth()->user()->hasRole('Client')) {
+
+            $cacheKey = "all_commands_archived_cache_" . auth()->user()->uuid;
+            cache()->pull($cacheKey);
+           
+        } else {
+            cache()->pull('all_commands_archived_cache');
         }
     }
 }
