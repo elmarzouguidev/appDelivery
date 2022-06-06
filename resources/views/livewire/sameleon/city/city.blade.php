@@ -59,8 +59,10 @@
                                         </div>
                                     </td> --}}
                                     <td>
-                                        {{ $city->name }}
-                                        <p class="text-muted mb-0"></p>
+                                        
+                                        <a href="#" wire:click="editCity('{{ $city->uuid }}')" class="text-success">
+                                            {{ $city->name }}
+                                        </a>
                                     </td>
                                     <td>
                                         {{ $city->frais }} DH
@@ -101,6 +103,12 @@
 
     @if ($showEdit)
         @include('livewire.sameleon.city.edit', [
+            'city' => $cityEdit,
+        ])
+    @endif
+
+    @if ($showRegion)
+        @include('livewire.sameleon.city.show-region', [
             'city' => $cityEdit,
         ])
     @endif

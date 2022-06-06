@@ -24,6 +24,10 @@
             $('.editCityModal').modal('show');
         });
 
+        window.addEventListener('show-region', event => {
+            $('.showRegionModal').modal('show');
+        });
+
         window.addEventListener('hidden.bs.modal', event => {
             window.location.reload();
         });

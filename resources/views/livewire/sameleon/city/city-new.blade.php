@@ -41,6 +41,7 @@
 
                                     <th class="align-middle">Nom</th>
                                     <th class="align-middle">Frais</th>
+                                    <th class="align-middle">Regions</th>
                                     <th class="align-middle">Action</th>
                                 </tr>
                             </thead>
@@ -62,6 +63,12 @@
                                         <td>
                                             {{ $city->frais }} DH
                                             <p class="text-muted mb-0"></p>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-info" type="button" class="btn btn-info  btn-sm"
+                                               wire:click="showRegion('{{ $city->uuid }}')" >
+                                                voir les regions
+                                            </button>
                                         </td>
                                         <td>
                                             <div class="d-flex gap-3">
@@ -100,6 +107,12 @@
 
     @if ($showEdit)
         @include('livewire.sameleon.city.edit', [
+            'city' => $cityEdit,
+        ])
+    @endif
+
+    @if ($showRegion)
+        @include('livewire.sameleon.city.show-region', [
             'city' => $cityEdit,
         ])
     @endif

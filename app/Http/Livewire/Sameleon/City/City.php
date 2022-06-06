@@ -13,6 +13,8 @@ class City extends Component
 
     public $showEdit = false;
 
+    public $showRegion = false;
+
     public function render()
     {
 
@@ -29,6 +31,16 @@ class City extends Component
         $this->cityEdit = $city;
 
         $this->dispatchBrowserEvent('show-edit');
+    }
+
+    public function showRegion(SameleonCity $city)
+    {
+
+        $this->showRegion = true;
+
+        $this->cityEdit = $city->load('regions');
+
+        $this->dispatchBrowserEvent('show-region');
     }
 
     public function updateCity()
