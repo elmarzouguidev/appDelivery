@@ -14,7 +14,7 @@ class InvoiceObserver
      */
     public function created(Invoice $invoice)
     {
-        $this->clearAllCache();
+        $this->clearAllCache($invoice);
     }
 
     /**
@@ -25,7 +25,7 @@ class InvoiceObserver
      */
     public function updated(Invoice $invoice)
     {
-        $this->clearAllCache();
+        $this->clearAllCache($invoice);
     }
 
     /**
@@ -36,7 +36,7 @@ class InvoiceObserver
      */
     public function deleted(Invoice $invoice)
     {
-        $this->clearAllCache();
+        $this->clearAllCache($invoice);
     }
 
     /**
@@ -47,7 +47,7 @@ class InvoiceObserver
      */
     public function restored(Invoice $invoice)
     {
-        $this->clearAllCache();
+        $this->clearAllCache($invoice);
     }
 
     /**
@@ -58,17 +58,13 @@ class InvoiceObserver
      */
     public function forceDeleted(Invoice $invoice)
     {
-        $this->clearAllCache();
+        $this->clearAllCache($invoice);
     }
 
-    private function clearAllCache()
+    private function clearAllCache($invoice)
     {
-        if (auth()->user()->hasRole('Client')) {
-            $cacheKey = "all_invoices_cache_" . auth()->user()->uuid;
-            cache()->pull($cacheKey);
-            //cache()->pull('all_invoices_cache');
-        } else {
-            cache()->pull('all_invoices_cache');
-        }
+        $cacheKey = "all_invoices_cache_" . $invoice->client->uuid;
+        cache()->pull($cacheKey);
+        cache()->pull('all_invoices_cache');
     }
 }
