@@ -7,6 +7,8 @@
                         {{ session('success') }}
                     </div>
                 @endif
+                <h4 class="card-title">Demande de ramassage</h4>
+                <p class="card-title-desc">ici vous trouvez les produits en besoin de ramassage </p>  
                 <div class="table-responsive">
                     <table class="table table-bordered border-danger table-hover align-middle table-nowrap table-check">
                         <thead class="table-light">
