@@ -99,9 +99,9 @@
 <li>
     <a href="{{ route('admin:ramassage.index') }}">
         <i class='bx bx-archive-in'></i>
-        {{--@if($total_new_reclamations)
-         <span class="badge rounded-pill bg-danger float-end">{{$total_new_reclamations}}</span>
-        @endif--}}
+        @if($ramassage)
+         <span class="badge rounded-pill bg-danger float-end">{{$ramassage}}</span>
+        @endif
         <span key="t-ramassage">{{ __('Ramassage') }}</span>
     </a>
 </li>
