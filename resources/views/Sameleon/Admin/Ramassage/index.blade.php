@@ -6,7 +6,7 @@
         @include('Sameleon.Admin.Ramassage.__title')
 
         @hasanyrole('SuperAdmin|Admin')
-            @include('Sameleon.Admin.Ramassage.products_Admin')
+            @include('Sameleon.Admin.Ramassage.products_admin')
         @endhasanyrole
 
         @role('Client')
