@@ -52,7 +52,7 @@
         </a>
 
     </li>
-    <li>
+    {{--<li>
         <a href="{{ route('admin:groups.index') }}" class="waves-effect">
 
             <i class="bx bx-group"></i>
@@ -60,7 +60,7 @@
             <span key="t-groups">{{ __('Groups') }}</span>
         </a>
 
-    </li>
+    </li>--}}
 @endif    
 
 @if(auth()->user()->hasAnyRole('Client','SuperAdmin','Admin'))
