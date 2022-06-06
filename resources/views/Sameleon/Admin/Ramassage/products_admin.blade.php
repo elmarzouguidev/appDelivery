@@ -23,10 +23,9 @@
                                 <th class="align-middle">Nom</th>
                                 <th class="align-middle">Prix</th>
                                 <th class="align-middle">Quantité rest</th>
-                                @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
-                                    <th scope="col">Client</th>
-                                @endif
-                                <th class="align-middle">Action</th>
+                                <th scope="col">Client</th>
+                                <th class="align-middle">Adresse de ramassage</th>
+                                <th class="align-middle"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -56,19 +55,24 @@
                                         {{ $product->formated_price }} DH
                                     </td>
                                     <td>
-                                        {{ $product->qte_global }}
+                                        {{ $product->stock }}
                                     </td>
-                                    @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
-                                        <td>
+                             
+                                     <td>
+                                        
                                             <a href="{{-- $client->url --}}" class="text-body fw-bold">
                                                 {{ optional($product->client)->full_name }}
                                             </a>
-                                        </td>
-                                    @endif
+                                    </td>
                                     <td>
-                                        {{-- <div class="d-flex gap-3">
+                                       
+                                        {!! optional($product->ramassage)->addresse !!}
+                                            
+                                    </td>
+                                    <td>
+                                        <div class="d-flex gap-3">
 
-                                            <a href="{{ $product->edit_url }}" class="text-success">
+                                            {{-- <a href="{{ $product->edit_url }}" class="text-success">
                                                 <i class="mdi mdi-pencil font-size-18"></i>
                                             </a>
                                             <a href="#" class="text-danger" onclick="
@@ -79,15 +83,31 @@
                                                     document.getElementById('delete-prod-{{ $product->uuid }}').submit();
                                                 }">
                                                 <i class="mdi mdi-delete font-size-18"></i>
-                                            </a>
-                                        </div> --}}
+                                            </a> --}}
+                                            @php
+                                                $disabled = '';
+                                                $text = 'Envoyer la demande';
+                                                if ($product->can_ramassage) {
+                                                    $disabled = 'disabled';
+                                                    $text = 'déja Envoyé';
+                                                }
+                                                if($product->ramassage && optional($product->ramassage)->addresse !=null)
+                                                {
+                                                    $text = 'client répondu';   
+                                                }
+                                            @endphp
+                                            <button {{$disabled}} class="btn btn-info" type="button" class="btn btn-info  btn-sm"
+                                                onclick=" document.getElementById('send-demande-{{ $product->uuid }}').submit();">
+                                                {{ $text }}
+                                            </button>
+                                        </div>
                                     </td>
-                                    {{-- <form id="delete-prod-{{ $product->uuid }}" method="post"
-                                        action="{{ $product->delete_url }}">
+                                    <form id="send-demande-{{ $product->uuid }}" method="post"
+                                        action="{{ route('admin:ramassage.demande') }}">
                                         @csrf
-                                        @method('DELETE')
+                                        @method('PUT')
                                         <input type="hidden" name="productId" value="{{ $product->uuid }}">
-                                    </form> --}}
+                                    </form>
                                 </tr>
                             @endforeach
 
@@ -97,11 +117,11 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-12 col-sm-12">
+    {{--<div class="col-lg-12 col-sm-12">
         <div class="card">
             <div class="card-body">
                 @include('Sameleon.Admin.Ramassage.__address')
             </div>
         </div>
-    </div>
+    </div>--}}
 </div>

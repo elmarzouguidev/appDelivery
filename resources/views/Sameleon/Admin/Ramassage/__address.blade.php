@@ -5,10 +5,11 @@
         $productsIds = $products->pluck('id')->toJson();
     @endphp
     <div class="row mb-4">
+        <label class="form-check-label mb-5">Entrer la adresse de ramassage</label>
         <input type="hidden" name="products" value="{{ $productsIds }}">
         <div class="col-lg-12">
             <textarea class="form-control @error('address') is-invalid @enderror" id="address" name="address" rows="8"
-                placeholder="Entrer la adresse de ramassage "></textarea>
+               ></textarea>
             @error('address')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>

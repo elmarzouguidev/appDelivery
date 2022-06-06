@@ -261,6 +261,8 @@ Route::group(['prefix' => 'ramassage'], function () {
     Route::get('/', [RamassageController::class, 'index'])->name('ramassage.index');
     Route::post('/', [RamassageController::class, 'store'])->name('ramassage.store');
     Route::delete('/delete', [RamassageController::class, 'delete'])->name('ramassage.delete');
+
+    Route::put('/', [RamassageController::class, 'demande'])->name('ramassage.demande');
 });
 
 

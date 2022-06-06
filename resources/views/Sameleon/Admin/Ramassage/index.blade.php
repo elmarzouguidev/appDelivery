@@ -4,9 +4,14 @@
     <div class="container-fluid">
 
         @include('Sameleon.Admin.Ramassage.__title')
-        @
-        @include('Sameleon.Admin.Ramassage.products_2')
-      
+
+        @hasanyrole('SuperAdmin|Admin')
+            @include('Sameleon.Admin.Ramassage.products_Admin')
+        @endhasanyrole
+
+        @role('Client')
+            @include('Sameleon.Admin.Ramassage.products_client')
+        @endrole
         
     </div>
 @endsection

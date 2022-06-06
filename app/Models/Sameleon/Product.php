@@ -33,11 +33,13 @@ class Product extends Model implements HasMedia
         'user_id',
         'total_commands',
         'is_out',
+        'can_ramassage',
         'notes'
     ];
 
     protected $casts = [
-        'is_out' => 'boolean'
+        'is_out' => 'boolean',
+        'can_ramassage' => 'boolean',
     ];
 
     //protected $with = ['stockMutations'];

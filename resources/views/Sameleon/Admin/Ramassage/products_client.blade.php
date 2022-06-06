@@ -26,7 +26,7 @@
                                 @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
                                     <th scope="col">Client</th>
                                 @endif
-                                <th class="align-middle">Action</th>
+                                <th class="align-middle"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -56,7 +56,7 @@
                                         {{ $product->formated_price }} DH
                                     </td>
                                     <td>
-                                        {{ $product->qte_global }}
+                                        {{ $product->stock }}
                                     </td>
                                     @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
                                         <td>

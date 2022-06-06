@@ -18,14 +18,15 @@ class RamassageController extends Controller
 
             $products = Product::where('user_id', auth()->id())
                 ->where('user_uuid', auth()->user()->uuid)
-                ->where('is_out', true)
-                ->where('qte_rest', 0)
+                //->where('qte_rest', 0)
+                ->whereOutOfStock()
+                ->where('can_ramassage', true)
                 ->with('media')
                 ->get();
         } else {
-            $products = Product::with('client:id,nom,prenom')
-                //->where('is_out', true)
-                //->where('qte_rest', 0)
+            $products = Product::with('client:id,nom,prenom','ramassage')
+                ->whereOutOfStock()
+                //->where('can_ramassage', false)
                 ->with('media')
                 ->get();
         }
@@ -40,7 +41,7 @@ class RamassageController extends Controller
 
         $products = Product::findMany($productsIds);
 
-        // dd($products, json_decode($request->products, true));
+        //dd($products, json_decode($request->products, true));
 
         foreach ($products as $product) {
 
@@ -55,5 +56,18 @@ class RamassageController extends Controller
         }
 
         return redirect()->back()->with('success', "Le ramassage  a éte crée avec success");
+    }
+
+    public function demande(Request $request)
+    {
+        $request->validate(['productId' => 'required', 'uuid']);
+
+        $product = Product::whereUuid($request->productId)->first();
+
+        if ($product) {
+            $product->update(['can_ramassage' => true]);
+            return redirect()->back()->with('success', "Le demande  a éte envoyer avec success");
+        }
+        return redirect()->back()->with('error', "error !!!");
     }
 }
