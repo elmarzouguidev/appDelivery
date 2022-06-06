@@ -33,7 +33,7 @@ return [
         \App\Status\Status::EXPEDIE => 'btn-danger',
         \App\Status\Status::INJOIGNABLE => 'btn-danger',
         \App\Status\Status::INTERESSE => 'btn-info',
-        \App\Status\Status::NON_INTERESSE => 'btn-dangerv',
+        \App\Status\Status::NON_INTERESSE => 'btn-danger',
         \App\Status\Status::MANQUE_DE_STOCK => 'btn-danger',
         \App\Status\Status::PAS_DE_REPONSE => 'btn-warning',
         \App\Status\Status::PAS_DE_REPONSE_2 => 'btn-warning',

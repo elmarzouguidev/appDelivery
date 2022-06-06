@@ -41,7 +41,7 @@
 
                                     <th class="align-middle">Nom</th>
                                     <th class="align-middle">Frais</th>
-                                    <th class="align-middle">Regions</th>
+                                    <th class="align-middle">Régions</th>
                                     <th class="align-middle">Action</th>
                                 </tr>
                             </thead>
@@ -67,7 +67,7 @@
                                         <td>
                                             <button class="btn btn-info" type="button" class="btn btn-info  btn-sm"
                                                wire:click="showRegion('{{ $city->uuid }}')" >
-                                                voir les regions
+                                                voir les régions
                                             </button>
                                         </td>
                                         <td>
