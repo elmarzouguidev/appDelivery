@@ -206,7 +206,7 @@
                                                         {{ __('status.statuses.' . $command->status) }}
                                                     </button>
                                                 @endif
-                                                @if ($command->status == App\Status\Status::REPORTE && $command->comment != null && $command->reported_at != null)
+                                                @if ($command->status == App\Status\Status::REPORTE && $command->reported_at != null)
                                                     <p class="text-strong mb-0 mt-2" style="color:red">
                                                         <b>{{ $command->reported_at->format('d-m-Y') ?? '' }}</b>
                                                     </p>
