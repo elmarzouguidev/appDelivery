@@ -33,7 +33,6 @@ class ProductRepository extends AppRepository implements ProductInterface
         return $this->instance;
     }
 
-
     /**
      * @return Product[]|Collection|string[]
      */
@@ -43,7 +42,7 @@ class ProductRepository extends AppRepository implements ProductInterface
 
             if (auth()->user()->hasRole('Client')) {
 
-                $cacheKey = "all_products_cache";
+                $cacheKey = "all_products_cache_" . auth()->user()->uuid;
 
                 return $this->setCache()->remember($cacheKey, $this->timeToLive(), function () {
 

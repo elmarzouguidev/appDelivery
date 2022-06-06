@@ -14,7 +14,7 @@ class ProductObserver
      */
     public function created(Product $product)
     {
-        $this->clearAllCache();
+        $this->clearAllCache($product);
     }
 
     /**
@@ -25,7 +25,7 @@ class ProductObserver
      */
     public function updated(Product $product)
     {
-        $this->clearAllCache();
+        $this->clearAllCache($product);
     }
 
     /**
@@ -36,7 +36,7 @@ class ProductObserver
      */
     public function deleted(Product $product)
     {
-        $this->clearAllCache();
+        $this->clearAllCache($product);
     }
 
     /**
@@ -47,7 +47,7 @@ class ProductObserver
      */
     public function restored(Product $product)
     {
-        $this->clearAllCache();
+        $this->clearAllCache($product);
     }
 
     /**
@@ -58,11 +58,18 @@ class ProductObserver
      */
     public function forceDeleted(Product $product)
     {
-        $this->clearAllCache();
+        $this->clearAllCache($product);
     }
 
-    private function clearAllCache()
+    private function clearAllCache($product)
     {
-        cache()->pull('all_products_cache');
+
+        if (auth()->user()->hasRole('Client')) {
+            $cacheKey = "all_products_cache_" . $product->client->uuid;
+            cache()->pull($cacheKey);
+            //cache()->pull('all_products_cache');
+        } else {
+            cache()->pull('all_products_cache');
+        }
     }
 }
