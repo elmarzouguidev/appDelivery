@@ -43,7 +43,7 @@ class ProductRepository extends AppRepository implements ProductInterface
 
             if (auth()->user()->hasRole('Client')) {
 
-                $cacheKey = "all_products_cache_" . auth()->user()->uuid;
+                $cacheKey = "all_products_cache";
 
                 return $this->setCache()->remember($cacheKey, $this->timeToLive(), function () {
 
