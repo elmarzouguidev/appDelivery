@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Sameleon\Admin\Ramassage;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Sameleon\Ramassage\RamassageFormRequest;
 use App\Models\Sameleon\Product;
 use Illuminate\Http\Request;
 
@@ -23,12 +24,36 @@ class RamassageController extends Controller
                 ->get();
         } else {
             $products = Product::with('client:id,nom,prenom')
-                ->where('is_out', true)
-                ->where('qte_rest', 0)
+                //->where('is_out', true)
+                //->where('qte_rest', 0)
                 ->with('media')
                 ->get();
         }
 
         return view('Sameleon.Admin.Ramassage.index', compact('products'));
+    }
+
+    public function store(RamassageFormRequest $request)
+    {
+
+        $productsIds = json_decode($request->products, true);
+
+        $products = Product::findMany($productsIds);
+
+        // dd($products, json_decode($request->products, true));
+
+        foreach ($products as $product) {
+
+            $product->ramassage()->create([
+                'addresse' => $request->address,
+                'product_id' => $product->id,
+                'product_uuid' => $product->uuid,
+                'client_id' => auth()->id(),
+                'client_uuid' => auth()->user()->uuid,
+                'active' => true
+            ]);
+        }
+
+        return redirect()->back()->with('success', "Le ramassage  a éte crée avec success");
     }
 }
