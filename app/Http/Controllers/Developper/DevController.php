@@ -48,6 +48,7 @@ class DevController extends Controller
         Artisan::call('config:clear');
         Artisan::call('route:clear');
         Artisan::call('view:clear');
+        Artisan::call('cache:clear');
     }
 
     public function cacheAll()
