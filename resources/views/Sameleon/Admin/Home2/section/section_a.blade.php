@@ -5,8 +5,7 @@
                 <div class="row">
                     <div class="col-7">
                         <div class="text-primary p-3">
-                            <h5 class="text-primary">bienvenue !</h5>
-
+                            <h5 class="text-primary">Bienvenue !</h5>
                         </div>
                     </div>
                     <div class="col-5 align-self-end">
@@ -27,21 +26,21 @@
   
                             @endif --}}
                         </div>
-                        <h5 class="font-size-15 mb-4"">{{ auth()->user()->full_name }}</h5>
+                        <h5 class="font-size-15"">{{ auth()->user()->full_name }}</h5>
                         
                     </div>
 
-                    <div class="     col-sm-8">
+                    <div class="col-sm-8">
                             <div class="pt-4">
 
                                 <div class="row">
                                     <div class="col-6">
-                                        <h5 class="font-size-15">125</h5>
+                                        <h5 class="font-size-15">{{ $total_command }}</h5>
                                         <p class="text-muted mb-0">commands</p>
                                     </div>
                                     <div class="col-6">
-                                        <h5 class="font-size-15">$1245</h5>
-                                        <p class="text-muted mb-0">Revenue</p>
+                                        <h5 class="font-size-15">{{ number_format($total_chiffre_affaires, 2) }}</h5>
+                                        <p class="text-muted mb-0">chiffre d'affaires</p>
                                     </div>
                                 </div>
                             </div>
