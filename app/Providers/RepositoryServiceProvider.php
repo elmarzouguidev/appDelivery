@@ -58,6 +58,10 @@ class RepositoryServiceProvider extends ServiceProvider
         [
             'abstract' => "App\Repositories\Group\GroupInterface",
             'concrete' => "App\Repositories\Group\GroupRepository"
+        ],
+        [
+            'abstract' => "App\Repositories\Integration\IntegrationInterface",
+            'concrete' => "App\Repositories\Integration\IntegrationRepository"
         ]
     ];
     /**

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Schema;
 trait HasSlug
 {
 
-    public static function bootUuidGenerator(): void
+    public static function bootHasSlug(): void
     {
         static::creating(function ($model) {
 

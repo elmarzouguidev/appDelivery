@@ -14,6 +14,7 @@ use App\Http\Controllers\Sameleon\Admin\Command\AdminCommandController;
 use App\Http\Controllers\Sameleon\Admin\Contact\ContactController;
 use App\Http\Controllers\Sameleon\Admin\Delivery\DeliveryController;
 use App\Http\Controllers\Sameleon\Admin\Group\GroupController;
+use App\Http\Controllers\Sameleon\Admin\Integration\IntegrationController;
 use App\Http\Controllers\Sameleon\Admin\Invoice\AdminInvoiceController;
 use App\Http\Controllers\Sameleon\Admin\Payment\PaymentController;
 use App\Http\Controllers\Sameleon\Admin\Product\AdminProductController;
@@ -307,4 +308,18 @@ Route::group(['prefix' => 'groups'], function () {
 Route::group(['prefix' => 'metrics'], function () {
 
     Route::get('/delivery', [MetricController::class, 'delivery'])->name('metrics.delivery');
+});
+
+
+Route::group(['prefix' => 'integrations'], function () {
+
+    Route::get('/', [IntegrationController::class, 'index'])->name('integrations.index');
+    Route::post('/', [IntegrationController::class, 'store'])->name('integrations.store');
+
+    Route::delete('/delete', [IntegrationController::class, 'delete'])->name('integrations.delete');
+
+    Route::get('/edit/{integration}', [IntegrationController::class, 'edit'])->name('integrations.edit');
+    Route::post('/edit/{integration}', [IntegrationController::class, 'update'])->name('integrations.update');
+
+    Route::put('/', [IntegrationController::class, 'activate'])->name('integrations.activate');
 });

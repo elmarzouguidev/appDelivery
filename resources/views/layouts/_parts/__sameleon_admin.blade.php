@@ -196,6 +196,10 @@
                 <a href="{{ route('admin:settings.invoice') }}" key="t-invoice">{{ __('Facture') }}
                 </a>
             </li>
+            <li>
+                <a href="{{ route('admin:integrations.index') }}" key="t-integrations">{{ __('Integrations') }}
+                </a>
+            </li>
         </ul>
     </li>
 @endif

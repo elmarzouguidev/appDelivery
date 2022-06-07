@@ -18,14 +18,17 @@ return [
             /*
              * The name of the header containing the signature.
              */
-            'signature_header_name' => 'Signature',
+            //'signature_header_name' => App\Hooks\Headers\HeaderHandler::class,
+            'signature_header_name' => env('WEBHOOK_HEADER_SIGNATURE','x-wc-webhook-signature'),
+
 
             /*
              *  This class will verify that the content of the signature header is valid.
              *
              * It should implement \Spatie\WebhookClient\SignatureValidator\SignatureValidator
              */
-            'signature_validator' => \Spatie\WebhookClient\SignatureValidator\DefaultSignatureValidator::class,
+            'signature_validator' => App\Hooks\Validator\Integration\WooCommerceValidator::class,
+
 
             /*
              * This class determines if the webhook call should be stored and processed.
@@ -38,27 +41,17 @@ return [
             'webhook_response' => \Spatie\WebhookClient\WebhookResponse\DefaultRespondsTo::class,
 
             /*
-             * The classname of the model to be used to store webhook calls. The class should
-             * be equal or extend Spatie\WebhookClient\Models\WebhookCall.
+             * The classname of the model to be used to store call. The class should be equal
+             * or extend Spatie\WebhookClient\Models\WebhookCall.
              */
             'webhook_model' => \Spatie\WebhookClient\Models\WebhookCall::class,
 
             /*
-             * In this array, you can pass the headers that should be stored on
-             * the webhook call model when a webhook comes in.
-             *
-             * To store all headers, set this value to `*`.
-             */
-            'store_headers' => [
-
-            ],
-
-            /*
              * The class name of the job that will process the webhook request.
              *
-             * This should be set to a class that extends \Spatie\WebhookClient\Jobs\ProcessWebhookJob.
+             * This should be set to a class that extends \Spatie\WebhookClient\ProcessWebhookJob.
              */
-            'process_webhook_job' => '',
+            'process_webhook_job' => App\Hooks\Handler\WebHook::class,
         ],
     ],
 ];

@@ -4,12 +4,11 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-8">
-
                         <div class="col-lg-4 mb-4">
-
-                            <a href="{{ route('admin:banks.create') }}" type="button" class="btn btn-info">
-                                Ajouter une Banque
-                            </a>
+                            <button class="btn btn-info" type="button" class="btn btn-info  btn-sm"
+                                data-bs-toggle="modal" data-bs-target=".addIntegrationModal">
+                                Ajouter une integration
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -23,80 +22,67 @@
                         {{ session('error') }}
                     </div>
                 @endif
+                @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                        <div class="alert alert-danger">{{ $error }}</div>
+                    @endforeach
+                @endif
                 <div class="table-responsive">
                     <table class="table table-bordered border-danger table-hover align-middle table-nowrap table-check">
                         <thead class="table-light">
                             <tr>
-                             
+
                                 <th style="width: 20px;" class="align-middle">
-                                        <div class="form-check font-size-16">
-                                            <input class="form-check-input" type="checkbox" id="checkAll">
-                                            <label class="form-check-label" for="checkAll"></label>
-                                        </div>
+                                    <div class="form-check font-size-16">
+                                        <input class="form-check-input" type="checkbox" id="checkAll">
+                                        <label class="form-check-label" for="checkAll"></label>
+                                    </div>
                                 </th>
- 
+
                                 <th class="align-middle">Logo</th>
                                 <th class="align-middle">Nom</th>
-                                <th class="align-middle">Code Banque</th>
-                                <th class="align-middle">Swift Code</th>
-                                <th class="align-middle">Code RIB</th>
-                                <th class="align-middle">E-mail</th>
-                                <th class="align-middle">Tél</th>
+                                <th class="align-middle">Description</th>
                                 <th class="align-middle">Etat</th>
                                 <th class="align-middle">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($banks as $bank)
+                            @foreach ($integrations as $integration)
                                 <tr>
                                     <td>
                                         <div class="form-check font-size-16">
                                             <input class="form-check-input" type="checkbox"
-                                                id="bank-{{ $bank->id }}">
-                                            <label class="form-check-label" for="bank-{{ $bank->id }}"></label>
+                                                id="integration-{{ $integration->id }}">
+                                            <label class="form-check-label"
+                                                for="integration-{{ $integration->id }}"></label>
                                         </div>
                                     </td>
                                     <td>
-                                        @if(!is_null($bank->logo))
+                                        @if (!is_null($integration->logo))
                                             <div>
                                                 <img class="img-fluid rounded" alt=""
-                                                    src="{{ asset('storage/' . $bank->logo) }}" width="50">
+                                                    src="{{ asset('storage/' . $integration->logo) }}" width="50">
                                             </div>
                                         @endif
                                     </td>
                                     <td>
                                         <a href="{{-- $client->url --}}" class="text-body fw-bold">
-                                            {{ $bank->name }}<br>
+                                            {{ $integration->name }}<br>
                                             <p class="text-muted mb-0">
-                                             users : {{$bank->users_count}}
+                                                users : {{ $integration->users_count }}
                                             </p>
                                         </a>
                                     </td>
                                     <td>
-                                        {{ $bank->code_bank }}
+                                        {{ $integration->short_description }}
                                     </td>
-                                    <td>
-                                        {{ $bank->code_swift }}
-                                    </td>
-                                    <td>
-                                        {{ $bank->code_rib }}
-                                        
-                                    </td>
-                                    <td>
-                                        {{ $bank->email }}
-                                        
-                                    </td>
-                                    <td>
-                                        {{ $bank->telephone }}
-                                        
-                                    </td>
-                                    
                                     <td>
 
                                         <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
-                                            <input data-bank="{{ $bank->uuid }}" class="form-check-input activeBank"
-                                                type="checkbox" id="SwitchCheckSizelg"
-                                                {{ $bank->active == true ? 'checked' : '' }}>
+                                            <input data-integration="{{ $integration->uuid }}"
+                                                class="form-check-input activeIntegration" type="checkbox"
+                                                id="SwitchCheckSizelg"
+                                                {{ $integration->active == true ? 'checked' : '' }}>
 
                                         </div>
                                     </td>
@@ -104,7 +90,7 @@
                                     <td>
                                         <div class="d-flex gap-3">
 
-                                            <a href="{{ route('admin:banks.edit', $bank->uuid) }}"
+                                            <a href="{{ route('admin:integrations.edit', $integration->uuid) }}"
                                                 class="text-success">
                                                 <i class="mdi mdi-pencil font-size-18"></i>
                                             </a>
@@ -113,24 +99,24 @@
 
                                                 if(result){
                                                     event.preventDefault();
-                                                    document.getElementById('delete-bank-{{ $bank->uuid }}').submit();
+                                                    document.getElementById('delete-integration-{{ $integration->uuid }}').submit();
                                                 }">
                                                 <i class="mdi mdi-delete font-size-18"></i>
                                             </a>
                                         </div>
                                     </td>
-                                    <form id="delete-bank-{{ $bank->uuid }}" method="post"
-                                        action="{{ route('admin:banks.delete') }}">
+                                    <form id="delete-integration-{{ $integration->uuid }}" method="post"
+                                        action="{{ route('admin:integrations.delete') }}">
                                         @csrf
                                         @method('DELETE')
-                                        <input type="hidden" name="bankId" value="{{ $bank->uuid }}">
+                                        <input type="hidden" name="integrationId" value="{{ $integration->uuid }}">
                                     </form>
 
-                                    <form id="activate-bank-{{ $bank->uuid }}" method="post"
-                                        action="{{ route('admin:banks.activate') }}">
+                                    <form id="activate-integration-{{ $integration->uuid }}" method="post"
+                                        action="{{ route('admin:integrations.activate') }}">
                                         @csrf
                                         @method('PUT')
-                                        <input type="hidden" name="bankId" value="{{ $bank->uuid }}">
+                                        <input type="hidden" name="integrationId" value="{{ $integration->uuid }}">
                                     </form>
                                 </tr>
                             @endforeach

@@ -13,3 +13,21 @@ function getCompany(): CompanySettings
 {
     return app(CompanySettings::class);
 }
+
+
+
+function getImagePath()
+{
+    return asset('storage/') . '/';
+}
+
+
+function loadSetting($abstract)
+{
+    return app('App\Settings\\' . $abstract . 'Settings');
+}
+
+function getDomainName()
+{
+    return request()->getSchemeAndHttpHost();
+}

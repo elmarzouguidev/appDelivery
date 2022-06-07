@@ -7,6 +7,7 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Schema;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -52,6 +53,7 @@ class RouteServiceProvider extends ServiceProvider
 
             $this->devlopperRoutes();
 
+           // $this->hooksRoutes();
         });
     }
 
@@ -73,7 +75,7 @@ class RouteServiceProvider extends ServiceProvider
 
     private function adminRoutes()
     {
-    
+
         Route::middleware(['web'])
             ->prefix('app')
             ->name('admin:auth:')
@@ -104,5 +106,14 @@ class RouteServiceProvider extends ServiceProvider
             ->prefix('dev')
             ->namespace($this->namespace)
             ->group(base_path('routes/developper/routes.php'));
+    }
+
+    public function hooksRoutes()
+    {
+        if (Schema::hasTable('sources')) {
+
+            Route::middleware('web')
+                ->group(base_path('routes/hooks/hook_routes.php'));
+        }
     }
 }
