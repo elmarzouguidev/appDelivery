@@ -26,7 +26,7 @@ class CreateSourcesTable extends Migration
 
             $table->string('platform')->nullable();
             $table->string('name')->unique();
-            $table->string('header')->unique()->nullable();
+            $table->string('header')->nullable();
             $table->longText('secret')->unique()->nullable();
             $table->string('domain')->unique();
             $table->string('route')->unique();

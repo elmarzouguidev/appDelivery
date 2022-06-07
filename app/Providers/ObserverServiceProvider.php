@@ -11,6 +11,7 @@ use App\Models\Sameleon\Integration;
 use App\Models\Sameleon\Invoice;
 use App\Models\Sameleon\Product;
 use App\Models\Sameleon\Region;
+use App\Models\Sameleon\Source;
 use App\Models\Sameleon\User;
 use App\Models\Sameleon\UserBank;
 use App\Observers\BankObserver;
@@ -22,6 +23,7 @@ use App\Observers\IntegrationObserver;
 use App\Observers\InvoiceObserver;
 use App\Observers\ProductObserver;
 use App\Observers\RegionObserver;
+use App\Observers\SourceObserver;
 use App\Observers\UserBankObserver;
 use App\Observers\UserObserver;
 use Illuminate\Support\ServiceProvider;
@@ -57,5 +59,6 @@ class ObserverServiceProvider extends ServiceProvider
 
         Group::observe(GroupObserver::class);
         Integration::observe(IntegrationObserver::class);
+        Source::observe(SourceObserver::class);
     }
 }
