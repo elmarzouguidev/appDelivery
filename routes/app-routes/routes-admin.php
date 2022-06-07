@@ -6,6 +6,7 @@ use App\Http\Controllers\Sameleon\Admin\Admin\PermissionController;
 use App\Http\Controllers\Sameleon\Admin\Admin\RoleController;
 use App\Http\Controllers\Sameleon\Admin\Admin\SettingController;
 use App\Http\Controllers\Sameleon\Admin\Admin\ProfilController;
+use App\Http\Controllers\Sameleon\Admin\Admin\SourceController;
 use App\Http\Controllers\Sameleon\Admin\AdminHomeController;
 use App\Http\Controllers\Sameleon\Admin\Bank\BankController;
 use App\Http\Controllers\Sameleon\Admin\City\AdminCityController;
@@ -235,11 +236,18 @@ Route::group(['prefix' => 'profil'], function () {
         Route::delete('/', [HistoryController::class, 'delete'])->name('history.delete');
     });
 
-    Route::group(['prefix' => 'api'], function () {
+    Route::group(['prefix' => 'api-integration'], function () {
 
         Route::get('/', [APIController::class, 'index'])->name('api.index');
         Route::post('/', [APIController::class, 'createToken'])->name('api.update.token');
     });
+
+    Route::group(['prefix' => 'data-sources'], function () {
+
+        Route::get('/', [SourceController::class, 'index'])->name('profile.sources.index');
+        Route::post('/', [SourceController::class, 'store'])->name('profile.sources.store');
+    });
+
 });
 
 Route::group(['prefix' => 'complaints'], function () {

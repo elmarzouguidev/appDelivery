@@ -22,7 +22,8 @@ class Integration extends Model
         'slug',
         'description',
         'logo',
-        'active'
+        'active',
+        'header'
     ];
 
     protected $casts = [

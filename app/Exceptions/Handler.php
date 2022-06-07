@@ -92,6 +92,12 @@ class Handler extends ExceptionHandler
             ], 405);
         }
 
+        if ($exception instanceof MethodNotAllowedHttpException && $request->is('sameleonHooks/*')) {
+            return response()->json([
+                'msg' => ['error' => "sorry this URL is not Allowed from Browser Directly it's only available from the integraion system"]
+            ], 405);
+        }
+
         return parent::render($request, $exception);
     }
 }

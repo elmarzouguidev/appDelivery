@@ -16,7 +16,10 @@ class CreateIntegrationsTable extends Migration
         Schema::create('integrations', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
+            
             $table->string('name')->unique();
+            $table->string('header')->unique()->nullable();
+
             $table->string('slug')->unique()->nullable();
             $table->longText('description')->nullable();
             $table->string('logo')->nullable();

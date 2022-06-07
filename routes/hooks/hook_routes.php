@@ -1,10 +1,14 @@
 <?php
 
+use App\Repositories\Source\SourceInterface;
 use Illuminate\Support\Facades\Route;
 
-$url  = loadSetting('WebHooks')->route;
+$sourceRoutes = app(SourceInterface::class)->getSources();
 
-Route::webhooks($url,'webhooker');
+if (isset($sourceRoutes) && count($sourceRoutes) > 0) {
 
+    foreach ($sourceRoutes as $sourceRoute) {
 
-//
+        Route::webhooks($sourceRoute->route, 'sameleon');
+    }
+}

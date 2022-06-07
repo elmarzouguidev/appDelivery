@@ -29,5 +29,5 @@ function loadSetting($abstract)
 
 function getDomainName()
 {
-    return request()->getSchemeAndHttpHost();
+    return request()->getSchemeAndHttpHost() . '/';
 }

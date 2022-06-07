@@ -14,8 +14,8 @@ class VerifyCsrfToken extends Middleware
  
     protected $except = [
 
-        'appwebhook/*'
-        /* this url is renerated from the Hooks Settings exemple : appwebhook/elementor-98c1cd34-4861-438d-ad15-2595f5184e74
+        'sameleonHooks/*'
+        /* this url is renerated from the Hooks Settings exemple : sameleonHooks/elementor-98c1cd34-4861-438d-ad15-2595f5184e74
         configuration is here : 
         App\Settings\Repositories\WebHooksRepository;*/
     ];

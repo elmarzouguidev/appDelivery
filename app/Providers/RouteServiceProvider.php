@@ -53,7 +53,7 @@ class RouteServiceProvider extends ServiceProvider
 
             $this->devlopperRoutes();
 
-           // $this->hooksRoutes();
+            $this->hooksRoutes();
         });
     }
 

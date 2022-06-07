@@ -11,6 +11,7 @@
         "doctrine/dbal": "^3.3",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "jackiedo/dotenv-editor": "^2.0",
         "jenssegers/agent": "^2.6",
         "laravel/framework": "^8.65",
         "laravel/sanctum": "^2.11",

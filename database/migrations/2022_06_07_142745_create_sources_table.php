@@ -24,11 +24,16 @@ class CreateSourcesTable extends Migration
             $table->foreignId('user_id')->constrained();
             $table->uuid('user_uuid');
 
+            $table->string('platform')->nullable();
+            $table->string('name')->unique();
+            $table->string('header')->unique()->nullable();
+            $table->longText('secret')->unique()->nullable();
             $table->string('domain')->unique();
-            $table->longText('token')->nullable();
+            $table->string('route')->unique();
+            
             $table->string('options')->nullable();
-            $table->string('url')->unique();
-            $table->boolean('active')->default(true);
+
+            $table->boolean('active')->default(false);
 
             $table->timestamps();
         });

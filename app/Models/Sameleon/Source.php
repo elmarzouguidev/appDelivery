@@ -19,10 +19,15 @@ class Source extends Model
         'integration_uuid',
         'user_id',
         'user_uuid',
+        'platform',
+        'name',
+        'header',
+        'secret',
         'domain',
-        'token',
-        'url',
-        'options'
+        'route',
+        'full_url',
+        'options',
+        'active',
     ];
 
     protected $casts = [

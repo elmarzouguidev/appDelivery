@@ -62,6 +62,10 @@ class RepositoryServiceProvider extends ServiceProvider
         [
             'abstract' => "App\Repositories\Integration\IntegrationInterface",
             'concrete' => "App\Repositories\Integration\IntegrationRepository"
+        ],
+        [
+            'abstract' => "App\Repositories\Source\SourceInterface",
+            'concrete' => "App\Repositories\Source\SourceRepository"
         ]
     ];
     /**

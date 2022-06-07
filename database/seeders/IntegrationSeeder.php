@@ -11,6 +11,9 @@ class IntegrationSeeder extends Seeder
      *
      * @return void
      */
+    private $integrations = [
+        ['name'=>'Elementor'],
+    ];
     public function run()
     {
         //
