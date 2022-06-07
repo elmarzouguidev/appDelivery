@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Sameleon\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Sameleon\User;
+use App\Repositories\Bill\BillInterface;
 use App\Status\Status;
 use Illuminate\Http\Request;
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
@@ -46,6 +47,8 @@ class AdminHomeController extends Controller
 
         $chart2 = new LaravelChart($chart_optionss);
 
-        return view('Sameleon.Admin.Home2.index', compact('deliviers', 'chart', 'chart2'));
+        $payments = app(BillInterface::class)->getBills();
+
+        return view('Sameleon.Admin.Home2.index', compact('deliviers', 'chart', 'chart2', 'payments'));
     }
 }
