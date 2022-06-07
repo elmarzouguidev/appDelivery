@@ -30,7 +30,7 @@ class ViewComposerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer(['Sameleon.Admin.Home.*'], CommandComposer::class);
+        View::composer(['Sameleon.Admin.Home2.*'], CommandComposer::class);
         //View::composer(['Sameleon.Admin.Home.*'], DeliveryComposer::class);
 
         View::composer(['livewire.sameleon.command.*'], InvoiceOfDay::class);

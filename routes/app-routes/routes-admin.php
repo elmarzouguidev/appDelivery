@@ -22,7 +22,7 @@ use App\Http\Controllers\Sameleon\Admin\Reclamation\ReclamationController;
 use App\Http\Controllers\Sameleon\Admin\Region\RegionController;
 use App\Http\Controllers\Sameleon\Admin\Setting\API\APIController;
 use App\Http\Controllers\Sameleon\Admin\Stock\StockController;
-
+use App\Http\Controllers\Sameleon\Metric\MetricController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [AdminHomeController::class, 'index'])
@@ -251,7 +251,6 @@ Route::group(['prefix' => 'complaints'], function () {
 
         Route::get('/{reclamation}', [ReclamationController::class, 'show'])->name('complaints.show');
         Route::post('/{reclamation}', [ReclamationController::class, 'update'])->name('complaints.update');
-
     });
 });
 
@@ -303,4 +302,9 @@ Route::group(['prefix' => 'groups'], function () {
     Route::delete('/delete', [GroupController::class, 'delete'])->name('groups.delete');
 
     Route::put('/', [GroupController::class, 'activate'])->name('groups.activate');
+});
+
+Route::group(['prefix' => 'metrics'], function () {
+
+    Route::get('/delivery', [MetricController::class, 'delivery'])->name('metrics.delivery');
 });

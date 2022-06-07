@@ -36,6 +36,7 @@ class User extends Authenticatable
         'email',
         'password',
         'is_admin',
+        'is_client',
         'cnie',
         'addresse',
         'city',
@@ -67,7 +68,8 @@ class User extends Authenticatable
         'is_admin' => 'boolean',
         'active' => 'boolean',
         'is_completed' => 'boolean',
-        'last_seen' => 'datetime'
+        'last_seen' => 'datetime',
+        'is_client' => 'boolean',
     ];
 
 
@@ -208,6 +210,11 @@ class User extends Authenticatable
             ->wherePivot('user_id', $this->id)
             ->wherePivot('user_uuid', $this->uuid)
             ->withPivot(['id', 'rib', 'type', 'user_uuid', 'bank_uuid', 'bank_id']);
+    }
+
+    public function metrics()
+    {
+        return $this->morphMany(Metric::class, 'metricable');
     }
 
     public function scopeWithLastLogin($query)

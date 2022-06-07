@@ -73,6 +73,8 @@
 
     @stack('scripts')
 
+    @yield('javascript')
+    
     <script>
         $('a[href="#"]').click(function(event) {
 
@@ -90,6 +92,7 @@
 
     </script>
    
+ 
 </body>
 
 </html>
