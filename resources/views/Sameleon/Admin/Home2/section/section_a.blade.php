@@ -1,4 +1,4 @@
-<div class="row  align-items-start">
+<div class="row">
     <div class="col-xl-4">
         <div class="card overflow-hidden mb-80">
             <div class="bg-primary bg-soft">
@@ -31,7 +31,7 @@
                         
                     </div>
 
-                    <div class="   col-sm-8">
+                    <div class="     col-sm-8">
                             <div class="pt-4">
 
                                 <div class="row">
@@ -100,7 +100,6 @@
                 </div>
             </div>
         </div>
-
 
         <div class="card mini-stats-wid">
             <div class="card-body">
@@ -262,7 +261,6 @@
             </div>
 
         </div>
-        <!-- end row -->
 
         <div class="col-xl-12 mt-10">
             <div class="row">
@@ -276,7 +274,6 @@
 
                             </div>
 
-
                         </div>
                     </div>
                 </div>
@@ -289,8 +286,6 @@
                                 {!! $chart2->renderHtml() !!}
 
                             </div>
-
-
                         </div>
                     </div>
                 </div>

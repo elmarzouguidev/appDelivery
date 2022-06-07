@@ -3,9 +3,9 @@
 @section('content')
     <div class="container-fluid">
 
-        @include('Sameleon.Admin.Metric.Delivery.__title')
+        @include('Sameleon.Admin.Metric.delivery.__title')
 
-        @include('Sameleon.Admin.Metric.Delivery.table')
+        @include('Sameleon.Admin.Metric.delivery.table')
 
     </div>
 @endsection
