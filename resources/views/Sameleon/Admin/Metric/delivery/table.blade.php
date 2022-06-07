@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-8">
+    <div class="col-12">
         <div class="card">
             <div class="card-body">
                 @if (session('success'))
@@ -77,7 +77,7 @@
             </div>
         </div>
     </div>
-    <div class="col-xl-4">
+    {{--<div class="col-xl-4">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title mb-4">{{ $chart->options['chart_title'] }}</h4>
@@ -90,5 +90,5 @@
                 
             </div>
         </div>
-    </div>
+    </div>--}}
 </div>
