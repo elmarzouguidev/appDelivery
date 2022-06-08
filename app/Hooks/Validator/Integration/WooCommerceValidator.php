@@ -10,6 +10,6 @@ class WooCommerceValidator extends ValidatorHookRepository
 
     public function __construct()
     {
-        // $this->state = true;
+         //$this->state = true;
     }
 }

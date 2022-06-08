@@ -17,9 +17,13 @@ class ValidatorHookRepository implements SignatureValidator, ValidatorHookInterf
     public function isValid(Request $request,  WebhookConfig $config): bool
     {
 
+        logger($request->header());
+        logger('Ouii  is here in TTRRUUE');
+       // return true;
+
         if ($this->state) {
             logger($request->header());
-            logger('Ouii  is here in TTRRUUE');
+            logger('Ouii in stat TTRRUUE');
             return true;
         } else {
             logger('Ouii  is here in False');

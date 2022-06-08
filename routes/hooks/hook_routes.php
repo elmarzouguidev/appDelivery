@@ -9,6 +9,9 @@ if (isset($sourceRoutes) && count($sourceRoutes) > 0) {
 
     foreach ($sourceRoutes as $sourceRoute) {
 
-        Route::webhooks($sourceRoute->route, 'sameleon');
+        $routeName = "sameleon" . $sourceRoute->id;
+        Route::webhooks($sourceRoute->route, "sameleonHooks");
     }
 }
+
+//Route::webhooks("sameleonHooks/green-358243ae-cff5-4d91-8573-6c674f65ddf8", "webhook");

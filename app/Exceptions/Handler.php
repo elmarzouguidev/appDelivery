@@ -85,7 +85,6 @@ class Handler extends ExceptionHandler
             ], 405);
         }
 
-
         if ($exception instanceof MethodNotAllowedHttpException && $request->is('api/*')) {
             return response()->json([
                 'msg' => ['error' => 'sorry this URL is not Allowed from Browser Directly']
