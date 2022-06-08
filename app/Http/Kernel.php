@@ -84,6 +84,8 @@ class Kernel extends HttpKernel
         'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
         'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
 
-        'cache_response' => \App\Http\Middleware\Cache\CacheResponseMiddleware::class
+        'cache_response' => \App\Http\Middleware\Cache\CacheResponseMiddleware::class,
+
+        'woocommerce' => \App\Http\Middleware\Hooks\VerifyWoocommerceMiddleware::class,
     ];
 }

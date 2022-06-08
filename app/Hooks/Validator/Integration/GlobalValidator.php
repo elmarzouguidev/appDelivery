@@ -5,7 +5,7 @@ namespace App\Hooks\Validator\Integration;
 
 use App\Hooks\Validator\Repository\HooksValidation;
 
-class WooCommerceValidator extends HooksValidation
+class GlobalValidator extends HooksValidation
 {
 
     public function __construct()

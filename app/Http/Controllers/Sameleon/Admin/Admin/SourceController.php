@@ -53,7 +53,7 @@ class SourceController extends Controller
 
         $source->header = $this->generateHeader($integration->slug);
 
-        $source->route = $this->generateRoutes($request->name);
+        $source->route = $this->generateRoutes($request->domain, $integration->slug);
 
         $source->full_url = getDomainName() . $source->route;
 
@@ -64,14 +64,36 @@ class SourceController extends Controller
         return redirect()->back()->with('success', "La source a été ajouter");
     }
 
-    public function generateRoutes($name)
+    public function generateRoutes($name, $platform)
     {
-        return  self::PREFIX . self::SLASH . Str::slug($name) . self::SEPARATOR . Str::uuid();
+
+        $pftm = $this->generatePlatform($platform);
+
+        return  self::PREFIX . self::SLASH . $pftm . self::SLASH . Str::slug($name) . self::SEPARATOR . Str::uuid() . '/' . auth()->user()->uuid;
     }
 
     public function generateSecret()
     {
         return Str::random(32);
+    }
+
+    public function generatePlatform($platform)
+    {
+
+        switch ($platform) {
+
+            case 'woocommerce':
+                return 'x-wc';
+                break;
+            case 'shopify':
+                return 'x-shopify';
+                break;
+            case 'elementor':
+                return 'x-elementor';
+                break;
+            default:
+                return 'x-sameleon';
+        }
     }
 
     public function generateHeader($platform)

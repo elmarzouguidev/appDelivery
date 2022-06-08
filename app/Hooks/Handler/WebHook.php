@@ -15,7 +15,7 @@ class WebHook extends HookRepository
     public function __invoke()
     {
         logger('Oui Im hereee __invoke 2022');
-       // $this->wpWooCommerce();
+        $this->wpWooCommerce();
     }
 
     public function clickFunnels()

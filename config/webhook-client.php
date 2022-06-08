@@ -27,7 +27,7 @@ return [
              *
              * It should implement \Spatie\WebhookClient\SignatureValidator\SignatureValidator
              */
-            'signature_validator' => App\Hooks\Validator\Integration\WooCommerceValidator::class,
+            'signature_validator' => App\Hooks\Validator\Integration\GlobalValidator::class,
 
 
             /*

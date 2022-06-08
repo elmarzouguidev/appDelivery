@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Hooks\WooCommerce;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Log;
-use App\Models\Lead;
+
 
 class WooCommerceController extends Controller
 {
@@ -37,7 +37,7 @@ class WooCommerceController extends Controller
 
         $items =  $validator->validated();
         Log::info($items);
-        Lead::create([
+        /*Lead::create([
             'nom' => $items['first_name'],
             'prenom' => $items['last_name'],
             'email' => $items['email'],
@@ -45,6 +45,6 @@ class WooCommerceController extends Controller
             'ville' => $items['city'],
             'address' => $items['address_1'],
             'produit' => 'titan'
-        ]);
+        ]);*/
     }
 }

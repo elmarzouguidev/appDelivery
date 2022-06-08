@@ -21,7 +21,7 @@ class AdminHomeController extends Controller
             ->get();
 
         $chart_options = [
-            'chart_title' => 'Clients par mois',
+            'chart_title' => 'Compte Client',
             'report_type' => 'group_by_date',
             'model' => 'App\Models\Sameleon\User',
             'group_by_field' => 'created_at',

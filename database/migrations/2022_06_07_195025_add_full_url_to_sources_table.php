@@ -14,7 +14,7 @@ class AddFullUrlToSourcesTable extends Migration
     public function up()
     {
         Schema::table('sources', function (Blueprint $table) {
-            $table->string('full_url')->nullable()->after('route');
+            $table->longText('full_url')->nullable()->after('route');
         
         });
     }
