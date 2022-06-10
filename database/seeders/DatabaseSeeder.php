@@ -36,8 +36,12 @@ class DatabaseSeeder extends Seeder
     $users = User::role('Client')->get();
 
     foreach ($users as $user) {
+
       $this->callWith(ProductSeeder::class, ['user' => $user]);
+
+      /****Create Commands ForEach Clients ****/
+      
+      $this->callWith(CommandSeeder::class, ['user' => $user]);
     }
-    
   }
 }

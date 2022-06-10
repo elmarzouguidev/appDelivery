@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+
 use Illuminate\Database\Seeder;
 
 class CommentSeeder extends Seeder
@@ -11,8 +12,8 @@ class CommentSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run($user)
     {
-        //
+        
     }
 }

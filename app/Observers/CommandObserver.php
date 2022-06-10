@@ -63,14 +63,16 @@ class CommandObserver
 
     private function clearAllCachedArchive()
     {
+        if (!app()->runningInConsole()) {
 
-        if (auth()->user()->hasRole('Client')) {
+            if (auth()->user()->hasRole('Client')) {
 
-            $cacheKey = "all_commands_archived_cache_" . auth()->user()->uuid;
-            cache()->pull($cacheKey);
-            cache()->pull('all_commands_archived_cache');
-        } else {
-            cache()->pull('all_commands_archived_cache');
+                $cacheKey = "all_commands_archived_cache_" . auth()->user()->uuid;
+                cache()->pull($cacheKey);
+                cache()->pull('all_commands_archived_cache');
+            } else {
+                cache()->pull('all_commands_archived_cache');
+            }
         }
     }
 }
