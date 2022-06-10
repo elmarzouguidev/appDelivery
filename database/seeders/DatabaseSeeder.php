@@ -33,16 +33,11 @@ class DatabaseSeeder extends Seeder
 
     //\App\Models\Sameleon\Product::factory(5)->create();
 
-    /*$users = User::factory(10)->create();
+    $users = User::role('Client')->get();
 
     foreach ($users as $user) {
       $this->callWith(ProductSeeder::class, ['user' => $user]);
     }
-
-    $products = Product::all();
-
-    foreach ($products as $product) {
-      $this->callWith(StockSeeder::class, ['product' => $product]);
-    }*/
+    
   }
 }
