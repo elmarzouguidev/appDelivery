@@ -128,7 +128,7 @@
                                         <div class="d-flex gap-3">
     
                                             <button type="button" class="btn btn-sm btn-info "
-                                                data-bs-toggle="modal" data-bs-target=".EditPermissions">
+                                                data-bs-toggle="modal" data-bs-target=".EditPermissions-{{$client->uuid}}">
                                                 Permissions
                                             </button>
 

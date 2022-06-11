@@ -8,6 +8,8 @@
 
         @include('Sameleon.Admin.Client.__normal_table.table')
 
+        @each('Sameleon.Admin.Client.__normal_table.__edit_permissions', $clients, 'client')
+        
     </div>
 
 @endsection
