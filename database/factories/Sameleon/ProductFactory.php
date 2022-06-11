@@ -20,11 +20,11 @@ class ProductFactory extends Factory
             'name' => $this->faker->word,
             'description' => $this->faker->text(),
 
-            'qte_global' => 20,
+            'qte_global' => $qte = 20,
             'qte_livre' => 0,
             'qte_expidite' => 0,
             'qte_endomage' => 0,
-            'qte_rest' => 20,
+            'qte_rest' => rand(0, $qte),
 
             'price' => $this->faker->numberBetween(100, 900),
             'sku' => $this->faker->unique()->regexify('[A-Z0-9]{10}'),
@@ -38,7 +38,7 @@ class ProductFactory extends Factory
     {
         return $this->afterCreating(function (Product $item) {
             $url = 'https://source.unsplash.com/random/400x400';
-            
+
             $item
                 ->addMediaFromUrl($url)
                 ->toMediaCollection('products_photos');

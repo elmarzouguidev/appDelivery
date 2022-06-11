@@ -41,7 +41,7 @@ class DatabaseSeeder extends Seeder
 
       /****Create Commands ForEach Clients ****/
       
-      $this->callWith(CommandSeeder::class, ['user' => $user]);
+     // $this->callWith(CommandSeeder::class, ['user' => $user]);
     }
   }
 }
