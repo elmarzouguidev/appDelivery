@@ -17,37 +17,37 @@
                                     <input type="hidden" name="clientId" value="{{ $client->uuid }}">
                                     @php
                                         $selected = $client->getPermissionNames()->toArray();
-                                        
                                     @endphp
                                     <div class="row">
-                                        @foreach ($permissions as $permission)
-                                            <div class="mt-4 col-xl-3">
-                                                <div class="docs-toggles">
-                                                    <ul class="list-group">
-                                                        <li class="list-group-item">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input"
-                                                                    id="permission-{{ $permission->id }}"
-                                                                    type="checkbox" name="permissions[]"
-                                                                    value="{{ $permission->name }}"
-                                                                    {{ in_array($permission->name, $selected) ? 'checked' : '' }}>
+                                        @foreach ($permissions as $model => $permission)
+                                            @foreach ($permission as $per)
+                                                <div class="mt-4 col-xl-3">
+                                                    <div class="docs-toggles">
+                                                        <ul class="list-group">
+                                                            <li class="list-group-item">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input"
+                                                                        id="permission-{{ $per['id'] }}"
+                                                                        type="checkbox" name="permissions[]"
+                                                                        value="{{ $per['name'] }}"
+                                                                        {{ in_array($per['name'], $selected) ? 'checked' : '' }}>
 
-                                                                <label class="form-check-label"
-                                                                    for="permission-{{ $permission->id }}">
-                                                                    {{-- $permission->name --}}
-                                                                    {{__('permission.'.$permission->name)}}
-                                                                </label>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
+                                                                    <label class="form-check-label"
+                                                                        for="permission-{{ $per['id'] }}">
+                                                                        {{-- $permission->name --}}
+                                                                        {{ __('permission.' . $per['name']) }}
+                                                                    </label>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            @endforeach
                                         @endforeach
-                                        <div class="mt-5">
-                                            <button type="submit" class="btn btn-primary w-md">Sync Permissions</button>
-                                        </div>
                                     </div>
-                      
+                                    <div class="mt-5">
+                                        <button type="submit" class="btn btn-primary w-md">Sync Permissions</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>

@@ -30,7 +30,9 @@ class ClientController extends Controller
 
         $clients = app(ClientInterface::class)->getClients();
 
-        $permissions = Permission::all();
+        $permissions = Permission::all()->mapToGroups(function ($item, $key) {
+            return [strstr($item['name'], '.', true) => ['name' => $item['name'], 'id' => $item['id']]];
+        });
 
         /*$roles = Role::all()->reject(function ($role, $key) {
             return $role->name === 'Developper';
