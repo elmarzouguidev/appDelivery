@@ -172,9 +172,9 @@
             <span key="t-authentication">{{ __('Permissions') }}</span>
         </a>
         <ul class="sub-menu" aria-expanded="false">
-            <li><a href="{{ route('admin:roles.index') }}" key="t-roles">{{ __('navbar.roles') }}</a></li>
+            <li><a href="{{ route('admin:roles.index') }}" key="t-roles">{{ __('Roles') }}</a></li>
             <li><a href="{{ route('admin:permissions.index') }}"
-                    key="t-permissions">{{ __('navbar.permissions') }}</a>
+                    key="t-permissions">{{ __('Permissions') }}</a>
             </li>
         </ul>
     </li>
