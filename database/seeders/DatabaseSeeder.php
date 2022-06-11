@@ -7,6 +7,7 @@ use App\Models\Sameleon\User;
 use Illuminate\Database\Seeder;
 
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Artisan;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,6 +20,8 @@ class DatabaseSeeder extends Seeder
   {
 
 
+
+    $this->clearAll();
 
     // $this->call(AllSeeder::class);
     $this->call(RoleSeeder::class);
@@ -40,8 +43,16 @@ class DatabaseSeeder extends Seeder
       $this->callWith(ProductSeeder::class, ['user' => $user]);
 
       /****Create Commands ForEach Clients ****/
-      
-     // $this->callWith(CommandSeeder::class, ['user' => $user]);
+
+      // $this->callWith(CommandSeeder::class, ['user' => $user]);
     }
+  }
+
+  private function clearAll()
+  {
+    Artisan::call('config:clear');
+    Artisan::call('route:clear');
+    Artisan::call('view:clear');
+    Artisan::call('cache:clear');
   }
 }
