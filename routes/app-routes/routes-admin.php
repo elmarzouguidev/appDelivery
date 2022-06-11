@@ -99,6 +99,7 @@ Route::group(['prefix' => 'regions'], function () {
 Route::group(['prefix' => 'clients'], function () {
 
     Route::get('/', [ClientController::class, 'index'])->name('clients.index');
+    Route::put('/sync', [ClientController::class, 'syncPermission'])->name('clients.permissions.sync');
 
     Route::get('/create', [ClientController::class, 'create'])->name('clients.create');
     Route::post('/create', [ClientController::class, 'store'])->name('clients.store');

@@ -8,8 +8,10 @@
 
         @include('Sameleon.Admin.Client.__normal_table.table')
 
-        @each('Sameleon.Admin.Client.__normal_table.__edit_permissions', $clients, 'client')
-        
+        {{--@each('Sameleon.Admin.Client.__normal_table.__edit_permissions', $clients, 'client')--}}
+
+        @include('Sameleon.Admin.Client.__normal_table.__edit_permissions')
+
     </div>
 
 @endsection

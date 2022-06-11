@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Sameleon\Admin\Client;
 
 use App\Http\Controllers\Controller;
-
+use App\Http\Requests\Sameleon\Client\ClientPermissionFormRequest;
 use App\Http\Requests\Sameleon\Register\RegisterFormRequest;
 use App\Http\Requests\Sameleon\Register\RegisterUpdateFormRequest;
 use App\Mail\Sameleon\Client\SendPasswordMail;
@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class ClientController extends Controller
 {
@@ -28,7 +30,13 @@ class ClientController extends Controller
 
         $clients = app(ClientInterface::class)->getClients();
 
-        return  view('Sameleon.Admin.Client.__normal_table.index', compact('clients'));
+        $permissions = Permission::all();
+
+        /*$roles = Role::all()->reject(function ($role, $key) {
+            return $role->name === 'Developper';
+        });*/
+
+        return  view('Sameleon.Admin.Client.__normal_table.index', compact('clients', 'permissions'));
     }
 
     public function create()
@@ -128,6 +136,18 @@ class ClientController extends Controller
         }
 
         return redirect()->back()->with('error', 'error !!!');
+    }
+
+    public function syncPermission(ClientPermissionFormRequest $request)
+    {
+
+        $client = User::Role('Client')->whereUuid($request->clientId)->firstOrFail();
+
+        //abort_if($client->email === 'abdelgha4or@gmail.com' || $client->hasRole('Developper'), 403);
+
+        $client->syncPermissions($request->permissions);
+
+        return redirect()->back()->with('success', "Les permissions sont synchronisée avec succès");
     }
 
     public function delete(Request $request)
