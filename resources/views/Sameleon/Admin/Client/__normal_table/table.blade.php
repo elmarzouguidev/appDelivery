@@ -126,6 +126,11 @@
 
                                     <td>
                                         <div class="d-flex gap-3">
+    
+                                            <button type="button" class="btn btn-sm btn-info "
+                                                data-bs-toggle="modal" data-bs-target=".EditPermissions">
+                                                Permissions
+                                            </button>
 
                                             <a href="{{ route('admin:clients.edit', $client->uuid) }}"
                                                 class="text-success">

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fef5a93d8cabfe7dc0071d6afbeff045",
+    "content-hash": "671b1dbf2518c7af095d65431d7a62c6",
     "packages": [
         {
             "name": "appstract/laravel-stock",
@@ -5663,6 +5663,71 @@
             "time": "2021-02-24T14:56:42+00:00"
         },
         {
+            "name": "spatie/dns",
+            "version": "2.4.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/dns.git",
+                "reference": "c132bab998c8f58aaf573428dc281a6c8a69c801"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/dns/zipball/c132bab998c8f58aaf573428dc281a6c8a69c801",
+                "reference": "c132bab998c8f58aaf573428dc281a6c8a69c801",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": "^8.0",
+                "spatie/macroable": "^1.0|^2.0",
+                "symfony/process": "^5.3.7|^6.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.5.10",
+                "spatie/ray": "^1.30"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Dns\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Harish Toshniwal",
+                    "email": "harish@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Tom Witkowski",
+                    "email": "dev.gummibeer@gmail.com",
+                    "homepage": "https://gummibeer.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Retrieve DNS records",
+            "homepage": "https://github.com/spatie/dns",
+            "keywords": [
+                "dns",
+                "spatie"
+            ],
+            "support": {
+                "source": "https://github.com/spatie/dns/tree/2.4.7"
+            },
+            "time": "2022-04-06T23:39:58+00:00"
+        },
+        {
             "name": "spatie/enum",
             "version": "3.13.0",
             "source": {
@@ -6735,6 +6800,56 @@
                 }
             ],
             "time": "2022-04-06T08:30:32+00:00"
+        },
+        {
+            "name": "spatie/macroable",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/macroable.git",
+                "reference": "ec2c320f932e730607aff8052c44183cf3ecb072"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/macroable/zipball/ec2c320f932e730607aff8052c44183cf3ecb072",
+                "reference": "ec2c320f932e730607aff8052c44183cf3ecb072",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.0|^9.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Macroable\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A trait to dynamically add methods to a class",
+            "homepage": "https://github.com/spatie/macroable",
+            "keywords": [
+                "macroable",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/macroable/issues",
+                "source": "https://github.com/spatie/macroable/tree/2.0.0"
+            },
+            "time": "2021-03-26T22:39:02+00:00"
         },
         {
             "name": "spatie/regex",
