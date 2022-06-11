@@ -34,6 +34,8 @@ class DatabaseSeeder extends Seeder
 
     $this->call(DeliverySeeder::class);
 
+    $this->call(BankSeeder::class);
+
     //\App\Models\Sameleon\Product::factory(5)->create();
 
     $users = User::role('Client')->get();
