@@ -19,24 +19,24 @@ class DatabaseSeeder extends Seeder
   public function run()
   {
 
-    Storage::disk('public')->deleteDirectory('app-files');
 
     $this->clearAll();
 
-    // $this->call(AllSeeder::class);
     $this->call(RoleSeeder::class);
+
     $this->call(PermissionSeeder::class);
 
     $this->call(CitySeeder::class);
 
     $this->call(AdminSeeder::class);
+    
     $this->call(ClientSeed::class);
 
     $this->call(DeliverySeeder::class);
 
     $this->call(BankSeeder::class);
 
-    //\App\Models\Sameleon\Product::factory(5)->create();
+    $this->call(IntegrationSeeder::class);
 
     $users = User::role('Client')->get();
 
@@ -44,14 +44,17 @@ class DatabaseSeeder extends Seeder
 
       $this->callWith(ProductSeeder::class, ['user' => $user]);
 
-      /****Create Commands ForEach Clients ****/
-
       // $this->callWith(CommandSeeder::class, ['user' => $user]);
     }
+
+   
   }
 
   private function clearAll()
   {
+
+    Storage::disk('public')->deleteDirectory('app-files');
+
     Artisan::call('config:clear');
     Artisan::call('route:clear');
     Artisan::call('view:clear');

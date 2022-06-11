@@ -20,13 +20,13 @@ class ProductFactory extends Factory
             'name' => $this->faker->word,
             'description' => $this->faker->text(),
 
-            'qte_global' => $qte = 20,
+            'qte_global' => $qte = 10,
             'qte_livre' => 0,
             'qte_expidite' => 0,
             'qte_endomage' => 0,
             'qte_rest' => rand(0, $qte),
 
-            'price' => $this->faker->numberBetween(100, 900),
+            'price' => $this->faker->numberBetween(100, 300),
             'sku' => $this->faker->unique()->regexify('[A-Z0-9]{10}'),
             'active' => rand(1, 0),
 
