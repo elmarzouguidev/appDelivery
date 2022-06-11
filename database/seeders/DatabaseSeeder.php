@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
   public function run()
   {
 
-
+    Storage::disk('public')->deleteDirectory('app-files');
 
     $this->clearAll();
 
