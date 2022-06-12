@@ -21,7 +21,6 @@ class ApiCommandController extends Controller
 
     public function track(string $code)
     {
-
     }
 
     public function store(CommandRequest $request)
@@ -38,6 +37,16 @@ class ApiCommandController extends Controller
                 return response()->json(
                     [
                         '_response' => ['msg' => "désole cette clé n'existe pas dans notre systeme veuillez vérifier votre public_key est secret_key !!"]
+                    ],
+                    404
+                );
+                exit();
+            }
+            if ($user && $user->hasRole('Client') && !$user->hasPermissionTo('api.create')) {
+
+                return response()->json(
+                    [
+                        '_response' => ['msg' => "vous n'avez pas les droits pour créer une commande via API veuillez contacter l'administrateur pour vous donner les droits d'API"]
                     ],
                     404
                 );
@@ -65,7 +74,7 @@ class ApiCommandController extends Controller
 
                         $product = Product::whereUserId($user->id)->whereSlug($slug)->first();
                         // dd($product,$slug);
-                        if (!$product) {
+                        /*if (!$product) {
 
                             return response()->json(
                                 [
@@ -76,18 +85,19 @@ class ApiCommandController extends Controller
                             );
                             exit();
                         } else {
-                            Item::create([
-                                'command_id' => $command->id,
-                                'command_uuid' => $command->uuid,
-                                'product_id' => $product ?  $product->id : null,
-                                'product_uuid' => $product ? $product->uuid : null,
-                                'designation' => $item['name'],
-                                'product' => $item['name'],
-                                'quantity' => $item['quantity'],
-                                'prix_uni' => round($item['prix_total'] / $item['quantity']),
-                                'prix_total' => $item['prix_total'],
-                            ]);
-                        }
+
+                        }*/
+                        Item::create([
+                            'command_id' => $command->id,
+                            'command_uuid' => $command->uuid,
+                            'product_id' => $product ?  $product->id : null,
+                            'product_uuid' => $product ? $product->uuid : null,
+                            'designation' => $item['name'],
+                            'product' => $item['name'],
+                            'quantity' => $item['quantity'],
+                            'prix_uni' => round($item['prix_total'] / $item['quantity']),
+                            'prix_total' => $item['prix_total'],
+                        ]);
                     }
                 }
                 return response()->json(
