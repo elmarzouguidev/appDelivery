@@ -10,20 +10,21 @@
                 <div class="modal-body">
                     <div class="card">
                         <div class="card-body">
-                            <div class="col-xl-12 col-sm-6">
-                                <form action="{{ route('admin:clients.permissions.sync') }}" method="post">
-                                    @csrf
-                                    @method('PUT')
-                                    <input type="hidden" name="clientId" value="{{ $client->uuid }}">
+                            <form action="{{ route('admin:clients.permissions.sync') }}" method="post">
+                                @csrf
+                                @method('PUT')
+                                <input type="hidden" name="clientId" value="{{ $client->uuid }}">
+                                <div class="row">
                                     @php
                                         $selected = $client->getPermissionNames()->toArray();
                                     @endphp
-                                    <div class="row">
-                                        @foreach ($permissions as $model => $permission)
-                                            @foreach ($permission as $per)
-                                                <div class="mt-4 col-xl-3">
-                                                    <div class="docs-toggles">
-                                                        <ul class="list-group">
+                                    @foreach ($permissions as $model => $permission)
+                                        <div class="col-xl-3 col-sm-6">
+                                            <div class="mt-4 mt-xl-0">
+                                                <h4 class="font-size-14 mb-3">{{ __('permission.' . $model) }}</h4>
+                                                <div class="docs-toggles">
+                                                    <ul class="list-group">
+                                                        @foreach ($permission as $per)
                                                             <li class="list-group-item">
                                                                 <div class="form-check">
                                                                     <input class="form-check-input"
@@ -39,19 +40,20 @@
                                                                     </label>
                                                                 </div>
                                                             </li>
-                                                        </ul>
-                                                    </div>
+                                                        @endforeach
+                                                    </ul>
                                                 </div>
-                                            @endforeach
-                                        @endforeach
-                                    </div>
-                                    <div class="mt-5">
-                                        <button type="submit" class="btn btn-primary w-md">
-                                            synchroniser les permissions
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+
+                                </div>
+                                <div class="mt-5">
+                                    <button type="submit" class="btn btn-primary w-md">
+                                        synchroniser les permissions
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

@@ -19,4 +19,9 @@ return [
     'api.create' => 'Créer une nouvelle commande depuis l\'API',
 
     'excel.import' => 'Importer des commandes depuis un fichier Excel',
+
+    'products' => 'Produits',
+    'commands' => 'Commands',
+    'excel' => 'Excel',
+    'api' => 'API',
 ];

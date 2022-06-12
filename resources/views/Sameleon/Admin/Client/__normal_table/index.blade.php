@@ -10,7 +10,7 @@
 
         {{--@each('Sameleon.Admin.Client.__normal_table.__edit_permissions', $clients, 'client')--}}
 
-        @include('Sameleon.Admin.Client.__normal_table.__edit_permissions')
+        @include('Sameleon.Admin.Client.__normal_table.__edit_permissions_v2')
 
     </div>
 
