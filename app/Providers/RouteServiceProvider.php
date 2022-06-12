@@ -89,16 +89,6 @@ class RouteServiceProvider extends ServiceProvider
             ->group(base_path('routes/app-routes/routes-admin.php'));
     }
 
-    private function commercialRoutes()
-    {
-
-        Route::middleware(['web', 'auth'])
-            ->prefix('app/commercial')
-            ->name('commercial:')
-            ->namespace($this->namespace)
-            ->group(base_path('routes/app-routes/commercial_routes.php'));
-    }
-
     private function devlopperRoutes()
     {
 

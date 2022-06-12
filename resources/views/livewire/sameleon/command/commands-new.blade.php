@@ -10,7 +10,7 @@
                         <div class="row">
                             <div class="col-lg-12">
 
-                                <div class="col-lg-12 mb-4">
+                                <div class="mb-4">
 
                                     
                                         @if (auth()->user()->hasRole('Client'))
@@ -47,9 +47,6 @@
                                             <i class="bx bx-archive font-size-16 align-middle me-2"></i>
                                             Archive
                                         </a>
-                                  
-
-
                                 </div>
 
                             </div>
