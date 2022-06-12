@@ -64,18 +64,10 @@ class UserObserver
     private function clearAllCache()
     {
 
+        cache()->pull('all_clients_cache');
 
-        if (request()->routeIs('admin:clients.store','admin:clients.activate','admin:profil.update','admin:profil.update.bank')) {
-
-            cache()->pull('all_clients_cache');
-        }
-        if (request()->routeIs('admin:admins.store','admin:admins.update')) {
-
-            cache()->pull('all_admins_cache');
-        }
-        if (request()->routeIs('admin:delivery.store','admin:delivery.update')) {
-
-            cache()->pull('all_deliveries_cache');
-        }
+        cache()->pull('all_admins_cache');
+        
+        cache()->pull('all_deliveries_cache');
     }
 }
