@@ -16,13 +16,28 @@
     @yield('css')
     <link href="{{ asset('assets/libs/magnific-popup/magnific-popup.css') }}" rel="stylesheet" type="text/css" />
 
-    <link href="{{ asset('css/app.css') }}?ver={{rand(1,852)}}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('css/app.css') }}?ver={{ rand(1, 852) }}" rel="stylesheet" type="text/css" />
 
     @livewireStyles
 
 </head>
 
 <body data-topbar="dark" data-sidebar-size="small-">
+
+
+    <!-- Loader -->
+    <div id="preloader">
+        <div id="status">
+            <div class="spinner-chase">
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+                <div class="chase-dot"></div>
+            </div>
+        </div>
+    </div>
 
     <!-- <body data-layout="horizontal" data-topbar="dark"> -->
 
@@ -36,18 +51,14 @@
 
             <div class="page-content">
 
-                @if(!auth()->user()->completProfile())
-                        @include('layouts._parts.__warning')
+                @if (!auth()->user()->completProfile())
+                    @include('layouts._parts.__warning')
                 @endif
 
-                @if(auth()->user()->isActive())
-
-                 @yield('content')
-
+                @if (auth()->user()->isActive())
+                    @yield('content')
                 @else
-
-                 @include('layouts._parts.__disabled_account')
-                 
+                    @include('layouts._parts.__disabled_account')
                 @endif
 
 
@@ -74,7 +85,7 @@
     @stack('scripts')
 
     @yield('javascript')
-    
+
     <script>
         $('a[href="#"]').click(function(event) {
 
@@ -83,16 +94,15 @@
         });
 
         window.addEventListener('reloadbrowser', event => {
-            
+
             setTimeout(function() {
                 window.location.reload();
             }, 1000);
 
         });
-
     </script>
-   
- 
+
+
 </body>
 
 </html>
