@@ -29,6 +29,8 @@ class ItemsQuery extends QueryBuilder
             AllowedFilter::scope('city', 'cities_filters'),
             AllowedFilter::scope('delivery', 'delivery_filters'),
 
+            AllowedFilter::scope('source', 'source_filters'),
+
         ]);
 
        

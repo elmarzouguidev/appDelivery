@@ -95,6 +95,16 @@
                                 onchange="this.dispatchEvent(new InputEvent('input'))">
                         </div>
                     </div>
+
+                    <div class="col-lg-2 col-md-2">
+                        <label class="visually-hidden" for="source">Source</label>
+                        <select wire:model.defer="data.source" class="form-select" name="source" id="source">
+                            <option value="">Source</option>
+                            <option value="1">API</option>
+                            <option value="2">Excel</option>
+                            <option value="3">Manuel</option>
+                        </select>
+                    </div>
                     <div class="col-sm-auto">
                         <button wire:click.prevent="setfilter()" class="btn btn-primary w-md">filter</button>
                     </div>

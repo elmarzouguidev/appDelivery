@@ -202,6 +202,20 @@ class Command extends Model
         /***** */
     }
 
+    public function scopeSourceFilters(Builder $query, $source): Builder
+    {
+
+        if ((int)$source === 1) {
+            return $query->where('is_api', true);
+        } elseif ((int)$source === 2) {
+            return $query->where('is_imported', true);
+        } elseif ((int)$source === 3) {
+            return $query->where('is_imported', false)->where('is_api', false);
+        } else {
+            return $query;
+        }
+    }
+
     public function scopeTotalCommands($query)
     {
         if (auth()->user()->hasRole('Client')) {
