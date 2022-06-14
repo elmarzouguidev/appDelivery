@@ -103,14 +103,14 @@
                                         </div>
                                     </td>
                                     <form id="delete-source-{{ $source->uuid }}" method="post"
-                                        action="{{ route('admin:integrations.delete') }}">
+                                        action="{{ route('admin:settings.integrations.delete') }}">
                                         @csrf
                                         @method('DELETE')
                                         <input type="hidden" name="sourceId" value="{{ $source->uuid }}">
                                     </form>
 
                                     <form id="activate-source-{{ $source->uuid }}" method="post"
-                                        action="{{ route('admin:integrations.activate') }}">
+                                        action="{{ route('admin:settings.integrations.activate') }}">
                                         @csrf
                                         @method('PUT')
                                         <input type="hidden" name="sourceId" value="{{ $source->uuid }}">
