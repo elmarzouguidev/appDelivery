@@ -8,7 +8,7 @@
             </div>
             <div class="modal-body">
 
-                <form method="post" action="{{ route('admin:integrations.store') }}" enctype="multipart/form-data">
+                <form method="post" action="{{ route('admin:settings.integrations.store') }}" enctype="multipart/form-data">
                     @csrf
 
                     <div class="row mb-4">

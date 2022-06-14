@@ -181,11 +181,11 @@
 @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
     <li>
 
-        <a href="javascript: void(0);" class="has-arrow waves-effect">
+        <a href="{{ route('admin:settings.index') }}" class="waves-effect">
             <i class="bx bx-wrench"></i>
             <span key="t-settings">{{ __('Paramètres') }}</span>
         </a>
-        <ul class="sub-menu" aria-expanded="false">
+        {{--<ul class="sub-menu" aria-expanded="false">
             <li>
                 <a href="{{ route('admin:settings.index') }}" key="t-company">{{ __('Société') }}
                 </a>
@@ -198,6 +198,6 @@
                 <a href="{{ route('admin:integrations.index') }}" key="t-integrations">{{ __('Integrations') }}
                 </a>
             </li>
-        </ul>
+        </ul>--}}
     </li>
 @endif

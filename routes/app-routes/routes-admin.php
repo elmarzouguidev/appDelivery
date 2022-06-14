@@ -196,60 +196,8 @@ Route::group(['middleware' => ['role:SuperAdmin']], function () {
     });
 });
 
-Route::group(['prefix' => 'auth/settings'], function () {
-
-    Route::get('/', [SettingController::class, 'index'])->name('settings.index');
-    Route::post('/', [SettingController::class, 'update'])->name('settings.store');
-
-    Route::group(['prefix' => 'invoice'], function () {
-        Route::get('/', [SettingController::class, 'invoice'])->name('settings.invoice');
-        Route::post('/', [SettingController::class, 'invoiceUpdate'])->name('settings.invoice.store');
-    });
-});
 
 
-Route::group(['prefix' => 'settings'], function () {
-
-    Route::group(['prefix' => 'company'], function () {
-
-        Route::get('/', [SettingController::class, 'index'])->name('company');
-        Route::post('/', [SettingController::class, 'store'])->name('company.store');
-    });
-});
-
-Route::group(['prefix' => 'profil'], function () {
-
-    Route::group(['prefix' => 'info'], function () {
-
-        Route::get('/', [ProfilController::class, 'index'])->name('profil');
-        Route::post('/', [ProfilController::class, 'update'])->name('profil.update');
-
-        Route::post('/password', [ProfilController::class, 'updatePassword'])->name('profil.update.password');
-
-        Route::post('/company', [ProfilController::class, 'updateCompany'])->name('profil.update.company');
-
-        Route::post('/bank', [ProfilController::class, 'updateBank'])->name('profil.update.bank');
-    });
-
-    Route::group(['prefix' => 'history'], function () {
-
-        Route::get('/', [HistoryController::class, 'index'])->name('history');
-        Route::delete('/', [HistoryController::class, 'delete'])->name('history.delete');
-    });
-
-    Route::group(['prefix' => 'api-integration'], function () {
-
-        Route::get('/', [APIController::class, 'index'])->name('api.index');
-        Route::post('/', [APIController::class, 'createToken'])->name('api.update.token');
-    });
-
-    Route::group(['prefix' => 'data-sources'], function () {
-
-        Route::get('/', [SourceController::class, 'index'])->name('profile.sources.index');
-        Route::post('/', [SourceController::class, 'store'])->name('profile.sources.store');
-    });
-
-});
 
 Route::group(['prefix' => 'complaints'], function () {
 
@@ -320,15 +268,74 @@ Route::group(['prefix' => 'metrics'], function () {
 });
 
 
-Route::group(['prefix' => 'integrations'], function () {
 
-    Route::get('/', [IntegrationController::class, 'index'])->name('integrations.index');
-    Route::post('/', [IntegrationController::class, 'store'])->name('integrations.store');
 
-    Route::delete('/delete', [IntegrationController::class, 'delete'])->name('integrations.delete');
 
-    Route::get('/edit/{integration}', [IntegrationController::class, 'edit'])->name('integrations.edit');
-    Route::post('/edit/{integration}', [IntegrationController::class, 'update'])->name('integrations.update');
+Route::group(['prefix' => 'settings'], function () {
 
-    Route::put('/', [IntegrationController::class, 'activate'])->name('integrations.activate');
+    Route::group(['prefix' => 'company'], function () {
+
+        Route::get('/', [SettingController::class, 'index'])->name('company');
+        Route::post('/', [SettingController::class, 'store'])->name('company.store');
+    });
+});
+
+
+Route::group(['prefix' => 'auth/settings'], function () {
+
+    Route::get('/', [SettingController::class, 'index'])->name('settings.index');
+    Route::post('/', [SettingController::class, 'update'])->name('settings.store');
+
+    Route::group(['prefix' => 'invoice'], function () {
+        Route::get('/', [SettingController::class, 'invoice'])->name('settings.invoice');
+        Route::post('/', [SettingController::class, 'invoiceUpdate'])->name('settings.invoice.store');
+    });
+
+    Route::group(['prefix' => 'integrations'], function () {
+
+        Route::get('/', [IntegrationController::class, 'index'])->name('settings.integrations.index');
+        Route::post('/', [IntegrationController::class, 'store'])->name('settings.integrations.store');
+    
+        Route::delete('/delete', [IntegrationController::class, 'delete'])->name('settings.integrations.delete');
+    
+        Route::get('/edit/{integration}', [IntegrationController::class, 'edit'])->name('settings.integrations.edit');
+        Route::post('/edit/{integration}', [IntegrationController::class, 'update'])->name('settings.integrations.update');
+    
+        Route::put('/', [IntegrationController::class, 'activate'])->name('settings.integrations.activate');
+    });
+
+});
+
+Route::group(['prefix' => 'profil'], function () {
+
+    Route::group(['prefix' => 'info'], function () {
+
+        Route::get('/', [ProfilController::class, 'index'])->name('profil');
+        Route::post('/', [ProfilController::class, 'update'])->name('profil.update');
+
+        Route::post('/password', [ProfilController::class, 'updatePassword'])->name('profil.update.password');
+
+        Route::post('/company', [ProfilController::class, 'updateCompany'])->name('profil.update.company');
+
+        Route::post('/bank', [ProfilController::class, 'updateBank'])->name('profil.update.bank');
+    });
+
+    Route::group(['prefix' => 'history'], function () {
+
+        Route::get('/', [HistoryController::class, 'index'])->name('history');
+        Route::delete('/', [HistoryController::class, 'delete'])->name('history.delete');
+    });
+
+    Route::group(['prefix' => 'api-integration'], function () {
+
+        Route::get('/', [APIController::class, 'index'])->name('api.index');
+        Route::post('/', [APIController::class, 'createToken'])->name('api.update.token');
+    });
+
+    Route::group(['prefix' => 'data-sources'], function () {
+
+        Route::get('/', [SourceController::class, 'index'])->name('profile.sources.index');
+        Route::post('/', [SourceController::class, 'store'])->name('profile.sources.store');
+    });
+
 });

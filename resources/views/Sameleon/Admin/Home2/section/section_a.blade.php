@@ -17,15 +17,16 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="avatar-md profile-user-wid">
-                            {{-- @if (!is_null(auth()->user()->logo))
+                            @if (!is_null(auth()->user()->logo))
 
                                     <img class="img-thumbnail rounded-circle" alt=""
                                         src="{{ asset('storage/' . auth()->user()->logo) }}" width="50">
                             @else
                             <img src="{{asset('assets/images/users/avatar-1.jpg')}}" alt="" class="img-thumbnail rounded-circle">
   
-                            @endif --}}
+                            @endif
                         </div>
+                        
                         <h5 class="font-size-15"">{{ auth()->user()->full_name }}</h5>
                         
                     </div>

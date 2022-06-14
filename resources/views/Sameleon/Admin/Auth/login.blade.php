@@ -11,8 +11,9 @@
     <meta content="app_creator" name="Elmarzougui Abdelghafour" />
     <meta content="app_version" name="v 1.1" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    
+    <link href="{{ asset('css/mix/app.css') }}?ver={{ rand(1, 852) }}" rel="stylesheet" type="text/css" />
 
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css" />
 
 </head>
 

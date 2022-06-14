@@ -90,7 +90,7 @@
                                     <td>
                                         <div class="d-flex gap-3">
 
-                                            <a href="{{ route('admin:integrations.edit', $integration->uuid) }}"
+                                            <a href="{{ route('admin:settings.integrations.edit', $integration->uuid) }}"
                                                 class="text-success">
                                                 <i class="mdi mdi-pencil font-size-18"></i>
                                             </a>
@@ -106,14 +106,14 @@
                                         </div>
                                     </td>
                                     <form id="delete-integration-{{ $integration->uuid }}" method="post"
-                                        action="{{ route('admin:integrations.delete') }}">
+                                        action="{{ route('admin:settings.integrations.delete') }}">
                                         @csrf
                                         @method('DELETE')
                                         <input type="hidden" name="integrationId" value="{{ $integration->uuid }}">
                                     </form>
 
                                     <form id="activate-integration-{{ $integration->uuid }}" method="post"
-                                        action="{{ route('admin:integrations.activate') }}">
+                                        action="{{ route('admin:settings.integrations.activate') }}">
                                         @csrf
                                         @method('PUT')
                                         <input type="hidden" name="integrationId" value="{{ $integration->uuid }}">

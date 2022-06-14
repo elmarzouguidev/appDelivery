@@ -15,7 +15,7 @@ class SettingController extends Controller
     public function index(CompanySettings $settings)
     {
 
-        return view('Sameleon.Admin.Setting.index', [
+        return view('Sameleon.Admin.SettingV2.Company.index', [
             'setting' => $settings,
         ]);
     }
@@ -47,7 +47,7 @@ class SettingController extends Controller
 
     public function invoice(DocumentSettings $settings)
     {
-        return view('Sameleon.Admin.Setting.Invoice.index', [
+        return view('Sameleon.Admin.SettingV2.Invoice.index', [
             'setting' => $settings,
         ]);
     }
