@@ -24,6 +24,7 @@ use App\Http\Controllers\Sameleon\Admin\Reclamation\ReclamationController;
 use App\Http\Controllers\Sameleon\Admin\Region\RegionController;
 use App\Http\Controllers\Sameleon\Admin\Setting\API\APIController;
 use App\Http\Controllers\Sameleon\Admin\Stock\StockController;
+use App\Http\Controllers\Sameleon\Apps\AppsController;
 use App\Http\Controllers\Sameleon\Metric\MetricController;
 use Illuminate\Support\Facades\Route;
 
@@ -295,15 +296,14 @@ Route::group(['prefix' => 'settings'], function () {
 
         Route::get('/', [IntegrationController::class, 'index'])->name('settings.integrations.index');
         Route::post('/', [IntegrationController::class, 'store'])->name('settings.integrations.store');
-    
+
         Route::delete('/delete', [IntegrationController::class, 'delete'])->name('settings.integrations.delete');
-    
+
         Route::get('/edit/{integration}', [IntegrationController::class, 'edit'])->name('settings.integrations.edit');
         Route::post('/edit/{integration}', [IntegrationController::class, 'update'])->name('settings.integrations.update');
-    
+
         Route::put('/', [IntegrationController::class, 'activate'])->name('settings.integrations.activate');
     });
-
 });
 
 Route::group(['prefix' => 'account'], function () {
@@ -337,5 +337,11 @@ Route::group(['prefix' => 'account'], function () {
         Route::get('/', [SourceController::class, 'index'])->name('profile.sources.index');
         Route::post('/', [SourceController::class, 'store'])->name('profile.sources.store');
     });
+});
+
+
+Route::group(['prefix' => 'apps'], function () {
+
+    Route::get('/', [AppsController::class, 'index'])->name('apps.index');
 
 });

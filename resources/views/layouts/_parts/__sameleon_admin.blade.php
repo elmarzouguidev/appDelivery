@@ -114,7 +114,15 @@
         </a>
     </li>
 
+    {{--<li>
+        <a href="{{ route('admin:apps.index') }}">
+            <i class='bx bx-customize'></i>
+            <span key="t-contact">{{ __('Apps') }}</span>
+        </a>
+    </li>--}}
+    
 @endif
+
 
 @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
     <li class="menu-title" key="t-components">{{ __('navbar.advanced') }}</li>

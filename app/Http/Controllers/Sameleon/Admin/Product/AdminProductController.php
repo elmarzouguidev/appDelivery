@@ -12,21 +12,39 @@ use App\Repositories\Product\ProductInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
+
 class AdminProductController extends Controller
 {
 
     public function index()
     {
+        /*if (request()->has('appFilter') && request()->filled('appFilter')) {
 
-        /*if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin')) {
-            $products = Product::with('client', 'media')->get();
+            cache()->forget('all_products_cache');
+
+            $products = QueryBuilder::for(app(ProductInterface::class)->__instance())
+                ->allowedFilters([
+                    AllowedFilter::scope('GetClient', 'filter_client'),
+                    AllowedFilter::scope('GetStock', 'filter_stock'),
+                    AllowedFilter::scope('GetDate', 'filter_dated')
+
+                ])
+                ->with(['media', 'client:id,nom,prenom', 'stockMutations'])
+                ->paginate(40)
+                ->appends(request()->query());
+                cache()->forget('all_products_cache');
         } else {
-            $products = auth()->user()->products()->with('media')->get();
+
+           
+
         }*/
 
         $products = app(ProductInterface::class)->getProducts();
+        $clients = app(ClientInterface::class)->getClients();
 
-        return view('Sameleon.Admin.Product.__normal_table.index', compact('products'));
+        return view('Sameleon.Admin.Product.__normal_table.index', compact('products', 'clients'));
     }
 
     public function create()
@@ -62,7 +80,7 @@ class AdminProductController extends Controller
             $product->slug = Str::slug(str_replace(' ', '', $request->name)) . '-' . auth()->user()->uuid;
         }
 
-    
+
         $product->save();
 
         $product->increaseStock($request->qte_global);

@@ -15,6 +15,8 @@ use App\Traits\UuidGenerator;
 
 use Appstract\Stock\HasStock;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Carbon;
 
 class Product extends Model implements HasMedia
 {
@@ -99,6 +101,23 @@ class Product extends Model implements HasMedia
             ->height(800)
             ->sharpen(10)
             ->optimize();
+    }
+
+
+    public function scopeFilterClient(Builder $query, $clientId): Builder
+    {
+        return $query->where('user_id', $clientId);
+
+    }
+
+    public function scopeFilterStock(Builder $query, $stock): Builder
+    {
+        dd($stock);
+    }
+
+    public function scopeFilterDate(Builder $query, $date): Builder
+    {
+        return $query->where('created_at', Carbon::createFromFormat('m/d/Y', $date)->format('Y-m-d'));
     }
 
     public static function boot()
