@@ -281,7 +281,7 @@ Route::group(['prefix' => 'settings'], function () {
 });
 
 
-Route::group(['prefix' => 'auth/settings'], function () {
+Route::group(['prefix' => 'settings'], function () {
 
     Route::get('/', [SettingController::class, 'index'])->name('settings.index');
     Route::post('/', [SettingController::class, 'update'])->name('settings.store');
@@ -306,7 +306,7 @@ Route::group(['prefix' => 'auth/settings'], function () {
 
 });
 
-Route::group(['prefix' => 'profil'], function () {
+Route::group(['prefix' => 'account'], function () {
 
     Route::group(['prefix' => 'info'], function () {
 
