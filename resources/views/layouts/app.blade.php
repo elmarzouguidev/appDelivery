@@ -73,7 +73,7 @@
     </div>
 
 
-    {{-- @include('theme.layouts._parts._rightSidebar') --}}
+    {{--@include('layouts._parts._rightSidebar')--}}
 
 
     @include('layouts._parts._overly')
@@ -81,6 +81,8 @@
     @livewireScripts
 
     <script src="{{ asset('js/app.js') }}" data-pagespeed-no-defer></script>
+
+    {{--@include('layouts._parts.__global_js')--}}
 
     @stack('scripts')
 
