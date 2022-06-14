@@ -4,7 +4,7 @@
         <ul class="nav nav-tabs nav-tabs-custom justify-content-center pt-2" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" data-bs-toggle="tab" href="#all-settings" role="tab">
-                    Settings
+                    Société info
                 </a>
             </li>
         </ul>
@@ -43,9 +43,6 @@
                                             @endforeach
                                         @endif
                                         <h4 class="card-title">Société info</h4>
-                                        <p class="card-title-desc">
-                                            Entrer les informations de la société
-                                        </p>
                                         <form method="POST" action="{{ route('admin:settings.store') }}">
                                             <div class="mb-3 row">
                                                 <label for="name" class="col-md-2 col-form-label">Nom *</label>
@@ -138,8 +135,6 @@
                                     </div> <!-- end col -->
 
                                 </div>
-
-                                <hr class="my-5">
                             </div>
                         </div>
                     </div>

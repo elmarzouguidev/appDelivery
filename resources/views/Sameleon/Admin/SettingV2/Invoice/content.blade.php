@@ -4,7 +4,7 @@
         <ul class="nav nav-tabs nav-tabs-custom justify-content-center pt-2" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" data-bs-toggle="tab" href="#all-settings" role="tab">
-                    Settings
+                    Facturation
                 </a>
             </li>
         </ul>
@@ -29,9 +29,6 @@
 
 
                                         <h4 class="card-title">Facturation</h4>
-                                        <p class="card-title-desc">
-                                            Entrer les informations de la Facturation
-                                        </p>
                                         @if (session('success'))
                                             <div class="alert alert-success">
                                                 {{ session('success') }}
@@ -73,11 +70,9 @@
                                             </div>
                                         </form>
 
-                                    </div> <!-- end col -->
+                                    </div>
 
                                 </div>
-
-                                <hr class="my-5">
                             </div>
                         </div>
                     </div>

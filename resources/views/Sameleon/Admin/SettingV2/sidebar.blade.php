@@ -9,24 +9,24 @@
                 </div>
             </div> --}}
             <div>
-                <ul class="list-unstyled fw-medium">
-
+                <ul class="list-unstyled " style="font-size: 16px; ">
+                    
                     <li>
-                        <a href="{{ route('admin:settings.index') }}" class="text-muted py-2 d-block">
-                            <i class="mdi mdi-chevron-right me-1"></i>
+                        <a href="{{ route('admin:settings.index') }}" class="py-2 d-block">
+                            <i class="bx bx-wrench"></i>
                             Société
                         </a>
                     </li> 
                 
                     <li>
-                        <a href="{{ route('admin:settings.invoice') }}" class="text-muted py-2 d-block">
-                            <i class="mdi mdi-chevron-right me-1"></i>
+                        <a href="{{ route('admin:settings.invoice') }}" class="py-2 d-block">
+                            <i class="bx bx-food-menu"></i>
                             Facturation
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin:settings.integrations.index') }}" class="text-muted py-2 d-block">
-                            <i class="mdi mdi-chevron-right me-1"></i>
+                        <a href="{{ route('admin:settings.integrations.index') }}" class="py-2 d-block">
+                            <i class="bx bx-shape-square"></i>
                             Integrations
                         </a>
                     </li>
