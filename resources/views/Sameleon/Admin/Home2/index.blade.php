@@ -10,16 +10,18 @@
         @include('Sameleon.Admin.Home2.section.section_c')
 
     </div>
-    @php
+    @if($annonces->count())  
+        @php
 
-    $viewedIds = $annonces->viewed ?? [];
+        $viewedIds = $annonces->viewed ?? [];
 
-    @endphp
+        @endphp
 
-    @if (auth()->id() && !in_array(auth()->id(), $viewedIds))
+        @if (auth()->id() && !in_array(auth()->id(), $viewedIds))
 
-        @include('Sameleon.Admin.Home2.section.__annonces')
-        
+            @include('Sameleon.Admin.Home2.section.__annonces')
+            
+        @endif
     @endif
 
 @endsection
