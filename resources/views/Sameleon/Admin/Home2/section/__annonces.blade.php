@@ -26,7 +26,7 @@
                         <div class="col-xl-10">
                             <h4 class="text-primary">Annonce !</h4>
                             <h5 class="text-primary">{{$annonces->title}}</h5>
-                            <p class="text-muted font-size-14 mb-4">{{$annonces->description}}</p>
+                            <p class="text-muted font-size-14 mb-4">{!! $annonces->description !!}</p>
 
                             {{--<div class="input-group rounded">
                                 <input type="email" class="form-control bg-transparent border-0" placeholder="Enter Email address" aria-label="Recipient's username" aria-describedby="button-addon2">
