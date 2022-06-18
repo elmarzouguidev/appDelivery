@@ -23,5 +23,43 @@ class AnnonceController extends Controller
         $annonce->title = $request->title;
         $annonce->description = $request->description;
         $annonce->save();
+
+        return redirect(route('admin:annonces.index'))->with('success', "L'annonce a été ajouté avec succès");
+    }
+
+    public function activate(Request $request)
+    {
+        $request->validate(['annonceId' => 'required', 'uuid']);
+
+        $annonce = Annonce::whereUuid($request->annonceId)->firstOrFail();
+
+        if ($annonce) {
+
+            $annonce->update(['active' => !$annonce->active]);
+
+            $annonce->active ? $msg = "activé" : $msg = "desactivé";
+
+            return redirect()->back()->with('success', "l'annonce a été $msg avec success");
+        }
+
+        return redirect()->back()->with('error', 'error !!!');
+    }
+
+    public function delete(Request $request)
+    {
+
+        $request->validate(['annonceId' => 'required|uuid']);
+
+        $annonce = Annonce::whereUuid($request->annonceId)->firstOrFail();
+
+
+        if ($annonce) {
+
+
+            $annonce->delete();
+
+            return redirect()->back()->with('success', "l'annonce a été supprimer avec success");
+        }
+        return redirect()->back()->with('error', 'Error ...');
     }
 }

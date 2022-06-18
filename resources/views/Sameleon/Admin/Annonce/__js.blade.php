@@ -9,7 +9,7 @@
 
     <script>
         //Warning Message
-        $('.activeBank').change(function() {
+        $('.activeAnnonce').change(function() {
 
                 let messageTitle ='';
                 let messageText ='';
@@ -19,7 +19,7 @@
                 if(this.checked == true)
                 {
                     messageTitle = "Est-ce que vous êtes sûr ?";
-                    messageText  = "Activé la banque";
+                    messageText  = "Activé l'annonce";
 
                     messageConfirm  = "Oui, activer la !";
 
@@ -28,13 +28,13 @@
                 else{
 
                     messageTitle = "Est-ce que vous êtes sûr ?";
-                    messageText = "Désactivé la banque "  ;
+                    messageText = "Désactivé l'annonce"  ;
                     messageConfirm  = "Oui, Désactivé la!";
 
                     messageRetour  = "Désactivé !";
                 }
 
-                let bankCompte = this.getAttribute('data-bank');
+                let annonce = this.getAttribute('data-annonce');
 
                 Swal.fire({
                     title: messageTitle,
@@ -52,11 +52,11 @@
                         //console.log(`activate-bank-${bankCompte}`);
 
                         setTimeout(function() {
-                            document.getElementById(`activate-bank-${bankCompte}`)
+                            document.getElementById(`activate-annonce-${annonce}`)
                                 .submit();
                         }, 1000);
 
-                        Swal.fire(messageRetour, `La banque est ${messageRetour} avec succès.`, "success");
+                        Swal.fire(messageRetour, `l'annonce est ${messageRetour} avec succès.`, "success");
                     }
                 });
             

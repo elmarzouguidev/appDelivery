@@ -42,56 +42,29 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($annonces as $bank)
+                            @foreach ($annonces as $annonce)
                                 <tr>
                                     <td>
                                         <div class="form-check font-size-16">
                                             <input class="form-check-input" type="checkbox"
-                                                id="bank-{{ $bank->id }}">
-                                            <label class="form-check-label" for="bank-{{ $bank->id }}"></label>
+                                                id="annonce-{{ $annonce->id }}">
+                                            <label class="form-check-label" for="annonce-{{ $annonce->id }}"></label>
                                         </div>
                                     </td>
+
                                     <td>
-                                        @if(!is_null($bank->logo))
-                                            <div>
-                                                <img class="img-fluid rounded" alt=""
-                                                    src="{{ asset('storage/' . $bank->logo) }}" width="50">
-                                            </div>
-                                        @endif
+                                        {{ $annonce->title }}
                                     </td>
                                     <td>
-                                        <a href="{{-- $client->url --}}" class="text-body fw-bold">
-                                            {{ $bank->name }}<br>
-                                            <p class="text-muted mb-0">
-                                             users : {{$bank->users_count}}
-                                            </p>
-                                        </a>
+                                        {{ $annonce->description }}
                                     </td>
-                                    <td>
-                                        {{ $bank->code_bank }}
-                                    </td>
-                                    <td>
-                                        {{ $bank->code_swift }}
-                                    </td>
-                                    <td>
-                                        {{ $bank->code_rib }}
-                                        
-                                    </td>
-                                    <td>
-                                        {{ $bank->email }}
-                                        
-                                    </td>
-                                    <td>
-                                        {{ $bank->telephone }}
-                                        
-                                    </td>
-                                    
+                                
                                     <td>
 
                                         <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
-                                            <input data-bank="{{ $bank->uuid }}" class="form-check-input activeBank"
+                                            <input data-annonce="{{ $annonce->uuid }}" class="form-check-input activeAnnonce"
                                                 type="checkbox" id="SwitchCheckSizelg"
-                                                {{ $bank->active == true ? 'checked' : '' }}>
+                                                {{ $annonce->active == true ? 'checked' : '' }}>
 
                                         </div>
                                     </td>
@@ -99,33 +72,33 @@
                                     <td>
                                         <div class="d-flex gap-3">
 
-                                            <a href="{{ route('admin:banks.edit', $bank->uuid) }}"
+                                            {{--<a href="{{ route('admin:banks.edit', $annonce->uuid) }}"
                                                 class="text-success">
                                                 <i class="mdi mdi-pencil font-size-18"></i>
-                                            </a>
+                                            </a>--}}
                                             <a href="#" class="text-danger" onclick="
-                                                var result = confirm('Are you sure you want to delete this bank ?');
+                                                var result = confirm('Are you sure you want to delete this annonce ?');
 
                                                 if(result){
                                                     event.preventDefault();
-                                                    document.getElementById('delete-bank-{{ $bank->uuid }}').submit();
+                                                    document.getElementById('delete-annonce-{{ $annonce->uuid }}').submit();
                                                 }">
                                                 <i class="mdi mdi-delete font-size-18"></i>
                                             </a>
                                         </div>
                                     </td>
-                                    <form id="delete-bank-{{ $bank->uuid }}" method="post"
-                                        action="{{ route('admin:banks.delete') }}">
+                                    <form id="delete-annonce-{{ $annonce->uuid }}" method="post"
+                                        action="{{ route('admin:annonces.delete') }}">
                                         @csrf
                                         @method('DELETE')
-                                        <input type="hidden" name="bankId" value="{{ $bank->uuid }}">
+                                        <input type="hidden" name="annonceId" value="{{ $annonce->uuid }}">
                                     </form>
 
-                                    <form id="activate-bank-{{ $bank->uuid }}" method="post"
-                                        action="{{ route('admin:banks.activate') }}">
+                                    <form id="activate-annonce-{{ $annonce->uuid }}" method="post"
+                                        action="{{ route('admin:annonces.activate') }}">
                                         @csrf
                                         @method('PUT')
-                                        <input type="hidden" name="bankId" value="{{ $bank->uuid }}">
+                                        <input type="hidden" name="annonceId" value="{{ $annonce->uuid }}">
                                     </form>
                                 </tr>
                             @endforeach

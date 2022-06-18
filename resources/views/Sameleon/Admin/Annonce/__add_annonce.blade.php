@@ -8,7 +8,7 @@
             </div>
             <div class="modal-body">
 
-                <form method="post" action="{{ route('admin:cities.store') }}">
+                <form method="post" action="{{ route('admin:annonces.store') }}">
                     @csrf
                     <div class="row mb-4">
                         <label for="title" class="col-form-label col-lg-2">Titre *</label>

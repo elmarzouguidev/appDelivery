@@ -351,4 +351,8 @@ Route::group(['prefix' => 'annonces'], function () {
 
     Route::get('/', [AnnonceController::class, 'index'])->name('annonces.index');
     Route::post('/', [AnnonceController::class, 'store'])->name('annonces.store');
+
+    Route::delete('/delete', [AnnonceController::class, 'delete'])->name('annonces.delete');
+
+    Route::put('/', [AnnonceController::class, 'activate'])->name('annonces.activate');
 });
