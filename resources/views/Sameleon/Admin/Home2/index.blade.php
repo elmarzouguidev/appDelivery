@@ -12,11 +12,11 @@
     </div>
     @php
 
-    $viewed = $annonces->viewed ?? [];
+    $viewedIds = $annonces->viewed ?? [];
 
     @endphp
 
-    @if (auth()->id() && !in_array(auth()->id(), $viewed))
+    @if (auth()->id() && !in_array(auth()->id(), $viewedIds))
 
         @include('Sameleon.Admin.Home2.section.__annonces')
         
