@@ -17,8 +17,11 @@
     @endphp
 
     @if (auth()->id() && !in_array(auth()->id(), $viewed))
+
         @include('Sameleon.Admin.Home2.section.__annonces')
+        
     @endif
+
 @endsection
 
 @section('javascript')

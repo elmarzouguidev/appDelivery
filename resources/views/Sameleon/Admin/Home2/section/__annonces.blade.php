@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header border-bottom-0">
-                <button data-user="{{auth()->user()->uuid}}" type="button" class="btn-close closeAnnonce" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button data-user="{{auth()->user()->uuid}}" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             @php
                 $user = auth()->user()->uuid;
@@ -28,14 +28,18 @@
                             <h5 class="text-primary">{{$annonces->title}}</h5>
                             <p class="text-muted font-size-14 mb-4">{{$annonces->description}}</p>
 
-                            {{--<div class="input-group bg-light rounded">
+                            {{--<div class="input-group rounded">
                                 <input type="email" class="form-control bg-transparent border-0" placeholder="Enter Email address" aria-label="Recipient's username" aria-describedby="button-addon2">
                                 
                                 <button class="btn btn-primary" type="button" id="button-addon2">
-                                    <i class="bx bxs-paper-plane"></i>
+                                     <i class="bx bxs-paper-plane"></i>
                                 </button>
                                 
                             </div>--}}
+
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <button class="btn btn-primary closeAnnonce" type="button">je confirme</button>
+                            </div>
                             
                         </div>
                     </div>

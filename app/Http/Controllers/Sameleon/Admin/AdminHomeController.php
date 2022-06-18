@@ -76,6 +76,6 @@ class AdminHomeController extends Controller
                 $annonce->update(['viewed' => $viewed]);
             }
         }
-        return response()->noContent();
+        return redirect()->back();
     }
 }
