@@ -1,4 +1,9 @@
 @section('css')
+    <style>
+        .tox-tinymce-inline {
+            z-index: 1600 !important;
+        }
+    </style>
     <link href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 
@@ -11,7 +16,7 @@
     <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
 
     <script>
-        //Warning Message
+
         $('.activeAnnonce').change(function() {
 
             let messageTitle = '';

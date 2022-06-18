@@ -9,9 +9,8 @@
         @include('Sameleon.Admin.Annonce.__table')
 
         @include('Sameleon.Admin.Annonce.__add_annonce')
-
     </div>
-
+    
 @endsection
 
 @include('Sameleon.Admin.Annonce.__js')
