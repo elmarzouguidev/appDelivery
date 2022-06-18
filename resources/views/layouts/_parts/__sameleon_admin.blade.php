@@ -126,7 +126,14 @@
 
 @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
     <li class="menu-title" key="t-components">{{ __('navbar.advanced') }}</li>
+    <li>
+        <a href="{{ route('admin:annonces.index') }}" class="waves-effect">
 
+            <i class="bx bx-volume-full"></i>
+            <span key="t-annonces">{{ __('Annonces') }}</span>
+        </a>
+
+    </li>
     <li>
         <a href="javascript: void(0);" class="has-arrow waves-effect">
             <i class="bx bx-bar-chart-alt-2"></i>

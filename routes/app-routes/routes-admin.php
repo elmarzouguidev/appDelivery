@@ -8,6 +8,7 @@ use App\Http\Controllers\Sameleon\Admin\Admin\SettingController;
 use App\Http\Controllers\Sameleon\Admin\Admin\ProfilController;
 use App\Http\Controllers\Sameleon\Admin\Admin\SourceController;
 use App\Http\Controllers\Sameleon\Admin\AdminHomeController;
+use App\Http\Controllers\Sameleon\Admin\Annonce\AnnonceController;
 use App\Http\Controllers\Sameleon\Admin\Bank\BankController;
 use App\Http\Controllers\Sameleon\Admin\City\AdminCityController;
 use App\Http\Controllers\Sameleon\Admin\Client\ClientController;
@@ -343,5 +344,11 @@ Route::group(['prefix' => 'account'], function () {
 Route::group(['prefix' => 'apps'], function () {
 
     Route::get('/', [AppsController::class, 'index'])->name('apps.index');
+});
 
+
+Route::group(['prefix' => 'annonces'], function () {
+
+    Route::get('/', [AnnonceController::class, 'index'])->name('annonces.index');
+    Route::post('/', [AnnonceController::class, 'store'])->name('annonces.store');
 });
