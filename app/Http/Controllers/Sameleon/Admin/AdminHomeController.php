@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Sameleon\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Sameleon\Annonce;
 use App\Models\Sameleon\User;
 use App\Repositories\Bill\BillInterface;
 use App\Status\Status;
@@ -50,5 +51,31 @@ class AdminHomeController extends Controller
         $payments = app(BillInterface::class)->getBills();
 
         return view('Sameleon.Admin.Home2.index', compact('deliviers', 'chart', 'chart2', 'payments'));
+    }
+
+    public function viewAnnonce(Request $request)
+    {
+
+        $request->validate(['annonceId' => ['required', 'uuid'], 'userId' => ['required', 'uuid']]);
+
+        $annonce = Annonce::whereUuid($request->annonceId)->first();
+
+        $user = auth()->id();
+
+        if ($annonce) {
+
+            $viewed = $annonce->viewed ?? [];
+
+            if ($user && !in_array($user, $viewed)) {
+
+                $viewed = array_merge(
+                    $viewed,
+                    [$user]
+                );
+
+                $annonce->update(['viewed' => $viewed]);
+            }
+        }
+        return response()->noContent();
     }
 }

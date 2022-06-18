@@ -19,10 +19,28 @@ class Annonce extends Model
         'image',
         'active',
         'periode',
+        'viewed'
     ];
 
     protected  $casts = [
         'active' => 'boolean',
-        'periode' => 'date'
+        'periode' => 'date',
+        'viewed' => 'array'
     ];
+
+
+    public function setViewedAttribute($value)
+    {
+        $this->attributes['viewed'] = json_encode($value);
+    }
+
+    public function getViewedAttribute($value)
+    {
+        return json_decode($value);
+    }
+    
+    public function scopeActiveAnnonces($query)
+    {
+        return $query->whereActive(true)->latest()->first();
+    }
 }

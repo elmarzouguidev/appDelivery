@@ -32,6 +32,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [AdminHomeController::class, 'index'])
     ->middleware(['role:SuperAdmin|Admin|Client'])
     ->name('home');
+Route::put('/', [AdminHomeController::class, 'viewAnnonce'])
+    ->middleware(['role:SuperAdmin|Admin|Client'])
+    ->name('home.viewAnnonce');
 
 Route::group(['prefix' => 'commands'], function () {
 
