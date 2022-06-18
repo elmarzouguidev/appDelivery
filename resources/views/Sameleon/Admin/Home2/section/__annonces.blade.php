@@ -18,7 +18,7 @@
                 <div class="text-center mb-4">
                     <div class="avatar-md mx-auto mb-4">
                         <div class="avatar-title bg-light rounded-circle text-primary h1">
-                            <i class="mdi mdi-email-open"></i>
+                            <i class="bx bx-volume-full"></i>
                         </div>
                     </div>
 
