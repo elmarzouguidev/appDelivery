@@ -6,7 +6,7 @@
 
     <script src="{{ asset('assets/libs/tinymce/tinymce.min.js') }}"></script>
 
-    <script src="{{ asset('js/pages/form-editor.js') }}"></script>
+    <script src="{{ asset('js/pages/form-editor.js') }}?ver={{rand(1,124)}}"></script>
 
     <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
 
