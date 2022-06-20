@@ -18,13 +18,12 @@ class AdminHomeController extends Controller
     {
         $deliviers = User::role('Delivery')
             ->withCount('commandsDelivery')
-
             ->get();
 
         $chart_options = [
             'chart_title' => 'Compte Client',
             'report_type' => 'group_by_date',
-            'model' => 'App\Models\Sameleon\User',
+            'model' => 'App\Models\Sameleon\Client',
             'group_by_field' => 'created_at',
             'group_by_period' => 'month',
             'chart_type' => 'bar',

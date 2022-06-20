@@ -24,6 +24,7 @@ class ClientSeed extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('123456789@'),
             'remember_token' => Str::random(10),
+            'is_client' => true,
         ];
 
         $user2 =  [
@@ -34,6 +35,7 @@ class ClientSeed extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('123456789@'),
             'remember_token' => Str::random(10),
+            'is_client' => true,
         ];
 
         $client = User::whereEmail('client@gmail.com')->first();

@@ -66,7 +66,8 @@ class ClientController extends Controller
 
         $client->type = $request->type;
         $client->cnie = $request->cnie;
-
+        $client->is_client = true;
+        
         $pass = $request->email;
 
         if ($request->boolean('generate_password')) {
@@ -77,7 +78,7 @@ class ClientController extends Controller
         $client->password = Hash::make($pass);
 
         $client->city()->associate($request->city);
-
+       
         $client->save();
 
         $client->assignRole('Client');

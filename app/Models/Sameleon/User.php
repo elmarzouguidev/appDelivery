@@ -217,6 +217,11 @@ class User extends Authenticatable
         return $this->morphMany(Metric::class, 'metricable');
     }
 
+    public function clients()
+    {
+        return self::where('is_admin', false)->get();
+    }
+
     public function scopeWithLastLogin($query)
     {
         return $query->addSelect([
