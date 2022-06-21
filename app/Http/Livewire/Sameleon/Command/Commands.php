@@ -285,7 +285,7 @@ class Commands extends Component
 
                     $command->update(['status' => $status]);
 
-                    if (!$prod->inStock() && !$prod->inStock($qte)) {
+                    if (!$prod->inStock() || !$prod->inStock($qte)) {
 
                         $prod->update(['is_out' => true]);
 
