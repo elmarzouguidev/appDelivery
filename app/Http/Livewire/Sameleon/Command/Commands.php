@@ -277,7 +277,7 @@ class Commands extends Component
 
                     $qte = (int)$item->quantity;
 
-                    if ($prod->qte_livre > 0 || $prod->qte_livre == $qte) {
+                    if ($prod->qte_livre > $qte || $prod->qte_livre == $qte) {
                         $prod->increaseStock($qte);
                         $prod->decrement('qte_livre',  $qte);
                         $prod->decrement('total_commands',  $qte);
