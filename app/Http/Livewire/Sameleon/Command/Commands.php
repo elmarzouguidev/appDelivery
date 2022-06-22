@@ -113,8 +113,9 @@ class Commands extends Component
                 ->withSum('items', 'prix_total')
                 ->withCount('invoice')
                 ->with(['invoice:uuid,id,full_number,cloture', 'city:id,name'])
-                ->orderByRaw('FIELD(`status`,"1","5","16","3")')
                 ->orderByRaw("created_at DESC")
+                ->orderByRaw('FIELD(`status`,"1","5","16","3")')
+               
                 ->paginate(60);
 
             //dd( $commands);
@@ -129,9 +130,9 @@ class Commands extends Component
                 ->withSum('items', 'prix_total')
                 //->with('products.stock')
                 ->with(['city:id,name'])
-
-                ->orderByRaw('FIELD(`status`,"1","5","16","3")')
                 ->orderByRaw("created_at DESC")
+                ->orderByRaw('FIELD(`status`,"1","5","16","3")')
+                
                 ->paginate(60);
             $delivries = [];
 
