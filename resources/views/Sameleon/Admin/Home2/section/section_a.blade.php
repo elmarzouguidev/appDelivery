@@ -22,8 +22,8 @@
                                     <img class="img-thumbnail rounded-circle" alt=""
                                         src="{{ asset('storage/' . auth()->user()->logo) }}" width="50">
                             @else
-                            <img src="{{asset('assets/images/users/avatar-1.jpg')}}" alt="" class="img-thumbnail rounded-circle">
-  
+                              <img src="{{ asset('images/logo.png') }}" alt="" class="img-thumbnail rounded-circle" width="60">
+   
                             @endif
                         </div>
                         
