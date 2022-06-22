@@ -145,8 +145,8 @@ class Commands extends Component
                 ->withSum('items', 'prix_total')
                 ->withCount('invoice')
                 ->with(['invoice:uuid,id,full_number,cloture', 'city:id,name', 'delivery:id,nom,prenom', 'client:id,nom,prenom'])
-                ->orderByRaw('FIELD(`status`,"1","5","16","3")')
                 ->orderByRaw("created_at DESC")
+                ->orderByRaw('FIELD(`status`,"1","5","16","3")')
                 ->paginate(60);
             $delivries = User::role('Delivery')->select(['uuid', 'id', 'nom', 'prenom'])->get();
         }
