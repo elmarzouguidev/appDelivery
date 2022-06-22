@@ -46,7 +46,9 @@
         <a href="{{ route('admin:clients.index') }}" class="waves-effect">
 
             <i class="bx bxs-user-detail"></i>
-
+            @if ($new_users)
+                <span class="badge rounded-pill bg-info float-end">{{ $new_users }}</span>
+            @endif
             <span key="t-clients">{{ __('Clients') }}</span>
         </a>
 

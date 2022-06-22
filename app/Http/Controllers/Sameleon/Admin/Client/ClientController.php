@@ -67,7 +67,7 @@ class ClientController extends Controller
         $client->type = $request->type;
         $client->cnie = $request->cnie;
         $client->is_client = true;
-        
+
         $pass = $request->email;
 
         if ($request->boolean('generate_password')) {
@@ -78,7 +78,7 @@ class ClientController extends Controller
         $client->password = Hash::make($pass);
 
         $client->city()->associate($request->city);
-       
+
         $client->save();
 
         $client->assignRole('Client');
@@ -132,6 +132,11 @@ class ClientController extends Controller
         if ($client) {
 
             $client->update(['active' => !$client->active]);
+
+            if ($client->active) {
+                
+                $client->update(['actived_at' => now()]);
+            }
 
             $client->active ? $msg = "activé" : $msg = "desactivé";
 

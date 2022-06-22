@@ -45,7 +45,8 @@ class User extends Authenticatable
         'is_completed',
         'public_key_api',
         'secret_key_api',
-        'last_seen'
+        'last_seen',
+        'actived_at'
     ];
 
     /**
@@ -231,6 +232,11 @@ class User extends Authenticatable
                 ->orderBy('logged_in_at', 'desc')
                 ->limit(1),
         ])->with(['lastLogin'])->first();
+    }
+
+    public function scopeDisabledUsers($query)
+    {
+        return $query->where('is_client',true)->where('actived_at', null)->count();
     }
 
     //https://laravel.com/docs/8.x/collections#method-pop
