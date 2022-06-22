@@ -9,8 +9,10 @@
     <li class="menu-title" key="t-stock">Stock</li>
     <li>
         <a href="{{ route('admin:products.index') }}">
-            @if ($new_products)
-                <span class="badge rounded-pill bg-info float-end">{{ $new_products }}</span>
+            @if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin'))
+                @if ($new_products)
+                    <span class="badge rounded-pill bg-info float-end">{{ $new_products }}</span>
+                @endif
             @endif
             <i class="bx bx-store"></i>
             <span key="t-products">{{ __('Produits') }}</span>

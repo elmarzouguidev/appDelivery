@@ -43,7 +43,7 @@ class ReclamationController extends Controller
 
         $reclamation->message = $request->message;
 
-        $reclamation->priority = $request->priority;
+        //$reclamation->priority = $request->priority;
 
         $reclamation->user_id = auth()->id();
 
