@@ -107,7 +107,6 @@ class Product extends Model implements HasMedia
     public function scopeFilterClient(Builder $query, $clientId): Builder
     {
         return $query->where('user_id', $clientId);
-
     }
 
     public function scopeFilterStock(Builder $query, $stock): Builder
@@ -118,6 +117,11 @@ class Product extends Model implements HasMedia
     public function scopeFilterDate(Builder $query, $date): Builder
     {
         return $query->where('created_at', Carbon::createFromFormat('m/d/Y', $date)->format('Y-m-d'));
+    }
+
+    public function scopeNewProducts($query)
+    {
+        return $query->latest()->count();
     }
 
     public static function boot()
