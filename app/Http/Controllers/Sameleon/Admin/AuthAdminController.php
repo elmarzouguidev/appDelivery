@@ -42,7 +42,7 @@ class AuthAdminController extends Controller
 
             Auth::logout();
 
-            return redirect(route('admin:auth:login'))->withErrors(["votre compte n'est pas encore activé"]);
+            return redirect(route('admin:auth:login'))->withErrors(["Votre compte n'est pas encore activé"]);
         }
     }
 

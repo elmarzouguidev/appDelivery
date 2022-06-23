@@ -74,6 +74,9 @@ class User extends Authenticatable
     ];
 
 
+    /**
+     * used for spatie/permissions
+     */
     public $guard_name = 'admin';
 
     protected function fullName(): Attribute

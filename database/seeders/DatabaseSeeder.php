@@ -29,7 +29,11 @@ class DatabaseSeeder extends Seeder
     $this->call(CitySeeder::class);
 
     $this->call(AdminSeeder::class);
+
+    Artisan::call('config:clear');
     
+    Artisan::call('cache:clear');
+
     $this->call(ClientSeed::class);
 
     $this->call(DeliverySeeder::class);

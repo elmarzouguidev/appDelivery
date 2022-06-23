@@ -6,6 +6,7 @@ use App\Models\Sameleon\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Permission;
 
 class ClientSeed extends Seeder
 {
@@ -16,6 +17,9 @@ class ClientSeed extends Seeder
      */
     public function run()
     {
+
+        $permissions = Permission::all()->pluck('name');
+
         $user =  [
             'nom' => 'Ahmed',
             'prenom' => 'Ouahdi',
@@ -31,7 +35,7 @@ class ClientSeed extends Seeder
             'nom' => 'khalid',
             'prenom' => 'client',
             'telephone' => '0677512758',
-            'email' => 'clients@gmail.com',
+            'email' => 'client2@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('123456789@'),
             'remember_token' => Str::random(10),
@@ -49,11 +53,16 @@ class ClientSeed extends Seeder
 
             $newAdmin2 =  User::create($user2);
             $newAdmin2->assignRole('Client');
-            
+
+            $newAdmin->syncPermissions($permissions);
+            $newAdmin2->syncPermissions($permissions);
         } else {
 
             $client->assignRole('Client');
             $client2->assignRole('Client');
+
+            $client->syncPermissions($permissions);
+            $client2->syncPermissions($permissions);
         }
     }
 }
