@@ -9,6 +9,7 @@ use App\Models\Sameleon\User;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
 
 class RegisterController extends Controller
 {
@@ -21,6 +22,7 @@ class RegisterController extends Controller
 
     public function store(FirstRegisterRequest $request)
     {
+        $permissions = Permission::all()->pluck('name');
 
         $user = new User();
         $user->nom = $request->nom;
@@ -34,6 +36,8 @@ class RegisterController extends Controller
         $user->save();
 
         $user->assignRole('Client');
+
+        $user->syncPermissions($permissions);
 
         //return redirect()->back()->with('success', 'Votre compte a été crée  avec success ');
 

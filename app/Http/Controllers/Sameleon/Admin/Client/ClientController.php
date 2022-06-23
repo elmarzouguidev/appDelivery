@@ -56,6 +56,8 @@ class ClientController extends Controller
 
         $this->authorize('create', User::class);
 
+        $permissions = Permission::all()->pluck('name');
+
         $client = new User();
 
         $client->nom = $request->nom;
@@ -82,6 +84,8 @@ class ClientController extends Controller
         $client->save();
 
         $client->assignRole('Client');
+
+        $client->syncPermissions($permissions);
 
         if ($request->boolean('generate_password') && CheckConnection::isConnected()) {
 
