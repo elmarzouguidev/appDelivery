@@ -7,6 +7,7 @@ use App\Http\Requests\Sameleon\Product\ProductFormRequest;
 use App\Http\Requests\Sameleon\Product\ProductUpdateFormRequest;
 use App\Models\Sameleon\Product;
 use App\Models\Sameleon\User;
+use App\Notifications\ProductCreated;
 use App\Repositories\Client\ClientInterface;
 use App\Repositories\Product\ProductInterface;
 use Illuminate\Http\Request;
@@ -14,7 +15,7 @@ use Illuminate\Support\Str;
 
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
-
+use Illuminate\Support\Facades\Notification;
 class AdminProductController extends Controller
 {
 
@@ -42,6 +43,7 @@ class AdminProductController extends Controller
         }*/
 
         $products = app(ProductInterface::class)->getProducts();
+
         $clients = app(ClientInterface::class)->getClients();
 
         return view('Sameleon.Admin.Product.__normal_table.index', compact('products', 'clients'));
@@ -89,6 +91,14 @@ class AdminProductController extends Controller
 
             $product->addMediaFromRequest('photo')->toMediaCollection('products_photos');
         }
+
+        $delay = now()->addMinutes(10);
+ 
+        //$user->notify((new ProductCreated($product))->delay($delay));
+
+        $users = User::role('SuperAdmin')->get();
+
+        Notification::send($users, new ProductCreated($product));
 
         return redirect(route('admin:products.index'))->with('success', "le produit a été ajouté avec succès");
     }

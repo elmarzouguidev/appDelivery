@@ -49,6 +49,12 @@ class AdminHomeController extends Controller
 
         $payments = app(BillInterface::class)->getBills();
 
+       // dd(auth()->user()->unreadNotifications);
+        /*foreach(auth()->user()->unreadNotifications as $notification)
+        {
+            dd($notification);
+        }*/
+
         return view('Sameleon.Admin.Home2.index', compact('deliviers', 'chart', 'chart2', 'payments'));
     }
 

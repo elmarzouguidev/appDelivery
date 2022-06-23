@@ -27,12 +27,12 @@
             </button>
 
             <!-- App Search-->
-            {{--<form class="app-search d-none d-lg-block">
+            {{-- <form class="app-search d-none d-lg-block">
                 <div class="position-relative">
                     <input type="text" class="form-control" placeholder="Chercher...">
                     <span class="bx bx-search-alt"></span>
                 </div>
-            </form>--}}
+            </form> --}}
 
 
         </div>
@@ -86,14 +86,14 @@
             </div>
 
             <div class="dropdown d-inline-block">
-                @if(!auth()->user()->completProfile())
-                    <button type="button" class="btn header-item noti-icon waves-effect"
-                        id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                        <i class="bx bx-bell bx-tada"></i>
-                        <span class="badge bg-danger rounded-pill">1</span>
-                    </button>
-                @endif
+
+                <button type="button" class="btn header-item noti-icon waves-effect"
+                    id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    <i class="bx bx-bell bx-tada"></i>
+                    <span class="badge bg-danger rounded-pill">{{auth()->user()->unreadNotifications->count()}}</span>
+                </button>
+
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
                     aria-labelledby="page-header-notifications-dropdown">
                     <div class="p-3">
@@ -106,31 +106,37 @@
                             </div>
                         </div>
                     </div>
-                    @if(!auth()->user()->completProfile())
-                    <div data-simplebar style="max-height: 230px;">
-                        <a href="{{ route('admin:profil') }}" class="text-reset notification-item">
-                            <div class="d-flex">
-                                <div class="avatar-xs me-3">
-                                    <span class="avatar-title bg-primary rounded-circle font-size-16">
-                                        <i class="bx bx-user"></i>
-                                    </span>
-                                </div>
-                                 <div class="flex-grow-1">
-                                    <h6 class="mb-1" key="t-your-order">compléter votre profil</h6>
-                                    <div class="font-size-12 text-muted">
-                                        <p class="mb-1" key="t-grammer">
-                                            nous vous invitons à compléter votre profil
-                                        </p>
-                                        {{--<p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span
-                                                key="t-min-ago">3 min ago</span></p>--}}
+                    @forelse (auth()->user()->unreadNotifications as $notification)
+                        <div data-simplebar style="max-height: 230px;">
+                            <a href="#" class="text-reset notification-item">
+                                <div class="d-flex">
+    
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-1" key="t-your-order">Nouveau produit créer</h6>
+                                        <div class="font-size-12 text-muted">
+                                            <p class="mb-1" key="t-grammer">
+                                                <b>{{ $notification->data['client'] }}</b> a crée le produit : <b>{{ $notification->data['name'] }}</b>
+                                            </p>
+                                            <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span
+                                                    key="t-min-ago">
+                                                    {{ $notification->created_at->diffForHumans() }}
+                                                </span>
+                                            </p>
+                                            
+                                        </div>
+                      
                                     </div>
+
                                 </div>
-                                
-                            </div>
-                        </a>
-                    </div>
-                    @endif
-                    
+                            </a>
+                        </div>
+
+                    @empty
+
+                        <div class="p-2 border-top d-grid">
+                            aucune notification pour le moment
+                        </div>
+                    @endforelse
                     <div class="p-2 border-top d-grid">
                         <a class="btn btn-sm btn-link font-size-14 text-center" href="javascript:void(0)">
                             <i class="mdi mdi-arrow-right-circle me-1"></i> <span key="t-view-more">View More..</span>
@@ -181,7 +187,7 @@
                     </a>
 
                     <div class="dropdown-divider"></div>
-                    
+
                     <a class="dropdown-item d-block" href="{{ route('admin:history') }}">
 
                         <i class="bx bx-history font-size-16 align-middle me-1"></i>
