@@ -87,5 +87,7 @@ class Kernel extends HttpKernel
         'cache_response' => \App\Http\Middleware\Cache\CacheResponseMiddleware::class,
 
         'woocommerce' => \App\Http\Middleware\Hooks\VerifyWoocommerceMiddleware::class,
+
+        'prevent-back-history' => \App\Http\Middleware\PreventBackHistory::class,
     ];
 }

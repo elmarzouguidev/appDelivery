@@ -76,13 +76,13 @@ class RouteServiceProvider extends ServiceProvider
     private function adminRoutes()
     {
 
-        Route::middleware(['web'])
+        Route::middleware(['web', 'prevent-back-history'])
             ->prefix('app')
             ->name('admin:auth:')
             ->namespace($this->namespace)
             ->group(base_path('routes/app-routes/login-admin.php'));
 
-        Route::middleware(['web', 'auth'])
+        Route::middleware(['web', 'prevent-back-history', 'auth'])
             ->prefix('app')
             ->name('admin:')
             ->namespace($this->namespace)
