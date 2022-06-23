@@ -10,3 +10,30 @@
         }, 1000);
     });
 </script>
+@if(auth()->user()->is_admin)
+    <script>
+    function sendMarkRequest(id = null) {
+        return $.ajax("{{ route('admin:home.read.notifications') }}", {
+            method: 'PUT',
+            data: {
+                _token,
+                id
+            }
+        });
+    }
+    $(function() {
+        $('.mark-as-read').click(function() {
+            let request = sendMarkRequest($(this).data('id'));
+            request.done(() => {
+                $(this).parents('div.alert').remove();
+            });
+        });
+        $('#mark-all').click(function() {
+            let request = sendMarkRequest();
+            request.done(() => {
+                $('div.alert').remove();
+            })
+        });
+    });
+    </script>
+@endif

@@ -49,7 +49,7 @@ class AdminHomeController extends Controller
 
         $payments = app(BillInterface::class)->getBills();
 
-       // dd(auth()->user()->unreadNotifications);
+        // dd(auth()->user()->unreadNotifications);
         /*foreach(auth()->user()->unreadNotifications as $notification)
         {
             dd($notification);
@@ -82,5 +82,13 @@ class AdminHomeController extends Controller
             }
         }
         return redirect()->back();
+    }
+
+    public function markNotification(Request $request)
+    {
+        auth()->user()
+            ->unreadNotifications->each->markAsRead();
+ 
+        return response()->noContent();
     }
 }

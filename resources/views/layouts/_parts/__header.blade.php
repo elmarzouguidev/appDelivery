@@ -138,8 +138,17 @@
                         </div>
                     @endforelse
                     <div class="p-2 border-top d-grid">
-                        <a class="btn btn-sm btn-link font-size-14 text-center" href="javascript:void(0)">
-                            <i class="mdi mdi-arrow-right-circle me-1"></i> <span key="t-view-more">View More..</span>
+                        <form id="readAllNotifications" method="post" action="{{ route('admin:home.read.notifications') }}">
+                            @csrf
+                            @method('PUT')
+    
+                        </form>
+                        <a class="btn btn-sm btn-link font-size-14 text-center" 
+                            href="#"
+                            onclick="document.getElementById('readAllNotifications').submit();"
+                        >
+                            <i class="mdi mdi-arrow-right-circle me-1"></i> <span key="t-view-more">
+                                tout marquer comme lu</span>
                         </a>
                     </div>
                 </div>

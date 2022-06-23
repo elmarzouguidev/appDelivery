@@ -36,6 +36,10 @@ Route::put('/', [AdminHomeController::class, 'viewAnnonce'])
     ->middleware(['role:SuperAdmin|Admin|Client'])
     ->name('home.viewAnnonce');
 
+Route::put('/read-notifications', [AdminHomeController::class, 'markNotification'])
+    ->middleware(['role:SuperAdmin|Admin|Client'])
+    ->name('home.read.notifications');    
+
 Route::group(['prefix' => 'commands'], function () {
 
     Route::get('/', [AdminCommandController::class, 'index'])->name('commands.index');
