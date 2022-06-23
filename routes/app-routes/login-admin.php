@@ -4,6 +4,8 @@ use App\Http\Controllers\Sameleon\Admin\AuthAdminController;
 use App\Http\Controllers\Sameleon\Web\RegisterController;
 use Illuminate\Support\Facades\Route;
 
+
+
 Route::get('/login', [AuthAdminController::class, 'loginForm'])->name('login');
 
 Route::post('/login', [AuthAdminController::class, 'login'])->middleware('throttle:login')->name('loginPost');

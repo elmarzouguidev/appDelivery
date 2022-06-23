@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/app')->name('home');
 
+Route::redirect('/login', '/app/login')->name('login');
+
 Route::group(['prefix' => 'views', 'middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'invoices'], function () {

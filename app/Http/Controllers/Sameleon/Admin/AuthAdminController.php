@@ -34,6 +34,9 @@ class AuthAdminController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
+
+        Auth::logoutOtherDevices($request->password);
+
         if (!Auth::user()->isActive()) {
 
             Auth::logout();
