@@ -5,7 +5,9 @@
 
         @include('Sameleon.Admin.Command.__title')
 
-        @livewire('sameleon.command.commands')
+        {{--@livewire('sameleon.command.commands')--}}
+
+        <h1>Maintenance</h1>
 
         @include('Sameleon.Admin.Command.__datatable.__add_command_modal')
             
