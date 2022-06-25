@@ -189,13 +189,13 @@
 
                     <div class="dropdown-divider"></div>
 
-                    <a class="dropdown-item d-block" href="{{ route('admin:profile.sources.index') }}">
+                    {{--<a class="dropdown-item d-block" href="{{ route('admin:profile.sources.index') }}">
 
                         <i class="bx bx-stats font-size-16 align-middle me-1"></i>
                         <span key="t-sources">Source de données</span>
                     </a>
 
-                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-divider"></div>--}}
 
                     <a class="dropdown-item d-block" href="{{ route('admin:history') }}">
 

@@ -24,12 +24,12 @@
                             Facturation
                         </a>
                     </li>
-                    <li>
+                    {{--<li>
                         <a href="{{ route('admin:settings.integrations.index') }}" class="py-2 d-block">
                             <i class="bx bx-shape-square"></i>
                             Integrations
                         </a>
-                    </li>
+                    </li>--}}
                     {{--<li>
                         <a href="javascript: void(0);" class="text-muted py-2 d-block">
                             <i class="mdi mdi-chevron-right me-1"></i> Development <span

@@ -1,19 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
+
     <div class="container-fluid">
 
         @include('Sameleon.Admin.Command.__title')
 
-        {{--@livewire('sameleon.command.commands')--}}
+        @livewire('sameleon.command.commands')
 
-        <h1>Maintenance</h1>
+        {{--<h1>Maintenance</h1>--}}
 
         @include('Sameleon.Admin.Command.__datatable.__add_command_modal')
             
         @include('Sameleon.Admin.Command.__datatable.__import_command')
             
     </div>
+
 @endsection
 
 @section('css')
