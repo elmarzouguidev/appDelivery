@@ -114,7 +114,7 @@ class Commands extends Component
                 ->withCount('invoice')
                 ->with(['invoice:uuid,id,full_number,cloture', 'city:id,name'])
                 ->orderByRaw("created_at DESC")
-                ->orderByRaw('FIELD(`status`,"1","5","16","3")')
+                ->orderByRaw('FIELD(`status`,"1","5","16","18","3")')
                
                 ->paginate(60);
 
@@ -131,7 +131,7 @@ class Commands extends Component
                 //->with('products.stock')
                 ->with(['city:id,name'])
                 ->orderByRaw("created_at DESC")
-                ->orderByRaw('FIELD(`status`,"1","5","16","3")')
+                ->orderByRaw('FIELD(`status`,"1","5","16","18","3")')
                 
                 ->paginate(60);
             $delivries = [];
@@ -146,7 +146,7 @@ class Commands extends Component
                 ->withCount('invoice')
                 ->with(['invoice:uuid,id,full_number,cloture', 'city:id,name', 'delivery:id,nom,prenom', 'client:id,nom,prenom'])
                 //->orderByRaw("created_at DESC")
-                ->orderByRaw('FIELD(`status`,"1","5","16","3","18")')
+                ->orderByRaw('FIELD(`status`,"1","5","16","18","3")')
                 ->paginate(60);
             $delivries = User::role('Delivery')->select(['uuid', 'id', 'nom', 'prenom'])->get();
         }
