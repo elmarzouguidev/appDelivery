@@ -105,7 +105,7 @@ class Commands extends Component
 
         $command = new ItemsQuery(new Command, $this->filter);
 
-        $orderedStatuses = implode(',', [Status::NON_TRAITE, Status::LIVRE, Status::REFUSE, Status::ENCOURS]);
+        $orderedStatuses = implode(',', [Status::NON_TRAITE, Status::REFUSE, Status::ENCOURS, Status::RETOURNE,Status::LIVRE]);
 
         if (auth()->user()->hasRole('Client')) {
 
@@ -135,7 +135,7 @@ class Commands extends Component
                 ->orderByRaw("created_at DESC")
                 ->orderByRaw("FIELD(status, $orderedStatuses)")
                 ->paginate(60);
-                
+
             $delivries = [];
 
             return view('livewire.sameleon.command.commands-delivery', compact('commands', 'delivries'));
