@@ -147,7 +147,7 @@ class Commands extends Component
                 ->withCount('invoice')
                 ->with(['invoice:uuid,id,full_number,cloture', 'city:id,name', 'delivery:id,nom,prenom', 'client:id,nom,prenom'])
                 //->orderByRaw("created_at DESC")
-                ->orderBy('is_closed', 0)
+                ->orderBy('is_closed', 'asc')
                 ->orderByRaw("FIELD(status, $orderedStatuses)")
                 ->paginate(60);
 
