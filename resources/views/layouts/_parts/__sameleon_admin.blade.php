@@ -147,8 +147,8 @@
             <span key="t-ci-reg">{{ __('Statistiques ') }}</span>
         </a>
         <ul class="sub-menu" aria-expanded="false">
-            <li><a href="{{ route('admin:metrics.delivery') }}" key="t-metrics">{{ __('Livreurs') }}</a></li>
-
+            <li><a href="{{ route('admin:metrics.delivery') }}" key="t-metrics-delivery">{{ __('Livreurs') }}</a></li>
+            <li><a href="{{ route('admin:metrics.cities') }}" key="t-metrics-cities">{{ __('Villes') }}</a></li>
         </ul>
     </li>
     <li>

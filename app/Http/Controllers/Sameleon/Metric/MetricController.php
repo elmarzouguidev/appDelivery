@@ -31,4 +31,9 @@ class MetricController extends Controller
 
         return view('Sameleon.Admin.Metric.delivery.index', compact('users','chart'));
     }
+
+    public function cities()
+    {
+        return view('Sameleon.Admin.Metric.city.index'); 
+    }
 }

@@ -274,9 +274,9 @@ Route::group(['prefix' => 'groups'], function () {
 Route::group(['prefix' => 'metrics'], function () {
 
     Route::get('/delivery', [MetricController::class, 'delivery'])->name('metrics.delivery');
+
+    Route::get('/cities', [MetricController::class, 'cities'])->name('metrics.cities');
 });
-
-
 
 
 
