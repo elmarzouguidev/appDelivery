@@ -105,7 +105,7 @@ class Commands extends Component
 
         $command = new ItemsQuery(new Command, $this->filter);
 
-        $orderedStatuses = implode(',', [Status::NON_TRAITE, Status::ENCOURS, Status::REFUSE, Status::LIVRE, Status::RETOURNE]);
+        $orderedStatuses = implode(',', [Status::NON_TRAITE, Status::ENCOURS, Status::REFUSE, Status::REPORTE, Status::LIVRE, Status::RETOURNE]);
 
         if (auth()->user()->hasRole('Client')) {
 
