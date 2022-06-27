@@ -23,7 +23,7 @@ class AdminHomeController extends Controller
         $chart_options = [
             'chart_title' => 'Compte Client',
             'report_type' => 'group_by_date',
-            'model' => 'App\Models\Sameleon\Client',
+            'model' => 'App\Models\Sameleon\Chart\Client',
             'group_by_field' => 'created_at',
             'group_by_period' => 'month',
             'chart_type' => 'bar',
@@ -49,17 +49,17 @@ class AdminHomeController extends Controller
             $chart_optionss = [
                 'chart_title' => 'Commands par mois',
                 'report_type' => 'group_by_date',
-                'model' => 'App\Models\Sameleon\Command',
+                'model' => 'App\Models\Sameleon\Chart\CommandChart',
                 'group_by_field' => 'created_at',
                 'group_by_period' => 'month',
                 'chart_type' => 'bar',
                 'filter_field' => 'created_at',
                 'filter_days' => 30, // show only last 30 days
                 'chart_color' => '47, 83, 147',
-                'conditions'=> [
+                /*'conditions'=> [
                     ['condition' => "user_id = $userId", 'color' => 'blue', 'fill' => true],
     
-                ],
+                ],*/
             ];
         }
 

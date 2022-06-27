@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Sameleon;
+namespace App\Models\Sameleon\Chart;
 
 use App\Scopes\ClientScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
