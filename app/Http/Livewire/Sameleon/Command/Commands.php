@@ -105,6 +105,8 @@ class Commands extends Component
 
         $command = new ItemsQuery(new Command, $this->filter);
 
+        $orderedStatuses = implode(',', [Status::NON_TRAITE, Status::LIVRE, Status::REFUSE, Status::ENCOURS]);
+
         if (auth()->user()->hasRole('Client')) {
 
             $commands =  $command->where('user_id', auth()->id())
@@ -114,8 +116,8 @@ class Commands extends Component
                 ->withCount('invoice')
                 ->with(['invoice:uuid,id,full_number,cloture', 'city:id,name'])
                 ->orderByRaw("created_at DESC")
-                ->orderByRaw('FIELD(`status`,"1","5","16","18","3")')
-               
+                ->orderByRaw("FIELD(status, $orderedStatuses)")
+
                 ->paginate(60);
 
             //dd( $commands);
@@ -131,14 +133,13 @@ class Commands extends Component
                 //->with('products.stock')
                 ->with(['city:id,name'])
                 ->orderByRaw("created_at DESC")
-                ->orderByRaw('FIELD(`status`,"1","5","16","18","3")')
-                
+                ->orderByRaw("FIELD(status, $orderedStatuses)")
                 ->paginate(60);
+                
             $delivries = [];
 
             return view('livewire.sameleon.command.commands-delivery', compact('commands', 'delivries'));
         } else {
-            $status = [Status::NON_TRAITE, Status::ENCOURS, Status::LIVRE, Status::REFUSE];
 
             $commands = $command
                 ->with('items')
@@ -146,8 +147,9 @@ class Commands extends Component
                 ->withCount('invoice')
                 ->with(['invoice:uuid,id,full_number,cloture', 'city:id,name', 'delivery:id,nom,prenom', 'client:id,nom,prenom'])
                 //->orderByRaw("created_at DESC")
-                ->orderByRaw('FIELD(`status`,"1","5","16","18","3")')
+                ->orderByRaw("FIELD(status, $orderedStatuses)")
                 ->paginate(60);
+
             $delivries = User::role('Delivery')->select(['uuid', 'id', 'nom', 'prenom'])->get();
         }
 
