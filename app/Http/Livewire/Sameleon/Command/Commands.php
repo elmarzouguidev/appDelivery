@@ -105,7 +105,7 @@ class Commands extends Component
 
         $command = new ItemsQuery(new Command, $this->filter);
 
-        $orderedStatuses = implode(',', [Status::NON_TRAITE, Status::ENCOURS, Status::REFUSE, Status::REPORTE, Status::LIVRE, Status::RETOURNE]);
+        $commandStatus = implode(',', [Status::NON_TRAITE, Status::ENCOURS, Status::REPORTE, Status::REFUSE, Status::LIVRE, Status::RETOURNE]);
 
         if (auth()->user()->hasRole('Client')) {
 
@@ -116,7 +116,7 @@ class Commands extends Component
                 ->withCount('invoice')
                 ->with(['invoice:uuid,id,full_number,cloture', 'city:id,name'])
                 ->orderByRaw("created_at DESC")
-                ->orderByRaw("FIELD(status, $orderedStatuses)")
+                ->orderByRaw("FIELD(status, $commandStatus)")
 
                 ->paginate(60);
 
@@ -133,7 +133,7 @@ class Commands extends Component
                 //->with('products.stock')
                 ->with(['city:id,name'])
                 ->orderByRaw("created_at DESC")
-                ->orderByRaw("FIELD(status, $orderedStatuses)")
+                ->orderByRaw("FIELD(status, $commandStatus)")
                 ->paginate(60);
 
             $delivries = [];
@@ -148,7 +148,7 @@ class Commands extends Component
                 ->with(['invoice:uuid,id,full_number,cloture', 'city:id,name', 'delivery:id,nom,prenom', 'client:id,nom,prenom'])
                 //->orderByRaw("created_at DESC")
                 ->orderBy('is_closed', 'asc')
-                ->orderByRaw("FIELD(status, $orderedStatuses)")
+                ->orderByRaw("FIELD(status, $commandStatus)")
                 ->paginate(60);
 
             $delivries = User::role('Delivery')->select(['uuid', 'id', 'nom', 'prenom'])->get();
