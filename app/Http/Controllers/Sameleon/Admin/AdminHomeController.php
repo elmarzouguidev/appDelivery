@@ -31,17 +31,38 @@ class AdminHomeController extends Controller
             'filter_days' => 180, // show only last 30 days
             'chart_color' => '47, 83, 147',
         ];
-        $chart_optionss = [
-            'chart_title' => 'Commands par mois',
-            'report_type' => 'group_by_date',
-            'model' => 'App\Models\Sameleon\Command',
-            'group_by_field' => 'created_at',
-            'group_by_period' => 'month',
-            'chart_type' => 'bar',
-            'filter_field' => 'created_at',
-            'filter_days' => 30, // show only last 30 days
-            'chart_color' => '47, 83, 147',
-        ];
+
+        if (auth()->user()->hasAnyRole('Admin|SuperAdmin')) {
+            $chart_optionss = [
+                'chart_title' => 'Commands par mois',
+                'report_type' => 'group_by_date',
+                'model' => 'App\Models\Sameleon\Command',
+                'group_by_field' => 'created_at',
+                'group_by_period' => 'month',
+                'chart_type' => 'bar',
+                //'filter_field' => 'created_at',
+               // 'filter_days' => 30, // show only last 30 days
+                'chart_color' => '47, 83, 147',
+            ];
+        } elseif (auth()->user()->hasRole('Client')) {
+            $userId = auth()->id();
+            $chart_optionss = [
+                'chart_title' => 'Commands par mois',
+                'report_type' => 'group_by_date',
+                'model' => 'App\Models\Sameleon\Command',
+                'group_by_field' => 'created_at',
+                'group_by_period' => 'month',
+                'chart_type' => 'bar',
+                'filter_field' => 'created_at',
+                'filter_days' => 30, // show only last 30 days
+                'chart_color' => '47, 83, 147',
+                'conditions'=> [
+                    ['condition' => "user_id = $userId", 'color' => 'blue', 'fill' => true],
+    
+                ],
+            ];
+        }
+
 
         $chart = new LaravelChart($chart_options);
 
@@ -88,7 +109,7 @@ class AdminHomeController extends Controller
     {
         auth()->user()
             ->unreadNotifications->each->markAsRead();
- 
+
         return response()->noContent();
     }
 }

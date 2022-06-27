@@ -18,33 +18,32 @@
                     <div class="col-sm-4">
                         <div class="avatar-md profile-user-wid">
                             @if (!is_null(auth()->user()->logo))
-
-                                    <img class="img-thumbnail rounded-circle" alt=""
-                                        src="{{ asset('storage/' . auth()->user()->logo) }}" width="50">
+                                <img class="img-thumbnail rounded-circle" alt=""
+                                    src="{{ asset('storage/' . auth()->user()->logo) }}" width="50">
                             @else
-                              <img src="{{ asset('images/logo.png') }}" alt="" class="img-thumbnail rounded-circle" width="60">
-   
+                                <img src="{{ asset('images/logo.png') }}" alt=""
+                                    class="img-thumbnail rounded-circle" width="60">
                             @endif
                         </div>
-                        
+
                         <h5 class="font-size-15"">{{ auth()->user()->full_name }}</h5>
-                        
+
                     </div>
 
                     <div class="col-sm-8">
-                            <div class="pt-4">
+                        <div class="pt-4">
 
-                                <div class="row">
-                                    <div class="col-6">
-                                        <h5 class="font-size-15">{{ $total_command }}</h5>
-                                        <p class="text-muted mb-0">commands</p>
-                                    </div>
-                                    <div class="col-6">
-                                        <h5 class="font-size-15">{{ number_format($total_chiffre_affaires, 2) }}</h5>
-                                        <p class="text-muted mb-0">chiffre d'affaires</p>
-                                    </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <h5 class="font-size-15">{{ $total_command }}</h5>
+                                    <p class="text-muted mb-0">commands</p>
+                                </div>
+                                <div class="col-6">
+                                    <h5 class="font-size-15">{{ number_format($total_chiffre_affaires, 2) }}</h5>
+                                    <p class="text-muted mb-0">chiffre d'affaires</p>
                                 </div>
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -264,20 +263,32 @@
 
         <div class="col-xl-12 mt-10">
             <div class="row">
-                <div class="col-xl-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-sm-flex flex-wrap">
-                                <h4 class="card-title mb-4">{{ $chart->options['chart_title'] }}</h4>
+                @if (auth()->user()->hasAnyRole('Admin|SuperAdmin'))
+                    <div class="col-xl-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-sm-flex flex-wrap">
+                                    <h4 class="card-title mb-4">{{ $chart->options['chart_title'] }}</h4>
 
-                                {!! $chart->renderHtml() !!}
+                                    {!! $chart->renderHtml() !!}
+
+                                </div>
 
                             </div>
-
                         </div>
                     </div>
-                </div>
-                <div class="col-xl-6">
+                @endif
+                @php
+                    $col = 'col-xl-6';
+                    if (
+                        auth()
+                            ->user()
+                            ->hasRole('Client')
+                    ) {
+                        $col = 'col-xl-12';
+                    }
+                @endphp
+                <div class="{{ $col }}">
                     <div class="card">
                         <div class="card-body">
                             <div class="d-sm-flex flex-wrap">
