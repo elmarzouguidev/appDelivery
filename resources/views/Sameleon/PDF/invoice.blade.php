@@ -202,13 +202,20 @@
                     <table>
                         <tr>
                             <td style="width: 50% ;">
+                                @if(optional($invoice->client)->type == 'entreprise' && optional($invoice->client)->company)
+                                <strong> Client : {{ optional($invoice->client->company)->name }}</strong> <br />
+                                @else
                                 <strong>Client : {{ optional($invoice->client)->full_name }}</strong> <br />
+                                @endif
+
                                 @if(optional($invoice->client)->type == 'particulier')
                                  CNIE : {{ strtoupper(optional($invoice->client)->cnie) }}<br />
                                 @endif
+
                                 @if(optional($invoice->client)->type == 'entreprise' && optional($invoice->client)->company)
                                  ICE : {{ optional($invoice->client->company)->ice }}<br />
                                 @endif
+
                                 @if(optional($invoice->client)->type == 'entreprise' && optional($invoice->client)->company)
                                  Adresse : {{ optional($invoice->client->company)->addresse }} <br />
                                 @else
