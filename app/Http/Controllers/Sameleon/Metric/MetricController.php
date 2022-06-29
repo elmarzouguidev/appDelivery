@@ -13,7 +13,13 @@ class MetricController extends Controller
 
     public function delivery()
     {
-        $users = User::role('Delivery')->with('metrics')->get();
+        if(auth()->user()->hasAnyRole('Admin|SuperAdmin'))
+        {
+            $users = User::role('Delivery')->with('metrics')->get();
+        }
+        elseif(auth()->user()->hasRole('Delivery')){
+         
+        }
         
         $chart_options = [
             'chart_title' => 'Users by months',

@@ -44,6 +44,18 @@
     </a>
 
 </li>
+@if (auth()->user()->hasRole('Delivery'))
+    <li>
+        <a href="{{ route('admin:metrics.delivery') }}" class="waves-effect">
+
+
+            <i class="bx bx-bar-chart-alt-2"></i>
+
+            <span key="t-metrics">{{ __('Statistiques') }}</span>
+        </a>
+
+    </li>
+@endif
 @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
     <li class="menu-title" key="t-components">{{ __('Clients') }}</li>
 
@@ -144,7 +156,7 @@
     <li>
         <a href="javascript: void(0);" class="has-arrow waves-effect">
             <i class="bx bx-bar-chart-alt-2"></i>
-            <span key="t-ci-reg">{{ __('Statistiques ') }}</span>
+            <span key="t-ci-reg">{{ __('Statistiques') }}</span>
         </a>
         <ul class="sub-menu" aria-expanded="false">
             <li><a href="{{ route('admin:metrics.delivery') }}" key="t-metrics-delivery">{{ __('Livreurs') }}</a></li>

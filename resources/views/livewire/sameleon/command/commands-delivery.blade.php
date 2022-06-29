@@ -7,13 +7,13 @@
                         <div class=" mx-auto mb-4">
                             <span class="avatar-title bg-primary bg-soft text-primary font-size-20">
 
-                               <strong> {{ number_format($command->items_sum_prix_total, 2) }} DH </strong>
+                                <strong> {{ number_format($command->items_sum_prix_total, 2) }} DH </strong>
 
                             </span>
                         </div>
                         <p class="font-size-17"><strong>{{ $command->client_name }}</strong></p>
                         <hr>
-                        <p class="font-size-17">{{ $command->city->name ?? $command->client_city ?? '' }}</p>
+                        <p class="font-size-17">{{ $command->city->name ?? ($command->client_city ?? '') }}</p>
                         <br>
                         <p class="font-size-17">{!! $command->client_address !!}</p>
                         <hr>
@@ -26,28 +26,25 @@
                         <hr>
                         @php
                             $disabled = '';
-                            if($command->status == App\Status\Status::LIVRE)
-                            {
-                                $disabled = 'disabled'; 
+                            if ($command->status == App\Status\Status::LIVRE) {
+                                $disabled = 'disabled';
                             }
                         @endphp
                         <div>
-                            <button {{$disabled}} class="btn btn-success font-size-18 m-1"
+                            <button {{ $disabled }} class="btn btn-success font-size-18 m-1"
                                 wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::LIVRE }})">
                                 Livré
                             </button>
-                            <button {{$disabled}} class="btn btn-danger font-size-18 m-1"
+                            <button {{ $disabled }} class="btn btn-danger font-size-18 m-1"
                                 wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::ANNULE }})">
 
                                 Non livré
                             </button>
-                            <button {{$disabled}} 
-                                class="btn btn-warning font-size-18 m-1"
-                                wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::NON_INTERESSE }})"
-                                >
+                            <button {{ $disabled }} class="btn btn-warning font-size-18 m-1"
+                                wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::NON_INTERESSE }})">
                                 Non intéressé
                             </button>
-                            <button {{$disabled}}  class="btn btn-primary font-size-18 m-1"
+                            <button {{ $disabled }} class="btn btn-primary font-size-18 m-1"
                                 wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::PAS_DE_REPONSE }})">
                                 Pas de reponse
                             </button>
@@ -62,9 +59,9 @@
                                         <p class="text-strong mb-0">
                                             <strong>{{ $item->product }}</strong>
                                         </p>
-                                      
+
                                         <p class="text-muted mb-0">{{ $item->prix_uni }} (DH) x
-                                                        {{ $item->quantity }}
+                                            {{ $item->quantity }}
                                         </p>
 
                                         <br>
