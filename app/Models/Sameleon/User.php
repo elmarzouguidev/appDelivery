@@ -140,11 +140,24 @@ class User extends Authenticatable
         return $this->hasMany(Command::class, 'delivery_id');
     }
 
-    public function commandsDeliverySum()
+    public function getDeliveryTotalDayChiffreAttribute()
     {
-        $commands =  $this->hasMany(Command::class, 'delivery_id')
+        $commands =  $this->commandsDelivery()
             ->where('status', Status::LIVRE)
-            ->whereDay('delivered_at', now()->format('d'))
+            ->whereDate('delivered_at', now()->format('Y-m-d'))
+            ->withSum('items', 'prix_total')
+            ->get();
+
+        $total = collect($commands)->sum('items_sum_prix_total');
+
+        return number_format($total, 2);
+    }
+
+    public function getDeliveryTotalChiffreAttribute()
+    {
+        $commands =  $this->commandsDelivery()
+            ->where('status', Status::LIVRE)
+            //->whereDate('delivered_at', now()->format('Y-m-d'))
             ->withSum('items', 'prix_total')
             ->get();
 
@@ -239,7 +252,7 @@ class User extends Authenticatable
 
     public function scopeDisabledUsers($query)
     {
-        return $query->where('is_client',true)->where('actived_at', null)->count();
+        return $query->where('is_client', true)->where('actived_at', null)->count();
     }
 
     //https://laravel.com/docs/8.x/collections#method-pop

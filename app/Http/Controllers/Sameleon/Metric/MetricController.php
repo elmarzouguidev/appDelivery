@@ -15,10 +15,20 @@ class MetricController extends Controller
 
     public function delivery()
     {
-        if (auth()->user()->hasAnyRole('Admin|SuperAdmin')) {
-            $users = User::role('Delivery')->with('metrics')->get();
-        } elseif (auth()->user()->hasRole('Delivery')) {
-        }
+        $users = User::role('Delivery')
+
+            ->withCount(['commandsDelivery as commands_livred_now' => function ($query) {
+                $query->whereStatus(Status::LIVRE)->whereDate('delivered_at', now()->format('Y-m-d'));
+            }])
+
+            ->withCount(['commandsDelivery as commands_livred' => function ($query) {
+                $query->whereStatus(Status::LIVRE);
+            }])
+            ->withCount(['commandsDelivery as commands_refused' => function ($query) {
+                $query->whereStatus(Status::REFUSE);
+            }])
+            ->get()
+            ->sortBy([['commands_livred', 'desc']]);
 
         $chart_options = [
             'chart_title' => 'Users by months',

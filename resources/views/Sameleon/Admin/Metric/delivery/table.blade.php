@@ -18,11 +18,13 @@
                                         <label class="form-check-label" for="checkAll"></label>
                                     </div>
                                 </th>
-                                <th class="align-middle">livreure</th>
+                                <th class="align-middle">Position</th>
+                                <th class="align-middle">Livreure</th>
+                                <th class="align-middle">Total commands Livé <i style="color:blue">Aujourd'hui</i></th>
+                                <th class="align-middle">Total chiffre d'affaire <i style="color:blue">Aujourd'hui</i></th>
                                 <th class="align-middle">Total commands Livé</th>
-                                <th class="align-middle">Date</th>
-                                <th class="align-middle">Total</th>
-                                <th class="align-middle">Action</th>
+                                <th class="align-middle">Total commands Refusé</th>
+                                <th class="align-middle">Total chiffre d'affaire</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -36,38 +38,28 @@
                                         </div>
                                     </td>
                                     <td>
-                                        {{ $user->full_name }}
+                                        {{ $loop->index + 1 }}
                                         <p class="text-muted mb-0"></p>
                                     </td>
                                     <td>
-                                        100
+                                        {{ $user->full_name }}
                                     </td>
                                     <td>
-                                        22-07-2022
+                                        {{ $user->commands_livred_now }}
                                     </td>
                                     <td>
-                                        1800DH
+                                        {{$user->delivery_total_day_chiffre}} DH
                                     </td>
                                     <td>
-                                        <div class="d-flex gap-3">
+                                        {{ $user->commands_livred }}
+                                    </td>
+                                    <td>
+                                        {{ $user->commands_refused }}
+                                    </td>
+                                    <td>
+                                        {{$user->delivery_total_chiffre}} DH
+                                    </td>
 
-                                            <a href="#" class="text-danger" onclick="
-                                                var result = confirm('Are you sure you want to delete this product ?');
-
-                                                if(result){
-                                                    event.preventDefault();
-                                                    document.getElementById('delete-metric-{{ $user->uuid }}').submit();
-                                                }">
-                                                <i class="mdi mdi-delete font-size-18"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <form id="delete-metric-{{ $user->uuid }}" method="post"
-                                        action="{{ $user->delete_url }}">
-                                        @csrf
-                                        @method('DELETE')
-                                        <input type="hidden" name="metricId" value="{{ $user->uuid }}">
-                                    </form>
                                 </tr>
                             @endforeach
 

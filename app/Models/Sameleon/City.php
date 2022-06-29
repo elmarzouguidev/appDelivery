@@ -34,9 +34,12 @@ class City extends Model
 
     public function getTotalChiffreAttribute()
     {
-        return $this->commands()->whereStatus(Status::LIVRE)->withSum('items', 'prix_total')->get()->sum('items_sum_prix_total');
+        return $this->commands()->whereStatus(Status::LIVRE)
+            ->withSum('items', 'prix_total')
+            ->get()
+            ->sum('items_sum_prix_total');
     }
-    
+
     public function clients()
     {
         return $this->hasMany(User::class);
