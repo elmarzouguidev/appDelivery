@@ -49,7 +49,7 @@
                                         {{ $city->commands_refused }}
                                     </td>
                                     <td>
-                                        {{ number_format($city->total_chiffre,2) }} DH
+                                        {{ number_format($city->total_chiffre, 2) }} DH
                                     </td>
 
                                 </tr>

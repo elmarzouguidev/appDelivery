@@ -2,6 +2,7 @@
 
 namespace App\Models\Sameleon;
 
+use App\Status\Status;
 use App\Traits\GetModelByUuid;
 use App\Traits\HasCode;
 use App\Traits\UuidGenerator;
@@ -33,7 +34,7 @@ class City extends Model
 
     public function getTotalChiffreAttribute()
     {
-        return $this->commands()->withSum('items', 'prix_total')->get()->sum('items_sum_prix_total');
+        return $this->commands()->whereStatus(Status::LIVRE)->withSum('items', 'prix_total')->get()->sum('items_sum_prix_total');
     }
     
     public function clients()
