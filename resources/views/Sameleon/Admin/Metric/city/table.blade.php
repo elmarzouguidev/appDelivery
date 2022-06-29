@@ -18,56 +18,40 @@
                                         <label class="form-check-label" for="checkAll"></label>
                                     </div>
                                 </th>
-                                <th class="align-middle">livreure</th>
+                                <th class="align-middle">Position</th>
+                                <th class="align-middle">Ville</th>
                                 <th class="align-middle">Total commands Livé</th>
-                                <th class="align-middle">Date</th>
-                                <th class="align-middle">Total</th>
-                                <th class="align-middle">Action</th>
+                                <th class="align-middle">Total commands Refusé</th>
+                                <th class="align-middle">Total chiffre d'affaire</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($users as $user)
+                            @foreach ($cities as $city)
                                 <tr>
                                     <td>
                                         <div class="form-check font-size-16">
                                             <input class="form-check-input" type="checkbox"
-                                                id="user-{{ $user->id }}">
-                                            <label class="form-check-label" for="user-{{ $user->id }}"></label>
+                                                id="city-{{ $city->id }}">
+                                            <label class="form-check-label" for="city-{{ $city->id }}"></label>
                                         </div>
                                     </td>
                                     <td>
-                                        {{ $user->full_name }}
+                                        {{ $loop->index + 1 }}
                                         <p class="text-muted mb-0"></p>
                                     </td>
                                     <td>
-                                        100
+                                        {{ $city->name }}
                                     </td>
                                     <td>
-                                        22-07-2022
+                                        {{ $city->commands_livred }}
                                     </td>
                                     <td>
-                                        1800DH
+                                        {{ $city->commands_refused }}
                                     </td>
                                     <td>
-                                        <div class="d-flex gap-3">
+                                        {{ number_format($city->total_chiffre,2) }} DH
+                                    </td>
 
-                                            <a href="#" class="text-danger" onclick="
-                                                var result = confirm('Are you sure you want to delete this product ?');
-
-                                                if(result){
-                                                    event.preventDefault();
-                                                    document.getElementById('delete-metric-{{ $user->uuid }}').submit();
-                                                }">
-                                                <i class="mdi mdi-delete font-size-18"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <form id="delete-metric-{{ $user->uuid }}" method="post"
-                                        action="{{ $user->delete_url }}">
-                                        @csrf
-                                        @method('DELETE')
-                                        <input type="hidden" name="metricId" value="{{ $user->uuid }}">
-                                    </form>
                                 </tr>
                             @endforeach
 
@@ -77,7 +61,7 @@
             </div>
         </div>
     </div>
-    {{--<div class="col-xl-4">
+    {{-- <div class="col-xl-4">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title mb-4">{{ $chart->options['chart_title'] }}</h4>
@@ -90,5 +74,5 @@
                 
             </div>
         </div>
-    </div>--}}
+    </div> --}}
 </div>

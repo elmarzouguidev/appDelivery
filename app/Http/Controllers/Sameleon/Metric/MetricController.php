@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Sameleon\Metric;
 
 use App\Http\Controllers\Controller;
+use App\Models\Sameleon\City;
 use App\Models\Sameleon\User;
+use App\Status\Status;
 use Illuminate\Http\Request;
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 
@@ -13,14 +15,11 @@ class MetricController extends Controller
 
     public function delivery()
     {
-        if(auth()->user()->hasAnyRole('Admin|SuperAdmin'))
-        {
+        if (auth()->user()->hasAnyRole('Admin|SuperAdmin')) {
             $users = User::role('Delivery')->with('metrics')->get();
+        } elseif (auth()->user()->hasRole('Delivery')) {
         }
-        elseif(auth()->user()->hasRole('Delivery')){
-         
-        }
-        
+
         $chart_options = [
             'chart_title' => 'Users by months',
             'report_type' => 'group_by_date',
@@ -33,13 +32,26 @@ class MetricController extends Controller
         ];
 
         $chart = new LaravelChart($chart_options);
-      //  dd($chart);
+        //  dd($chart);
 
-        return view('Sameleon.Admin.Metric.delivery.index', compact('users','chart'));
+        return view('Sameleon.Admin.Metric.delivery.index', compact('users', 'chart'));
     }
 
     public function cities()
     {
-        return view('Sameleon.Admin.Metric.city.index'); 
+
+        $cities = City::has('commands')
+            ->withCount(['commands as commands_livred' => function ($query) {
+                $query->whereStatus(Status::LIVRE);
+            }])
+            ->withCount(['commands as commands_refused' => function ($query) {
+                $query->whereStatus(Status::REFUSE);
+            }])
+            ->get()
+            ->sortBy([['commands_livred', 'desc']]);
+
+        //dd($cities);
+
+        return view('Sameleon.Admin.Metric.city.index', compact('cities'));
     }
 }

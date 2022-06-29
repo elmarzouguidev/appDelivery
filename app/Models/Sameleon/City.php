@@ -31,9 +31,14 @@ class City extends Model
         return $this->hasMany(Command::class);
     }
 
+    public function getTotalChiffreAttribute()
+    {
+        return $this->commands()->withSum('items', 'prix_total')->get()->sum('items_sum_prix_total');
+    }
+    
     public function clients()
     {
-        return $this->hasMany(Client::class);
+        return $this->hasMany(User::class);
     }
 
     public function regions()
