@@ -16,6 +16,7 @@ use App\Http\Controllers\Sameleon\Admin\Command\AdminCommandController;
 use App\Http\Controllers\Sameleon\Admin\Contact\ContactController;
 use App\Http\Controllers\Sameleon\Admin\Delivery\DeliveryController;
 use App\Http\Controllers\Sameleon\Admin\Group\GroupController;
+use App\Http\Controllers\Sameleon\Admin\Historique\HistoriqueController;
 use App\Http\Controllers\Sameleon\Admin\Integration\IntegrationController;
 use App\Http\Controllers\Sameleon\Admin\Invoice\AdminInvoiceController;
 use App\Http\Controllers\Sameleon\Admin\Payment\PaymentController;
@@ -362,4 +363,12 @@ Route::group(['prefix' => 'annonces'], function () {
     Route::delete('/delete', [AnnonceController::class, 'delete'])->name('annonces.delete');
 
     Route::put('/', [AnnonceController::class, 'activate'])->name('annonces.activate');
+});
+
+Route::group(['prefix' => 'historiques'], function () {
+
+    Route::get('/', [HistoriqueController::class, 'index'])->name('historiques.index');
+
+    Route::delete('/delete', [HistoriqueController::class, 'delete'])->name('historiques.delete');
+
 });

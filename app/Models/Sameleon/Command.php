@@ -51,7 +51,8 @@ class Command extends Model
         'company_id',
         'delivery_id',
         'delivery_uuid',
-        'comment'
+        'comment',
+        'delivred_by'
     ];
 
     protected  $casts = [
