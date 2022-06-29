@@ -165,7 +165,7 @@
     </li>
     <li>
         <a href="javascript: void(0);" class="has-arrow waves-effect">
-            <i class="bx bx-bar-chart-alt-2"></i>
+            <i class="bx bx-line-chart"></i>
             <span key="t-ci-reg">{{ __('Statistiques') }}</span>
         </a>
         <ul class="sub-menu" aria-expanded="false">
