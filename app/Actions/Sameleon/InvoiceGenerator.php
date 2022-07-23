@@ -31,7 +31,7 @@ class InvoiceGenerator
         $commands = Command::whereIn('status', [Status::LIVRE, Status::REFUSE])
 
             ->where(function ($q) {
-                $q->whereDay('delivered_at', now()->format('d'))
+                $q->whereDate('delivered_at', now()->format('Y-m-d'))
                     ->orWhereYear('delivered_at', '1993');
             })
             ->where('is_closed', false)
@@ -50,7 +50,8 @@ class InvoiceGenerator
             foreach ($users as $user) {
                 // dd($user);
 
-                $this->invoice = Invoice::whereDay('created_at', now()->format('d'))
+                $this->invoice = Invoice::whereDate('created_at', now()->format('Y-m-d'))
+                   //whereDate('delivered_at', now()->format('Y-m-d'))
                     ->where('user_id', $user['user_id'])
                     ->where('user_uuid', $user['user_uuid'])
                     ->first();
@@ -80,7 +81,7 @@ class InvoiceGenerator
             ->whereIn('status', [Status::LIVRE, Status::REFUSE])
             ->doesntHave('articles')
             ->where(function ($q) {
-                $q->whereDay('delivered_at', now()->format('d'))
+                $q->whereDate('delivered_at', now()->format('Y-m-d'))
                     ->orWhereYear('delivered_at', '1993');
             })
             ->withSum('items', 'prix_total')
@@ -116,7 +117,7 @@ class InvoiceGenerator
         $commandsLivred = $user
             ->commands()
             ->where('status', Status::LIVRE)
-            ->whereDay('delivered_at', now()->format('d'))
+            ->whereDate('delivered_at', now()->format('Y-m-d'))
             ->whereNotNull('delivered_at')
             ->whereHas('articles', function ($query) {
                 $query->where('price_total', '<=', 0);
@@ -154,9 +155,9 @@ class InvoiceGenerator
             ->whereIn('status', [Status::LIVRE, Status::REFUSE])
             ->doesntHave('articles')
             //->whereDay('created_at', Carbon::yesterday()->format('d'))
-            ->whereDay('created_at', '!=', now()->format('d'))
+            ->whereDate('created_at', '!=', now()->format('Y-m-d'))
             ->where(function ($q) {
-                $q->whereDay('delivered_at', now()->format('d'))
+                $q->whereDate('delivered_at', now()->format('Y-m-d'))
                     ->orWhereYear('delivered_at', '1993');
             })
             ->whereNotNull('delivered_at')
@@ -222,7 +223,7 @@ class InvoiceGenerator
 
     private function CloseYesterdayInvoice()
     {
-        $invoices = Invoice::whereDay('created_at', '!=', now()->format('d'))
+        $invoices = Invoice::whereDate('created_at', '!=', now()->format('Y-m-d'))
             //->whereDay('created_at', Carbon::yesterday()->format('d'))
             ->where('cloture', false)
             ->select(['id', 'cloture'])->get();
