@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
 
     foreach ($users as $user) {
 
-      $this->callWith(ProductSeeder::class, ['user' => $user]);
+     // $this->callWith(ProductSeeder::class, ['user' => $user]);
 
       // $this->callWith(CommandSeeder::class, ['user' => $user]);
     }

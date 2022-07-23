@@ -118,4 +118,20 @@ class DeliveryController extends Controller
 
         return redirect()->back()->with('success', 'le livreure a été modifier avec success');
     }
+
+    public function delete(Request $request)
+    {
+        $request->validate(['deliveryId'=>'required|uuid']);
+
+        $delivery = User::role('Delivery')->whereUuid($request->deliveryId)->firstOrFail();
+        if($delivery)
+        {
+            $delivery->commandsDelivery->each->update(['delivery_id'=>null,'delivery_uuid'=>null]);
+            $delivery->delete();
+            return redirect()->back()->with('success', 'le livreure a été supp avec success');
+
+        }
+        return redirect()->back()->with('error', 'error !! ');
+
+    }
 }
