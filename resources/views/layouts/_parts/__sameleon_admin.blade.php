@@ -146,14 +146,14 @@
 @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
     <li class="menu-title" key="t-components">{{ __('navbar.advanced') }}</li>
 
-    <li>
+    {{--<li>
         <a href="{{ route('admin:historiques.index') }}" class="waves-effect">
             <span class="badge rounded-pill bg-primary float-end" key="t-new">New</span>
             <i class="bx bx-history"></i>
             <span key="t-historiques">{{ __('Historiques') }}</span>
         </a>
 
-    </li>
+    </li>--}}
 
     <li>
         <a href="{{ route('admin:annonces.index') }}" class="waves-effect">
