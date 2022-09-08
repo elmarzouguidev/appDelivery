@@ -157,7 +157,7 @@
 
     <li>
         <a href="{{ route('admin:annonces.index') }}" class="waves-effect">
-            <span class="badge rounded-pill bg-success float-end" key="t-new">New</span>
+            {{--<span class="badge rounded-pill bg-success float-end" key="t-new">New</span>--}}
             <i class="bx bx-volume-full"></i>
             <span key="t-annonces">{{ __('Annonces') }}</span>
         </a>

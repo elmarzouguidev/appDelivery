@@ -63,5 +63,6 @@ class DatabaseSeeder extends Seeder
     Artisan::call('route:clear');
     Artisan::call('view:clear');
     Artisan::call('cache:clear');
+    Artisan::call('optimize:clear');
   }
 }
