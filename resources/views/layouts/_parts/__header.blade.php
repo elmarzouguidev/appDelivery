@@ -101,9 +101,9 @@
                             <div class="col">
                                 <h6 class="m-0" key="t-notifications"> Notifications </h6>
                             </div>
-                            <div class="col-auto">
+                            {{--<div class="col-auto">
                                 <a href="#!" class="small" key="t-view-all"> View All</a>
-                            </div>
+                            </div>--}}
                         </div>
                     </div>
                     @forelse (auth()->user()->unreadNotifications as $notification)
