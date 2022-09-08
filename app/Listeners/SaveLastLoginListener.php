@@ -24,7 +24,7 @@ class SaveLastLoginListener
     {
         // dd($event->guard,'----',$event->user);
 
-        $version = (new Agent())->platform();
+        /*$version = (new Agent())->platform();
 
         $event->user->lastLogin()->create([
             'ip' => request()->ip(),
@@ -33,6 +33,6 @@ class SaveLastLoginListener
             'device' => (new Agent())->browser(),
             'device_name' => (new Agent())->device(),
             'system' => (new Agent())->platform(),
-        ]);
+        ]);*/
     }
 }

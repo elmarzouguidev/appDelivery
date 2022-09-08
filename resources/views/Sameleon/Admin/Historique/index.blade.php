@@ -5,7 +5,7 @@
 
         @include('Sameleon.Admin.Historique.__title')
 
-        <h1>Encours ...</h1>
+        <h1>Encours ... </h1>
 
     </div>
 @endsection
