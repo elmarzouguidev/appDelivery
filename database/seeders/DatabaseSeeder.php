@@ -30,10 +30,6 @@ class DatabaseSeeder extends Seeder
 
     $this->call(AdminSeeder::class);
 
-    Artisan::call('config:clear');
-    
-    Artisan::call('cache:clear');
-
     $this->call(ClientSeed::class);
 
     $this->call(DeliverySeeder::class);
@@ -46,7 +42,7 @@ class DatabaseSeeder extends Seeder
 
     foreach ($users as $user) {
 
-     // $this->callWith(ProductSeeder::class, ['user' => $user]);
+      $this->callWith(ProductSeeder::class, ['user' => $user]);
 
       // $this->callWith(CommandSeeder::class, ['user' => $user]);
     }
