@@ -2,10 +2,10 @@
     @foreach ($orderProducts as $index => $orderProduct)
         <div class="row">
             <div class="mb-3 col-lg-3">
-                <label for="designation">Note *</label>
+                <label for="designation">Note </label>
                 <textarea name="orderProducts[{{ $index }}][designation]" rows="3"
                     wire:model="orderProducts.{{ $index }}.designation"
-                    class="form-control @error('orderProducts.'.$index.'.designation') is-invalid @enderror" required>{{old('orderProducts.'.$index.'.designation')}}</textarea>
+                    class="form-control @error('orderProducts.'.$index.'.designation') is-invalid @enderror" >{{old('orderProducts.'.$index.'.designation')}}</textarea>
                 @error('orderProducts.'.$index.'.designation')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -85,7 +85,7 @@
             </div>
         </div>
     @endforeach
-    <button wire:click.prevent="addProduct" type="button" class="btn btn-success waves-effect waves-light">
-        <i class="bx bx-check-double font-size-16 align-middle"></i>
+    <button wire:click.prevent="addProduct" title="Ajouter un produit a la commande" type="button" class="btn btn-primary waves-effect waves-light">
+        <i class="bx bxs-plus-square font-size-16 align-middle"></i>
     </button>
 </div>

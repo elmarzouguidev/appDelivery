@@ -10,10 +10,10 @@
     @foreach ($orderProducts as $index => $orderProduct)
         <div class="row">
             <div class="mb-3 col-lg-3">
-                <label for="designation">{{ __('invoice.form.article_designation') }} *</label>
+                <label for="designation">{{ __('invoice.form.article_designation') }}</label>
                 <textarea name="orderProducts[{{ $index }}][designation]" rows="3"
                     class="form-control @error('articles.*.designation') is-invalid @enderror"
-                    required disabled > {{ $orderProduct->designation }}</textarea>
+                     disabled > {{ $orderProduct->designation }}</textarea>
 
                 @error('articles.*.designation')
                     <span class="invalid-feedback" role="alert">
@@ -94,7 +94,7 @@
         @foreach ($newOrderProducts as $indexer => $newOrderProduct)
             <div class="row">
                 <div class="mb-3 col-lg-3">
-                    <label for="designation">{{ __('invoice.form.article_designation') }} *</label>
+                    <label for="designation">{{ __('invoice.form.article_designation') }}</label>
                     <textarea name="newOrderProducts[{{ $indexer }}][designation]" rows="3"
                         wire:model="newOrderProducts.{{ $indexer }}.designation"
                         class="form-control @error('articles.*.designation') is-invalid @enderror"></textarea>

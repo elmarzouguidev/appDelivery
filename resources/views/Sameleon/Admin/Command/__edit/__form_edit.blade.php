@@ -35,7 +35,7 @@
                             <div class=" mb-4">
                                 <label>Adresse du client *</label>
                                 <textarea name="client_address" id="textarea" class="form-control @error('client_address') is-invalid @enderror"
-                                    maxlength="225" rows="5">{{ str_replace('<br />','',$command->client_address) }}</textarea>
+                                    maxlength="225" rows="5">{{ str_replace('<br>','',$command->client_address) }}</textarea>
 
                                 @error('client_address')
                                     <span class="invalid-feedback" role="alert">
