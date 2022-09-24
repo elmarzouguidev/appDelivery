@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Sameleon\Admin\Adjustment\AdjustmentController;
 use App\Http\Controllers\Sameleon\Admin\Admin\AdminController;
 use App\Http\Controllers\Sameleon\Admin\Admin\HistoryController;
 use App\Http\Controllers\Sameleon\Admin\Admin\PermissionController;
@@ -44,8 +45,11 @@ Route::put('/read-notifications', [AdminHomeController::class, 'markNotification
 Route::group(['prefix' => 'commands'], function () {
 
     Route::get('/', [AdminCommandController::class, 'index'])->name('commands.index');
+
     Route::post('/', [AdminCommandController::class, 'store'])->name('commands.store');
+
     Route::delete('/delete', [AdminCommandController::class, 'delete'])->name('commands.delete');
+    
     Route::post('/import', [AdminCommandController::class, 'import'])->name('commands.import');
     Route::group(['prefix' => 'edit'], function () {
 
@@ -56,6 +60,22 @@ Route::group(['prefix' => 'commands'], function () {
     Route::group(['prefix' => 'archived'], function () {
 
         Route::get('/', [AdminCommandController::class, 'archived'])->name('commands.archived');
+    });
+});
+
+Route::group(['prefix' => 'adjustments'], function () {
+
+    Route::get('/', [AdjustmentController::class, 'index'])->name('adjustments.index');
+
+    Route::get('/create', [AdjustmentController::class, 'create'])->name('adjustments.create');
+    Route::post('/create', [AdjustmentController::class, 'store'])->name('adjustments.store');
+
+    Route::delete('/', [AdjustmentController::class, 'delete'])->name('adjustments.delete');
+
+    Route::group(['prefix' => 'edit'], function () {
+
+        Route::get('/{adjustment}', [AdjustmentController::class, 'edit'])->name('adjustments.edit');
+        Route::post('/{adjustment}', [AdjustmentController::class, 'update'])->name('adjustments.update');
     });
 });
 
@@ -72,14 +92,16 @@ Route::group(['prefix' => 'products'], function () {
 
         Route::get('/{product}', [AdminProductController::class, 'edit'])->name('products.edit');
         Route::post('/{product}', [AdminProductController::class, 'update'])->name('products.update');
+        
     });
 });
-
+    
 Route::group(['prefix' => 'stock'], function () {
 
     Route::get('/', [StockController::class, 'index'])->name('stock.index');
+    Route::post('/', [StockController::class, 'store'])->name('stock.store');
     Route::post('update/{stock}', [StockController::class, 'update'])->name('stock.update');
-    //Route::delete('/delete', [StockController::class, 'delete'])->name('stock.delete');
+    Route::delete('/delete', [StockController::class, 'delete'])->name('stock.deletee');
 });
 
 

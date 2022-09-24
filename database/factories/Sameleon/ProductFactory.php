@@ -37,13 +37,15 @@ class ProductFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(function (Product $item) {
+
+            $item->increaseStock($item->qte_global);
+            /*
             $url = 'https://source.unsplash.com/random/400x400';
 
             $item
                 ->addMediaFromUrl($url)
                 ->toMediaCollection('products_photos');
-
-            $item->increaseStock($item->qte_global);
+                */
         });
     }
 }

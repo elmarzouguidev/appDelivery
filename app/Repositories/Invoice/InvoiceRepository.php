@@ -13,7 +13,7 @@ class InvoiceRepository extends AppRepository implements InvoiceInterface
     private $invoice;
 
     private $instance;
-    
+
     public function __construct(Invoice $invoice)
     {
         $this->invoice = $invoice;
@@ -33,55 +33,26 @@ class InvoiceRepository extends AppRepository implements InvoiceInterface
      */
     public function getInvoices()
     {
-        if ($this->useCache()) {
 
-            if (auth()->user()->hasRole('Client')) {
+        if (auth()->user()->hasRole('Client')) {
 
-                $cacheKey = "all_invoices_cache_" . auth()->user()->uuid;
-
-                return $this->setCache()->remember($cacheKey, $this->timeToLive(), function () {
-
-                    return $this->invoice
-                        ->authClient()
-                        ->withCount('commands')
-                        ->withSum('articles', 'price_total')
-                        ->with('bill')
-                        ->withCount('bill')
-                        ->get();
-                });
-            } else {
-                return $this->setCache()->remember('all_invoices_cache', $this->timeToLive(), function () {
-                    return $this->invoice
-                        ->withCount('commands')
-                        ->withSum('articles', 'price_total')
-                        ->with('bill')
-                        ->withCount('bill')
-
-                        ->get();
-                });
-            }
+            return $this->invoice
+                ->authClient()
+                ->withCount('commands')
+                ->withSum('articles', 'price_total')
+                ->with('bill')
+                ->withCount('bill')
+                ->get();
         } else {
-            if (auth()->user()->hasRole('Client')) {
 
-                return $this->invoice
-                    ->authClient()
-                    ->withCount('commands')
-                    ->withSum('articles', 'price_total')
-                    ->with('bill')
-                    ->withCount('bill')
-                    ->get();
-            } else {
+            return $this->invoice
+                ->withCount('commands')
+                ->withSum('articles', 'price_total')
+                ->with('bill')
+                ->withCount('bill')
 
-                return $this->invoice
-                    ->withCount('commands')
-                    ->withSum('articles', 'price_total')
-                    ->with('bill')
-                    ->withCount('bill')
-
-                    ->get();
-            }
+                ->get();
         }
-        return [];
     }
 
     /**

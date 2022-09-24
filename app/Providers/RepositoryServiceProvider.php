@@ -44,6 +44,10 @@ class RepositoryServiceProvider extends ServiceProvider
             'concrete' => "App\Repositories\Product\ProductRepository"
         ],
         [
+            'abstract' => "App\Repositories\Stock\StockInterface",
+            'concrete' => "App\Repositories\Stock\StockRepository"
+        ],
+        [
             'abstract' => "App\Repositories\Bill\BillInterface",
             'concrete' => "App\Repositories\Bill\BillRepository"
         ],

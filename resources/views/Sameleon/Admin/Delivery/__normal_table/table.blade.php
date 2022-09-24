@@ -58,7 +58,7 @@
                                         <a href="{{-- $delivery->url --}}" class="text-body fw-bold">
                                             {{ $delivery->full_name }}
                                         </a>
-                                        @if ($delivery->type === 'particulier')
+                                        @if ($delivery->type == 'particulier')
                                             <br>
                                             {{ $delivery->cnie }}
                                         @endif

@@ -8,9 +8,13 @@
 
                             <div class="col-lg-4 mb-4">
 
-                                <a href="{{ route('admin:products.create') }}" type="button" class="btn btn-info">
-                                    Ajouter un Produit
-                                </a>
+                                {{--<a href="{{ route('admin:adjustments.create') }}" type="button" class="btn btn-info">
+                                    Créér un ajustement
+                                </a>--}}
+                                <button class="btn btn-info" type="button" class="btn btn-info  btn-sm"
+                                    data-bs-toggle="modal" data-bs-target=".addStockModal">
+                                    Créér un ajustement
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -40,7 +44,7 @@
                                     <th class="align-middle">Qté Endommagé</th>
 
                                     <th class="align-middle">Qté Restant</th>
-                                    <th class="align-middle">Détail</th>
+                                    <th class="align-middle">Détail de stock</th>
                                     <th class="align-middle">Date</th>
                                     @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
                                         <th class="align-middle">Action</th>
@@ -104,7 +108,11 @@
                                             {{ $stock->stock }}
                                         </td>
                                         <td>
-                                            {{ $stock->notes }}
+                                            {{-- $stock->notes --}}
+                                            <button class="btn btn-info" type="button" class="btn btn-info  btn-sm"
+                                                wire:click="showStockDetail('{{ $stock->uuid }}')" >
+                                                détailes
+                                            </button>
                                         </td>
                                         <td>
                                             {{ $stock->created_at }}
@@ -150,4 +158,10 @@
             'stock' => $stockEdit,
         ])
     @endif
+    @if ($showDetail)
+        @include('livewire.sameleon.stock.show-details', [
+            'product' => $product,
+        ])
+    @endif
+
 </div>

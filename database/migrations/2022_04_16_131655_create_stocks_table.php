@@ -17,11 +17,19 @@ class CreateStocksTable extends Migration
             $table->id();
 
             $table->uuid('uuid')->unique();
-            $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();
-            $table->string('user_uuid')->nullable();
 
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
             $table->string('product_uuid')->nullable();
+
+            $table->foreignId('client_id')->nullable()->constrained('users')->cascadeOnDelete();
+            $table->string('client_uuid')->nullable();
+
+            $table->foreignId('delivery_id')->nullable()->constrained('users')->cascadeOnDelete();
+            $table->string('delivery_uuid')->nullable();
+
+
+            $table->foreignId('city_id')->constrained()->cascadeOnDelete();
+            $table->string('city_uuid')->nullable();
 
             $table->string('qte_global')->default(0);
             $table->string('qte_livre')->default(0);

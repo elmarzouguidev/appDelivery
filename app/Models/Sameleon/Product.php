@@ -61,6 +61,11 @@ class Product extends Model implements HasMedia
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function stocks()
+    {
+        return $this->hasMany(Stock::class);
+    }
+
     public function commands()
     {
         return $this->belongsToMany(Command::class, 'product_command', 'product_id', 'command_id')->withPivot(['quantity', 'price_ht']);

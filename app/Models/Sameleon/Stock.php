@@ -7,6 +7,7 @@ use App\Traits\HasCode;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Stock extends Model
 {
@@ -18,10 +19,12 @@ class Stock extends Model
     protected $fillable = [
         'uuid',
         'code',
-        'user_id',
-        'user_uuid',
+        'client_id',
+        'client_uuid',
         'product_id',
         'product_uuid',
+        'city_id',
+        'city_uuid',
         'is_out',
         'qte_global',
         'qte_livre',
@@ -29,20 +32,39 @@ class Stock extends Model
         'qte_endomage',
         'qte_rest',
         'notes',
+        'sent_at',
         'active'
     ];
 
     protected $casts = [
-        'is_out' => 'boolean'
+        'is_out' => 'boolean',
+        //'sent_at' => 'date:d-m-Y',
+
     ];
 
-    public function user()
+    public function client()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'client_id');
+    }
+
+    public function delivery()
+    {
+        return $this->belongsTo(User::class, 'delivery_id');
     }
 
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+
+    public function getAdjustmentDateAttribute()
+    {
+        $date = Carbon::createFromFormat('Y-m-d', $this->sent_at);
+        return $date->translatedFormat('d') . ' ' . $date->translatedFormat('F') . ' ' . $date->translatedFormat('Y');
     }
 }

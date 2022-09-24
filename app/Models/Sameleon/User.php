@@ -193,7 +193,7 @@ class User extends Authenticatable
 
     public function stocks()
     {
-        return $this->hasMany(Stock::class);
+        return $this->hasMany(Stock::class,'client_id');
     }
 
     public function documents()

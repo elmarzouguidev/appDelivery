@@ -13,7 +13,7 @@
                                 <div class="mb-4">
 
                                     
-                                        @if (auth()->user()->hasRole('Client'))
+                                        @if (auth()->user()->hasAnyRole('Client','SuperAdmin'))
 
                                             @if (auth()->user()->products()->count() <= 0)
                                                 <a href="{{ route('admin:products.create', ['shoud_product' => true]) }}"

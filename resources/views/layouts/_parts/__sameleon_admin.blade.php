@@ -18,6 +18,7 @@
             <span key="t-products">{{ __('Produits') }}</span>
         </a>
     </li>
+
     <li>
         <a href="{{ route('admin:stock.index') }}" class="waves-effect">
 
