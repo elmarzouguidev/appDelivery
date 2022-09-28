@@ -51,6 +51,8 @@ class Command extends Model
         'company_id',
         'delivery_id',
         'delivery_uuid',
+        'sub_delivery_id',
+        'sub_delivery_uuid',
         'comment',
         'delivred_by'
     ];
@@ -77,9 +79,14 @@ class Command extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    
     public function delivery()
     {
         return $this->belongsTo(User::class, 'delivery_id');
+    }
+    public function subDelivery()
+    {
+        return $this->belongsTo(User::class, 'sub_delivery_id');
     }
 
     public function company()

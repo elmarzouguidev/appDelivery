@@ -17,7 +17,7 @@
                                 required>
                                 <option value="">Choisir le livreuer *</option>
                                 @foreach ($delivries as $delivery)
-                                    <option value="{{ $delivery->id }}">{{ $delivery->full_name }}</option>
+                                    <option value="{{ $delivery->id }}">{{ $delivery->full_name }} ({{$delivery->type}})</option>
                                 @endforeach
                             </select>
                             @error('selectedDelivery')

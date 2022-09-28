@@ -22,6 +22,8 @@ return [
         \App\Status\Status::REPORTE => 'Reporté',
         \App\Status\Status::RETOURNE => 'Retourné',
 
+        \App\Status\Status::NEW => 'Nouveau',
+
     ],
 
     'classes' => [
@@ -44,6 +46,7 @@ return [
         \App\Status\Status::REFUSE => 'btn-danger',
         \App\Status\Status::REPORTE => 'btn-dark',
         \App\Status\Status::RETOURNE => 'btn-info',
+        \App\Status\Status::NEW => 'btn-info',
 
     ],
 

@@ -8,7 +8,15 @@
 
                 <li class="menu-title" key="t-menu">Menu</li>
 
-                @include('layouts._parts.__sameleon_admin')
+                @hasrole('DeliveryEntreprise')
+
+                    @include('layouts._parts.__sameleon_delivery_navbar')
+
+                @else
+
+                    @include('layouts._parts.__sameleon_admin')
+                    
+                @endhasrole
 
             </ul>
 

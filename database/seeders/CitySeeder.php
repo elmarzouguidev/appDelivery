@@ -26,6 +26,7 @@ class CitySeeder extends Seeder
             ['name' => 'Nouaceur', 'frais' => 20],
             ['name' => 'Sidi rahhal', 'frais' => 20],
             ['name' => 'Tit mellil', 'frais' => 20],
+            ['name' => 'Agadir', 'frais' => 35],
         ];
 
         foreach ($cities as $city) {

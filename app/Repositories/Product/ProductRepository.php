@@ -38,29 +38,7 @@ class ProductRepository extends AppRepository implements ProductInterface
      */
     public function getProducts()
     {
-        if ($this->useCache()) {
 
-            if (auth()->user()->hasRole('Client')) {
-
-                $cacheKey = "all_products_cache_" . auth()->user()->uuid;
-
-                return $this->setCache()->remember($cacheKey, $this->timeToLive(), function () {
-
-                    return $this->product
-                        ->where('user_id', auth()->id())
-                        ->where('user_uuid', auth()->user()->uuid)
-                        ->with('media', 'stockMutations')
-                        ->get();
-                });
-            } else {
-                return $this->setCache()->remember('all_products_cache', $this->timeToLive(), function () {
-                    return $this->product->with('media', 'client:id,nom,prenom')
-                        ->with('stockMutations')
-
-                        ->get();
-                });
-            }
-        } else {
             if (auth()->user()->hasRole('Client')) {
 
                 return $this->product
@@ -71,7 +49,7 @@ class ProductRepository extends AppRepository implements ProductInterface
 
                 return $this->product->with('media', 'client:id,nom,prenom', 'stockMutations')->get();
             }
-        }
+        
         return [];
     }
 

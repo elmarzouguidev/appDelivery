@@ -7,9 +7,19 @@
 
         {{-- @include('Sameleon.Admin.Stock.__datatable.__with_options') --}}
 
-        @include('Sameleon.Admin.Stock.add_stock_modal')
 
-        @livewire('sameleon.stock.stock')
+
+        @hasrole('DeliveryEntreprise')
+
+            @include('Sameleon.Admin.Stock.__normal_table.table_delivery_entreprise')
+
+        @else
+
+            @include('Sameleon.Admin.Stock.add_stock_modal')
+
+            @livewire('sameleon.stock.stock')
+            
+        @endhasrole
 
     </div>
 @endsection
@@ -17,7 +27,6 @@
 @section('css')
     <link href="{{ asset('assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet"
         type="text/css">
-
 @endsection
 
 

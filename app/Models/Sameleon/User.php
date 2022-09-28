@@ -37,6 +37,8 @@ class User extends Authenticatable
         'password',
         'is_admin',
         'is_client',
+        'is_delivery',
+        'is_sub_delivery',
         'cnie',
         'addresse',
         'city',
@@ -71,6 +73,8 @@ class User extends Authenticatable
         'is_completed' => 'boolean',
         'last_seen' => 'datetime',
         'is_client' => 'boolean',
+        'is_delivery' => 'boolean',
+        'is_sub_delivery' => 'boolean',
     ];
 
 
@@ -132,12 +136,19 @@ class User extends Authenticatable
             return $this->hasMany(Command::class)->orderBy('created_at', 'ASC');
         } elseif (auth()->user()->hasRole('Delivery')) {
             return $this->hasMany(Command::class, 'delivery_id')->where('delivery_id', auth()->id())->orderBy('created_at', 'ASC');
+        } elseif (auth()->user()->hasRole('SubDelivery')) {
+            return $this->hasMany(Command::class, 'sub_delivery_id')->where('sub_delivery_id', auth()->id())->orderBy('created_at', 'ASC');
         }
     }
 
     public function commandsDelivery()
     {
         return $this->hasMany(Command::class, 'delivery_id');
+    }
+
+    public function commandsSubDelivery()
+    {
+        return $this->hasMany(Command::class, 'sub_delivery_id');
     }
 
     public function getDeliveryTotalDayChiffreAttribute()
@@ -193,7 +204,7 @@ class User extends Authenticatable
 
     public function stocks()
     {
-        return $this->hasMany(Stock::class,'client_id');
+        return $this->hasMany(Stock::class, 'client_id');
     }
 
     public function documents()

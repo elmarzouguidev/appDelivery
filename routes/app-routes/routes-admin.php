@@ -40,7 +40,7 @@ Route::put('/', [AdminHomeController::class, 'viewAnnonce'])
 
 Route::put('/read-notifications', [AdminHomeController::class, 'markNotification'])
     ->middleware(['role:SuperAdmin|Admin|Client'])
-    ->name('home.read.notifications');    
+    ->name('home.read.notifications');
 
 Route::group(['prefix' => 'commands'], function () {
 
@@ -49,7 +49,7 @@ Route::group(['prefix' => 'commands'], function () {
     Route::post('/', [AdminCommandController::class, 'store'])->name('commands.store');
 
     Route::delete('/delete', [AdminCommandController::class, 'delete'])->name('commands.delete');
-    
+
     Route::post('/import', [AdminCommandController::class, 'import'])->name('commands.import');
     Route::group(['prefix' => 'edit'], function () {
 
@@ -92,16 +92,20 @@ Route::group(['prefix' => 'products'], function () {
 
         Route::get('/{product}', [AdminProductController::class, 'edit'])->name('products.edit');
         Route::post('/{product}', [AdminProductController::class, 'update'])->name('products.update');
-        
     });
+
+    /****Delivery Entreprise */
+    Route::get('/delivery-company', [AdminProductController::class, 'deliveryEntreprise'])->name('products.delivery.index');
 });
-    
+
 Route::group(['prefix' => 'stock'], function () {
 
     Route::get('/', [StockController::class, 'index'])->name('stock.index');
     Route::post('/', [StockController::class, 'store'])->name('stock.store');
     Route::post('update/{stock}', [StockController::class, 'update'])->name('stock.update');
     Route::delete('/delete', [StockController::class, 'delete'])->name('stock.deletee');
+
+    Route::get('/delivery-stock', [StockController::class, 'deliveryStock'])->name('stock.delivery.index');
 });
 
 
@@ -392,5 +396,4 @@ Route::group(['prefix' => 'historiques'], function () {
     Route::get('/', [HistoriqueController::class, 'index'])->name('historiques.index');
 
     Route::delete('/delete', [HistoriqueController::class, 'delete'])->name('historiques.delete');
-
 });

@@ -12,22 +12,13 @@ use App\Models\Sameleon\User;
 use App\Repositories\City\CityInterface;
 use App\Repositories\Delivery\DeliveryInterface;
 use App\Repositories\Product\ProductInterface;
+use App\Repositories\Stock\StockInterface;
 use Illuminate\Http\Request;
 
 class StockController extends Controller
 {
     public function index()
     {
-        /*if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin')) {
-
-            $stocks = Product::with('client')->get();
-
-        } else {
-
-            $stocks = auth()->user()->products()->with('media')->get();
-
-        }*/
-
         $deliveries = app(DeliveryInterface::class)->getDeliveries();
         $cities = app(CityInterface::class)->getCities();
         $products = app(ProductInterface::class)->getProducts();
@@ -35,6 +26,12 @@ class StockController extends Controller
         return view('Sameleon.Admin.Stock.index', compact('deliveries', 'cities', 'products'));
     }
 
+    public function deliveryStock()
+    {
+       $stocks = app(StockInterface::class)->getStocks();
+
+        return view('Sameleon.Admin.Stock.index', compact('stocks'));
+    }
 
     public function store(StockNewFormRequest $request)
     {

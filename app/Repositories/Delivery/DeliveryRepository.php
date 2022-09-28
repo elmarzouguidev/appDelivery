@@ -17,7 +17,6 @@ class DeliveryRepository extends AppRepository implements DeliveryInterface
     public function __construct(User $delivery)
     {
         $this->delivery = $delivery;
-
     }
 
     public function __instance(): User
@@ -36,11 +35,11 @@ class DeliveryRepository extends AppRepository implements DeliveryInterface
     {
         if ($this->useCache()) {
             return $this->setCache()->remember('all_deliveries_cache', $this->timeToLive(), function () {
-                return $this->delivery->role('Delivery')->get();
+                return $this->delivery->role(['Delivery', 'DeliveryEntreprise'])->get();
             });
         } else {
 
-            return $this->delivery->role('Delivery')->get();
+            return $this->delivery->role(['Delivery', 'DeliveryEntreprise'])->get();
         }
         return [];
     }

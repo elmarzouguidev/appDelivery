@@ -40,11 +40,11 @@ class ProductFactory extends Factory
 
             $item->increaseStock($item->qte_global);
             
-            $url = 'https://source.unsplash.com/random/400x400';
+            /*$url = 'https://source.unsplash.com/random/400x400';
 
             $item
                 ->addMediaFromUrl($url)
-                ->toMediaCollection('products_photos');
+                ->toMediaCollection('products_photos');*/
                 
         });
     }

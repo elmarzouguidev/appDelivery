@@ -25,4 +25,6 @@ class Status
     public const RETOURNE = 18;
 
     public const NON_INTERESSE = 19;
+
+    public const NEW = 20;
 }

@@ -124,8 +124,8 @@ class Commands extends Component
             $delivries = [];
         } elseif (auth()->user()->hasRole('Delivery')) {
 
-            $commands =  $command->where('delivery_id', auth()->id())
-                ->where('delivery_uuid', auth()->user()->uuid)
+            $commands =  $command->where('sub_delivery_id', auth()->id())
+                ->where('sub_delivery_uuid', auth()->user()->uuid)
                 ->whereIn('status', [Status::ENCOURS, Status::LIVRE])
                 //->where('updated_at', now())
                 ->with('items')
@@ -139,6 +139,24 @@ class Commands extends Component
             $delivries = [];
 
             return view('livewire.sameleon.command.commands-delivery', compact('commands', 'delivries'));
+
+        } elseif (auth()->user()->hasRole('DeliveryEntreprise') && auth()->user()->is_delivery == true) {
+
+            $commands =  $command->where('delivery_id', auth()->id())
+                ->where('delivery_uuid', auth()->user()->uuid)
+                ->whereIn('status', [Status::ENCOURS, Status::LIVRE])
+                //->where('updated_at', now())
+                ->with('items')
+                ->withSum('items', 'prix_total')
+                //->with('products.stock')
+                //->with(['city:id,name'])
+                ->orderByRaw("created_at DESC")
+                ->orderByRaw("FIELD(status, $commandStatus)")
+                ->paginate(60);
+
+            $delivries = [];
+
+            return view('livewire.sameleon.command.commands-delivery-company', compact('commands', 'delivries'));
         } else {
 
             $commands = $command
@@ -151,7 +169,7 @@ class Commands extends Component
                 ->orderByRaw("FIELD(status, $commandStatus)")
                 ->paginate(60);
 
-            $delivries = User::role('Delivery')->select(['uuid', 'id', 'nom', 'prenom'])->get();
+            $delivries = User::role(['Delivery','DeliveryEntreprise'])->select(['uuid', 'id', 'nom', 'prenom','type'])->get();
         }
 
         //  $commands =  $command->with('products')->get();
@@ -179,7 +197,7 @@ class Commands extends Component
 
         $this->reportComment = '';
 
-        if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin')) {
+        if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin','DeliveryEntreprise')) {
 
             $this->clients = User::role('Client')->select(['nom', 'prenom', 'id'])->get();
             $this->products = Product::select(['id', 'name'])->get();

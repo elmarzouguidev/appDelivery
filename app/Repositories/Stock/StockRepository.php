@@ -38,48 +38,33 @@ class StockRepository extends AppRepository implements StockInterface
      */
     public function getStocks()
     {
-        if ($this->useCache()) {
 
-            if (auth()->user()->hasRole('Client')) {
+        if (auth()->user()->hasRole('Client')) {
 
-                $cacheKey = "all_stocks_cache_" . auth()->user()->uuid;
+            return $this->stock
+                ->where('client_id', auth()->id())
+                ->where('client_uuid', auth()->user()->uuid)
+                ->with('product:id,name')
+                ->with('city:id,name')
+                ->get();
+        } elseif (auth()->user()->hasRole('DeliveryEntreprise')  && auth()->user()->is_delivery == true) {
 
-                return $this->setCache()->remember($cacheKey, $this->timeToLive(), function () {
-
-                    return $this->stock
-                        ->where('client_id', auth()->id())
-                        ->where('client_uuid', auth()->user()->uuid)
-                        ->with('product:id,name')
-                        ->with('city:id,name')
-                        ->get();
-                });
-            } else {
-                return $this->setCache()->remember('all_stocks_cache', $this->timeToLive(), function () {
-                    return $this->stock->with('client:id,nom,prenom')
-                        ->with('product:id,name')
-                        ->with('city:id,name')
-
-                        ->get();
-                });
-            }
+            return $this->stock
+                ->where('delivery_id', auth()->id())
+                ->where('delivery_uuid', auth()->user()->uuid)
+                ->where('city_id', auth()->user()->city_id)
+                ->where('city_uuid', auth()->user()->city->uuid)
+                ->with('product:id,name,price')
+                ->get();
         } else {
-            if (auth()->user()->hasRole('Client')) {
 
-                return $this->stock
-                    ->where('client_id', auth()->id())
-                    ->where('client_uuid', auth()->user()->uuid)
-                    ->with('product:id,name')
-                    ->with('city:id,name')
-                    ->get();
-            } else {
+            return $this->stock->with('client:id,nom,prenom')
+                ->with('product:id,name')
+                ->with('city:id,name')
 
-                return $this->stock->with('client:id,nom,prenom')
-                    ->with('product:id,name')
-                    ->with('city:id,name')
-
-                    ->get();
-            }
+                ->get();
         }
+
         return [];
     }
 

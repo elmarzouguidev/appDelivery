@@ -10,6 +10,7 @@ use App\Models\Sameleon\User;
 use App\Notifications\ProductCreated;
 use App\Repositories\Client\ClientInterface;
 use App\Repositories\Product\ProductInterface;
+use App\Repositories\Stock\StockInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -47,6 +48,13 @@ class AdminProductController extends Controller
         $clients = app(ClientInterface::class)->getClients();
 
         return view('Sameleon.Admin.Product.__normal_table.index', compact('products', 'clients'));
+    }
+    public function deliveryEntreprise()
+    {
+
+        $products = app(StockInterface::class)->getStocks();
+
+        return view('Sameleon.Admin.Product.__normal_table.index', compact('products'));
     }
 
     public function create()
