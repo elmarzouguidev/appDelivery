@@ -41,6 +41,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'delivery' => [
+            'driver' => 'session',
+            'provider' => 'deliveries',
+        ],
     ],
 
     /*
@@ -66,10 +71,11 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Sameleon\User::class,
         ],
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+
+        'deliveries' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Sameleon\Delivery::class,
+        ],
     ],
 
     /*
@@ -90,6 +96,13 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+
+        'deliveries' => [
+            'provider' => 'deliveries',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

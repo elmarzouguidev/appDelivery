@@ -51,6 +51,8 @@ class RouteServiceProvider extends ServiceProvider
 
             $this->adminRoutes();
 
+            $this->subDeliveryRoutes();
+
             $this->devlopperRoutes();
 
             $this->hooksRoutes();
@@ -87,6 +89,22 @@ class RouteServiceProvider extends ServiceProvider
             ->name('admin:')
             ->namespace($this->namespace)
             ->group(base_path('routes/app-routes/routes-admin.php'));
+    }
+
+    private function subDeliveryRoutes()
+    {
+
+        Route::middleware(['web', 'prevent-back-history'])
+            ->prefix('delivery/app')
+            ->name('delivery:auth:')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/app-routes/sub_delivery_auth_routes.php'));
+
+        Route::middleware(['web','auth:delivery', 'prevent-back-history'])
+            ->prefix('delivery/app')
+            ->name('delivery:')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/app-routes/sub_delivery_routes.php'));
     }
 
     private function devlopperRoutes()

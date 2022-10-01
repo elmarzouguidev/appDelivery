@@ -35,6 +35,6 @@ class AppServiceProvider extends ServiceProvider
 
         //  $this->app->make('Storage')::makeDirectory('Abdo');
 
-        $this->app->singleton(CacheResponseMiddleware::class);
+        //$this->app->singleton(CacheResponseMiddleware::class);
     }
 }

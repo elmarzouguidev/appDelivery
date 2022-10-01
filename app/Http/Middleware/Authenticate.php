@@ -10,14 +10,21 @@ class Authenticate extends Middleware
 
     protected function redirectTo($request)
     {
+
         if (!$request->expectsJson()) {
-            return route('admin:auth:login');
+            if ($request->route()->getName() === "admin:home") {
+                return route('admin:auth:login');
+            }
+            if ($request->route()->getName() === "delivery:home") {
+               
+                return route('delivery:auth:login');
+            }
         }
     }
 
     /*protected function unauthenticated($request, array $guards)
     {
-        //dd($guards);
+        //dd($guards,"d");
         if (! $request->routeIs('checkout') && $request->is('api/', 'api/*')) {
 
             abort(response()->json([

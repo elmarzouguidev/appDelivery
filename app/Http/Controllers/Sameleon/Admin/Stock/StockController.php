@@ -108,6 +108,7 @@ class StockController extends Controller
         if ($stock) {
 
             $stock->delete();
+            
             return redirect()->back()->with('success', 'le stock a été supprimé avec success');
         }
         return redirect()->back()->with('error', 'error !! ');

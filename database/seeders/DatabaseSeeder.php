@@ -34,6 +34,8 @@ class DatabaseSeeder extends Seeder
 
     $this->call(DeliverySeeder::class);
 
+    $this->call(SubDeliverySeeder::class);
+
     $this->call(BankSeeder::class);
 
     $this->call(IntegrationSeeder::class);
@@ -46,8 +48,6 @@ class DatabaseSeeder extends Seeder
 
       // $this->callWith(CommandSeeder::class, ['user' => $user]);
     }
-
-   
   }
 
   private function clearAll()

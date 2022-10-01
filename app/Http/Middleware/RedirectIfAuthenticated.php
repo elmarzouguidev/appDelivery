@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class RedirectIfAuthenticated
 {
 
-    
+
     /**
      * @param Request $request
      * @param Closure $next
@@ -25,6 +25,9 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
+                if ($guard === "delivery") {
+                    return redirect(route('delivery:home'));
+                }
                 return redirect(route('admin:home'));
             }
         }

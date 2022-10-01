@@ -1,28 +1,30 @@
 <?php
 
-namespace App\Http\Controllers\Sameleon\Admin;
+namespace App\Http\Controllers\Sameleon\Admin\SubDelivery\Auth;
 
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
+
 use Illuminate\Http\Response;
 
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+
 use Illuminate\Support\Facades\Auth;
 
-class AuthAdminController extends Controller
+class AuthSubDeliveryController extends Controller
 {
     use AuthenticatesUsers;
 
 
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest:delivery')->except('logout');
     }
 
     public function loginForm()
     {
-        return view('Sameleon.Admin.Auth.login');
+        return view('Sameleon.Admin.SubDelivery.Auth.login');
     }
 
     /**
@@ -38,11 +40,11 @@ class AuthAdminController extends Controller
         /**Logout from other devices */
         Auth::logoutOtherDevices($request->password);
 
-        if (!Auth::user()->isActive()) {
+        if (!$this->guard()->user()->isActive()) {
 
-            Auth::logout();
+            $this->guard()->logout();
 
-            return redirect(route('admin:auth:login'))->withErrors(["Votre compte n'est pas encore activé"]);
+            return redirect(route('delivery:auth:login'))->withErrors(["Votre compte n'est pas encore activé"]);
         }
     }
 
@@ -62,7 +64,7 @@ class AuthAdminController extends Controller
 
         return $request->wantsJson()
             ? new Response('', 204)
-            : redirect(route('admin:auth:login'));
+            : redirect(route('delivery:auth:login'));
     }
 
     /**
@@ -70,14 +72,17 @@ class AuthAdminController extends Controller
      */
     private function redirectTo()
     {
-        /***By v2 abdo */
-        if (auth()->user()->hasAnyRole('Delivery','DeliveryEntreprise')) {
 
-            return route('admin:commands.index');
+        return route('delivery:home');
+    }
 
-        } else {
-            
-            return route('admin:home');
-        }
+    /**
+     * Get the guard to be used during authentication.
+     *
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     */
+    protected function guard()
+    {
+        return Auth::guard('delivery');
     }
 }
