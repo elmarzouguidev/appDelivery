@@ -7,7 +7,7 @@
 
 <li class="menu-title" key="t-stock">Stock</li>
 <li>
-    <a href="{{ route('admin:products.delivery.index') }}">
+    <a href="{{ route('delivery:products.index') }}">
 
         <i class="bx bx-store"></i>
         <span key="t-products">{{ __('Produits') }}</span>
@@ -29,7 +29,7 @@
 <li class="menu-title" key="t-commands">Commandes</li>
 
 <li>
-    <a href="{{ route('admin:commands.index') }}" class="waves-effect">
+    <a href="{{ route('delivery:commands.index') }}" class="waves-effect">
 
 
         <i class="bx bx-cart-alt"></i>
@@ -45,7 +45,7 @@
 <li class="menu-title" key="t-invoices">Factures</li>
 
 <li>
-    <a href="{{ route('admin:invoices.index') }}">
+    <a href="{{ route('delivery:invoices.index') }}">
         <i class="bx bx-file"></i>
 
         <span class="badge rounded-pill bg-info float-end">{{ 1 }}</span>
@@ -54,7 +54,7 @@
     </a>
 </li>
 <li>
-    <a href="{{ route('admin:payments.index') }}">
+    <a href="{{ route('delivery:payments.index') }}">
         <i class="bx bx-money"></i>
         <span key="t-payments">{{ __('Paiements') }}</span>
     </a>
