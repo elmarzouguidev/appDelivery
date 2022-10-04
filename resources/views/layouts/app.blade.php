@@ -25,8 +25,12 @@
 
     <div id="layout-wrapper">
 
-        @include('layouts._parts.__header')
-
+        @if (auth('delivery')->check())
+            @include('layouts._parts.__header_delivery')
+        @else
+            @include('layouts._parts.__header')
+        @endif
+        
         @include('layouts._parts._leftSidebar_commercial')
 
         <div class="main-content">
@@ -55,7 +59,7 @@
     </div>
 
 
-    {{--@include('layouts._parts._rightSidebar')--}}
+    {{-- @include('layouts._parts._rightSidebar') --}}
 
 
     @include('layouts._parts._overly')
@@ -64,7 +68,7 @@
 
     <script src="{{ asset('js/app.js') }}" data-pagespeed-no-defer></script>
 
-    {{--@include('layouts._parts.__global_js')--}}
+    {{-- @include('layouts._parts.__global_js') --}}
 
     @stack('scripts')
 

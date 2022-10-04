@@ -1,11 +1,16 @@
 <?php
 
+use App\Http\Controllers\Sameleon\Admin\SubDelivery\Delivery\ProfilSubDeliveryController;
 use App\Http\Controllers\Sameleon\Admin\SubDelivery\Delivery\SubDeliveryController;
 use App\Http\Controllers\Sameleon\Admin\SubDelivery\Home\HomeSubDeliveryController;
 use App\Http\Controllers\Sameleon\Admin\SubDelivery\Stock\StockSubDeliveryController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeSubDeliveryController::class, 'index'])->name('home');
+
+Route::put('/read-notifications', [HomeSubDeliveryController::class, 'markNotification'])
+
+    ->name('home.read.notifications');
 
 Route::group(['prefix' => 'stock'], function () {
 
@@ -31,4 +36,20 @@ Route::group(['prefix' => 'drivers'], function () {
         Route::get('/{delivery}', [SubDeliveryController::class, 'edit'])->name('delivery.edit');
         Route::post('/{delivery}', [SubDeliveryController::class, 'update'])->name('delivery.update');
     });
+});
+
+Route::group(['prefix' => 'account'], function () {
+
+    Route::group(['prefix' => 'info'], function () {
+
+        Route::get('/', [ProfilSubDeliveryController::class, 'index'])->name('profil');
+        Route::post('/', [ProfilSubDeliveryController::class, 'update'])->name('profil.update');
+
+        Route::post('/password', [ProfilSubDeliveryController::class, 'updatePassword'])->name('profil.update.password');
+
+        Route::post('/company', [ProfilSubDeliveryController::class, 'updateCompany'])->name('profil.update.company');
+
+        Route::post('/bank', [ProfilSubDeliveryController::class, 'updateBank'])->name('profil.update.bank');
+    });
+
 });
