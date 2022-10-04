@@ -19,7 +19,7 @@
 
         <i class="bx bxs-box "></i>
  
-            <span class="badge rounded-pill bg-danger float-end">{{ 5 }}</span>
+            <span class="badge rounded-pill bg-danger float-end"> 5 </span>
       
         <span key="t-stock">{{ __('Stock') }}</span>
     </a>
@@ -34,7 +34,7 @@
 
         <i class="bx bx-cart-alt"></i>
 
-        <span class="badge rounded-pill bg-info float-end">{{ 2 }}</span>
+        <span class="badge rounded-pill bg-info float-end"> 2</span>
 
         <span key="t-commands">{{ __('Commandes') }}</span>
     </a>

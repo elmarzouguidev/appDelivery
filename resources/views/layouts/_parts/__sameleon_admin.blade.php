@@ -101,7 +101,7 @@
         </a>
     </li>
 
-    <li class="menu-title" key="t-invoices">Réclamations</li>
+    <li class="menu-title" key="t-reclamations">Réclamations</li>
 
     <li>
         <a href="{{ route('admin:complaints.index') }}">

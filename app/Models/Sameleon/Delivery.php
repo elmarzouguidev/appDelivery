@@ -58,6 +58,8 @@ class Delivery extends Authenticatable
 
     ];
 
+    public $guard_name = 'delivery';
+
     protected function fullName(): Attribute
     {
         return new Attribute(

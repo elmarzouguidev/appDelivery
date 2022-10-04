@@ -13,7 +13,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
 
-use Appstract\Stock\HasStock;
+
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
@@ -26,8 +26,6 @@ class Product extends Model implements HasMedia
     use UuidGenerator;
 
     use ModelRoutes;
-
-    use HasStock;
 
     protected $fillable = [
         'slug',
@@ -79,7 +77,7 @@ class Product extends Model implements HasMedia
     public function isOutOfStock(int $qte)
     {
         //dd($this->inStock($qte));
-        return !$this->inStock($qte);
+        //return !$this->inStock($qte);
     }
 
     public function getFormatedPriceAttribute()

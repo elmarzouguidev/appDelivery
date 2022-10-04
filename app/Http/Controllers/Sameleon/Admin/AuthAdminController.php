@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+
 use Illuminate\Support\Facades\Auth;
 
 class AuthAdminController extends Controller

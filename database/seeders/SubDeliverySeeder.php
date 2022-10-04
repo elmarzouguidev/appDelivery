@@ -43,9 +43,17 @@ class SubDeliverySeeder extends Seeder
 
         if (!$delivery &&  !$delivery2) {
 
-            Delivery::create($user);
+            $user1 = Delivery::create($user);
 
-            Delivery::create($user2);
+            $user2 = Delivery::create($user2);
+
+            $user1->assignRole('SubDelivery');
+
+            $user2->assignRole('SubDelivery');
+        } else {
+            $delivery->assignRole('SubDelivery');
+
+            $delivery2->assignRole('SubDelivery');
         }
     }
 }

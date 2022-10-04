@@ -19,7 +19,7 @@ class UserActivity
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::guard() !== 'delivery' && Auth::check()) {
+        if (Auth::check() && !Auth::guard('delivery')->check()) {
 
             $expiresAt = now()->addMinutes(2); /* keep online for 2 min */
 

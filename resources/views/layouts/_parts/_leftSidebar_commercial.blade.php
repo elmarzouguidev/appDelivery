@@ -8,7 +8,7 @@
 
                 <li class="menu-title" key="t-menu">Menu</li>
 
-                @hasrole('DeliveryEntreprise')
+                @role('DeliveryEntreprise')
 
                     @include('layouts._parts.__sameleon_delivery_navbar')
 
@@ -16,7 +16,7 @@
 
                     @include('layouts._parts.__sameleon_admin')
                     
-                @endhasrole
+                @endrole
 
             </ul>
 

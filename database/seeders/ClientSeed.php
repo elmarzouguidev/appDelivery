@@ -56,6 +56,7 @@ class ClientSeed extends Seeder
 
             $newAdmin->syncPermissions($permissions);
             $newAdmin2->syncPermissions($permissions);
+            
         } else {
 
             $client->assignRole('Client');
