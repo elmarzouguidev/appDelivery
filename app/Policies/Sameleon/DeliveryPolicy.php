@@ -38,9 +38,9 @@ class DeliveryPolicy
      * @param  \App\Models\Sameleon\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user)
+    public function create(Authenticatable $user)
     {
-        return $user->hasAnyRole('SuperAdmin') || $delivery->hasRole('DeliveryEntreprise') ;
+        return $user->hasAnyRole('SuperAdmin') || $user->hasRole('DeliveryEntreprise') ;
     }
 
     /**
@@ -50,9 +50,9 @@ class DeliveryPolicy
      * @param  \App\Models\Sameleon\Delivery  $delivery
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Delivery $delivery)
+    public function update(Authenticatable $user, Delivery $delivery)
     {
-        return $user->hasAnyRole('SuperAdmin') || $delivery->hasRole('DeliveryEntreprise') ;
+        return $user->hasAnyRole('SuperAdmin') || $user->hasRole('DeliveryEntreprise') ;
     }
 
     /**

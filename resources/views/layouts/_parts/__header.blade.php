@@ -91,7 +91,7 @@
                     id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
                     <i class="bx bx-bell bx-tada"></i>
-                    <span class="badge bg-danger rounded-pill">{{auth()->user()->unreadNotifications->count()}}</span>
+                    <span class="badge bg-danger rounded-pill">{{ auth()->user()->unreadNotifications->count() }}</span>
                 </button>
 
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
@@ -101,30 +101,31 @@
                             <div class="col">
                                 <h6 class="m-0" key="t-notifications"> Notifications </h6>
                             </div>
-                            {{--<div class="col-auto">
+                            {{-- <div class="col-auto">
                                 <a href="#!" class="small" key="t-view-all"> View All</a>
-                            </div>--}}
+                            </div> --}}
                         </div>
                     </div>
                     @forelse (auth()->user()->unreadNotifications as $notification)
                         <div data-simplebar style="max-height: 230px;">
                             <a href="#" class="text-reset notification-item">
                                 <div class="d-flex">
-    
+
                                     <div class="flex-grow-1">
                                         <h6 class="mb-1" key="t-your-order">Nouveau produit créer</h6>
                                         <div class="font-size-12 text-muted">
                                             <p class="mb-1" key="t-grammer">
-                                                <b>{{ $notification->data['client'] }}</b> a crée le produit : <b>{{ $notification->data['name'] }}</b>
+                                                <b>{{ $notification->data['client'] }}</b> a crée le produit :
+                                                <b>{{ $notification->data['name'] }}</b>
                                             </p>
                                             <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span
                                                     key="t-min-ago">
                                                     {{ $notification->created_at->diffForHumans() }}
                                                 </span>
                                             </p>
-                                            
+
                                         </div>
-                      
+
                                     </div>
 
                                 </div>
@@ -138,15 +139,14 @@
                         </div>
                     @endforelse
                     <div class="p-2 border-top d-grid">
-                        <form id="readAllNotifications" method="post" action="{{ route('admin:home.read.notifications') }}">
+                        <form id="readAllNotifications" method="post"
+                            action="{{ route('admin:home.read.notifications') }}">
                             @csrf
                             @method('PUT')
-    
+
                         </form>
-                        <a class="btn btn-sm btn-link font-size-14 text-center" 
-                            href="#"
-                            onclick="document.getElementById('readAllNotifications').submit();"
-                        >
+                        <a class="btn btn-sm btn-link font-size-14 text-center" href="#"
+                            onclick="document.getElementById('readAllNotifications').submit();">
                             <i class="mdi mdi-arrow-right-circle me-1"></i> <span key="t-view-more">
                                 tout marquer comme lu</span>
                         </a>
@@ -189,30 +189,37 @@
 
                     <div class="dropdown-divider"></div>
 
-                    {{--<a class="dropdown-item d-block" href="{{ route('admin:profile.sources.index') }}">
+                    {{-- <a class="dropdown-item d-block" href="{{ route('admin:profile.sources.index') }}">
 
                         <i class="bx bx-stats font-size-16 align-middle me-1"></i>
                         <span key="t-sources">Source de données</span>
                     </a>
 
-                    <div class="dropdown-divider"></div>--}}
+                    <div class="dropdown-divider"></div> --}}
 
-                    {{--<a class="dropdown-item d-block" href="{{ route('admin:history') }}">
+                    {{-- <a class="dropdown-item d-block" href="{{ route('admin:history') }}">
 
                         <i class="bx bx-history font-size-16 align-middle me-1"></i>
                         <span key="t-profile">Historique</span>
                     </a>
-                    <div class="dropdown-divider"></div>--}}
+                    <div class="dropdown-divider"></div> --}}
                     <a class="dropdown-item text-danger" href="#"
                         onclick="document.getElementById('logoutForm').submit();">
                         <i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i>
                         <span key="t-logout">Se déconnecter</span>
                     </a>
 
-                    <form id="logoutForm" method="post" action="{{ route('admin:auth:logout') }}">
-                        @csrf
+                    @if (auth('delivery')->check())
+                        <form id="logoutForm" method="post" action="{{ route('delivery:auth:logout') }}">
+                            @csrf
 
-                    </form>
+                        </form>
+                    @else
+                        <form id="logoutForm" method="post" action="{{ route('admin:auth:logout') }}">
+                            @csrf
+
+                        </form>
+                    @endif
 
                 </div>
             </div>

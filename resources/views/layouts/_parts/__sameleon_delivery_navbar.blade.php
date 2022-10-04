@@ -67,6 +67,6 @@
 <li>
     <a href="{{ route('delivery:delivery.index') }}">
         <i class='bx bxs-truck'></i>
-        <span key="t-delivery">{{ __('Sous Livreurs') }}</span>
+        <span key="t-subdelivery">{{ __('Sous Livreurs') }}</span>
     </a>
 </li>

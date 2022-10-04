@@ -3,9 +3,17 @@
 namespace App\Http\Controllers\Sameleon\Admin\SubDelivery\Delivery;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Sameleon\Delivery\DeliveryCreateFormRequest;
 use App\Models\Sameleon\Delivery;
+use App\Notifications\Sameleon\SendNewDeliveryPassword;
+use App\Repositories\City\CityInterface;
 use App\Repositories\Delivery\DeliveryInterface;
+use App\Services\Mail\CheckConnection;
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class SubDeliveryController extends Controller
 {
@@ -16,7 +24,7 @@ class SubDeliveryController extends Controller
 
         $deliveries = app(DeliveryInterface::class)->getDeliveries();
 
-        return  view('Sameleon.Admin.Delivery.__normal_table.index', compact('deliveries'));
+        return  view('Sameleon.Admin.SubDelivery.Delivery.__normal_table.index', compact('deliveries'));
     }
 
     public function create()
@@ -26,13 +34,13 @@ class SubDeliveryController extends Controller
 
         $cities = app(CityInterface::class)->getCities();
 
-        return  view('Sameleon.Admin.Delivery.__create.index', compact('cities'));
+        return  view('Sameleon.Admin.SubDelivery.Delivery.__create.index', compact('cities'));
     }
 
     public function store(DeliveryCreateFormRequest $request)
     {
 
-        $this->authorize('create', User::class);
+        $this->authorize('create', Delivery::class);
 
         $delivery = new Delivery();
 
@@ -42,8 +50,8 @@ class SubDeliveryController extends Controller
         $delivery->addresse = $request->addresse;
         $delivery->telephone = $request->telephone;
 
-        $delivery->type = $request->type;
-        $delivery->cnie = $request->cnie;
+        $delivery->type = "particulier";
+        //$delivery->cnie = $request->cnie;
 
         $pass = $request->email;
 
@@ -54,29 +62,24 @@ class SubDeliveryController extends Controller
 
         $delivery->password = Hash::make($pass);
 
-        $delivery->city()->associate($request->city);
+        $delivery->parent_id = auth()->id();
+
+        $delivery->parent_uuid = auth()->user()->uuid;
+
+        $delivery->city()->associate(auth()->user()->city);
 
         $delivery->save();
 
-        if ($request->type == 'entreprise') {
 
-            $delivery->assignRole('DeliveryEntreprise');
-        } else {
+        $delivery->assignRole('SubDelivery');
 
-            $delivery->assignRole('Delivery');
-        }
-
-        if ($request->type == 'entreprise' && $request->has('regions') && $request->filled('regions')) {
-
-            Region::find($request->regions)->each->update(['delivery_id' => $delivery->id, 'delivery_uuid' => $delivery->uuid]);
-        }
 
         if ($request->boolean('generate_password') && CheckConnection::isConnected()) {
 
             $delivery->notify(new SendNewDeliveryPassword($pass));
         }
 
-        return redirect()->back()->with('success', 'le livreur a été ajouter avec success est le mot de pass a été envoyer');
+        return redirect()->route('delivery:delivery.index')->with('success', 'le livreur a été ajouter avec success est le mot de pass a été envoyer');
     }
 
     public function edit(Delivery $delivery)
@@ -87,7 +90,7 @@ class SubDeliveryController extends Controller
 
         $delivery->load('regions');
 
-        return view('Sameleon.Admin.Delivery.__edit.index', compact('delivery', 'cities'));
+        return view('Sameleon.Admin.SubDelivery.Delivery.__edit.index', compact('delivery', 'cities'));
     }
 
     public function update(DeliveryUpdateFormRequest $request, Delivery $delivery)
