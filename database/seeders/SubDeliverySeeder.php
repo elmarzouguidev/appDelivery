@@ -23,7 +23,7 @@ class SubDeliverySeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('123456789@'),
             'remember_token' => Str::random(10),
-            'user_id' => 8
+            'parent_id' => 8
         ];
 
         $user2 = [
@@ -33,7 +33,7 @@ class SubDeliverySeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('123456789@'),
             'remember_token' => Str::random(10),
-            'user_id' => 8
+            'parent_id' => 8
         ];
 
         $delivery = Delivery::whereEmail('aboudi@gmail.com')->first();

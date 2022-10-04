@@ -11,6 +11,6 @@ class HomeSubDeliveryController extends Controller
 
     public function index()
     {
-        return "Hello sub delivery ...";
+        return view('Sameleon.Admin.SubDelivery.Home.index');
     }
 }

@@ -3,7 +3,7 @@
 
 namespace App\Repositories\Delivery;
 
-use App\Models\Sameleon\User;
+use App\Models\Sameleon\Delivery;
 use App\Repositories\AppRepository;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -14,12 +14,12 @@ class DeliveryRepository extends AppRepository implements DeliveryInterface
 
     private $instance;
 
-    public function __construct(User $delivery)
+    public function __construct(Delivery $delivery)
     {
         $this->delivery = $delivery;
     }
 
-    public function __instance(): User
+    public function __instance(): Delivery
     {
         if (!$this->instance) {
             $this->instance = $this->delivery;
@@ -29,19 +29,21 @@ class DeliveryRepository extends AppRepository implements DeliveryInterface
     }
 
     /**
-     * @return User[]|Collection|string[]
+     * @return Delivery[]|Collection|string[]
      */
     public function getDeliveries()
     {
-        if ($this->useCache()) {
-            return $this->setCache()->remember('all_deliveries_cache', $this->timeToLive(), function () {
-                return $this->delivery->role(['Delivery', 'DeliveryEntreprise'])->get();
-            });
-        } else {
 
-            return $this->delivery->role(['Delivery', 'DeliveryEntreprise'])->get();
+        if (auth('delivery')->check() && auth('delivery')->user()->hasRole('DeliveryEntreprise')) {
+            
+            return $this->delivery->role(['SubDelivery'])
+                ->whereParentId(auth()->id())
+                ->whereParentUuid(auth()->user()->uuid)
+                ->get();
         }
-        return [];
+
+        return $this->delivery->role(['Delivery', 'DeliveryEntreprise'])->get();
+            
     }
 
     /**

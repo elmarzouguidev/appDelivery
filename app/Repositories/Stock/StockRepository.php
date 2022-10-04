@@ -47,7 +47,7 @@ class StockRepository extends AppRepository implements StockInterface
                 ->with('product:id,name')
                 ->with('city:id,name')
                 ->get();
-        } elseif (auth()->user()->hasRole('DeliveryEntreprise')  && auth()->user()->is_delivery == true) {
+        } elseif (auth('delivery')->check() && auth('delivery')->user()->hasRole('DeliveryEntreprise')) {
 
             return $this->stock
                 ->where('delivery_id', auth()->id())

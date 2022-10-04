@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 
+use Spatie\Permission\Traits\HasRoles;
+
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
 
@@ -21,8 +23,9 @@ class Delivery extends Authenticatable
     use HasFactory;
     use GetModelByUuid;
     use UuidGenerator;
+    use HasRoles;
 
-    protected $table = 'sub_deliveries';
+    protected $table = 'deliveries';
 
     protected $fillable = [
         'nom',
@@ -31,10 +34,14 @@ class Delivery extends Authenticatable
         'email',
         'password',
         'cnie',
+        'addresse',
         'city',
         'active',
-        'user_id',
-        'user_uuid'
+        'parent_id',
+        'parent_uuid',
+        'city_uuid',
+        'city_id',
+        'type'
     ];
 
     /**
@@ -72,9 +79,17 @@ class Delivery extends Authenticatable
         return $this->active ? true : false;
     }
 
+    public function completProfile()
+    {
+
+        return  is_null($this->attributes['cnie']) ||
+            is_null($this->attributes['addresse']) ||
+            is_null($this->attributes['telephone']) ? false : true;
+    }
+
     public function commands()
     {
-        return $this->hasMany(Command::class, 'sub_delivery_id')->orderBy('created_at', 'ASC');
+        return $this->hasMany(Command::class, 'delivery_id')->orderBy('created_at', 'ASC');
     }
 
     public function city()
@@ -84,6 +99,23 @@ class Delivery extends Authenticatable
 
     public function DeliveryCompany()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(self::class, 'parent_id');
+    }
+
+    public function childrens()
+    {
+        return $this->hasMany(self::class, 'parent_id', 'id');
+    }
+
+    /**** */
+
+    public function commandsDelivery()
+    {
+        return $this->hasMany(Command::class, 'delivery_id');
+    }
+
+    public function regions()
+    {
+        return $this->hasMany(Region::class, 'delivery_id');
     }
 }

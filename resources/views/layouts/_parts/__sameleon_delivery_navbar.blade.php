@@ -1,5 +1,5 @@
 <li>
-    <a href="{{ route('admin:home') }}" class="waves-effect">
+    <a href="{{ route('delivery:home') }}" class="waves-effect">
         <i class="bx bx-home-circle"></i>{{-- <span class="badge rounded-pill bg-info float-end">04</span> --}}
         <span key="t-dashboards">{{ __('navbar.dashboard') }}</span>
     </a>
@@ -15,7 +15,7 @@
 </li>
 
 <li>
-    <a href="{{ route('admin:stock.delivery.index') }}" class="waves-effect">
+    <a href="{{ route('delivery:stock.index') }}" class="waves-effect">
 
         <i class="bx bxs-box "></i>
  
@@ -65,17 +65,8 @@
 <li class="menu-title" key="t-components">{{ __('navbar.advanced') }}</li>
 
 <li>
-    <a href="{{ route('admin:annonces.index') }}" class="waves-effect">
-        {{-- <span class="badge rounded-pill bg-success float-end" key="t-new">New</span> --}}
-        <i class="bx bx-volume-full"></i>
-        <span key="t-annonces">{{ __('Annonces') }}</span>
-    </a>
-
-</li>
-
-<li>
-    <a href="{{ route('admin:delivery.index') }}">
+    <a href="{{ route('delivery:delivery.index') }}">
         <i class='bx bxs-truck'></i>
-        <span key="t-delivery">{{ __('Livreurs') }}</span>
+        <span key="t-delivery">{{ __('Sous Livreurs') }}</span>
     </a>
 </li>

@@ -104,8 +104,6 @@ Route::group(['prefix' => 'stock'], function () {
     Route::post('/', [StockController::class, 'store'])->name('stock.store');
     Route::post('update/{stock}', [StockController::class, 'update'])->name('stock.update');
     Route::delete('/delete', [StockController::class, 'delete'])->name('stock.deletee');
-
-    Route::get('/delivery-stock', [StockController::class, 'deliveryStock'])->name('stock.delivery.index');
 });
 
 
@@ -166,6 +164,8 @@ Route::group(['prefix' => 'drivers'], function () {
         Route::get('/{delivery}', [DeliveryController::class, 'edit'])->name('delivery.edit');
         Route::post('/{delivery}', [DeliveryController::class, 'update'])->name('delivery.update');
     });
+
+    Route::get('/{delivery}/team', [DeliveryController::class, 'team'])->name('delivery.team');
 });
 
 Route::group(['prefix' => 'invoices'], function () {

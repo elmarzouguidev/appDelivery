@@ -8,15 +8,11 @@
 
                 <li class="menu-title" key="t-menu">Menu</li>
 
-                @role('DeliveryEntreprise')
-
+                @if (auth('delivery')->check())
                     @include('layouts._parts.__sameleon_delivery_navbar')
-
                 @else
-
                     @include('layouts._parts.__sameleon_admin')
-                    
-                @endrole
+                @endif
 
             </ul>
 

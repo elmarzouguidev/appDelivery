@@ -27,12 +27,12 @@ class DeliveryUpdateFormRequest extends FormRequest
         return [
             'nom' => ['required', 'string'],
             'prenom' => ['required', 'string'],
-            'telephone' => ['required', 'phone:MA', Rule::unique('users')->ignore($this->route('delivery'), 'uuid')],
+            'telephone' => ['required', 'phone:MA', Rule::unique('deliveries')->ignore($this->route('delivery'), 'uuid')],
             'addresse' => ['required', 'string'],
             'type' => ['required', 'string', Rule::in(['entreprise', 'particulier'])],
             'city' => ['required', 'integer'],
-            'cnie' => ['nullable', 'required_if:type,particulier', 'string', Rule::unique('users')->ignore($this->route('delivery'), 'uuid')],
-            'email' => ['required', 'email', Rule::unique('users')->ignore($this->route('delivery'), 'uuid')],
+            'cnie' => ['nullable', 'required_if:type,particulier', 'string', Rule::unique('deliveries')->ignore($this->route('delivery'), 'uuid')],
+            'email' => ['required', 'email', Rule::unique('deliveries')->ignore($this->route('delivery'), 'uuid')],
             //'password' => ['required', 'string', 'min:6'],
 
             'regions' => ['nullable', 'array'],

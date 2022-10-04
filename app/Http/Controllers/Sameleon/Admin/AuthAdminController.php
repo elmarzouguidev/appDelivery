@@ -72,13 +72,15 @@ class AuthAdminController extends Controller
     private function redirectTo()
     {
         /***By v2 abdo */
-        if (auth()->user()->hasAnyRole('Delivery','DeliveryEntreprise')) {
+        /*if (auth()->user()->hasAnyRole('Delivery','DeliveryEntreprise')) {
 
             return route('admin:commands.index');
 
         } else {
             
             return route('admin:home');
-        }
+        }*/
+
+        return route('admin:home');
     }
 }

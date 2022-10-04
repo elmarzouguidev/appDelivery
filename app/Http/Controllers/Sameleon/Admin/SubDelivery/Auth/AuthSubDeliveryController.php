@@ -72,7 +72,6 @@ class AuthSubDeliveryController extends Controller
      */
     private function redirectTo()
     {
-
         return route('delivery:home');
     }
 

@@ -13,7 +13,7 @@ class CreateDeliveriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('sub_deliveries', function (Blueprint $table) {
+        Schema::create('deliveries', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
       
@@ -25,11 +25,18 @@ class CreateDeliveriesTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->timestamp('email_verified_at')->nullable();
+            
+            $table->boolean('is_company')->default(false);
+            $table->string('company_name')->nullable();
 
             $table->boolean('active')->default(true);
 
-            $table->foreignId('user_id')->nullable();
-            $table->uuid('user_uuid')->nullable();
+            $table->foreignId('parent_id')->nullable();
+            $table->uuid('parent_uuid')->nullable();
+
+            $table->foreignId('city_id')->nullable();
+            $table->uuid('city_uuid')->nullable();
+
 
             $table->rememberToken();
             $table->timestamps();

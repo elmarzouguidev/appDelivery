@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Sameleon\User;
+use App\Models\Sameleon\Delivery;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -24,7 +24,7 @@ class DeliverySeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('123456789@'),
             'remember_token' => Str::random(10),
-            'is_admin' => false
+            'is_company' => false
         ];
 
         $user2 =  [
@@ -35,7 +35,7 @@ class DeliverySeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('123456789@'),
             'remember_token' => Str::random(10),
-            'is_admin' => false
+            'is_company' => false
         ];
 
         $user4 =  [
@@ -46,24 +46,24 @@ class DeliverySeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('123456789@'),
             'remember_token' => Str::random(10),
-            'is_delivery' => true,
-            'type' => 'entreprise',
+            'is_company' => true,
+            'company_name' => 'entreprise',
             'city_id' => 12
         ];
 
-        $delivery = User::whereEmail('chaligui@gmail.com')->first();
-        $delivery2 = User::whereEmail('anas@gmail.com')->first();
-        $delivery4 = User::whereEmail('company@gmail.com')->first();
+        $delivery = Delivery::whereEmail('chaligui@gmail.com')->first();
+        $delivery2 = Delivery::whereEmail('anas@gmail.com')->first();
+        $delivery4 = Delivery::whereEmail('company@gmail.com')->first();
 
         if (!$delivery && !$delivery2 && !$delivery4) {
 
-            $newAdmin =  User::create($user);
+            $newAdmin =  Delivery::create($user);
             $newAdmin->assignRole('Delivery');
 
-            $newAdmin2 =  User::create($user2);
+            $newAdmin2 =  Delivery::create($user2);
             $newAdmin2->assignRole('Delivery');
 
-            $newDeliveyCompany =  User::create($user4);
+            $newDeliveyCompany =  Delivery::create($user4);
             $newDeliveyCompany->assignRole('DeliveryEntreprise');
         } else {
 

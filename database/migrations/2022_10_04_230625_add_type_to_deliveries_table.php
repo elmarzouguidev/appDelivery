@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddSubDeliveryIdToProductssTable extends Migration
+class AddTypeToDeliveriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class AddSubDeliveryIdToProductssTable extends Migration
      */
     public function up()
     {
-        Schema::table('productss', function (Blueprint $table) {
-            //
+        Schema::table('deliveries', function (Blueprint $table) {
+            $table->after('uuid', function ($table) {
+                $table->enum('type', ['entreprise', 'particulier'])->default('particulier');
+            });
         });
     }
 
@@ -25,8 +27,8 @@ class AddSubDeliveryIdToProductssTable extends Migration
      */
     public function down()
     {
-        Schema::table('productss', function (Blueprint $table) {
-            //
+        Schema::table('deliveries', function (Blueprint $table) {
+            $table->dropColumn('type');
         });
     }
 }

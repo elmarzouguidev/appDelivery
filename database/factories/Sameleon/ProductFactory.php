@@ -29,8 +29,6 @@ class ProductFactory extends Factory
             'price' => $this->faker->numberBetween(100, 300),
             'sku' => $this->faker->unique()->regexify('[A-Z0-9]{10}'),
             'active' => rand(1, 0),
-
-            //'user_id' =>  rand(1, User::count())
         ];
     }
 
@@ -38,8 +36,7 @@ class ProductFactory extends Factory
     {
         return $this->afterCreating(function (Product $item) {
 
-            $item->increaseStock($item->qte_global);
-            
+
             /*$url = 'https://source.unsplash.com/random/400x400';
 
             $item

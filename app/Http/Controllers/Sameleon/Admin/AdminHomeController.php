@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Sameleon\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Sameleon\Annonce;
+use App\Models\Sameleon\Delivery;
 use App\Models\Sameleon\User;
 use App\Repositories\Bill\BillInterface;
 use App\Status\Status;
@@ -16,7 +17,7 @@ class AdminHomeController extends Controller
 
     public function index()
     {
-        $deliviers = User::role('Delivery')
+        $deliviers = Delivery::role(['Delivery','DeliveryEntreprise'])
             ->withCount('commandsDelivery')
             ->get();
 

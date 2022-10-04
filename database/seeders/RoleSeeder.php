@@ -24,9 +24,9 @@ class RoleSeeder extends Seeder
 
         ['name' => 'Developper', 'guard_name' => 'admin'],
 
-        ['name' => 'Delivery', 'guard_name' => 'admin'],
+        ['name' => 'Delivery', 'guard_name' => 'delivery'],
 
-        ['name' => 'DeliveryEntreprise', 'guard_name' => 'admin'],
+        ['name' => 'DeliveryEntreprise', 'guard_name' => 'delivery'],
 
         ['name' => 'SubDelivery', 'guard_name' => 'delivery'],
 

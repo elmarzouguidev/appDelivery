@@ -1,30 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Sameleon\Admin\Delivery;
+namespace App\Http\Controllers\Sameleon\Admin\SubDelivery\Delivery;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Sameleon\Delivery\DeliveryCreateFormRequest;
-use App\Http\Requests\Sameleon\Delivery\DeliveryUpdateFormRequest;
 use App\Models\Sameleon\Delivery;
-use App\Models\Sameleon\Region;
-use App\Models\Sameleon\User;
-use App\Notifications\Sameleon\SendNewDeliveryPassword;
-use App\Notifications\Sameleon\SendNewUserPassword;
-use App\Repositories\City\CityInterface;
 use App\Repositories\Delivery\DeliveryInterface;
-use App\Services\Mail\CheckConnection;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\DB;
 
-class DeliveryController extends Controller
+class SubDeliveryController extends Controller
 {
     public function index()
     {
 
-        $this->authorize('viewAny', User::class);
+        $this->authorize('viewAny', Delivery::class);
 
         $deliveries = app(DeliveryInterface::class)->getDeliveries();
 
@@ -34,7 +22,7 @@ class DeliveryController extends Controller
     public function create()
     {
 
-        $this->authorize('create', User::class);
+        $this->authorize('create', Delivery::class);
 
         $cities = app(CityInterface::class)->getCities();
 
@@ -138,12 +126,5 @@ class DeliveryController extends Controller
             return redirect()->back()->with('success', 'le livreure a été supp avec success');
         }
         return redirect()->back()->with('error', 'error !! ');
-    }
-
-    public function team(Delivery $delivery)
-    {
-        $teams = $delivery->childrens()->get();
-
-        return view('Sameleon.Admin.Delivery.Team.index', compact('delivery', 'teams'));
     }
 }
