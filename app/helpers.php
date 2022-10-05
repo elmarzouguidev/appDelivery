@@ -38,3 +38,21 @@ if (!function_exists('getDomainName')) {
         return request()->getSchemeAndHttpHost() . '/';
     }
 }
+
+
+if (!function_exists('isDelivery')) {
+    function isDelivery()
+    {
+        return auth('delivery')->check() ? true : false;
+    }
+}
+
+if (!function_exists('delivery')) {
+    function delivery()
+    {
+        if (isDelivery()) {
+            return auth('delivery')->user();
+        }
+        return null;
+    }
+}

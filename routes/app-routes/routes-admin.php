@@ -51,6 +51,7 @@ Route::group(['prefix' => 'commands'], function () {
     Route::delete('/delete', [AdminCommandController::class, 'delete'])->name('commands.delete');
 
     Route::post('/import', [AdminCommandController::class, 'import'])->name('commands.import');
+
     Route::group(['prefix' => 'edit'], function () {
 
         Route::get('/{command}', [AdminCommandController::class, 'edit'])->name('commands.edit');
@@ -112,6 +113,7 @@ Route::group(['prefix' => 'cities'], function () {
     Route::get('/', [AdminCityController::class, 'index'])->name('cities.index');
 
     Route::post('/', [AdminCityController::class, 'store'])->name('cities.store');
+    
     Route::post('/city/{city}', [AdminCityController::class, 'update'])->name('cities.update');
 
     Route::delete('/', [AdminCityController::class, 'delete'])->name('cities.delete');

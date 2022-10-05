@@ -25,7 +25,7 @@
 
     <div id="layout-wrapper">
 
-        @if (auth('delivery')->check())
+        @if (isDelivery())
             @include('layouts._parts.__header_delivery')
         @else
             @include('layouts._parts.__header')
