@@ -49,7 +49,7 @@ class Stock extends Model
 
     public function delivery()
     {
-        return $this->belongsTo(User::class, 'delivery_id');
+        return $this->belongsTo(Delivery::class, 'delivery_id');
     }
 
     public function product()

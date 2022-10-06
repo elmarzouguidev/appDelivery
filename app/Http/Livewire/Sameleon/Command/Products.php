@@ -35,7 +35,7 @@ class Products extends Component
         ];
         $this->totalPrice = 0;
 
-        if (auth()->user()->hasRole('Client')) {
+        if (isClient()) {
 
             $this->products = auth()->user()->products()->get();
         } else {

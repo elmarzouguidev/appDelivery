@@ -47,7 +47,7 @@ class ProductRepository extends AppRepository implements ProductInterface
                     ->with('media')->get();
             } else {
 
-                return $this->product->with('media', 'client:id,nom,prenom', 'stockMutations')->get();
+                return $this->product->with('media', 'client:id,nom,prenom')->get();
             }
         
         return [];
@@ -61,7 +61,6 @@ class ProductRepository extends AppRepository implements ProductInterface
     {
         return $this->product->find($id);
     }
-
 
     public function getProductByUuid(string $uuid)
     {

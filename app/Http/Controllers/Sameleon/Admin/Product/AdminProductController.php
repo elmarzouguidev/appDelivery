@@ -93,8 +93,7 @@ class AdminProductController extends Controller
 
         $product->save();
 
-        $product->increaseStock($request->qte_global);
-
+       
         if ($request->hasFile('photo')) {
 
             $product->addMediaFromRequest('photo')->toMediaCollection('products_photos');

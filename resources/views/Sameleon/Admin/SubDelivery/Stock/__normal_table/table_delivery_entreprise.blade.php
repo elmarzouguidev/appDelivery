@@ -42,10 +42,7 @@
                         <tbody>
 
                             @foreach ($stocks as $stock)
-                                @php
-                                    $color = '';
-                                    !$stock->product->inStock() ? ($color = 'red') : ($color = '');
-                                @endphp
+    
                                 @php
                                     if (request()->has('isOut')) {
                                         $selected = request()->isOut;
@@ -55,7 +52,7 @@
                                         $selected = '';
                                     }
                                 @endphp
-                                <tr style="color :{{ $color }} !important"
+                                <tr 
                                     {{ $selected == $stock->uuid ? 'bgcolor=#50a5f1' : '' }}>
                                     <td>
                                         <div class="form-check font-size-16">

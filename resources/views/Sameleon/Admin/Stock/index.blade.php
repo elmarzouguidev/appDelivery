@@ -5,21 +5,10 @@
 
         @include('Sameleon.Admin.Stock.__title')
 
-        {{-- @include('Sameleon.Admin.Stock.__datatable.__with_options') --}}
+        @include('Sameleon.Admin.Stock.add_stock_modal')
 
+        @livewire('sameleon.stock.stock')
 
-
-        @hasrole('DeliveryEntreprise')
-
-            @include('Sameleon.Admin.Stock.__normal_table.table_delivery_entreprise')
-
-        @else
-
-            @include('Sameleon.Admin.Stock.add_stock_modal')
-
-            @livewire('sameleon.stock.stock')
-            
-        @endhasrole
 
     </div>
 @endsection

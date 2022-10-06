@@ -54,3 +54,17 @@ if (!function_exists('delivery')) {
         return isDelivery() ?  auth('delivery')->user() : null;
     }
 }
+
+if (!function_exists('isClient')) {
+    function isClient()
+    {
+        return auth()->check() && auth()->user()->hasRole('Client') ? true : false;
+    }
+}
+
+if (!function_exists('isAdmin')) {
+    function isAdmin()
+    {
+        return auth()->check() && auth()->user()->hasRole('SuperAdmin') ? true : false;
+    }
+}

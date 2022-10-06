@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Sameleon\Command;
 
 use App\Filters\ItemsQuery;
 use App\Models\Sameleon\Command;
+use App\Models\Sameleon\Delivery;
 use App\Models\Sameleon\Product;
 use App\Models\Sameleon\Stock;
 use App\Models\Sameleon\User;
@@ -122,10 +123,10 @@ class Commands extends Component
 
             //dd( $commands);
             $delivries = [];
-        } elseif (auth()->user()->hasRole('Delivery')) {
+        } elseif (isDelivery()) {
 
-            $commands =  $command->where('sub_delivery_id', auth()->id())
-                ->where('sub_delivery_uuid', auth()->user()->uuid)
+            $commands =  $command->where('delivery_id', delivery()->id)
+                ->where('delivery_uuid', delivery()->uuid)
                 ->whereIn('status', [Status::ENCOURS, Status::LIVRE])
                 //->where('updated_at', now())
                 ->with('items')
@@ -139,11 +140,10 @@ class Commands extends Component
             $delivries = [];
 
             return view('livewire.sameleon.command.commands-delivery', compact('commands', 'delivries'));
+        } elseif (isDelivery() && delivery()->hasRole('DeliveryEntreprise')) {
 
-        } elseif (auth()->user()->hasRole('DeliveryEntreprise') && auth()->user()->is_delivery == true) {
-
-            $commands =  $command->where('delivery_id', auth()->id())
-                ->where('delivery_uuid', auth()->user()->uuid)
+            $commands =  $command->where('delivery_id', delivery()->id)
+                ->where('delivery_uuid', delivery()->uuid)
                 ->whereIn('status', [Status::ENCOURS, Status::LIVRE])
                 //->where('updated_at', now())
                 ->with('items')
@@ -169,7 +169,7 @@ class Commands extends Component
                 ->orderByRaw("FIELD(status, $commandStatus)")
                 ->paginate(60);
 
-            $delivries = User::role(['Delivery','DeliveryEntreprise'])->select(['uuid', 'id', 'nom', 'prenom','type'])->get();
+            $delivries = Delivery::role(['Delivery', 'DeliveryEntreprise'])->select(['uuid', 'id', 'nom', 'prenom', 'type'])->get();
         }
 
         //  $commands =  $command->with('products')->get();
@@ -197,7 +197,7 @@ class Commands extends Component
 
         $this->reportComment = '';
 
-        if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin','DeliveryEntreprise')) {
+        if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin', 'DeliveryEntreprise')) {
 
             $this->clients = User::role('Client')->select(['nom', 'prenom', 'id'])->get();
             $this->products = Product::select(['id', 'name'])->get();
@@ -258,11 +258,11 @@ class Commands extends Component
     public function changeStatus(Command $command, int $status)
     {
 
+        //dd('Ooow');
         $items = $command->items;
+        $qteRest = 0;
 
         if ($status == Status::LIVRE && $command->status != Status::LIVRE) {
-
-            $command->update(['delivered_at' => now()]);
 
             $items->each(function ($item, $key) use ($command, $status) {
 
@@ -272,19 +272,29 @@ class Commands extends Component
 
                     $qte = (int)$item->quantity;
 
-                    if ($prod->inStock() && $prod->inStock($qte)) {
+                    if ($prod->qte_rest >= $qte && $prod->qte_rest !== 0 && $prod->qte_rest > 0 && !$prod->is_out) {
 
-                        $prod->decreaseStock($qte);
+                        //dd('Oui in this cas ');
+
+                        $prod->decrement('qte_rest', $qte);
                         $prod->increment('qte_livre', $qte);
                         $prod->increment('total_commands', $qte);
 
+                        $command->update(['delivered_at' => now()]);
+
                         $command->update(['status' => $status]);
+
                     } else {
 
                         $prod->update(['is_out' => true]);
-                        //dd('oui ici');
+
+                        $command->update(['delivered_at' => null]);
+
                         $command->update(['status' => Status::MANQUE_DE_STOCK]);
                     }
+                }
+                else{
+
                 }
             });
         } elseif ($status == Status::REFUSE && $command->status != Status::REFUSE) {
@@ -299,20 +309,25 @@ class Commands extends Component
 
                     $qte = (int)$item->quantity;
 
-                    if ($prod->qte_livre > $qte || $prod->qte_livre == $qte) {
-                        $prod->increaseStock($qte);
+                    if ($prod->qte_rest !== 0 && $prod->qte_rest > 0 || $prod->qte_rest >= $qte ) {
+
+                        $prod->increment('qte_rest', $qte);
                         $prod->decrement('qte_livre',  $qte);
                         $prod->decrement('total_commands',  $qte);
+
                     }
 
                     $command->update(['status' => $status]);
 
-                    if (!$prod->inStock() || !$prod->inStock($qte)) {
+                    if ($prod->qte_rest == 0) {
 
                         $prod->update(['is_out' => true]);
 
                         $command->update(['status' => Status::MANQUE_DE_STOCK]);
                     }
+                }
+                else{
+
                 }
             });
         } else {
@@ -323,7 +338,7 @@ class Commands extends Component
 
         $this->isRepoted = true;
 
-        if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin')) {
+        if (isAdmin()) {
 
             if ($this->commandEdit->reported_at != null) {
 
@@ -335,7 +350,7 @@ class Commands extends Component
             $this->dispatchBrowserEvent('status-reported');
         }
 
-        if (auth()->user()->hasRole('Delivery')) {
+        if (isDelivery()) {
 
             $this->dispatchBrowserEvent('status-updated');
 

@@ -43,7 +43,7 @@ class BankRepository extends AppRepository implements BankInterface
             });
         }
 
-        return $this->withCount('users')->get();
+        return $this->bank->withCount('users')->get();
     }
 
     /**

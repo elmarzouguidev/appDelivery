@@ -76,8 +76,7 @@ class Product extends Model implements HasMedia
 
     public function isOutOfStock(int $qte)
     {
-        //dd($this->inStock($qte));
-        //return !$this->inStock($qte);
+       return $this->qte_rest < $qte ;
     }
 
     public function getFormatedPriceAttribute()

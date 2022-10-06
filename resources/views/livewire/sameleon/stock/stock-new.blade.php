@@ -8,9 +8,9 @@
 
                             <div class="col-lg-4 mb-4">
 
-                                {{--<a href="{{ route('admin:adjustments.create') }}" type="button" class="btn btn-info">
+                                {{-- <a href="{{ route('admin:adjustments.create') }}" type="button" class="btn btn-info">
                                     Créér un ajustement
-                                </a>--}}
+                                </a> --}}
                                 <button class="btn btn-info" type="button" class="btn btn-info  btn-sm"
                                     data-bs-toggle="modal" data-bs-target=".addStockModal">
                                     Créér un ajustement
@@ -44,9 +44,11 @@
                                     <th class="align-middle">Qté Endommagé</th>
 
                                     <th class="align-middle">Qté Restant</th>
-                                    <th class="align-middle">Détail de stock</th>
+                                    @if (isAdmin())
+                                        <th class="align-middle">Détail de stock</th>
+                                    @endif
                                     <th class="align-middle">Date</th>
-                                    @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
+                                    @if (isAdmin())
                                         <th class="align-middle">Action</th>
                                     @endif
                                 </tr>
@@ -54,10 +56,6 @@
                             <tbody>
 
                                 @foreach ($stocks as $stock)
-                                    @php
-                                        $color = '';
-                                        !$stock->inStock() ? ($color = 'red') : ($color = '');
-                                    @endphp
                                     @php
                                         if (request()->has('isOut')) {
                                             $selected = request()->isOut;
@@ -67,8 +65,7 @@
                                             $selected = '';
                                         }
                                     @endphp
-                                    <tr style="color :{{ $color }} !important"
-                                        {{ $selected == $stock->uuid ? 'bgcolor=#50a5f1' : '' }}>
+                                    <tr {{ $selected == $stock->uuid ? 'bgcolor=#50a5f1' : '' }}>
                                         <td>
                                             <div class="form-check font-size-16">
                                                 <input class="form-check-input" type="checkbox"
@@ -104,20 +101,25 @@
                                             {{ $stock->qte_endomage }}
                                         </td>
                                         <td>
-                                            {{-- $stock->qte_rest --}}
-                                            {{ $stock->stock }}
+                                            @if (isClient() && $stock->qte_livre == 0)
+                                                {{ $stock->qte_global }}
+                                            @else
+                                                {{ $stock->qte_rest }}
+                                            @endif
                                         </td>
-                                        <td>
-                                            {{-- $stock->notes --}}
-                                            <button class="btn btn-info" type="button" class="btn btn-info  btn-sm"
-                                                wire:click="showStockDetail('{{ $stock->uuid }}')" >
-                                                détailes
-                                            </button>
-                                        </td>
+                                        @if (isAdmin())
+                                            <td>
+                                                {{-- $stock->notes --}}
+                                                <button class="btn btn-info" type="button" class="btn btn-info  btn-sm"
+                                                    wire:click="showStockDetail('{{ $stock->uuid }}')">
+                                                    détailes
+                                                </button>
+                                            </td>
+                                        @endif
                                         <td>
                                             {{ $stock->created_at }}
                                         </td>
-                                        @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
+                                        @if (isAdmin())
                                             <td>
                                                 <div class="d-flex gap-3">
 
