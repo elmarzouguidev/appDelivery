@@ -80,7 +80,7 @@
                                     <td>
                                         <div class="d-flex gap-3">
 
-                                            <a href="{{ route('admin:delivery.edit', $delivery->uuid) }}"
+                                            <a href="{{ route('delivery:delivery.edit', $delivery->uuid) }}"
                                                 class="text-success">
                                                 <i class="mdi mdi-pencil font-size-18"></i>
                                             </a>
@@ -96,7 +96,7 @@
                                         </div>
                                     </td>
                                     <form id="delete-delivery-{{ $delivery->uuid }}" method="post"
-                                        action="{{ route('admin:delivery.delete') }}">
+                                        action="{{ route('delivery:delivery.delete') }}">
                                         @csrf
                                         @method('DELETE')
                                         <input type="hidden" name="deliveryId" value="{{ $delivery->uuid }}">

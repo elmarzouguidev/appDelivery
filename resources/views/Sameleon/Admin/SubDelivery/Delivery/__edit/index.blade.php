@@ -32,9 +32,6 @@
                                 </div>
 
                                 <div class="col-lg-6">
-
-                                   @include('Sameleon.Admin.SubDelivery.Delivery.__edit.__select_city')
-
                                     <div class=" mb-4">
                                         <label>Adresse *</label>
                                         <textarea name="addresse" id="textarea" class="form-control @error('addresse') is-invalid @enderror"

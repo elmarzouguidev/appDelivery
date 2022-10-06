@@ -51,38 +51,4 @@
             @enderror
         </div>
     </div>
-    <div class="col-lg-6">
-        <div class="mb-4">
-            <label class="form-label">Type *</label>
-
-            <select name="type" class="form-control select2-templating @error('type') is-invalid @enderror" required>
-                <option value="">Choisir le type</option>
-                <option value="particulier" {{$delivery->type == 'particulier'?'selected' : ''}} >Particulier</option>
-                <option value="entreprise"  {{$delivery->type == 'entreprise'?'selected' : ''}}>Entreprise</option>
-            </select>
-            @error('type')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-
-        </div>
-    </div>
-
-
-    <div class="col-lg-6">
-        <label class="form-label">CNIE ( requis c'est le type est particulier )</label>
-        <div class="input-group mb-4">
-            <span class="input-group-text" id="cnie_prefix">
-
-            </span>
-            <input type="cnie" class="form-control @error('cnie') is-invalid @enderror" name="cnie" value="{{$delivery->cnie}}">
-            @error('cnie')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-        </div>
-    </div>
-
 </div>

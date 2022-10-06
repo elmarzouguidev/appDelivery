@@ -21,7 +21,7 @@ class ProfilSubDeliveryController extends Controller
     public function index()
     {
 
-        $user = auth()->user();
+        $user = delivery();
 
 
         //$banks = app(BankInterface::class)->getBanks();
@@ -35,7 +35,7 @@ class ProfilSubDeliveryController extends Controller
     public function update(UpdateProfilFormRequest $request)
     {
 
-        $user = auth()->user();
+        $user = delivery();
 
         if ($user->uuid == $request->userId) {
 
@@ -69,7 +69,7 @@ class ProfilSubDeliveryController extends Controller
 
     public function updatePassword(UpdateProfilPasswordFormRequest $request)
     {
-        $user = auth()->user();
+        $user = delivery();
 
         if ($user->uuid == $request->hasPassword) {
 

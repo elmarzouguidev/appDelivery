@@ -53,7 +53,7 @@ class ApiCommandController extends Controller
                 exit();
             }
 
-            if ($user && $user->hasRole('Client')) {
+            if ($user && $user->hasRole('Client') && $user->hasPermissionTo('api.create')) {
 
                 $command  =  Command::create([
                     'client_name'     => $request->destinataire,

@@ -39,6 +39,7 @@ if (!function_exists('getDomainName')) {
     }
 }
 
+/*****Auth guard helpers *****/
 
 if (!function_exists('isDelivery')) {
     function isDelivery()
@@ -50,9 +51,6 @@ if (!function_exists('isDelivery')) {
 if (!function_exists('delivery')) {
     function delivery()
     {
-        if (isDelivery()) {
-            return auth('delivery')->user();
-        }
-        return null;
+        return isDelivery() ?  auth('delivery')->user() : null;
     }
 }

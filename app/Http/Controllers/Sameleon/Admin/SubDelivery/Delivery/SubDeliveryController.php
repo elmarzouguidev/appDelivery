@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Sameleon\Admin\SubDelivery\Delivery;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Sameleon\Delivery\DeliveryCreateFormRequest;
+use App\Http\Requests\Sameleon\Delivery\DeliveryUpdateFormRequest;
 use App\Models\Sameleon\Delivery;
 use App\Notifications\Sameleon\SendNewDeliveryPassword;
 use App\Repositories\City\CityInterface;
@@ -32,9 +33,7 @@ class SubDeliveryController extends Controller
 
         $this->authorize('create', Delivery::class);
 
-        $cities = app(CityInterface::class)->getCities();
-
-        return  view('Sameleon.Admin.SubDelivery.Delivery.__create.index', compact('cities'));
+        return  view('Sameleon.Admin.SubDelivery.Delivery.__create.index');
     }
 
     public function store(DeliveryCreateFormRequest $request)
@@ -88,7 +87,7 @@ class SubDeliveryController extends Controller
 
         $cities = app(CityInterface::class)->getCities();
 
-        $delivery->load('regions');
+        //$delivery->load('regions');
 
         return view('Sameleon.Admin.SubDelivery.Delivery.__edit.index', compact('delivery', 'cities'));
     }
@@ -104,29 +103,28 @@ class SubDeliveryController extends Controller
         $delivery->addresse = $request->addresse;
         $delivery->telephone = $request->telephone;
 
-        $delivery->type = $request->type;
-        $delivery->cnie = $request->cnie;
-
         //$pass = Str::random(9);
 
         // $client->password = $pass = Hash::make($pass);
 
-        $delivery->city()->associate($request->city);
-
         $delivery->save();
 
-        return redirect()->route('admin:delivery.index')->with('success', 'le livreure a été modifier avec success');
+        return redirect()->route('delivery:delivery.index')->with('success', 'le livreure a été modifier avec success');
     }
 
     public function delete(Request $request)
     {
         $request->validate(['deliveryId' => 'required|uuid']);
 
-        $delivery = Delivery::whereUuid($request->deliveryId)->firstOrFail();
+        $delivery = Delivery::whereUuid($request->deliveryId)
+            ->whereParentId(delivery()->id)
+            ->whereParentUuid(delivery()->uuid)
+            ->firstOrFail();
         if ($delivery) {
-            $delivery->commandsDelivery->each->update(['delivery_id' => null, 'delivery_uuid' => null]);
+
             $delivery->delete();
-            return redirect()->back()->with('success', 'le livreure a été supp avec success');
+
+            return redirect()->back()->with('success', 'le livreur a été supp avec success');
         }
         return redirect()->back()->with('error', 'error !! ');
     }
