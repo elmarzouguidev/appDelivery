@@ -34,7 +34,7 @@ class ProductPolicy
 
         return $user->id == $product->user_id
             &&
-            $user->uuid == $product->user_uuid;
+            $user->uuid == $product->user_uuid || $user->hasRole('SuperAdmin');
     }
 
     /**
@@ -45,7 +45,7 @@ class ProductPolicy
      */
     public function create(User $user)
     {
-        return $user->hasAnyRole('Client', 'SuperAdmin', 'Admin');
+        return $user->hasAnyRole('Client', 'SuperAdmin');
     }
 
     /**
@@ -60,7 +60,7 @@ class ProductPolicy
 
         return $user->id == $product->user_id
             &&
-            $user->uuid == $product->user_uuid;
+            $user->uuid == $product->user_uuid || $user->hasRole('SuperAdmin');
     }
 
     /**
@@ -74,7 +74,7 @@ class ProductPolicy
     {
         return $user->id == $product->user_id
             &&
-            $user->uuid == $product->user_uuid;
+            $user->uuid == $product->user_uuid || $user->hasRole('SuperAdmin');
     }
 
     /**
@@ -88,7 +88,7 @@ class ProductPolicy
     {
         return $user->id == $product->user_id
             &&
-            $user->uuid == $product->user_uuid;
+            $user->uuid == $product->user_uuid || $user->hasRole('SuperAdmin');
     }
 
     /**
@@ -102,6 +102,6 @@ class ProductPolicy
     {
         return $user->id == $product->user_id
             &&
-            $user->uuid == $product->user_uuid;
+            $user->uuid == $product->user_uuid || $user->hasRole('SuperAdmin');
     }
 }

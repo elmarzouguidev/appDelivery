@@ -32,7 +32,7 @@
                                             <label class="form-check-label" for="checkAll"></label>
                                         </div>
                                     </th>
-                                    @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
+                                    @if (isAdmin())
                                         <th class="align-middle">Client</th>
                                     @endif
 
@@ -44,9 +44,9 @@
                                     <th class="align-middle">Qté Endommagé</th>
 
                                     <th class="align-middle">Qté Restant</th>
-                                    @if (isAdmin())
+                                    {{--@if (isAdmin())
                                         <th class="align-middle">Détail de stock</th>
-                                    @endif
+                                    @endif--}}
                                     <th class="align-middle">Date</th>
                                     @if (isAdmin())
                                         <th class="align-middle">Action</th>
@@ -74,7 +74,7 @@
                                                     for="client-{{ $stock->id }}"></label>
                                             </div>
                                         </td>
-                                        @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
+                                        @if (isAdmin())
                                             <td>
 
                                                 {{ optional($stock->client)->full_name }}
@@ -83,7 +83,7 @@
                                         @endif
                                         <td>
 
-                                            {{ $stock->name }}
+                                            {{ $stock->product->name }}
 
                                         </td>
 
@@ -101,21 +101,19 @@
                                             {{ $stock->qte_endomage }}
                                         </td>
                                         <td>
-                                            @if (isClient() && $stock->qte_livre == 0)
-                                                {{ $stock->qte_global }}
-                                            @else
-                                                {{ $stock->qte_rest }}
-                                            @endif
+      
+                                            {{ $stock->qte_rest }}
+                                           
                                         </td>
-                                        @if (isAdmin())
+                                        {{--@if (isAdmin())
                                             <td>
-                                                {{-- $stock->notes --}}
+                                               
                                                 <button class="btn btn-info" type="button" class="btn btn-info  btn-sm"
                                                     wire:click="showStockDetail('{{ $stock->uuid }}')">
                                                     détailes
                                                 </button>
                                             </td>
-                                        @endif
+                                        @endif--}}
                                         <td>
                                             {{ $stock->created_at }}
                                         </td>

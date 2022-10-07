@@ -21,8 +21,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->longText('description')->nullable();
             $table->float('price')->default(0);
-            $table->string('sku')->nullable();
-
+       
             $table->unsignedBigInteger('qte_global')->default(0);
             $table->unsignedBigInteger('qte_livre')->default(0);
             $table->unsignedBigInteger('qte_expidite')->default(0);

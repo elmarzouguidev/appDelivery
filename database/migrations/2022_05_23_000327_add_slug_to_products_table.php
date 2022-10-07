@@ -15,7 +15,7 @@ class AddSlugToProductsTable extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             $table->after('name', function ($table) {
-                $table->string('slug')->nullable();
+                $table->longText('slug')->nullable();
             });
         });
     }

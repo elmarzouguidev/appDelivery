@@ -39,27 +39,31 @@ class StockRepository extends AppRepository implements StockInterface
     public function getStocks()
     {
 
-        if (auth()->user()->hasRole('Client')) {
+        if (isClient()) {
 
             return $this->stock
                 ->where('client_id', auth()->id())
                 ->where('client_uuid', auth()->user()->uuid)
-                ->with('product:id,name')
+                ->with('product:id,name,price')
                 ->with('city:id,name')
                 ->get();
-        } elseif (auth('delivery')->check() && auth('delivery')->user()->hasRole('DeliveryEntreprise')) {
+        } elseif (isDelivery() && delivery()->hasRole('DeliveryEntreprise')) {
 
             return $this->stock
-                ->where('delivery_id', auth()->id())
-                ->where('delivery_uuid', auth()->user()->uuid)
-                ->where('city_id', auth()->user()->city_id)
-                ->where('city_uuid', auth()->user()->city->uuid)
+                ->where('delivery_id', delivery()->id)
+                ->where('delivery_uuid', delivery()->uuid)
+                ->where('city_id', delivery()->city_id)
+                ->where('city_uuid', delivery()->city->uuid)
                 ->with('product:id,name,price')
                 ->get();
         } else {
 
-            return $this->stock->with('client:id,nom,prenom')
-                ->with('product:id,name')
+            return $this->stock
+                ->whereIsDefault(true)
+                ->whereNull('delivery_id')
+                ->whereNull('delivery_uuid')
+                ->with('client:id,nom,prenom')
+                ->with('product:id,name,price')
                 ->with('city:id,name')
 
                 ->get();

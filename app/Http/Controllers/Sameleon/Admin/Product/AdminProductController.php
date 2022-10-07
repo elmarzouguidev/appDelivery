@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Sameleon\Admin\Product;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Sameleon\Product\ProductFormRequest;
 use App\Http\Requests\Sameleon\Product\ProductUpdateFormRequest;
+use App\Models\Sameleon\City;
 use App\Models\Sameleon\Product;
+use App\Models\Sameleon\Stock;
 use App\Models\Sameleon\User;
 use App\Notifications\ProductCreated;
 use App\Repositories\Client\ClientInterface;
@@ -17,6 +19,7 @@ use Illuminate\Support\Str;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Notification;
+
 class AdminProductController extends Controller
 {
 
@@ -78,7 +81,7 @@ class AdminProductController extends Controller
         $product->qte_global = $request->qte_global;
         $product->qte_rest = $request->qte_global;
 
-        if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin') && $request->has('client') && $request->filled('client')) {
+        if (isAdmin() && $request->has('client') && $request->filled('client')) {
             $user = User::find($request->client);
             $product->client()->associate($user);
             $product->user_uuid = $user->uuid;
@@ -90,17 +93,38 @@ class AdminProductController extends Controller
             $product->slug = Str::slug(str_replace(' ', '', $request->name)) . '-' . auth()->user()->uuid;
         }
 
-
         $product->save();
 
-       
         if ($request->hasFile('photo')) {
 
             $product->addMediaFromRequest('photo')->toMediaCollection('products_photos');
         }
 
+        /****Create Default Stock ****/
+
+        if ($product) {
+
+            $city = City::find(1); //casablanca
+
+            $stock = new Stock();
+            $stock->is_default = true;
+            
+            $stock->product_id = $product->id;
+            $stock->product_uuid = $product->uuid;
+
+            $stock->client_id = $product->client->id;
+            $stock->client_uuid = $product->client->uuid;
+
+            $stock->city_id = $city->id;
+            $stock->city_uuid = $city->uuid;
+            $stock->qte_global = (int)$request->qte_global;
+            $stock->qte_rest = (int)$request->qte_global;
+            $stock->sent_at = now();
+            $stock->notes = 'Default Stock';
+            $stock->save();
+        }
         $delay = now()->addMinutes(10);
- 
+
         //$user->notify((new ProductCreated($product))->delay($delay));
 
         $users = User::role('SuperAdmin')->get();

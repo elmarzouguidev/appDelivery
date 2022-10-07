@@ -68,3 +68,12 @@ if (!function_exists('isAdmin')) {
         return auth()->check() && auth()->user()->hasRole('SuperAdmin') ? true : false;
     }
 }
+
+/*****Date Helpers */
+
+if (!function_exists('getNow')) {
+    function getNow()
+    {
+        return now()->format('Y-m-d');
+    }
+}

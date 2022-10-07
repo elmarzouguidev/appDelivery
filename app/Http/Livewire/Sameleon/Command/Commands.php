@@ -197,7 +197,7 @@ class Commands extends Component
 
         $this->reportComment = '';
 
-        if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin', 'DeliveryEntreprise')) {
+        if (isAdmin()) {
 
             $this->clients = User::role('Client')->select(['nom', 'prenom', 'id'])->get();
             $this->products = Product::select(['id', 'name'])->get();
@@ -214,13 +214,15 @@ class Commands extends Component
     {
         if (count($this->selectedCommands) && is_int($this->selectedDelivery)); {
 
-            $delivery = User::find($this->selectedDelivery);
+            $delivery = Delivery::find($this->selectedDelivery);
+
+            $status = $delivery->city_id == 1 ? Status::ENCOURS : Status::EXPEDIE; // city_id 1 == casablanca
 
             Command::find($this->selectedCommands)->each->update([
 
                 'delivery_id' => $delivery->id,
                 'delivery_uuid' => $delivery->uuid,
-                'status' => Status::ENCOURS
+                'status' => $status
 
             ]);
 
@@ -260,7 +262,6 @@ class Commands extends Component
 
         //dd('Ooow');
         $items = $command->items;
-        $qteRest = 0;
 
         if ($status == Status::LIVRE && $command->status != Status::LIVRE) {
 

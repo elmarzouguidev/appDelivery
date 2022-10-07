@@ -7,13 +7,14 @@ use App\Models\Sameleon\Stock as SameleonStock;
 use App\Repositories\City\CityInterface;
 use App\Repositories\Delivery\DeliveryInterface;
 use App\Repositories\Product\ProductInterface;
+use App\Repositories\Stock\StockInterface;
 use Livewire\Component;
 
 class Stock extends Component
 {
 
     public $stockEdit;
-    public $product;
+    public $stock;
 
     public $showEditStock = false;
     public $showDetail = false;
@@ -22,23 +23,13 @@ class Stock extends Component
 
     public function render()
     {
-        /* if (auth()->user()->hasRole('Client')) {
 
-            $stocks = Product::whereUserId(auth()->id())
-                ->whereUserUuid(auth()->user()->uuid)
-                ->get();
-        } else {
-
-            $stocks = Product::with('client')->get();
-        }*/
-
-        $stocks = app(ProductInterface::class)->getProducts();
-
+        $stocks = app(StockInterface::class)->getStocks();
 
         return view('livewire.sameleon.stock.stock-new', compact('stocks'));
     }
 
-    public function editStock(Product $stock)
+    public function editStock(SameleonStock $stock)
     {
 
         $this->showEditStock = true;
@@ -48,11 +39,11 @@ class Stock extends Component
         $this->dispatchBrowserEvent('show-edit-stock');
     }
 
-    public function showStockDetail(Product $product)
+    public function showStockDetail(SameleonStock $stock)
     {
         $this->showDetail = true;
 
-        $this->product = $product->load('stocks');
+        $this->product = $stock->load('stocks');
 
         //dd($this->product);
 

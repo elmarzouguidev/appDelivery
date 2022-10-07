@@ -34,7 +34,7 @@ class DeliveryRepository extends AppRepository implements DeliveryInterface
     public function getDeliveries()
     {
 
-        if (auth('delivery')->check() && auth('delivery')->user()->hasRole('DeliveryEntreprise')) {
+        if (isDelivery() && delivery()->hasRole('DeliveryEntreprise')) {
             
             return $this->delivery->role(['SubDelivery'])
                 ->whereParentId(auth()->id())
@@ -44,6 +44,12 @@ class DeliveryRepository extends AppRepository implements DeliveryInterface
 
         return $this->delivery->role(['Delivery', 'DeliveryEntreprise'])->get();
             
+    }
+
+    public function getDeliveryEntreprise()
+    {
+
+        return $this->delivery->role(['DeliveryEntreprise'])->get(); 
     }
 
     /**

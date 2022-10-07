@@ -9,6 +9,8 @@ interface DeliveryInterface
 
     public function getDeliveries();
 
+    public function getDeliveryEntreprise();
+
     public function getDelivery(int $id);
 
     public function getDeliveryByUuid(string $uuid);

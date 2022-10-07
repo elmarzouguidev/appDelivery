@@ -20,9 +20,10 @@ class StockController extends Controller
 {
     public function index()
     {
-        $deliveries = app(DeliveryInterface::class)->getDeliveries();
+        $deliveries = app(DeliveryInterface::class)->getDeliveryEntreprise();
         $cities = app(CityInterface::class)->getCities();
         $products = app(ProductInterface::class)->getProducts();
+        //$stocks = app(StockInterface::class)->getStocks(); // see livewire stock
 
         return view('Sameleon.Admin.Stock.index', compact('deliveries', 'cities', 'products'));
     }
@@ -43,7 +44,30 @@ class StockController extends Controller
 
         if ($product && $city && $delivery) {
 
-            if ((int) $product->qte_global > (int)$request->qte) {
+            $lastStock = Stock::where([
+                'product_id' => $product->id,
+                'product_uuid' => $product->uuid,
+                'city_id' => $city->id,
+                'city_uuid' => $city->uuid,
+                'delivery_id' => $delivery->id,
+                'delivery_uuid' => $delivery->uuid,
+            ])
+                ->whereIsDefault(false)->latest()->first();
+
+            $defaultStock = Stock::where([
+                'product_id' => $product->id,
+                'product_uuid' => $product->uuid,
+            ])
+                ->whereIsDefault(true)->first();
+
+            //dd($lastStock, "oook", $defaultStock);
+
+            if ($lastStock !== null && !$lastStock->is_out) {
+                return redirect()->back()->with('error', "Ce livreur aura une qunatité de $lastStock->qte_rest restant dans sans stock");
+            }
+
+            if ((int) $defaultStock->qte_rest > (int)$request->qte) {
+
                 $stock = new Stock();
                 $stock->product_id = $product->id;
                 $stock->product_uuid = $product->uuid;
@@ -61,9 +85,9 @@ class StockController extends Controller
                 $stock->notes = $request->notes;
                 $stock->save();
 
-                $qteRest = $product->qte_rest -= (int)$request->qte;
+                $qteRest = $defaultStock->qte_rest -= (int)$request->qte;
 
-                $product->update(['qte_rest' => $qteRest]);
+                $defaultStock->update(['qte_rest' => $qteRest]);
 
                 return redirect()->back()->with('success', "le stock a été créér avec succès");
             } else {
@@ -78,8 +102,6 @@ class StockController extends Controller
 
         if ($request->filled('qte_global')) {
 
-            $stock->clearStock();
-
             $stock->qte_global =  (int)$request->qte_global;
 
             $stock->qte_rest =  (int)$request->qte_global;
@@ -89,8 +111,6 @@ class StockController extends Controller
             $stock->is_out = false;
 
             $stock->can_ramassage = false;
-
-            $stock->increaseStock((int)$request->qte_global);
         }
 
         if ($request->filled('qte_endomage') && $request->qte_endomage > 0) {

@@ -18,11 +18,14 @@ class Stock extends Model
 
     protected $fillable = [
         'uuid',
+        'is_default',
         'code',
         'client_id',
         'client_uuid',
         'product_id',
         'product_uuid',
+        'delivery_id',
+        'delivery_uuid',
         'city_id',
         'city_uuid',
         'is_out',
@@ -38,6 +41,7 @@ class Stock extends Model
 
     protected $casts = [
         'is_out' => 'boolean',
+        'is_default'=>'boolean'
         //'sent_at' => 'date:d-m-Y',
 
     ];

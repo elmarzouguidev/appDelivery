@@ -24,10 +24,10 @@ class ProductFactory extends Factory
             'qte_livre' => 0,
             'qte_expidite' => 0,
             'qte_endomage' => 0,
-            'qte_rest' => rand(0, $qte),
+            'qte_rest' => $qte,
 
             'price' => $this->faker->numberBetween(100, 300),
-            'sku' => $this->faker->unique()->regexify('[A-Z0-9]{10}'),
+            //'sku' => $this->faker->unique()->regexify('[A-Z0-9]{10}'),
             'active' => rand(1, 0),
         ];
     }
