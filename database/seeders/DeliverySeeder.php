@@ -47,7 +47,8 @@ class DeliverySeeder extends Seeder
             'password' => Hash::make('123456789@'),
             'remember_token' => Str::random(10),
             'is_company' => true,
-            'company_name' => 'entreprise',
+            'company_name' => 'ARFAOUI SARL',
+            'type' => 'entreprise',
             'city_id' => 12
         ];
 

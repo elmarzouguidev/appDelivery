@@ -33,6 +33,7 @@
                                         </div>
                                     </th>
                                     @if (isAdmin())
+                                        <th class="align-middle">Ville</th>
                                         <th class="align-middle">Client</th>
                                     @endif
 
@@ -44,9 +45,9 @@
                                     <th class="align-middle">Qté Endommagé</th>
 
                                     <th class="align-middle">Qté Restant</th>
-                                    {{--@if (isAdmin())
+                                    {{-- @if (isAdmin())
                                         <th class="align-middle">Détail de stock</th>
-                                    @endif--}}
+                                    @endif --}}
                                     <th class="align-middle">Date</th>
                                     @if (isAdmin())
                                         <th class="align-middle">Action</th>
@@ -76,6 +77,10 @@
                                         </td>
                                         @if (isAdmin())
                                             <td>
+                                                {{ optional($stock->city)->name }}
+
+                                            </td>
+                                            <td>
 
                                                 {{ optional($stock->client)->full_name }}
 
@@ -101,11 +106,11 @@
                                             {{ $stock->qte_endomage }}
                                         </td>
                                         <td>
-      
+
                                             {{ $stock->qte_rest }}
-                                           
+
                                         </td>
-                                        {{--@if (isAdmin())
+                                        {{-- @if (isAdmin())
                                             <td>
                                                
                                                 <button class="btn btn-info" type="button" class="btn btn-info  btn-sm"
@@ -113,7 +118,7 @@
                                                     détailes
                                                 </button>
                                             </td>
-                                        @endif--}}
+                                        @endif --}}
                                         <td>
                                             {{ $stock->created_at }}
                                         </td>
@@ -125,23 +130,24 @@
                                                         class="text-success">
                                                         <i class="mdi mdi-pencil font-size-18"></i>
                                                     </a>
-                                                    {{-- <a href="#" class="text-danger" onclick="
-                                                    var result = confirm('Are you sure you want to delete this stock ?');
-    
-                                                    if(result){
-                                                        event.preventDefault();
-                                                        document.getElementById('delete-stock-{{ $stock->uuid }}').submit();
-                                                    }">
-                                                <i class="mdi mdi-delete font-size-18"></i>
-                                            </a> --}}
+                                                    <a href="#" class="text-danger"
+                                                        onclick="
+                                                            var result = confirm('Are you sure you want to delete this stock ?');
+            
+                                                            if(result){
+                                                                event.preventDefault();
+                                                                document.getElementById('delete-stock-{{ $stock->uuid }}').submit();
+                                                            }">
+                                                        <i class="mdi mdi-delete font-size-18"></i>
+                                                    </a>
                                                 </div>
                                             </td>
-                                            {{-- <form id="delete-stock-{{ $stock->uuid }}" method="post"
+                                            <form id="delete-stock-{{ $stock->uuid }}" method="post"
                                                 action="{{ route('admin:stock.delete') }}">
                                                 @csrf
                                                 @method('DELETE')
                                                 <input type="hidden" name="stockId" value="{{ $stock->uuid }}">
-                                            </form> --}}
+                                            </form>
                                         @endif
                                     </tr>
                                 @endforeach

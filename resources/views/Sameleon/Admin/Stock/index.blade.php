@@ -9,7 +9,6 @@
 
         @livewire('sameleon.stock.stock')
 
-
     </div>
 @endsection
 
@@ -22,6 +21,29 @@
 @push('scripts')
     <script src="{{ asset('assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
     <script>
+        function myFunction() {
+
+
+            // Get the checkbox
+            var checkBox = document.getElementById("default_stock");
+
+            var deliverySelect = document.getElementById("delivery_select");
+            // If the checkbox is checked, display the output text
+            if (checkBox.checked == true) {
+                //deliverySelect.removeAttribute("disabled");
+                deliverySelect.removeAttribute("required");
+                deliverySelect.setAttribute("disabled", "disabled");
+                $('#select_city').val(1);
+                $('#select_city').trigger('change');
+            } else {
+    
+                deliverySelect.setAttribute("required", "required");
+                deliverySelect.removeAttribute("disabled");
+                $('#select_city').val(null);
+                $('#select_city').trigger('change');
+            }
+        }
+
         window.addEventListener('show-edit-stock', event => {
             $('.editstockModal').modal('show');
         });

@@ -2,6 +2,7 @@
 
 namespace App\Models\Sameleon;
 
+use App\Models\Sameleon\Traits\ModelHelpers;
 use App\Models\Sameleon\Traits\ModelRoutes;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -27,6 +28,8 @@ class Product extends Model implements HasMedia
 
     use ModelRoutes;
 
+    use ModelHelpers;
+
     protected $fillable = [
         'slug',
         'user_uuid',
@@ -34,7 +37,9 @@ class Product extends Model implements HasMedia
         'total_commands',
         'is_out',
         'can_ramassage',
-        'notes'
+        'notes',
+        'qte_rest',
+        'qte_global'
     ];
 
     protected $casts = [
@@ -76,7 +81,7 @@ class Product extends Model implements HasMedia
 
     public function isOutOfStock(int $qte)
     {
-       return $this->qte_rest < $qte ;
+        return $this->qte_rest < $qte;
     }
 
     public function getFormatedPriceAttribute()

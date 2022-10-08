@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Sameleon\Stock;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StockNewFormRequest extends FormRequest
 {
@@ -24,8 +25,10 @@ class StockNewFormRequest extends FormRequest
     public function rules()
     {
         return [
+            'default_stock' => ['nullable', Rule::in([1, '1', true, 'on', 'yes', 'oui', '0', 'no', 'non', false])],
             'city' => ['required', 'integer'],
-            'delivery' => ['required', 'integer'],
+            //'delivery' => ['required', 'integer'],
+            'delivery' => ['nullable', 'required_if:default_stock,false', 'integer'],
             'product' => ['required', 'integer'],
             'qte' => ['required', 'integer'],
             'sent_at' => ['required', 'date', 'date_format:d-m-Y'],

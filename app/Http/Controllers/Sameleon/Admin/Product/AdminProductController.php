@@ -52,6 +52,7 @@ class AdminProductController extends Controller
 
         return view('Sameleon.Admin.Product.__normal_table.index', compact('products', 'clients'));
     }
+
     public function deliveryEntreprise()
     {
 
@@ -78,18 +79,26 @@ class AdminProductController extends Controller
         $product->name = $request->name;
         $product->description = $request->description;
         $product->price = $request->price;
-        $product->qte_global = $request->qte_global;
-        $product->qte_rest = $request->qte_global;
+        //$product->qte_global = $request->qte_global;
+        //$product->qte_rest = $request->qte_global;
 
         if (isAdmin() && $request->has('client') && $request->filled('client')) {
+
             $user = User::find($request->client);
-            $product->client()->associate($user);
-            $product->user_uuid = $user->uuid;
+
+            //$product->client()->associate($user);
+            //$product->user_uuid = $user->uuid;
+
+            $product->associateWith('client', $user);
+
             $product->slug = Str::slug(str_replace(' ', '', $request->name)) . '-' . $user->uuid;
         } else {
 
-            $product->client()->associate(auth()->id());
-            $product->user_uuid = auth()->user()->uuid;
+            //$product->client()->associate(auth()->id());
+            //$product->user_uuid = auth()->user()->uuid;
+
+            $product->associateWith('client', auth()->user());
+
             $product->slug = Str::slug(str_replace(' ', '', $request->name)) . '-' . auth()->user()->uuid;
         }
 
@@ -108,7 +117,7 @@ class AdminProductController extends Controller
 
             $stock = new Stock();
             $stock->is_default = true;
-            
+
             $stock->product_id = $product->id;
             $stock->product_uuid = $product->uuid;
 
@@ -150,8 +159,8 @@ class AdminProductController extends Controller
         $product->name = $request->name;
         $product->description = $request->description;
         $product->price = $request->price;
-        $product->qte_global = $request->qte_global;
-        $product->qte_rest = $request->qte_global;
+        //$product->qte_global = $request->qte_global;
+        //$product->qte_rest = $request->qte_global;
 
         $product->save();
 

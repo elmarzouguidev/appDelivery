@@ -37,63 +37,47 @@ class StockController extends Controller
 
     public function store(StockNewFormRequest $request)
     {
+        //dd($request->all());
 
         $product = Product::find($request->product);
         $city = City::find($request->city);
         $delivery = Delivery::find($request->delivery);
 
-        if ($product && $city && $delivery) {
+        if ($product && $city) {
 
-            $lastStock = Stock::where([
-                'product_id' => $product->id,
-                'product_uuid' => $product->uuid,
-                'city_id' => $city->id,
-                'city_uuid' => $city->uuid,
-                'delivery_id' => $delivery->id,
-                'delivery_uuid' => $delivery->uuid,
-            ])
-                ->whereIsDefault(false)->latest()->first();
+            $stock = new Stock();
+            $stock->product_id = $product->id;
+            $stock->product_uuid = $product->uuid;
 
-            $defaultStock = Stock::where([
-                'product_id' => $product->id,
-                'product_uuid' => $product->uuid,
-            ])
-                ->whereIsDefault(true)->first();
+            $stock->client_id = $product->client->id;
+            $stock->client_uuid = $product->client->uuid;
 
-            //dd($lastStock, "oook", $defaultStock);
+            $stock->city_id = $city->id;
+            $stock->city_uuid = $city->uuid;
+            $stock->qte_global = (int)$request->qte;
+            $stock->qte_rest = (int)$request->qte;
+            $stock->sent_at = $request->date('sent_at');
+            $stock->notes = $request->notes;
 
-            if ($lastStock !== null && !$lastStock->is_out) {
-                return redirect()->back()->with('error', "Ce livreur aura une qunatité de $lastStock->qte_rest restant dans sans stock");
-            }
-
-            if ((int) $defaultStock->qte_rest > (int)$request->qte) {
-
-                $stock = new Stock();
-                $stock->product_id = $product->id;
-                $stock->product_uuid = $product->uuid;
+            if ($request->boolean('default_stock') && isAdmin()) {
+                $stock->is_default = true;
+                $stock->delivery_id = null;
+                $stock->delivery_uuid = null;
+            } else {
+                $stock->is_default = false;
                 $stock->delivery_id = $delivery->id;
                 $stock->delivery_uuid = $delivery->uuid;
-
-                $stock->client_id = $product->client->id;
-                $stock->client_uuid = $product->client->uuid;
-
-                $stock->city_id = $city->id;
-                $stock->city_uuid = $city->uuid;
-                $stock->qte_global = (int)$request->qte;
-                $stock->qte_rest = (int)$request->qte;
-                $stock->sent_at = $request->date('sent_at');
-                $stock->notes = $request->notes;
-                $stock->save();
-
-                $qteRest = $defaultStock->qte_rest -= (int)$request->qte;
-
-                $defaultStock->update(['qte_rest' => $qteRest]);
-
-                return redirect()->back()->with('success', "le stock a été créér avec succès");
-            } else {
-                return redirect()->back()->with('error', "le quantité restant et mois de la quantité includ dans l'ajustement");
             }
+
+            $qte = $product->qte_global += (int)$request->qte;
+
+            $product->update(['qte_rest' => $qte, 'qte_global' => $qte]);
+
+            $stock->save();
+
+            return redirect()->back()->with('success', "le stock a été créér avec succès");
         }
+
         return redirect()->back()->with('error', "Error !!!");
     }
 
@@ -135,7 +119,12 @@ class StockController extends Controller
         $request->validate(['stockId' => 'required|uuid']);
 
         $stock = Stock::whereUuid($request->stockId)->firstOrFail();
+
         if ($stock) {
+
+            $qte = $stock->qte_global -= $stock->qte_global;
+
+            $stock->product->update(['qte_rest' => $qte, 'qte_global' => $qte]);
 
             $stock->delete();
 

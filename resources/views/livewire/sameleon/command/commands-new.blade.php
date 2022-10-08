@@ -79,7 +79,6 @@
                                                 </div>
                                             </th>
                                         @endif
-                                        {{-- <th scope="col">Numéro / client</th> --}}
                                         <th class="align-middle">Destinataire</th>
                                         <th class="align-middle">Produits</th>
                                         <th class="align-middle">Prix</th>
@@ -87,8 +86,6 @@
                                             <th class="align-middle">Client</th>
                                         @endif
                                         <th class="align-middle">Etat</th>
-
-                                        {{-- <th class="align-middle">Détails</th> --}}
                                         <th class="align-middle">Notes</th>
 
                                         <th class="align-middle">Date</th>
@@ -159,7 +156,7 @@
                                                 </td>
                                             @endif
                                             <td>
-                                                @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin', 'Delivery'))
+                                                @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
                                                     @php
                                                         $disabled = '';
                                                         $command->invoice && optional($command->invoice)->cloture == 1 ? ($disabled = 'disabled') : '';

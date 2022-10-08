@@ -27,7 +27,7 @@ class ProductFormRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'price' => ['required', 'numeric'],
-            'qte_global' => ['required', 'integer'],
+            //'qte_global' => ['required', 'integer'],
             'photo' => 'required|file|mimes:png,jpg,jpeg',
             'category' => 'nullable|integer',
             'client' => 'nullable|integer',

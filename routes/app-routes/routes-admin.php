@@ -104,7 +104,7 @@ Route::group(['prefix' => 'stock'], function () {
     Route::get('/', [StockController::class, 'index'])->name('stock.index');
     Route::post('/', [StockController::class, 'store'])->name('stock.store');
     Route::post('update/{stock}', [StockController::class, 'update'])->name('stock.update');
-    Route::delete('/delete', [StockController::class, 'delete'])->name('stock.deletee');
+    Route::delete('/delete', [StockController::class, 'delete'])->name('stock.delete');
 });
 
 

@@ -45,6 +45,7 @@ class Command extends Model
         'refused_at',
         'reported_at',
         'city_id',
+        'city_uuid',
         'region_id',
         'region_uuid',
         'company_uuid',
@@ -82,11 +83,11 @@ class Command extends Model
     
     public function delivery()
     {
-        return $this->belongsTo(User::class, 'delivery_id');
+        return $this->belongsTo(Delivery::class, 'delivery_id');
     }
     public function subDelivery()
     {
-        return $this->belongsTo(User::class, 'sub_delivery_id');
+        return $this->belongsTo(Delivery::class, 'sub_delivery_id');
     }
 
     public function company()

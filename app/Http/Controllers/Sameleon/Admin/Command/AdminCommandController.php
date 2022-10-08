@@ -59,6 +59,7 @@ class AdminCommandController extends Controller
         $command->client()->associate(auth()->id());
         $command->user_uuid = auth()->user()->uuid;
         $command->city()->associate($request->city);
+        $command->city_uuid = $command->city->uuid;
         $command->frais = $command->city->frais;
         $command->save();
 

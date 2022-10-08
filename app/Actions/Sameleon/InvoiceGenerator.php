@@ -18,7 +18,7 @@ class InvoiceGenerator
 
     public function handle()
     {
-        //$this->deleteNullInvoices();
+        
 
         $this->CloseYesterdayInvoice();
 
@@ -26,6 +26,7 @@ class InvoiceGenerator
 
         $this->updateRefusedCommand();
 
+       // $this->deleteNullInvoices();
         //!now()->isWeekend();
         // dd(now()->format('H:i') =='17:16');
         $commands = Command::whereIn('status', [Status::LIVRE, Status::REFUSE])

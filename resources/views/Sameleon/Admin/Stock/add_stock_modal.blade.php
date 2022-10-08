@@ -10,14 +10,26 @@
 
                 <form method="post" action="{{ route('admin:stock.store') }}">
                     @csrf
+                    <div class="form-check mb-3">
+                        <input class="form-check-input"
+                            name="default_stock" 
+                            type="checkbox" 
+                            id="default_stock"
+                            onclick="myFunction()"
+                         >
+                        <label class="form-check-label" for="default_stock">
+                            Stock principal ?
+                        </label>
+                    </div>
                     <div class="row mb-4">
-                        <label for="city" class="col-form-label col-lg-2">Ville *</label>
+                        <label for="select_city" class="col-form-label col-lg-2">Ville *</label>
                         <div class="col-lg-10">
-                            <select name="city"
+                            <select name="city" id="select_city"
                                 class="form-control select2-templating @error('city') is-invalid @enderror" required>
                                 <option value="">Choisir la ville</option>
                                 @foreach ($cities as $city)
-                                    <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                    <option value="{{ $city->id }}">{{ $city->name }}
+                                    </option>
                                 @endforeach
                             </select>
                             @error('city')
@@ -28,11 +40,11 @@
                         </div>
                     </div>
                     <div class="row mb-4">
-                        <label for="delivery" class="col-form-label col-lg-2">Livreur *</label>
+                        <label for="delivery_select" class="col-form-label col-lg-2">Livreur</label>
                         <div class="col-lg-10">
-                            <select name="delivery"
-                                class="form-control select2-templating @error('delivery') is-invalid @enderror"
-                                required>
+                            <select name="delivery" id="delivery_select"
+                                class="form-control select2-templating @error('delivery') is-invalid @enderror" required
+                                >
                                 <option value="">Choisir le Livreur</option>
                                 @foreach ($deliveries as $delivery)
                                     <option value="{{ $delivery->id }}">{{ $delivery->full_name }}</option>

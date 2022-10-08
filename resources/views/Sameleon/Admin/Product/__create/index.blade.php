@@ -57,7 +57,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="row mb-4">
+                            {{--<div class="row mb-4">
                                 <label for="qte_global" class="col-form-label col-lg-2">Quantité initial  *</label>
                                 <div class="col-lg-10">
                                     <input id="qte_global" name="qte_global" type="number" min="1" placeholder="Entrer la quantité du produit" class="form-control @error('qte_global') is-invalid @enderror" required>
@@ -67,7 +67,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                            </div>
+                            </div>--}}
                             <div class="row mb-3">
                                 <label class="col-form-label col-lg-2">Photo *</label>
                                 <div class="col-lg-10">
@@ -81,7 +81,7 @@
                                 </div>
 
                             </div>
-                            @if(auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
+                            @if(isAdmin())
                                 <div class="row mb-3">
 
                                     <label class="col-lg-2 form-label">Client</label>

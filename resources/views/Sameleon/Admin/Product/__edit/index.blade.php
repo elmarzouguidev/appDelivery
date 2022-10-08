@@ -51,7 +51,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="row mb-4">
+                            {{--<div class="row mb-4">
                                 <label for="qte_global" class="col-form-label col-lg-2">Quantité *</label>
                                 <div class="col-lg-10">
                                     <input id="qte_global" name="qte_global" type="number" min="1"
@@ -63,7 +63,7 @@
                                         </span>
                                     @enderror
                                 </div>
-                            </div>
+                            </div>--}}
 
                             <div class="row mb-3">
                                 <label class="col-form-label col-lg-2">Media</label>

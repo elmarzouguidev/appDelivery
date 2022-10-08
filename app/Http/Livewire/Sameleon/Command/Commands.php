@@ -108,7 +108,7 @@ class Commands extends Component
 
         $commandStatus = implode(',', [Status::NON_TRAITE, Status::ENCOURS, Status::REPORTE, Status::REFUSE, Status::LIVRE, Status::RETOURNE]);
 
-        if (auth()->user()->hasRole('Client')) {
+        if (isClient()) {
 
             $commands =  $command->where('user_id', auth()->id())
                 ->where('user_uuid', auth()->user()->uuid)
@@ -273,29 +273,35 @@ class Commands extends Component
 
                     $qte = (int)$item->quantity;
 
-                    if ($prod->qte_rest >= $qte && $prod->qte_rest !== 0 && $prod->qte_rest > 0 && !$prod->is_out) {
+                    $stock = $prod->stocks()->where([
+                        'city_id' => $command->city_id,
+                        'city_uuid' => $command->city_uuid,
+                    ])->first();
+
+                    //dd($stock);
+
+
+                    if ($stock->qte_rest >= $qte && $stock->qte_rest !== 0 && $stock->qte_rest > 0 && !$stock->is_out) {
 
                         //dd('Oui in this cas ');
 
-                        $prod->decrement('qte_rest', $qte);
-                        $prod->increment('qte_livre', $qte);
-                        $prod->increment('total_commands', $qte);
-
+                        $stock->decrement('qte_rest', $qte);
+                        
+                        $stock->increment('qte_livre', $qte);
+               
                         $command->update(['delivered_at' => now()]);
 
                         $command->update(['status' => $status]);
 
                     } else {
 
-                        $prod->update(['is_out' => true]);
+                        $stock->update(['is_out' => true]);
 
                         $command->update(['delivered_at' => null]);
 
                         $command->update(['status' => Status::MANQUE_DE_STOCK]);
                     }
-                }
-                else{
-
+                } else {
                 }
             });
         } elseif ($status == Status::REFUSE && $command->status != Status::REFUSE) {
@@ -310,25 +316,27 @@ class Commands extends Component
 
                     $qte = (int)$item->quantity;
 
-                    if ($prod->qte_rest !== 0 && $prod->qte_rest > 0 || $prod->qte_rest >= $qte ) {
+                    $stock = $prod->stocks()->where([
+                        'city_id' => $command->city_id,
+                        'city_uuid' => $command->city_uuid,
+                    ])->first();
 
-                        $prod->increment('qte_rest', $qte);
-                        $prod->decrement('qte_livre',  $qte);
-                        $prod->decrement('total_commands',  $qte);
+                    if ($stock->qte_rest !== 0 && $stock->qte_rest > 0 || $stock->qte_rest >= $qte) {
 
+                        $stock->increment('qte_rest', $qte);
+                        $stock->decrement('qte_livre',  $qte);
+    
                     }
 
                     $command->update(['status' => $status]);
 
-                    if ($prod->qte_rest == 0) {
+                    if ($stock->qte_rest == 0) {
 
-                        $prod->update(['is_out' => true]);
+                        $stock->update(['is_out' => true]);
 
                         $command->update(['status' => Status::MANQUE_DE_STOCK]);
                     }
-                }
-                else{
-
+                } else {
                 }
             });
         } else {
