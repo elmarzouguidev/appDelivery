@@ -68,7 +68,6 @@ class BLivraison extends Model
 
         static::creating(function ($model) {
 
-
             $number = ($model->max('code') + 1);
             
             $code = str_pad($number, 5, 0, STR_PAD_LEFT);
@@ -76,6 +75,7 @@ class BLivraison extends Model
             $model->code = $code;
 
             $model->full_number = 'BL-' . $code;
+
         });
     }
 
