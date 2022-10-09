@@ -7,7 +7,7 @@
     <title>{{ $bon->full_number }} - {{ $bon->bon_date->format('d-m-Y') }}</title>
     <style>
         @page {
-            margin: 5px 30px;
+            margin: 5px 10px;
         }
 
         body {
@@ -152,14 +152,13 @@
             text-align: center;
             line-height: 10px;
         }
-
     </style>
 </head>
 
 <body>
 
 
-    <footer>
+    {{-- <footer>
 
         <div style="text-align: center; color:#333; font-size: 11px !important;">
             <p>{{ optional(getCompany())->name }}</p>
@@ -172,13 +171,13 @@
                 -R.C:{{ optional(getCompany())->rc }}
                 -PATENTE:{{ optional(getCompany())->patente }}
                 -I.F:{{ optional(getCompany())->if }}
-                @if(isset(getCompany()->cnss))
-                -CNSS:{{ optional(getCompany())->cnss }}
+                @if (isset(getCompany()->cnss))
+                    -CNSS:{{ optional(getCompany())->cnss }}
                 @endif
                 -ICE:{{ optional(getCompany())->ice }}
             </p>
         </div>
-    </footer>
+    </footer> --}}
     <div class="invoice-box">
         <table>
             <tr class="top">
@@ -221,38 +220,53 @@
         </tr> --}}
 
             <tr class="heading">
-                <td>Command</td>
-                <td>Tél</td>
+                <td>Destinataire</td>
+                <td>Produits</td>
+                <td>Téléphone</td>
                 <td>Ville</td>
                 <td>Adresse</td>
                 <td>Prix</td>
             </tr>
 
             @foreach ($bon->articles as $article)
-         
                 @php
-                 $color = '';
-                 $article->command_status == App\Status\Status::REFUSE ? $color = 'red':''
+                    $color = '';
+                    $article->command_status == App\Status\Status::REFUSE ? ($color = 'red') : '';
                 @endphp
-                <tr class="item {{ $loop->last ? 'last' : '' }}" style="color:{{$color}} !important">
+                <tr class="item {{ $loop->last ? 'last' : '' }}" style="color:{{ $color }} !important">
                     <td style="width: 30% ;">
+                        <strong>{{ optional($article->command)->code }}</strong><br>
                         {{ $article->name }}<br>
-                        {{ $article->name }}<br>
-                        {{ $article->name }}<br>
-                        {{ $article->name }}<br>
+                        {{ $article->phone }}<br>
+                    </td>
+                    <td>
+                        @foreach (optional($article->command)->items as $item)
+                            <p>
+                                <strong>{{ $item->product }}</strong>
+                            </p>
 
+                            <p>{{ $item->prix_uni }} (DH) x
+                                {{ $item->quantity }}
+                            </p>
+
+                            {{-- <p>
+                                    {{ $item->designation }}
+                                </p> --}}
+
+                            @if (!$loop->last)
+                                <hr>
+                            @endif
+                        @endforeach
                     </td>
                     <td>{{ $article->phone }}</td>
-    
                     <td>{{ $article->bon->city->name }}</td>
                     <td>{{ $article->address }}</td>
-                    <td>{{ $article->formated_price_total}} DH</td>
-                
-                </tr>
+                    <td>{{ $article->formated_price_total }} DH</td>
 
+                </tr>
             @endforeach
-            
-            {{--<div class="pricer">
+
+            {{-- <div class="pricer">
                 <tr class="heading-price lefter">
                     <td colspan="6">Montant BRUT : {{ number_format($invoice->formated_total_brut,2)}} DH</td>
                 </tr>
@@ -275,7 +289,7 @@
                     @endphp
                     <td colspan="6">Montant NET : {{ number_format($net,2) }} DH</td>
                 </tr>
-            </div>--}}
+            </div> --}}
 
         </table>
 

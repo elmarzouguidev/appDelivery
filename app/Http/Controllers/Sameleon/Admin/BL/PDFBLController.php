@@ -11,7 +11,7 @@ class PDFBLController extends Controller
     public function showBL(Request $request, BLivraison $bon)
     {
 
-        $bon->load('articles', 'city:id,name');
+        $bon->load('articles', 'city:id,name','articles.command.items');
 
         $companyLogo = "data:image/jpg;base64," . base64_encode(file_get_contents(public_path('storage/company/' . getCompany()->logo)));
 
