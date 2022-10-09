@@ -40,14 +40,14 @@ class DatabaseSeeder extends Seeder
 
     $this->call(IntegrationSeeder::class);
 
-    /*$users = User::role('Client')->get();
+    $users = User::role('Client')->get();
 
     foreach ($users as $user) {
 
       $this->callWith(ProductSeeder::class, ['user' => $user]);
 
       // $this->callWith(CommandSeeder::class, ['user' => $user]);
-    }*/
+    }
   }
 
   private function clearAll()

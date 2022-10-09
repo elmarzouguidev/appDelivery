@@ -29,6 +29,7 @@ class ClientSeed extends Seeder
             'password' => Hash::make('123456789@'),
             'remember_token' => Str::random(10),
             'is_client' => true,
+            'actived_at' => now()
         ];
 
         $user2 =  [
@@ -40,6 +41,7 @@ class ClientSeed extends Seeder
             'password' => Hash::make('123456789@'),
             'remember_token' => Str::random(10),
             'is_client' => true,
+            'actived_at' => now()
         ];
 
         $client = User::whereEmail('client@gmail.com')->first();
@@ -56,7 +58,6 @@ class ClientSeed extends Seeder
 
             $newAdmin->syncPermissions($permissions);
             $newAdmin2->syncPermissions($permissions);
-            
         } else {
 
             $client->assignRole('Client');
