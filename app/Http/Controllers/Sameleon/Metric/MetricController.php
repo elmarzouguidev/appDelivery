@@ -17,6 +17,7 @@ class MetricController extends Controller
     public function delivery()
     {
         $users = Delivery::role(['Delivery','DeliveryEntreprise'])
+            ->with('city:id,name')
 
             ->withCount(['commandsDelivery as commands_livred_now' => function ($query) {
                 $query->whereStatus(Status::LIVRE)->whereDate('delivered_at', now()->format('Y-m-d'));

@@ -49,6 +49,7 @@
                                         <th class="align-middle">Détail de stock</th>
                                     @endif --}}
                                     <th class="align-middle">Date</th>
+                                    <th class="align-middle">Note</th>
                                     @if (isAdmin())
                                         <th class="align-middle">Action</th>
                                     @endif
@@ -121,6 +122,9 @@
                                         @endif --}}
                                         <td>
                                             {{ $stock->created_at }}
+                                        </td>
+                                        <td>
+                                            {{ $stock->notes }}
                                         </td>
                                         @if (isAdmin())
                                             <td>
