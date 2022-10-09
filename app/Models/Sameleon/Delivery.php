@@ -93,6 +93,11 @@ class Delivery extends Authenticatable
         return $this->hasMany(Command::class, 'delivery_id')->orderBy('created_at', 'ASC');
     }
 
+    public function blivraisons()
+    {
+        return $this->hasMany(BLivraison::class);
+    }
+
     public function city()
     {
         return $this->belongsTo(City::class);
@@ -127,7 +132,7 @@ class Delivery extends Authenticatable
 
         return number_format($total, 2);
     }
-    
+
     public function getDeliveryTotalChiffreAttribute()
     {
         $commands =  $this->commandsDelivery()

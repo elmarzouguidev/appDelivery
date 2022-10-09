@@ -19,6 +19,9 @@ class BLivraison extends Model
         'code',
         'full_number',
         'user_id',
+        'user_uuid',
+        'delivery_id',
+        'delivery_uuid',
         'city_id',
         'city_uuid',
         'notes',
@@ -56,11 +59,16 @@ class BLivraison extends Model
         return $this->belongsTo(City::class);
     }
 
+    public function delivery()
+    {
+        return $this->belongsTo(Delivery::class);
+    }
+
     public function articles()
     {
         return $this->hasMany(BLArticle::class);
     }
-    
+
     public static function boot()
     {
 
@@ -69,14 +77,12 @@ class BLivraison extends Model
         static::creating(function ($model) {
 
             $number = ($model->max('code') + 1);
-            
+
             $code = str_pad($number, 5, 0, STR_PAD_LEFT);
 
             $model->code = $code;
 
             $model->full_number = 'BL-' . $code;
-
         });
     }
-
 }
