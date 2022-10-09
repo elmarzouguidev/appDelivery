@@ -12,7 +12,7 @@
     <meta content="app_version" name="v 1.1" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
-    <link href="{{ asset('css/mix/app.css') }}?ver={{ rand(1, 852) }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('css/mix/app.css') }}" rel="stylesheet" type="text/css" />
 
 
 </head>
@@ -116,8 +116,8 @@
                                         </button>
                                     </div>
                                     <div class="mt-3 d-grid">
-                                        <a href="{{route('admin:auth:register')}}" class="btn btn-success waves-effect waves-light">
-                                            Devenir client
+                                        <a href="{{route('delivery:auth:login')}}" class="btn btn-success waves-effect waves-light">
+                                            Espace livreur 
                                         </a>
                                     </div>
                                     @if (Route::has('forgotpassword'))
