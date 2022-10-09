@@ -36,9 +36,9 @@
         }
 
         .invoice-box {
-            max-width: 900px;
+            max-width: 1000px;
             margin: auto;
-            padding: 2px;
+            padding: 1px;
             border: 1px solid #eee;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
             font-size: 15px;
@@ -197,10 +197,13 @@
                 <td colspan="6">
                     <table>
                         <tr>
-                            <td style="width: 100%">
+                            <td style="width: 80%">
                                 <h1>BL N° : {{ $bon->code }}</h1><br />
                                 Date : {{ $bon->bon_date->format('d-m-Y') }}<br />
                                 {{-- Date d'échéance : {{ $estimate->due_date }} --}}
+                            </td>
+                            <td style="width: 10%">
+                                <img src="data:image/png;base64, {!! $qrcode !!}">
                             </td>
                         </tr>
                     </table>
@@ -236,7 +239,7 @@
                 <tr class="item {{ $loop->last ? 'last' : '' }}" style="color:{{ $color }} !important">
                     <td style="width: 30% ;">
                         <strong>{{ optional($article->command)->code }}</strong><br>
-                        {{ $article->name }}<br>
+                        {{ $article->name  }}<br>
                         {{ $article->phone }}<br>
                     </td>
                     <td>
@@ -245,7 +248,7 @@
                                 <strong>{{ $item->product }}</strong>
                             </p>
 
-                            <p>{{ $item->prix_uni }} (DH) x
+                            <p> {{ $item->prix_uni }} (DH) x
                                 {{ $item->quantity }}
                             </p>
 
