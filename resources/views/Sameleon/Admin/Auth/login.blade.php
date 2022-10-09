@@ -116,7 +116,7 @@
                                         </button>
                                     </div>
                                     <div class="mt-3 d-grid">
-                                        <a href="{{route('admin:auth:register')}}" class="btn btn-success waves-effect waves-light" type="submit">
+                                        <a href="{{route('admin:auth:register')}}" class="btn btn-success waves-effect waves-light">
                                             Devenir client
                                         </a>
                                     </div>
