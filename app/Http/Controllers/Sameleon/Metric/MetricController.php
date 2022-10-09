@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Sameleon\Metric;
 
 use App\Http\Controllers\Controller;
 use App\Models\Sameleon\City;
+use App\Models\Sameleon\Delivery;
 use App\Models\Sameleon\User;
 use App\Status\Status;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ class MetricController extends Controller
 
     public function delivery()
     {
-        $users = User::role('Delivery')
+        $users = Delivery::role(['Delivery','DeliveryEntreprise'])
 
             ->withCount(['commandsDelivery as commands_livred_now' => function ($query) {
                 $query->whereStatus(Status::LIVRE)->whereDate('delivered_at', now()->format('Y-m-d'));
@@ -33,7 +34,7 @@ class MetricController extends Controller
         $chart_options = [
             'chart_title' => 'Users by months',
             'report_type' => 'group_by_date',
-            'model' => 'App\Models\Sameleon\User',
+            'model' => 'App\Models\Sameleon\Delivery',
             'group_by_field' => 'created_at',
             'group_by_period' => 'month',
             'chart_type' => 'bar',

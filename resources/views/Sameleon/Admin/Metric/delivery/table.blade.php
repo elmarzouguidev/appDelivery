@@ -42,7 +42,7 @@
                                         <p class="text-muted mb-0"></p>
                                     </td>
                                     <td>
-                                        {{ $user->full_name }}
+                                        {{ $user->full_name }} ({{$user->type}})
                                     </td>
                                     <td>
                                         {{ $user->commands_livred_now }}

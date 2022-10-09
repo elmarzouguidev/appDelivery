@@ -2,6 +2,7 @@
 
 namespace App\Models\Sameleon;
 
+use App\Status\Status;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -112,6 +113,32 @@ class Delivery extends Authenticatable
     public function commandsDelivery()
     {
         return $this->hasMany(Command::class, 'delivery_id');
+    }
+
+    public function getDeliveryTotalDayChiffreAttribute()
+    {
+        $commands =  $this->commandsDelivery()
+            ->where('status', Status::LIVRE)
+            ->whereDate('delivered_at', now()->format('Y-m-d'))
+            ->withSum('items', 'prix_total')
+            ->get();
+
+        $total = collect($commands)->sum('items_sum_prix_total');
+
+        return number_format($total, 2);
+    }
+    
+    public function getDeliveryTotalChiffreAttribute()
+    {
+        $commands =  $this->commandsDelivery()
+            ->where('status', Status::LIVRE)
+            //->whereDate('delivered_at', now()->format('Y-m-d'))
+            ->withSum('items', 'prix_total')
+            ->get();
+
+        $total = collect($commands)->sum('items_sum_prix_total');
+
+        return number_format($total, 2);
     }
 
     public function regions()
