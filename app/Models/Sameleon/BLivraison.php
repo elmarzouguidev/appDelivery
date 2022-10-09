@@ -15,11 +15,16 @@ class BLivraison extends Model
     use GetModelByUuid;
 
     protected $fillable = [
-        'cloture',
-        'type',
-        'bon_date',
+        'uuid',
+        'code',
+        'full_number',
         'user_id',
-        'user_uuid'
+        'city_id',
+        'city_uuid',
+        'notes',
+        'bon_date',
+        'active',
+        'closed',
     ];
 
     // protected $dates = ['due_date'];
@@ -27,62 +32,35 @@ class BLivraison extends Model
     protected  $casts = [
 
         'bon_date' => 'date:Y-m-d',
-        'cloture' => 'boolean'
+        'active' => 'boolean',
+        'closed' => 'boolean'
     ];
 
-
-
-    public function getFormatedTotalTvaAttribute()
+    public function getTotalPriceAttribute()
     {
-        return number_format($this->price_tva, 2);
-    }
-
-    public function getFormatedTotalBrutAttribute()
-    {
-        //dd(Carbon::yesterday()->format('d'));
-        /*$refused = $this->commands()->where('status', Status::REFUSE)
-            ->whereDay('created_at', now()->format('d'))
-            ->whereNotNull('delivered_at');
-        $total = $refused->withSum('articles', 'articles.price_total')->get()->map(function($item,$key){
-           // dd($item);
-            return $item->articles_sum_articlesprice_total;
-        })->sum();
-        //dd($total);
-        //return $articles; */
-        //return ($this->articles->sum('price_total') - $total);
         return $this->articles->sum('price_total');
     }
 
+    public function getTotalCommandsAttribute()
+    {
+        return $this->articles->count();
+    }
 
     public function client()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+
     public function articles()
     {
-        return $this->morphMany(Article::class, 'articleable');
+        return $this->hasMany(BLArticle::class);
     }
-
-    /*public function commands()
-    {
-        return $this->belongsToMany(Command::class, 'command_invoice', 'invoice_id', 'command_id');
-    }*/
-
-    public function commands()
-    {
-        return $this->hasMany(Command::class);
-    }
-
-    public function scopeBonNonClosed($query)
-    {
-        if (isAdmin()) {
-            return $query->whereCloture(false)
-                ->latest()->count();
-        }
-        return 0;
-    }
-
+    
     public static function boot()
     {
 

@@ -13,7 +13,7 @@
                                 <div class="mb-4">
 
                                     
-                                        @if (auth()->user()->hasAnyRole('Client','SuperAdmin'))
+                                        @if (isClient())
 
                                             @if (auth()->user()->products()->count() <= 0)
                                                 <a href="{{ route('admin:products.create', ['shoud_product' => true]) }}"
@@ -34,11 +34,22 @@
 
                                         @endif
 
-                                        @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
+                                        @if (isAdmin())
                                             <button {{ count($selectedCommands) ? '' : 'disabled' }}
                                                 class="btn btn-primary mr-3 mb-2" type="button" data-bs-toggle="modal"
                                                 data-bs-target=".attachCommandModal">
                                                 Envoyer au Livreur {{-- : @json($selectedCommands) --}}
+                                            </button>
+                                        @endif
+
+                                        @if (isAdmin())
+                                            <button {{ count($selectedCommands) ? '' : 'disabled' }}
+                                                class="btn btn-primary mr-3 mb-2" type="button" 
+                                                {{--data-bs-toggle="modal"
+                                                data-bs-target=".generateBL"--}}
+                                                wire:click="generateBl()"
+                                                >
+                                                Générer un Bon de livraison {{-- : @json($selectedCommands) --}}
                                             </button>
                                         @endif
                                     

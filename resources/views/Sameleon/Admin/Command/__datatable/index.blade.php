@@ -1,21 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
-
     <div class="container-fluid">
 
         @include('Sameleon.Admin.Command.__title')
 
         @livewire('sameleon.command.commands')
 
-        {{--<h1>Maintenance</h1>--}}
+        {{-- <h1>Maintenance</h1> --}}
 
         @include('Sameleon.Admin.Command.__datatable.__add_command_modal')
-            
-        @include('Sameleon.Admin.Command.__datatable.__import_command')
-            
-    </div>
 
+        @include('Sameleon.Admin.Command.__datatable.__import_command')
+
+    </div>
 @endsection
 
 @section('css')
@@ -23,7 +21,7 @@
         type="text/css">
     <link href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
 
-{{--<link href="{{ asset('assets/libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" />--}}
+    {{-- <link href="{{ asset('assets/libs/select2/css/select2.min.css') }}" rel="stylesheet" type="text/css" /> --}}
 @endsection
 
 @push('scripts')
@@ -32,14 +30,15 @@
 
 
     <script>
-           /* $(".select2").select2({
-            width: '100%'
-        });*/
+        /* $(".select2").select2({
+                width: '100%'
+            });*/
         Livewire.hook('element.updated', (fromEl, toEl, component) => {
- 
+
             //reload_js("{{ asset('js/pages/datatables.init.js') }}");
 
         })
+
         function reload_js(src) {
             $('script[src="' + src + '"]').remove();
             $('<script>').attr('src', src).appendTo('head');
@@ -60,8 +59,8 @@
 
         window.addEventListener('show-edit', event => {
 
-              $('.editCommandModal').modal('show');
-          
+            $('.editCommandModal').modal('show');
+
         });
 
         window.addEventListener('hidden.bs.modal', event => {
@@ -73,7 +72,7 @@
         window.addEventListener('show-edit-status', event => {
 
             $('.updateStatus').modal('show');
-            
+
         });
 
         window.addEventListener('status-updated', event => {
@@ -124,12 +123,20 @@
             })
 
         });
+
+        window.addEventListener('bl-redirect', event => {
+            //$("#commands_list").load(window.location.href + " #commands_list");
+            setTimeout(function() {
+                window.location="{{route('admin:b-livraison.index')}}";
+            }, 2000);
+
+        });
     </script>
 
     <script>
         //Warning Message
         $('.deleteCommandBtn').click(function() {
-           let command = this.getAttribute('data-command');
+            let command = this.getAttribute('data-command');
             Swal.fire({
                 title: "Est-ce que vous êtes sûr ?",
                 text: "vous ne pouvez pas annuler la suppression de cette Commande !",
@@ -140,7 +147,7 @@
                 confirmButtonText: "Oui, supprimer la!"
             }).then(function(result) {
                 if (result.value) {
-                   
+
                     setTimeout(function() {
                         document.getElementById(command)
                             .submit();
@@ -163,7 +170,7 @@
                 confirmButtonText: "Oui, supprimer les !"
             }).then(function(result) {
                 if (result.value) {
-                   
+
                     setTimeout(function() {
                         Livewire.emit('deleteSelectedCommand');
                     }, 2000);
@@ -173,11 +180,10 @@
             });
         });
     </script>
-   <script>
-    /*Livewire.on('updateStock',function() {
-        alert('A post was added with the id of: ');
-    })*/
+    <script>
+        /*Livewire.on('updateStock',function() {
+            alert('A post was added with the id of: ');
+        })*/
     </script>
-    {{--@include('Sameleon.Admin.Command.js')--}}
+    {{-- @include('Sameleon.Admin.Command.js') --}}
 @endpush
-

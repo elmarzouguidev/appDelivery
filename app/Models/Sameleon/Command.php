@@ -117,6 +117,11 @@ class Command extends Model
         return $this->hasMany(Article::class);
     }
 
+    public function BLarticles()
+    {
+        return $this->hasMany(BLArticle::class);
+    }
+
     public function city()
     {
         return $this->belongsTo(City::class);

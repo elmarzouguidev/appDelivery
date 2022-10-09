@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Sameleon\Command;
 
 use App\Filters\ItemsQuery;
+use App\Models\Sameleon\BLivraison;
 use App\Models\Sameleon\Command;
 use App\Models\Sameleon\Delivery;
 use App\Models\Sameleon\Product;
@@ -232,6 +233,48 @@ class Commands extends Component
         }
     }
 
+    public function generateBl()
+    {
+        if (count($this->selectedCommands)) {
+
+
+            $commands = Command::withSum('items', 'prix_total')->find($this->selectedCommands)->each->get();
+
+            $bon = new BLivraison();
+            $bon->city_id = $commands[0]->city_id;
+            $bon->city_uuid = $commands[0]->city_uuid;
+            $bon->bon_date = now();
+            $bon->save();
+
+            if ($bon && $commands) {
+                $newCommands =  $commands->map(function ($item, $key) use ($bon) {
+
+                    //$item->update(['invoice_id' => $this->invoice->id, 'invoice_uuid' => $this->invoice->uuid]);
+
+                    //$price = $item->status == Status::REFUSE ? 0 : $item->items_sum_prix_total;
+                    return [
+                        'b_livraison_id' => $bon->id,
+                        'b_livraison_uuid' => $bon->uuid,
+                        'command_id' => $item->id,
+                        'command_uuid' => $item->uuid,
+                        'command_status' => $item->status,
+                        'phone' => $item->client_phone,
+                        'name' => $item->client_name,
+                        'address' => $item->client_address,
+                        'price_total' => $item->items_sum_prix_total,
+                        'bon_date' => $item->created_at->format('d-m-Y'),
+                    ];
+                })->toArray();
+
+                $bon->articles()->createMany($newCommands);
+            }
+            if ($bon && $bon->articles()->count()) {
+                $this->dispatchBrowserEvent('notify-global', ['message' => 'le bon a été generer avec succès']);
+                $this->dispatchBrowserEvent('bl-redirect');
+            }
+        }
+    }
+
     public function editCommand(Command $command)
     {
 
@@ -286,13 +329,12 @@ class Commands extends Component
                         //dd('Oui in this cas ');
 
                         $stock->decrement('qte_rest', $qte);
-                        
+
                         $stock->increment('qte_livre', $qte);
-               
+
                         $command->update(['delivered_at' => now()]);
 
                         $command->update(['status' => $status]);
-
                     } else {
 
                         $stock->update(['is_out' => true]);
@@ -325,7 +367,6 @@ class Commands extends Component
 
                         $stock->increment('qte_rest', $qte);
                         $stock->decrement('qte_livre',  $qte);
-    
                     }
 
                     $command->update(['status' => $status]);
