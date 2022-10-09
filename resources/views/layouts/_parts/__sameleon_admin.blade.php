@@ -31,6 +31,7 @@
 
     </li>
 @endif
+
 <li class="menu-title" key="t-commands">Commandes</li>
 
 <li>
@@ -83,7 +84,7 @@
 @endif
 
 @if (auth()->user()->hasAnyRole('Client', 'SuperAdmin', 'Admin'))
-    <li class="menu-title" key="t-invoices">Factures</li>
+    <li class="menu-title" key="t-docs">Documents</li>
 
     <li>
         <a href="{{ route('admin:invoices.index') }}">
@@ -98,6 +99,13 @@
         <a href="{{ route('admin:payments.index') }}">
             <i class="bx bx-money"></i>
             <span key="t-payments">{{ __('Paiements') }}</span>
+        </a>
+    </li>
+
+    <li>
+        <a href="{{ route('admin:b-livraison.index') }}">
+            <i class="bx bx-file"></i>
+            <span key="t-b-livraison">{{ __('Bon de livraison') }}</span>
         </a>
     </li>
 
