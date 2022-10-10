@@ -15,6 +15,7 @@ use App\Http\Controllers\Sameleon\Admin\BL\BLController;
 use App\Http\Controllers\Sameleon\Admin\City\AdminCityController;
 use App\Http\Controllers\Sameleon\Admin\Client\ClientController;
 use App\Http\Controllers\Sameleon\Admin\Command\AdminCommandController;
+use App\Http\Controllers\Sameleon\Admin\Command\PrintController;
 use App\Http\Controllers\Sameleon\Admin\Contact\ContactController;
 use App\Http\Controllers\Sameleon\Admin\Delivery\DeliveryController;
 use App\Http\Controllers\Sameleon\Admin\Group\GroupController;
@@ -63,6 +64,8 @@ Route::group(['prefix' => 'commands'], function () {
 
         Route::get('/', [AdminCommandController::class, 'archived'])->name('commands.archived');
     });
+
+    Route::get('/printer/{command}', [PrintController::class, 'getCommands'])->name('commands.print');
 });
 
 Route::group(['prefix' => 'adjustments'], function () {

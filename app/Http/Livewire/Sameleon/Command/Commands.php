@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Sameleon\Command;
 
 use App\Filters\ItemsQuery;
+use App\Http\Controllers\Sameleon\Admin\Command\PrintController;
 use App\Models\Sameleon\BLivraison;
 use App\Models\Sameleon\Command;
 use App\Models\Sameleon\Delivery;
@@ -273,6 +274,18 @@ class Commands extends Component
                 $this->dispatchBrowserEvent('bl-redirect');
             }
         }
+    }
+
+    public function printCommands()
+    {
+        if (count($this->selectedCommands)) {
+
+            //$commands = Command::withSum('items', 'prix_total')->find($this->selectedCommands)->each->get();
+            //$command = Command::withSum('items', 'prix_total')->find($this->selectedCommands)->first();
+
+            //return app(PrintController::class)->getCommands($command);
+            return redirect()->route('admin:commands.print',$this->selectedCommands);
+        }  
     }
 
     public function editCommand(Command $command)
