@@ -14,7 +14,7 @@
     </div>
     <div class="d-flex flex-wrap gap-2 justify-content-end mb-4">
         <div class="">
-            <button type="submit" class="btn btn-primary waves-effect waves-light">
+            <button {{$buttonClass}} type="submit" class="btn btn-primary waves-effect waves-light">
                 {{ __('buttons.store') }}
             </button>
         </div>

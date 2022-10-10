@@ -76,7 +76,7 @@
     <div class="col-lg-10">
         <div class="mb-4">
             Preview:
-        
+
             @if ($recu)
                 <img src="{{ $recu->temporaryUrl() }}" class="img-fluid">
             @else
@@ -86,6 +86,7 @@
         </div>
     </div>
 @endif
+
 <div class="row mb-3" wire:ignore>
     <label class="col-form-label col-lg-2">Recu </label>
     <div class="col-lg-10">

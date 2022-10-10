@@ -30,6 +30,9 @@ class Invoices extends Component
     public $cloture = false;
 
 
+
+    public $buttonClass = 'disabled';
+
     protected $messages = [
         //'recu.required' => "You must use the 'Choose file' button to select which file you wish to upload",
         'recu.max' => "Maximum file size to upload is 2MB (2048 KB)."
@@ -99,6 +102,14 @@ class Invoices extends Component
         $this->dispatchBrowserEvent('invoice-paid');
     }
 
+    public function updatedRecu()
+    {
+        if($this->recu && $this->recu->temporaryUrl())
+        {
+            $this->buttonClass ='';
+        }
+    }
+    
     public function clotureInvoice(Invoice $invoice)
     {
         $invoice->update(['cloture' => !$invoice->cloture]);
