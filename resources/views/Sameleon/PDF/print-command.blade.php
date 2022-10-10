@@ -191,7 +191,7 @@
     <table class="line-items-container has-bottom-border">
         <thead>
             <tr>
-                <th>Command</th>
+                <th>détails de la commande</th>
             </tr>
         </thead>
         <tbody>
@@ -204,7 +204,7 @@
                         <div>
                             Prix  : 
                             <strong>
-                                {{ $item->prix_uni }} (DH) 
+                                {{ $item->prix_uni }}(DH) 
                                     x
                                 {{ $item->quantity }}
                             </strong>
@@ -223,7 +223,7 @@
             <span>sameleon-express.ma</span>
         </div>
         <div class="footer-thanks">
-            <img src="https://github.com/anvilco/html-pdf-invoice-template/raw/main/img/heart.png" alt="heart">
+            {{--<img src="https://github.com/anvilco/html-pdf-invoice-template/raw/main/img/heart.png" alt="heart">--}}
             <span>Thank you!</span>
         </div>
     </div>
