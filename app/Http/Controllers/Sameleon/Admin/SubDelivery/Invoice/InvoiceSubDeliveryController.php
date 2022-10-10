@@ -7,5 +7,11 @@ use Illuminate\Http\Request;
 
 class InvoiceSubDeliveryController extends Controller
 {
-    //
+    
+
+    public function index()
+    {
+        
+        return view('Sameleon.Admin.SubDelivery.Invoice.index');
+    }
 }
