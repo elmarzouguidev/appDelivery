@@ -10,16 +10,9 @@
                         </div>
                     </div>
                 </div>
-                @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
-                @if (session('error'))
-                    <div class="alert alert-danger">
-                        {{ session('error') }}
-                    </div>
-                @endif
+
+                @include('layouts._parts.__messages')
+
                 <div class="table-responsive">
                     <table class="table table-bordered border-danger table-hover align-middle table-nowrap table-check">
                         <thead class="table-light">
@@ -40,7 +33,7 @@
                                 <th class="align-middle">Date de paiment</th>
                                 <th class="align-middle">Note</th>
                                 <th class="align-middle">Bordereau</th>
-                                <th class="align-middle">Action</th>
+                                {{--<th class="align-middle">Action</th>--}}
                             </tr>
                         </thead>
                         <tbody>
@@ -107,8 +100,8 @@
                                             </a>
                                         </div>
                                     </td>
-                                    <td>
-                                    </td>
+                                    {{--<td>
+                                    </td>--}}
 
                                 </tr>
                             @endforeach

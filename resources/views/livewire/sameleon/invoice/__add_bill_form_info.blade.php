@@ -73,7 +73,7 @@
     @enderror
 </div>
 @if ($recu)
-    <div class="col-lg-10">
+    <div class="col-lg-12">
         <div class="mb-4">
             Preview:
 
@@ -87,8 +87,8 @@
     </div>
 @endif
 
-<div class="row mb-3" wire:ignore>
-    <label class="col-form-label col-lg-2">Recu </label>
+{{--<div class="row mb-3" wire:ignore>
+    <label class="col-form-label col-lg-2">Reçu</label>
     <div class="col-lg-10">
         <input class="form-control @error('recu') is-invalid @enderror" wire:model.lazy="recu" type="file"
             accept="image/*" />
@@ -99,4 +99,14 @@
         @enderror
     </div>
 
+</div>--}}
+<div class=" mb-4" wire:ignore>
+    <label>Reçu</label>
+    <input class="form-control @error('recu') is-invalid @enderror" wire:model.lazy="recu" type="file"
+     accept="image/*" />
+    @error('recu')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+    @enderror
 </div>

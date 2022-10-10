@@ -5,13 +5,13 @@
 
         @include('Sameleon.Admin.Ramassage.__title')
 
-        @hasanyrole('SuperAdmin|Admin')
+        @if(isAdmin())
             @include('Sameleon.Admin.Ramassage.products_admin')
-        @endhasanyrole
+        @endif
 
-        @role('Client')
+        @if(isClient())
             @include('Sameleon.Admin.Ramassage.products_client')
-        @endrole
+        @endif
         
     </div>
 @endsection

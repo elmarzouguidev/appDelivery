@@ -2,11 +2,9 @@
     <div class="col-lg-12 col-sm-12">
         <div class="card">
             <div class="card-body">
-                @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
+
+                @include('layouts._parts.__messages')
+
                 <h4 class="card-title">Demande de ramassage</h4>
                 <p class="card-title-desc">ici vous trouvez les produits en besoin de ramassage </p>  
                 <div class="table-responsive">
@@ -56,7 +54,7 @@
                                         {{ $product->formated_price }} DH
                                     </td>
                                     <td>
-                                        {{ $product->stock }}
+                                        {{ $product->qte_rest }}
                                     </td>
                                     <td>
 

@@ -2,11 +2,9 @@
     <div class="col-lg-12 col-sm-12">
         <div class="card">
             <div class="card-body">
-                @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
+
+                @include('layouts._parts.__messages')
+
                 <div class="table-responsive">
                     <table class="table table-bordered border-danger table-hover align-middle table-nowrap table-check">
                         <thead class="table-light">
@@ -55,19 +53,19 @@
                                         {{ $product->formated_price }} DH
                                     </td>
                                     <td>
-                                        {{ $product->stock }}
+                                        {{ $product->qte_rest }}
                                     </td>
-                             
-                                     <td>
-                                        
-                                            <a href="{{-- $client->url --}}" class="text-body fw-bold">
-                                                {{ optional($product->client)->full_name }}
-                                            </a>
+
+                                    <td>
+
+                                        <a href="{{-- $client->url --}}" class="text-body fw-bold">
+                                            {{ optional($product->client)->full_name }}
+                                        </a>
                                     </td>
                                     <td>
-                                       
+
                                         {!! optional($product->ramassage)->addresse !!}
-                                            
+
                                     </td>
                                     <td>
                                         <div class="d-flex gap-3">
@@ -91,12 +89,12 @@
                                                     $disabled = 'disabled';
                                                     $text = 'déja Envoyé';
                                                 }
-                                                if($product->ramassage && optional($product->ramassage)->addresse !=null)
-                                                {
-                                                    $text = 'client répondu';   
+                                                if ($product->ramassage && optional($product->ramassage)->addresse != null) {
+                                                    $text = 'client répondu';
                                                 }
                                             @endphp
-                                            <button {{$disabled}} class="btn btn-info" type="button" class="btn btn-info  btn-sm"
+                                            <button {{ $disabled }} class="btn btn-info" type="button"
+                                                class="btn btn-info  btn-sm"
                                                 onclick=" document.getElementById('send-demande-{{ $product->uuid }}').submit();">
                                                 {{ $text }}
                                             </button>
@@ -117,11 +115,11 @@
             </div>
         </div>
     </div>
-    {{--<div class="col-lg-12 col-sm-12">
+    {{-- <div class="col-lg-12 col-sm-12">
         <div class="card">
             <div class="card-body">
                 @include('Sameleon.Admin.Ramassage.__address')
             </div>
         </div>
-    </div>--}}
+    </div> --}}
 </div>

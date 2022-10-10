@@ -14,18 +14,18 @@ class RamassageController extends Controller
     public function index()
     {
 
-        if (auth()->user()->hasRole('Client')) {
+        if (isClient()) {
 
             $products = Product::where('user_id', auth()->id())
                 ->where('user_uuid', auth()->user()->uuid)
                 //->where('qte_rest', 0)
-                ->whereOutOfStock()
+                ->whereIsOut(true)
                 ->where('can_ramassage', true)
                 ->with('media')
                 ->get();
         } else {
             $products = Product::with('client:id,nom,prenom', 'ramassage')
-                ->whereOutOfStock()
+                ->whereIsOut(true)
                 //->where('can_ramassage', false)
                 ->with('media')
                 ->get();
