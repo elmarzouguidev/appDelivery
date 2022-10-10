@@ -26,7 +26,7 @@ class RamassageComposer
      */
     public function compose(View $view)
     {
-        if (auth()->user()->hasRole('Client')) {
+        if (isClient()) {
 
             $ramassage = Product::where('user_id', auth()->id())
                 ->where('user_uuid', auth()->user()->uuid)

@@ -26,15 +26,16 @@ class StockComposer
      */
     public function compose(View $view)
     {
-        if (auth()->user()->hasRole('Client')) {
-            $stock =  Product::where('user_id', auth()->id())
-                ->where('user_uuid', auth()->user()->uuid)
-                //->whereOutOfStock()
+        if (isClient()) {
+            $stock =  Stock::where('client_id', auth()->id())
+                ->where('client_uuid', auth()->user()->uuid)
+                ->whereIsOut(true)
+                ->whereIsDefault(false)
                 ->count();
-        } elseif (auth()->user()->hasAnyRole('Admin', 'SuperAdmin')) {
-            $stock =   Product::
-            //whereOutOfStock()
-            count();
+        } elseif (isAdmin()) {
+            $stock =   Stock::whereIsDefault(true)
+                ->whereIsOut(true)
+                ->count();
         } else {
             $stock = null;
         }
