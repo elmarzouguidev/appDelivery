@@ -8,6 +8,8 @@
     <style>
         body {
             font-size: 18px;
+            font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+            text-align: center;
         }
 
         table {
@@ -175,6 +177,12 @@
                     </div>
                     <div>
                         Téléphone :<strong>{{ $command->client_phone }}</strong>
+                    </div>
+                    <div>
+                        Adresse :<strong>{{ $command->client_address }}</strong>
+                    </div>
+                    <div>
+                        Ville :<strong>{{ $command->city->name }}</strong>
                     </div>
                 </td>
 
