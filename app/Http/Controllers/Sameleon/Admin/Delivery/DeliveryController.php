@@ -132,9 +132,16 @@ class DeliveryController extends Controller
         $request->validate(['deliveryId' => 'required|uuid']);
 
         $delivery = Delivery::whereUuid($request->deliveryId)->firstOrFail();
+        
         if ($delivery) {
-            $delivery->commandsDelivery->each->update(['delivery_id' => null, 'delivery_uuid' => null]);
+
+            if ($delivery->hasRole('DeliveryEntreprise')) {
+
+                $delivery->commandsDelivery->each->update(['delivery_id' => null, 'delivery_uuid' => null]);
+            }
+
             $delivery->delete();
+
             return redirect()->back()->with('success', 'le livreure a été supp avec success');
         }
         return redirect()->back()->with('error', 'error !! ');

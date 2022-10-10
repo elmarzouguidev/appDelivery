@@ -57,10 +57,23 @@
                                     <td>
                                         <a href="{{-- $delivery->url --}}" class="text-body fw-bold">
                                             {{ $delivery->full_name }}
+                     
                                         </a>
                                         @if ($delivery->type == 'particulier')
                                             <br>
                                             {{ $delivery->cnie }}
+                                        @endif
+                                        @if($delivery->childrens->count())
+                                            <br>
+                                            <hr>
+                                            <button 
+                                                type="button" 
+                                                class="btn btn-primary waves-effect btn-label waves-light"
+                                                data-bs-toggle="modal" data-bs-target=".deliveryCompanyTeam-{{$delivery->uuid}}"
+                                            >
+                                                <i class="fas fa-user-friends label-icon"></i> 
+                                                L'Équipe
+                                            </button>
                                         @endif
                                     </td>
                                     <td>
