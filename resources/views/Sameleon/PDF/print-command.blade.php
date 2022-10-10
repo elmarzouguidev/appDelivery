@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{{ $command->code }} - {{ $command->created_at-> format('d-m-Y') }}</title>
+    <title>{{ $command->code }} - {{ $command->created_at->format('d-m-Y') }}</title>
     <style>
         @page {
             margin: 5px 10px;
@@ -194,23 +194,15 @@
             </tr>
             <hr>
             <tr class="heading">
-                <td>Destinataire</td>
-                <td>Produits</td>
-                <td>Téléphone</td>
-                <td>Ville</td>
-                <td>Adresse</td>
-                <td>Prix</td>
+                <h3>Destinataire :</h3>
+                <strong>Nom complet : {{ $command->client_name }}</strong>
+                <strong>Téléphone : {{ $command->client_phone }}</strong>
+                <strong>Adresse : {{ $command->client_address }}</strong>
+                <strong>Ville : {{ $command->city->name }}</strong>
+                <strong>Date d'envoi : {{ $command->created_at->format('d-m-Y') }}</strong>
             </tr>
 
-
-            </td>
-            <td>{{ $command->client_phone }}</td>
-            <td>{{ $command->city->name }}</td>
-            <td>{{ $command->client_address }}</td>
-            <td>{{ $command->formated_price_total }} DH</td>
-
-            </tr>
-
+            <hr>
 
             {{-- <div class="pricer">
                 <tr class="heading-price lefter">
