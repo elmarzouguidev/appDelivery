@@ -31,13 +31,12 @@ class RamassageComposer
             $ramassage = Product::where('user_id', auth()->id())
                 ->where('user_uuid', auth()->user()->uuid)
                 ->doesntHave('ramassage')
-                //->whereOutOfStock()
+                ->whereIsOut(true)
                 ->where('can_ramassage', true)
                 ->count();
         } else {
-            $ramassage = Product::
-                //whereOutOfStock()
-                 doesntHave('ramassage')
+            $ramassage = Product::whereIsOut(true)
+
                 ->where('can_ramassage', false)
                 ->count();
         }
