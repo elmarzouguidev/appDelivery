@@ -7,7 +7,9 @@
 
         @include('Sameleon.Admin.Stock.add_stock_modal')
 
-        @livewire('sameleon.stock.stock')
+        {{--@livewire('sameleon.stock.stock')--}}
+
+        <h1>Stock en mode maintennace ... </h1>
 
     </div>
 @endsection
