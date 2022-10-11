@@ -9,6 +9,7 @@ trait DataTrait
 
     protected function detachData()
     {
+        /**Just for Me  */
         $data = json_decode($this->data, true);
         $fields = $data['payload']['billing'];
         return $fields;
