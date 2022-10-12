@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container-fluid">
+        <h1>Encours de  maintenance ... </h1>
 
         @include('Sameleon.Admin.Stock.__title')
 
@@ -9,7 +10,7 @@
 
         @livewire('sameleon.stock.stock')
 
-        {{--<h1>Stock en mode maintennace ... </h1>--}}
+        {{---}}
 
     </div>
 @endsection
