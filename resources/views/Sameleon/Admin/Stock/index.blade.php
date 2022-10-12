@@ -10,8 +10,6 @@
 
         @livewire('sameleon.stock.stock')
 
-        {{---}}
-
     </div>
 @endsection
 
