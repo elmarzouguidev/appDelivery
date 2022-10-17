@@ -47,7 +47,7 @@
                                     <td>
                                         <a 
                                             target="_blank" 
-                                            href="{{route('public.show.bl',$bon->uuid)}}" 
+                                            href="{{route('public.show.br',$bon->uuid)}}" 
                                             class="text-body fw-bold"
                                             style="color:blue !important"
                                         >
@@ -86,7 +86,7 @@
                                         action="{{ route('admin:b-router.delete') }}">
                                         @csrf
                                         @method('DELETE')
-                                        <input type="hidden" name="bonId" value="{{ $bon->uuid }}">
+                                        <input type="hidden" name="bonRId" value="{{ $bon->uuid }}">
                                     </form>
                                 </tr>
                             @endforeach

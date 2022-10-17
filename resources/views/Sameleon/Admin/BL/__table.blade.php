@@ -86,7 +86,7 @@
                                         action="{{ route('admin:b-livraison.delete') }}">
                                         @csrf
                                         @method('DELETE')
-                                        <input type="hidden" name="bonId" value="{{ $bon->uuid }}">
+                                        <input type="hidden" name="bonLId" value="{{ $bon->uuid }}">
                                     </form>
                                 </tr>
                             @endforeach
