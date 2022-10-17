@@ -74,6 +74,10 @@ class RepositoryServiceProvider extends ServiceProvider
         [
             'abstract' => "App\Repositories\BL\BLInterface",
             'concrete' => "App\Repositories\BL\BLRepository"
+        ],
+        [
+            'abstract' => "App\Repositories\BR\BRInterface",
+            'concrete' => "App\Repositories\BR\BRRepository"
         ]
     ];
     /**

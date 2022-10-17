@@ -3,6 +3,7 @@
 use App\Http\Controllers\Authentification\ForgotPasswordController;
 use App\Http\Controllers\Authentification\ResetPasswordController;
 use App\Http\Controllers\Sameleon\Admin\BL\PDFBLController;
+use App\Http\Controllers\Sameleon\Admin\BR\PDFBRController;
 use App\Http\Controllers\Sameleon\Admin\Invoice\InvoiceController;
 use App\Http\Controllers\Sameleon\Admin\Payment\PDFPaymentController;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +27,10 @@ Route::group(['prefix' => 'views', 'middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'b-livraison'], function () {
         Route::get('/bons/{bon}', [PDFBLController::class, 'showBL'])->name('public.show.bl');
+    });
+
+    Route::group(['prefix' => 'b-router'], function () {
+        Route::get('/bons/{bon}', [PDFBRController::class, 'showBR'])->name('public.show.br');
     });
 });
 
