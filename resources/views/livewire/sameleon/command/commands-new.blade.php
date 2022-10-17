@@ -51,6 +51,14 @@
                                                 >
                                                 Générer un Bon de livraison {{-- : @json($selectedCommands) --}}
                                             </button>
+                                            <button {{ count($selectedCommands) ? '' : 'disabled' }}
+                                                class="btn btn-primary mr-3 mb-2" type="button" 
+                                                {{--data-bs-toggle="modal"
+                                                data-bs-target=".generateBR"--}}
+                                                wire:click="generateBR()"
+                                                >
+                                                Générer un Bon de retour {{-- : @json($selectedCommands) --}}
+                                            </button>
                                         @endif
                                         @if (isAdmin())
                                             <button {{ count($selectedCommands) ? '' : 'disabled' }}
