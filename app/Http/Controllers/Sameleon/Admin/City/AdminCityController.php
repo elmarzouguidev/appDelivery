@@ -25,7 +25,13 @@ class AdminCityController extends Controller
     {
         $this->authorize('create', City::class);
 
-        $city = City::create($request->validated());
+        $city = new City();
+        
+        $city->name = $request->name;
+        $city->frais = $request->frais;
+        $city->has_profit = $request->boolean('has_profit');
+        $city->profit = $request->profit;
+        $city->save();
 
         if ($city) {
             return redirect()->back()->with('success', 'la ville a été crée avec success');
@@ -39,7 +45,8 @@ class AdminCityController extends Controller
 
         $city->name = $request->name;
         $city->frais = $request->frais;
-        //$city->code = $request->code;
+        $city->has_profit = $request->boolean('has_profit');
+        $city->profit = $request->profit;
         $city->save();
 
         return redirect()->back()->with('success', 'la ville a été modifier avec success');

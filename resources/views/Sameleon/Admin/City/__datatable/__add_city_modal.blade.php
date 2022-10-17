@@ -10,19 +10,20 @@
 
                 <form method="post" action="{{ route('admin:cities.store') }}">
                     @csrf
-                    {{--<div class="row mb-4">
-                        <label for="code" class="col-form-label col-lg-2">Code *</label>
-                        <div class="col-lg-10">
-                            <input id="code" name="code" type="text"
-                                class="form-control @error('code') is-invalid @enderror"
-                                placeholder="Entrer le code de la ville" required>
-                            @error('code')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                    <div class="row mb-4">
+                            <div class="col-lg-10">
+                                <input class="form-check-input"
+                                name="has_profit" 
+                                type="checkbox" 
+                                id="has_profit"
+                                onclick="myFunction()"
+                              
+                            >
+                            <label class="form-check-label" for="has_profit">
+                                ajouter le profit ?
+                            </label>
                         </div>
-                    </div>--}}
+                    </div>
                     <div class="row mb-4">
                         <label for="name" class="col-form-label col-lg-2">Nom *</label>
                         <div class="col-lg-10">
@@ -43,6 +44,20 @@
                                 class="form-control @error('frais') is-invalid @enderror"
                                 placeholder="Entrer le frais de livraison" required>
                             @error('frais')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-4">
+                        <label for="profit" class="col-form-label col-lg-2">Profit</label>
+                        <div class="col-lg-10">
+                            <input id="profit" name="profit" type="text"
+                                class="form-control @error('profit') is-invalid @enderror"
+                                placeholder="Entrer le profit de livraison" disabled>
+                            @error('profit')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

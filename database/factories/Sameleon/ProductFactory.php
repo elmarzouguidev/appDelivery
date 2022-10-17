@@ -37,11 +37,15 @@ class ProductFactory extends Factory
         return $this->afterCreating(function (Product $item) {
 
 
-            $url = 'https://source.unsplash.com/random/400x400';
+            if(connection_status() === CONNECTION_NORMAL)
+            {
+            
+                $url = 'https://source.unsplash.com/random/400x400';
 
-            $item
-                ->addMediaFromUrl($url)
-                ->toMediaCollection('products_photos');
+                $item
+                    ->addMediaFromUrl($url)
+                    ->toMediaCollection('products_photos'); 
+            }
                 
         });
     }

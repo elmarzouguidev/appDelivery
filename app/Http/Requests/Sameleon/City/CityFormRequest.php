@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Sameleon\City;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CityFormRequest extends FormRequest
 {
@@ -24,9 +25,10 @@ class CityFormRequest extends FormRequest
     public function rules()
     {
         return [
+            'has_profit' => ['nullable', Rule::in([1, '1', true, 'on', 'yes', 'oui', '0', 'no', 'non', false])],
             'name' => ['required', 'string', 'unique:cities'],
             'frais' => ['required', 'numeric'],
-            //'code' => ['required', 'string', 'unique:cities'],
+            'profit' => ['nullable', 'required_if:has_profit,true', 'float'],
         ];
     }
 }

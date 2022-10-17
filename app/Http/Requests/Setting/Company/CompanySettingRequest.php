@@ -26,7 +26,7 @@ class CompanySettingRequest extends FormRequest
         return [
             'name' => ['required', 'string'],
             'website' => ['required', 'string'],
-            'logo' => ['nullable', 'string'],
+            'logo' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:1024'],
             'addresse' => ['required', 'string'],
             'telephone_a' => ['required', 'phone:MA'],
             'telephone_b' => ['nullable', 'phone:MA'],

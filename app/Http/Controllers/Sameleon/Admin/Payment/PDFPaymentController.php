@@ -18,7 +18,7 @@ class PDFPaymentController extends Controller
 
         $bill->load('billable:id,full_number,invoice_date', 'client');
 
-        $companyLogo = "data:image/jpg;base64," . base64_encode(file_get_contents(public_path('storage/company/' . getCompany()->logo)));
+        $companyLogo = "data:image/jpg;base64," . base64_encode(file_get_contents(public_path('storage/' . getCompany()->logo)));
 
         $pdf = \PDF::loadView('Sameleon.PDF.bill', compact('bill', 'companyLogo', 'hasHeader'));
 

@@ -17,7 +17,7 @@ class InvoiceController extends Controller
 
         $invoice->load('articles','articles.command', 'client', 'client.commands','client.company');
 
-        $companyLogo = "data:image/jpg;base64," . base64_encode(file_get_contents(public_path('storage/company/' . getCompany()->logo)));
+        $companyLogo = "data:image/jpg;base64," . base64_encode(file_get_contents(public_path('storage/' . getCompany()->logo)));
 
         $pdf = \PDF::loadView('Sameleon.PDF.invoice', compact('invoice', 'companyLogo', 'hasHeader'));
 

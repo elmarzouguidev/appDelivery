@@ -16,7 +16,7 @@ class PDFBLController extends Controller
 
         $bon->load('articles', 'city:id,name','articles.command.items');
 
-        $companyLogo = "data:image/jpg;base64," . base64_encode(file_get_contents(public_path('storage/company/' . getCompany()->logo)));
+        $companyLogo = "data:image/jpg;base64," . base64_encode(file_get_contents(public_path('storage/' . getCompany()->logo)));
 
         $pdf = \PDF::loadView('Sameleon.PDF.bl', compact('bon', 'companyLogo','qrcode'));
 

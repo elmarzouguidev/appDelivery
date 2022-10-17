@@ -27,7 +27,7 @@ class UpdateCompanyFormRequest extends FormRequest
         return [
             'name' => ['required', 'string'],
             'website' => ['nullable', 'string'],
-            'logo' => ['nullable', 'string'],
+            'logo' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:1024'],
             'addresse' => ['required', 'string'],
             'city' => ['required', 'string'],
             'telephone' => ['required', 'phone:MA', Rule::unique('companies')->ignore(auth()->id(), 'user_id')],

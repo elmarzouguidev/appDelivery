@@ -32,6 +32,24 @@
             window.location.reload();
         });
 
+        function myFunction() {
+
+            // Get the checkbox
+            var checkBox = document.getElementById("has_profit");
+
+            var profitInput = document.getElementById("profit");
+
+            if (checkBox.checked == true) {
+
+                profitInput.removeAttribute("disabled");
+                profitInput.setAttribute("required", "required");
+
+            } else {
+                profitInput.setAttribute("disabled");
+                profitInput.removeAttribute("required", "required");
+            }
+        }
+
     </script>
 
 @endpush

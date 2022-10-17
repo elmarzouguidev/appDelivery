@@ -8,6 +8,7 @@ use App\Http\Requests\Setting\Company\CompanySettingRequest;
 use App\Http\Requests\Setting\Document\DocumentRequest;
 use App\Settings\CompanySettings;
 use App\Settings\DocumentSettings;
+use Illuminate\Support\Facades\Storage;
 
 class SettingController extends Controller
 {
@@ -38,6 +39,15 @@ class SettingController extends Controller
         $settings->patente = $request->patente;
         $settings->if = $request->if;
 
+        if ($request->hasFile('logo')) {
+
+            $old = $settings->logo;
+            $settings->logo = $request->file('logo')->store('company', ['disk' => 'public']);
+      
+            Storage::disk('public')->delete($old);  
+            
+          
+        }
         $settings->save();
 
         return redirect()->back()->with('success', "Update a éte effectuer avec success");

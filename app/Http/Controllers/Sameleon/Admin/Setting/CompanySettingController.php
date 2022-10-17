@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Setting\Company\CompanySettingRequest;
 use App\Settings\CompanySettings;
+use Illuminate\Support\Facades\Storage;
 
 class CompanySettingController extends Controller
 {
@@ -31,9 +32,9 @@ class CompanySettingController extends Controller
         CompanySettingRequest $request,
         CompanySettings $settings
     ) {
+        
         $settings->name = $request->name;
         $settings->website = $request->website;
-        $settings->logo = $request->logo;
         $settings->addresse = $request->addresse;
         $settings->telephone = $request->telephone;
         $settings->email = $request->email;
@@ -42,6 +43,17 @@ class CompanySettingController extends Controller
         $settings->cnss = $request->cnss;
         $settings->patente = $request->patente;
         $settings->if = $request->if;
+
+        if ($request->hasFile('logo')) {
+
+            $old = $settings->logo;
+            $settings->logo = $request->file('logo')->store('company', ['disk' => 'public']);
+            if($old)
+            {
+              Storage::disk('public')->delete($old);  
+            }
+            
+        }
 
         $settings->save();
 

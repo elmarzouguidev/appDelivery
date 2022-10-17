@@ -43,7 +43,7 @@
                                             @endforeach
                                         @endif
                                         <h4 class="card-title">Société info</h4>
-                                        <form method="POST" action="{{ route('admin:settings.store') }}">
+                                        <form method="POST" action="{{ route('admin:settings.store') }}" enctype="multipart/form-data">
                                             <div class="mb-3 row">
                                                 <label for="name" class="col-md-2 col-form-label">Nom *</label>
                                                 <div class="col-md-10">
@@ -124,6 +124,21 @@
                                                 <label for="addresse" class="col-md-2 col-form-label">Adresse *</label>
                                                 <div class="col-md-10">
                                                     <textarea class="form-control" name="addresse" id="addresse" required>{{ $setting->addresse }}</textarea>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label for="addresse" class="col-md-2 col-form-label">LOGO *</label>
+                                                <div class="col-md-10">
+                                                  
+                                                       <img src="{{ asset('storage/' . $setting->logo) }}" class="img-fluid" width="10%">
+
+                                                    <input class="form-control @error('logo') is-invalid @enderror" name="logo" type="file"
+                                                        accept="image/*" required />
+                                                    @error('photo')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="d-flex flex-wrap gap-2">

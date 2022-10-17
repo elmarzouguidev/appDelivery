@@ -20,11 +20,14 @@ class City extends Model
         'name',
         'active',
         'frais',
-        'code'
+        'code',
+        'has_profit',
+        'profit'
     ];
 
     protected $casts = [
         'frais' => 'float',
+        'has_profit'=>'boolean'
     ];
 
     public function commands()
