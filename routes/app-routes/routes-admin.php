@@ -12,6 +12,7 @@ use App\Http\Controllers\Sameleon\Admin\AdminHomeController;
 use App\Http\Controllers\Sameleon\Admin\Annonce\AnnonceController;
 use App\Http\Controllers\Sameleon\Admin\Bank\BankController;
 use App\Http\Controllers\Sameleon\Admin\BL\BLController;
+use App\Http\Controllers\Sameleon\Admin\BR\BRController;
 use App\Http\Controllers\Sameleon\Admin\City\AdminCityController;
 use App\Http\Controllers\Sameleon\Admin\Client\ClientController;
 use App\Http\Controllers\Sameleon\Admin\Command\AdminCommandController;
@@ -193,6 +194,12 @@ Route::group(['prefix' => 'b-livraison'], function () {
     
 });
 
+Route::group(['prefix' => 'b-router'], function () {
+
+    Route::get('/', [BRController::class, 'index'])->name('b-router.index');
+    Route::delete('/delete', [BRController::class, 'delete'])->name('b-router.delete');
+    
+});
 
 Route::group(['prefix' => 'auth/admins'], function () {
 

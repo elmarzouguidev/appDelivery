@@ -41,7 +41,7 @@
         "staudenmeir/eloquent-eager-limit": "^1.0"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "^3.6",
+        "barryvdh/laravel-debugbar": "^3.7",
         "barryvdh/laravel-ide-helper": "^2.12",
         "brianium/paratest": "^6.3",
         "facade/ignition": "^2.5",

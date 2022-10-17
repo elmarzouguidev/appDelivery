@@ -109,6 +109,13 @@
         </a>
     </li>
 
+    <li>
+        <a href="{{ route('admin:b-router.index') }}">
+            <i class="bx bx-file"></i>
+            <span key="t-b-router">{{ __('Bon de retour') }}</span>
+        </a>
+    </li>
+
     <li class="menu-title" key="t-reclamations">Réclamations</li>
 
     <li>

@@ -132,7 +132,7 @@ class Delivery extends Authenticatable
 
         return number_format($total, 2);
     }
-
+    
     public function getDeliveryTotalChiffreAttribute()
     {
         $commands =  $this->commandsDelivery()
