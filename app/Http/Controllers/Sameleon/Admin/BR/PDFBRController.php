@@ -21,7 +21,6 @@ class PDFBRController extends Controller
 
         $fileName = $bon->bon_date->format('d-m-Y') . 'B-ROUTER-' . "{$bon->full_number}" . '.pdf';
 
-    
         return $pdf->stream($fileName);
     }
 }
