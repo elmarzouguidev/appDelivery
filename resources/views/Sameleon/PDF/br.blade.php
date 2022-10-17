@@ -7,7 +7,7 @@
     <title>{{ $bon->full_number }} - {{ $bon->bon_date->format('d-m-Y') }}</title>
     <style>
         @page {
-            margin: 5px 10px;
+            margin: 5px 5px;
         }
 
         body {
@@ -81,6 +81,13 @@
             color: #333;
         }
 
+        .invoice-box table tr.top table td.title2 {
+            text-align: center;
+            font-size: 30px;
+            line-height: 30px;
+            color: #333;
+        }
+
         .invoice-box table tr.information table td {
             padding-bottom: 40px;
         }
@@ -142,10 +149,10 @@
 
         footer {
             position: fixed;
-            bottom: -10px;
+            bottom: -1px;
             left: 0px;
             right: 0px;
-            height: 50px;
+            height: 95px;
             /** Extra personal styles **/
 
             color: white;
@@ -158,7 +165,7 @@
 <body>
 
 
-    {{-- <footer>
+    <footer>
 
         <div style="text-align: center; color:#333; font-size: 11px !important;">
             <p>{{ optional(getCompany())->name }}</p>
@@ -171,23 +178,32 @@
                 -R.C:{{ optional(getCompany())->rc }}
                 -PATENTE:{{ optional(getCompany())->patente }}
                 -I.F:{{ optional(getCompany())->if }}
-                @if (isset(getCompany()->cnss))
-                    -CNSS:{{ optional(getCompany())->cnss }}
+                @if(isset(getCompany()->cnss))
+                -CNSS:{{ optional(getCompany())->cnss }}
                 @endif
                 -ICE:{{ optional(getCompany())->ice }}
             </p>
         </div>
-    </footer> --}}
+        <div class="bott" style=" width: 100%;">
+        </div>
+
+    </footer>
+
     <div class="invoice-box">
         <table>
             <tr class="top">
                 <td colspan="6">
                     <table>
                         <tr>
-                            <td class="title" style="text-align: left;">
+                            <td style="width: 20%" style="text-align: left;">
                                 <img src="{{ $companyLogo }}" style="height: 100px" />
                             </td>
-
+                            <td style="width: 60%" class="title2" >
+                                <h2>BR N° : {{ $bon->code }}</h2>
+                            </td>
+                            <td style="width: 20%" style="text-align: left;">
+                                <img src="data:image/png;base64, {!! $qrcode !!}">
+                            </td>
                         </tr>
                     </table>
                 </td>
@@ -198,12 +214,8 @@
                     <table>
                         <tr>
                             <td style="width: 80%">
-                                <h1>BR N° : {{ $bon->code }}</h1><br />
-                                Date : {{ $bon->bon_date->format('d-m-Y') }}<br />
-                                {{-- Date d'échéance : {{ $estimate->due_date }} --}}
-                            </td>
-                            <td style="width: 10%">
-                                <img src="data:image/png;base64, {!! $qrcode !!}">
+    
+                                DATE : {{ $bon->bon_date->format('d-m-Y') }}<br />
                             </td>
                         </tr>
                     </table>

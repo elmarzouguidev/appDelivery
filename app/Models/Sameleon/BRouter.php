@@ -82,7 +82,7 @@ class BRouter extends Model
 
             $model->code = $code;
 
-            $model->full_number = 'BL-' . $code;
+            $model->full_number = 'BR-' . $code;
         });
     }
 }

@@ -125,9 +125,16 @@
         });
 
         window.addEventListener('bl-redirect', event => {
-            //$("#commands_list").load(window.location.href + " #commands_list");
             setTimeout(function() {
                 window.location="{{route('admin:b-livraison.index')}}";
+            }, 2000);
+
+        });
+
+        window.addEventListener('br-redirect', event => {
+
+            setTimeout(function() {
+                window.location="{{route('admin:b-router.index')}}";
             }, 2000);
 
         });
