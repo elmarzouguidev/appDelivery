@@ -33,6 +33,8 @@ class Command extends Model
         'is_api',
         'invoice_id',
         'invoice_uuid',
+        'delivery_invoice_id',
+        'delivery_invoice_uuid',
         'user_id',
         'user_uuid',
         'client_name',

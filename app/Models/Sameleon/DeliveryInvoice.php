@@ -2,28 +2,23 @@
 
 namespace App\Models\Sameleon;
 
-use App\Scopes\InvoiceScope;
-use App\Status\Status;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Carbon;
 
-class Invoice extends Model
+class DeliveryInvoice extends Model
 {
     use HasFactory;
     use UuidGenerator;
     use GetModelByUuid;
 
-    use InvoiceScope;
-
     protected $fillable = [
         'cloture',
         'type',
         'invoice_date',
-        'user_id',
-        'user_uuid',
+        'city_id',
+        'city_uuid',
         'delivery_id',
         'delivery_uuid'
     ];
@@ -79,14 +74,14 @@ class Invoice extends Model
         return $this->morphOne(Bill::class, 'billable');
     }
 
-    public function client()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
-
     public function delivery()
     {
         return $this->belongsTo(Delivery::class, 'delivery_id');
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class, 'city_id');
     }
 
     public function articles()
@@ -94,14 +89,9 @@ class Invoice extends Model
         return $this->morphMany(Article::class, 'articleable');
     }
 
-    /*public function commands()
-    {
-        return $this->belongsToMany(Command::class, 'command_invoice', 'invoice_id', 'command_id');
-    }*/
-
     public function commands()
     {
-        return $this->hasMany(Command::class);
+        return $this->hasMany(Command::class,'delivery_invoice_id');
     }
 
     public function scopeInvoiceNonClosed($query)
@@ -123,7 +113,7 @@ class Invoice extends Model
 
             if (self::count() <= 0) {
 
-                $number = getDocument()->invoice_start;
+                $number = getDocument()->delivery_invoice_start;
             } else {
 
                 $number = ($model->max('code') + 1);
@@ -133,7 +123,7 @@ class Invoice extends Model
 
             $model->code = $code;
 
-            $model->full_number = getDocument()->invoice_prefix . $code;
+            $model->full_number = getDocument()->delivery_invoice_prefix . $code;
         });
     }
 }

@@ -20,13 +20,15 @@ class Article extends Model
         'status',
         'price_total',
         'frais',
+        'is_delivery',
         'command_id',
         'command_uuid'
     ];
 
     protected  $casts = [
         'date_command' => 'date',
-        'price_total' => 'float'
+        'price_total' => 'float',
+        'is_delivery'=>'boolean'
     ];
 
     public function articleable()

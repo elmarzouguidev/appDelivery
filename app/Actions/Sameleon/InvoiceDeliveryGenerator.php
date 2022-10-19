@@ -3,6 +3,8 @@
 namespace App\Actions\Sameleon;
 
 use App\Models\Sameleon\Command;
+use App\Models\Sameleon\Delivery;
+use App\Models\Sameleon\DeliveryInvoice;
 use App\Models\Sameleon\Invoice;
 use App\Models\Sameleon\User;
 use App\Status\Status;
@@ -10,7 +12,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Lorisleiva\Actions\Concerns\AsAction;
 
-class InvoiceGenerator
+class InvoiceDeliveryGenerator
 {
     use AsAction;
 
@@ -41,32 +43,36 @@ class InvoiceGenerator
 
         if ($commands && $commands->count() > 0) {
 
-            $users =  $commands->map(function ($command, $key) {
+            $deliveries =  $commands->map(function ($command, $key) {
 
-                return ['user_id' => $command->user_id, 'user_uuid' => $command->user_uuid];
+                return ['delivery_id' => $command->delivery_id, 'delivery_uuid' => $command->delivery_uuid];
             });
 
             // dd($users,"##");
-            foreach ($users as $user) {
+            foreach ($deliveries as $delivery) {
                 // dd($user);
 
-                $this->invoice = Invoice::whereDate('created_at', now()->format('Y-m-d'))
+                $this->invoice = DeliveryInvoice::whereDate('created_at', now()->format('Y-m-d'))
                    //whereDate('delivered_at', now()->format('Y-m-d'))
-                    ->where('user_id', $user['user_id'])
-                    ->where('user_uuid', $user['user_uuid'])
+                    ->where('delivery_id', $delivery['delivery_id'])
+                    ->where('delivery_uuid', $delivery['delivery_uuid'])
                     ->first();
 
                 if ($this->invoice) {
 
-                    $this->addItems($user['user_id']);
-                    $this->addOldItems($user['user_id']);
-                    $this->checkArticles($user['user_id']);
+                    $this->addItems($delivery['delivery_id']);
+                    $this->addOldItems($delivery['delivery_id']);
+                    $this->checkArticles($delivery['delivery_id']);
                 } else {
 
                     $this->invoice = new Invoice();
                     $this->invoice->invoice_date = now()->format('Y-m-d');
-                    $this->invoice->client()->associate($user['user_id']);
-                    $this->invoice->user_uuid = $user['user_uuid'];
+                    $this->invoice->delivery()->associate($delivery['delivery_id']);
+                    $this->invoice->delivery_uuid = $delivery['delivery_uuid'];
+
+                    $this->invoice->city()->associate($this->invoice->delivery->city->id);
+                    $this->invoice->city_uuid = $this->invoice->delivery->city->uuid;
+
                     $this->invoice->save();
                 }
             }
@@ -75,7 +81,7 @@ class InvoiceGenerator
 
     private function addItems($userId)
     {
-        $user = User::find($userId);
+        $user = Delivery::find($userId);
         $commands = $user
             ->commands()
             ->whereIn('status', [Status::LIVRE, Status::REFUSE])
@@ -91,7 +97,7 @@ class InvoiceGenerator
 
             $newCommands =  $commands->map(function ($item, $key) {
 
-                $item->update(['invoice_id' => $this->invoice->id, 'invoice_uuid' => $this->invoice->uuid]);
+                $item->update(['delivery_invoice_id' => $this->invoice->id, 'delivery_invoice_uuid' => $this->invoice->uuid]);
 
                 $price = $item->status == Status::REFUSE ? 0 : $item->items_sum_prix_total;
 
@@ -104,6 +110,7 @@ class InvoiceGenerator
                     'status' => __('status.statuses.' . $item->status),
                     'price_total' => $price ?? 0,
                     'frais' => $item->frais,
+                    'is_delivery'=>true
                 ];
             })->toArray();
 
@@ -113,7 +120,7 @@ class InvoiceGenerator
 
     private function checkArticles($userId)
     {
-        $user = User::find($userId);
+        $user = Delivery::find($userId);
         $commandsLivred = $user
             ->commands()
             ->where('status', Status::LIVRE)
@@ -149,7 +156,7 @@ class InvoiceGenerator
 
     private function addOldItems($userId)
     {
-        $user = User::find($userId);
+        $user = Delivery::find($userId);
         $commands = $user
             ->commands()
             ->whereIn('status', [Status::LIVRE, Status::REFUSE])
@@ -168,7 +175,7 @@ class InvoiceGenerator
 
             $newCommands =  $commands->map(function ($item, $key) {
 
-                $item->update(['invoice_id' => $this->invoice->id, 'invoice_uuid' => $this->invoice->uuid]);
+                $item->update(['delivery_invoice_id' => $this->invoice->id, 'delivery_invoice_uuid' => $this->invoice->uuid]);
 
                 $price = $item->status == Status::REFUSE ? 0 : $item->items_sum_prix_total;
 
@@ -181,6 +188,7 @@ class InvoiceGenerator
                     'status' => __('status.statuses.' . $item->status),
                     'price_total' => $price ?? 0,
                     'frais' => $item->frais,
+                    'is_delivery'=>true
                 ];
             })->toArray();
 
@@ -200,7 +208,7 @@ class InvoiceGenerator
             $commands->map(function ($item, $key) {
 
                 $item->articles()->delete();
-                $item->update(['invoice_id' => null, 'invoice_uuid' => null]);
+                $item->update(['delivery_invoice_id' => null, 'delivery_invoice_uuid' => null]);
             });
 
             //dd($commands);
@@ -223,21 +231,21 @@ class InvoiceGenerator
 
     private function CloseYesterdayInvoice()
     {
-        $invoices = Invoice::whereDate('created_at', '!=', now()->format('Y-m-d'))
+        $invoices = DeliveryInvoice::whereDate('created_at', '!=', now()->format('Y-m-d'))
             //->whereDay('created_at', Carbon::yesterday()->format('d'))
             ->where('cloture', false)
             ->select(['id', 'cloture'])->get();
         $invoices->each->update(['cloture' => true]);
-        $invoices->each(function ($invoice) {
+        /*$invoices->each(function ($invoice) {
             $invoice->commands()->update(['is_closed' => true]);
-        });
+        });*/
 
         $this->clearAllCachedArchive();
     }
 
     private function deleteNullInvoices()
     {
-        $invoices = Invoice::doesntHave('articles')->get();
+        $invoices = DeliveryInvoice::doesntHave('articles')->get();
 
         if ($invoices) {
             foreach ($invoices as $invoice) {
