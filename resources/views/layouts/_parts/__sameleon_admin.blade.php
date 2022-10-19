@@ -95,12 +95,7 @@
             <span key="t-invoices">{{ __('Factures') }}</span>
         </a>
     </li>
-    <li>
-        <a href="{{ route('admin:payments.index') }}">
-            <i class="bx bx-money"></i>
-            <span key="t-payments">{{ __('Paiements') }}</span>
-        </a>
-    </li>
+
 
     @if(isAdmin())
     <li>
@@ -115,6 +110,21 @@
         <a href="{{ route('admin:b-router.index') }}">
             <i class="bx bx-file"></i>
             <span key="t-b-router">{{ __('Bon de retour') }}</span>
+        </a>
+    </li>
+    <li class="menu-title" key="t-treausry-s">Trésorerie</li>
+    <li>
+        <a href="{{ route('admin:payments.index') }}">
+            <i class="bx bx-money"></i>
+            <span key="t-payments">{{ __('Paiements') }}</span>
+        </a>
+    </li>
+
+    <li>
+        <a href="{{ route('admin:treausry.index') }}">
+            <i class="bx bx-money"></i>
+            <span class="badge rounded-pill bg-info float-end">new</span>
+            <span key="t-treausry">{{ __('Trésorerie') }}</span>
         </a>
     </li>
 

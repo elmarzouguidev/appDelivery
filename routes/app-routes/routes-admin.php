@@ -30,6 +30,7 @@ use App\Http\Controllers\Sameleon\Admin\Reclamation\ReclamationController;
 use App\Http\Controllers\Sameleon\Admin\Region\RegionController;
 use App\Http\Controllers\Sameleon\Admin\Setting\API\APIController;
 use App\Http\Controllers\Sameleon\Admin\Stock\StockController;
+use App\Http\Controllers\Sameleon\Admin\Treasury\TreausryController;
 use App\Http\Controllers\Sameleon\Apps\AppsController;
 use App\Http\Controllers\Sameleon\Metric\MetricController;
 use Illuminate\Support\Facades\Route;
@@ -185,6 +186,12 @@ Route::group(['prefix' => 'payments'], function () {
 
     Route::get('/', [PaymentController::class, 'index'])->name('payments.index');
     Route::delete('/delete', [PaymentController::class, 'delete'])->name('payments.delete');
+});
+
+Route::group(['prefix' => 'treausry'], function () {
+
+    Route::get('/', [TreausryController::class, 'index'])->name('treausry.index');
+    Route::delete('/delete', [TreausryController::class, 'delete'])->name('treausry.delete');
 });
 
 Route::group(['prefix' => 'b-livraison'], function () {
