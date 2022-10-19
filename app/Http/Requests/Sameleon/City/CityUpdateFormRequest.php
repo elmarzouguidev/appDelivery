@@ -30,6 +30,7 @@ class CityUpdateFormRequest extends FormRequest
             'name' => ['required', 'string', Rule::unique('cities')->ignore($this->route('city'), 'uuid')],
             'frais' => ['required', 'numeric'],
             'profit' => ['nullable', 'required_if:has_profit,true', 'numeric'],
+           
         ];
     }
 }
