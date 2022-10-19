@@ -12,7 +12,7 @@
                 </div>
 
                 @include('layouts._parts.__messages')
-
+          
                 <div class="table-responsive">
                     <table class="table table-bordered border-danger table-hover align-middle table-nowrap table-check">
                         <thead class="table-light">

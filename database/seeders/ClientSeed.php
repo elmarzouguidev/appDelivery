@@ -29,6 +29,8 @@ class ClientSeed extends Seeder
             'password' => Hash::make('123456789@'),
             'remember_token' => Str::random(10),
             'is_client' => true,
+            'addresse'=>'casablanca Maarif Rue 15',
+            'cnie'=>'p12541',
             'actived_at' => now()
         ];
 
@@ -41,6 +43,8 @@ class ClientSeed extends Seeder
             'password' => Hash::make('123456789@'),
             'remember_token' => Str::random(10),
             'is_client' => true,
+            'addresse'=>'casablanca ain chok Rue 15',
+            'cnie'=>'BK52201',
             'actived_at' => now()
         ];
 

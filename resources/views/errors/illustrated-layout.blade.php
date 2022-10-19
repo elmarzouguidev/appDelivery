@@ -460,19 +460,25 @@
         <div class="md:flex min-h-screen">
             <div class="w-full md:w-1/2 bg-white flex items-center justify-center">
                 <div class="max-w-sm m-8">
-                    <div class="text-black text-5xl md:text-15xl font-black">
+                    <div class="text-black text-5xl md:text-15xl font-black" style="color:#2f5393">
+            
                         @yield('code', __('Oh no'))
                     </div>
 
-                    <div class="w-16 h-1 bg-purple-light my-3 md:my-6"></div>
-
-                    <p class="text-grey-darker text-2xl md:text-3xl font-light mb-8 leading-normal">
+        
+                    
+                    <p class="text-grey-darker text-2xl md:text-2xl font-light mb-8 leading-normal">
                         @yield('message')
                     </p>
 
                     <a href="https://sameleon-express.ma/" target="_blank">
                         <button class="bg-transparent text-grey-darkest font-bold uppercase tracking-wide py-3 px-6 border-2 border-grey-light hover:border-grey rounded-lg">
                             {{ __('Accueil') }}
+                        </button>
+                    </a>
+                    <a href="https://sameleon-express.ma/contact/" target="_blank">
+                        <button class="bg-transparent text-grey-darkest font-bold uppercase tracking-wide py-3 px-6 border-2 border-grey-light hover:border-grey rounded-lg">
+                            {{ __('Contactez nous') }}
                         </button>
                     </a>
                 </div>

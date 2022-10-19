@@ -2,4 +2,4 @@
 
 @section('title', __('Service Unavailable'))
 @section('code', 'SameleonExpress')
-@section('message', __("l'application est en mode maintenance"))
+@section('message', __("Veuillez nous excuser pour la gêne occasionnée. Notre application sera à nouveau disponible sous peu, revenez bientôt !"))

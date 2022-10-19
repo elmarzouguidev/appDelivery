@@ -102,12 +102,14 @@
         </a>
     </li>
 
+    @if(isAdmin())
     <li>
         <a href="{{ route('admin:b-livraison.index') }}">
             <i class="bx bx-file"></i>
             <span key="t-b-livraison">{{ __('Bon de livraison') }}</span>
         </a>
     </li>
+    @endif
 
     <li>
         <a href="{{ route('admin:b-router.index') }}">

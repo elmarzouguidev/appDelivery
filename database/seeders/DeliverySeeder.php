@@ -17,9 +17,9 @@ class DeliverySeeder extends Seeder
     public function run()
     {
         $user =  [
-            'nom' => 'Mohammed',
-            'prenom' => 'Chaligui',
-            'email' => 'chaligui@gmail.com',
+            'nom' => 'khalid',
+            'prenom' => 'livreur',
+            'email' => 'khalid@gmail.com',
             'telephone' => '0677512754',
             'email_verified_at' => now(),
             'password' => Hash::make('123456789@'),
@@ -28,9 +28,9 @@ class DeliverySeeder extends Seeder
         ];
 
         $user2 =  [
-            'nom' => 'Anas',
-            'prenom' => 'Anas',
-            'email' => 'anas@gmail.com',
+            'nom' => 'karim',
+            'prenom' => 'livreur',
+            'email' => 'karim@gmail.com',
             'telephone' => '0677512751',
             'email_verified_at' => now(),
             'password' => Hash::make('123456789@'),
