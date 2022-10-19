@@ -39,6 +39,7 @@ class InvoiceGenerator
             //->with('client:id,uuid')
             ->get();
 
+            //dd($commands,"fg");
         if ($commands && $commands->count() > 0) {
 
             $users =  $commands->map(function ($command, $key) {
@@ -58,6 +59,7 @@ class InvoiceGenerator
 
                 if ($this->invoice) {
 
+                    //dd('YESH here');
                     $this->addItems($user['user_id']);
                     $this->addOldItems($user['user_id']);
                     $this->checkArticles($user['user_id']);
@@ -75,6 +77,7 @@ class InvoiceGenerator
 
     private function addItems($userId)
     {
+        
         $user = User::find($userId);
         $commands = $user
             ->commands()
@@ -86,9 +89,10 @@ class InvoiceGenerator
             })
             ->withSum('items', 'prix_total')
             ->get();
-
+            //dd('addItmes',$commands);
         if ($commands) {
 
+        
             $newCommands =  $commands->map(function ($item, $key) {
 
                 $item->update(['invoice_id' => $this->invoice->id, 'invoice_uuid' => $this->invoice->uuid]);
@@ -104,10 +108,13 @@ class InvoiceGenerator
                     'status' => __('status.statuses.' . $item->status),
                     'price_total' => $price ?? 0,
                     'frais' => $item->frais,
+                    'is_delivery'=>false
                 ];
             })->toArray();
 
-            $this->invoice->articles()->createMany($newCommands);
+           $this->invoice->articles()->createMany($newCommands);
+           
+
         }
     }
 

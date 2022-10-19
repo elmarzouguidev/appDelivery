@@ -85,4 +85,34 @@
         </div>
     </div>
 
+    <div class="col-lg-6">
+        <div class="mb-4">
+            <label class="form-label">Société ( requis c'est le type est entreprise )</label>
+
+            <input type="text" class="form-control @error('company_name') is-invalid @enderror" name="company_name" value="{{old('company_name')}}">
+            @error('company_name')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+
+        </div>
+    </div>
+
+
+    <div class="col-lg-6">
+        <label class="form-label">ICE ( requis c'est le type est entreprise )</label>
+        <div class="input-group mb-4">
+            <span class="input-group-text" id="company_ice">
+
+            </span>
+            <input type="text" class="form-control @error('company_ice') is-invalid @enderror" name="company_ice" value="{{old('company_ice')}}">
+            @error('company_ice')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+    </div>
+
 </div>

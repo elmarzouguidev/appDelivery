@@ -38,9 +38,11 @@ class InvoiceDeliveryGenerator
                     ->orWhereYear('delivered_at', '1993');
             })
             ->where('is_closed', false)
-            //->doesntHave('articles')
+            //->doesntHave('deliveryArticles')
             //->with('client:id,uuid')
             ->get();
+
+            //dd($commands);
 
         if ($commands && $commands->count() > 0) {
 
@@ -49,9 +51,9 @@ class InvoiceDeliveryGenerator
                 return ['delivery_id' => $command->delivery_id, 'delivery_uuid' => $command->delivery_uuid];
             });
 
-            // dd($users,"##");
+            //dd($deliveries,"##");
             foreach ($deliveries as $delivery) {
-                // dd($user);
+                //dd($delivery);
 
                 $this->invoice = DeliveryInvoice::whereDate('created_at', now()->format('Y-m-d'))
                    //whereDate('delivered_at', now()->format('Y-m-d'))
@@ -61,9 +63,11 @@ class InvoiceDeliveryGenerator
 
                 if ($this->invoice) {
 
+                    //dd('ues');
                     $this->addItems($delivery['delivery_id']);
                     $this->addOldItems($delivery['delivery_id']);
                     $this->checkArticles($delivery['delivery_id']);
+
                 } else {
 
                     $this->invoice = new DeliveryInvoice();
@@ -86,13 +90,15 @@ class InvoiceDeliveryGenerator
         $commands = $user
             ->commands()
             ->whereIn('status', [Status::LIVRE, Status::REFUSE])
-            ->doesntHave('articles')
+            ->doesntHave('deliveryArticles')
             ->where(function ($q) {
                 $q->whereDate('delivered_at', now()->format('Y-m-d'))
                     ->orWhereYear('delivered_at', '1993');
             })
             ->withSum('items', 'prix_total')
             ->get();
+
+            //dd($commands,"kgkg");
 
         if ($commands) {
 
@@ -127,7 +133,7 @@ class InvoiceDeliveryGenerator
             ->where('status', Status::LIVRE)
             ->whereDate('delivered_at', now()->format('Y-m-d'))
             ->whereNotNull('delivered_at')
-            ->whereHas('articles', function ($query) {
+            ->whereHas('deliveryArticles', function ($query) {
                 $query->where('price_total', '<=', 0);
             })
             ->withSum('items', 'prix_total')
@@ -137,7 +143,7 @@ class InvoiceDeliveryGenerator
             ->where('status', Status::REFUSE)
             ->whereYear('delivered_at', '1993')
             ->whereNotNull('delivered_at')
-            ->whereHas('articles', function ($query) {
+            ->whereHas('deliveryArticles', function ($query) {
                 $query->where('price_total', '>', 0);
             })
             ->get();
@@ -145,12 +151,12 @@ class InvoiceDeliveryGenerator
         if ($commandsLivred) {
             $commandsLivred->map(function ($item, $key) {
                 $price = $item->items_sum_prix_total;
-                $item->articles()->update(['price_total' => $price]);
+                $item->deliveryArticles()->update(['price_total' => $price]);
             });
         }
         if ($commandsRefused) {
             $commandsRefused->map(function ($item, $key) {
-                $item->articles()->update(['price_total' => 0]);
+                $item->deliveryArticles()->update(['price_total' => 0]);
             });
         }
     }
@@ -161,7 +167,7 @@ class InvoiceDeliveryGenerator
         $commands = $user
             ->commands()
             ->whereIn('status', [Status::LIVRE, Status::REFUSE])
-            ->doesntHave('articles')
+            ->doesntHave('deliveryArticles')
             //->whereDay('created_at', Carbon::yesterday()->format('d'))
             ->whereDate('created_at', '!=', now()->format('Y-m-d'))
             ->where(function ($q) {
@@ -201,7 +207,7 @@ class InvoiceDeliveryGenerator
     {
 
         $commands = Command::whereNotIn('status', [Status::LIVRE, Status::REFUSE])
-            ->has('articles')
+            ->has('deliveryArticles')
             ->get();
 
         if ($commands) {
@@ -219,13 +225,13 @@ class InvoiceDeliveryGenerator
     private function updateRefusedCommand()
     {
         $commands = Command::whereIn('status', [Status::REFUSE])
-            ->has('articles')
+            ->has('deliveryArticles')
             ->get();
 
         if ($commands) {
 
             $commands->map(function ($item, $key) {
-                $item->articles()->update(['price_total' => 0]);
+                $item->deliveryArticles()->update(['price_total' => 0]);
             });
         }
     }
@@ -246,7 +252,7 @@ class InvoiceDeliveryGenerator
 
     private function deleteNullInvoices()
     {
-        $invoices = DeliveryInvoice::doesntHave('articles')->get();
+        $invoices = DeliveryInvoice::doesntHave('deliveryArticles')->get();
 
         if ($invoices) {
             foreach ($invoices as $invoice) {

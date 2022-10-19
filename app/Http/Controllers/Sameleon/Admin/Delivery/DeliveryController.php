@@ -57,6 +57,9 @@ class DeliveryController extends Controller
         $delivery->type = $request->type;
         $delivery->cnie = $request->cnie;
 
+        $delivery->company_ice = $request->company_ice;
+        $delivery->company_name = $request->company_name;
+
         $pass = $request->email;
 
         if ($request->boolean('generate_password')) {
@@ -116,6 +119,10 @@ class DeliveryController extends Controller
         $delivery->type = $request->type;
         $delivery->cnie = $request->cnie;
 
+
+        $delivery->company_ice = $request->company_ice;
+        $delivery->company_name = $request->company_name;
+        
         //$pass = Str::random(9);
 
         // $client->password = $pass = Hash::make($pass);

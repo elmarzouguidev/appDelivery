@@ -6,6 +6,7 @@ use App\Http\Controllers\Sameleon\Admin\BL\PDFBLController;
 use App\Http\Controllers\Sameleon\Admin\BR\PDFBRController;
 use App\Http\Controllers\Sameleon\Admin\Invoice\InvoiceController;
 use App\Http\Controllers\Sameleon\Admin\Payment\PDFPaymentController;
+use App\Http\Controllers\Sameleon\Admin\SubDelivery\Invoice\InvoiceSubDeliveryPDFController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -31,6 +32,25 @@ Route::group(['prefix' => 'views', 'middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'b-router'], function () {
         Route::get('/bons/{bon}', [PDFBRController::class, 'showBR'])->name('public.show.br');
+    });
+});
+
+Route::group(['prefix' => 'delivery-views', 'middleware' => 'auth:delivery'], function () {
+
+    Route::group(['prefix' => 'invoices'], function () {
+        Route::get('/invoice/{invoice}', [InvoiceSubDeliveryPDFController::class, 'showInvoice'])->name('delivery.public.show.invoice');
+    });
+
+    Route::group(['prefix' => 'bills'], function () {
+        Route::get('/bill/{bill}', [PDFPaymentController::class, 'showBill'])->name('delivery.public.show.bill');
+    });
+
+    Route::group(['prefix' => 'b-livraison'], function () {
+        Route::get('/bons/{bon}', [PDFBLController::class, 'showBL'])->name('delivery.public.show.bl');
+    });
+
+    Route::group(['prefix' => 'b-router'], function () {
+        Route::get('/bons/{bon}', [PDFBRController::class, 'showBR'])->name('delivery.public.show.br');
     });
 });
 

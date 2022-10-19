@@ -86,7 +86,7 @@ class DeliveryInvoice extends Model
 
     public function articles()
     {
-        return $this->morphMany(Article::class, 'articleable');
+        return $this->morphMany(DeliveryInvoiceArticle::class, 'articleable');
     }
 
     public function commands()

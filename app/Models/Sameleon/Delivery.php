@@ -42,7 +42,9 @@ class Delivery extends Authenticatable
         'parent_uuid',
         'city_uuid',
         'city_id',
-        'type'
+        'type',
+        'company_ice',
+        'company_name'
     ];
 
     /**

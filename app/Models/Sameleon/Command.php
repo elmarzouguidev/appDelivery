@@ -119,6 +119,11 @@ class Command extends Model
         return $this->hasMany(Article::class);
     }
 
+    public function deliveryArticles()
+    {
+        return $this->hasMany(DeliveryInvoiceArticle::class);
+    }
+
     public function BLarticles()
     {
         return $this->hasMany(BLArticle::class);
