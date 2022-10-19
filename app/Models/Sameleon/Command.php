@@ -243,12 +243,20 @@ class Command extends Model
 
     public function scopeTotalNewCommands($query)
     {
-        if (auth()->user()->hasRole('Client')) {
+        if (isClient()) {
             return $query->whereUserId(auth()->id())
                 ->whereUserUuid(auth()->user()->uuid)
                 ->whereStatus(Status::NON_TRAITE)
                 ->count();
-        } else {
+        } 
+        elseif(isDelivery())
+        {
+            return $query->whereDeliveryId(auth()->id())
+            ->whereDeliveryUuid(auth()->user()->uuid)
+            ->whereStatus(Status::EXPEDIE)
+            ->count();
+        }
+        else {
             return $query->whereStatus(Status::NON_TRAITE)
                 ->count();
         }

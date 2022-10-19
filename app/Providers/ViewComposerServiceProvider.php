@@ -44,9 +44,15 @@ class ViewComposerServiceProvider extends ServiceProvider
 
         View::composer(['layouts._parts.__sameleon_admin'], NewUserComposer::class);
 
-        View::composer(['layouts._parts.__sameleon_admin'], NavBarComposer::class);
+        View::composer([
+            'layouts._parts.__sameleon_admin',
+            'layouts._parts.__sameleon_delivery_navbar'
+        ], NavBarComposer::class);
 
-        View::composer(['layouts._parts.__sameleon_admin'], StockComposer::class);
+        View::composer([
+            'layouts._parts.__sameleon_admin',
+            'layouts._parts.__sameleon_delivery_navbar'
+        ], StockComposer::class);
 
         View::composer(['layouts._parts.__sameleon_admin'], RamassageComposer::class);
     }
