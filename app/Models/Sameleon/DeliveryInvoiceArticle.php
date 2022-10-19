@@ -20,6 +20,7 @@ class DeliveryInvoiceArticle extends Model
         'status',
         'price_total',
         'frais',
+        'profit',
         'command_id',
         'command_uuid'
     ];
@@ -27,6 +28,7 @@ class DeliveryInvoiceArticle extends Model
     protected  $casts = [
         'date_command' => 'date',
         'price_total' => 'float',
+        'profit' => 'float',
         'is_delivery'=>'boolean'
     ];
 

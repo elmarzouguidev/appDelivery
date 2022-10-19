@@ -27,6 +27,7 @@ class City extends Model
 
     protected $casts = [
         'frais' => 'float',
+        'profit' => 'float',
         'has_profit'=>'boolean'
     ];
 

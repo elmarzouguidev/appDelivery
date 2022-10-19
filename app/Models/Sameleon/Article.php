@@ -20,6 +20,7 @@ class Article extends Model
         'status',
         'price_total',
         'frais',
+        'profit',
         'is_delivery',
         'command_id',
         'command_uuid'
@@ -28,6 +29,7 @@ class Article extends Model
     protected  $casts = [
         'date_command' => 'date',
         'price_total' => 'float',
+        'profit' => 'float',
         'is_delivery'=>'boolean'
     ];
 

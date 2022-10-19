@@ -108,6 +108,7 @@ class InvoiceGenerator
                     'status' => __('status.statuses.' . $item->status),
                     'price_total' => $price ?? 0,
                     'frais' => $item->frais,
+                    'profit'=>$item->city->profit ?? 0,
                     'is_delivery'=>false
                 ];
             })->toArray();
@@ -188,6 +189,7 @@ class InvoiceGenerator
                     'status' => __('status.statuses.' . $item->status),
                     'price_total' => $price ?? 0,
                     'frais' => $item->frais,
+                    'profit'=>$item->city->profit ?? 0,
                 ];
             })->toArray();
 

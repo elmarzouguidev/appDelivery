@@ -158,7 +158,6 @@ class AdminCommandController extends Controller
 
             if (count($request->getNewArticles())) {
 
-
                 foreach ($request->newOrderProducts as $product) {
 
                     $prod = Product::find($product['product_id']);
