@@ -124,8 +124,7 @@ class AdminCommandController extends Controller
 
     public function update(CommandUpdateFormRequest $request, Command $command)
     {
-
-        //dd('kkkkkk');
+        
         $this->authorize('update', $command);
 
         $command->client_name = $request->client_name;
@@ -135,6 +134,7 @@ class AdminCommandController extends Controller
         $command->client_address = $request->client_address;
         //$command->client()->associate(auth()->id());
         $command->city()->associate($request->city);
+        $command->city_uuid = $command->city->uuid;
         $command->save();
 
         if ($command) {
