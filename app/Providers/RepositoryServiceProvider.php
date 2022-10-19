@@ -40,6 +40,10 @@ class RepositoryServiceProvider extends ServiceProvider
             'concrete' => "App\Repositories\Invoice\InvoiceRepository"
         ],
         [
+            'abstract' => "App\Repositories\Invoice\DeliveryInvoiceInterface",
+            'concrete' => "App\Repositories\Invoice\DeliveryInvoiceRepository"
+        ],
+        [
             'abstract' => "App\Repositories\Product\ProductInterface",
             'concrete' => "App\Repositories\Product\ProductRepository"
         ],

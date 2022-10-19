@@ -48,7 +48,7 @@
     <a href="{{ route('delivery:invoices.index') }}">
         <i class="bx bx-file"></i>
 
-        <span class="badge rounded-pill bg-info float-end"> </span>
+        <span class="badge rounded-pill bg-info float-end"> {{$delivery_total_new_invoice ?? '0'}}</span>
 
         <span key="t-invoices">{{ __('Factures') }}</span>
     </a>
@@ -59,7 +59,6 @@
         <span key="t-payments">{{ __('Paiements') }}</span>
     </a>
 </li>
-
 
 
 <li class="menu-title" key="t-components">{{ __('navbar.advanced') }}</li>

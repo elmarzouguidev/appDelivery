@@ -31,7 +31,8 @@ class InvoiceDeliveryGenerator
         //!now()->isWeekend();
         // dd(now()->format('H:i') =='17:16');
         $commands = Command::whereIn('status', [Status::LIVRE, Status::REFUSE])
-
+            ->whereDeliveryId(delivery()->id)
+            ->whereDeliveryUuid(delivery()->uuid)
             ->where(function ($q) {
                 $q->whereDate('delivered_at', now()->format('Y-m-d'))
                     ->orWhereYear('delivered_at', '1993');
@@ -65,7 +66,7 @@ class InvoiceDeliveryGenerator
                     $this->checkArticles($delivery['delivery_id']);
                 } else {
 
-                    $this->invoice = new Invoice();
+                    $this->invoice = new DeliveryInvoice();
                     $this->invoice->invoice_date = now()->format('Y-m-d');
                     $this->invoice->delivery()->associate($delivery['delivery_id']);
                     $this->invoice->delivery_uuid = $delivery['delivery_uuid'];

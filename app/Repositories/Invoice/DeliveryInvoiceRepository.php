@@ -3,23 +3,23 @@
 
 namespace App\Repositories\Invoice;
 
-use App\Models\Sameleon\Invoice;
+use App\Models\Sameleon\DeliveryInvoice;
 use App\Repositories\AppRepository;
 use Illuminate\Database\Eloquent\Collection;
 
-class InvoiceRepository extends AppRepository implements InvoiceInterface
+class DeliveryInvoiceRepository extends AppRepository implements DeliveryInvoiceInterface
 {
 
     private $invoice;
 
     private $instance;
 
-    public function __construct(Invoice $invoice)
+    public function __construct(DeliveryInvoice $invoice)
     {
         $this->invoice = $invoice;
     }
 
-    public function __instance(): Invoice
+    public function __instance(): DeliveryInvoice
     {
         if (!$this->instance) {
             $this->instance = $this->invoice;
@@ -29,30 +29,19 @@ class InvoiceRepository extends AppRepository implements InvoiceInterface
     }
 
     /**
-     * @return Invoice[]|Collection|string[]
+     * @return DeliveryInvoice[]|Collection|string[]
      */
     public function getInvoices()
     {
 
-        if (isClient()) {
-
-            return $this->invoice
-                ->authClient()
-                ->withCount('commands')
-                ->withSum('articles', 'price_total')
-                ->with('bill')
-                ->withCount('bill')
-                ->get();
-        } else {
-
             return $this->invoice
                 ->withCount('commands')
                 ->withSum('articles', 'price_total')
-                ->with('bill')
-                ->withCount('bill')
+                //->with('bill')
+                //->withCount('bill')
 
                 ->get();
-        }
+        
     }
 
     /**

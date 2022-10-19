@@ -96,7 +96,7 @@ class DeliveryInvoice extends Model
 
     public function scopeInvoiceNonClosed($query)
     {
-        if (isAdmin()) {
+        if (isDelivery()) {
             return $query->whereCloture(false)
                 ->latest()->count();
         }

@@ -3,7 +3,11 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="robots" content="noindex, nofollow" />
 
+        <meta content="app_version" name="1.0.0" />
+        <meta content="app_devlopper" name="Elmarzougui Abdelghafour" />
+        <meta content="app_devlopper_website" name="elmarzougui.com" />
         <title>@yield('title')</title>
 
         <!-- Fonts -->
