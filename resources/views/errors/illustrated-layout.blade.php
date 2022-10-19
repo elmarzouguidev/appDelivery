@@ -481,6 +481,11 @@
                             {{ __('Contactez nous') }}
                         </button>
                     </a>
+                    <p class="text-2xl md:text-2xl font-light mb-8 leading-normal" style="margin-top: 30px">
+                        En cas d'urgence appeler nous<br>
+                        
+                       +2126 64 000 166 <br> +2126 64 000 165
+                    </p>
                 </div>
             </div>
 
