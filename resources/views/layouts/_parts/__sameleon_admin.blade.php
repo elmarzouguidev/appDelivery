@@ -119,14 +119,15 @@
             <span key="t-payments">{{ __('Paiements') }}</span>
         </a>
     </li>
-
-    <li>
-        <a href="{{ route('admin:treausry.index') }}">
-            <i class="bx bx-money"></i>
-            <span class="badge rounded-pill bg-info float-end">new</span>
-            <span key="t-treausry">{{ __('Trésorerie') }}</span>
-        </a>
-    </li>
+    @if(isAdmin())
+        <li>
+            <a href="{{ route('admin:treausry.index') }}">
+                <i class="bx bx-money"></i>
+                <span class="badge rounded-pill bg-info float-end">new</span>
+                <span key="t-treausry">{{ __('Trésorerie') }}</span>
+            </a>
+        </li>
+    @endif
 
     <li class="menu-title" key="t-reclamations">Réclamations</li>
 
