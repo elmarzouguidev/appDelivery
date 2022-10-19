@@ -286,6 +286,14 @@
                     @endphp
                     <td colspan="6">Frais : {{ number_format($frais,2) }} DH</td>
                 </tr>
+              
+                <tr class="heading-price lefter">
+                    @php
+                     $profit = $invoice->articles->sum('profit')
+                    @endphp
+                    <td colspan="6">Profit : {{ number_format($profit,2) }} DH</td>
+                </tr>
+                
                 <tr class="heading-price lefter">
                     @php 
                         if($invoice->formated_total_brut == 0 || $frais > $invoice->formated_total_brut)
@@ -293,7 +301,13 @@
                             $net = 00;
                         }
                         else{
-                            $net = $invoice->formated_total_brut - $frais;
+
+                            if($profit > 0)
+                            {
+                                $net = $invoice->formated_total_brut - $frais ;
+                            }
+
+                            $net = $invoice->formated_total_brut - ($frais + $profit) ;
                         }
         
                     @endphp
