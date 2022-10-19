@@ -42,6 +42,7 @@ class StockRepository extends AppRepository implements StockInterface
         if (isClient()) {
 
             return $this->stock
+                ->whereIsDefault(true)
                 ->where('client_id', auth()->id())
                 ->where('client_uuid', auth()->user()->uuid)
                 ->with('product:id,name,price')
