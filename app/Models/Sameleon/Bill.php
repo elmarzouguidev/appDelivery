@@ -53,9 +53,14 @@ class Bill extends Model implements HasMedia
         return $this->belongsTo(Delivery::class, 'delivery_id');
     }
 
-    public function getFormatedPriceTotalAttribute()
+    /*public function getFormatedPriceTotalAttribute()
     {
         return number_format($this->price_total - $this->billable->formated_frais, 2);
+    }*/
+
+    public function getFormatedPriceTotalAttribute()
+    {
+        return number_format($this->price_total , 2);
     }
 
     public function getFormatedTotalAttribute()

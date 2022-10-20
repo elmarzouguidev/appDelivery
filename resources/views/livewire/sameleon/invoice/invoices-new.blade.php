@@ -66,7 +66,7 @@
                                             </a>
 
                                         </td>
-                                        @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
+                                        @if (isAdmin())
                                             <td>
                                                 <a href="{{-- $invoice->url --}}" class="text-body fw-bold">
                                                     {{ optional($invoice->client)->full_name }}
