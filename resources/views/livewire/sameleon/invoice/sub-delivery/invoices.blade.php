@@ -31,7 +31,8 @@
 
                                     <th class="align-middle">Code</th>
                                     <th class="align-middle">N° Commands</th>
-                                    <th class="align-middle">Montant</th>
+                                    <th class="align-middle">Montant Total</th>
+                                    <th class="align-middle">Montant a payé</th>
                                     <th class="align-middle">Date création</th>
                                     {{-- <th class="align-middle">Date versement</th> --}}
                                     <th class="align-middle">Cloturé</th>
@@ -66,7 +67,10 @@
                                             <p class="text-muted mb-0"></p>
                                         </td>
                                         <td>
-                                            {{ $invoice->articles_sum_price_total }} DH
+                                            {{ number_format($invoice->articles_sum_price_total,2) }} DH
+                                        </td>
+                                        <td>
+                                            {{ number_format($invoice->articles_sum_price_total-($invoice->articles_sum_frais + 0),2) }} DH
                                         </td>
                                         <td>
                                             {{ $invoice->created_at->format('d-m-Y') }}
@@ -76,7 +80,7 @@
                                         </td> --}}
 
                                         <td>
-                                            @if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin'))
+                                            @if (isDelivery())
                                                 <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
                                                     <input wire:click="clotureInvoice('{{ $invoice->uuid }}')"
                                                         class="form-check-input" type="checkbox" id="SwitchCheckSizelg"
@@ -93,11 +97,11 @@
 
                                         </td>
                                         <td>
-                                            @if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin'))
+                                            @if (isDelivery())
                                                 @if ($invoice->bill_count && $invoice->cloture)
                                                     {{--<strong> {{ optional($invoice->bill)->full_number }}</strong>--}}
 
-                                                    <a target="__blank" href="{{ route('public.show.bill', [$invoice->bill->uuid,'has_header'=>true]) }}"
+                                                    <a target="__blank" href="{{ route('delivery.public.show.bill', [$invoice->bill->uuid,'has_header'=>true]) }}"
                                                         type="button"
                                                         class="btn btn-info btn-sm">
                                                         <i class="mdi mdi-file-pdf-box font-size-16 align-middle me-2"></i>
@@ -119,7 +123,7 @@
 
                                                     </strong>--}}
 
-                                                    <a target="__blank" href="{{ route('public.show.bill', [$invoice->bill->uuid,'has_header'=>true]) }}"
+                                                    <a target="__blank" href="{{ route('delivery.public.show.bill', [$invoice->bill->uuid,'has_header'=>true]) }}"
                                                         type="button"
                                                         class="btn btn-info btn-sm">
                                                         <i class="mdi mdi-file-pdf-box font-size-16 align-middle me-2"></i>
@@ -145,9 +149,9 @@
             </div>
         </div>
     </div>
-    {{--@if ($addBiller)
-        @include('livewire.sameleon.invoice.__add_bill', [
+    @if ($addBiller)
+        @include('livewire.sameleon.invoice.sub-delivery.__add_bill', [
             'invoice' => $invoicer,
         ])
-    @endif--}}
+    @endif
 </div>

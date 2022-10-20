@@ -49,8 +49,12 @@ class Invoices extends Component
     {
 
         $this->addBiller = true;
-        $this->invoicer = $invoice->loadSum('articles', 'price_total');
-        $this->price = $invoice->articles_sum_price_total;
+        $this->invoicer = $invoice->loadSum('articles', 'price_total')
+        ->loadSum('articles','frais')
+        ->loadSum('articles','profit');
+        //$this->price = $invoice->articles_sum_price_total;
+        $this->price =  number_format($invoice->articles_sum_price_total -($invoice->articles_sum_frais + 0),2);
+
         $this->dispatchBrowserEvent('add-bill');
     }
 
@@ -70,8 +74,8 @@ class Invoices extends Component
             'price_ht' => $invoice->articles_sum_price_total,
             'price_total' => $invoice->articles_sum_price_total,
             'price_tva' => $invoice->articles_sum_price_total,
-            'client_id' => $invoice->user_id,
-            'client_uuid' => $invoice->user_uuid,
+            'delivery_id' => $invoice->delivery_id,
+            'delivery_uuid' => $invoice->delivery_uuid,
         ];
 
         $bill = $invoice->bill()->create($biller);
@@ -80,7 +84,7 @@ class Invoices extends Component
 
         if ($this->recu) {
 
-            $bill->addMedia($this->recu)->toMediaCollection('bills_recu');
+            $bill->addMedia($this->recu)->toMediaCollection('bills_delivery_recu');
         }
         $this->recu = null;
         //return redirect(route('commercial:bills.index'))->with('success', "Le règlement  a éte ajouter avec success");

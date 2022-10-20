@@ -29,7 +29,9 @@ class Bill extends Model implements HasMedia
         'billable_id',
         'billable_type',
         'client_id',
-        'client_uuid'
+        'client_uuid',
+        'delivery_id',
+        'delivery_uuid'
     ];
 
     protected  $casts = [
@@ -44,6 +46,11 @@ class Bill extends Model implements HasMedia
     public function client()
     {
         return $this->belongsTo(User::class, 'client_id');
+    }
+
+    public function delivery()
+    {
+        return $this->belongsTo(Delivery::class, 'delivery_id');
     }
 
     public function getFormatedPriceTotalAttribute()
@@ -70,10 +77,15 @@ class Bill extends Model implements HasMedia
     {
 
         parent::boot();
+        
         static::creating(function ($model) {
 
             $number = self::max('id') + 1;
             $model->code = str_pad($number, 5, 0, STR_PAD_LEFT);
+            if(isDelivery())
+            {
+                $model->full_number = 'DELIVERY-REGL-' . str_pad($number, 5, 0, STR_PAD_LEFT);   
+            }
             $model->full_number = 'REGL-' . str_pad($number, 5, 0, STR_PAD_LEFT);
         });
     }
