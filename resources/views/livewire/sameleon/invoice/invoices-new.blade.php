@@ -35,8 +35,8 @@
                                         <th class="align-middle">Client</th>
                                     @endif
                                     <th class="align-middle">N° Commands</th>
-                                    <th class="align-middle">Montant</th>
-
+                                    <th class="align-middle">Montant Total</th>
+                                    <th class="align-middle">Montant a payé</th>
                                     <th class="align-middle">Date création</th>
                                     {{-- <th class="align-middle">Date versement</th> --}}
                                     <th class="align-middle">Cloturé</th>
@@ -78,7 +78,10 @@
                                             <p class="text-muted mb-0"></p>
                                         </td>
                                         <td>
-                                            {{ $invoice->articles_sum_price_total }} DH
+                                            {{ number_format($invoice->articles_sum_price_total,2) }} DH
+                                        </td>
+                                        <td>
+                                            {{ number_format($invoice->articles_sum_price_total-($invoice->articles_sum_frais + $invoice->articles_sum_profit),2) }} DH
                                         </td>
                                         <td>
                                             {{ $invoice->created_at->format('d-m-Y') }}

@@ -40,6 +40,8 @@ class InvoiceRepository extends AppRepository implements InvoiceInterface
                 ->authClient()
                 ->withCount('commands')
                 ->withSum('articles', 'price_total')
+                ->withSum('articles', 'frais')
+                ->withSum('articles', 'profit')
                 ->with('bill')
                 ->withCount('bill')
                 ->get();
@@ -48,6 +50,8 @@ class InvoiceRepository extends AppRepository implements InvoiceInterface
             return $this->invoice
                 ->withCount('commands')
                 ->withSum('articles', 'price_total')
+                ->withSum('articles', 'frais')
+                ->withSum('articles', 'profit')
                 ->with('bill')
                 ->withCount('bill')
 

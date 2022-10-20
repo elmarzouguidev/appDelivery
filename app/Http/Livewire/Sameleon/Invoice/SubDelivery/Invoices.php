@@ -71,9 +71,9 @@ class Invoices extends Component
             'bill_mode' => $this->mode,
             'reference' => $this->reference,
             'notes' => $this->notes,
-            'price_ht' => $invoice->articles_sum_price_total,
-            'price_total' => $invoice->articles_sum_price_total,
-            'price_tva' => $invoice->articles_sum_price_total,
+            'price_ht' => $this->price,
+            'price_total' => $this->price,
+            'price_tva' => $this->price,
             'delivery_id' => $invoice->delivery_id,
             'delivery_uuid' => $invoice->delivery_uuid,
         ];

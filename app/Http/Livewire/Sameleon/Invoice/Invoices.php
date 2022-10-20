@@ -64,8 +64,12 @@ class Invoices extends Component
     {
 
         $this->addBiller = true;
-        $this->invoicer = $invoice->loadSum('articles', 'price_total');
-        $this->price = $invoice->articles_sum_price_total;
+        $this->invoicer = $invoice->loadSum('articles', 'price_total')
+        ->loadSum('articles','frais')
+        ->loadSum('articles','profit');
+        //$this->price = $invoice->articles_sum_price_total;
+        $this->price =  number_format($invoice->articles_sum_price_total -($invoice->articles_sum_frais + $invoice->articles_sum_profit),2);
+
         $this->dispatchBrowserEvent('add-bill');
     }
 
@@ -82,9 +86,9 @@ class Invoices extends Component
             'bill_mode' => $this->mode,
             'reference' => $this->reference,
             'notes' => $this->notes,
-            'price_ht' => $invoice->articles_sum_price_total,
-            'price_total' => $invoice->articles_sum_price_total,
-            'price_tva' => $invoice->articles_sum_price_total,
+            'price_ht' => $this->price,
+            'price_total' => $this->price,
+            'price_tva' => $this->price,
             'client_id' => $invoice->user_id,
             'client_uuid' => $invoice->user_uuid,
         ];
