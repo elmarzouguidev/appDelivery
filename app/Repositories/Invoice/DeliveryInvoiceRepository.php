@@ -39,9 +39,8 @@ class DeliveryInvoiceRepository extends AppRepository implements DeliveryInvoice
                 ->withSum('articles', 'price_total')
                 ->withSum('articles', 'frais')
                 ->withSum('articles', 'profit')
-                //->with('bill')
-                //->withCount('bill')
-
+                ->with('bill')
+                ->withCount('bill')
                 ->get();
         
     }

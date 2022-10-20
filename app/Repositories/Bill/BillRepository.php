@@ -38,38 +38,27 @@ class BillRepository extends AppRepository implements BillInterface
      */
     public function getBills()
     {
-        if ($this->useCache()) {
-            if (auth()->user()->hasRole('Client')) {
 
-                $cacheKey = "all_bills_cache_" . auth()->user()->uuid;
-
-                return $this->setCache()->remember($cacheKey, $this->timeToLive(), function () {
-
-                    return $this->bill
-                        ->where('client_id', auth()->id())
-                        ->where('client_uuid', auth()->user()->uuid)
-                        ->with('media', 'billable')->get();
-                });
-            } else {
-                return $this->setCache()->remember('all_bills_cache', $this->timeToLive(), function () {
-
-                    return $this->bill
-                        ->with('media', 'billable')->get();
-                });
-            }
-        } else {
-            if (auth()->user()->hasRole('Client')) {
+        if (isClient()) {
 
                 return $this->bill
                     ->where('client_id', auth()->id())
                     ->where('client_uuid', auth()->user()->uuid)
                     ->with('media', 'billable')->get();
-            } else {
+        }
+        elseif(isDelivery())
+        {
+            return $this->bill
+            ->where('delivery_id', delivery()->id)
+            ->where('delivery_uuid',delivery()->uuid)
+            ->with('media', 'billable')->get();
+        } 
+        else {
 
                 return $this->bill
                     ->with('media', 'billable')->get();
-            }
         }
+        
 
         return [];
     }

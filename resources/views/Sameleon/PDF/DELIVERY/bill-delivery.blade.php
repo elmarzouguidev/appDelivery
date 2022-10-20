@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ optional($bill->delivery)->full_name }} - {{ $bill->bill_date->format('d-m-Y') }}</title>
+    <style>
+        @page {
+            margin: 60px 25px;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+            text-align: center;
+            color: #777;
+        }
+
+        body h1 {
+            font-weight: 300;
+            margin-bottom: 0px;
+            padding-bottom: 0px;
+            color: #000;
+        }
+
+        body h3 {
+            font-weight: 300;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            font-style: italic;
+            color: #555;
+        }
+
+        body a {
+            color: #06f;
+        }
+
+        .invoice-box {
+            max-width: 900px;
+            margin: auto;
+            padding: 2px;
+            border: 1px solid #eee;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+            font-size: 15px;
+            line-height: 24px;
+            font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+            color: #555;
+        }
+
+        .invoice-box table {
+            width: 100%;
+            line-height: inherit;
+            text-align: left;
+            border-collapse: collapse;
+        }
+
+        .invoice-box table td {
+            padding: 5px;
+            vertical-align: top;
+        }
+
+        .invoice-box table tr td:nth-child(2) {
+            text-align: left;
+        }
+
+        .invoice-box table tr td:nth-child(3) {
+            text-align: left;
+        }
+
+        .invoice-box table tr td:nth-child(4) {
+            text-align: left;
+        }
+
+        .invoice-box table tr.top table td {
+            padding-bottom: 10px;
+        }
+
+        .invoice-box table tr.top table td.title {
+            font-size: 45px;
+            line-height: 45px;
+            color: #333;
+        }
+
+        .invoice-box table tr.information table td {
+            padding-bottom: 40px;
+        }
+
+        .invoice-box table tr.heading td {
+            background: #eee;
+            border-bottom: 2px solid #ddd;
+            font-weight: bold;
+        }
+
+        .invoice-box table tr.heading-price td {
+            background: #eee;
+            /*border-bottom: 2px solid #325288;*/
+            font-weight: bold;
+          
+        }
+
+        .invoice-box table tr.details td {
+            padding-bottom: 10px;
+        }
+
+        .invoice-box table tr.item td {
+            border-bottom: 1px solid #eee;
+        }
+
+        .invoice-box table tr.item.last td {
+            border-bottom: none;
+        }
+
+        .invoice-box table tr.total td:nth-child(2) {
+            border-top: 2px solid #eee;
+            font-weight: bold;
+        }
+
+        .invoice-box table tr.total td:nth-child(3) {
+            border-top: 2px solid #eee;
+            font-weight: bold;
+        }
+
+        .bott {
+            height: 0px;
+            width: 200px;
+            border-bottom: solid #1572A1 20px;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .invoice-box table tr.top table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+
+            .invoice-box table tr.information table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+        }
+
+        footer {
+            position: fixed;
+            bottom: -10px;
+            left: 0px;
+            right: 0px;
+            height: 50px;
+            /** Extra personal styles **/
+
+            color: white;
+            text-align: center;
+            line-height: 10px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+
+    <footer>
+
+        <div style="text-align: center; color:#333; font-size: 11px !important;">
+            <p>{{ optional(getCompany())->name }}</p>
+            <p>
+                {{ optional(getCompany())->addresse }}
+                Tél : {{ optional(getCompany())->telephone }}
+                E-mail : {{ optional(getCompany())->email }}
+            </p>
+            <p>
+                -R.C:{{ optional(getCompany())->rc }}
+                -PATENTE:{{ optional(getCompany())->patente }}
+                -I.F:{{ optional(getCompany())->if }}
+                @if(isset(getCompany()->cnss))
+                -CNSS:{{ optional(getCompany())->cnss }}
+                @endif
+                -ICE:{{ optional(getCompany())->ice }}
+            </p>
+        </div>
+        <div class="bott" style=" width: 100%;">
+        </div>
+
+    </footer>
+    <div class="invoice-box">
+        <table>
+            <tr class="top">
+                <td colspan="6">
+                    <table>
+                        <tr>
+                            <td class="title" style="text-align: left;">
+                                <img src="{{ $companyLogo }}" style="height: 100px" />
+                            </td>
+
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr class="information">
+                <td colspan="6">
+                    <table>
+                        <tr>
+                            <td style="width: 50% ;">
+
+                                @if(optional($bill->delivery)->type == 'entreprise' && optional($bill->delivery)->company_name)
+                                <strong> Société : {{ optional($bill->delivery)->company_name }}</strong> <br />
+                                @else
+                                <strong> Livreur : {{ optional($bill->delivery)->full_name }}</strong> <br />
+                                @endif
+                                @if(optional($bill->delivery)->type == 'particulier')
+                                 CNIE : {{ strtoupper(optional($bill->delivery)->cnie) }}<br />
+                                @endif
+                                @if(optional($bill->delivery)->type == 'entreprise')
+                                 ICE : {{ optional($bill->delivery)->company_ice }}<br />
+                                @endif
+
+                            </td>
+                            <td style="width: 50% ; text-align: right; !important">
+                                <strong>Règlement N° : {{ $bill->code }}</strong><br />
+                                Date : {{ $bill->bill_date->format('d-m-Y') }}<br />
+                        
+                            </td>
+
+                        </tr>
+                        <tr>
+                            
+                            <td style="width: 100% ; text-align: left; !important">
+                                <strong>Facture N° : {{ $bill->billable->full_number }}</strong><br />
+                                Date de facture : {{ $bill->billable->invoice_date->format('d-m-Y') }}<br />
+
+                            </td>
+
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <div class="pricer">
+
+                <tr class="heading-price">
+
+                    <td colspan="6">Montant : {{ $bill->formated_price_total }} DH</td>
+                </tr>
+            </div>
+
+        </table>
+
+    </div>
+
+</body>
+
+</html>

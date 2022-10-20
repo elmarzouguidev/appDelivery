@@ -7,6 +7,7 @@ use App\Http\Controllers\Sameleon\Admin\BR\PDFBRController;
 use App\Http\Controllers\Sameleon\Admin\Invoice\InvoiceController;
 use App\Http\Controllers\Sameleon\Admin\Payment\PDFPaymentController;
 use App\Http\Controllers\Sameleon\Admin\SubDelivery\Invoice\InvoiceSubDeliveryPDFController;
+use App\Http\Controllers\Sameleon\Admin\SubDelivery\Payment\PaymentSubDeliveryPDFController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -42,7 +43,7 @@ Route::group(['prefix' => 'views/delivery', 'middleware' => 'auth:web,delivery']
     });
 
     Route::group(['prefix' => 'bills'], function () {
-        Route::get('/bill/{bill}', [PDFPaymentController::class, 'showBill'])->name('delivery.public.show.bill');
+        Route::get('/bill/{bill}', [PaymentSubDeliveryPDFController::class, 'showBill'])->name('delivery.public.show.bill');
     });
 
     Route::group(['prefix' => 'b-livraison'], function () {
