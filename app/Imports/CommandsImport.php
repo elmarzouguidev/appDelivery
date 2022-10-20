@@ -37,8 +37,7 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
      */
     public function model(array $row)
     {
-
-
+        
         //dd(count($row["produit_ref"]));
         $productName = $row["produit_ref"] ?? $row["produit"] ?? throw ValidationException::withMessages([
 

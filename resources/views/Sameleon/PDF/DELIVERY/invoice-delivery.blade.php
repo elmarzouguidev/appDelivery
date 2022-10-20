@@ -282,35 +282,58 @@
                 </tr>
                 <tr class="heading-price lefter">
                     @php
-                     $frais = $invoice->articles->sum('frais')
+                     $netFrais= 0;
+                     $frais = $invoice->articles->sum('frais');
+                     $profit = $invoice->articles->sum('profit');
+                     if(isAdmin() && $profit > 0 && $profit !== 0)
+                        {
+                           $netFrais = $frais + $profit ;
+                        }else{
+                            $netFrais = $frais ;  
+                        }
                     @endphp
-                    <td colspan="6">Frais : {{ number_format($frais,2) }} DH</td>
+                    <td colspan="6">Frais : {{ number_format($netFrais,2) }} DH</td>
                 </tr>
               
-                <tr class="heading-price lefter">
-                    @php
-                     $profit = $invoice->articles->sum('profit')
-                    @endphp
-                    <td colspan="6">Profit : {{ number_format($profit,2) }} DH</td>
-                </tr>
+                @if(isAdmin())
+                    <tr class="heading-price lefter">
+                        @php
+                        $profit = $invoice->articles->sum('profit')
+                        @endphp
+                        <td colspan="6">Profit : {{ number_format($profit,2) }} DH</td>
+                    </tr>
+                @endif
                 
                 <tr class="heading-price lefter">
-                    @php 
-                        if($invoice->formated_total_brut == 0 || $frais > $invoice->formated_total_brut)
-                        {
-                            $net = 00;
-                        }
-                        else{
-
-                            if($profit > 0)
+                    @if(isAdmin())
+                        @php 
+                            if($invoice->formated_total_brut == 0 || $frais > $invoice->formated_total_brut)
                             {
-                                $net = $invoice->formated_total_brut - $frais ;
+                                $net = 00;
                             }
+                            else{
 
-                            $net = $invoice->formated_total_brut - ($frais + $profit) ;
-                        }
-        
+                                if($profit > 0)
+                                {
+                                    $net = $invoice->formated_total_brut - $frais ;
+                                }
+
+                                $net = $invoice->formated_total_brut - ($frais + $profit) ;
+                            }
+            
+                        @endphp
+                    @else
+                        @php 
+                            if($invoice->formated_total_brut == 0 || $netFrais > $invoice->formated_total_brut)
+                            {
+                                $net = 00;
+                            }
+                            else{
+                                
+                                $net = $invoice->formated_total_brut - $netFrais ;
+                            }
                     @endphp
+                   @endif
                     <td colspan="6">Montant NET : {{ number_format($net,2) }} DH</td>
                 </tr>
             </div>
