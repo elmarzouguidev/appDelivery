@@ -56,6 +56,7 @@ class BillRepository extends AppRepository implements BillInterface
         else {
 
                 return $this->bill
+                    ->whereNull(['delivery_id','delivery_uuid'])
                     ->with('media', 'billable')->get();
         }
         

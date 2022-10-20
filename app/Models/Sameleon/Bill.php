@@ -91,7 +91,10 @@ class Bill extends Model implements HasMedia
             {
                 $model->full_number = 'DELIVERY-REGL-' . str_pad($number, 5, 0, STR_PAD_LEFT);   
             }
-            $model->full_number = 'REGL-' . str_pad($number, 5, 0, STR_PAD_LEFT);
+            else{
+                $model->full_number = 'REGL-' . str_pad($number, 5, 0, STR_PAD_LEFT);
+            }
+           
         });
     }
 }
