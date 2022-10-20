@@ -35,7 +35,7 @@ Route::group(['prefix' => 'views', 'middleware' => 'auth'], function () {
     });
 });
 
-Route::group(['prefix' => 'delivery-views', 'middleware' => 'auth:delivery'], function () {
+Route::group(['prefix' => 'delivery-views', 'middleware' => 'auth:web,delivery'], function () {
 
     Route::group(['prefix' => 'invoices'], function () {
         Route::get('/invoice/{invoice}', [InvoiceSubDeliveryPDFController::class, 'showInvoice'])->name('delivery.public.show.invoice');
