@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{{ optional($invoice->delivery)->full_name }} - {{ $invoice->invoice_date->format('d-m-Y') }}</title>
+    <title>FACTURE-LIVREUR-{{ optional($invoice->delivery)->full_name }} - {{ $invoice->invoice_date->format('d-m-Y') }}</title>
     <style>
         @page {
             margin: 60px 25px;
