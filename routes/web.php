@@ -56,6 +56,18 @@ Route::group(['prefix' => 'views/delivery', 'middleware' => 'auth:delivery,web']
 });
 
 
+Route::group(['prefix' => 'views/public'], function () {
+
+    Route::group(['prefix' => 'bl'], function () {
+        Route::get('/bons/{bon}', [PDFBLController::class, 'showPublicBL'])->name('public.public.show.bl');
+    });
+
+    Route::group(['prefix' => 'br'], function () {
+        Route::get('/bons/{bon}', [PDFBRController::class, 'showPublicBR'])->name('public.public.show.br');
+    });
+});
+
+
 Route::group(['prefix' => 'app'], function () {
 
     Route::get('password/request', [ForgotPasswordController::class, 'showLinkRequestForm'])

@@ -202,7 +202,7 @@
                                 <h2>BL N° : {{ $bon->code }}</h2>
                             </td>
                             <td style="width: 20%">
-                                <img src="data:image/png;base64, {!! $qrcode !!}" style="height: 60px">
+                                <img src="data:image/png;base64, {!! $qrcode !!}" style="height: 90px">
                             </td>
                         </tr>
                     </table>
