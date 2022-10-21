@@ -90,7 +90,7 @@
                 <button type="button" class="btn header-item noti-icon waves-effect"
                     id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
-                    <i class="bx bx-bell bx-tada"></i>
+                    <i class="bx bx-bell {{auth()->user()->unreadNotifications->count() ? 'bx-tada':''}}"></i>
                     <span class="badge bg-danger rounded-pill">{{ auth()->user()->unreadNotifications->count() }}</span>
                 </button>
 

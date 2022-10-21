@@ -107,6 +107,7 @@ class AdminHomeController extends Controller
         auth()->user()
             ->unreadNotifications->each->markAsRead();
 
-        return response()->noContent();
+        //return response()->noContent();
+        return redirect()->back();
     }
 }
