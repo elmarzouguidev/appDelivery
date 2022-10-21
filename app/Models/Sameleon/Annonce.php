@@ -42,6 +42,25 @@ class Annonce extends Model
     
     public function scopeActiveAnnonces($query)
     {
-        return $query->whereActive(true)->latest()->first();
+        $group = ['all'];
+
+        if(isAdmin())
+        {
+           $group =['admins','all'];
+
+        }elseif(isClient())
+        {
+            $group = ['clients'];
+        }
+        elseif(isDelivery())
+        {
+            $group =['delivery'];
+        }
+        else{
+            $group = ['all'];  
+        }
+        return $query->whereActive(true)
+        ->whereIn('group',$group)
+        ->latest()->first();
     }
 }
