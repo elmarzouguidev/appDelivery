@@ -85,7 +85,8 @@ class Delivery extends Authenticatable
     public function completProfile()
     {
 
-        return  is_null($this->attributes['cnie']) ||
+        return  
+            //is_null($this->attributes['cnie']) ||
             is_null($this->attributes['addresse']) ||
             is_null($this->attributes['telephone']) ? false : true;
     }
