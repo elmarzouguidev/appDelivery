@@ -22,6 +22,7 @@ class AnnonceController extends Controller
         $annonce = new Annonce();
         $annonce->title = $request->title;
         $annonce->description = $request->description;
+        $annonce->group = $request->group;
         $annonce->save();
 
         return redirect(route('admin:annonces.index'))->with('success', "L'annonce a été ajouté avec succès");

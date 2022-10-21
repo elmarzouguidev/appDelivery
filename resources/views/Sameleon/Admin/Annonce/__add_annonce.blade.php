@@ -11,6 +11,23 @@
                 <form method="post" action="{{ route('admin:annonces.store') }}">
                     @csrf
                     <div class="row mb-4">
+                        <label for="group" class="col-form-label col-lg-2">Group *</label>
+                        <div class="col-lg-10">
+                            <select name="group" class="form-control select2-templating @error('group') is-invalid @enderror" required>
+                                <option value="">Choisir le group</option>
+                                <option value="all">Tous</option>
+                                <option value="admins">Admins</option>
+                                <option value="clients">Clients</option>
+                                <option value="delivery">Livreurs</option>
+                            </select>
+                            @error('group')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row mb-4">
                         <label for="title" class="col-form-label col-lg-2">Titre *</label>
                         <div class="col-lg-10">
                             <input id="title" name="title" type="text"

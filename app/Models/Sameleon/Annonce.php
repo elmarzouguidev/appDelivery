@@ -15,6 +15,7 @@ class Annonce extends Model
 
     protected $fillable = [
         'title',
+        'group',
         'description',
         'image',
         'active',

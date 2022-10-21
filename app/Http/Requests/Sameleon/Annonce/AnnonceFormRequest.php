@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Sameleon\Annonce;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class AnnonceFormRequest extends FormRequest
 {
@@ -26,6 +27,7 @@ class AnnonceFormRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string'],
+            'group' => ['required', 'string', Rule::in(['all', 'clients','delivery','admins'])],
         ];
     }
 }

@@ -41,6 +41,7 @@
 
                                     <th class="align-middle">Nom</th>
                                     <th class="align-middle">Frais</th>
+                                    <th class="align-middle">Profit</th>
                                     <th class="align-middle">Régions</th>
                                     <th class="align-middle">Action</th>
                                 </tr>
@@ -62,6 +63,10 @@
                                         </td>
                                         <td>
                                             {{ $city->frais }} DH
+                                            <p class="text-muted mb-0"></p>
+                                        </td>
+                                        <td>
+                                            {{ $city->profit ?? '0' }} DH
                                             <p class="text-muted mb-0"></p>
                                         </td>
                                         <td>

@@ -33,7 +33,7 @@ class AdminHomeController extends Controller
             'chart_color' => '47, 83, 147',
         ];
 
-        if (auth()->user()->hasAnyRole('Admin|SuperAdmin')) {
+        if (isAdmin()) {
             $chart_optionss = [
                 'chart_title' => 'Commands par mois',
                 'report_type' => 'group_by_date',
@@ -45,7 +45,7 @@ class AdminHomeController extends Controller
                // 'filter_days' => 30, // show only last 30 days
                 'chart_color' => '47, 83, 147',
             ];
-        } elseif (auth()->user()->hasRole('Client')) {
+        } elseif (isClient()) {
             $userId = auth()->id();
             $chart_optionss = [
                 'chart_title' => 'Commands par mois',
