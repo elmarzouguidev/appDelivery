@@ -11,7 +11,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="{{ asset('images/logo.png') }}">
 
-    @include('layouts._parts.__og_meta')
+    {{--@include('layouts._parts.__og_meta')--}}
 
     @yield('css')
     <link href="{{ asset('assets/libs/magnific-popup/magnific-popup.css') }}" rel="stylesheet" type="text/css" />
