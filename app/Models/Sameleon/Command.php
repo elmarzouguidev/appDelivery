@@ -239,11 +239,18 @@ class Command extends Model
 
     public function scopeTotalCommands($query)
     {
-        if (auth()->user()->hasRole('Client')) {
+        if (isClient()) {
             return $query->whereUserId(auth()->id())
                 ->whereUserUuid(auth()->user()->uuid)
                 ->count();
-        } else {
+        }
+        elseif(isDelivery())
+        {
+            return $query->whereDeliveryId(delivery()->id)
+            ->whereDeliveryUuid(delivery()->uuid)
+            ->count(); 
+        } 
+        else {
             return $query->count();
         }
     }
@@ -258,8 +265,8 @@ class Command extends Model
         } 
         elseif(isDelivery())
         {
-            return $query->whereDeliveryId(auth()->id())
-            ->whereDeliveryUuid(auth()->user()->uuid)
+            return $query->whereDeliveryId(delivery()->id)
+            ->whereDeliveryUuid(delivery()->uuid)
             ->whereStatus(Status::EXPEDIE)
             ->count();
         }
@@ -271,30 +278,46 @@ class Command extends Model
 
     public function scopeTotalCommandsLivred($query)
     {
-        if (auth()->user()->hasRole('Client')) {
+        if (isClient()) {
             return $query->whereUserId(auth()->id())
                 ->whereUserUuid(auth()->user()->uuid)
                 ->whereStatus(Status::LIVRE)
                 ->count();
-        } else {
+        } 
+        elseif(isDelivery())
+        {
+            return $query->whereDeliveryId(delivery()->id)
+            ->whereDeliveryUuid(delivery()->uuid)
+            ->whereStatus(Status::LIVRE)
+            ->count(); 
+        } 
+        else {
             return $query->whereStatus(Status::LIVRE)->count();
         }
     }
 
     public function scopeTotalCommandsEncours($query)
     {
-        if (auth()->user()->hasRole('Client')) {
+        if (isClient()) {
             return $query->whereUserId(auth()->id())
                 ->whereUserUuid(auth()->user()->uuid)
                 ->whereIn('status', [Status::ENCOURS, Status::EXPEDIE])->count();
-        } else {
+        } 
+        elseif(isDelivery())
+        {
+            return $query->whereDeliveryId(delivery()->id)
+            ->whereDeliveryUuid(delivery()->uuid)
+            ->whereIn('status', [Status::ENCOURS])
+            ->count(); 
+        } 
+        else {
             return $query->whereIn('status', [Status::ENCOURS, Status::EXPEDIE])->count();
         }
     }
 
     public function scopeTotalCommandsNonResponde($query)
     {
-        if (auth()->user()->hasRole('Client')) {
+        if (isClient()) {
             return $query
                 ->whereUserId(auth()->id())
                 ->whereUserUuid(auth()->user()->uuid)
@@ -306,9 +329,21 @@ class Command extends Model
                     Status::PAS_DE_REPONSE_5,*/
                     Status::INJOIGNABLE
                 ])->count();
-        } else {
-
-
+        } 
+        elseif(isDelivery())
+        {
+            return $query->whereDeliveryId(delivery()->id)
+            ->whereDeliveryUuid(delivery()->uuid)
+            ->whereIn('status', [
+                Status::PAS_DE_REPONSE,
+                /*Status::PAS_DE_REPONSE_2,
+                Status::PAS_DE_REPONSE_3,
+                Status::PAS_DE_REPONSE_4,
+                Status::PAS_DE_REPONSE_5,*/
+                Status::INJOIGNABLE
+            ])->count();
+        } 
+        else {
             return $query->whereIn('status', [
                 Status::PAS_DE_REPONSE,
                 /*Status::PAS_DE_REPONSE_2,
@@ -322,7 +357,7 @@ class Command extends Model
 
     public function scopeTotalCommandsReported($query)
     {
-        if (auth()->user()->hasRole('Client')) {
+        if (isClient()) {
             return $query
                 ->whereUserId(auth()->id())
                 ->whereUserUuid(auth()->user()->uuid)
@@ -330,7 +365,17 @@ class Command extends Model
                     Status::REPORTE,
                     Status::INTERESSE
                 ])->count();
-        } else {
+        } 
+        elseif(isDelivery())
+        {
+            return $query->whereDeliveryId(delivery()->id)
+            ->whereDeliveryUuid(delivery()->uuid)
+            ->whereIn('status', [
+                Status::REPORTE,
+                Status::INTERESSE
+            ])->count();
+        } 
+        else {
             return $query->whereIn('status', [
                 Status::REPORTE,
                 Status::INTERESSE
@@ -340,7 +385,7 @@ class Command extends Model
 
     public function scopeTotalCommandsCancled($query)
     {
-        if (auth()->user()->hasRole('Client')) {
+        if (isClient()) {
             return $query
                 ->whereUserId(auth()->id())
                 ->whereUserUuid(auth()->user()->uuid)
@@ -348,7 +393,17 @@ class Command extends Model
                     Status::ANNULE,
                     Status::REFUSE
                 ])->count();
-        } else {
+        } 
+        elseif(isDelivery())
+        {
+            return $query->whereDeliveryId(delivery()->id)
+            ->whereDeliveryUuid(delivery()->uuid)
+            ->whereIn('status', [
+                Status::ANNULE,
+                Status::REFUSE
+            ])->count();
+        } 
+        else {
             return $query->whereIn('status', [
                 Status::ANNULE,
                 Status::REFUSE
@@ -362,7 +417,7 @@ class Command extends Model
 
         /**** */
 
-        if (auth()->user()->hasRole('Client')) {
+        if (isClient()) {
 
             return $query
                 ->whereUserId(auth()->id())
@@ -371,7 +426,17 @@ class Command extends Model
                 ->withSum('items', 'prix_total')
                 ->get()
                 ->sum('items_sum_prix_total');
-        } else {
+        } 
+        elseif(isDelivery())
+        {
+            return $query->whereDeliveryId(delivery()->id)
+            ->whereDeliveryUuid(delivery()->uuid)
+            ->whereStatus(Status::LIVRE)
+            ->withSum('items', 'prix_total')
+            ->get()
+            ->sum('items_sum_prix_total');
+        } 
+        else {
             return $query->whereStatus(Status::LIVRE)->withSum('items', 'prix_total')->get()->sum('items_sum_prix_total');
         }
     }

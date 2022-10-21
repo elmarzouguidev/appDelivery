@@ -51,7 +51,7 @@ class CommandRepository extends AppRepository implements CommandInterface
 
     public function getArchivedCommands()
     {
-        if (auth()->user()->hasRole('Client')) {
+        if (isClient()) {
 
             $cacheKey = "all_commands_archived_cache_" . auth()->user()->uuid;
 
@@ -65,7 +65,24 @@ class CommandRepository extends AppRepository implements CommandInterface
                     ->withSum('items', 'prix_total')
                     ->get();
             });
-        } else {
+        }
+        elseif(isDelivery())
+        {
+            
+            $cacheKey = "all_delivery_commands_archived_cache_" . delivery()->uuid;
+
+            return $this->setCache()->remember($cacheKey, $this->timeToLive(), function () {
+
+                return $this->command
+                    ->where('delivery_id', delivery()->id)
+                    ->where('delivery_uuid', delivery()->uuid)
+                    ->where('is_closed', true)
+                    ->with('items', 'city:id,name')
+                    ->withSum('items', 'prix_total')
+                    ->get();
+            });
+        }
+         else {
 
 
             return $this->setCache()->remember('all_commands_archived_cache', $this->timeToLive(), function () {

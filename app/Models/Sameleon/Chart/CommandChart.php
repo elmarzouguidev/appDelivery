@@ -3,6 +3,7 @@
 namespace App\Models\Sameleon\Chart;
 
 use App\Scopes\ClientCommandScope;
+use App\Scopes\DeliveryCommandScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -16,9 +17,16 @@ class CommandChart extends Model
 
     protected $table = "commands";
 
-
     protected static function booted()
     {
-        static::addGlobalScope(new ClientCommandScope);
+        if(isDelivery())
+        {
+            static::addGlobalScope(new DeliveryCommandScope);  
+        }
+        else
+        {
+            static::addGlobalScope(new ClientCommandScope);
+        }
+        
     }
 }
