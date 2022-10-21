@@ -245,6 +245,8 @@ class Commands extends Component
             $bon = new BLivraison();
             $bon->city_id = $commands[0]->city_id;
             $bon->city_uuid = $commands[0]->city_uuid;
+            $bon->delivery_id = $commands[0]->delivery_id;
+            $bon->delivery_uuid = $commands[0]->delivery_uuid;
             $bon->bon_date = now();
             $bon->save();
 

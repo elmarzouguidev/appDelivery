@@ -14,7 +14,7 @@ class PDFBLController extends Controller
         //$qrcode = Qrcode::encoding("UTF-8")->size(200)->generate("https://sameleon-express.ma/");
         $qrcode = base64_encode(QrCode::format('svg')->size(80)->errorCorrection('H')->generate('https://sameleon-express.ma/'));
 
-        $bon->load('articles', 'city:id,name','articles.command.items');
+        $bon->load('articles', 'city:id,name','articles.command.items','delivery');
 
         $companyLogo = "data:image/jpg;base64," . base64_encode(file_get_contents(public_path('storage/' . getCompany()->logo)));
 

@@ -7,7 +7,7 @@
     <title>{{ $bon->full_number }} - {{ $bon->bon_date->format('d-m-Y') }}</title>
     <style>
         @page {
-            margin: 5px 5px;
+            margin: 9px 9px;
         }
 
         body {
@@ -36,12 +36,12 @@
         }
 
         .invoice-box {
-            max-width: 1000px;
+            max-width: 100%;
             margin: auto;
             padding: 1px;
             border: 1px solid #eee;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-            font-size: 15px;
+            font-size: 14px;
             line-height: 24px;
             font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
             color: #555;
@@ -55,7 +55,7 @@
         }
 
         .invoice-box table td {
-            padding: 5px;
+            padding: 2px;
             vertical-align: top;
         }
 
@@ -72,24 +72,24 @@
         }
 
         .invoice-box table tr.top table td {
-            padding-bottom: 10px;
+            padding-bottom: 5px;
         }
 
         .invoice-box table tr.top table td.title {
-            font-size: 45px;
-            line-height: 45px;
+            font-size: 40px;
+            line-height: 40px;
             color: #333;
         }
 
         .invoice-box table tr.top table td.title2 {
             text-align: center;
-            font-size: 30px;
-            line-height: 30px;
+            font-size: 25px;
+            line-height: 25px;
             color: #333;
         }
 
         .invoice-box table tr.information table td {
-            padding-bottom: 40px;
+            padding-bottom: 30px;
         }
 
         .invoice-box table tr.heading td {
@@ -195,14 +195,14 @@
                 <td colspan="6">
                     <table>
                         <tr>
-                            <td style="width: 20%" style="text-align: left;">
+                            <td style="width: 30%" style="text-align: left;">
                                 <img src="{{ $companyLogo }}" style="height: 100px" />
                             </td>
-                            <td style="width: 60%" class="title2" >
+                            <td style="width: 100%" class="title2" >
                                 <h2>BL N° : {{ $bon->code }}</h2>
                             </td>
-                            <td style="width: 20%" style="text-align: left;">
-                                <img src="data:image/png;base64, {!! $qrcode !!}">
+                            <td style="width: 20%">
+                                <img src="data:image/png;base64, {!! $qrcode !!}" style="height: 60px">
                             </td>
                         </tr>
                     </table>
@@ -210,19 +210,28 @@
             </tr>
 
             <tr class="information">
-                <td colspan="6">
+                <td colspan="5">
                     <table>
                         <tr>
                             <td style="width: 80%">
     
                                 DATE : {{ $bon->bon_date->format('d-m-Y') }}<br />
+                                @if(optional($bon->delivery)->type == 'entreprise' && optional($bon->delivery)->company_name)
+                                <strong> Société : {{ optional($bon->delivery)->company_name }}</strong> <br />
+                                @else
+                                <strong> Livreur : {{ optional($bon->delivery)->full_name }}</strong> <br />
+                                @endif
+                                <strong> Tél : {{ optional($bon->delivery)->telephone }}</strong> <br />
+                                <strong> Ville : {{ optional($bon->delivery->city)->name }}</strong> <br />
+                                <strong> Adresse : {{ optional($bon->delivery)->addresse }}</strong> <br />
+                
                             </td>
                         </tr>
                     </table>
                 </td>
             </tr>
 
-            {{-- <tr class="heading">
+        {{-- <tr class="heading">
             <td colspan="4">Réferences client</td>
 
         </tr>
@@ -235,9 +244,10 @@
         </tr> --}}
 
             <tr class="heading">
+                <td>#</td>
                 <td>Destinataire</td>
                 <td>Produits</td>
-                <td>Téléphone</td>
+                {{--<td>Téléphone</td>--}}
                 <td>Ville</td>
                 <td>Adresse</td>
                 <td>Prix</td>
@@ -249,6 +259,7 @@
                     $article->command_status == App\Status\Status::REFUSE ? ($color = 'red') : '';
                 @endphp
                 <tr class="item {{ $loop->last ? 'last' : '' }}" style="color:{{ $color }} !important">
+                    <td>{{ $loop->index + 1 }}</td>
                     <td style="width: 30% ;">
                         <strong>{{ optional($article->command)->code }}</strong><br>
                         {{ $article->name  }}<br>
@@ -273,9 +284,9 @@
                             @endif
                         @endforeach
                     </td>
-                    <td>{{ $article->phone }}</td>
+                    {{--<td>{{ $article->phone }}</td>--}}
                     <td>{{ $article->bon->city->name }}</td>
-                    <td>{{ $article->address }}</td>
+                    <td>{{-- $article->bon->city->name --}} {{ $article->address }}</td>
                     <td>{{ $article->formated_price_total }} DH</td>
 
                 </tr>
