@@ -63,6 +63,40 @@ class Commands extends Component
     public function render()
     {
 
+        if (request()->has('livred') && request()->livred == true) {
+
+            $this->filter += ['status' => Status::LIVRE];
+
+            $this->emit('refresh');
+        }
+        if (request()->has('encours') && request()->encours == true) {
+
+            $this->filter += ['status' => Status::ENCOURS];
+
+            $this->emit('refresh');
+        }
+
+        if (request()->has('pdr') && request()->pdr == true) {
+
+            $this->filter += ['status' => Status::PAS_DE_REPONSE];
+
+            $this->emit('refresh');
+        }
+
+        if (request()->has('reported') && request()->reported == true) {
+
+            $this->filter += ['status' => Status::REPORTE];
+
+            $this->emit('refresh');
+        }
+
+        if (request()->has('cancled') && request()->cancled == true) {
+
+            $this->filter += ['status' => Status::REFUSE];
+
+            $this->emit('refresh');
+        }
+        
         $command = new ItemsQuery(new Command, $this->filter);
 
         $commandStatus = implode(',', [Status::NON_TRAITE, Status::EXPEDIE, Status::ENCOURS, Status::REPORTE, Status::REFUSE, Status::LIVRE, Status::RETOURNE]);
