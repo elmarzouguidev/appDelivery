@@ -11,14 +11,9 @@
     <meta content="app_creator" name="Elmarzougui Abdelghafour" />
     <meta content="app_version" name="v 1.1" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta property="og:title" content="SameleonExpress" />
-    <meta property="og:description" content="SameleonExpress société de livraison au Maroc" />
-    <meta property="og:site_name" content="SameleonExpress" />
-    <meta property="og:type" content="article" />
-    <meta property="og:locale" content="fr_FR" />
-    <meta property="og:url" content="https://app.sameleon-express.ma/" />
-    <meta property="og:image" content="https://app.sameleon-express.ma/images/logo.png" />
     
+     @include('layouts._parts.__og_meta')
+
     <link href="{{ asset('css/mix/app.css') }}" rel="stylesheet" type="text/css" />
 
 

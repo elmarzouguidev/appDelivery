@@ -9,16 +9,9 @@
     <meta content="app_devlopper" name="Elmarzougui Abdelghafour" />
     <meta content="app_devlopper_website" name="elmarzougui.net" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <meta property="og:title" content="SameleonExpress" />
-    <meta property="og:description" content="SameleonExpress société de livraison au Maroc" />
-    <meta property="og:site_name" content="SameleonExpress" />
-    <meta property="og:type" content="article" />
-    <meta property="og:locale" content="fr_FR" />
-    <meta property="og:url" content="https://app.sameleon-express.ma/" />
-    <meta property="og:image" content="https://app.sameleon-express.ma/images/logo.png" />
-
     <link rel="shortcut icon" href="{{ asset('images/logo.png') }}">
+
+    @include('layouts._parts.__og_meta')
 
     @yield('css')
     <link href="{{ asset('assets/libs/magnific-popup/magnific-popup.css') }}" rel="stylesheet" type="text/css" />
