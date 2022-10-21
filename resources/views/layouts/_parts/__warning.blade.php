@@ -4,7 +4,7 @@
 
                                         <div class="alert alert-warning" role="alert">
                                             nous vous invitons à compléter votre profil 
-                                            @if(isDelivery)
+                                            @if(isDelivery())
                                                 <a href="{{route('delivery:profil')}}" class="alert-link">
                                                     Cliquez-ici ! 
                                                 </a>
