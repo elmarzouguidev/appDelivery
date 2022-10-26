@@ -115,7 +115,7 @@ Header add Devlopped-BY "Elmarzougui Abdelghafour"
 	Header set Referrer-Policy "same-origin"
 	Header set Feature-Policy "geolocation 'self'; vibrate 'none'"
 
-  Header add Content-Security-Policy "default-src 'self';"
+  #Header add Content-Security-Policy "default-src 'self';"
   Header set Permissions-Policy "geolocation=self"
 </IfModule>
 
