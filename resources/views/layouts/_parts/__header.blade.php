@@ -139,6 +139,7 @@
                         </div>
                     @endforelse
                     <div class="p-2 border-top d-grid">
+                        
                         <form id="readAllNotifications" method="post"
                             action="{{ route('admin:home.read.notifications') }}">
                             @csrf
