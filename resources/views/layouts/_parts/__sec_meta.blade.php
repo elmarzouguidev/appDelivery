@@ -11,7 +11,7 @@
 
 <meta name="google" content="notranslate">
 
-<link rel="dns-prefetch" href="{{  request()->getHttpHost() }}">
+<link rel="dns-prefetch" href="{{  request()->getSchemeAndHttpHost() }}">
 
 <link rel="preconnect" href="{{request()->getSchemeAndHttpHost()}}">
 
