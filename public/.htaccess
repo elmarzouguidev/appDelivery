@@ -99,3 +99,9 @@ SetOutputFilter DEFLATE
   ExpiresByType application/pdf "access plus 1 month"
   ExpiresByType image/vnd.microsoft.icon "access plus 1 year"
 </IfModule>
+
+# added by abdelghafour 26-10-2022
+
+Header Set Strict-Transport-Security: max-age=10886400;
+Header Set Strict-Transport-Security: max-age=10886400; includeSubDomains
+Header set Content-Security-Policy "default-src 'self';"
