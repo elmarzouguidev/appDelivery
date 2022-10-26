@@ -127,13 +127,27 @@
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
+                                                <label for="bank_name" class="col-md-2 col-form-label">Banque *</label>
+                                                <div class="col-md-10">
+                                                    <input class="form-control" type="text" name="bank_name"
+                                                        value="{{ $setting->bank_name }}" placeholder="bank_name" id="bank_name">
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label for="bank_rib" class="col-md-2 col-form-label">RIB *</label>
+                                                <div class="col-md-10">
+                                                    <input class="form-control" type="number" name="bank_rib"
+                                                        value="{{ $setting->bank_rib }}" placeholder="bank_rib" id="bank_rib">
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
                                                 <label for="addresse" class="col-md-2 col-form-label">LOGO *</label>
                                                 <div class="col-md-10">
                                                   
                                                        <img src="{{ asset('storage/' . $setting->logo) }}" class="img-fluid" width="10%">
 
                                                     <input class="form-control @error('logo') is-invalid @enderror" name="logo" type="file"
-                                                        accept="image/*" required />
+                                                        accept="image/*"  />
                                                     @error('photo')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>

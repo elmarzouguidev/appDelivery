@@ -13,6 +13,7 @@ class CompanySettingController extends Controller
     public function index(CompanySettings $settings)
     {
 
+        
         return view('theme.pages.Setting.index', [
             'name' => $settings->name,
             'website' => $settings->website,

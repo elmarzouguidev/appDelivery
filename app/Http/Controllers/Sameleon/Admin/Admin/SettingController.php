@@ -16,6 +16,7 @@ class SettingController extends Controller
     public function index(CompanySettings $settings)
     {
 
+     
         return view('Sameleon.Admin.SettingV2.Company.index', [
             'setting' => $settings,
         ]);
@@ -38,6 +39,9 @@ class SettingController extends Controller
         $settings->cnss = $request->cnss;
         $settings->patente = $request->patente;
         $settings->if = $request->if;
+
+        $settings->bank_name = $request->bank_name;
+        $settings->bank_rib = $request->bank_rib;
 
         if ($request->hasFile('logo')) {
 

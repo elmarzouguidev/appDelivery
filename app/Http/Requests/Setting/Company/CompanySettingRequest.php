@@ -36,6 +36,9 @@ class CompanySettingRequest extends FormRequest
             'cnss' => ['nullable', 'numeric'],
             'patente' => ['nullable', 'numeric'],
             'if' => ['nullable', 'string'],
+
+            'bank_name'=>['nullable', 'string'],
+            'bank_rib'=>['nullable', 'numeric'],
         ];
     }
 }
