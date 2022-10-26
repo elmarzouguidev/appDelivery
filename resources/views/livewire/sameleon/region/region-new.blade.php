@@ -40,6 +40,7 @@
                                     </th>
 
                                     <th class="align-middle">Nom</th>
+                                    <th class="align-middle">Frais</th>
                                     <th class="align-middle">Ville</th>
                                     <th class="align-middle">Action</th>
                                 </tr>
@@ -56,8 +57,13 @@
                                                     for="region-{{ $region->id }}"></label>
                                             </div>
                                         </td>
+                                 
                                         <td>
                                             {{ $region->name }}
+                                            <p class="text-muted mb-0"></p>
+                                        </td>
+                                        <td>
+                                            {{ number_format($region->frais,2) }} DH
                                             <p class="text-muted mb-0"></p>
                                         </td>
                                         <td>

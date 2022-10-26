@@ -111,7 +111,7 @@ class AdminProductController extends Controller
 
         /****Create Default Stock ****/
 
-        if ($product) {
+        /*if ($product) {
 
             $city = City::find(1); //casablanca
 
@@ -131,7 +131,7 @@ class AdminProductController extends Controller
             $stock->sent_at = now();
             $stock->notes = 'Default Stock';
             $stock->save();
-        }
+        }*/
         $delay = now()->addMinutes(10);
 
         //$user->notify((new ProductCreated($product))->delay($delay));
@@ -165,6 +165,8 @@ class AdminProductController extends Controller
         $product->save();
 
         if ($request->hasFile('photo')) {
+
+            $product->clearMediaCollection('products_photos');
 
             $product->addMediaFromRequest('photo')->toMediaCollection('products_photos');
         }

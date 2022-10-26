@@ -28,7 +28,7 @@ class UpdateRegionFormRequest extends FormRequest
             'name' => ['required', 'string', Rule::unique('regions')->ignore($this->route('region'), 'uuid')],
             'city' => ['nullable', 'integer'],
 
-            'frais' => ['nullable', 'numeric'],
+            'frais' => ['required', 'numeric'],
             'code' => ['nullable', 'string',  Rule::unique('regions')->ignore($this->route('region'), 'uuid')],
         ];
     }
