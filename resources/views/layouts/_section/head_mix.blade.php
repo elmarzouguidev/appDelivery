@@ -5,14 +5,14 @@
 
     <meta name="robots" content="noindex, nofollow" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="app_version" name="1.0.0" />
-    <meta content="app_devlopper" name="Elmarzougui Abdelghafour" />
-    <meta content="app_devlopper_website" name="https://elmarzougui.com" />
-    
-    <meta content="app_devlopper_facebook" name="https://www.facebook.com/devscript" />
-    <meta content="app_devlopper_linkedin" name="https://www.linkedin.com/in/devscript/" />
-    <meta content="app_devlopper_twitter"  name="https://twitter.com/devscriptt" />
-    <meta content="app_devlopper_github"   name="https://github.com/devscript-abdo" />
+    <meta name="app_version" content="1.0.0" />
+    <meta name="app_devlopper" content="Elmarzougui Abdelghafour" />
+    <meta name="app_devlopper_website" content="https://elmarzougui.com" />
+
+    <meta name="app_devlopper_facebook" content="https://www.facebook.com/devscript" />
+    <meta name="app_devlopper_linkedin" content="https://www.linkedin.com/in/devscript/" />
+    <meta name="app_devlopper_twitter"  content="https://twitter.com/devscriptt" />
+    <meta name="app_devlopper_github"   content="https://github.com/devscript-abdo" />
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="{{ asset('images/logo.png') }}">
