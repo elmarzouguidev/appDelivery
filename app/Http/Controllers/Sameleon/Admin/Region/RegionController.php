@@ -63,7 +63,8 @@ class RegionController extends Controller
 
         if ($region) {
 
-            //dd("yes region");
+            $region->commands->each->update(['region_id' => null,'region_uuid' => null]);
+
             $region->delete();
 
             return redirect()->back()->with('success', 'la région a été supprimer avec success');

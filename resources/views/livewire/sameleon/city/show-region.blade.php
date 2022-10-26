@@ -18,14 +18,16 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Nom Du Région</th>
+                                        <th>Frais</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($cityEdit->regions as $region)
                                         <tr>
-                                            <th scope="row">{{ $region->id }}</th>
+                                            <th scope="row">{{ $loop->index + 1 }}</th>
                                             <td>{{ $region->name }}</td>
+                                            <td>{{ $region->frais }}</td>
                                             <td>
                                                 <div class="d-flex gap-3">
 
@@ -33,7 +35,7 @@
                                                         class="text-success">
                                                         <i class="mdi mdi-pencil font-size-18"></i>
                                                     </a>--}}
-                                                    {{--<a href="#" class="text-danger" onclick="
+                                                    <a href="#" class="text-danger" onclick="
                                                         var result = confirm('Are you sure you want to delete this region ?');
         
                                                         if(result){
@@ -41,7 +43,7 @@
                                                             document.getElementById('delete-region-{{ $region->uuid }}').submit();
                                                         }">
                                                         <i class="mdi mdi-delete font-size-18"></i>
-                                                    </a>--}}
+                                                    </a>
                                                 </div>
                                             </td>
                                             <form id="delete-region-{{ $region->uuid }}" method="post"
