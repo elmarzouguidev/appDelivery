@@ -171,6 +171,12 @@
                         {{ auth()->user()->full_name ?? '' }}
                     </span>
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+              
+                    <span class="d-none d-xl-inline-block ms-1" key="t-role">
+
+                       <strong> {{ auth()->user()->getRoleNames()->first() ?? 'User'}}</strong>
+                    
+                    </span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
 
