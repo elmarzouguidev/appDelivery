@@ -11,7 +11,7 @@
     <meta name="author" content="Elmarzougui Abdelghafour">
     <meta name="app_version" content="1.0.0" />
     <meta name="app_devlopper" content="Elmarzougui Abdelghafour" />
-    <meta name="app_devlopper_website" content="https://elmarzougui.com" />
+    <meta name="app_devlopper_website"  content="https://elmarzougui.com" />
     <meta name="app_devlopper_facebook" content="https://www.facebook.com/devscript" />
     <meta name="app_devlopper_linkedin" content="https://www.linkedin.com/in/devscript/" />
     <meta name="app_devlopper_twitter"  content="https://twitter.com/devscriptt" />
