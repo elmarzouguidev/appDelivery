@@ -20,6 +20,9 @@ class CompanySettings extends Settings
     public ?string $patente;
     public ?string $if;
 
+    public ?string $bank_name;
+    public ?string $bank_rib;
+
 
     public static function group(): string
     {

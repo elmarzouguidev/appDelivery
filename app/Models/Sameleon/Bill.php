@@ -23,6 +23,8 @@ class Bill extends Model implements HasMedia
     protected $fillable = [
         'bill_date',
         'bill_mode',
+        'bank_name',
+        'bank_rib',
         'reference',
         'notes',
         'price_total',

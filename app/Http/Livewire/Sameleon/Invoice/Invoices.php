@@ -80,11 +80,17 @@ class Invoices extends Component
 
         $invoice->loadSum('articles', 'price_total');
 
+        $bankAccount = $invoice->client->bank->first() ?? [];
+
+        //dd($bankAccount->name,"##",$bankAccount->account);
+
         $biller = [
 
             'bill_date' => $this->date,
             'bill_mode' => $this->mode,
             'reference' => $this->reference,
+            'bank_name'  => $bankAccount->name ?? null,
+            'bank_rib'   => $bankAccount->account->rib ?? null,
             'notes' => $this->notes,
             'price_ht' => $this->price,
             'price_total' => $this->price,

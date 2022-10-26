@@ -227,6 +227,24 @@
                             </td>
                  
                         </tr>
+                        @if($bill->bank_name)
+                            <tr>
+
+                                <td style="width: 100% ; text-align: left; !important">
+                                    <strong>Banque : {{ $bill->bank_name }}</strong><br />
+                                </td>
+
+                            </tr>
+                        @endif
+                        @if($bill->bank_rib)
+                            <tr>
+
+                                <td style="width: 100% ; text-align: left; !important">
+                                    <strong>RIB : {{ $bill->bank_rib }}</strong><br />
+                                </td>
+
+                            </tr>
+                        @endif
                         @if($bill->reference)
                             <tr>
 

@@ -65,17 +65,20 @@ class Invoices extends Component
 
         $invoice->loadSum('articles', 'price_total');
 
+
         $biller = [
 
             'bill_date' => $this->date,
             'bill_mode' => $this->mode,
             'reference' => $this->reference,
+            'bank_name'  => getCompany()->bank_name ?? null,
+            'bank_rib'   => getCompany()->bank_rib ?? null,
             'notes' => $this->notes,
             'price_ht' => $this->price,
             'price_total' => $this->price,
             'price_tva' => $this->price,
-            'delivery_id' => $invoice->delivery_id,
-            'delivery_uuid' => $invoice->delivery_uuid,
+            'client_id' => $invoice->user_id,
+            'client_uuid' => $invoice->user_uuid,
         ];
 
         $bill = $invoice->bill()->create($biller);
