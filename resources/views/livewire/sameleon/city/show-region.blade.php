@@ -27,7 +27,9 @@
                                         <tr>
                                             <th scope="row">{{ $loop->index + 1 }}</th>
                                             <td>{{ $region->name }}</td>
-                                            <td>{{ $region->frais }}</td>
+                                            <td>
+                                                {{ number_format($region->frais,2) }} DH
+                                            </td>
                                             <td>
                                                 <div class="d-flex gap-3">
 
