@@ -27,14 +27,15 @@
             </button>
 
             <!-- App Search-->
-            {{-- <form class="app-search d-none d-lg-block">
+            {{--<form class="app-search d-none d-lg-block">
                 <div class="position-relative">
-                    <input type="text" class="form-control" placeholder="Chercher...">
-                    <span class="bx bx-search-alt"></span>
+                    <input type="text" class="form-control" placeholder="{{ auth()->user()->getRoleNames()->first() ?? 'User'}}">
+                    <span>
+                        <strong> </strong>
+                    </span>
                 </div>
-            </form> --}}
-
-
+            </form>--}}
+        
         </div>
 
         <div class="d-flex">

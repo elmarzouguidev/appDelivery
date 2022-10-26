@@ -232,6 +232,15 @@
                             </td>
 
                         </tr>
+                        @if($bill->reference)
+                            <tr>
+
+                                <td style="width: 100% ; text-align: left; !important">
+                                    <strong>Référence : {{ $bill->reference }}</strong><br />
+                                </td>
+
+                            </tr>
+                        @endif
                     </table>
                 </td>
             </tr>
