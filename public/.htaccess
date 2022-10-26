@@ -20,6 +20,7 @@
     RewriteRule ^ index.php [L]
 </IfModule>
 header("X-Robots-Tag: noindex, nofollow", true);
+
 # Allow access from all domains for webfonts.
 # Alternatively you could only whitelist your
 # subdomains like "subdomain.example.com".
@@ -102,6 +103,8 @@ SetOutputFilter DEFLATE
 
 # added by abdelghafour 26-10-2022
 
+Header add Devlopped-BY "Elmarzougui Abdelghafour"
+
 # Security Headers
 <IfModule mod_headers.c>
 	Header set X-XSS-Protection "1; mode=block"
@@ -114,4 +117,9 @@ SetOutputFilter DEFLATE
 
   Header add Content-Security-Policy "default-src 'self';"
   Header set Permissions-Policy "geolocation=self"
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header unset X-Powered-By
+  Header always unset X-Powered-By
 </IfModule>
