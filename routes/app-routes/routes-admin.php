@@ -354,6 +354,11 @@ Route::group(['prefix' => 'settings'], function () {
         Route::post('/', [SettingController::class, 'invoiceUpdate'])->name('settings.invoice.store');
     });
 
+    Route::group(['prefix' => 'pages'], function () {
+        Route::get('/', [SettingController::class, 'page'])->name('settings.page');
+        Route::post('/', [SettingController::class, 'pageUpdate'])->name('settings.page.store');
+    });
+
     Route::group(['prefix' => 'integrations'], function () {
 
         Route::get('/', [IntegrationController::class, 'index'])->name('settings.integrations.index');

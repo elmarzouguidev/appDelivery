@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Setting\Company\CompanySettingRequest;
 use App\Http\Requests\Setting\Document\DocumentRequest;
+use App\Http\Requests\Setting\Page\PageRequest;
+use App\Http\Requests\SettingPagePageRequest;
 use App\Settings\CompanySettings;
 use App\Settings\DocumentSettings;
+use App\Settings\PageSettings;
 use Illuminate\Support\Facades\Storage;
 
 class SettingController extends Controller
@@ -71,6 +74,23 @@ class SettingController extends Controller
         $settings->invoice_start = (integer)$request->invoice_start;
         
         $settings->invoice_prefix = $request->invoice_prefix;
+
+        $settings->save();
+
+        return redirect()->back()->with('success', "Update a éte effectuer avec success");
+    }
+
+    public function page(PageSettings $settings)
+    {
+        return view('Sameleon.Admin.SettingV2.Page.index', [
+            'setting' => $settings,
+        ]);
+    }
+
+    public function pageUpdate(PageRequest $request , PageSettings $settings)
+    {
+       
+        $settings->product_condition = $request->product_condition;
 
         $settings->save();
 

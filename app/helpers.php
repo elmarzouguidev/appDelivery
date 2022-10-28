@@ -2,6 +2,7 @@
 
 use App\Settings\CompanySettings;
 use App\Settings\DocumentSettings;
+use App\Settings\PageSettings;
 
 if (!function_exists('getDocument')) {
     function getDocument(): DocumentSettings
@@ -17,6 +18,12 @@ if (!function_exists('getCompany')) {
     }
 }
 
+if (!function_exists('getPage')) {
+    function getPage(): PageSettings
+    {
+        return app(PageSettings::class);
+    }
+}
 
 if (!function_exists('getDocument')) {
     function getImagePath()
