@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Sameleon\Product\ProductFormRequest;
 use App\Http\Requests\Sameleon\Product\ProductUpdateFormRequest;
 use App\Models\Sameleon\City;
+use App\Models\Sameleon\Condition;
 use App\Models\Sameleon\Product;
 use App\Models\Sameleon\Stock;
 use App\Models\Sameleon\User;
@@ -191,5 +192,31 @@ class AdminProductController extends Controller
         }
 
         return redirect(route('admin:products.index'))->with('success', "error . . . ");
+    }
+
+    public function viewCondition(Request $request)
+    {
+
+        $request->validate(['conditionId' => ['required', 'uuid'], 'userId' => ['required', 'uuid']]);
+
+        $condition = Condition::whereUuid($request->conditionId)->first();
+
+        $user = auth()->id();
+
+        if ($condition) {
+
+            $viewed = $condition->viewed ?? [];
+
+            if ($user && !in_array($user, $viewed)) {
+
+                $viewed = array_merge(
+                    $viewed,
+                    [$user]
+                );
+
+                $condition->update(['viewed' => $viewed]);
+            }
+        }
+        return redirect()->back();
     }
 }

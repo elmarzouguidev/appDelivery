@@ -1,4 +1,4 @@
-<div class="modal fade" id="conditionModal" tabindex="-1" aria-labelledby="subscribeModalLabel" aria-hidden="true">
+<div class="modal fade" id="conditionsModal" tabindex="-1" aria-labelledby="subscribeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header border-bottom-0">
@@ -11,7 +11,7 @@
                 action="{{ route('admin:products.condition') }}">
                 @csrf
                 @method('PUT')
-                <input type="hidden" name="conditionId" value="{{$condition->uuid}}">
+                <input type="hidden" name="conditionId" value="{{$conditions->uuid}}">
                 <input type="hidden" name="userId" value="{{$user}}">
             </form>
             <div class="modal-body">
@@ -25,8 +25,8 @@
                     <div class="row justify-content-center">
                         <div class="col-xl-10">
                             <h4 class="text-primary">Attention !</h4>
-                            <h5 class="text-primary">{{$condition->title}}</h5>
-                            <p class="text-muted font-size-14 mb-4">{!! $condition->description !!}</p>
+                            <h5 class="text-primary">{{$conditions->title}}</h5>
+                            <p class="text-muted font-size-14 mb-4">{!! $conditions->description !!}</p>
 
                             {{--<div class="input-group rounded">
                                 <input type="email" class="form-control bg-transparent border-0" placeholder="Enter Email address" aria-label="Recipient's username" aria-describedby="button-addon2">

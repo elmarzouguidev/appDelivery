@@ -94,6 +94,8 @@ Route::group(['prefix' => 'products'], function () {
     Route::get('/create', [AdminProductController::class, 'create'])->name('products.create');
     Route::post('/create', [AdminProductController::class, 'store'])->name('products.store');
 
+    Route::put('/create', [AdminProductController::class, 'viewCondition'])->name('products.condition');
+
     Route::delete('/', [AdminProductController::class, 'delete'])->name('products.delete');
 
     Route::group(['prefix' => 'edit'], function () {

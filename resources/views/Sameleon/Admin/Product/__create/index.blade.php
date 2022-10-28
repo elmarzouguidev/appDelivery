@@ -120,5 +120,36 @@
 @endsection
 
 @push('scripts')
+<script>
+    setTimeout(function() {
+        $("#conditionsModal").modal("show");
+    }, 2e3);
+</script>
+<script>
+    $('.closeCondition').click(function() {
+
+
+        let userCompte = this.getAttribute('data-user');
+
+        setTimeout(function() {
+            document.getElementById('viewConditionForm')
+                .submit();
+        }, 1000);
+    });
+</script>
 
 @endpush
+
+@if($conditions->count())  
+    @php
+
+     $viewedIds = $conditions->viewed ?? [];
+
+    @endphp
+
+    @if (auth()->id() && !in_array(auth()->id(), $viewedIds))
+
+        @include('Sameleon.Admin.Product.__create.__condition')
+        
+    @endif
+@endif

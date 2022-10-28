@@ -39,4 +39,11 @@ class Condition extends Model
     {
         return json_decode($value);
     }
+
+    public function scopeActiveConditions($query)
+    {
+
+        return $query->whereActive(true)
+        ->latest()->first();
+    }
 }

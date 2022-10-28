@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Http\View\Composers\AnnonceComposer;
 use App\Http\View\Composers\CommandComposer;
+use App\Http\View\Composers\ConditionComposer;
 use App\Http\View\Composers\DeliveryComposer;
 use App\Http\View\Composers\InvoiceOfDay;
 use App\Http\View\Composers\NavBarComposer;
@@ -42,6 +43,10 @@ class ViewComposerServiceProvider extends ServiceProvider
             'Sameleon.Admin.Home2.*',
             'Sameleon.Admin.SubDelivery.Home2.*'
         ], AnnonceComposer::class);
+
+        View::composer([
+            'Sameleon.Admin.Product.*',
+        ], ConditionComposer::class);
         
         //View::composer(['Sameleon.Admin.Home.*'], DeliveryComposer::class);
 
