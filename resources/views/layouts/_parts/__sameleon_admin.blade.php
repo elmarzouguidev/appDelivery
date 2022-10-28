@@ -190,7 +190,14 @@
             <i class="bx bx-volume-full"></i>
             <span key="t-annonces">{{ __('Annonces') }}</span>
         </a>
+    </li>
 
+    <li>
+        <a href="{{ route('admin:conditions.index') }}">
+            <i class="bx bx-file"></i>
+            <span class="badge rounded-pill bg-info float-end">new</span>
+            <span key="t-conditions">{{ __('Conditions') }}</span>
+        </a>
     </li>
     <li>
         <a href="javascript: void(0);" class="has-arrow waves-effect">

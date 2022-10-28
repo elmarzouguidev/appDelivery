@@ -17,6 +17,7 @@ use App\Http\Controllers\Sameleon\Admin\City\AdminCityController;
 use App\Http\Controllers\Sameleon\Admin\Client\ClientController;
 use App\Http\Controllers\Sameleon\Admin\Command\AdminCommandController;
 use App\Http\Controllers\Sameleon\Admin\Command\PrintController;
+use App\Http\Controllers\Sameleon\Admin\Condition\ConditionController;
 use App\Http\Controllers\Sameleon\Admin\Contact\ContactController;
 use App\Http\Controllers\Sameleon\Admin\Delivery\DeliveryController;
 use App\Http\Controllers\Sameleon\Admin\Group\GroupController;
@@ -260,8 +261,6 @@ Route::group(['middleware' => ['role:SuperAdmin']], function () {
 });
 
 
-
-
 Route::group(['prefix' => 'complaints'], function () {
 
     Route::get('/', [ReclamationController::class, 'index'])->name('complaints.index');
@@ -421,6 +420,16 @@ Route::group(['prefix' => 'annonces'], function () {
     Route::delete('/delete', [AnnonceController::class, 'delete'])->name('annonces.delete');
 
     Route::put('/', [AnnonceController::class, 'activate'])->name('annonces.activate');
+});
+
+Route::group(['prefix' => 'conditions'], function () {
+
+    Route::get('/', [ConditionController::class, 'index'])->name('conditions.index');
+    Route::post('/', [ConditionController::class, 'store'])->name('conditions.store');
+
+    Route::delete('/delete', [ConditionController::class, 'delete'])->name('conditions.delete');
+
+    Route::put('/', [ConditionController::class, 'activate'])->name('conditions.activate');
 });
 
 Route::group(['prefix' => 'historiques'], function () {
