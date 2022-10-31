@@ -16,52 +16,54 @@ class PermissionSeeder extends Seeder
 
     protected $permissions = [
 
-        ['name' => 'products.browse', 'guard_name' => 'admin'],
-        ['name' => 'products.read', 'guard_name' => 'admin'],
-        ['name' => 'products.create', 'guard_name' => 'admin'],
-        ['name' => 'products.edit', 'guard_name' => 'admin'],
-        ['name' => 'products.delete', 'guard_name' => 'admin'],
+        ['name' => 'products.browse', 'guard_name' => 'admin','type'=>'client'],
+        ['name' => 'products.read', 'guard_name' => 'admin','type'=>'client'],
+        ['name' => 'products.create', 'guard_name' => 'admin','type'=>'client'],
+        ['name' => 'products.edit', 'guard_name' => 'admin','type'=>'client'],
+        ['name' => 'products.delete', 'guard_name' => 'admin','type'=>'client'],
 
-        ['name' => 'commands.browse', 'guard_name' => 'admin'],
-        ['name' => 'commands.read', 'guard_name' => 'admin'],
-        ['name' => 'commands.create', 'guard_name' => 'admin'],
-        ['name' => 'commands.edit', 'guard_name' => 'admin'],
-        ['name' => 'commands.delete', 'guard_name' => 'admin'],
+        ['name' => 'commands.browse', 'guard_name' => 'admin','type'=>'client'],
+        ['name' => 'commands.read', 'guard_name' => 'admin','type'=>'client'],
+        ['name' => 'commands.create', 'guard_name' => 'admin','type'=>'client'],
+        ['name' => 'commands.edit', 'guard_name' => 'admin','type'=>'client'],
+        ['name' => 'commands.delete', 'guard_name' => 'admin','type'=>'client'],
 
-        ['name' => 'invoices.browse', 'guard_name' => 'admin'],
-        ['name' => 'invoices.read', 'guard_name' => 'admin'],
-        ['name' => 'invoices.create', 'guard_name' => 'admin'],
-        ['name' => 'invoices.edit', 'guard_name' => 'admin'],
-        ['name' => 'invoices.delete', 'guard_name' => 'admin'],
+        ['name' => 'invoices.browse', 'guard_name' => 'admin','type'=>'client'],
+        ['name' => 'invoices.read', 'guard_name' => 'admin','type'=>'client'],
+        ['name' => 'invoices.create', 'guard_name' => 'admin','type'=>'client'],
+        ['name' => 'invoices.edit', 'guard_name' => 'admin','type'=>'client'],
+        ['name' => 'invoices.delete', 'guard_name' => 'admin','type'=>'client'],
 
 
-        ['name' => 'payments.browse', 'guard_name' => 'admin'],
-        ['name' => 'payments.read', 'guard_name' => 'admin'],
-        ['name' => 'payments.create', 'guard_name' => 'admin'],
-        ['name' => 'payments.edit', 'guard_name' => 'admin'],
-        ['name' => 'payments.delete', 'guard_name' => 'admin'],
+        ['name' => 'payments.browse', 'guard_name' => 'admin','type'=>'client'],
+        ['name' => 'payments.read', 'guard_name' => 'admin','type'=>'client'],
+        ['name' => 'payments.create', 'guard_name' => 'admin','type'=>'client'],
+        ['name' => 'payments.edit', 'guard_name' => 'admin','type'=>'client'],
+        ['name' => 'payments.delete', 'guard_name' => 'admin','type'=>'client'],
 
-        ['name' => 'annonces.browse', 'guard_name' => 'admin'],
-        ['name' => 'annonces.read', 'guard_name' => 'admin'],
-        ['name' => 'annonces.create', 'guard_name' => 'admin'],
-        ['name' => 'annonces.edit', 'guard_name' => 'admin'],
-        ['name' => 'annonces.delete', 'guard_name' => 'admin'],
+        ['name' => 'excel.import', 'guard_name' => 'admin','type'=>'client'],
 
-        ['name' => 'cities.browse', 'guard_name' => 'admin'],
-        ['name' => 'cities.read', 'guard_name' => 'admin'],
-        ['name' => 'cities.create', 'guard_name' => 'admin'],
-        ['name' => 'cities.edit', 'guard_name' => 'admin'],
-        ['name' => 'cities.delete', 'guard_name' => 'admin'],
+        ['name' => 'api.create', 'guard_name' => 'admin','type'=>'client'],
 
-        ['name' => 'settings.browse', 'guard_name' => 'admin'],
-        ['name' => 'settings.read', 'guard_name' => 'admin'],
-        ['name' => 'settings.create', 'guard_name' => 'admin'],
-        ['name' => 'settings.edit', 'guard_name' => 'admin'],
-        ['name' => 'settings.delete', 'guard_name' => 'admin'],
+        ['name' => 'annonces.browse', 'guard_name' => 'admin','type'=>'admin'],
+        ['name' => 'annonces.read', 'guard_name' => 'admin','type'=>'admin'],
+        ['name' => 'annonces.create', 'guard_name' => 'admin','type'=>'admin'],
+        ['name' => 'annonces.edit', 'guard_name' => 'admin','type'=>'admin'],
+        ['name' => 'annonces.delete', 'guard_name' => 'admin','type'=>'admin'],
 
-        ['name' => 'excel.import', 'guard_name' => 'admin'],
+        ['name' => 'cities.browse', 'guard_name' => 'admin','type'=>'admin'],
+        ['name' => 'cities.read', 'guard_name' => 'admin','type'=>'admin'],
+        ['name' => 'cities.create', 'guard_name' => 'admin','type'=>'admin'],
+        ['name' => 'cities.edit', 'guard_name' => 'admin','type'=>'admin'],
+        ['name' => 'cities.delete', 'guard_name' => 'admin','type'=>'admin'],
 
-        ['name' => 'api.create', 'guard_name' => 'admin'],
+        ['name' => 'settings.browse', 'guard_name' => 'admin','type'=>'admin'],
+        ['name' => 'settings.read', 'guard_name' => 'admin','type'=>'admin'],
+        ['name' => 'settings.create', 'guard_name' => 'admin','type'=>'admin'],
+        ['name' => 'settings.edit', 'guard_name' => 'admin','type'=>'admin'],
+        ['name' => 'settings.delete', 'guard_name' => 'admin','type'=>'admin'],
+
+
 
 
     ];

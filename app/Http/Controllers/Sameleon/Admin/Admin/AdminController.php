@@ -23,7 +23,11 @@ class AdminController extends Controller
 
         $users = app(AdminInterface::class)->getAdmins();
 
-        return view('Sameleon.Admin.Admin.__normal_table.index', compact('users'));
+        $permissions = Permission::where('type','admin')->get()->mapToGroups(function ($item, $key) {
+            return [strstr($item['name'], '.', true) => ['name' => $item['name'], 'id' => $item['id']]];
+        });
+
+        return view('Sameleon.Admin.Admin.__normal_table.index', compact('users','permissions'));
     }
 
     public function create()
@@ -90,14 +94,18 @@ class AdminController extends Controller
         return redirect()->back()->with('success', "Update  a éte effectuer avec success");
     }
 
-    public function syncPermission(AdminPermissionFormRequest $request, User $admin)
+
+    public function syncPermission(AdminPermissionFormRequest $request)
     {
 
-        $admin = User::findOrFail($admin);
+        $admin = User::Role(['Admin','SuperAdmin'])->whereUuid($request->adminId)->firstOrFail();
+
+        //dd('yes here in Admins','##',$admin,'permissions',$request->permissions);
+        //abort_if($client->email === 'abdelgha4or@gmail.com' || $client->hasRole('Developper'), 403);
 
         $admin->syncPermissions($request->permissions);
 
-        return redirect()->back()->with('success', "Syn permissions   a éte effectuer avec success");
+        return redirect()->back()->with('success', "Les permissions sont synchronisée avec succès");
     }
 
     public function delete(Request $request)

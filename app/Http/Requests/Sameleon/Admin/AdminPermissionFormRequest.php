@@ -24,7 +24,7 @@ class AdminPermissionFormRequest extends FormRequest
     public function rules()
     {
         return [
-            
+            'adminId' => 'required|uuid',
             'permissions' => ['array', 'required'],
             'permissions.*' => ['required', 'string', 'exists:permissions,name'],
         ];

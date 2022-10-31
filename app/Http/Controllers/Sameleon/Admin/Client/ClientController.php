@@ -30,7 +30,7 @@ class ClientController extends Controller
 
         $clients = app(ClientInterface::class)->getClients();
 
-        $permissions = Permission::all()->mapToGroups(function ($item, $key) {
+        $permissions = Permission::where('type','client')->get()->mapToGroups(function ($item, $key) {
             return [strstr($item['name'], '.', true) => ['name' => $item['name'], 'id' => $item['id']]];
         });
 

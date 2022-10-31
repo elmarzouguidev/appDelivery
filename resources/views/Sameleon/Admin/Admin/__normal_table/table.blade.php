@@ -67,7 +67,12 @@
 
                                     <td>
                                         <div class="d-flex gap-3">
+                             
                                             @if ($user->email !== 'abdelgha4or@gmail.com')
+                                                <button type="button" class="btn btn-sm btn-info "
+                                                    data-bs-toggle="modal" data-bs-target=".EditAdminPermissions-{{$user->uuid}}">
+                                                    Permissions
+                                                </button>
                                                 <a href="{{ route('admin:admins.edit', $user->uuid) }}"
                                                     class="text-success">
                                                     <i class="mdi mdi-pencil font-size-18"></i>
