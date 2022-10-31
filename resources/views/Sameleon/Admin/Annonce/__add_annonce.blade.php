@@ -43,7 +43,7 @@
                     <div class="row mb-4">
                         <label for="description" class="col-form-label col-lg-2">Description </label>
                         <div class="col-lg-10">
-                            <textarea class="form-control @error('description') is-invalid @enderror" id="descriptionii" name="description" rows="8"></textarea>
+                            <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="8"></textarea>
                             @error('description')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Sameleon\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -63,9 +64,6 @@ class PermissionSeeder extends Seeder
         ['name' => 'settings.edit', 'guard_name' => 'admin','type'=>'admin'],
         ['name' => 'settings.delete', 'guard_name' => 'admin','type'=>'admin'],
 
-
-
-
     ];
 
 
@@ -80,10 +78,11 @@ class PermissionSeeder extends Seeder
             Permission::create($permission);
         }
 
-        $permissionsItems = Permission::all();
+        $permissionsAdminItems = Permission::whereType('admin')->get();
 
         $adminRole = Role::whereName('SuperAdmin')->first();
 
-        $adminRole->syncPermissions($permissionsItems);
+        $adminRole->syncPermissions($permissionsAdminItems);
+
     }
 }

@@ -56,7 +56,7 @@
                                         {{ $annonce->title }}
                                     </td>
                                     <td>
-                                        {{ $annonce->description }}
+                                        {!! $annonce->description !!}
                                     </td>
                                 
                                     <td>

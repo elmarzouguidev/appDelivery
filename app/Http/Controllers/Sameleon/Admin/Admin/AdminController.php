@@ -37,7 +37,11 @@ class AdminController extends Controller
         //$roles = Role::all();
 
         $roles = Role::all()->reject(function ($role, $key) {
-            return $role->name == 'Developper' || $role->name == 'Client' || $role->name == 'Delivery';
+            return $role->name == 'Developper' || 
+            $role->name == 'Client' || 
+            $role->name == 'Delivery'||
+            $role->name == 'SubDelivery' || 
+            $role->name == 'DeliveryEntreprise';
         });
 
         return view('Sameleon.Admin.Admin.__create.index', compact('roles'));

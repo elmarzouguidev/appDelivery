@@ -119,7 +119,7 @@
             <span key="t-payments">{{ __('Paiements') }}</span>
         </a>
     </li>
-    @if(isAdmin())
+    {{--@if(isAdmin())
         <li>
             <a href="{{ route('admin:treausry.index') }}">
                 <i class="bx bx-money"></i>
@@ -127,7 +127,7 @@
                 <span key="t-treausry">{{ __('Trésorerie') }}</span>
             </a>
         </li>
-    @endif
+    @endif--}}
 
     <li class="menu-title" key="t-reclamations">Réclamations</li>
 
