@@ -434,6 +434,9 @@ Route::group(['prefix' => 'conditions'], function () {
     Route::delete('/delete', [ConditionController::class, 'delete'])->name('conditions.delete');
 
     Route::put('/', [ConditionController::class, 'activate'])->name('conditions.activate');
+
+    Route::get('/edit/{condition}', [ConditionController::class, 'edit'])->name('conditions.edit');
+    Route::post('/edit/{condition}', [ConditionController::class, 'update'])->name('conditions.update');
 });
 
 Route::group(['prefix' => 'historiques'], function () {

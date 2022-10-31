@@ -29,7 +29,6 @@
                                 </th>
 
                                 <th class="align-middle">Titre</th>
-                                <th class="align-middle">Contenu</th>
                                 <th class="align-middle">Etat</th>
                                 <th class="align-middle">Action</th>
                             </tr>
@@ -48,10 +47,8 @@
                                     <td>
                                         {{ $condition->title }}
                                     </td>
-                                    <td>
-                                        {!! $condition->description !!}
-                                    </td>
-                                
+                    
+                        
                                     <td>
 
                                         <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
@@ -65,10 +62,10 @@
                                     <td>
                                         <div class="d-flex gap-3">
 
-                                            {{--<a href="{{ route('admin:banks.edit', $condition->uuid) }}"
+                                            <a href="{{ route('admin:conditions.edit', $condition->uuid) }}"
                                                 class="text-success">
                                                 <i class="mdi mdi-pencil font-size-18"></i>
-                                            </a>--}}
+                                            </a>
                                             <a href="#" class="text-danger" onclick="
                                                 var result = confirm('Are you sure you want to delete this condition ?');
 
