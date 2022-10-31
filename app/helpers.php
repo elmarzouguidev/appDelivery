@@ -4,6 +4,7 @@ use App\Settings\CompanySettings;
 use App\Settings\DocumentSettings;
 use App\Settings\PageSettings;
 
+use Illuminate\Support\Str;
 if (!function_exists('getDocument')) {
     function getDocument(): DocumentSettings
     {
@@ -83,4 +84,15 @@ if (!function_exists('getNow')) {
     {
         return now()->format('Y-m-d');
     }
+}
+
+/******************* */
+
+if (!function_exists('getUuid')) {
+    function getUuid()
+    {
+        return Str::uuid()->toString();
+
+    }     
+    
 }

@@ -57,6 +57,11 @@ class RouteServiceProvider extends ServiceProvider
 
             $this->hooksRoutes();
         });
+
+
+        //parent::boot();
+
+     
     }
 
     /**
@@ -77,6 +82,7 @@ class RouteServiceProvider extends ServiceProvider
 
     private function adminRoutes()
     {
+
 
         Route::middleware(['web', 'prevent-back-history'])
             ->prefix('app')

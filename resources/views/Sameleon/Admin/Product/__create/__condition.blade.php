@@ -18,7 +18,9 @@
                 <div class="text-center mb-4">
                     <div class="avatar-md mx-auto mb-4">
                         <div class="avatar-title bg-light rounded-circle text-primary h1">
-                            <i class="bx bx-file"></i>
+
+                            <i class="bx bx-check-shield"></i>
+                            
                         </div>
                     </div>
 

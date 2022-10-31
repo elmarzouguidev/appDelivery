@@ -121,13 +121,7 @@
 
 @push('scripts')
 <script>
-    setTimeout(function() {
-        $("#conditionsModal").modal("show");
-    }, 2e3);
-</script>
-<script>
     $('.closeCondition').click(function() {
-
 
         let userCompte = this.getAttribute('data-user');
 
@@ -136,6 +130,12 @@
                 .submit();
         }, 1000);
     });
+</script>
+
+<script>
+    setTimeout(function() {
+        $("#conditionsModal").modal("show");
+    }, 2e3);
 </script>
 
 @endpush
