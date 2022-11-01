@@ -27,7 +27,6 @@
         "renatomarinho/laravel-page-speed": "^2.0",
         "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/cpu-load-health-check": "^1.0",
-        "spatie/dns": "^2.4",
         "spatie/laravel-backup": "^6.16",
         "spatie/laravel-collection-macros": "^7.11",
         "spatie/laravel-health": "^1.8",
