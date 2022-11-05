@@ -66,6 +66,8 @@ class ViewComposerServiceProvider extends ServiceProvider
             'layouts._parts.__sameleon_delivery_navbar'
         ], StockComposer::class);
 
+
+        /****** update abdo */
         View::composer(['layouts._parts.__sameleon_admin'], RamassageComposer::class);
     }
 }
