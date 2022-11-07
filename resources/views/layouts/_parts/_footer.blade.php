@@ -2,7 +2,12 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-6">
-                <script>document.write(new Date().getFullYear())</script> © <b>SAMELEON EXPRESS</b>
+                <script>document.write(new Date().getFullYear())</script> © <b>
+                    
+                    <a title="SAMELEON EXPRESS" href="https://sameleon-express.ma/" target="_blank">
+                        SAMELEON EXPRESS
+                    </a>
+                </b>
             </div>
             <!--<div class="col-sm-6">
                 <div class="text-sm-end d-none d-sm-block">
