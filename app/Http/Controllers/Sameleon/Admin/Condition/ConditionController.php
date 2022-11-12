@@ -74,7 +74,6 @@ class ConditionController extends Controller
 
         if ($condition) {
 
-
             $condition->delete();
 
             return redirect()->back()->with('success', "la condition a été supprimer avec success");
