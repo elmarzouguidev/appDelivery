@@ -20,7 +20,7 @@ class RamassageController extends Controller
 
             $ramassages = Ramassage::where('user_id', auth()->id())
                 ->where('user_uuid', auth()->user()->uuid)
-             
+                ->with('product:id,uuid')
                 ->get();
         } else {
             $ramassages = Ramassage::whereActive(true)

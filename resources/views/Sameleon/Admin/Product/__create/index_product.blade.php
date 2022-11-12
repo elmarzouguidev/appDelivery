@@ -23,6 +23,7 @@
                         @endif
                         <form method="post" action="{{route('admin:products.store')}}" enctype="multipart/form-data">
                             @csrf
+                            <input type="hidden" name="ramassageId" value="{{ $product->uuid }}">
                             <div class="row mb-4">
                                 <label for="name" class="col-form-label col-lg-2">Nom *</label>
                                 <div class="col-lg-10">

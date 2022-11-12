@@ -43,41 +43,41 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($ramassages as $product)
+                            @foreach ($ramassages as $ramassage)
                                 <tr>
                                     <td>
                                         <div class="form-check font-size-16">
                                             <input class="form-check-input" type="checkbox"
-                                                id="product-{{ $product->id }}">
-                                            <label class="form-check-label" for="product-{{ $product->id }}"></label>
+                                                id="ramassage-{{ $ramassage->id }}">
+                                            <label class="form-check-label" for="ramassage-{{ $ramassage->id }}"></label>
                                         </div>
                                     </td>
                                     <td>
-                                        {{ $product->name }}
+                                        {{ $ramassage->name }}
                                         <p class="text-muted mb-0"></p>
                                     </td>
                                     <td>
-                                        {{ $product->price }} DH
+                                        {{ $ramassage->price }} DH
                                     </td>
                                     <td>
-                                        {{ $product->qte }}
+                                        {{ $ramassage->qte }}
                                     </td>
                                     @if(isAdmin())
                                     <td>
 
                                         <a href="{{-- $client->url --}}" class="text-body fw-bold">
-                                            {{ optional($product->client)->full_name }}
+                                            {{ optional($ramassage->client)->full_name }}
                                         </a>
                                     </td>
                                     @endif
                                     <td>
 
-                                        {!! $product->addresse !!}
+                                        {!! $ramassage->addresse !!}
 
                                     </td>
                                     <td>
 
-                                        {!! $product->notes !!}
+                                        {!! $ramassage->notes !!}
 
                                     </td>
                                     <td>
@@ -87,11 +87,11 @@
                                                 @php
                                                     $disabled = '';
                                                     $text = 'envoyer la demande';
-                                                    if ($product->active && !$product->accepted) {
+                                                    if ($ramassage->active && !$ramassage->accepted) {
                                                         $disabled = 'disabled';
                                                         $text = 'déja envoyé';
                                                     }
-                                                    if($product->active && $product->accepted)
+                                                    if($ramassage->active && $ramassage->accepted)
                                                     {
                                                         $disabled = 'disabled';
                                                         $text = 'Traité';
@@ -100,7 +100,7 @@
                                                 @endphp
                                                 <button {{ $disabled }} class="btn btn-info" type="button"
                                                     class="btn btn-info  btn-sm"
-                                                    onclick=" document.getElementById('active-demande-{{ $product->uuid }}').submit();">
+                                                    onclick=" document.getElementById('active-demande-{{ $ramassage->uuid }}').submit();">
                                                     {{ $text }}
                                                 </button>
                                             @endif
@@ -108,7 +108,7 @@
                                                 @php
                                                     $disabled = '';
                                                     $text = 'accepter la demande';
-                                                    if ($product->accepted) {
+                                                    if ($ramassage->accepted) {
                                                         $disabled = 'disabled';
                                                         $text = 'déja accepté';
                                                     }
@@ -116,48 +116,55 @@
                                                 @endphp
                                                 <button {{ $disabled }} class="btn btn-info" type="button"
                                                     class="btn btn-info  btn-sm"
-                                                    onclick=" document.getElementById('accept-demande-{{ $product->uuid }}').submit();">
+                                                    onclick=" document.getElementById('accept-demande-{{ $ramassage->uuid }}').submit();">
                                                     {{ $text }}
                                                 </button>
                                             @endif
                                         </div>
                                     </td>
                                     @if(isClient())
-                                        <form id="active-demande-{{ $product->uuid }}" method="post"
+                                        <form id="active-demande-{{ $ramassage->uuid }}" method="post"
                                             action="{{ route('admin:ramassage.demande.active') }}">
                                             @csrf
                                             @method('PUT')
-                                            <input type="hidden" name="ramassageId" value="{{ $product->uuid }}">
+                                            <input type="hidden" name="ramassageId" value="{{ $ramassage->uuid }}">
                                         </form>
                                     @endif
                                     @if(isAdmin())
-                                        <form id="accept-demande-{{ $product->uuid }}" method="post"
+                                        <form id="accept-demande-{{ $ramassage->uuid }}" method="post"
                                             action="{{ route('admin:ramassage.demande.accept') }}">
                                             @csrf
                                             @method('PUT')
-                                            <input type="hidden" name="ramassageId" value="{{ $product->uuid }}">
+                                            <input type="hidden" name="ramassageId" value="{{ $ramassage->uuid }}">
                                         </form>
                                     @endif
 
                                     <td>
                                         <button {{isAdmin() ? 'disabled' :''}} class="btn btn-danger" type="button"
                                             class="btn btn-info btn-sm"
-                                            onclick=" document.getElementById('delete-ramassage-{{ $product->uuid }}').submit();">
+                                            onclick=" document.getElementById('delete-ramassage-{{ $ramassage->uuid }}').submit();">
                                             Supprimer
                                         </button>
-                                        <form id="delete-ramassage-{{ $product->uuid }}" method="post"
+                                        <form id="delete-ramassage-{{ $ramassage->uuid }}" method="post"
                                             action="{{ route('admin:ramassage.delete') }}">
                                             @csrf
                                             @method('DELETE')
-                                            <input type="hidden" name="ramassageDeleteId" value="{{ $product->uuid }}">
+                                            <input type="hidden" name="ramassageDeleteId" value="{{ $ramassage->uuid }}">
                                         </form>
 
-                                        @if(isClient() && $product->accepted)
-                                        <br>
-                                        <a href="{{route('admin:products.create',['fromRamassage'=>$product->uuid])}}" class="btn btn-info">
-                                            
-                                            Ajouter au produit
-                                        </a>
+                                        @if(isClient() && $ramassage->accepted)
+                                            <br>
+                                            @if(optional($ramassage->product)->uuid)
+                                                <a href="{{route('admin:products.edit',optional($ramassage->product)->uuid)}}" class="btn btn-info">
+                                                    
+                                                    Voir le produit
+                                                </a>
+                                            @else
+                                                <a href="{{route('admin:products.edit',['fromRamassage'=>$ramassage->uuid])}}" class="btn btn-info">
+                                                    
+                                                    Ajouter au produit
+                                                </a>
+                                            @endif
                                         @endif
                                     </td>
                                 </tr>

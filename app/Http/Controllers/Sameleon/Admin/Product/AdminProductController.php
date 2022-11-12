@@ -124,29 +124,12 @@ class AdminProductController extends Controller
             $product->addMediaFromRequest('photo')->toMediaCollection('products_photos');
         }
 
-        /****Create Default Stock ****/
+        if($request->has('ramassageId') && $request->filled('ramassageId'))
+        {
+            $ramassage = Ramassage::whereUuid($request->ramassageId)->first();
+            $ramassage->update(['product_id' => $product->id,'product_uuid' => $product->uuid]);
+        }
 
-        /*if ($product) {
-
-            $city = City::find(1); //casablanca
-
-            $stock = new Stock();
-            $stock->is_default = true;
-
-            $stock->product_id = $product->id;
-            $stock->product_uuid = $product->uuid;
-
-            $stock->client_id = $product->client->id;
-            $stock->client_uuid = $product->client->uuid;
-
-            $stock->city_id = $city->id;
-            $stock->city_uuid = $city->uuid;
-            $stock->qte_global = (int)$request->qte_global;
-            $stock->qte_rest = (int)$request->qte_global;
-            $stock->sent_at = now();
-            $stock->notes = 'Default Stock';
-            $stock->save();
-        }*/
         $delay = now()->addMinutes(10);
 
         //$user->notify((new ProductCreated($product))->delay($delay));
