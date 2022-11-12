@@ -2,8 +2,7 @@
 
 namespace App\Http\View\Composers;
 
-use App\Models\Sameleon\Product;
-use App\Models\Sameleon\Stock;
+use App\Models\Sameleon\Ramassage;
 use Illuminate\View\View;
 use Illuminate\Cache\CacheManager;
 
@@ -28,16 +27,14 @@ class RamassageComposer
     {
         if (isClient()) {
 
-            $ramassage = Product::where('user_id', auth()->id())
+            $ramassage = Ramassage::where('user_id', auth()->id())
                 ->where('user_uuid', auth()->user()->uuid)
-                ->doesntHave('ramassage')
-                ->whereIsOut(true)
-                ->where('can_ramassage', true)
+                ->whereActive(false)
+                ->whereAccepted(false)
                 ->count();
         } else {
-            $ramassage = Product::whereIsOut(true)
-
-                ->where('can_ramassage', false)
+            $ramassage = Ramassage::whereActive(true)
+                ->whereAccepted(false)
                 ->count();
         }
 

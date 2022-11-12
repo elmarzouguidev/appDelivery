@@ -15,16 +15,23 @@ class Ramassage extends Model
 
     protected $fillable = [
         'uuid',
+        'name',
+        'price',
+        'qte',
         'addresse',
+        'notes',
+        'active',
+        'user_id',
+        'user_uuid',
         'product_id',
         'product_uuid',
-        'client_id',
-        'client_uuid',
-        'active'
+        'category_id',
+        'accepted'
     ];
 
     protected $casts = [
-        'active' => 'boolean'
+        'active' => 'boolean',
+        'accepted'=>'boolean'
     ];
 
     public function product()
@@ -34,6 +41,6 @@ class Ramassage extends Model
 
     public function client()
     {
-        return $this->belongsTo(User::class, 'client_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

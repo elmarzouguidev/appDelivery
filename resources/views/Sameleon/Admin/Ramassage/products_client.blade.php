@@ -19,16 +19,16 @@
                                     </div>
                                 </th>
 
-                                <th class="align-middle">Image</th>
                                 <th class="align-middle">Nom</th>
                                 <th class="align-middle">Prix</th>
-                                <th class="align-middle">Quantité rest</th>
+                                <th class="align-middle">Quantité</th>
                                 <th class="align-middle">Adresse de ramassage</th>
+                                <th class="align-middle">Note</th>
                                 <th class="align-middle"></th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($products as $product)
+                            @foreach ($ramassages as $product)
                                 <tr>
                                     <td>
                                         <div class="form-check font-size-16">
@@ -38,40 +38,49 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div>
-
-                                            <img class="img-fluid" alt=""
-                                                src="{{ $product->getFirstMediaUrl('products_photos', 'normal') }}"
-                                                width="50">
-
-                                        </div>
-                                    </td>
-                                    <td>
                                         {{ $product->name }}
                                         <p class="text-muted mb-0"></p>
                                     </td>
                                     <td>
-                                        {{ $product->formated_price }} DH
+                                        {{ $product->price }} DH
                                     </td>
                                     <td>
-                                        {{ $product->qte_rest }}
+                                        {{ $product->qte }}
                                     </td>
                                     <td>
 
-                                        {!! optional($product->ramassage)->addresse !!}
+                                        {!! $product->addresse !!}
 
                                     </td>
                                     <td>
-                                        @php
-                                            $disabled = '';
-                                            $text = 'Encous';
-                                            
-                                            if ($product->ramassage && optional($product->ramassage)->addresse != null) {
-                                                $disabled = 'disabled';
-                                                $text = 'en attendant de ramassage';
-                                            }
-                                        @endphp
+
+                                        {!! $product->notes !!}
+
+                                    </td>
+                                    <td>
                                         <div class="d-flex gap-3">
+
+                                            {{-- <a href="{{ $product->edit_url }}" class="text-success">
+                                                <i class="mdi mdi-pencil font-size-18"></i>
+                                            </a>
+                                            <a href="#" class="text-danger" onclick="
+                                                var result = confirm('Are you sure you want to delete this product ?');
+
+                                                if(result){
+                                                    event.preventDefault();
+                                                    document.getElementById('delete-prod-{{ $product->uuid }}').submit();
+                                                }">
+                                                <i class="mdi mdi-delete font-size-18"></i>
+                                            </a> --}}
+                                            @php
+                                                $disabled = '';
+                                                $text = 'Envoyer la demande';
+                                                if ($product->accepted) {
+                                                    $disabled = 'disabled';
+                                                    $text = 'déja Envoyé';
+                                                }
+              
+                                            @endphp
                                             <button {{ $disabled }} class="btn btn-info" type="button"
                                                 class="btn btn-info  btn-sm"
                                                 onclick=" document.getElementById('send-demande-{{ $product->uuid }}').submit();">
@@ -79,12 +88,12 @@
                                             </button>
                                         </div>
                                     </td>
-                                    {{-- <form id="delete-prod-{{ $product->uuid }}" method="post"
-                                        action="{{ $product->delete_url }}">
+                                    <form id="send-demande-{{ $product->uuid }}" method="post"
+                                        action="{{ route('admin:ramassage.demande') }}">
                                         @csrf
-                                        @method('DELETE')
+                                        @method('PUT')
                                         <input type="hidden" name="productId" value="{{ $product->uuid }}">
-                                    </form> --}}
+                                    </form>
                                 </tr>
                             @endforeach
 

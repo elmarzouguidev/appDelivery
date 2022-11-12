@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Sameleon\Admin\Ramassage;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Sameleon\Ramassage\NewRamassageFormRequest;
 use App\Http\Requests\Sameleon\Ramassage\RamassageFormRequest;
 use App\Models\Sameleon\Product;
+use App\Models\Sameleon\Ramassage;
 use Illuminate\Http\Request;
 
 class RamassageController extends Controller
@@ -16,24 +18,37 @@ class RamassageController extends Controller
 
         if (isClient()) {
 
-            $products = Product::where('user_id', auth()->id())
+            $ramassages = Ramassage::where('user_id', auth()->id())
                 ->where('user_uuid', auth()->user()->uuid)
-                //->where('qte_rest', 0)
-                ->whereIsOut(true)
-                ->where('can_ramassage', true)
-                ->with('media')
+             
                 ->get();
         } else {
-            $products = Product::with('client:id,nom,prenom', 'ramassage')
-                ->whereIsOut(true)
-                //->where('can_ramassage', false)
-                ->with('media')
+            $ramassages = Ramassage::whereActive(true)
+                ->whereAccepted(false)
+                ->with('client:id,nom,prenom')
+             
                 ->get();
         }
 
-        return view('Sameleon.Admin.Ramassage.index', compact('products'));
+        return view('Sameleon.Admin.Ramassage.index', compact('ramassages'));
     }
 
+    public function newStore(NewRamassageFormRequest $request)
+    {
+        $ramassage = new Ramassage();
+        $ramassage->name = $request->name;
+        $ramassage->price = $request->price;
+        $ramassage->qte = $request->qte;
+        $ramassage->addresse = $request->addresse;
+        $ramassage->notes = $request->notes;
+        $ramassage->user_id = auth()->id();
+        $ramassage->user_uuid = auth()->user()->uuid;
+        $ramassage->save();
+
+        return redirect()->back()->with('success', "La demande a éte ajouter avec success");
+    }
+
+    /*****Old methed to be contunied */
     public function store(RamassageFormRequest $request)
     {
 
@@ -58,15 +73,43 @@ class RamassageController extends Controller
         return redirect()->back()->with('success', "L'adresse de ramassage a éte envoyer avec success");
     }
 
-    public function demande(Request $request)
+    public function Activedemande(Request $request)
     {
-        $request->validate(['productId' => 'required', 'uuid']);
+        $request->validate(['ramassageId' => 'required', 'uuid']);
 
-        $product = Product::whereUuid($request->productId)->first();
+        $product = Ramassage::whereUuid($request->ramassageId)->first();
 
         if ($product) {
-            $product->update(['can_ramassage' => true]);
+            $product->update(['active' => true]);
             return redirect()->back()->with('success', "Le demande  a éte envoyer avec success");
+        }
+        return redirect()->back()->with('error', "error !!!");
+    }
+
+    public function Acceptdemande(Request $request)
+    {
+        $request->validate(['ramassageId' => 'required', 'uuid']);
+
+        $product = Ramassage::whereUuid($request->ramassageId)->first();
+
+        if ($product) {
+            $product->update(['accepted' => true]);
+            return redirect()->back()->with('success', "Le demande a éte accepter avec success");
+        }
+        return redirect()->back()->with('error', "error !!!");
+    }
+
+    public function delete(Request $request)
+    {
+        $request->validate(['ramassageDeleteId' => 'required', 'uuid']);
+
+        $product = Ramassage::whereUuid($request->ramassageDeleteId)->first();
+
+        if ($product) {
+
+            $product->delete();
+
+            return redirect()->back()->with('success', "Le demande a éte supprimer avec success");
         }
         return redirect()->back()->with('error', "error !!!");
     }

@@ -3,6 +3,19 @@
         <div class="card">
             <div class="card-body">
 
+                @if(isClient())
+                    <div class="row">
+                        <div class="col-lg-8">
+
+                            <div class="col-lg-4 mb-4">
+                                <button class="btn btn-info" type="button" class="btn btn-info  btn-sm"
+                                    data-bs-toggle="modal" data-bs-target=".addRamassageModal">
+                                    Demande de ramassage
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                @endif
                 @include('layouts._parts.__messages')
 
                 <div class="table-responsive">
@@ -17,17 +30,20 @@
                                     </div>
                                 </th>
 
-                                <th class="align-middle">Image</th>
                                 <th class="align-middle">Nom</th>
                                 <th class="align-middle">Prix</th>
-                                <th class="align-middle">Quantité rest</th>
+                                <th class="align-middle">Quantité</th>
+                                @if(isAdmin())
                                 <th scope="col">Client</th>
+                                @endif
                                 <th class="align-middle">Adresse de ramassage</th>
-                                <th class="align-middle"></th>
+                                <th class="align-middle">Note</th>
+                                <th class="align-middle">Status</th>
+                                <th class="align-middle">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($products as $product)
+                            @foreach ($ramassages as $product)
                                 <tr>
                                     <td>
                                         <div class="form-check font-size-16">
@@ -37,75 +53,100 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div>
-
-                                            <img class="img-fluid" alt=""
-                                                src="{{ $product->getFirstMediaUrl('products_photos', 'normal') }}"
-                                                width="50">
-
-                                        </div>
-                                    </td>
-                                    <td>
                                         {{ $product->name }}
                                         <p class="text-muted mb-0"></p>
                                     </td>
                                     <td>
-                                        {{ $product->formated_price }} DH
+                                        {{ $product->price }} DH
                                     </td>
                                     <td>
-                                        {{ $product->qte_rest }}
+                                        {{ $product->qte }}
                                     </td>
-
+                                    @if(isAdmin())
                                     <td>
 
                                         <a href="{{-- $client->url --}}" class="text-body fw-bold">
                                             {{ optional($product->client)->full_name }}
                                         </a>
                                     </td>
+                                    @endif
                                     <td>
 
-                                        {!! optional($product->ramassage)->addresse !!}
+                                        {!! $product->addresse !!}
+
+                                    </td>
+                                    <td>
+
+                                        {!! $product->notes !!}
 
                                     </td>
                                     <td>
                                         <div class="d-flex gap-3">
-
-                                            {{-- <a href="{{ $product->edit_url }}" class="text-success">
-                                                <i class="mdi mdi-pencil font-size-18"></i>
-                                            </a>
-                                            <a href="#" class="text-danger" onclick="
-                                                var result = confirm('Are you sure you want to delete this product ?');
-
-                                                if(result){
-                                                    event.preventDefault();
-                                                    document.getElementById('delete-prod-{{ $product->uuid }}').submit();
-                                                }">
-                                                <i class="mdi mdi-delete font-size-18"></i>
-                                            </a> --}}
-                                            @php
-                                                $disabled = '';
-                                                $text = 'Envoyer la demande';
-                                                if ($product->can_ramassage) {
-                                                    $disabled = 'disabled';
-                                                    $text = 'déja Envoyé';
-                                                }
-                                                if ($product->ramassage && optional($product->ramassage)->addresse != null) {
-                                                    $text = 'client répondu';
-                                                }
-                                            @endphp
-                                            <button {{ $disabled }} class="btn btn-info" type="button"
-                                                class="btn btn-info  btn-sm"
-                                                onclick=" document.getElementById('send-demande-{{ $product->uuid }}').submit();">
-                                                {{ $text }}
-                                            </button>
+      
+                                            @if(isClient())
+                                                @php
+                                                    $disabled = '';
+                                                    $text = 'confimrer la demande';
+                                                    if ($product->active) {
+                                                        $disabled = 'disabled';
+                                                        $text = 'déja confimré';
+                                                    }
+                
+                                                @endphp
+                                                <button {{ $disabled }} class="btn btn-info" type="button"
+                                                    class="btn btn-info  btn-sm"
+                                                    onclick=" document.getElementById('active-demande-{{ $product->uuid }}').submit();">
+                                                    {{ $text }}
+                                                </button>
+                                            @endif
+                                            @if(isAdmin())
+                                                @php
+                                                    $disabled = '';
+                                                    $text = 'accepter la demande';
+                                                    if ($product->accepted) {
+                                                        $disabled = 'disabled';
+                                                        $text = 'déja accepté';
+                                                    }
+                
+                                                @endphp
+                                                <button {{ $disabled }} class="btn btn-info" type="button"
+                                                    class="btn btn-info  btn-sm"
+                                                    onclick=" document.getElementById('accept-demande-{{ $product->uuid }}').submit();">
+                                                    {{ $text }}
+                                                </button>
+                                            @endif
                                         </div>
                                     </td>
-                                    <form id="send-demande-{{ $product->uuid }}" method="post"
-                                        action="{{ route('admin:ramassage.demande') }}">
-                                        @csrf
-                                        @method('PUT')
-                                        <input type="hidden" name="productId" value="{{ $product->uuid }}">
-                                    </form>
+                                    @if(isClient())
+                                        <form id="active-demande-{{ $product->uuid }}" method="post"
+                                            action="{{ route('admin:ramassage.demande.active') }}">
+                                            @csrf
+                                            @method('PUT')
+                                            <input type="hidden" name="ramassageId" value="{{ $product->uuid }}">
+                                        </form>
+                                    @endif
+                                    @if(isAdmin())
+                                        <form id="accept-demande-{{ $product->uuid }}" method="post"
+                                            action="{{ route('admin:ramassage.demande.accept') }}">
+                                            @csrf
+                                            @method('PUT')
+                                            <input type="hidden" name="ramassageId" value="{{ $product->uuid }}">
+                                        </form>
+                                    @endif
+
+                                    <td>
+                                        <button {{isAdmin() ? 'disabled' :''}} class="btn btn-danger" type="button"
+                                            class="btn btn-info btn-sm"
+                                            onclick=" document.getElementById('delete-ramassage-{{ $product->uuid }}').submit();">
+                                            Supprimer
+                                        </button>
+                                        <form id="delete-ramassage-{{ $product->uuid }}" method="post"
+                                            action="{{ route('admin:ramassage.delete') }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <input type="hidden" name="ramassageDeleteId" value="{{ $product->uuid }}">
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
 

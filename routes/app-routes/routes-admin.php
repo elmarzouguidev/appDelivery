@@ -284,10 +284,11 @@ Route::group(['prefix' => ''], function () {
     Route::group(['prefix' => 'ramassage'], function () {
 
         Route::get('/', [RamassageController::class, 'index'])->name('ramassage.index');
-        Route::post('/', [RamassageController::class, 'store'])->name('ramassage.store');
+        Route::post('/', [RamassageController::class, 'newStore'])->name('ramassage.store');
         Route::delete('/delete', [RamassageController::class, 'delete'])->name('ramassage.delete');
 
-        Route::put('/', [RamassageController::class, 'demande'])->name('ramassage.demande');
+        Route::put('/active', [RamassageController::class, 'Activedemande'])->name('ramassage.demande.active');
+        Route::put('/accept', [RamassageController::class, 'Acceptdemande'])->name('ramassage.demande.accept');
     });
 
 
