@@ -115,7 +115,7 @@ class AdminCommandController extends Controller
 
         $this->authorize('update', $command);
 
-        $command->load('items');
+        $command->load('items')->loadSum('items', 'prix_total');;
 
         $cities = app(CityInterface::class)->getCities();
 

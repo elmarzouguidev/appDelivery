@@ -62,7 +62,7 @@
                         </div>
                     </div>
                     <div class="row mb-4">
-                        <label for="profit" class="col-form-label col-lg-2">Note *</label>
+                        <label for="profit" class="col-form-label col-lg-2">Note</label>
                         <div class="col-lg-10">
                             <textarea  class="form-control @error('notes') is-invalid @enderror" id="notes" name="notes"
                             rows="8" ></textarea>
