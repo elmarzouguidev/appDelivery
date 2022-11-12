@@ -33,6 +33,8 @@ class Kernel extends HttpKernel
         \RenatoMarinho\LaravelPageSpeed\Middleware\DeferJavascript::class,
 
         \Spatie\Honeypot\ProtectAgainstSpam::class,
+
+        \HTMLMin\HTMLMin\Http\Middleware\MinifyMiddleware::class
     ];
 
     /**
