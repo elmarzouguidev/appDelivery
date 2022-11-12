@@ -151,6 +151,14 @@
                                             @method('DELETE')
                                             <input type="hidden" name="ramassageDeleteId" value="{{ $product->uuid }}">
                                         </form>
+
+                                        @if(isClient() && $product->accepted)
+                                        <br>
+                                        <a href="{{route('admin:products.create',['fromRamassage'=>$product->uuid])}}" class="btn btn-info">
+                                            
+                                            Ajouter au produit
+                                        </a>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

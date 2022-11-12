@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Sameleon\Admin\Product;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Sameleon\Product\AddProductFormRamassageRequest;
 use App\Http\Requests\Sameleon\Product\ProductFormRequest;
 use App\Http\Requests\Sameleon\Product\ProductUpdateFormRequest;
 use App\Models\Sameleon\City;
 use App\Models\Sameleon\Condition;
 use App\Models\Sameleon\Product;
+use App\Models\Sameleon\Ramassage;
 use App\Models\Sameleon\Stock;
 use App\Models\Sameleon\User;
 use App\Notifications\ProductCreated;
@@ -62,12 +64,24 @@ class AdminProductController extends Controller
         return view('Sameleon.Admin.Product.__normal_table.index', compact('products'));
     }
 
-    public function create()
+    public function create(AddProductFormRamassageRequest $request)
     {
         $this->authorize('create', Product::class);
 
         $clients = app(ClientInterface::class)->getClients();
 
+        $product = null;
+
+        if($request->has('fromRamassage') && $request->filled('fromRamassage'))
+        {
+            $product = Ramassage::whereUuid($request->fromRamassage)->firstOrFail();
+
+        }
+
+        if($product)
+        {
+            return view('Sameleon.Admin.Product.__create.index_product', compact('clients','product'));  
+        }
         return view('Sameleon.Admin.Product.__create.index', compact('clients'));
     }
 
