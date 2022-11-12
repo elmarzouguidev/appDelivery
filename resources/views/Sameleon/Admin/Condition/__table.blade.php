@@ -29,6 +29,7 @@
                                 </th>
 
                                 <th class="align-middle">Titre</th>
+                                <th class="align-middle">Type</th>
                                 <th class="align-middle">Etat</th>
                                 <th class="align-middle">Action</th>
                             </tr>
@@ -48,7 +49,9 @@
                                         {{ $condition->title }}
                                     </td>
                     
-                        
+                                    <td>
+                                        {{ $condition->type }}
+                                    </td>
                                     <td>
 
                                         <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
