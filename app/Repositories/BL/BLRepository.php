@@ -39,6 +39,13 @@ class BLRepository extends AppRepository implements BLInterface
      */
     public function getBLs()
     {
+        if(isDelivery())
+        {
+            return $this->bl
+            ->where('delivery_id' , delivery()->id)
+            ->where('delivery_uuid' , delivery()->uuid)
+            ->with('articles')->with('city:id,name')->get();
+        }
         return $this->bl->with('articles')->with('city:id,name')->get();
     }
 
