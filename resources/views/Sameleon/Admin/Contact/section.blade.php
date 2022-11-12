@@ -49,7 +49,14 @@
                         </div>
                         <div class="tab-pane fade show active" id="v-pills-privacy" role="tabpanel"
                             aria-labelledby="v-pills-privacy-tab">
-                            <h4 class="card-title mb-5">Condition général </h4>
+                            
+                            @if($globalCondition)
+
+                             <h4 class="card-title mb-5">{{$globalCondition->title}} </h4>
+
+                            @else
+                                <h4 class="card-title mb-5">Condition général </h4>
+                            @endif
 
                             <div class="faq-box d-flex   ">
                                 <div class="flex-shrink-0 me-3 faq-icon">
