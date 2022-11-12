@@ -20,11 +20,11 @@
                 <form method="post" action="{{ route('admin:conditions.update',$condition->uuid) }}">
                     @csrf
                     <div class="row mb-4">
-                        <label for="type" class="col-form-label col-lg-2">type *</label>
+                        <label for="type" class="col-form-label col-lg-2">Type *</label>
                         <div class="col-lg-10">
                             <select name="type" class="form-control select2-templating @error('type') is-invalid @enderror" required>
                                 <option value="">Choisir le type</option>
-                   
+                                <option {{$condition->type =="global" ?'selected':''}}    value="global">Géneral</option>
                                 <option {{$condition->type =="produits" ?'selected':''}}  value="produits">Produits</option>
                                 <option {{$condition->type =="factures" ?'selected':''}}  value="factures">Factures</option>
                                 <option {{$condition->type =="commands" ?'selected':''}}  value="commands">Commands</option>
