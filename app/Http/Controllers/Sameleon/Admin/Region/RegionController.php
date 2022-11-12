@@ -28,6 +28,7 @@ class RegionController extends Controller
 
         $region = new Region();
         $region->name = $request->name;
+        $region->code = $request->code;
         $region->frais = $request->frais;
         $region->description = $request->description;
         $region->city()->associate($request->city);
@@ -45,6 +46,7 @@ class RegionController extends Controller
     {
 
         $region->name = $request->name;
+        $region->code = $request->code;
         $region->frais = $request->frais;
         $region->description = $request->description;
         $region->save();

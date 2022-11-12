@@ -38,7 +38,7 @@
                                             <label class="form-check-label" for="checkAll"></label>
                                         </div>
                                     </th>
-
+                                    <th class="align-middle">Référence</th>
                                     <th class="align-middle">Nom</th>
                                     <th class="align-middle">Frais</th>
                                     <th class="align-middle">Ville</th>
@@ -57,7 +57,10 @@
                                                     for="region-{{ $region->id }}"></label>
                                             </div>
                                         </td>
-                                 
+                                        <td>
+                                            {{ $region->code }}
+                                            <p class="text-muted mb-0"></p>
+                                        </td>
                                         <td>
                                             {{ $region->name }}
                                             <p class="text-muted mb-0"></p>

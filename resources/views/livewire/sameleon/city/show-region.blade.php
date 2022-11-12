@@ -16,8 +16,9 @@
 
                                 <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>Nom Du Région</th>
+                                        
+                                        <th>Référence</th>
+                                        <th>Nom</th>
                                         <th>Frais</th>
                                         <th>Action</th>
                                     </tr>
@@ -25,7 +26,8 @@
                                 <tbody>
                                     @foreach ($cityEdit->regions as $region)
                                         <tr>
-                                            <th scope="row">{{ $loop->index + 1 }}</th>
+                                            
+                                            <td>{{ $region->code }}</td>
                                             <td>{{ $region->name }}</td>
                                             <td>
                                                 {{ number_format($region->frais,2) }} DH
