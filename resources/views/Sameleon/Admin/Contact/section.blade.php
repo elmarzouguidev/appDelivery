@@ -10,7 +10,7 @@
                 <a class="nav-link" id="v-pills-privacy-tab" data-bs-toggle="pill" href="#v-pills-privacy"
                     role="tab" aria-controls="v-pills-privacy" aria-selected="false">
                     <i class="bx bx-check-shield d-block check-nav-icon mt-4 mb-2"></i>
-                    <p class="fw-bold mb-4">Privacy Policy</p>
+                    <p class="fw-bold mb-4">Condition général</p>
                 </a>
                 <a class="nav-link" id="v-pills-support-tab" data-bs-toggle="pill" href="#v-pills-support"
                     role="tab" aria-controls="v-pills-support" aria-selected="false">
@@ -49,24 +49,26 @@
                         </div>
                         <div class="tab-pane fade show active" id="v-pills-privacy" role="tabpanel"
                             aria-labelledby="v-pills-privacy-tab">
-                            <h4 class="card-title mb-5">Privacy Policy</h4>
+                            <h4 class="card-title mb-5">Condition général </h4>
 
                             <div class="faq-box d-flex   ">
                                 <div class="flex-shrink-0 me-3 faq-icon">
                                     <i class="bx bx-help-circle font-size-20 text-success"></i>
                                 </div>
                                 <div class="flex-grow-1">
-                                    <h5 class="font-size-15">Where can I get some?</h5>
-                                    <p class="text-muted">If several languages coalesce, the grammar of the
-                                        resulting language is more simple and regular than that of the individual
-                                        languages.</p>
+                                  @if($globalCondition)
+
+                                   {!! $globalCondition->description !!}
+
+                                  @else
+                                    <h5 class="font-size-15">Condition général !</h5>
+                                  @endif
                                 </div>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="v-pills-support" role="tabpanel"
                             aria-labelledby="v-pills-support-tab">
                             <h4 class="card-title mb-5">Support</h4>
-
 
                             <div class="faq-box d-flex">
                                 <div class="flex-shrink-0 me-3 faq-icon">

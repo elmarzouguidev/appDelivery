@@ -15,7 +15,7 @@
                         <div class="col-lg-10">
                             <select name="type" class="form-control select2-templating @error('type') is-invalid @enderror" required>
                                 <option value="">Choisir le type</option>
-                   
+                                <option value="global">Géneral</option>
                                 <option value="produits">Produits</option>
                                 <option value="factures">Factures</option>
                                 <option value="commands">Commands</option>
