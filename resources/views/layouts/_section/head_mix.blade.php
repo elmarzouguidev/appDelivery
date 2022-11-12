@@ -14,7 +14,7 @@
     <meta name="app_devlopper_facebook" content="https://www.facebook.com/devscript" />
     <meta name="app_devlopper_linkedin" content="https://www.linkedin.com/in/devscript/" />
     <meta name="app_devlopper_twitter"  content="https://twitter.com/devscriptt" />
-    <meta name="app_devlopper_github"   content="https://github.com/devscript-abdo" />
+    <meta name="app_devlopper_github"   content="https://github.com/elmarzouguidev" />
 
     @include('layouts._parts.__sec_meta')
 
