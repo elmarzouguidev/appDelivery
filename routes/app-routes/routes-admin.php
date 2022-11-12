@@ -130,7 +130,6 @@ Route::group(['prefix' => ''], function () {
         Route::delete('/', [AdminCityController::class, 'delete'])->name('cities.delete');
     });
 
-
     Route::group(['prefix' => 'regions'], function () {
 
         Route::get('/', [RegionController::class, 'index'])->name('regions.index');
@@ -140,7 +139,6 @@ Route::group(['prefix' => ''], function () {
 
         Route::delete('/', [RegionController::class, 'delete'])->name('regions.delete');
     });
-
 
 
     Route::group(['prefix' => 'clients'], function () {
