@@ -26,6 +26,7 @@ class RamassageController extends Controller
             $ramassages = Ramassage::whereActive(true)
                 //->whereAccepted(false)
                 ->with('client:id,nom,prenom')
+                ->orderBy('accepted','asc')
              
                 ->get();
         }
