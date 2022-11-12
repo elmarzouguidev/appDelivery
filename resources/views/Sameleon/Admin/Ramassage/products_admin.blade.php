@@ -86,10 +86,10 @@
                                             @if(isClient())
                                                 @php
                                                     $disabled = '';
-                                                    $text = 'confimrer la demande';
+                                                    $text = 'envoyer la demande';
                                                     if ($product->active && !$product->accepted) {
                                                         $disabled = 'disabled';
-                                                        $text = 'déja confimré';
+                                                        $text = 'déja envoyé';
                                                     }
                                                     if($product->active && $product->accepted)
                                                     {
