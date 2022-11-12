@@ -1,15 +1,15 @@
 <p align="center">
     <a href="https://elmarzougui.net" target="_blank">
-        <img src="./logo.png">
+        <img src="./logo.png" width="500" height="600">
     </a>
 </p>
 
-## Commercial Application
+## Delivery App 
 
 ### Premium Partners
 
-- **[ElmarzouguiWeb](https://elmarzougui-web.com/)**
-
+- **[WEDO APP](https://wedoapp.ma/)**
+- **[HayMacProduction](https://haymacproduction.ma/)**
 
 ## License
 
