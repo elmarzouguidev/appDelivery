@@ -23,7 +23,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="tab-content" id="v-pills-tabContent">
-                        <div class="tab-pane fade show active" id="v-pills-gen-ques" role="tabpanel"
+                        <div class="tab-pane fade " id="v-pills-gen-ques" role="tabpanel"
                             aria-labelledby="v-pills-gen-ques-tab">
                             <h4 class="card-title mb-5">General Questions</h4>
                             <div class="faq-box d-flex mb-4">
@@ -47,7 +47,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="v-pills-privacy" role="tabpanel"
+                        <div class="tab-pane fade show active" id="v-pills-privacy" role="tabpanel"
                             aria-labelledby="v-pills-privacy-tab">
                             <h4 class="card-title mb-5">Privacy Policy</h4>
 
