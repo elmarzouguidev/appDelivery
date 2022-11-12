@@ -57,7 +57,7 @@
                                         <p class="text-muted mb-0"></p>
                                     </td>
                                     <td>
-                                        {{ $ramassage->price }} DH
+                                        {{ $ramassage->formated_price }} DH
                                     </td>
                                     <td>
                                         {{ $ramassage->qte }}
