@@ -29,8 +29,9 @@ class RamassageComposer
 
             $ramassage = Ramassage::where('user_id', auth()->id())
                 ->where('user_uuid', auth()->user()->uuid)
-                ->whereActive(false)
-                ->whereAccepted(false)
+                ->whereActive(true)
+                ->whereAccepted(true)
+                ->doesntHave('product')
                 ->count();
         } else {
             $ramassage = Ramassage::whereActive(true)
