@@ -39,6 +39,14 @@ class BRRepository extends AppRepository implements BRInterface
      */
     public function getBRs()
     {
+        if(isClient())
+        {
+            return $this->br
+            ->where('user_id',auth()->id())
+            ->where('user_uuid',auth()->user()->uuid)
+            ->with('articles')->with('city:id,name')->get();
+
+        }
         return $this->br->with('articles')->with('city:id,name')->get();
     }
 
