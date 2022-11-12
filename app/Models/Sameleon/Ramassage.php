@@ -43,4 +43,9 @@ class Ramassage extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function getPriceAttribute()
+    {
+        return number_format($this->price, 2);
+    }
 }
