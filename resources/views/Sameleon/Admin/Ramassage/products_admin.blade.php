@@ -160,7 +160,7 @@
                                                     Voir le produit
                                                 </a>
                                             @else
-                                                <a href="{{route('admin:products.edit',['fromRamassage'=>$ramassage->uuid])}}" class="btn btn-info">
+                                                <a href="{{route('admin:products.create',['fromRamassage'=>$ramassage->uuid])}}" class="btn btn-info">
                                                     
                                                     Ajouter au produit
                                                 </a>
