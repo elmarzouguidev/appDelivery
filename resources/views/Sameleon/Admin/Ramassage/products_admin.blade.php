@@ -87,9 +87,14 @@
                                                 @php
                                                     $disabled = '';
                                                     $text = 'confimrer la demande';
-                                                    if ($product->active) {
+                                                    if ($product->active && !$product->accepted) {
                                                         $disabled = 'disabled';
                                                         $text = 'déja confimré';
+                                                    }
+                                                    if($product->active && $product->accepted)
+                                                    {
+                                                        $disabled = 'disabled';
+                                                        $text = 'Traité';
                                                     }
                 
                                                 @endphp

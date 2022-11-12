@@ -24,7 +24,7 @@ class RamassageController extends Controller
                 ->get();
         } else {
             $ramassages = Ramassage::whereActive(true)
-                ->whereAccepted(false)
+                //->whereAccepted(false)
                 ->with('client:id,nom,prenom')
              
                 ->get();
