@@ -54,8 +54,7 @@ class Invoices extends Component
                 ->withCount('bill')
                 ->get();  
         }*/
-
-        $this->formatedPrice = filter_var($this->price, FILTER_SANITIZE_NUMBER_INT);
+        
         $invoices = app(InvoiceInterface::class)->getInvoices();
 
         return view('livewire.sameleon.invoice.invoices-new', compact('invoices'));
@@ -135,7 +134,7 @@ class Invoices extends Component
 
         return [
 
-            'price' => ['required', 'digits_between:2,5'],
+            'price' => ['required','string', 'digits_between:2,20'],
             'date' => ['required', 'date'],
             'mode' => ['required', 'string'],
             'reference' => ['nullable', 'string'],
