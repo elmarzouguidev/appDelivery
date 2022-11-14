@@ -135,7 +135,7 @@ class Invoices extends Component
 
         return [
 
-            'price' => ['required','regex:/^(\d+(,\d{1,20})?)?$/'],
+            'price' => ['required','regex:/^[0-9]{1,3}(,[0-9]{3})*\.[0-9]+$/'],
             'date' => ['required', 'date'],
             'mode' => ['required', 'string'],
             'reference' => ['nullable', 'string'],
