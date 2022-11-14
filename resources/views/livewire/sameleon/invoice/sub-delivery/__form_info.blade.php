@@ -2,8 +2,8 @@
     <div class="col-lg-12">
         <div class="mb-4">
             <label class="form-label">Montant a payé *</label>
-            <input type="text" wire:model.defer="price" class="form-control @error('price') is-invalid @enderror"
-                value="" readonly>
+            <input type="text" {{--wire:model.defer="price"--}} class="form-control @error('price') is-invalid @enderror"
+                value="{{$formatedPrice}}" readonly>
             @error('price')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -18,7 +18,7 @@
 
 
             <input type="date" wire:model.defer="date" class="form-control @error('date') is-invalid @enderror"
-                value="{{ now()->format('d-m-Y') }}" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+                value="{{ now()->format('m-d-Y') }}" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
 
             @error('date')
                 <span class="invalid-feedback" role="alert">

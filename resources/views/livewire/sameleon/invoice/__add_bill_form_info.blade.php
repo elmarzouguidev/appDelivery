@@ -19,8 +19,8 @@
 
 
             <input type="date" wire:model.defer="date" id="bill-date" class="form-control @error('date') is-invalid @enderror"
-               value="{{$date}}"  required >
-
+             value="{{ now()->format('m-d-Y') }}" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"  required >
+ 
             @error('date')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>

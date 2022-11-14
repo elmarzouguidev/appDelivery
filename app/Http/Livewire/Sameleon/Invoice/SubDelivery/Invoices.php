@@ -19,6 +19,7 @@ class Invoices extends Component
     /****Bill ****/
 
     public $price;
+    public $formatedPrice;
     public $date;
     public $mode;
     public $reference;
@@ -41,7 +42,7 @@ class Invoices extends Component
     {
 
         $invoices = app(DeliveryInvoiceInterface::class)->getInvoices();
-
+        $this->date = now()->format('m-d-Y');
         return view('livewire.sameleon.invoice.sub-delivery.invoices',compact('invoices'));
     }
 
@@ -53,7 +54,9 @@ class Invoices extends Component
         ->loadSum('articles','frais')
         ->loadSum('articles','profit');
         //$this->price = $invoice->articles_sum_price_total;
-        $this->price =  number_format($invoice->articles_sum_price_total -($invoice->articles_sum_frais + 0),2);
+        $this->price =  ($invoice->articles_sum_price_total -($invoice->articles_sum_frais + 0));
+        $this->formatedPrice = number_format($invoice->articles_sum_price_total -($invoice->articles_sum_frais + 0),2);
+
 
         $this->dispatchBrowserEvent('add-bill');
     }
