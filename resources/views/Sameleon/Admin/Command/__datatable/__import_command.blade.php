@@ -21,15 +21,76 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
+                            <span class="badge bg-danger">Le champ doit être au format (csv,xlsx,xls)</span>
                         </div>
 
                     </div>
-                    <div class="row justify-content-end">
-                        <div class="col-lg-10">
-                            <button type="submit" class="btn btn-primary">Importer</button>
+                    <div class="row mb-3">
+                        <label class="col-form-label col-lg-2"></label>
+                        <div class="col-lg-5">
+                            <button type="submit" class="btn btn-primary">Soumettre</button>
+                        </div>
+                        <div class="col-lg-5">
+                            <button  class="btn btn-primary">Télécharger l'exemple</button>
                         </div>
                     </div>
                 </form>
+            </div>
+            <div class="card">
+                <div class="card-body">
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered mb-0">
+
+ 
+                            <tbody>
+                                
+                                    <tr>
+                                        <td>destinataire</td>
+                                       
+                                        <th><span class="badge bg-success">Champ requis</span></th>
+                                    </tr>
+                                    <tr>
+                                        <td>telephone </td>
+                                        <th><span class="badge bg-success">Champ requis</span></th>
+                                    </tr>
+                                    <tr>
+                                        <td>ville</td>
+                                        <th>
+                                            <span class="badge bg-success">Champ requis</span>
+                                            la ville doit déjà être créée Veuillez utiliser le nom complet de la ville
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td>region</td>
+                                       
+                                        <th><span class="badge bg-primary">Champ facultatif</span></th>
+                                    </tr>
+                                    <tr>
+                                        <td>adresse </td>
+                                        <th><span class="badge bg-success">Champ requis</span></th>
+                                    </tr>
+                                    <tr>
+                                        <td>produit </td>
+                                        <th>
+                                            <span class="badge bg-success">Champ requis</span>
+                                            le produit doit déjà être créée Veuillez utiliser le nom complet de produit
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td>qte </td>
+                                        <th><span class="badge bg-success">Champ requis</span></th>
+                                    </tr>
+                                    <tr>
+                                        <td>prix </td>
+                                        <th><span class="badge bg-success">Champ requis</span></th>
+                                    </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>

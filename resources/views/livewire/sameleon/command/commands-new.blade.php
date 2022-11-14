@@ -60,16 +60,16 @@
                                                 Générer un Bon de retour {{-- : @json($selectedCommands) --}}
                                             </button>
                                         @endif
-                                        @if (isAdmin())
+                                        {{--@if (isAdmin())
                                             <button {{ count($selectedCommands) ? '' : 'disabled' }}
                                                 class="btn btn-info mr-3 mb-2" type="button" 
-                                                {{--data-bs-toggle="modal"
-                                                data-bs-target=".generateBL"--}}
+                                                data-bs-toggle="modal"
+                                                data-bs-target=".generateBL"
                                                 wire:click="printCommands()"
                                                 >
-                                                Impression  {{-- : @json($selectedCommands) --}}
+                                                Impression 
                                             </button>
-                                        @endif
+                                            @endif--}}
                             
                                         <a href="{{ route('admin:commands.archived') }}" class="btn btn-secondary mr-3 mb-2">
                                             <i class="bx bx-archive font-size-16 align-middle me-2"></i>

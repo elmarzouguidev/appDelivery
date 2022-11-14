@@ -120,6 +120,7 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
             'destinataire' => ['required', 'string'],
             'telephone' => ['required', 'phone:MA'],
             'ville' => ['required', 'string'],
+            'region' => ['nullable', 'string'],
             'adresse' => ['required', 'string'],
             'produit_ref' => ['nullable', 'string'],
             'produit' => ['required_if:produit_ref,=,null', 'string'],
