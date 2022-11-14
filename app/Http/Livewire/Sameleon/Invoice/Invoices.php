@@ -56,7 +56,7 @@ class Invoices extends Component
         }*/
         
         $invoices = app(InvoiceInterface::class)->getInvoices();
-        $this->date = now()->format('Y-d-m');
+        $this->date = now()->format('m-d-Y');
 
         return view('livewire.sameleon.invoice.invoices-new', compact('invoices'));
     }
