@@ -42,6 +42,7 @@
         @if ($total_new_command)
             <span class="badge rounded-pill bg-info float-end">{{ $total_new_command }}</span>
         @endif
+
         <span key="t-commands">{{ __('Commandes') }}</span>
     </a>
 

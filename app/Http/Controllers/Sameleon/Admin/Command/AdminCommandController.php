@@ -47,6 +47,7 @@ class AdminCommandController extends Controller
 
         if(isAdmin() && $request->has('client') && $request->filled('client'))
         {
+            
             $client = User::whereUuid($request->client)->first();
 
             $client ?? throw ValidationException::withMessages([
@@ -57,9 +58,11 @@ class AdminCommandController extends Controller
 
             Excel::import(new CommandsImportByAdmins($client),  $file);
         }
-        
-        Excel::import(new CommandsImport,  $file);
+        else{
 
+            Excel::import(new CommandsImport,  $file);
+        }
+    
         return redirect()->back()->with('success', 'la list a été importé avec success');
     }
 
