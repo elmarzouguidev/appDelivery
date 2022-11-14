@@ -12,6 +12,8 @@ class BillRepository extends AppRepository implements BillInterface
 
     private $bill;
 
+    private $billDelivery;
+
     private $instance;
 
     private $options;

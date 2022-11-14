@@ -16,8 +16,8 @@ class CreateBillsTable extends Migration
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
-            $table->string('code')->unique();
-            $table->string('full_number')->unique();
+            $table->string('code')->unique()->nullable();
+            $table->string('full_number')->unique()->nullable();
 
             $table->string('reference')->nullable();
             

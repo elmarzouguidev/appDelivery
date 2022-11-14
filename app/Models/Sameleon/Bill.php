@@ -33,7 +33,7 @@ class Bill extends Model implements HasMedia
         'client_id',
         'client_uuid',
         'delivery_id',
-        'delivery_uuid'
+        'delivery_uuid',
     ];
 
     protected  $casts = [
@@ -70,11 +70,6 @@ class Bill extends Model implements HasMedia
         return number_format($this->sum('price_total'), 2);
     }
 
-    /*public function setPriceTotalAttribute($value)
-    {
-        $this->attributes['price_total'] = filter_var($value, FILTER_SANITIZE_NUMBER_INT);
-    }*/
-
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('normal')
@@ -92,13 +87,17 @@ class Bill extends Model implements HasMedia
         
         static::creating(function ($model) {
 
-            $number = self::max('id') + 1;
-            $model->code = str_pad($number, 5, 0, STR_PAD_LEFT);
+          
             if(isDelivery())
             {
-                $model->full_number = 'DELIVERY-REGL-' . str_pad($number, 5, 0, STR_PAD_LEFT);   
+                $number = self::max('delivery_code') + 1;
+                $model->delivery_code = str_pad($number, 5, 0, STR_PAD_LEFT);
+                $model->delivery_full_number = 'REGL-D-' . str_pad($number, 5, 0, STR_PAD_LEFT);   
             }
             else{
+
+                $number = self::max('code') + 1;
+                $model->code = str_pad($number, 5, 0, STR_PAD_LEFT);
                 $model->full_number = 'REGL-' . str_pad($number, 5, 0, STR_PAD_LEFT);
             }
            
