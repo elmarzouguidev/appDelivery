@@ -27,8 +27,8 @@ class CreateArticlesTable extends Migration
             $table->dateTime('date_command');
             $table->string('city')->nullable();
             $table->string('status')->nullable();
-            $table->string('price_total')->default(0);
-            $table->string('frais')->default(0);
+            $table->float('price_total', 8, 2)->default(0);
+            $table->float('frais', 8, 2)->default(0);
             $table->timestamps();
         });
     }
