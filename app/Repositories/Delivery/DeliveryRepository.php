@@ -42,7 +42,7 @@ class DeliveryRepository extends AppRepository implements DeliveryInterface
                 ->get();
         }
 
-        return $this->delivery->role(['Delivery', 'DeliveryEntreprise'])->with('childrens')->get();
+        return $this->delivery->role(['Delivery', 'DeliveryEntreprise'])->with('childrens','city:id,name')->get();
             
     }
 

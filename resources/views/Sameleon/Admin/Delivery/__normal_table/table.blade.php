@@ -39,6 +39,7 @@
                                 <th class="align-middle">E-mail</th>
                                 <th class="align-middle">Tél</th>
                                 <th class="align-middle">type</th>
+                                <th class="align-middle">Ville</th>
                                 <th class="align-middle">Adresse</th>
                                 <th class="align-middle">Action</th>
 
@@ -84,6 +85,10 @@
                                     </td>
                                     <td>
                                         {{ $delivery->type }}
+                                        <p class="text-muted mb-0"></p>
+                                    </td>
+                                    <td>
+                                        {{ optional($delivery->city)->name }}
                                         <p class="text-muted mb-0"></p>
                                     </td>
                                     <td>
