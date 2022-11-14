@@ -27,7 +27,7 @@ class Invoices extends Component
     public $recu;
 
     /****Cloture Invoice */
-    formatedPrice
+    
 
     public $buttonClass = 'disabled';
 
