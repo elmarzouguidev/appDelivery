@@ -19,9 +19,9 @@ class CreateInvoicesTable extends Migration
             $table->string('code')->unique();
             $table->string('full_number')->unique();
 
-            $table->float('price_ht', 8, 2)->default(0)->nullable();
-            $table->float('price_total', 8, 2)->default(0)->nullable();
-            $table->float('price_tva', 8, 2)->default(0)->nullable();
+            $table->unsignedDecimal('price_ht', 8, 2)->default(0)->nullable();
+            $table->unsignedDecimal('price_total', 8, 2)->default(0)->nullable();
+            $table->unsignedDecimal('price_tva', 8, 2)->default(0)->nullable();
 
             $table->date('invoice_date')->nullable();
     
