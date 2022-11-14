@@ -93,7 +93,7 @@
                                         <td>
                                             @if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin'))
                                                 <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
-                                                    <input wire:click="clotureInvoice('{{ $invoice->uuid }}')"
+                                                    <input {{--wire:click="clotureInvoice('{{ $invoice->uuid }}')"--}}
                                                         class="form-check-input" type="checkbox" id="SwitchCheckSizelg"
                                                         {{ $invoice->cloture == true ? 'checked' : '' }} disabled>
 
