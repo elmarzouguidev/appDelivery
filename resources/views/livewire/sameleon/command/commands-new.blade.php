@@ -25,12 +25,16 @@
                                                     data-bs-target=".addCommandModal">
                                                     Ajouter une commande
                                                 </button>
-
-                                                <button class="btn btn-primary mr-3 mb-2" type="button" data-bs-toggle="modal"
-                                                    data-bs-target=".importCommandModal">
-                                                    Importer des commands
-                                                </button>
                                             @endif
+
+                                        @endif
+
+                                        @if (isClient() || isAdmin())
+
+                                            <button class="btn btn-warning mr-3 mb-2" type="button" data-bs-toggle="modal"
+                                                data-bs-target=".importCommandModal">
+                                                Importer des commands
+                                            </button>
 
                                         @endif
 

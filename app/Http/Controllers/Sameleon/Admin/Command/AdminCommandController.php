@@ -10,13 +10,19 @@ use App\Http\Requests\Sameleon\Command\CommandUpdateFormRequest;
 use App\Http\Requests\Sameleon\Imports\ImportCommandRequest;
 use App\Imports\CommandsCollectionImport;
 use App\Imports\CommandsImport;
+use App\Imports\CommandsImportByAdmins;
 use App\Models\Sameleon\Command;
 use App\Models\Sameleon\Product;
+use App\Models\Sameleon\User;
 use App\Repositories\City\CityInterface;
+use App\Repositories\Client\ClientInterface;
 use App\Repositories\Command\CommandInterface;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
+
+use Illuminate\Validation\ValidationException;
+
 class AdminCommandController extends Controller
 {
     public function index()
@@ -27,17 +33,31 @@ class AdminCommandController extends Controller
         InvoiceGenerator::run();
 
         $cities = app(CityInterface::class)->getCities();
+        $clients = app(ClientInterface::class)->getClients();
 
         //$commands = Command::withSum('products', 'product_command.price_total')->get();
         // $commands = Command::with('products')->get();
 
-        return view('Sameleon.Admin.Command.__datatable.index', compact('cities'));
+        return view('Sameleon.Admin.Command.__datatable.index', compact('cities','clients'));
     }
 
     public function import(ImportCommandRequest $request)
     {
         $file = $request->file('file');
 
+        if(isAdmin() && $request->has('client') && $request->filled('client'))
+        {
+            $client = User::whereUuid($request->client)->first();
+
+            $client ?? throw ValidationException::withMessages([
+
+                'client_not_found' => "Le client ( {$client->full_name} ) n'existe pas dans le systeme !"
+                
+            ]);
+
+            Excel::import(new CommandsImportByAdmins($client),  $file);
+        }
+        
         Excel::import(new CommandsImport,  $file);
 
         return redirect()->back()->with('success', 'la list a été importé avec success');

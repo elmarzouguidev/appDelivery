@@ -24,7 +24,8 @@ class ImportCommandRequest extends FormRequest
     public function rules()
     {
         return [
-            'file' => ['required', 'file', 'mimes:csv,xls,xlsx']
+            'file' => ['required', 'file', 'mimes:csv,xls,xlsx'],
+            'client'=>['nullable' , 'uuid','exists:users,uuid']
         ];
     }
 }

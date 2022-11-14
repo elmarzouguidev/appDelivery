@@ -9,7 +9,27 @@
             <div class="modal-body">
                 <form method="post" action="{{ route('admin:commands.import') }}" enctype="multipart/form-data">
                     @csrf
+                    @if(isAdmin())
+                        <div class="row mb-4">
 
+                            <label class="form-label col-lg-2">Client *</label>
+                            <div class="col-lg-10">
+                                <select name="client" class="form-control @error('client') is-invalid @enderror"
+                                    required>
+                                    <option value="">Choisir le client</option>
+                                    @foreach ($clients as $client)
+                                        <option value="{{ $client->uuid }}">{{ $client->full_name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('client')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        
+                        </div>
+                    @endif
                     <div class="row mb-3">
                         <label class="col-form-label col-lg-2">List *</label>
                         <div class="col-lg-10">
