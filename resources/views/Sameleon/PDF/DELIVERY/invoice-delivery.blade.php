@@ -233,14 +233,14 @@
             {{-- <tr class="heading">
             <td colspan="4">Réferences client</td>
 
-        </tr>
-        <tr class="details">
-            <td colspan="4">
-                BL : {{ $invoice->bl_code }}
+            </tr>
+            <tr class="details">
+                <td colspan="4">
+                    BL : {{ $invoice->bl_code }}
 
-                BC : {{ $invoice->bc_code }}
-            </td>
-        </tr> --}}
+                    BC : {{ $invoice->bc_code }}
+                </td>
+            </tr> --}}
 
             <tr class="heading">
                 <td>Code d'envoi</td>

@@ -217,7 +217,7 @@
 
                             </td>
                             <td style="width: 50% ; text-align: right; !important">
-                                <strong>Règlement N° : {{ $bill->code }}</strong><br />
+                                <strong>Règlement N° : {{ $bill->delivery_code }}</strong><br />
                                 Date : {{ $bill->bill_date->format('d-m-Y') }}<br />
                         
                             </td>
