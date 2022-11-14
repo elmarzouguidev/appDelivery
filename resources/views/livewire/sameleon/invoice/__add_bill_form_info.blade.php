@@ -3,7 +3,7 @@
         <div class="mb-4">
             <label class="form-label">Montant a payé *</label>
 
-            <input type="text" wire:model.defer="price" class="form-control @error('price') is-invalid @enderror"
+            <input type="text" {{--wire:model.defer="price"--}} class="form-control @error('price') is-invalid @enderror"
                 value="{{$formatedPrice}}" readonly>
             @error('price')
                 <span class="invalid-feedback" role="alert">

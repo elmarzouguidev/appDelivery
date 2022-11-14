@@ -69,8 +69,8 @@ class Invoices extends Component
         ->loadSum('articles','frais')
         ->loadSum('articles','profit');
         //$this->price = $invoice->articles_sum_price_total;
-        $this->price =  number_format($invoice->articles_sum_price_total -($invoice->articles_sum_frais + $invoice->articles_sum_profit),2);
-        $this->formatedPrice = filter_var($this->price, FILTER_SANITIZE_NUMBER_INT);
+        $this->price =  ($invoice->articles_sum_price_total -($invoice->articles_sum_frais + $invoice->articles_sum_profit));
+        $this->formatedPrice = number_format($invoice->articles_sum_price_total -($invoice->articles_sum_frais + $invoice->articles_sum_profit),2);
         $this->dispatchBrowserEvent('add-bill');
     }
 
@@ -135,7 +135,7 @@ class Invoices extends Component
 
         return [
 
-            'price' => ['required','string'],
+            'price' => ['required','numeric'],
             'date' => ['required', 'date'],
             'mode' => ['required', 'string'],
             'reference' => ['nullable', 'string'],
