@@ -106,7 +106,7 @@ class AdminProductController extends Controller
 
             $product->associateWith('client', $user);
 
-            $product->slug = Str::slug(str_replace(' ', '', $request->name)) . '-' . $user->uuid;
+            $product->slug = Str::slug(str_replace(' ', '', $request->name)) . '-' . $user->uuid. ':' .$user->id;
         } else {
 
             //$product->client()->associate(auth()->id());
@@ -114,7 +114,7 @@ class AdminProductController extends Controller
 
             $product->associateWith('client', auth()->user());
 
-            $product->slug = Str::slug(str_replace(' ', '', $request->name)) . '-' . auth()->user()->uuid;
+            $product->slug = Str::slug(str_replace(' ', '', $request->name)) . '-' . auth()->user()->uuid .':'. auth()->id();
         }
 
         $product->save();
@@ -182,6 +182,8 @@ class AdminProductController extends Controller
         $this->authorize('delete', $product);
 
         if ($product) {
+
+            $product->ramassage()->delete();
 
             $product->delete();
 

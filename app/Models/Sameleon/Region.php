@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Traits\GetModelByUuid;
 use App\Traits\HasCode;
 use App\Traits\UuidGenerator;
-
+use Illuminate\Support\Str;
 class Region extends Model
 {
     use HasFactory;
@@ -17,6 +17,7 @@ class Region extends Model
 
     protected $fillable = [
         'name',
+        'slug',
         'active',
         'description',
         'code',
@@ -38,5 +39,11 @@ class Region extends Model
     public function delivery()
     {
         return $this->belongsTo(User::class, 'delivery_id');
+    }
+
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = $value;
+        $this->attributes['slug'] = Str::slug($value);
     }
 }

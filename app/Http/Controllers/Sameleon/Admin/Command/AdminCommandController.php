@@ -215,4 +215,10 @@ class AdminCommandController extends Controller
 
         return view('Sameleon.Admin.Command.Archive.index', compact('commands'));
     }
+
+
+    public function downloadExemple()
+    {
+        return redirect()->url('https://sameleon-express.ma/sameleon-express-excel-commands.xlsx');
+    }
 }

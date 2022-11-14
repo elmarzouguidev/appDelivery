@@ -28,16 +28,9 @@
                     <div class="row mb-3">
                         <label class="col-form-label col-lg-2"></label>
                         <div class="col-lg-5">
-                            <button type="submit" class="btn btn-primary">Soumettre</button>
+                            <button type="submit" class="btn btn-primary">Importer</button>
                         </div>
-                        <div class="col-lg-5">
-                            <a  target="__blank"
-                                href="https://sameleon-express.ma/sameleon-express-excel-commands.xlsx" 
-                                class="btn btn-primary"
-                                >
-                             Télécharger l'exemple
-                           </a>
-                        </div>
+    
                     </div>
                 </form>
             </div>
@@ -57,7 +50,10 @@
                                     </tr>
                                     <tr>
                                         <td>telephone </td>
-                                        <th><span class="badge bg-success">Champ requis</span></th>
+                                        <th>
+                                            <span class="badge bg-success">Champ requis</span>
+                                            le téléphone doit être correspond a la format maroccain (+212 ou 06)
+                                        </th>
                                     </tr>
                                     <tr>
                                         <td>ville</td>
@@ -94,7 +90,14 @@
                             </tbody>
                         </table>
                     </div>
-
+                    <div class="col-lg-5 mt-5">
+                        <a  target="__blank"
+                            href="https://sameleon-express.ma/sameleon-express-excel-commands.xlsx" 
+                            class="btn btn-primary"
+                            >
+                         Télécharger l'exemple
+                       </a>
+                    </div>
                 </div>
             </div>
         </div>

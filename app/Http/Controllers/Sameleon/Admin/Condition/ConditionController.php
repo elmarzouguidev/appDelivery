@@ -82,8 +82,5 @@ class ConditionController extends Controller
         return redirect()->back()->with('error', 'Error ...');
     }
 
-    public function downloadExemple()
-    {
-        return redirect()->url('https://sameleon-express.ma/sameleon-express-excel-commands.xlsx');
-    }
+ 
 }

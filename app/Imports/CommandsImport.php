@@ -5,6 +5,7 @@ namespace App\Imports;
 use App\Models\Sameleon\City;
 use App\Models\Sameleon\Command;
 use App\Models\Sameleon\Product;
+use App\Models\Sameleon\Region;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithMappedCells;
@@ -41,19 +42,55 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
         //dd(count($row["produit_ref"]));
         $productName = $row["produit_ref"] ?? $row["produit"] ?? throw ValidationException::withMessages([
 
-            'produit_field' => "veuillez vérifier la structure de  votre fichier excel le column (produit ref) ou (produit) n'existe pas dans le fichier excel "
-
+            'produit_field' => "
+                veuillez vérifier la structure de  votre fichier excel le column (produit ref) ou (produit)
+                n'existe pas dans le fichier excel
+                
+              ",
+            
         ]);
 
-        $slug = Str::slug(str_replace(' ', '', $productName)) . '-' . auth()->user()->uuid;
+        $cityName = $row["ville"] ?? throw ValidationException::withMessages([
+
+            'ville_field' => "
+                veuillez vérifier la structure de  votre fichier excel le column (ville)
+                n'existe pas dans le fichier excel
+                
+              ",
+            
+        ]);
+
+        $productSlug = Str::slug(str_replace(' ', '', $productName)) . '-' . auth()->user()->uuid.':' .auth()->id();
+
+        $citySlug = Str::slug(str_replace(' ', '', $cityName));
+
+        $regionSlug = Str::slug(str_replace(' ', '', $row['region']));
 
         $product = Product::whereUserId(auth()->id())
             ->whereUserUuid(auth()->user()->uuid)
-            ->whereSlug($slug)->first();
+            ->whereSlug($productSlug)->first();
 
-        $ville = City::whereName($row["ville"])->first();
+        $ville = City::whereSlug($citySlug)->first();
 
-        //dd($product->total_commands_qte);
+        $region = Region::whereSlug($regionSlug)->first();
+
+        if (!$ville) {
+
+            throw ValidationException::withMessages([
+                'city_not_found' => "La ville ( {$cityName} ) n'existe pas dans le systeme !",
+                'produit_add' => "Aucun command a été importé a cause de ce problem veuillez vérifier le nom de la ville ( {$cityName} ) avant de continuer ! "
+            ]);
+            exit();
+        }
+
+        if ($row['region'] && !$region) {
+
+            throw ValidationException::withMessages([
+                'region_not_found' => "La région ( {$row['region']} ) n'existe pas dans le systeme !",
+                'produit_add' => "Aucun command a été importé a cause de ce problem veuillez vérifier le nom de la région ( {$row['region']} ) avant de continuer ! "
+            ]);
+            exit();
+        }
 
         if (!$product) {
 
@@ -69,12 +106,19 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
             'client_phone'    => $row["telephone"],
             'client_city'    => $row["ville"],
             'client_address'    => $row["adresse"],
+
             'city_id' => $ville ? $ville->id : null,
+            'city_uuid'=> $ville ? $ville->uuid : null,
+
+            'region_id' => $region ? $region->id : null,
+            'region_uuid' => $region ? $region->uuid : null,
+
             'user_id' => auth()->id(),
             'user_uuid' => auth()->user()->uuid,
+
             'is_imported' => true
         ];
-        //dd($data);
+
         $command =  Command::create($data);
 
         /* if ($product && round($product->price) !== $prixExcel = round($row["prix"] / $row["qte"])) {
@@ -86,27 +130,30 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
             ]);
         }*/
 
-        //dd($product && $product->total_commands_qte > 0  && $product->qte_rest <  $product->total_commands_qte);
-        if ($product && $product->isOutOfStock($row["qte"])) {
+        /*if ($product && $product->isOutOfStock($row["qte"])) {
 
             throw ValidationException::withMessages([
                 'produit_rupture' => "Le produit ( {$product->name} ) est en rupture de stock",
                 'produit_error' => "Aucun command a été importé a cause de ce problem veuillez augmenter votre Stock !! "
             ]);
-        } else {
+        } */
+
+        if($command)
+        {
 
             $command->items()->create([
 
-                'command_uuid' => $command->uuid,
-                'product_id' => $product ?  $product->id : null,
-                'product_uuid' => $product ? $product->uuid : null,
-                'designation' => $productName,
-                'product' => $productName,
-                'quantity' => $row["qte"],
-                'prix_uni' => round($row["prix"] / $row["qte"]),
-                'prix_total' => $row["prix"],
+                    'command_uuid' => $command->uuid,
+                    'product_id' => $product ?  $product->id : null,
+                    'product_uuid' => $product ? $product->uuid : null,
+                    'designation' => $productName,
+                    'product' => $productName,
+                    'quantity' => $row["qte"],
+                    'prix_uni' => round($row["prix"] / $row["qte"]),
+                    'prix_total' => $row["prix"],
             ]);
         }
+        
     }
 
     /*public function headingRow(): int

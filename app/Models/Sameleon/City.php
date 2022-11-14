@@ -8,6 +8,7 @@ use App\Traits\HasCode;
 use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class City extends Model
 {
@@ -18,6 +19,7 @@ class City extends Model
 
     protected $fillable = [
         'name',
+        'slug',
         'active',
         'frais',
         'code',
@@ -52,5 +54,11 @@ class City extends Model
     public function regions()
     {
         return $this->hasMany(Region::class);
+    }
+
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = $value;
+        $this->attributes['slug'] = Str::slug($value);
     }
 }
