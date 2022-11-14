@@ -34,7 +34,8 @@
         <div class="mb-4">
             <label class="form-label">Mode de règlement *</label>
 
-            <select wire:model.defer="mode" class="form-select @error('mode') is-invalid @enderror">
+            <select wire:model.defer="mode" class="form-select @error('mode') is-invalid @enderror" required>
+                <option value=""></option>
                 <option value="Espèce">Espèce</option>
                 <option value="Virement">Virement</option>
                 <option value="Chèque">Chèque</option>
