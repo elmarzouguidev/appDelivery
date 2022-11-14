@@ -70,6 +70,11 @@ class Bill extends Model implements HasMedia
         return number_format($this->sum('price_total'), 2);
     }
 
+    public function setPriceTotalAttribute($value)
+    {
+        $this->attributes['price_total'] = filter_var($value, FILTER_SANITIZE_NUMBER_INT);
+    }
+
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('normal')
