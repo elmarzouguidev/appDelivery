@@ -19,7 +19,7 @@
 
 
             <input type="date" wire:model.defer="date" id="bill-date" class="form-control @error('date') is-invalid @enderror"
-               value="{{$date}}"  required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+               value="{{$date}}"  required >
 
             @error('date')
                 <span class="invalid-feedback" role="alert">
