@@ -47,6 +47,9 @@
 
         });
         
+
+        /**add bill default date**/
+        document.getElementById('billDate').value = new Date().toDateInputValue();
     </script>
 
 @endpush
