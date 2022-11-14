@@ -18,7 +18,7 @@
             <label class="form-label">Date de règlement *</label>
 
 
-            <input type="date" wire:model.defer="date" id="billDate" class="form-control @error('date') is-invalid @enderror"
+            <input type="date" wire:model.defer="date" id="bill-date" class="form-control @error('date') is-invalid @enderror"
                  required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
 
             @error('date')

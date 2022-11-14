@@ -47,10 +47,6 @@
 
         });
         
-
-        /**add bill default date**/
-
-        document.getElementById('billDate').valueAsDate = new Date();
     </script>
 
 @endpush

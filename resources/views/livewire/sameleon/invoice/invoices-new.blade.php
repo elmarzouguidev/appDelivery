@@ -166,3 +166,6 @@
         ])
     @endif
 </div>
+<script>
+         document.getElementById('bill-date').valueAsDate = new Date();
+</script>
