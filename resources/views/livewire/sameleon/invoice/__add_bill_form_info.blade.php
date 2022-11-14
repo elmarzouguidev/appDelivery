@@ -78,9 +78,9 @@
             Preview:
 
             @if ($recu)
-                <img src="{{ $recu->temporaryUrl() }}" class="img-fluid">
+                <img src="{{ $recu->temporaryUrl() }}" class="img-fluid" width="100" height="100">
             @else
-                <img src="{{ $recu->avatarUrl() }}" class="img-fluid">
+                <img src="{{ $recu->avatarUrl() }}" class="img-fluid" width="100" height="100">
             @endif
 
         </div>
