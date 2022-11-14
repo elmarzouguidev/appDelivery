@@ -17,7 +17,7 @@
 
                                             @if (auth()->user()->products()->count() <= 0)
                                                 <a href="{{ route('admin:products.create', ['shoud_product' => true]) }}"
-                                                    class="btn btn-info mr-3">
+                                                    class="btn btn-info mr-3 mb-2">
                                                     Ajouter un produit
                                                 </a>
                                             @else

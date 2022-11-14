@@ -19,6 +19,7 @@ class Invoices extends Component
     /****Bill ****/
 
     public $price;
+    public $formatedPrice;
     public $date;
     public $mode;
     public $reference;
@@ -26,9 +27,7 @@ class Invoices extends Component
     public $recu;
 
     /****Cloture Invoice */
-
-    public $cloture = false;
-
+    formatedPrice
 
     public $buttonClass = 'disabled';
 
@@ -69,7 +68,7 @@ class Invoices extends Component
         ->loadSum('articles','profit');
         //$this->price = $invoice->articles_sum_price_total;
         $this->price =  number_format($invoice->articles_sum_price_total -($invoice->articles_sum_frais + $invoice->articles_sum_profit),2);
-
+        $this->formatedPrice = intval($this->price);
         $this->dispatchBrowserEvent('add-bill');
     }
 
