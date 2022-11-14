@@ -31,7 +31,12 @@
                             <button type="submit" class="btn btn-primary">Soumettre</button>
                         </div>
                         <div class="col-lg-5">
-                            <button  class="btn btn-primary">Télécharger l'exemple</button>
+                            <a  target="__blank"
+                                href="https://sameleon-express.ma/sameleon-express-excel-commands.xlsx" 
+                                class="btn btn-primary"
+                                >
+                             Télécharger l'exemple
+                           </a>
                         </div>
                     </div>
                 </form>

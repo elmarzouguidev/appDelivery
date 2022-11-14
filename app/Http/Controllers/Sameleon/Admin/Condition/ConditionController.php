@@ -7,6 +7,7 @@ use App\Http\Requests\Sameleon\Condition\ConditionFormRequest;
 use App\Http\Requests\Sameleon\Condition\ConditionUpdateFormRequest;
 use App\Models\Sameleon\Condition;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ConditionController extends Controller
 {
@@ -79,5 +80,10 @@ class ConditionController extends Controller
             return redirect()->back()->with('success', "la condition a été supprimer avec success");
         }
         return redirect()->back()->with('error', 'Error ...');
+    }
+
+    public function downloadExemple()
+    {
+        return redirect()->url('https://sameleon-express.ma/sameleon-express-excel-commands.xlsx');
     }
 }
