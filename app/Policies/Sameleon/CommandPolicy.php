@@ -101,4 +101,9 @@ class CommandPolicy
     {
         return $command->client()->is($user);
     }
+
+    public function import(User $user)
+    {
+       return $user->hasAnyRole(['Client','SuperAdmin','Admin']) ? true :false;
+    }
 }

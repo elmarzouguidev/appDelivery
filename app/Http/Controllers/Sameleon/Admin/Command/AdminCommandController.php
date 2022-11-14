@@ -33,16 +33,23 @@ class AdminCommandController extends Controller
         InvoiceGenerator::run();
 
         $cities = app(CityInterface::class)->getCities();
-        $clients = app(ClientInterface::class)->getClients();
+        $clients = []; 
 
+        if(isAdmin())
+        {
+           $clients = app(ClientInterface::class)->getClients(); 
+        }
+  
         //$commands = Command::withSum('products', 'product_command.price_total')->get();
-        // $commands = Command::with('products')->get();
+        //$commands = Command::with('products')->get();
 
         return view('Sameleon.Admin.Command.__datatable.index', compact('cities','clients'));
     }
 
     public function import(ImportCommandRequest $request)
     {
+        $this->authorize('import', Command::class);
+
         $file = $request->file('file');
 
         if(isAdmin() && $request->has('client') && $request->filled('client'))
