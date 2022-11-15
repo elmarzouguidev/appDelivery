@@ -6,15 +6,18 @@ use App\Filters\ItemsQuery;
 use App\Http\Controllers\Sameleon\Admin\Command\PrintController;
 use App\Models\Sameleon\BLivraison;
 use App\Models\Sameleon\BRouter;
+use App\Models\Sameleon\City;
 use App\Models\Sameleon\Command;
 use App\Models\Sameleon\Delivery;
 use App\Models\Sameleon\Product;
 use App\Models\Sameleon\Stock;
 use App\Models\Sameleon\User;
 use App\Repositories\City\CityInterface;
+use App\Status\DeliveryStatus;
 use Livewire\Component;
 use App\Status\Status;
 use Illuminate\Support\Carbon;
+use Illuminate\Validation\ValidationException;
 use Livewire\WithPagination;
 
 class Commands extends Component
@@ -35,6 +38,10 @@ class Commands extends Component
 
     public $cities;
     public $citiesList;
+
+    public $blCity;
+    public $blDelivery;
+    public $blDeliveries;
 
     public $clients;
     public $products;
@@ -124,42 +131,7 @@ class Commands extends Component
 
                 ->paginate(60);
 
-            //dd( $commands);
             $delivries = [];
-        } elseif (isDelivery()) {
-
-            $commands =  $command->where('delivery_id', delivery()->id)
-                ->where('delivery_uuid', delivery()->uuid)
-                ->whereIn('status', [Status::ENCOURS, Status::LIVRE])
-                //->where('updated_at', now())
-                ->with('items')
-                ->withSum('items', 'prix_total')
-                //->with('products.stock')
-                ->with(['city:id,name'])
-                ->orderByRaw("created_at DESC")
-                ->orderByRaw("FIELD(status, $commandStatus)")
-                ->paginate(60);
-
-            $delivries = [];
-
-            return view('livewire.sameleon.command.commands-delivery', compact('commands', 'delivries'));
-        } elseif (isDelivery() && delivery()->hasRole('DeliveryEntreprise')) {
-
-            $commands =  $command->where('delivery_id', delivery()->id)
-                ->where('delivery_uuid', delivery()->uuid)
-                ->whereIn('status', [Status::ENCOURS, Status::LIVRE])
-                //->where('updated_at', now())
-                ->with('items')
-                ->withSum('items', 'prix_total')
-                //->with('products.stock')
-                //->with(['city:id,name'])
-                ->orderByRaw("created_at DESC")
-                ->orderByRaw("FIELD(status, $commandStatus)")
-                ->paginate(60);
-
-            $delivries = [];
-
-            return view('livewire.sameleon.command.commands-delivery-company', compact('commands', 'delivries'));
         } else {
 
             $commands = $command
@@ -174,9 +146,7 @@ class Commands extends Component
 
             $delivries = Delivery::role(['Delivery', 'DeliveryEntreprise'])->select(['uuid', 'id', 'nom', 'prenom', 'type'])->get();
         }
-
-        //  $commands =  $command->with('products')->get();
-
+        
         return view('livewire.sameleon.command.commands-new', compact('commands', 'delivries'));
     }
 
@@ -193,6 +163,9 @@ class Commands extends Component
     {
 
         $this->emit('refresh');
+
+        $this->blDelivery = null;
+        $this->blDeliveries = [];
 
         $this->showEdit = false;
 
@@ -225,7 +198,8 @@ class Commands extends Component
 
                 'delivery_id' => $delivery->id,
                 'delivery_uuid' => $delivery->uuid,
-                'status' => $status
+                'status' => $status,
+                'delivery_status' => DeliveryStatus::D_NON_TRAITE
 
             ]);
 
@@ -235,27 +209,51 @@ class Commands extends Component
         }
     }
 
+
+    public function updatedBlCity()
+    {
+
+        $deliveries = Delivery::whereCityUuid($this->blCity)->get();
+
+        $this->blDeliveries = $deliveries;
+    }
+
     public function generateBl()
     {
-        if (count($this->selectedCommands)) {
+        $commandCity = City::whereUuid($this->blCity)->first();
 
+        $commandDelivery = Delivery::whereUuid($this->blDelivery)->first();
 
-            $commands = Command::withSum('items', 'prix_total')->find($this->selectedCommands)->each->get();
+        if (count($this->selectedCommands) && $commandCity && $commandDelivery) {
 
+            $allCommands = Command::withSum('items', 'prix_total')->find($this->selectedCommands)->each->get();
+
+            $commands = $allCommands->each(function($command , $key) use($commandCity){
+
+                if(!$command->city()->is($commandCity))
+                {
+                    $this->dispatchBrowserEvent('commands-error-city',['command' => $command->code,'city' => $commandCity->name]);
+
+                    throw ValidationException::withMessages([
+                        'command_listed_error' => "La command 
+                        ( {$command->code} ) ne correspond pas a la ville ( {$commandCity->name} )!"
+                        
+                    ]);
+                    exit;
+                }
+            });
+            
             $bon = new BLivraison();
-            $bon->city_id = $commands[0]->city_id;
-            $bon->city_uuid = $commands[0]->city_uuid;
-            $bon->delivery_id = $commands[0]->delivery_id;
-            $bon->delivery_uuid = $commands[0]->delivery_uuid;
+            $bon->city_id = $commandCity->id;
+            $bon->city_uuid = $commandCity->uuid;
+            $bon->delivery_id = $commandDelivery->id;
+            $bon->delivery_uuid = $commandDelivery->uuid;
             $bon->bon_date = now();
             $bon->save();
-
+            
             if ($bon && $commands) {
                 $newCommands =  $commands->map(function ($item, $key) use ($bon) {
-
-                    //$item->update(['invoice_id' => $this->invoice->id, 'invoice_uuid' => $this->invoice->uuid]);
-
-                    //$price = $item->status == Status::REFUSE ? 0 : $item->items_sum_prix_total;
+                    
                     return [
                         'b_livraison_id' => $bon->id,
                         'b_livraison_uuid' => $bon->uuid,
@@ -282,7 +280,6 @@ class Commands extends Component
     public function generateBR()
     {
         if (count($this->selectedCommands)) {
-
 
             $commands = Command::withSum('items', 'prix_total')->find($this->selectedCommands)->each->get();
 

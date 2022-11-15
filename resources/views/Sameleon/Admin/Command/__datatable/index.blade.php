@@ -9,6 +9,8 @@
 
         {{-- <h1>Maintenance</h1> --}}
 
+        {{--@include('Sameleon.Admin.Command.__datatable.__generate_bl_modal')--}}
+
         @include('Sameleon.Admin.Command.__datatable.__add_command_modal')
 
         @include('Sameleon.Admin.Command.__datatable.__import_command')
@@ -109,6 +111,21 @@
                 timer: 2000
             })
 
+        });
+
+        window.addEventListener('commands-error-city', event => {
+
+            Swal.fire({
+                position: 'top-end',
+                width: 800,
+                icon: 'error',
+                title: `La command : ${event.detail.command} ne correspond pas a la ville ${event.detail.city}`,
+                showConfirmButton: false,
+                timer: 4000
+            })
+            setTimeout(function() {
+                window.location.reload();
+            }, 3000);
         });
 
         /****Global notofy ****/

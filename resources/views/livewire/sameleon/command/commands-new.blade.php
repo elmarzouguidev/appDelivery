@@ -47,13 +47,20 @@
                                         @endif
 
                                         @if (isAdmin())
-                                            <button {{ count($selectedCommands) ? '' : 'disabled' }}
+                                            {{--<button {{ count($selectedCommands) ? '' : 'disabled' }}
                                                 class="btn btn-primary mr-3 mb-2" type="button" 
-                                                {{--data-bs-toggle="modal"
-                                                data-bs-target=".generateBL"--}}
+           
                                                 wire:click="generateBl()"
                                                 >
-                                                Générer un Bon de livraison {{-- : @json($selectedCommands) --}}
+                                                Générer un Bon de livraison 
+                                            </button>--}}
+                                            <button {{ count($selectedCommands) ? '' : 'disabled' }}
+                                                class="btn btn-primary mr-3 mb-2" type="button" 
+                                                data-bs-toggle="modal"
+                                                data-bs-target=".generateBlModal"
+                                                
+                                                >
+                                                Générer un Bon de livraison
                                             </button>
                                             <button {{ count($selectedCommands) ? '' : 'disabled' }}
                                                 class="btn btn-primary mr-3 mb-2" type="button" 
@@ -319,5 +326,9 @@
 
     @if (count($selectedCommands))
         @include('livewire.sameleon.command.attache_to_delivery')
+    @endif
+
+    @if (count($selectedCommands))
+        @include('livewire.sameleon.command.__generate_bl_modal')
     @endif
 </div>

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Sameleon\City;
 use App\Models\Sameleon\Delivery;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -16,6 +17,9 @@ class DeliverySeeder extends Seeder
      */
     public function run()
     {
+
+        $city = City::find(12) ; //agadir
+
         $user =  [
             'nom' => 'khalid',
             'prenom' => 'livreur',
@@ -49,7 +53,8 @@ class DeliverySeeder extends Seeder
             'is_company' => true,
             'company_name' => 'ARFAOUI SARL',
             'type' => 'entreprise',
-            'city_id' => 12
+            'city_id' => $city->id,
+            'city_uuid' => $city->uuid
         ];
 
         $delivery = Delivery::whereEmail('chaligui@gmail.com')->first();
