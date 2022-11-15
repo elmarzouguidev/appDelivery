@@ -105,7 +105,7 @@
                 <div class="d-flex">
                     <div class="flex-grow-1">
                         <p class="text-muted fw-medium">Chiffre d'affaires non versé</p>
-                        <h4 class="mb-0">{{ number_format(000000, 2) }} DH</h4>
+                        <h4 class="mb-0">{{ number_format($total_chiffre_affaires_non_versed, 2) }} DH</h4>
                     </div>
 
                     <div class="flex-shrink-0 align-self-center">
