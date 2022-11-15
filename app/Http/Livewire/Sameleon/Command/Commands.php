@@ -402,7 +402,7 @@ class Commands extends Component
                         $this->dispatchBrowserEvent('stock-not-found-city',['city' => $CityName]);
 
                         throw ValidationException::withMessages([
-                            'stock_not_found' => "Le stock n'existe pas sur la ville ($CityName))!"
+                            'stock_not_found' => "Le stock n'existe pas sur la ville $CityName!"
                         ]);
                         exit;
                     }
@@ -450,7 +450,7 @@ class Commands extends Component
                         $this->dispatchBrowserEvent('stock-not-found-city',['city' => $CityName]);
 
                         throw ValidationException::withMessages([
-                            'stock_not_found' => "Le stock n'existe pas sur la ville ($CityName)!"
+                            'stock_not_found' => "Le stock n'existe pas sur la ville $CityName !"
                         ]);
                         exit;
                     }
