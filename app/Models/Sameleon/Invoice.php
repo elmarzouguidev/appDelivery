@@ -113,6 +113,26 @@ class Invoice extends Model
         return 0;
     }
 
+    public function scopeTotalChiffreNonVersed($query)
+    {
+
+        if (isClient()) {
+
+            return $query
+                ->whereUserId(auth()->id())
+                ->whereUserUuid(auth()->user()->uuid)
+                ->doesntHave('bill')
+                ->withSum('articles', 'articles.price_total')
+                ->get()
+                ->sum('articles_sum_articlesprice_total');
+        } 
+        else {
+            return $query->doesntHave('bill')
+            ->withSum('articles', 'articles.price_total')
+            ->get()->sum('articles_sum_articlesprice_total');
+        }
+    }
+
     public static function boot()
     {
 

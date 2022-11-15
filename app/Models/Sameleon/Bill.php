@@ -103,29 +103,6 @@ class Bill extends Model implements HasMedia
         }
     }
 
-    public function scopeTotalChiffreNonVersed($query)
-    {
-
-        if (isClient()) {
-
-            return $query
-                ->whereUserId(auth()->id())
-                ->whereUserUuid(auth()->user()->uuid)
-                ->get()
-                ->sum('price_total');
-        } 
-        elseif(isDelivery())
-        {
-            return $query->whereDeliveryId(delivery()->id)
-            ->whereDeliveryUuid(delivery()->uuid)
-            ->get()
-            ->sum('price_total');
-        } 
-        else {
-            return $query->get()->sum('price_total');
-        }
-    }
-
     public static function boot()
     {
 
