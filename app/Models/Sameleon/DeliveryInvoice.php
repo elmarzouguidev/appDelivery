@@ -103,6 +103,26 @@ class DeliveryInvoice extends Model
         return 0;
     }
 
+    public function scopeTotalChiffreNonVersed($query)
+    {
+
+        if (isDelivery()) {
+
+            return $query
+                ->whereDeliveryId(delivery()->id)
+                ->whereDeliveryUuid(delivery()->uuid)
+                ->doesntHave('bill')
+                ->withSum('articles', 'articles.price_total')
+                ->get()
+                ->sum('articles_sum_articlesprice_total');
+        } 
+        else {
+            return $query->doesntHave('bill')
+            ->withSum('articles', 'articles.price_total')
+            ->get()->sum('articles_sum_articlesprice_total');
+        }
+    }
+
     public static function boot()
     {
 

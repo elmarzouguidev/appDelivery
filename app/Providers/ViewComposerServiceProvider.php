@@ -7,6 +7,8 @@ use App\Http\View\Composers\BillComposer;
 use App\Http\View\Composers\CommandComposer;
 use App\Http\View\Composers\ConditionComposer;
 use App\Http\View\Composers\DeliveryComposer;
+use App\Http\View\Composers\InvoiceComposer;
+use App\Http\View\Composers\InvoiceDeliveryComposer;
 use App\Http\View\Composers\InvoiceOfDay;
 use App\Http\View\Composers\NavBarComposer;
 use App\Http\View\Composers\NewProductsComposer;
@@ -44,6 +46,14 @@ class ViewComposerServiceProvider extends ServiceProvider
             'Sameleon.Admin.Home2.*',
             'Sameleon.Admin.SubDelivery.Home2.*',
         ], BillComposer::class);
+
+        View::composer([
+            'Sameleon.Admin.Home2.*',
+        ], InvoiceComposer::class);
+
+        View::composer([
+            'Sameleon.Admin.SubDelivery.Home2.*',
+        ], InvoiceDeliveryComposer::class);
         
         View::composer([
             'Sameleon.Admin.Home2.*',

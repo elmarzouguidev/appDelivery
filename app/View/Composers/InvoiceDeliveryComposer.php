@@ -2,18 +2,18 @@
 
 namespace App\Http\View\Composers;
 
-use App\Models\Sameleon\Invoice;
+use App\Models\Sameleon\DeliveryInvoice;
 use Illuminate\View\View;
 use Illuminate\Cache\CacheManager;
 
-class InvoiceComposer
+class InvoiceDeliveryComposer
 {
 
-    protected Invoice $invoice;
+    protected DeliveryInvoice $invoice;
 
     protected CacheManager $cache;
 
-    public function __construct(Invoice $invoice, CacheManager $cache)
+    public function __construct(DeliveryInvoice $invoice, CacheManager $cache)
     {
         $this->invoice = $invoice;
 
