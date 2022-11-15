@@ -122,21 +122,15 @@ class Invoice extends Model
                 ->whereUserId(auth()->id())
                 ->whereUserUuid(auth()->user()->uuid)
                 ->doesntHave('bill')
-                //->selectRaw('sum(quantity * price) as total')
-                ->withSum(['articles'=>function($query) {
-                    return $query->selectRaw('sum(price_total - frais) as price_total');
-                }], 'price_total')
-                //->withSum('articles', 'articles.frais')
+                ->withSum('articles', 'articles.price_total')
+                ->withSum('articles', 'articles.frais')
                 ->get()
                 ->sum('articles_sum_articlesprice_total');
         } 
         else {
             return $query->doesntHave('bill')
-                //->selectRaw('sum(quantity * price) as total')
-                ->withSum(['articles'=>function($query) {
-                    return $query->selectRaw('sum(price_total - frais) as price_total');
-                }], 'price_total')
-                //->withSum('articles', 'articles.frais')
+                ->withSum('articles', 'articles.price_total')
+                ->withSum('articles', 'articles.frais')
                 ->get()
                 ->sum('articles_sum_articlesprice_total');
         }
