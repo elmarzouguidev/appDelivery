@@ -28,10 +28,7 @@ class BillComposer
      */
     public function compose(View $view)
     {
-
         $view->with('total_chiffre_affaires_versed', $this->bill->totalChiffreVersed());
-        $view->with('total_chiffre_affaires_non_versed', $this->bill->totalChiffreNonVersed());
-
     }
     
 
