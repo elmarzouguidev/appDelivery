@@ -18,8 +18,8 @@ class DeliverySeeder extends Seeder
     public function run()
     {
 
-        Delivery::query()->truncate();
-        
+        //Delivery::query()->truncate();
+
         $city = City::find(12) ; //agadir
 
         $user =  [
