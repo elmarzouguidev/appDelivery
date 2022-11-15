@@ -117,11 +117,11 @@
 
             Swal.fire({
                 position: 'top-end',
-                width: 800,
+                width: 900,
                 icon: 'error',
                 title: `La command : ${event.detail.command} ne correspond pas a la ville ${event.detail.city}`,
                 showConfirmButton: false,
-                timer: 4000
+                timer: 5000
             })
             setTimeout(function() {
                 window.location.reload();
