@@ -444,6 +444,7 @@ class Command extends Model
         }
     }
 
+
     public static function boot()
     {
 
