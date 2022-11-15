@@ -134,7 +134,7 @@
                 position: 'top-end',
                 width: 900,
                 icon: 'warning',
-                title: `Le stock n'existe pas dans la ville: ${event.detail.city}`,
+                title: `Le stock de (${event.detail.product}) n'existe pas dans la ville: ${event.detail.city}`,
                 showConfirmButton: false,
                 timer: 5000
             })

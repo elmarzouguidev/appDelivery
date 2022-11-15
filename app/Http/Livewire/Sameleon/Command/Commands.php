@@ -399,10 +399,10 @@ class Commands extends Component
                     {
                         $CityName = optional($command->city)->name;
 
-                        $this->dispatchBrowserEvent('stock-not-found-city',['city' => $CityName]);
+                        $this->dispatchBrowserEvent('stock-not-found-city',['city' => $CityName,'product'=>$prod->name]);
 
                         throw ValidationException::withMessages([
-                            'stock_not_found' => "Le stock n'existe pas sur la ville $CityName!"
+                            'stock_not_found' => "Le stock de ($prod->name) n'existe pas sur la ville $CityName!"
                         ]);
                         exit;
                     }
