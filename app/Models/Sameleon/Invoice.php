@@ -123,13 +123,15 @@ class Invoice extends Model
                 ->whereUserUuid(auth()->user()->uuid)
                 ->doesntHave('bill')
                 ->withSum('articles', 'articles.price_total')
+                ->withSum('articles', 'articles.frais')
                 ->get()
-                ->sum('articles_sum_articlesprice_total');
+                ->sum('articles_sum_articlesprice_total - articles_sum_articlesfrais');
         } 
         else {
             return $query->doesntHave('bill')
             ->withSum('articles', 'articles.price_total')
-            ->get()->sum('articles_sum_articlesprice_total');
+            ->withSum('articles', 'articles.frais')
+            ->get()->sum('articles_sum_articlesprice_total - articles_sum_articlesfrais');
         }
     }
 
