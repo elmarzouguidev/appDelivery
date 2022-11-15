@@ -28,7 +28,6 @@
 
                                 <th class="align-middle">RÈGLEMENT N°</th>
                                 <th class="align-middle">Facture N°</th>
-                                <th class="align-middle">Montant FACTURE (hors frais)</th>
                                 <th class="align-middle">Montant REGLEMENT</th>
                                 <th class="align-middle">Mode de paiment</th>
                                 <th class="align-middle">Date de paiment</th>
@@ -67,12 +66,6 @@
                                         >
                                         {{ $payment->billable->full_number }}
                                         </a>
-                                    </td>
-
-                                    <td>
-
-                                        {{ number_format($payment->price_total, 2) }} DH
-
                                     </td>
 
                                     <td>
