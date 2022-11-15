@@ -57,7 +57,6 @@ class AdminCommandController extends Controller
             
             $client = User::role('Client')->whereUuid($request->client)->first();
 
-            dd($client,"okok");
             $client ?? throw ValidationException::withMessages([
 
                 'client_not_found' => "Le client ( {$client->full_name} ) n'existe pas dans le systeme !"

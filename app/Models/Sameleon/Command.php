@@ -26,6 +26,7 @@ class Command extends Model
 
     protected $fillable = [
         'status',
+        'delivery_status',
         'price_total',
         'frais',
         'is_closed',
@@ -68,6 +69,8 @@ class Command extends Model
         'is_imported' => 'boolean',
         'is_closed' => 'boolean',
         'is_api' => 'boolean',
+        //'delivery_status'=>'integer',
+        //'status'=>'integer'
 
     ];
 
