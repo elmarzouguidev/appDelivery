@@ -79,7 +79,6 @@ class Commands extends Component
     public function render()
     {
 
-
         if (request()->has('livred') && request()->livred == true) {
 
             $this->filter += ['status' => Status::LIVRE];
@@ -253,7 +252,7 @@ class Commands extends Component
             
             if ($bon && $commands) {
                 $newCommands =  $commands->map(function ($item, $key) use ($bon) {
-                    
+
                     return [
                         'b_livraison_id' => $bon->id,
                         'b_livraison_uuid' => $bon->uuid,
@@ -271,7 +270,7 @@ class Commands extends Component
                 $bon->articles()->createMany($newCommands);
             }
             if ($bon && $bon->articles()->count()) {
-                $this->dispatchBrowserEvent('notify-global', ['message' => 'le bon a été generer avec succès']);
+                $this->dispatchBrowserEvent('notify-global', ['message' => 'Le bon a été generer avec succès']);
                 $this->dispatchBrowserEvent('bl-redirect');
             }
         }
@@ -312,7 +311,7 @@ class Commands extends Component
                 $bon->articles()->createMany($newCommands);
             }
             if ($bon && $bon->articles()->count()) {
-                $this->dispatchBrowserEvent('notify-global', ['message' => 'le bon a été generer avec succès']);
+                $this->dispatchBrowserEvent('notify-global', ['message' => 'Le bon a été generer avec succès']);
                 $this->dispatchBrowserEvent('br-redirect');
             }
         }
@@ -358,7 +357,6 @@ class Commands extends Component
     public function changeStatus(Command $command, int $status)
     {
 
-        //dd('Ooow');
         $items = $command->items;
 
         if ($status == Status::LIVRE && $command->status != Status::LIVRE) {
@@ -376,34 +374,46 @@ class Commands extends Component
                         'city_uuid' => $command->city_uuid,
                     ])->first();
 
-                    //dd($stock);
+                    if($stock)
+                    {
+                        if ($stock->qte_rest >= $qte && $stock->qte_rest !== 0 && $stock->qte_rest > 0 && !$stock->is_out) {
 
-
-                    if ($stock->qte_rest >= $qte && $stock->qte_rest !== 0 && $stock->qte_rest > 0 && !$stock->is_out) {
-
-                        //dd('Oui in this cas ');
-
-                        $stock->decrement('qte_rest', $qte);
-
-                        $stock->increment('qte_livre', $qte);
-
-                        $command->update(['delivered_at' => now()]);
-
-                        $command->update(['status' => $status]);
-                    } else {
-
-                        $stock->update(['is_out' => true]);
-
-                        $command->update(['delivered_at' => null]);
-
-                        $command->update(['status' => Status::MANQUE_DE_STOCK]);
+                      
+                            $stock->decrement('qte_rest', $qte);
+    
+                            $stock->increment('qte_livre', $qte);
+    
+                            $command->update(['delivered_at' => now()]);
+    
+                            $command->update(['status' => $status]);
+                        } else {
+    
+                            $stock->update(['is_out' => true]);
+    
+                            $command->update(['delivered_at' => null]);
+    
+                            $command->update(['status' => Status::MANQUE_DE_STOCK]);
+                        }
                     }
+                    else
+                    {
+                        $CityName = optional($command->city)->name;
+                        $this->dispatchBrowserEvent('stock-not-found-city',['city' => $CityName]);
+
+                        throw ValidationException::withMessages([
+                            'stock_not_found' => "Le stock n'existe pas sur la ville ( { $CityName) } )!"
+                        ]);
+                        exit;
+                    }
+
                 } else {
                 }
             });
-        } elseif ($status == Status::REFUSE && $command->status != Status::REFUSE) {
+        } elseif ($status == Status::REFUSE && $command->status == Status::LIVRE && $command->status != Status::REFUSE ) {
 
             $command->update(['delivered_at' => '1993-03-03 00:00:00']);
+
+            $command->update(['status' => $status]);
 
             $items->each(function ($item, $key) use ($command, $status) {
 
@@ -418,20 +428,32 @@ class Commands extends Component
                         'city_uuid' => $command->city_uuid,
                     ])->first();
 
-                    if ($stock->qte_rest !== 0 && $stock->qte_rest > 0 || $stock->qte_rest >= $qte) {
+                    if($stock)
+                    {
+                        if ($stock->qte_rest !== 0 && $stock->qte_rest > 0 || $stock->qte_rest >= $qte) {
 
-                        $stock->increment('qte_rest', $qte);
-                        $stock->decrement('qte_livre',  $qte);
+                            $stock->increment('qte_rest', $qte);
+                            $stock->decrement('qte_livre',  $qte);
+                        }
+    
+                        if ($stock->qte_rest == 0) {
+    
+                            $stock->update(['is_out' => true]);
+    
+                            $command->update(['status' => Status::MANQUE_DE_STOCK]);
+                        }
+                    }
+                    else {
+
+                        $CityName = optional($command->city)->name;
+                        $this->dispatchBrowserEvent('stock-not-found-city',['city' => $CityName]);
+
+                        throw ValidationException::withMessages([
+                            'stock_not_found' => "Le stock n'existe pas sur la ville ( { $CityName) } )!"
+                        ]);
+                        exit;
                     }
 
-                    $command->update(['status' => $status]);
-
-                    if ($stock->qte_rest == 0) {
-
-                        $stock->update(['is_out' => true]);
-
-                        $command->update(['status' => Status::MANQUE_DE_STOCK]);
-                    }
                 } else {
                 }
             });

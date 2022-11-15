@@ -128,6 +128,21 @@
             }, 3000);
         });
 
+        window.addEventListener('stock-not-found-city', event => {
+
+            Swal.fire({
+                position: 'top-end',
+                width: 900,
+                icon: 'warning',
+                title: `Le stock n'existe pas dans la ville: ${event.detail.city}`,
+                showConfirmButton: false,
+                timer: 5000
+            })
+            setTimeout(function() {
+                window.location.reload();
+            }, 3000);
+        });
+
         /****Global notofy ****/
         window.addEventListener('notify-global', event => {
 
