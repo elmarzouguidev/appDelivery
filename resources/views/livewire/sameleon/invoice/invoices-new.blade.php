@@ -81,7 +81,12 @@
                                             {{ number_format($invoice->articles_sum_price_total,2) }} DH
                                         </td>
                                         <td>
+                                            @if($invoice->articles_sum_price_total <= 0)
+                                            {{ number_format($invoice->articles_sum_frais + $invoice->articles_sum_profit,2) }} DH
+                                            @else
                                             {{ number_format($invoice->articles_sum_price_total-($invoice->articles_sum_frais + $invoice->articles_sum_profit),2) }} DH
+
+                                            @endif
                                         </td>
                                         <td>
                                             {{ $invoice->created_at->format('d-m-Y') }}
