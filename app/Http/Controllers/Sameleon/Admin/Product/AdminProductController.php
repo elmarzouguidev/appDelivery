@@ -101,17 +101,11 @@ class AdminProductController extends Controller
 
             $user = User::find($request->client);
 
-            //$product->client()->associate($user);
-            //$product->user_uuid = $user->uuid;
-
             $product->associateWith('client', $user);
 
             $product->slug = Str::slug(str_replace(' ', '', $request->name)) . '-' . $user->uuid. ':' .$user->id;
         } else {
-
-            //$product->client()->associate(auth()->id());
-            //$product->user_uuid = auth()->user()->uuid;
-
+            
             $product->associateWith('client', auth()->user());
 
             $product->slug = Str::slug(str_replace(' ', '', $request->name)) . '-' . auth()->user()->uuid .':'. auth()->id();

@@ -24,12 +24,24 @@
         @endif
     @endif
 
+    @if(isClient() && auth()->user()->unreadNotifications->count())
+
+           @include('Sameleon.Admin.Home2.section.__notifications')
+
+    @endif
+
 @endsection
 
 @section('javascript')
     <script>
         setTimeout(function() {
             $("#annoncesModal").modal("show");
+        }, 2e3);
+    </script>
+
+    <script>
+        setTimeout(function() {
+            $("#notificationsModal").modal("show");
         }, 2e3);
     </script>
 

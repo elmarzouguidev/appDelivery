@@ -7,7 +7,9 @@ use App\Http\Requests\Sameleon\Ramassage\NewRamassageFormRequest;
 use App\Http\Requests\Sameleon\Ramassage\RamassageFormRequest;
 use App\Models\Sameleon\Product;
 use App\Models\Sameleon\Ramassage;
+use App\Notifications\RamassageAccepted;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class RamassageController extends Controller
 {
@@ -92,10 +94,16 @@ class RamassageController extends Controller
     {
         $request->validate(['ramassageId' => 'required', 'uuid']);
 
-        $product = Ramassage::whereUuid($request->ramassageId)->first();
+        $ramassage = Ramassage::whereUuid($request->ramassageId)->first();
 
-        if ($product) {
-            $product->update(['accepted' => true]);
+        if ($ramassage) {
+
+            $ramassage->update(['accepted' => true]);
+
+            $client = $ramassage->client()->first();
+            
+            Notification::send($client, new RamassageAccepted($ramassage));
+
             return redirect()->back()->with('success', "Le demande a éte accepter avec success");
         }
         return redirect()->back()->with('error', "error !!!");

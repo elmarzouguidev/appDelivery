@@ -110,4 +110,16 @@ class AdminHomeController extends Controller
         //return response()->noContent();
         return redirect()->back();
     }
+
+    public function readRamassageNotifications(Request $request)
+    {
+        auth()->user()
+            ->unreadNotifications
+            ->each
+            ->whereType('App\Notifications\RamassageAccepted')
+            ->markAsRead();
+
+        //return response()->noContent();
+        return redirect()->back();
+    }
 }
