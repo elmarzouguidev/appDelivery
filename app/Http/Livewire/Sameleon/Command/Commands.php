@@ -43,6 +43,8 @@ class Commands extends Component
     public $blDelivery;
     public $blDeliveries;
 
+    public $brClient;
+
     public $clients;
     public $products;
 
@@ -166,6 +168,8 @@ class Commands extends Component
         $this->blDelivery = null;
         $this->blDeliveries = [];
 
+        $this->brClient = null;
+
         $this->showEdit = false;
 
         $this->reportTime = now()->format('d-m-Y');
@@ -174,7 +178,7 @@ class Commands extends Component
 
         if (isAdmin()) {
 
-            $this->clients = User::role('Client')->select(['nom', 'prenom', 'id'])->get();
+            $this->clients = User::role('Client')->select(['nom', 'prenom', 'id','uuid'])->get();
             $this->products = Product::select(['id', 'name'])->get();
             $this->citiesList = app(CityInterface::class)->getCities();
         }
@@ -216,6 +220,7 @@ class Commands extends Component
 
         $this->blDeliveries = $deliveries;
     }
+
 
     public function generateBl()
     {
@@ -278,22 +283,47 @@ class Commands extends Component
 
     public function generateBR()
     {
-        if (count($this->selectedCommands)) {
+        $client = User::role('Client')->whereUuid($this->brClient)->first();
 
-            $commands = Command::withSum('items', 'prix_total')->find($this->selectedCommands)->each->get();
+        if (count($this->selectedCommands) && $client) {
+
+            $allCommands = Command::withSum('items', 'prix_total')->find($this->selectedCommands)->each->get();
+
+            $commands = $allCommands->each(function($command , $key) use($client){
+
+                if(!$command->client()->is($client))
+                {
+                    $this->dispatchBrowserEvent('commands-error-client',['command' => $command->code,'client' => $client->full_name]);
+
+                    throw ValidationException::withMessages([
+                        'command_listed_error' => "La command 
+                        ( {$command->code} ) ne correspond pas a le client ( {$client->full_name} )!"
+                        
+                    ]);
+                    exit;
+                }
+                if($command->status !== Status::RETOURNE)
+                {
+                    $this->dispatchBrowserEvent('commands-error-status',['command' => $command->code,'status' => 'Retourné']);
+
+                    throw ValidationException::withMessages([
+                        'command_listed_error' => "La command 
+                        ( {$command->code} ) ne correspond pas a le status Retourné !"
+                        
+                    ]);
+                    exit;
+                }
+            });
 
             $bon = new BRouter();
-            $bon->city_id = $commands[0]->city_id;
-            $bon->city_uuid = $commands[0]->city_uuid;
+            $bon->user_id = $client->id;
+            $bon->user_uuid = $client->uuid;
             $bon->bon_date = now();
             $bon->save();
 
             if ($bon && $commands) {
                 $newCommands =  $commands->map(function ($item, $key) use ($bon) {
 
-                    //$item->update(['invoice_id' => $this->invoice->id, 'invoice_uuid' => $this->invoice->uuid]);
-
-                    //$price = $item->status == Status::REFUSE ? 0 : $item->items_sum_prix_total;
                     return [
                         'b_router_id' => $bon->id,
                         'b_router_uuid' => $bon->uuid,
@@ -311,7 +341,7 @@ class Commands extends Component
                 $bon->articles()->createMany($newCommands);
             }
             if ($bon && $bon->articles()->count()) {
-                $this->dispatchBrowserEvent('notify-global', ['message' => 'Le bon a été generer avec succès']);
+                $this->dispatchBrowserEvent('notify-global', ['message' => 'Le bon de retour a été generer avec succès']);
                 $this->dispatchBrowserEvent('br-redirect');
             }
         }

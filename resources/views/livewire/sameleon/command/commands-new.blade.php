@@ -16,7 +16,7 @@
                                         @if (isClient())
 
                                             @if (auth()->user()->products()->count() <= 0)
-                                                <a href="{{ route('admin:products.create', ['shoud_product' => true]) }}"
+                                                <a href="{{ route('admin:products.create') }}"
                                                     class="btn btn-info mr-3 mb-2">
                                                     Ajouter un produit
                                                 </a>
@@ -62,11 +62,19 @@
                                                 >
                                                 Générer un Bon de livraison
                                             </button>
+                                            {{--<button {{ count($selectedCommands) ? '' : 'disabled' }}
+                                                class="btn btn-primary mr-3 mb-2" type="button" 
+                    
+                                                wire:click="generateBR()"
+                                                >
+                                                Générer un Bon de retour
+                                            </button>--}}
+
                                             <button {{ count($selectedCommands) ? '' : 'disabled' }}
                                                 class="btn btn-primary mr-3 mb-2" type="button" 
-                                                {{--data-bs-toggle="modal"
-                                                data-bs-target=".generateBR"--}}
-                                                wire:click="generateBR()"
+                                                data-bs-toggle="modal"
+                                                data-bs-target=".generateBRModal"
+                                                
                                                 >
                                                 Générer un Bon de retour {{-- : @json($selectedCommands) --}}
                                             </button>
@@ -330,5 +338,9 @@
 
     @if (count($selectedCommands))
         @include('livewire.sameleon.command.__generate_bl_modal')
+    @endif
+
+    @if (count($selectedCommands))
+        @include('livewire.sameleon.command.__generate_br_modal')
     @endif
 </div>
