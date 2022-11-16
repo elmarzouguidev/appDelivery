@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Sameleon\Admin\BR;
 
+use App\Actions\Sameleon\BRouterAction;
 use App\Http\Controllers\Controller;
 use App\Models\Sameleon\BRouter;
 use App\Repositories\BR\BRInterface;
@@ -12,6 +13,8 @@ class BRController extends Controller
 
     public function index()
     {
+        
+        BRouterAction::run();
         
         $bons = app(BRInterface::class)->getBRs();
 
