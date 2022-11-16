@@ -6,11 +6,12 @@ use App\Filters\ItemsQuery;
 use App\Models\Sameleon\Command;
 use App\Models\Sameleon\Delivery;
 use App\Models\Sameleon\Product;
+use App\Status\DeliveryStatus;
 use App\Status\Status;
 use Livewire\Component;
 
 use Illuminate\Support\Carbon;
-
+use Illuminate\Validation\ValidationException;
 use Livewire\WithPagination;
 
 class Commands extends Component
@@ -96,10 +97,13 @@ class Commands extends Component
 
             $this->emit('refresh');
         }
-        
+
         $command = new ItemsQuery(new Command, $this->filter);
 
-        $commandStatus = implode(',', [Status::NON_TRAITE, Status::EXPEDIE, Status::ENCOURS, Status::REPORTE, Status::REFUSE, Status::LIVRE, Status::RETOURNE]);
+        $commandStatus = implode(',', [Status::EXPEDIE, Status::ENCOURS, Status::REPORTE, 
+            Status::REFUSE, Status::RETOURNE,
+            Status::PAS_DE_REPONSE,Status::INJOIGNABLE, Status::ANNULE, Status::LIVRE
+        ]);
 
         if (isDelivery() && delivery()->hasRole('DeliveryEntreprise')) {
 
@@ -136,7 +140,6 @@ class Commands extends Component
         $this->reportTime = now()->format('d-m-Y');
 
         $this->reportComment = '';
-
     }
 
 
@@ -170,34 +173,44 @@ class Commands extends Component
                         'is_out' => false
                     ])->first();
 
-                    if (!$stock) {
-                    }
+                    if ($stock) {
+                        if ($stock->qte_rest >= $qte && $stock->qte_rest !== 0 && $stock->qte_rest > 0 && !$stock->is_out) {
 
-                    if ($stock->qte_rest >= $qte && $stock->qte_rest !== 0 && $stock->qte_rest > 0 && !$stock->is_out) {
+                            //dd('Oui in this cas ');
 
-                        //dd('Oui in this cas ');
+                            $stock->decrement('qte_rest', $qte);
 
-                        $stock->decrement('qte_rest', $qte);
+                            $stock->increment('qte_livre', $qte);
 
-                        $stock->increment('qte_livre', $qte);
+                            $command->update(['delivered_at' => now()]);
 
-                        $command->update(['delivered_at' => now()]);
+                            $command->update(['status' => $status]);
+                        } else {
 
-                        $command->update(['status' => $status]);
+                            $stock->update(['is_out' => true]);
+
+                            $command->update(['delivered_at' => null]);
+
+                            $command->update(['status' => Status::MANQUE_DE_STOCK]);
+                        }
                     } else {
+                        $CityName = optional($command->city)->name;
 
-                        $stock->update(['is_out' => true]);
+                        $this->dispatchBrowserEvent('stock-not-found-city', ['city' => $CityName, 'product' => $prod->name]);
 
-                        $command->update(['delivered_at' => null]);
-
-                        $command->update(['status' => Status::MANQUE_DE_STOCK]);
+                        throw ValidationException::withMessages([
+                            'stock_not_found' => "Manque de stock ($prod->name)"
+                        ]);
+                        exit;
                     }
                 } else {
                 }
             });
-        } elseif ($status == Status::REFUSE && $command->status != Status::REFUSE) {
+        } elseif ($status == Status::REFUSE && $command->status == Status::LIVRE && $command->status != Status::REFUSE) {
 
             $command->update(['delivered_at' => '1993-03-03 00:00:00']);
+
+            $command->update(['status' => $status]);
 
             $items->each(function ($item, $key) use ($command, $status) {
 
@@ -213,22 +226,28 @@ class Commands extends Component
                         'is_out' => false
                     ])->first();
 
-                    if (!$stock) {
-                    }
+                    if ($stock) {
+                        if ($stock->qte_rest !== 0 && $stock->qte_rest > 0 || $stock->qte_rest >= $qte) {
 
-                    if ($stock->qte_rest !== 0 && $stock->qte_rest > 0 || $stock->qte_rest >= $qte) {
+                            $stock->increment('qte_rest', $qte);
+                            $stock->decrement('qte_livre',  $qte);
+                        }
 
-                        $stock->increment('qte_rest', $qte);
-                        $stock->decrement('qte_livre',  $qte);
-                    }
+                        if ($stock->qte_rest == 0) {
 
-                    $command->update(['status' => $status]);
+                            $stock->update(['is_out' => true]);
 
-                    if ($stock->qte_rest == 0) {
+                            $command->update(['status' => Status::MANQUE_DE_STOCK]);
+                        }
+                    } else {
 
-                        $stock->update(['is_out' => true]);
+                        $CityName = optional($command->city)->name;
+                        $this->dispatchBrowserEvent('stock-not-found-city', ['city' => $CityName]);
 
-                        $command->update(['status' => Status::MANQUE_DE_STOCK]);
+                        throw ValidationException::withMessages([
+                            'stock_not_found' => "Le stock n'existe pas sur la ville $CityName !"
+                        ]);
+                        exit;
                     }
                 } else {
                 }
@@ -269,5 +288,34 @@ class Commands extends Component
         $this->dispatchBrowserEvent('notify-change');
 
         $this->dispatchBrowserEvent('status-updated');
+    }
+
+    /********************Filters **************************/
+
+    public function setfilter()
+    {
+
+        if (!$this->data) {
+
+            return;
+        }
+
+        if ($this->data && array_key_exists('from_to', $this->data) && isset($this->data['from_to']) && !is_string($this->data['from_to'])) {
+
+            $this->data['from_to'] = implode(',', array_reverse($this->data['from_to']));
+        }
+
+        $this->data = array_filter(array_map('trim', $this->data));
+
+        $this->filter = $this->data;
+        //$this->emit('data:update');
+        $this->emit('refresh');
+    }
+
+    public function resetfilter()
+    {
+        $this->data = null;
+
+        $this->emit('refresh');
     }
 }

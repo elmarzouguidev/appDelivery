@@ -27,7 +27,7 @@
                             <option value="{{ App\Status\Status::ANNULE }}">Annulé</option>
                             <option value="{{ App\Status\Status::LIVRE }}">Livré</option>
                             <option value="{{ App\Status\Status::ENCOURS }}">En cours</option>
-                            <option value="{{ App\Status\Status::EXPEDIE }}">Expédié</option>
+                            <option value="{{ App\Status\Status::EXPEDIE }}">Non traité</option>
                             <option value="{{ App\Status\Status::INJOIGNABLE }}">Injoignable</option>
                             <option value="{{ App\Status\Status::MANQUE_DE_STOCK }}">Manque De Stock</option>
                             <option value="{{ App\Status\Status::PAS_DE_REPONSE }}">Pas de réponse</option>

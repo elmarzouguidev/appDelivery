@@ -114,7 +114,7 @@
                                                              $command->delivery_status == App\Status\DeliveryStatus::D_NON_TRAITE
                                                             )
 
-                                                             {{ __('status.statuses.' . $command->delivery_status) }}
+                                                             {{ __('delivery_status.statuses.' . $command->delivery_status) }}
 
                                                         @else
 

@@ -103,6 +103,64 @@
 
         });
 
+        window.addEventListener('commands-error-city', event => {
+
+            Swal.fire({
+                position: 'top-end',
+                width: 900,
+                icon: 'error',
+                title: `La command : ${event.detail.command} ne correspond pas a la ville ${event.detail.city}`,
+                showConfirmButton: false,
+                timer: 6000
+            })
+            setTimeout(function() {
+                window.location.reload();
+            }, 3000);
+        });
+
+        window.addEventListener('commands-error-client', event => {
+
+            Swal.fire({
+                position: 'top-end',
+                width: 900,
+                icon: 'error',
+                title: `La command : ${event.detail.command} ne correspond pas a le client ${event.detail.client}`,
+                showConfirmButton: false,
+                timer: 6000
+            })
+            setTimeout(function() {
+                window.location.reload();
+            }, 3000);
+        });
+        window.addEventListener('commands-error-status', event => {
+
+            Swal.fire({
+                position: 'top-end',
+                width: 900,
+                icon: 'error',
+                title: `La command : ${event.detail.command} ne correspond pas a le status ${event.detail.status}`,
+                showConfirmButton: false,
+                timer: 6000
+            })
+            setTimeout(function() {
+                window.location.reload();
+            }, 3000);
+        });
+        window.addEventListener('stock-not-found-city', event => {
+
+            Swal.fire({
+                position: 'top-end',
+                width: 900,
+                icon: 'warning',
+                title: `Le stock de (${event.detail.product}) n'existe pas dans la ville (${event.detail.city})`,
+                showConfirmButton: false,
+                timer: 5000
+            })
+            setTimeout(function() {
+                window.location.reload();
+            }, 3000);
+        });
+
         /****Global notofy ****/
         window.addEventListener('notify-global', event => {
 
