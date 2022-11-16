@@ -216,6 +216,14 @@
                             <td style="width: 80%">
     
                                 DATE : {{ $bon->bon_date->format('d-m-Y') }}<br />
+                                @if(optional($bon->client)->type == 'entreprise' && optional($bon->client->company))
+                                <strong> Société : {{ optional($bon->client->company)->name }}</strong> <br />
+                                @else
+                                <strong> Client : {{ optional($bon->client)->full_name }}</strong> <br />
+                                @endif
+                                <strong> Tél : {{ optional($bon->client)->telephone }}</strong> <br />
+                                <strong> Ville : {{ optional($bon->client->city)->name }}</strong> <br />
+                                <strong> Adresse : {{ optional($bon->client)->addresse }}</strong> <br />
                             </td>
                         </tr>
                     </table>
