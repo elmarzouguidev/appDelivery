@@ -65,8 +65,8 @@ class StockController extends Controller
                 $stock->delivery_uuid = null;
             } else {
                 $stock->is_default = false;
-                $stock->delivery_id = $delivery->id;
-                $stock->delivery_uuid = $delivery->uuid;
+                $stock->delivery_id = $delivery ? $delivery->id : null;
+                $stock->delivery_uuid = $delivery ? $delivery->uuid : null;
             }
 
             $qte = $product->qte_global += (int)$request->qte;
