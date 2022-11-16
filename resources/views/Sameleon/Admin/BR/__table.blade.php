@@ -26,7 +26,9 @@
                                 </th>
 
                                 <th class="align-middle">CODE</th>
-                                <th class="align-middle">Ville</th>
+                                @if(isAdmin())
+                                <th class="align-middle">Client</th>
+                                @endif
                                 <th class="align-middle">N°Commands</th>
                                 <th class="align-middle">Date</th>
                                 <th class="align-middle">PDF</th>
@@ -54,9 +56,11 @@
                                          {{ $bon->full_number }}
                                         </a>
                                     </td>
-                                    <td>
-                                        {{ $bon->city->name }}
-                                    </td>
+                                    @if(isAdmin())
+                                     <td>
+                                        {{ optional($bon->client)->full_name }}
+                                     </td>
+                                    @endif
                                     <td>
                                         {{ $bon->total_commands}}
                                     </td>
@@ -69,28 +73,29 @@
                                             {{ $bon->full_number }}
                                         </a>
                                     </td>
-                                    <td>
-                                        <div class="d-flex gap-3">
-                                            <a href="#" class="text-danger" onclick="
-                                                var result = confirm('Are you sure you want to delete this BR ?');
+                                    @if(isAdmin())
+                                        <td>
+                                            <div class="d-flex gap-3">
+                                                <a href="#" class="text-danger" onclick="
+                                                    var result = confirm('Are you sure you want to delete this BR ?');
 
-                                                if(result){
-                                                    event.preventDefault();
-                                                    document.getElementById('delete-br-{{ $bon->uuid }}').submit();
-                                                }">
-                                                <i class="mdi mdi-delete font-size-18"></i>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <form id="delete-br-{{ $bon->uuid }}" method="post"
-                                        action="{{ route('admin:b-router.delete') }}">
-                                        @csrf
-                                        @method('DELETE')
-                                        <input type="hidden" name="bonRId" value="{{ $bon->uuid }}">
-                                    </form>
+                                                    if(result){
+                                                        event.preventDefault();
+                                                        document.getElementById('delete-br-{{ $bon->uuid }}').submit();
+                                                    }">
+                                                    <i class="mdi mdi-delete font-size-18"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                        <form id="delete-br-{{ $bon->uuid }}" method="post"
+                                            action="{{ route('admin:b-router.delete') }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <input type="hidden" name="bonRId" value="{{ $bon->uuid }}">
+                                        </form>
+                                    @endif
                                 </tr>
                             @endforeach
-
                         </tbody>
                     </table>
                 </div>

@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Sameleon\BRouter;
 use App\Repositories\BR\BRInterface;
 use Illuminate\Http\Request;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class BRController extends Controller
 {
