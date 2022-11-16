@@ -108,30 +108,32 @@
                         </div>
                     </div>
                     @forelse (auth()->user()->unreadNotifications as $notification)
-                        <div data-simplebar style="max-height: 230px;">
-                            <a href="#" class="text-reset notification-item">
-                                <div class="d-flex">
+                        @if($notification->type == 'App\Notifications\ProductCreated')
+                            <div data-simplebar style="max-height: 230px;">
+                                <a href="#" class="text-reset notification-item">
+                                    <div class="d-flex">
 
-                                    <div class="flex-grow-1">
-                                        <h6 class="mb-1" key="t-your-order">Nouveau produit créer</h6>
-                                        <div class="font-size-12 text-muted">
-                                            <p class="mb-1" key="t-grammer">
-                                                <b>{{ $notification->data['client'] }}</b> a crée le produit :
-                                                <b>{{ $notification->data['name'] }}</b>
-                                            </p>
-                                            <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span
-                                                    key="t-min-ago">
-                                                    {{ $notification->created_at->diffForHumans() }}
-                                                </span>
-                                            </p>
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1" key="t-your-order">Nouveau produit créer</h6>
+                                            <div class="font-size-12 text-muted">
+                                                <p class="mb-1" key="t-grammer">
+                                                    <b>{{ $notification->data['client'] }}</b> a crée le produit :
+                                                    <b>{{ $notification->data['name'] }}</b>
+                                                </p>
+                                                <p class="mb-0"><i class="mdi mdi-clock-outline"></i> <span
+                                                        key="t-min-ago">
+                                                        {{ $notification->created_at->diffForHumans() }}
+                                                    </span>
+                                                </p>
+
+                                            </div>
 
                                         </div>
 
                                     </div>
-
-                                </div>
-                            </a>
-                        </div>
+                                </a>
+                            </div>
+                        @endif
 
                     @empty
 
