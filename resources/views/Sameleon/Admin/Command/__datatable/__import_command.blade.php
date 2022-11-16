@@ -42,7 +42,7 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                            <span class="badge bg-danger">Le champ doit être au format (csv,xlsx,xls)</span>
+                            <span class="badge bg-danger">Le fichier doit être au format (csv,xlsx,xls)</span>
                         </div>
 
                     </div>
