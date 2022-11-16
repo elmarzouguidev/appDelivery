@@ -26,7 +26,7 @@ class BLController extends Controller
 
         $bon = BLivraison::whereUuid($request->bonLId)->firstOrFail();
 
-        //$this->authorize('delete', $bon);
+        $this->authorize('delete', $bon);
 
         if ($bon) {
 

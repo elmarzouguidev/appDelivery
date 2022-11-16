@@ -24,7 +24,7 @@ class BRController extends Controller
 
         $bon = BRouter::whereUuid($request->bonRId)->firstOrFail();
 
-        //$this->authorize('delete', $bon);
+        $this->authorize('delete', $bon);
 
         if ($bon) {
 
