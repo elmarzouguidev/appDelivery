@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <h1>Encours de  maintenance ... </h1>
+        <h1>Encours de  TEST ... </h1>
 
         @include('Sameleon.Admin.Stock.__title')
 
