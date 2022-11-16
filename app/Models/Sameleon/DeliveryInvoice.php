@@ -20,7 +20,8 @@ class DeliveryInvoice extends Model
         'city_id',
         'city_uuid',
         'delivery_id',
-        'delivery_uuid'
+        'delivery_uuid',
+        'status'
     ];
 
     // protected $dates = ['due_date'];
@@ -28,7 +29,8 @@ class DeliveryInvoice extends Model
     protected  $casts = [
 
         'invoice_date' => 'date:Y-m-d',
-        'cloture' => 'boolean'
+        'cloture' => 'boolean',
+        'status'=>'integer'
     ];
 
     public function getFormatedPriceHtAttribute()

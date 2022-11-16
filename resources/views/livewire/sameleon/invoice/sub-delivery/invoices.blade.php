@@ -33,6 +33,7 @@
                                     <th class="align-middle">N° Commands</th>
                                     <th class="align-middle">Montant Total</th>
                                     <th class="align-middle">Montant a payé</th>
+                                    <th class="align-middle">Status</th>
                                     <th class="align-middle">Date création</th>
                                     {{-- <th class="align-middle">Date versement</th> --}}
                                     <th class="align-middle">Cloturé</th>
@@ -78,6 +79,12 @@
                                               {{ number_format($invoice->articles_sum_price_total-($invoice->articles_sum_frais + $invoice->articles_sum_profit),2) }} DH
 
                                             @endif
+                                        </td>
+                                        <td>
+                                            <button type="button" disabled
+                                            class="btn btn-sm {{ __('invoice_status.classes.' . $invoice->status) }} waves-effect waves-light">
+                                            {{ __('invoice_status.statuses.' . $invoice->status) }}
+                                           </button>
                                         </td>
                                         <td>
                                             {{ $invoice->created_at->format('d-m-Y') }}

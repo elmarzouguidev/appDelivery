@@ -25,7 +25,8 @@ class Invoice extends Model
         'user_id',
         'user_uuid',
         'delivery_id',
-        'delivery_uuid'
+        'delivery_uuid',
+        'status'
     ];
 
     // protected $dates = ['due_date'];
@@ -33,7 +34,8 @@ class Invoice extends Model
     protected  $casts = [
 
         'invoice_date' => 'date:Y-m-d',
-        'cloture' => 'boolean'
+        'cloture' => 'boolean',
+        'status'=>'integer'
     ];
 
     public function getFormatedPriceHtAttribute()
@@ -106,11 +108,14 @@ class Invoice extends Model
 
     public function scopeInvoiceNonClosed($query)
     {
-        if (isAdmin()) {
+        if (isClient()) {
             return $query->whereCloture(false)
+                ->whereUserId(auth()->id())
+                ->whereUserUuid(auth()->user()->uuid)
                 ->latest()->count();
         }
-        return 0;
+        return $query->whereCloture(false)
+        ->latest()->count();
     }
 
     public function scopeTotalChiffreNonVersed($query)

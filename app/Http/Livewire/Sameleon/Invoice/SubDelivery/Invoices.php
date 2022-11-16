@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Sameleon\Invoice\SubDelivery;
 
 use App\Models\Sameleon\DeliveryInvoice;
 use App\Repositories\Invoice\DeliveryInvoiceInterface;
+use App\Status\InvoiceStatus;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -43,7 +44,7 @@ class Invoices extends Component
 
         $invoices = app(DeliveryInvoiceInterface::class)->getInvoices();
         $this->date = now()->format('m-d-Y');
-        return view('livewire.sameleon.invoice.sub-delivery.invoices',compact('invoices'));
+        return view('livewire.sameleon.invoice.sub-delivery.invoices', compact('invoices'));
     }
 
     public function addBill(DeliveryInvoice $invoice)
@@ -51,11 +52,11 @@ class Invoices extends Component
 
         $this->addBiller = true;
         $this->invoicer = $invoice->loadSum('articles', 'price_total')
-        ->loadSum('articles','frais')
-        ->loadSum('articles','profit');
+            ->loadSum('articles', 'frais')
+            ->loadSum('articles', 'profit');
         //$this->price = $invoice->articles_sum_price_total;
-        $this->price =  ($invoice->articles_sum_price_total -($invoice->articles_sum_frais + 0));
-        $this->formatedPrice = number_format($invoice->articles_sum_price_total -($invoice->articles_sum_frais + 0),2);
+        $this->price =  ($invoice->articles_sum_price_total - ($invoice->articles_sum_frais + 0));
+        $this->formatedPrice = number_format($invoice->articles_sum_price_total - ($invoice->articles_sum_frais + 0), 2);
 
 
         $this->dispatchBrowserEvent('add-bill');
@@ -85,7 +86,7 @@ class Invoices extends Component
 
         $bill = $invoice->bill()->create($biller);
 
-        $invoice->update(['cloture' => true]);
+        $invoice->update(['cloture' => true, 'status' => InvoiceStatus::PAYEE]);
 
         if ($this->recu) {
 
@@ -98,9 +99,8 @@ class Invoices extends Component
 
     public function updatedRecu()
     {
-        if($this->recu && $this->recu->temporaryUrl())
-        {
-            $this->buttonClass ='';
+        if ($this->recu && $this->recu->temporaryUrl()) {
+            $this->buttonClass = '';
         }
     }
 

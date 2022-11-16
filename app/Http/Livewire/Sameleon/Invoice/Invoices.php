@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Sameleon\Invoice;
 
 use App\Models\Sameleon\Invoice;
 use App\Repositories\Invoice\InvoiceInterface;
+use App\Status\InvoiceStatus;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -27,7 +28,7 @@ class Invoices extends Component
     public $recu;
 
     /****Cloture Invoice */
-    
+
 
     public $buttonClass = 'disabled';
 
@@ -54,7 +55,7 @@ class Invoices extends Component
                 ->withCount('bill')
                 ->get();  
         }*/
-        
+
         $invoices = app(InvoiceInterface::class)->getInvoices();
         $this->date = now()->format('m-d-Y');
 
@@ -66,11 +67,11 @@ class Invoices extends Component
 
         $this->addBiller = true;
         $this->invoicer = $invoice->loadSum('articles', 'price_total')
-        ->loadSum('articles','frais')
-        ->loadSum('articles','profit');
+            ->loadSum('articles', 'frais')
+            ->loadSum('articles', 'profit');
         //$this->price = $invoice->articles_sum_price_total;
-        $this->price =  ($invoice->articles_sum_price_total -($invoice->articles_sum_frais + $invoice->articles_sum_profit));
-        $this->formatedPrice = number_format($invoice->articles_sum_price_total -($invoice->articles_sum_frais + $invoice->articles_sum_profit),2);
+        $this->price =  ($invoice->articles_sum_price_total - ($invoice->articles_sum_frais + $invoice->articles_sum_profit));
+        $this->formatedPrice = number_format($invoice->articles_sum_price_total - ($invoice->articles_sum_frais + $invoice->articles_sum_profit), 2);
         $this->dispatchBrowserEvent('add-bill');
     }
 
@@ -102,7 +103,7 @@ class Invoices extends Component
 
         $bill = $invoice->bill()->create($biller);
 
-        $invoice->update(['cloture' => true]);
+        $invoice->update(['cloture' => true, 'status' => InvoiceStatus::PAYEE]);
 
         if ($this->recu) {
 
@@ -115,9 +116,8 @@ class Invoices extends Component
 
     public function updatedRecu()
     {
-        if($this->recu && $this->recu->temporaryUrl())
-        {
-            $this->buttonClass ='';
+        if ($this->recu && $this->recu->temporaryUrl()) {
+            $this->buttonClass = '';
         }
     }
 
@@ -135,7 +135,7 @@ class Invoices extends Component
 
         return [
 
-            'price' => ['required','numeric'],
+            'price' => ['required', 'numeric'],
             'date' => ['required', 'date'],
             'mode' => ['required', 'string'],
             'reference' => ['nullable', 'string'],
