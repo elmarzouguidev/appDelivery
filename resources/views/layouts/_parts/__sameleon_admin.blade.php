@@ -102,6 +102,9 @@
     <li>
         <a href="{{ route('admin:b-livraison.index') }}">
             <i class="bx bx-file"></i>
+            @if ($total_bls)
+                <span class="badge rounded-pill bg-info float-end">{{ $total_bls }}</span>
+            @endif
             <span key="t-b-livraison">{{ __('Bon de livraison') }}</span>
         </a>
     </li>
@@ -110,6 +113,9 @@
     <li>
         <a href="{{ route('admin:b-router.index') }}">
             <i class="bx bx-file"></i>
+            @if ($total_b_routers)
+                <span class="badge rounded-pill bg-warning float-end">{{ $total_b_routers }}</span>
+            @endif
             <span key="t-b-router">{{ __('Bon de retour') }}</span>
         </a>
     </li>

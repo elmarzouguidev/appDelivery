@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Http\View\Composers\AnnonceComposer;
 use App\Http\View\Composers\BillComposer;
+use App\Http\View\Composers\BLComposer;
+use App\Http\View\Composers\BRComposer;
 use App\Http\View\Composers\CommandComposer;
 use App\Http\View\Composers\ConditionComposer;
 use App\Http\View\Composers\DeliveryComposer;
@@ -76,6 +78,14 @@ class ViewComposerServiceProvider extends ServiceProvider
             'layouts._parts.__sameleon_admin',
             'layouts._parts.__sameleon_delivery_navbar'
         ], NavBarComposer::class);
+
+        View::composer([
+            'layouts._parts.__sameleon_admin',
+        ], BRComposer::class);
+
+        View::composer([
+            'layouts._parts.__sameleon_admin',
+        ], BLComposer::class);
 
         View::composer([
             'layouts._parts.__sameleon_admin',

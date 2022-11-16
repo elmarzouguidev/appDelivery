@@ -69,6 +69,21 @@ class BLivraison extends Model
         return $this->hasMany(BLArticle::class);
     }
 
+    public function scopeTotalBL($query)
+    {
+
+        if (isDelivery()) {
+            return $query
+                ->whereDeliveryId(delivery()->id)
+                ->whereDeliveryUuid(delivery()->uuid)
+                ->count();
+        } 
+
+        else {
+            return $query->count();
+        }
+    }
+
     public static function boot()
     {
 

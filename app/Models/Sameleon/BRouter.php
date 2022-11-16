@@ -69,6 +69,22 @@ class BRouter extends Model
         return $this->hasMany(BRArticle::class);
     }
 
+    public function scopeTotalBrouter($query)
+    {
+
+        if (isClient()) {
+
+            return $query
+                ->whereUserId(auth()->id())
+                ->whereUserUuid(auth()->user()->uuid)
+                ->count();
+        } 
+
+        else {
+            return $query->count();
+        }
+    }
+
     public static function boot()
     {
 
