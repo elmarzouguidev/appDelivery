@@ -121,7 +121,7 @@
                 icon: 'error',
                 title: `La command : ${event.detail.command} ne correspond pas a la ville ${event.detail.city}`,
                 showConfirmButton: false,
-                timer: 5000
+                timer: 6000
             })
             setTimeout(function() {
                 window.location.reload();
@@ -136,7 +136,7 @@
                 icon: 'error',
                 title: `La command : ${event.detail.command} ne correspond pas a le client ${event.detail.client}`,
                 showConfirmButton: false,
-                timer: 5000
+                timer: 6000
             })
             setTimeout(function() {
                 window.location.reload();
@@ -150,7 +150,7 @@
                 icon: 'error',
                 title: `La command : ${event.detail.command} ne correspond pas a le status ${event.detail.status}`,
                 showConfirmButton: false,
-                timer: 5000
+                timer: 6000
             })
             setTimeout(function() {
                 window.location.reload();
