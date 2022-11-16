@@ -13,7 +13,7 @@ class PDFBRController extends Controller
 
         $qrcode = base64_encode(QrCode::format('svg')->size(80)->errorCorrection('H')->generate('https://sameleon-express.ma/'));
 
-        $bon->load('articles', 'city:id,name','articles.command.items');
+        $bon->load('articles', 'client:uuid,id,name,prenom,','articles.command.items','client.city');
 
         $companyLogo = "data:image/jpg;base64," . base64_encode(file_get_contents(public_path('storage/' . getCompany()->logo)));
 
