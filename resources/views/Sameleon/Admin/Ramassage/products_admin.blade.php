@@ -38,6 +38,7 @@
                                 @endif
                                 <th class="align-middle">Adresse de ramassage</th>
                                 <th class="align-middle">Note</th>
+                                <th class="align-middle">Date d'ajoute</th>
                                 <th class="align-middle">Status</th>
                                 <th class="align-middle">Action</th>
                             </tr>
@@ -78,6 +79,11 @@
                                     <td>
 
                                         {!! $ramassage->notes !!}
+
+                                    </td>
+                                    <td>
+
+                                        {{$ramassage->created_at->format('d-m-Y')}}
 
                                     </td>
                                     <td>
