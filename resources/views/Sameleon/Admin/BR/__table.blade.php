@@ -32,7 +32,9 @@
                                 <th class="align-middle">N°Commands</th>
                                 <th class="align-middle">Date</th>
                                 <th class="align-middle">PDF</th>
+                                @if(isAdmin())
                                 <th class="align-middle">Action</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
