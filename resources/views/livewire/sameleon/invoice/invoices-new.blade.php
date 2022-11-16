@@ -82,7 +82,9 @@
                                         </td>
                                         <td>
                                             @if($invoice->articles_sum_price_total <= 0)
-                                            {{ number_format($invoice->articles_sum_frais + $invoice->articles_sum_profit,2) }} DH
+                                            {{-- number_format($invoice->articles_sum_frais + $invoice->articles_sum_profit,2) --}}
+
+                                            {{ number_format(00,2) }} 
                                             @else
                                             {{ number_format($invoice->articles_sum_price_total-($invoice->articles_sum_frais + $invoice->articles_sum_profit),2) }} DH
 
