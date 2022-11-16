@@ -44,7 +44,7 @@ class CommandsImportByAdmins implements ToModel, SkipsEmptyRows, WithHeadingRow,
         $productName = $row["produit_ref"] ?? $row["produit"] ?? throw ValidationException::withMessages([
 
             'produit_field' => "
-                veuillez vérifier la structure de  votre fichier excel le column (produit ref) ou (produit)
+                veuillez vérifier la structure de ce fichier excel le column (produit ref) ou (produit)
                 n'existe pas dans le fichier excel
                 
               ",
@@ -54,7 +54,7 @@ class CommandsImportByAdmins implements ToModel, SkipsEmptyRows, WithHeadingRow,
         $cityName = $row["ville"] ?? throw ValidationException::withMessages([
 
             'ville_field' => "
-                veuillez vérifier la structure de  votre fichier excel le column (ville)
+                veuillez vérifier la structure de ce fichier excel le column (ville)
                 n'existe pas dans le fichier excel
                 
               ",
@@ -141,7 +141,6 @@ class CommandsImportByAdmins implements ToModel, SkipsEmptyRows, WithHeadingRow,
 
         if($command)
         {
-
             $command->items()->create([
 
                     'command_uuid' => $command->uuid,

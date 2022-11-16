@@ -9,6 +9,7 @@
             <div class="modal-body">
                 <form method="post" action="{{ route('admin:commands.import') }}" enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
                     @if(isAdmin())
                         <div class="row mb-4">
 

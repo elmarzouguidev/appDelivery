@@ -57,7 +57,8 @@ Route::group(['prefix' => ''], function () {
 
         Route::delete('/delete', [AdminCommandController::class, 'delete'])->name('commands.delete');
 
-        Route::post('/import', [AdminCommandController::class, 'import'])->name('commands.import');
+        //Route::post('/import', [AdminCommandController::class, 'import'])->name('commands.import');
+        Route::put('/', [AdminCommandController::class, 'import'])->name('commands.import');
 
         Route::group(['prefix' => 'edit'], function () {
 
