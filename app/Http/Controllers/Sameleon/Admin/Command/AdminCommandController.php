@@ -33,6 +33,7 @@ class AdminCommandController extends Controller
         InvoiceGenerator::run();
 
         $cities = app(CityInterface::class)->getCities();
+
         $clients = []; 
 
         if(isAdmin())
@@ -54,7 +55,6 @@ class AdminCommandController extends Controller
 
         if(isAdmin() && $request->has('client') && $request->filled('client'))
         {
-            
             $client = User::role('Client')->whereUuid($request->client)->first();
 
             $client ?? throw ValidationException::withMessages([

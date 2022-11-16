@@ -67,6 +67,16 @@ class Handler extends ExceptionHandler
                        'data' => 'Resource not found'
                    ], 404);
          }*/
+
+         if ($exception instanceof MethodNotAllowedHttpException && $request->routeIs('admin:commands.import')) {
+    
+            /*return response()->json([
+                'msg' => ['error' => 'sorry this URL is not Allowed from Browser Directly']
+            ], 405);*/
+
+            return redirect()->back();
+        }
+
         if ($exception instanceof Swift_TransportException) {
 
             // dd($exception->getMessage(),'--',$exception);
@@ -96,6 +106,9 @@ class Handler extends ExceptionHandler
                 'msg' => ['error' => "sorry this URL is not Allowed from Browser Directly it's only available from the integraion system"]
             ], 405);
         }
+
+
+
 
         return parent::render($request, $exception);
     }
