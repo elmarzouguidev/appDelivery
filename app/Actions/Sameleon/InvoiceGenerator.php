@@ -5,6 +5,7 @@ namespace App\Actions\Sameleon;
 use App\Models\Sameleon\Command;
 use App\Models\Sameleon\Invoice;
 use App\Models\Sameleon\User;
+use App\Status\InvoiceStatus;
 use App\Status\Status;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
@@ -69,6 +70,7 @@ class InvoiceGenerator
                     $this->invoice->invoice_date = now()->format('Y-m-d');
                     $this->invoice->client()->associate($user['user_id']);
                     $this->invoice->user_uuid = $user['user_uuid'];
+                    $this->invoice->status = InvoiceStatus::ENCOURS;
                     $this->invoice->save();
                 }
             }

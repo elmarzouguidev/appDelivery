@@ -7,6 +7,7 @@ use App\Models\Sameleon\Delivery;
 use App\Models\Sameleon\DeliveryInvoice;
 use App\Models\Sameleon\Invoice;
 use App\Models\Sameleon\User;
+use App\Status\InvoiceStatus;
 use App\Status\Status;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
@@ -77,6 +78,8 @@ class InvoiceDeliveryGenerator
 
                     $this->invoice->city()->associate($this->invoice->delivery->city->id);
                     $this->invoice->city_uuid = $this->invoice->delivery->city->uuid;
+
+                    $this->invoice->status = InvoiceStatus::ENCOURS;
 
                     $this->invoice->save();
                 }
