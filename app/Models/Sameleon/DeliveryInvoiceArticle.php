@@ -11,6 +11,8 @@ class DeliveryInvoiceArticle extends Model
     use HasFactory;
     use UuidGenerator;
 
+    protected $table ='delivery_invoice_articles';
+    
     protected $fillable = [
         'articleable_id',
         'articleable_type',

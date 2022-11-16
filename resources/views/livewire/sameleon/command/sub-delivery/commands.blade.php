@@ -87,7 +87,7 @@
                                                     </strong>
                                                 </p>
                                                 <p class="text-strong mb-0">
-                                                    <b>{{ $command->city->name ?? ($command->client_city ?? '') }}</b>
+                                                    <b>{{ optional($command->city)->name ?? ($command->client_city ?? '') }}</b>
                                                 </p>
                                                 <p class="text-strong mb-0">{!! $command->client_address !!}</p>
                                             </td>
@@ -108,10 +108,18 @@
                                                     <button id="editStatus" {{ $disabled }}
                                                         wire:click="editStatus('{{ $command->uuid }}')" type="button"
                                                         class="btn btn-sm {{ __('status.classes.' . $command->status) }} waves-effect waves-light">
-                                                        {{ __('status.statuses.' . $command->status) }}
-                                                        <br>
-                                                        @if ($command->status == App\Status\Status::EXPEDIE && $command->delivery)
-                                                            {{ $command->status == App\Status\Status::EXPEDIE ? $command->delivery->full_name : '' }}
+                        
+                                                        @if ($command->status == App\Status\Status::EXPEDIE &&
+
+                                                             $command->delivery_status == App\Status\DeliveryStatus::D_NON_TRAITE
+                                                            )
+
+                                                             {{ __('status.statuses.' . $command->delivery_status) }}
+
+                                                        @else
+
+                                                             {{ __('status.statuses.' . $command->status) }}
+
                                                         @endif
                                                     </button>
                                                 @else

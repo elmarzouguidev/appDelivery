@@ -112,14 +112,26 @@ class DeliveryInvoice extends Model
                 ->whereDeliveryId(delivery()->id)
                 ->whereDeliveryUuid(delivery()->uuid)
                 ->doesntHave('bill')
-                ->withSum('articles', 'articles.price_total')
+                ->withSum('articles', 'delivery_invoice_articles.price_total')
+                ->withSum('articles', 'delivery_invoice_articles.frais')
                 ->get()
-                ->sum('articles_sum_articlesprice_total');
+                ->map(function($item)
+                    {
+                        return ['total_pricer' => $item->articles_sum_articlesprice_total - $item->articles_sum_articlesfrais];
+                    }
+                )->sum('total_pricer');
         } 
         else {
             return $query->doesntHave('bill')
-            ->withSum('articles', 'articles.price_total')
-            ->get()->sum('articles_sum_articlesprice_total');
+            ->withSum('articles', 'delivery_invoice_articles.price_total')
+            ->withSum('articles', 'delivery_invoice_articles.frais')
+            ->get()
+            ->map(function($item)
+                {
+                    return ['total_pricer' => $item->articles_sum_articlesprice_total - $item->articles_sum_articlesfrais];
+                }
+            )->sum('total_pricer');
+
         }
     }
 
