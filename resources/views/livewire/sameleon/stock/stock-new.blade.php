@@ -11,10 +11,12 @@
                                 {{-- <a href="{{ route('admin:adjustments.create') }}" type="button" class="btn btn-info">
                                     Créér un ajustement
                                 </a> --}}
-                                <button class="btn btn-info" type="button" class="btn btn-info  btn-sm"
-                                    data-bs-toggle="modal" data-bs-target=".addStockModal">
-                                    Créér un ajustement
-                                </button>
+                                @if(isAdmin())
+                                    <button class="btn btn-info" type="button" class="btn btn-info  btn-sm"
+                                        data-bs-toggle="modal" data-bs-target=".addStockModal">
+                                        Créér un ajustement
+                                    </button>
+                                @endif
                             </div>
                         </div>
                     </div>
