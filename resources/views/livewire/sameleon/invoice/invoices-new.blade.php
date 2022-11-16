@@ -41,7 +41,9 @@
                                     {{-- <th class="align-middle">Date versement</th> --}}
                                     <th class="align-middle">Cloturé</th>
                                     <th class="align-middle">Règlement</th>
+                                    @if (isAdmin())
                                     <th class="align-middle">Action</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
@@ -152,10 +154,11 @@
                                                 @endif
                                             @endif
                                         </td>
-
+                                        @if (isAdmin())
                                         <td>
 
                                         </td>
+                                        @endif
 
                                     </tr>
                                 @endforeach
