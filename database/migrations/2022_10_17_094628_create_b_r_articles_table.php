@@ -29,6 +29,8 @@ class CreateBRArticlesTable extends Migration
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->string('name')->nullable();
+
+            $table->string('city')->nullable();
             $table->longText('address')->nullable();
 
             $table->longText('comment')->nullable();

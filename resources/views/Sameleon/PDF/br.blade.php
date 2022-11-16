@@ -274,7 +274,8 @@
                         @endforeach
                     </td>
                     <td>{{ $article->phone }}</td>
-                    <td>{{ $article->bon->city->name }}</td>
+                    <td>{{ optional($article->command->city)->name }}</td>
+                    {{--<td>{{ $article->city}}</td>--}}
                     <td>{{ $article->address }}</td>
                     <td>{{ $article->formated_price_total }} DH</td>
 

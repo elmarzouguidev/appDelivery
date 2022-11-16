@@ -332,6 +332,7 @@ class Commands extends Component
                         'command_status' => $item->status,
                         'phone' => $item->client_phone,
                         'name' => $item->client_name,
+                        'city'=> optional($item->city)->name ?? null,
                         'address' => $item->client_address,
                         'price_total' => $item->items_sum_prix_total,
                         'bon_date' => $item->created_at->format('d-m-Y'),

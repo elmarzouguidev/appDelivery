@@ -22,6 +22,7 @@ class BRArticle extends Model
         'email',
         'phone',
         'name',
+        'city',
         'address',
         'comment',
         'price_total',
