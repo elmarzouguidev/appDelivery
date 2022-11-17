@@ -175,7 +175,7 @@ class AdminProductController extends Controller
 
         $this->authorize('delete', $product);
 
-        if ($product) {
+        if ($product && !$product->has('items')) {
 
             $product->ramassage()->delete();
 
@@ -184,7 +184,7 @@ class AdminProductController extends Controller
             return redirect(route('admin:products.index'))->with('success', "Le produit a éte supprimer avec succès");
         }
 
-        return redirect(route('admin:products.index'))->with('success', "error . . . ");
+        return redirect(route('admin:products.index'))->with('error', "vous nous pouvez pas supprimer ce produit car il a des commands");
     }
 
     public function viewCondition(Request $request)
