@@ -27,8 +27,9 @@ class RedirectIfAuthenticated
             if (Auth::guard($guard)->check()) {
                 if ($guard === "delivery") {
                     return redirect(route('delivery:home'));
+                } else {
+                    return redirect(route('admin:commands.index'));
                 }
-                return redirect(route('admin:home'));
             }
         }
 
