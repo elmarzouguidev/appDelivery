@@ -30,7 +30,7 @@ class DeliveryInvoice extends Model
 
         'invoice_date' => 'date:Y-m-d',
         'cloture' => 'boolean',
-        'status'=>'integer'
+        'status' => 'integer'
     ];
 
     public function getFormatedPriceHtAttribute()
@@ -93,7 +93,7 @@ class DeliveryInvoice extends Model
 
     public function commands()
     {
-        return $this->hasMany(Command::class,'delivery_invoice_id');
+        return $this->hasMany(Command::class, 'delivery_invoice_id');
     }
 
     public function scopeInvoiceNonClosed($query)
@@ -117,23 +117,21 @@ class DeliveryInvoice extends Model
                 ->withSum('articles', 'delivery_invoice_articles.price_total')
                 ->withSum('articles', 'delivery_invoice_articles.frais')
                 ->get()
-                ->map(function($item)
-                    {
+                ->map(
+                    function ($item) {
                         return ['total_pricer' => $item->articles_sum_articlesprice_total - $item->articles_sum_articlesfrais];
                     }
                 )->sum('total_pricer');
-        } 
-        else {
+        } else {
             return $query->doesntHave('bill')
-            ->withSum('articles', 'delivery_invoice_articles.price_total')
-            ->withSum('articles', 'delivery_invoice_articles.frais')
-            ->get()
-            ->map(function($item)
-                {
-                    return ['total_pricer' => $item->articles_sum_articlesprice_total - $item->articles_sum_articlesfrais];
-                }
-            )->sum('total_pricer');
-
+                ->withSum('articles', 'delivery_invoice_articles.price_total')
+                ->withSum('articles', 'delivery_invoice_articles.frais')
+                ->get()
+                ->map(
+                    function ($item) {
+                        return ['total_pricer' => $item->articles_sum_articlesprice_total - $item->articles_sum_articlesfrais];
+                    }
+                )->sum('total_pricer');
         }
     }
 

@@ -34,15 +34,15 @@ class DeliveryInvoiceRepository extends AppRepository implements DeliveryInvoice
     public function getInvoices()
     {
 
-            return $this->invoice
-                ->withCount('commands')
-                ->withSum('articles', 'price_total')
-                ->withSum('articles', 'frais')
-                ->withSum('articles', 'profit')
-                ->with('bill')
-                ->withCount('bill')
-                ->get();
-        
+        return $this->invoice
+            ->withCount('commands')
+            ->withSum('articles', 'price_total')
+            ->withSum('articles', 'frais')
+            ->withSum('articles', 'profit')
+            ->with('bill')
+            ->withCount('bill')
+            ->orderBy('cloture', 'asc')
+            ->get();
     }
 
     /**
