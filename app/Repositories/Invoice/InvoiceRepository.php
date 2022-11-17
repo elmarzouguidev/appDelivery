@@ -44,6 +44,7 @@ class InvoiceRepository extends AppRepository implements InvoiceInterface
                 ->withSum('articles', 'profit')
                 ->with('bill')
                 ->withCount('bill')
+                ->orderBy('cloture','asc')
                 ->get();
         } else {
 
@@ -54,7 +55,7 @@ class InvoiceRepository extends AppRepository implements InvoiceInterface
                 ->withSum('articles', 'profit')
                 ->with('bill')
                 ->withCount('bill')
-
+                ->orderBy('cloture','asc')
                 ->get();
         }
     }
