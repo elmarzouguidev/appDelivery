@@ -16,12 +16,15 @@ use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\WithValidation;
+
+use Maatwebsite\Excel\Concerns\WithChunkReading;
+
 use Maatwebsite\Excel\Row;
 use Maatwebsite\Excel\Concerns\OnEachRow;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
-class CommandsImportByAdmins implements ToModel, SkipsEmptyRows, WithHeadingRow, WithValidation
+class CommandsImportByAdmins implements ToModel, SkipsEmptyRows, WithHeadingRow, WithValidation, WithChunkReading
 {
 
 
@@ -39,7 +42,7 @@ class CommandsImportByAdmins implements ToModel, SkipsEmptyRows, WithHeadingRow,
      */
     public function model(array $row)
     {
-        
+
         //dd(count($row["produit_ref"]));
         $productName = $row["produit_ref"] ?? $row["produit"] ?? throw ValidationException::withMessages([
 
@@ -48,7 +51,7 @@ class CommandsImportByAdmins implements ToModel, SkipsEmptyRows, WithHeadingRow,
                 n'existe pas dans le fichier excel
                 
               ",
-            
+
         ]);
 
         $cityName = $row["ville"] ?? throw ValidationException::withMessages([
@@ -58,10 +61,10 @@ class CommandsImportByAdmins implements ToModel, SkipsEmptyRows, WithHeadingRow,
                 n'existe pas dans le fichier excel
                 
               ",
-            
+
         ]);
 
-        $productSlug = Str::slug(str_replace(' ', '', $productName)) . '-' . $this->client->uuid.':' .$this->client->id;
+        $productSlug = Str::slug(str_replace(' ', '', $productName)) . '-' . $this->client->uuid . ':' . $this->client->id;
 
         $citySlug = Str::slug(str_replace(' ', '', $cityName));
 
@@ -109,7 +112,7 @@ class CommandsImportByAdmins implements ToModel, SkipsEmptyRows, WithHeadingRow,
             'client_address'    => $row["adresse"],
 
             'city_id' => $ville ? $ville->id : null,
-            'city_uuid'=> $ville ? $ville->uuid : null,
+            'city_uuid' => $ville ? $ville->uuid : null,
 
             'region_id' => $region ? $region->id : null,
             'region_uuid' => $region ? $region->uuid : null,
@@ -139,21 +142,19 @@ class CommandsImportByAdmins implements ToModel, SkipsEmptyRows, WithHeadingRow,
             ]);
         } */
 
-        if($command)
-        {
+        if ($command) {
             $command->items()->create([
 
-                    'command_uuid' => $command->uuid,
-                    'product_id' => $product ?  $product->id : null,
-                    'product_uuid' => $product ? $product->uuid : null,
-                    'designation' => $productName,
-                    'product' => $productName,
-                    'quantity' => $row["qte"],
-                    'prix_uni' => round($row["prix"] / $row["qte"]),
-                    'prix_total' => $row["prix"],
+                'command_uuid' => $command->uuid,
+                'product_id' => $product ?  $product->id : null,
+                'product_uuid' => $product ? $product->uuid : null,
+                'designation' => $productName,
+                'product' => $productName,
+                'quantity' => $row["qte"],
+                'prix_uni' => round($row["prix"] / $row["qte"]),
+                'prix_total' => $row["prix"],
             ]);
         }
-        
     }
 
     /*public function headingRow(): int
@@ -174,5 +175,10 @@ class CommandsImportByAdmins implements ToModel, SkipsEmptyRows, WithHeadingRow,
             'qte' => ['required', 'numeric'],
             'prix' => ['required', 'numeric'],
         ];
+    }
+
+    public function chunkSize(): int
+    {
+        return 1000;
     }
 }
