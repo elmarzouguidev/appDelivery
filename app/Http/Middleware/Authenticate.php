@@ -11,13 +11,15 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
 
+        //dd('fezfhhhhhh');
         if (!$request->expectsJson()) {
             if ($request->route()->getName() === "admin:home") {
                 return route('admin:auth:login');
-            }
-            if ($request->route()->getName() === "delivery:home") {
-               
+            } elseif ($request->route()->getName() === "delivery:home") {
+
                 return route('delivery:auth:login');
+            } else {
+                return route('admin:auth:login');
             }
         }
     }

@@ -11,6 +11,7 @@ use Illuminate\Http\Response;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class AuthSubDeliveryController extends Controller
 {
@@ -22,8 +23,14 @@ class AuthSubDeliveryController extends Controller
         $this->middleware('guest:delivery')->except('logout');
     }
 
-    public function loginForm()
+    public function loginForm(Request $request)
     {
+        
+        Session::flush();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
         return view('Sameleon.Admin.SubDelivery.Auth.login');
     }
 
