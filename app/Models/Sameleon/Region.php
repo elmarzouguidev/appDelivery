@@ -47,4 +47,9 @@ class Region extends Model
         $this->attributes['name'] = $value;
         $this->attributes['slug'] = Str::slug($value);
     }
+
+    public function getFormatedFraisCityAttribute()
+    {
+        return number_format($this->frais_city,2);
+    }
 }
