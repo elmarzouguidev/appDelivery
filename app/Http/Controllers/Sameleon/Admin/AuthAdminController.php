@@ -81,6 +81,6 @@ class AuthAdminController extends Controller
             return route('admin:home');
         }*/
 
-        return route('admin:home');
+        return route('admin:commands.index');
     }
 }
