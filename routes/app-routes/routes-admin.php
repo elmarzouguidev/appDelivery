@@ -19,6 +19,7 @@ use App\Http\Controllers\Sameleon\Admin\Command\AdminCommandController;
 use App\Http\Controllers\Sameleon\Admin\Command\PrintController;
 use App\Http\Controllers\Sameleon\Admin\Condition\ConditionController;
 use App\Http\Controllers\Sameleon\Admin\Contact\ContactController;
+use App\Http\Controllers\Sameleon\Admin\Delivery\DeliveryController;
 use App\Http\Controllers\Sameleon\Admin\Integration\IntegrationController;
 use App\Http\Controllers\Sameleon\Admin\Invoice\AdminInvoiceController;
 use App\Http\Controllers\Sameleon\Admin\Payment\PaymentController;
@@ -198,20 +199,22 @@ Route::group(['prefix' => ''], function () {
         Route::get('/', [TreausryController::class, 'index'])->name('treausry.index');
         Route::delete('/delete', [TreausryController::class, 'delete'])->name('treausry.delete');
     });
-
-    Route::group(['prefix' => 'b-livraison'], function () {
-
-        Route::get('/', [BLController::class, 'index'])->name('b-livraison.index');
-        Route::delete('/delete', [BLController::class, 'delete'])->name('b-livraison.delete');
+    Route::group(['prefix' => 'docs'], function () {
         
-    });
+        Route::group(['prefix' => 'b-livraison'], function () {
 
-    Route::group(['prefix' => 'b-router'], function () {
+            Route::get('/', [BLController::class, 'index'])->name('b-livraison.index');
+            Route::delete('/delete', [BLController::class, 'delete'])->name('b-livraison.delete');
+            
+        });
 
-        Route::get('/', [BRController::class, 'index'])->name('b-router.index');
-        Route::delete('/delete', [BRController::class, 'delete'])->name('b-router.delete');
-        
-    });
+        Route::group(['prefix' => 'b-router'], function () {
+
+            Route::get('/', [BRController::class, 'index'])->name('b-router.index');
+            Route::delete('/delete', [BRController::class, 'delete'])->name('b-router.delete');
+            
+        });
+   });
 
     Route::group(['prefix' => 'auth/admins'], function () {
 
