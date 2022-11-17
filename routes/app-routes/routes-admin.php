@@ -430,6 +430,9 @@ Route::group(['prefix' => ''], function () {
         Route::delete('/delete', [AnnonceController::class, 'delete'])->name('annonces.delete');
 
         Route::put('/', [AnnonceController::class, 'activate'])->name('annonces.activate');
+
+        Route::get('/edit/{annonce}', [AnnonceController::class, 'edit'])->name('annonces.edit');
+        Route::post('/edit/{annonce}', [AnnonceController::class, 'update'])->name('annonces.update');
     });
 
     Route::group(['prefix' => 'conditions'], function () {

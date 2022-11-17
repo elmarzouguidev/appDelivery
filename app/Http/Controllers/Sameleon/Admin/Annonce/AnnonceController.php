@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Sameleon\Admin\Annonce;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Sameleon\Annonce\AnnonceFormRequest;
+use App\Http\Requests\Sameleon\Annonce\AnnonceUpdateFormRequest;
 use App\Models\Sameleon\Annonce;
 use Illuminate\Http\Request;
 
@@ -44,6 +45,24 @@ class AnnonceController extends Controller
         }
 
         return redirect()->back()->with('error', 'error !!!');
+    }
+
+
+    public function edit(Annonce $annonce)
+    {
+        return view('Sameleon.Admin.Annonce.edit.index', compact('annonce'));
+    }
+
+    public function update(AnnonceUpdateFormRequest $request , Annonce $annonce)
+    {
+
+        $annonce->title = $request->title;
+        $annonce->description = $request->description;
+        $annonce->group = $request->group;
+        $annonce->save(); 
+
+        return redirect(route('admin:annonces.index'))->with('success', "L'annonce a été modifié avec succès");
+
     }
 
     public function delete(Request $request)

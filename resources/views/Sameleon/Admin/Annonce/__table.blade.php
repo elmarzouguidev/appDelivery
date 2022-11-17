@@ -72,10 +72,10 @@
                                     <td>
                                         <div class="d-flex gap-3">
 
-                                            {{--<a href="{{ route('admin:banks.edit', $annonce->uuid) }}"
+                                            <a href="{{ route('admin:annonces.edit', $annonce->uuid) }}"
                                                 class="text-success">
                                                 <i class="mdi mdi-pencil font-size-18"></i>
-                                            </a>--}}
+                                            </a>
                                             <a href="#" class="text-danger" onclick="
                                                 var result = confirm('Are you sure you want to delete this annonce ?');
 
