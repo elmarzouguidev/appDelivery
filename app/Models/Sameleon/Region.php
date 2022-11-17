@@ -22,6 +22,7 @@ class Region extends Model
         'description',
         'code',
         'frais',
+        'frais_city',
         'delivery_id',
         'delivery_uuid'
     ];

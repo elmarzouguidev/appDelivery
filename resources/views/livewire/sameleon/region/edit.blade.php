@@ -7,7 +7,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-
                 <form method="post" action="{{ route('admin:regions.update',$region->uuid) }}">
                     @csrf
                     <div class="row mb-4">
@@ -39,7 +38,7 @@
                     <div class="row mb-4">
                         <label for="frais" class="col-form-label col-lg-2">Frais *</label>
                         <div class="col-lg-10">
-                            <input id="number" name="frais" type="text"
+                            <input id="frais" name="frais" type="number"
                                 class="form-control @error('frais') is-invalid @enderror"
                                 value="{{$region->frais}}" required>
                             @error('frais')

@@ -29,8 +29,10 @@ class RegionController extends Controller
         $region->name = $request->name;
         $region->code = $request->code;
         $region->frais = $request->frais;
+        
         $region->description = $request->description;
         $region->city()->associate($request->city);
+        $region->frais_city = $request->frais + ($region->city->frais + $region->city->profit);
         $region->save();
 
         if ($region) {
@@ -47,6 +49,7 @@ class RegionController extends Controller
         $region->name = $request->name;
         $region->code = $request->code;
         $region->frais = $request->frais;
+        $region->frais_city = $request->frais + ($region->city->frais + $region->city->profit);
         $region->description = $request->description;
         $region->save();
 
