@@ -7,7 +7,7 @@
 
         {{--@include('Sameleon.Admin.City.__datatable.__with_options')--}}
 
-        @include('Sameleon.Admin.Region.__datatable.__add_region_modal')
+        {{--@include('Sameleon.Admin.Region.__datatable.__add_region_modal')--}}
 
         @livewire('sameleon.region.region')
 
@@ -21,7 +21,6 @@
 @push('scripts')
 
     <script>
-
 
         window.addEventListener('show-edit', event => {
             $('.editRegionModal').modal('show');

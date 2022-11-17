@@ -106,6 +106,7 @@
                 </div>
             </div>
         </div>
+       
     </div>
 
     @if ($showEdit)
@@ -113,4 +114,7 @@
             'region' => $regionEdit,
         ])
     @endif
+
+    @include('livewire.sameleon.region.__add_region_modal')
+
 </div>
