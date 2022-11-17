@@ -171,6 +171,21 @@
             }, 3000);
         });
 
+        window.addEventListener('product-not-found', event => {
+
+            Swal.fire({
+                position: 'top-end',
+                width: 900,
+                icon: 'warning',
+                title: `Le produit (${event.detail.product}) n'existe pas dans le systeme !`,
+                showConfirmButton: false,
+                timer: 5000
+            })
+            setTimeout(function() {
+                window.location.reload();
+            }, 3000);
+        });
+
         /****Global notofy ****/
         window.addEventListener('notify-global', event => {
 

@@ -147,7 +147,7 @@ class Commands extends Component
 
             $delivries = Delivery::role(['Delivery', 'DeliveryEntreprise'])->select(['uuid', 'id', 'nom', 'prenom', 'type'])->get();
         }
-        
+
         return view('livewire.sameleon.command.commands-new', compact('commands', 'delivries'));
     }
 
@@ -178,7 +178,7 @@ class Commands extends Component
 
         if (isAdmin()) {
 
-            $this->clients = User::role('Client')->select(['nom', 'prenom', 'id','uuid'])->get();
+            $this->clients = User::role('Client')->select(['nom', 'prenom', 'id', 'uuid'])->get();
             $this->products = Product::select(['id', 'name'])->get();
             $this->citiesList = app(CityInterface::class)->getCities();
         }
@@ -232,21 +232,20 @@ class Commands extends Component
 
             $allCommands = Command::withSum('items', 'prix_total')->find($this->selectedCommands)->each->get();
 
-            $commands = $allCommands->each(function($command , $key) use($commandCity){
+            $commands = $allCommands->each(function ($command, $key) use ($commandCity) {
 
-                if(!$command->city()->is($commandCity))
-                {
-                    $this->dispatchBrowserEvent('commands-error-city',['command' => $command->code,'city' => $commandCity->name]);
+                if (!$command->city()->is($commandCity)) {
+                    $this->dispatchBrowserEvent('commands-error-city', ['command' => $command->code, 'city' => $commandCity->name]);
 
                     throw ValidationException::withMessages([
                         'command_listed_error' => "La command 
                         ( {$command->code} ) ne correspond pas a la ville ( {$commandCity->name} )!"
-                        
+
                     ]);
                     exit;
                 }
             });
-            
+
             $bon = new BLivraison();
             $bon->city_id = $commandCity->id;
             $bon->city_uuid = $commandCity->uuid;
@@ -254,7 +253,7 @@ class Commands extends Component
             $bon->delivery_uuid = $commandDelivery->uuid;
             $bon->bon_date = now();
             $bon->save();
-            
+
             if ($bon && $commands) {
                 $newCommands =  $commands->map(function ($item, $key) use ($bon) {
 
@@ -289,27 +288,25 @@ class Commands extends Component
 
             $allCommands = Command::withSum('items', 'prix_total')->find($this->selectedCommands)->each->get();
 
-            $commands = $allCommands->each(function($command , $key) use($client){
+            $commands = $allCommands->each(function ($command, $key) use ($client) {
 
-                if(!$command->client()->is($client))
-                {
-                    $this->dispatchBrowserEvent('commands-error-client',['command' => $command->code,'client' => $client->full_name]);
+                if (!$command->client()->is($client)) {
+                    $this->dispatchBrowserEvent('commands-error-client', ['command' => $command->code, 'client' => $client->full_name]);
 
                     throw ValidationException::withMessages([
                         'command_listed_error' => "La command 
                         ( {$command->code} ) ne correspond pas a le client ( {$client->full_name} )!"
-                        
+
                     ]);
                     exit;
                 }
-                if($command->status !== Status::RETOURNE)
-                {
-                    $this->dispatchBrowserEvent('commands-error-status',['command' => $command->code,'status' => 'Retourné']);
+                if ($command->status !== Status::RETOURNE) {
+                    $this->dispatchBrowserEvent('commands-error-status', ['command' => $command->code, 'status' => 'Retourné']);
 
                     throw ValidationException::withMessages([
                         'command_listed_error' => "La command 
                         ( {$command->code} ) ne correspond pas a le status Retourné !"
-                        
+
                     ]);
                     exit;
                 }
@@ -332,7 +329,7 @@ class Commands extends Component
                         'command_status' => $item->status,
                         'phone' => $item->client_phone,
                         'name' => $item->client_name,
-                        'city'=> optional($item->city)->name ?? null,
+                        'city' => optional($item->city)->name ?? null,
                         'address' => $item->client_address,
                         'price_total' => $item->items_sum_prix_total,
                         'bon_date' => $item->created_at->format('d-m-Y'),
@@ -356,8 +353,8 @@ class Commands extends Component
             //$command = Command::withSum('items', 'prix_total')->find($this->selectedCommands)->first();
 
             //return app(PrintController::class)->getCommands($command);
-            return redirect()->route('admin:commands.print',$this->selectedCommands);
-        }  
+            return redirect()->route('admin:commands.print', $this->selectedCommands);
+        }
     }
 
     public function editCommand(Command $command)
@@ -405,43 +402,48 @@ class Commands extends Component
                         'city_uuid' => $command->city_uuid,
                     ])->first();
 
-                    if($stock)
-                    {
+                    if ($stock) {
                         if ($stock->qte_rest >= $qte && $stock->qte_rest !== 0 && $stock->qte_rest > 0 && !$stock->is_out) {
 
-                      
+
                             $stock->decrement('qte_rest', $qte);
-    
+
                             $stock->increment('qte_livre', $qte);
-    
+
                             $command->update(['delivered_at' => now()]);
-    
+
                             $command->update(['status' => $status]);
                         } else {
-    
+
                             $stock->update(['is_out' => true]);
-    
+
                             $command->update(['delivered_at' => null]);
-    
+
                             $command->update(['status' => Status::MANQUE_DE_STOCK]);
                         }
-                    }
-                    else
-                    {
+                    } else {
                         $CityName = optional($command->city)->name;
 
-                        $this->dispatchBrowserEvent('stock-not-found-city',['city' => $CityName,'product'=>$prod->name]);
+                        $this->dispatchBrowserEvent('stock-not-found-city', ['city' => $CityName, 'product' => $prod->name]);
 
                         throw ValidationException::withMessages([
                             'stock_not_found' => "Le stock de ($prod->name) n'existe pas sur la ville $CityName!"
                         ]);
                         exit;
                     }
-
                 } else {
+
+                    $CityName = optional($command->city)->name;
+
+                    $this->dispatchBrowserEvent('product-not-found', ['product' => $item->product]);
+
+                    throw ValidationException::withMessages([
+                        'stock_not_found' => "Le produit ($item->product) n'existe pas sur le systeme !"
+                    ]);
+                    exit;
                 }
             });
-        } elseif ($status == Status::REFUSE && $command->status == Status::LIVRE && $command->status != Status::REFUSE ) {
+        } elseif ($status == Status::REFUSE && $command->status == Status::LIVRE && $command->status != Status::REFUSE) {
 
             $command->update(['delivered_at' => '1993-03-03 00:00:00']);
 
@@ -460,32 +462,29 @@ class Commands extends Component
                         'city_uuid' => $command->city_uuid,
                     ])->first();
 
-                    if($stock)
-                    {
+                    if ($stock) {
                         if ($stock->qte_rest !== 0 && $stock->qte_rest > 0 || $stock->qte_rest >= $qte) {
 
                             $stock->increment('qte_rest', $qte);
                             $stock->decrement('qte_livre',  $qte);
                         }
-    
+
                         if ($stock->qte_rest == 0) {
-    
+
                             $stock->update(['is_out' => true]);
-    
+
                             $command->update(['status' => Status::MANQUE_DE_STOCK]);
                         }
-                    }
-                    else {
+                    } else {
 
                         $CityName = optional($command->city)->name;
-                        $this->dispatchBrowserEvent('stock-not-found-city',['city' => $CityName]);
+                        $this->dispatchBrowserEvent('stock-not-found-city', ['city' => $CityName]);
 
                         throw ValidationException::withMessages([
                             'stock_not_found' => "Le stock n'existe pas sur la ville $CityName !"
                         ]);
                         exit;
                     }
-
                 } else {
                 }
             });
