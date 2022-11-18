@@ -14,7 +14,7 @@
 
         <i class="bx bx-cart-alt"></i>
 
-        <span class="badge rounded-pill bg-info float-end">{{ $sub_delivery_total_new_command ?? '0' }} </span>
+        <span class="badge rounded-pill bg-warning float-end">{{ $sub_delivery_total_new_command ?? '0' }} </span>
 
         <span key="t-commands">{{ __('Commandes') }}</span>
     </a>

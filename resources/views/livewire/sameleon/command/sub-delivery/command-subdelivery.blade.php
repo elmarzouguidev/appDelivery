@@ -14,7 +14,7 @@
                         <div class=" mx-auto mb-4">
                             <span class="avatar-title bg-primary bg-soft text-primary font-size-20">
 
-                                Prix : <strong> {{ number_format($command->items_sum_prix_total, 2) }} DH </strong>
+                                Prix : &ensp;<strong> {{ number_format($command->items_sum_prix_total, 2) }} DH </strong>
 
                             </span>
                         </div>
