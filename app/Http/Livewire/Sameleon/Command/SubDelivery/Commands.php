@@ -109,24 +109,25 @@ class Commands extends Component
         if (isDelivery() && delivery()->hasRole('DeliveryEntreprise')) {
 
             $commands =  $command
-                ->where('city_id', delivery()->city->id)
-                ->where('city_uuid', delivery()->city->uuid)
                 ->where('delivery_id', delivery()->id)
                 ->where('delivery_uuid', delivery()->uuid)
+                ->where('city_id', delivery()->city->id)
+                ->where('city_uuid', delivery()->city->uuid)
                 //->whereIn('status', [Status::EXPEDIE, Status::LIVRE])
                 //->where('updated_at', now())
                 ->with('items')
                 ->withSum('items', 'prix_total')
                 //->with('products.stock')
                 ->with(['city:id,name'])
-                ->orderByRaw("created_at DESC")
                 ->orderByRaw("FIELD(status, $commandStatus)")
+                ->orderByRaw("created_at DESC")
                 ->paginate(60);
 
             $delivries = Delivery::role('SubDelivery')->where([
                 'parent_id' => delivery()->id,
                 'parent_uuid' => delivery()->uuid
             ])->get();
+            // dd($commandStatus);
         }
         return view('livewire.sameleon.command.sub-delivery.commands', compact('commands', 'delivries'));
     }
@@ -205,6 +206,14 @@ class Commands extends Component
                         exit;
                     }
                 } else {
+                    $CityName = optional($command->city)->name;
+
+                    $this->dispatchBrowserEvent('product-not-found', ['product' => $item->product]);
+
+                    throw ValidationException::withMessages([
+                        'stock_not_found' => "Le produit ($item->product) n'existe pas sur le systeme !"
+                    ]);
+                    exit;
                 }
             });
         } elseif ($status == Status::REFUSE && $command->status == Status::LIVRE && $command->status != Status::REFUSE) {
@@ -251,6 +260,14 @@ class Commands extends Component
                         exit;
                     }
                 } else {
+                    $CityName = optional($command->city)->name;
+
+                    $this->dispatchBrowserEvent('product-not-found', ['product' => $item->product]);
+
+                    throw ValidationException::withMessages([
+                        'stock_not_found' => "Le produit ($item->product) n'existe pas sur le systeme !"
+                    ]);
+                    exit;
                 }
             });
         } else {

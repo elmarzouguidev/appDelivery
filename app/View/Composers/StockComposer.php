@@ -36,16 +36,13 @@ class StockComposer
             $stock =   Stock::whereIsDefault(true)
                 ->whereIsOut(true)
                 ->count();
-        }
-        elseif (isDelivery()) {
+        } elseif (isDelivery()) {
             $stock =   Stock::whereIsDefault(false)
                 ->whereDeliveryId(delivery()->id)
                 ->whereDeliveryUuid(delivery()->uuid)
                 ->whereIsOut(true)
                 ->count();
-        } 
-        else 
-        {
+        } else {
             $stock = null;
         }
 

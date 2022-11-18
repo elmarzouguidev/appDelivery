@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="fr">
-<!-- This application is created by Elmarzougui Abdelghafour CopyRight 2023 -->
+<!--This application is created by Elmarzougui Abdelghafour CopyRight 2023 -->
 
 @include('layouts._section.head_mix')
 
@@ -22,8 +22,6 @@
         </div>
     </div>
 
-    <!-- <body data-layout="horizontal" data-topbar="dark"> -->
-
     <div id="layout-wrapper">
 
         @if (isDelivery())
@@ -31,7 +29,7 @@
         @else
             @include('layouts._parts.__header')
         @endif
-        
+
         @include('layouts._parts._leftSidebar_commercial')
 
         <div class="main-content">

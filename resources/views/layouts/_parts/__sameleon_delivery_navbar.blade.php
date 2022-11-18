@@ -18,9 +18,9 @@
     <a href="{{ route('delivery:stock.index') }}" class="waves-effect">
 
         <i class="bx bxs-box "></i>
- 
-            <span class="badge rounded-pill bg-danger float-end"> {{$stock_out ?? '0'}} </span>
-      
+
+        <span class="badge rounded-pill bg-danger float-end"> {{ $stock_out ?? '0' }} </span>
+
         <span key="t-stock">{{ __('Stock') }}</span>
     </a>
 
@@ -34,7 +34,7 @@
 
         <i class="bx bx-cart-alt"></i>
 
-        <span class="badge rounded-pill bg-info float-end">{{$total_new_command ?? '0'}} </span>
+        <span class="badge rounded-pill bg-info float-end">{{ $total_new_command ?? '0' }} </span>
 
         <span key="t-commands">{{ __('Commandes') }}</span>
     </a>
@@ -48,7 +48,7 @@
     <a href="{{ route('delivery:invoices.index') }}">
         <i class="bx bx-file"></i>
 
-        <span class="badge rounded-pill bg-info float-end"> {{$delivery_total_new_invoice ?? '0'}}</span>
+        <span class="badge rounded-pill bg-info float-end"> {{ $delivery_total_new_invoice ?? '0' }}</span>
 
         <span key="t-invoices">{{ __('Factures') }}</span>
     </a>

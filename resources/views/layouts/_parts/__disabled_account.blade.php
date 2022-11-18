@@ -1,5 +1,3 @@
-
-
 <div class="col-lg-12">
     <div class="card bg-danger text-white-50">
         <div class="card-body">
