@@ -36,6 +36,7 @@
                                 @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
                                     <th scope="col">Client</th>
                                 @endif
+                                <th class="align-middle">Date de creation</th>
                                 <th class="align-middle">Action</th>
                             </tr>
                         </thead>
@@ -84,6 +85,9 @@
                                             </a>
                                         </td>
                                     @endif
+                                    <td>
+                                        {{ $product->created_at->format('d-m-Y') }}
+                                    </td>
                                     <td>
                                         <div class="d-flex gap-3">
 
