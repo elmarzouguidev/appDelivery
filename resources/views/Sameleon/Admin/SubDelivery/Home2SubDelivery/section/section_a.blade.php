@@ -9,7 +9,7 @@
                         </div>
                     </div>
                     <div class="col-5 align-self-end">
-                        <img src="{{ asset('assets/images/profile-img.png') }}" alt="" class="img-fluid">
+                        <img src="{{ asset('assets/images/profile-img.png') }}" alt="{{ delivery()->full_name }}" class="img-fluid">
                     </div>
                 </div>
             </div>
@@ -18,7 +18,7 @@
                     <div class="col-sm-4">
                         <div class="avatar-md profile-user-wid">
                             @if (!is_null(delivery()->logo))
-                                <img class="img-thumbnail rounded-circle" alt=""
+                                <img class="img-thumbnail rounded-circle" alt="{{ delivery()->full_name }}"
                                     src="{{ asset('storage/' . delivery()->logo) }}" width="50">
                             @else
                                 <img src="{{ asset('images/logo.png') }}" alt=""

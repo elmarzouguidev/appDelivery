@@ -126,6 +126,7 @@ class Commands extends Component
                 //->with('products.stock')
                 ->with(['city:id,name'])
                 ->orderByRaw("FIELD(status, $commandStatus)")
+                ->orderBy('is_closed','asc')
                 ->orderByRaw("created_at DESC")
                 ->paginate(60);
 
@@ -333,7 +334,7 @@ class Commands extends Component
 
         $this->isRepoted = true;
 
-        if ($this->commandEdit->reported_at != null) {
+        if (isDelivery() && delivery()->hasRole('DeliveryEntreprise') &&  $this->commandEdit->reported_at != null) {
 
             $this->reportTime = $this->commandEdit->reported_at->format('d-m-Y');
         }
