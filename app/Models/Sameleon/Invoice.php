@@ -129,6 +129,7 @@ class Invoice extends Model
                 ->doesntHave('bill')
                 ->withSum('articles', 'articles.price_total')
                 ->withSum('articles', 'articles.frais')
+                ->withSum('articles', 'articles.profit')
                 ->get()
                 ->map(
                     function ($item) {
