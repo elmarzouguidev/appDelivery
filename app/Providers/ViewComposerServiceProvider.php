@@ -18,6 +18,7 @@ use App\Http\View\Composers\NewProductsComposer;
 use App\Http\View\Composers\NewUserComposer;
 use App\Http\View\Composers\RamassageComposer;
 use App\Http\View\Composers\StockComposer;
+use App\Http\View\Composers\SubDeliveryComposer;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 
@@ -44,6 +45,10 @@ class ViewComposerServiceProvider extends ServiceProvider
             'Sameleon.Admin.Home2.*',
             'Sameleon.Admin.SubDelivery.Home2.*',
         ], CommandComposer::class);
+
+        View::composer([
+            'Sameleon.Admin.SubDelivery.Home2SubDelivery.*',
+        ], SubDeliveryComposer::class);
 
         View::composer([
             'Sameleon.Admin.Home2.*',

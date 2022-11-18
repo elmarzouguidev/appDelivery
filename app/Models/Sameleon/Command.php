@@ -85,7 +85,7 @@ class Command extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    
+
     public function delivery()
     {
         return $this->belongsTo(Delivery::class, 'delivery_id');
@@ -251,14 +251,11 @@ class Command extends Model
             return $query->whereUserId(auth()->id())
                 ->whereUserUuid(auth()->user()->uuid)
                 ->count();
-        }
-        elseif(isDelivery())
-        {
+        } elseif (isDelivery()) {
             return $query->whereDeliveryId(delivery()->id)
-            ->whereDeliveryUuid(delivery()->uuid)
-            ->count(); 
-        } 
-        else {
+                ->whereDeliveryUuid(delivery()->uuid)
+                ->count();
+        } else {
             return $query->count();
         }
     }
@@ -270,38 +267,103 @@ class Command extends Model
                 ->whereUserUuid(auth()->user()->uuid)
                 ->whereStatus(Status::NON_TRAITE)
                 ->count();
-        } 
-        elseif(isDelivery())
-        {
+        } elseif (isDelivery()) {
             return $query->whereDeliveryId(delivery()->id)
-            ->whereDeliveryUuid(delivery()->uuid)
-            ->whereStatus(Status::EXPEDIE)
-            ->count();
-        }
-        elseif(isDelivery() && delivery()->hasRole('SubDelivery'))
-        {
+                ->whereDeliveryUuid(delivery()->uuid)
+                ->whereStatus(Status::EXPEDIE)
+                ->count();
+        } elseif (isDelivery() && delivery()->hasRole('SubDelivery')) {
 
             return $query->whereSubDeliveryId(delivery()->id)
-            ->whereSubDeliveryUuid(delivery()->uuid)
-            ->whereStatus(Status::ENCOURS)
-            ->count();
-        }
-        else {
+                ->whereSubDeliveryUuid(delivery()->uuid)
+                ->whereStatus(Status::ENCOURS)
+                ->count();
+        } else {
             return $query->whereStatus(Status::NON_TRAITE)
                 ->count();
         }
     }
+    /*******Sub delivery Composer class ***/
     public function scopeSubDeliveryTotalNewCommands($query)
     {
- 
-        if(isDelivery() && delivery()->hasRole('SubDelivery'))
-        {
+
+        if (isDelivery() && delivery()->hasRole('SubDelivery')) {
             return $query->whereSubDeliveryId(delivery()->id)
-            ->whereSubDeliveryUuid(delivery()->uuid)
-            ->whereStatus(Status::ENCOURS)
-            ->count();
+                ->whereSubDeliveryUuid(delivery()->uuid)
+                ->whereStatus(Status::ENCOURS)
+                ->count();
         }
     }
+    public function scopeSubDeliveryTotalCommands($query)
+    {
+
+        if (isDelivery() && delivery()->hasRole('SubDelivery')) {
+            return $query->whereSubDeliveryId(delivery()->id)
+                ->whereSubDeliveryUuid(delivery()->uuid)
+                ->count();
+        }
+    }
+    public function scopeSubDeliveryTotalCommandsLivred($query)
+    {
+
+        if (isDelivery() && delivery()->hasRole('SubDelivery')) {
+            return $query->whereSubDeliveryId(delivery()->id)
+                ->whereSubDeliveryUuid(delivery()->uuid)
+                ->whereStatus(Status::LIVRE)
+                ->count();
+        }
+    }
+    public function scopeSubDeliveryTotalCommandsEncours($query)
+    {
+
+        if (isDelivery() && delivery()->hasRole('SubDelivery')) {
+            return $query->whereSubDeliveryId(delivery()->id)
+                ->whereSubDeliveryUuid(delivery()->uuid)
+                ->whereIn('status', [Status::ENCOURS, Status::EXPEDIE])
+                ->count();
+        }
+    }
+    public function scopeSubDeliveryTotalCommandsNonResponde($query)
+    {
+
+        if (isDelivery() && delivery()->hasRole('SubDelivery')) {
+            return $query->whereSubDeliveryId(delivery()->id)
+                ->whereSubDeliveryUuid(delivery()->uuid)
+                ->whereIn('status', [
+                    Status::PAS_DE_REPONSE,
+                    Status::INJOIGNABLE
+                ])
+                ->count();
+        }
+    }
+    public function scopeSubDeliveryTotalCommandsReported($query)
+    {
+
+        if (isDelivery() && delivery()->hasRole('SubDelivery')) {
+            return $query->whereSubDeliveryId(delivery()->id)
+                ->whereSubDeliveryUuid(delivery()->uuid)
+                ->whereIn('status', [
+                    Status::REPORTE,
+                    Status::INTERESSE
+                ])
+                ->count();
+        }
+    }
+    public function scopeSubDeliveryTotalCommandsCancled($query)
+    {
+
+        if (isDelivery() && delivery()->hasRole('SubDelivery')) {
+            return $query->whereSubDeliveryId(delivery()->id)
+                ->whereSubDeliveryUuid(delivery()->uuid)
+                ->whereIn('status', [
+                    Status::ANNULE,
+                    Status::REFUSE
+                ])
+                ->count();
+        }
+    }
+
+    /********************************************************* */
 
     public function scopeTotalCommandsLivred($query)
     {
@@ -310,15 +372,12 @@ class Command extends Model
                 ->whereUserUuid(auth()->user()->uuid)
                 ->whereStatus(Status::LIVRE)
                 ->count();
-        } 
-        elseif(isDelivery())
-        {
+        } elseif (isDelivery()) {
             return $query->whereDeliveryId(delivery()->id)
-            ->whereDeliveryUuid(delivery()->uuid)
-            ->whereStatus(Status::LIVRE)
-            ->count(); 
-        } 
-        else {
+                ->whereDeliveryUuid(delivery()->uuid)
+                ->whereStatus(Status::LIVRE)
+                ->count();
+        } else {
             return $query->whereStatus(Status::LIVRE)->count();
         }
     }
@@ -329,15 +388,12 @@ class Command extends Model
             return $query->whereUserId(auth()->id())
                 ->whereUserUuid(auth()->user()->uuid)
                 ->whereIn('status', [Status::ENCOURS, Status::EXPEDIE])->count();
-        } 
-        elseif(isDelivery())
-        {
+        } elseif (isDelivery()) {
             return $query->whereDeliveryId(delivery()->id)
-            ->whereDeliveryUuid(delivery()->uuid)
-            ->whereIn('status', [Status::ENCOURS])
-            ->count(); 
-        } 
-        else {
+                ->whereDeliveryUuid(delivery()->uuid)
+                ->whereIn('status', [Status::ENCOURS])
+                ->count();
+        } else {
             return $query->whereIn('status', [Status::ENCOURS, Status::EXPEDIE])->count();
         }
     }
@@ -356,21 +412,18 @@ class Command extends Model
                     Status::PAS_DE_REPONSE_5,*/
                     Status::INJOIGNABLE
                 ])->count();
-        } 
-        elseif(isDelivery())
-        {
+        } elseif (isDelivery()) {
             return $query->whereDeliveryId(delivery()->id)
-            ->whereDeliveryUuid(delivery()->uuid)
-            ->whereIn('status', [
-                Status::PAS_DE_REPONSE,
-                /*Status::PAS_DE_REPONSE_2,
+                ->whereDeliveryUuid(delivery()->uuid)
+                ->whereIn('status', [
+                    Status::PAS_DE_REPONSE,
+                    /*Status::PAS_DE_REPONSE_2,
                 Status::PAS_DE_REPONSE_3,
                 Status::PAS_DE_REPONSE_4,
                 Status::PAS_DE_REPONSE_5,*/
-                Status::INJOIGNABLE
-            ])->count();
-        } 
-        else {
+                    Status::INJOIGNABLE
+                ])->count();
+        } else {
             return $query->whereIn('status', [
                 Status::PAS_DE_REPONSE,
                 /*Status::PAS_DE_REPONSE_2,
@@ -392,17 +445,14 @@ class Command extends Model
                     Status::REPORTE,
                     Status::INTERESSE
                 ])->count();
-        } 
-        elseif(isDelivery())
-        {
+        } elseif (isDelivery()) {
             return $query->whereDeliveryId(delivery()->id)
-            ->whereDeliveryUuid(delivery()->uuid)
-            ->whereIn('status', [
-                Status::REPORTE,
-                Status::INTERESSE
-            ])->count();
-        } 
-        else {
+                ->whereDeliveryUuid(delivery()->uuid)
+                ->whereIn('status', [
+                    Status::REPORTE,
+                    Status::INTERESSE
+                ])->count();
+        } else {
             return $query->whereIn('status', [
                 Status::REPORTE,
                 Status::INTERESSE
@@ -420,17 +470,14 @@ class Command extends Model
                     Status::ANNULE,
                     Status::REFUSE
                 ])->count();
-        } 
-        elseif(isDelivery())
-        {
+        } elseif (isDelivery()) {
             return $query->whereDeliveryId(delivery()->id)
-            ->whereDeliveryUuid(delivery()->uuid)
-            ->whereIn('status', [
-                Status::ANNULE,
-                Status::REFUSE
-            ])->count();
-        } 
-        else {
+                ->whereDeliveryUuid(delivery()->uuid)
+                ->whereIn('status', [
+                    Status::ANNULE,
+                    Status::REFUSE
+                ])->count();
+        } else {
             return $query->whereIn('status', [
                 Status::ANNULE,
                 Status::REFUSE
@@ -453,17 +500,14 @@ class Command extends Model
                 ->withSum('items', 'prix_total')
                 ->get()
                 ->sum('items_sum_prix_total');
-        } 
-        elseif(isDelivery())
-        {
+        } elseif (isDelivery()) {
             return $query->whereDeliveryId(delivery()->id)
-            ->whereDeliveryUuid(delivery()->uuid)
-            ->whereStatus(Status::LIVRE)
-            ->withSum('items', 'prix_total')
-            ->get()
-            ->sum('items_sum_prix_total');
-        } 
-        else {
+                ->whereDeliveryUuid(delivery()->uuid)
+                ->whereStatus(Status::LIVRE)
+                ->withSum('items', 'prix_total')
+                ->get()
+                ->sum('items_sum_prix_total');
+        } else {
             return $query->whereStatus(Status::LIVRE)->withSum('items', 'prix_total')->get()->sum('items_sum_prix_total');
         }
     }

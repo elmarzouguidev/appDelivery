@@ -14,29 +14,28 @@ class HomeSubDeliveryController extends Controller
     public function index()
     {
 
-   
-    $chart_options = [
-            'chart_title' => 'Commands par mois',
-            'report_type' => 'group_by_date',
-            'model' => 'App\Models\Sameleon\Chart\CommandChart',
-            'group_by_field' => 'created_at',
-            'group_by_period' => 'month',
-            'chart_type' => 'bar',
-            //'filter_field' => 'created_at',
-           // 'filter_days' => 30, // show only last 30 days
-            'chart_color' => '47, 83, 147',
-    ];
-   
-    $chart = new LaravelChart($chart_options);
+        if (isDelivery() && delivery()->hasRole('DeliveryEntreprise')) {
+            $chart_options = [
+                'chart_title' => 'Commands par mois',
+                'report_type' => 'group_by_date',
+                'model' => 'App\Models\Sameleon\Chart\CommandChart',
+                'group_by_field' => 'created_at',
+                'group_by_period' => 'month',
+                'chart_type' => 'bar',
+                //'filter_field' => 'created_at',
+                // 'filter_days' => 30, // show only last 30 days
+                'chart_color' => '47, 83, 147',
+            ];
 
-    $payments = app(BillInterface::class)->getBills();
+            $chart = new LaravelChart($chart_options);
 
-    // dd(auth()->user()->unreadNotifications);
-    /*foreach(auth()->user()->unreadNotifications as $notification)
-    {
-        dd($notification);
-    }*/
+            $payments = app(BillInterface::class)->getBills();
 
-     return view('Sameleon.Admin.SubDelivery.Home2.index',compact('chart', 'payments'));
+            return view('Sameleon.Admin.SubDelivery.Home2.index', compact('chart', 'payments'));
+            
+        } elseif (isDelivery() && delivery()->hasRole('SubDelivery')) {
+
+            return view('Sameleon.Admin.SubDelivery.Home2SubDelivery.index');
+        }
     }
 }
