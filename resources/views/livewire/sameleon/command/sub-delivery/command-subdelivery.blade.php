@@ -5,6 +5,13 @@
                 <div class="card text-center">
                     <div class="card-body">
                         <div class=" mx-auto mb-4">
+                            <span class="avatar-title bg-info bg-soft text-primary font-size-20">
+
+                                <strong> {{ $command->code }}</strong>
+
+                            </span>
+                        </div>
+                        <div class=" mx-auto mb-4">
                             <span class="avatar-title bg-primary bg-soft text-primary font-size-20">
 
                                 <strong> {{ number_format($command->items_sum_prix_total, 2) }} DH </strong>

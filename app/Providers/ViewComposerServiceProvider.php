@@ -13,6 +13,7 @@ use App\Http\View\Composers\InvoiceComposer;
 use App\Http\View\Composers\InvoiceDeliveryComposer;
 use App\Http\View\Composers\InvoiceOfDay;
 use App\Http\View\Composers\NavBarComposer;
+use App\Http\View\Composers\NavBarDeliveryComposer;
 use App\Http\View\Composers\NewProductsComposer;
 use App\Http\View\Composers\NewUserComposer;
 use App\Http\View\Composers\RamassageComposer;
@@ -78,6 +79,10 @@ class ViewComposerServiceProvider extends ServiceProvider
             'layouts._parts.__sameleon_admin',
             'layouts._parts.__sameleon_delivery_navbar'
         ], NavBarComposer::class);
+
+        View::composer([
+            'layouts._parts.__sameleon_sub_delivery_navbar'
+        ], NavBarDeliveryComposer::class);
 
         View::composer([
             'layouts._parts.__sameleon_admin',

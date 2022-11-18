@@ -278,9 +278,28 @@ class Command extends Model
             ->whereStatus(Status::EXPEDIE)
             ->count();
         }
+        elseif(isDelivery() && delivery()->hasRole('SubDelivery'))
+        {
+
+            return $query->whereSubDeliveryId(delivery()->id)
+            ->whereSubDeliveryUuid(delivery()->uuid)
+            ->whereStatus(Status::ENCOURS)
+            ->count();
+        }
         else {
             return $query->whereStatus(Status::NON_TRAITE)
                 ->count();
+        }
+    }
+    public function scopeSubDeliveryTotalNewCommands($query)
+    {
+ 
+        if(isDelivery() && delivery()->hasRole('SubDelivery'))
+        {
+            return $query->whereSubDeliveryId(delivery()->id)
+            ->whereSubDeliveryUuid(delivery()->uuid)
+            ->whereStatus(Status::ENCOURS)
+            ->count();
         }
     }
 
