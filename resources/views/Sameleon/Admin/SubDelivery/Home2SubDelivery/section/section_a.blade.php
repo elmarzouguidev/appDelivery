@@ -36,12 +36,12 @@
                             <div class="row">
                                 <div class="col-6">
                                     <h5 class="font-size-15">{{ $total_command }}</h5>
-                                    <p class="text-muted mb-0">commands</p>
+                                    <p class="text-muted mb-0">Total commands</p>
                                 </div>
-                                <div class="col-6">
+                                {{--<div class="col-6">
                                     <h5 class="font-size-15">{{ number_format(0000, 2) }}</h5>
                                     <p class="text-muted mb-0">chiffre d'affaires</p>
-                                </div>
+                                </div>--}}
                             </div>
                         </div>
                     </div>

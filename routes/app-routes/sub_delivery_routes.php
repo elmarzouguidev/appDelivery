@@ -93,6 +93,9 @@ Route::group(['middleware' => ['role:DeliveryEntreprise']], function () {
         Route::get('/', [PaymentSubDeliveryController::class, 'index'])->name('payments.index');
         Route::delete('/delete', [PaymentSubDeliveryController::class, 'delete'])->name('payments.delete');
     });
+});
+
+Route::group(['middleware' => ['role:DeliveryEntreprise|SubDelivery']], function () {
 
     Route::group(['prefix' => 'account'], function () {
 

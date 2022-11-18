@@ -1,7 +1,7 @@
 <div>
     <div class="row">
         @foreach ($commands as $command)
-            <div class="col-xl-3 col-sm-6">
+            <div class="col-xl-3 col-sm-6" style="{{$command->status == App\Status\Status::LIVRE ? 'opacity: 0.33;' :'' }}"> 
                 <div class="card text-center">
                     <div class="card-body">
                         <div class=" mx-auto mb-4">

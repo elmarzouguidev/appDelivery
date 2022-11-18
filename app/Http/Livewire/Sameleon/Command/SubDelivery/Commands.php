@@ -148,7 +148,7 @@ class Commands extends Component
                 ->with('items')
                 ->withSum('items', 'prix_total')
                 ->with(['city:id,name'])
-                ->orderByRaw("FIELD(status, $commandStatus)")
+                ->orderByRaw("FIELD(status, $commandDeliveryStatus)")
                 //->orderByRaw("created_at DESC")
                 ->paginate(60);
 
@@ -337,9 +337,9 @@ class Commands extends Component
         if (isDelivery() && delivery()->hasRole('DeliveryEntreprise') &&  $this->commandEdit->reported_at != null) {
 
             $this->reportTime = $this->commandEdit->reported_at->format('d-m-Y');
-        }
 
-        $this->reportComment =  str_replace('<br />', '', $this->commandEdit->comment);
+            $this->reportComment =  str_replace('<br />', '', $this->commandEdit->comment);
+        }
 
         $this->dispatchBrowserEvent('status-reported');
     }
