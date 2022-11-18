@@ -33,7 +33,7 @@ class HomeSubDeliveryController extends Controller
 
             return view('Sameleon.Admin.SubDelivery.Home2.index', compact('chart', 'payments'));
             
-        } elseif (isDelivery() && delivery()->hasRole('SubDelivery')) {
+        } elseif (isDelivery() && delivery()->hasRole('SubDelivery') || delivery()->hasRole('Delivery')) {
 
             return view('Sameleon.Admin.SubDelivery.Home2SubDelivery.index');
         }

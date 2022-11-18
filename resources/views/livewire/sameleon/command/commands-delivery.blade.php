@@ -1,13 +1,20 @@
 <div>
     <div class="row">
         @foreach ($commands as $command)
-            <div class="col-xl-3 col-sm-6">
+            <div class="col-xl-3 col-sm-6" style="{{$command->status == App\Status\Status::LIVRE ? 'opacity: 0.33;' :'' }}"> 
                 <div class="card text-center">
                     <div class="card-body">
                         <div class=" mx-auto mb-4">
+                            <span class="avatar-title bg-info bg-info text-soft font-size-20">
+
+                                <strong> {{ $command->code }}</strong>
+
+                            </span>
+                        </div>
+                        <div class=" mx-auto mb-4">
                             <span class="avatar-title bg-primary bg-soft text-primary font-size-20">
 
-                                <strong> {{ number_format($command->items_sum_prix_total, 2) }} DH </strong>
+                                Prix : &ensp;<strong> {{ number_format($command->items_sum_prix_total, 2) }} DH </strong>
 
                             </span>
                         </div>

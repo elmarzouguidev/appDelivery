@@ -126,7 +126,7 @@ class Commands extends Component
                 //->with('products.stock')
                 ->with(['city:id,name'])
                 ->orderByRaw("FIELD(status, $commandStatus)")
-                ->orderBy('is_closed','asc')
+                ->orderBy('is_closed', 'asc')
                 ->orderByRaw("created_at DESC")
                 ->paginate(60);
 
@@ -137,7 +137,7 @@ class Commands extends Component
             // dd($commandStatus);
             return view('livewire.sameleon.command.sub-delivery.commands', compact('commands', 'delivries'));
         } elseif (isDelivery() && delivery()->hasRole('SubDelivery')) {
-    
+
             $commands =  $command
                 ->where('sub_delivery_id', delivery()->id)
                 ->where('sub_delivery_uuid', delivery()->uuid)
@@ -153,6 +153,23 @@ class Commands extends Component
                 ->paginate(60);
 
             return view('livewire.sameleon.command.sub-delivery.command-subdelivery', compact('commands'));
+        } elseif (isDelivery() && delivery()->hasRole('Delivery')) {
+
+            $commands =  $command
+                ->whereNull('sub_delivery_id')
+                ->whereNull('sub_delivery_uuid')
+                ->where('delivery_id', delivery()->id)
+                ->where('delivery_uuid', delivery()->uuid)
+                //->where('city_id', delivery()->city->id)
+                //->where('city_uuid', delivery()->city->uuid)
+                ->with('items')
+                ->withSum('items', 'prix_total')
+                ->with(['city:id,name'])
+                ->orderByRaw("FIELD(status, $commandDeliveryStatus)")
+                //->orderByRaw("created_at DESC")
+                ->paginate(60);
+
+            return view('livewire.sameleon.command.commands-delivery', compact('commands'));
         }
     }
 

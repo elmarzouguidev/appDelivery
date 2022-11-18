@@ -27,13 +27,13 @@
 
                                 <th class="align-middle">RÈGLEMENT N°</th>
                                 <th class="align-middle">Facture N°</th>
-                                {{--<th class="align-middle">Montant FACTURE (hors frais)</th>--}}
+                                {{-- <th class="align-middle">Montant FACTURE (hors frais)</th> --}}
                                 <th class="align-middle">Montant payé</th>
                                 <th class="align-middle">Mode de paiment</th>
                                 <th class="align-middle">Date de paiment</th>
                                 <th class="align-middle">Note</th>
                                 <th class="align-middle">Bordereau</th>
-                                {{--<th class="align-middle">Action</th>--}}
+                                {{-- <th class="align-middle">Action</th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -47,37 +47,31 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a 
-                                            target="_blank" 
-                                            href="{{route('delivery.public.show.bill',[$payment->uuid,'has_header'=>true])}}" 
-                                            class="text-body fw-bold"
-                                            style="color:blue !important"
-                                        >
-                                           {{ $payment->full_number }}
+                                        <a target="_blank"
+                                            href="{{ route('delivery.public.show.bill', [$payment->uuid, 'has_header' => true]) }}"
+                                            class="text-body fw-bold" style="color:blue !important">
+                                            {{ $payment->delivery_full_number }}
                                         </a>
                                         {{-- $payment->full_number --}}
                                     </td>
                                     <td>
                                         {{-- $payment->billable->full_number --}}
-                                         {{--<p class="text-muted mb-0"></p>--}}
-                                        <a 
-                                            target="_blank" 
-                                            href="{{route('delivery.public.show.invoice',[$payment->billable->uuid,'has_header'=>true])}}" 
-                                            class="text-body fw-bold"
-                                            style="color:blue !important"
-                                        >
-                                        {{ $payment->billable->full_number }}
+                                        {{-- <p class="text-muted mb-0"></p> --}}
+                                        <a target="_blank"
+                                            href="{{ route('delivery.public.show.invoice', [$payment->billable->uuid, 'has_header' => true]) }}"
+                                            class="text-body fw-bold" style="color:blue !important">
+                                            {{ $payment->billable->full_number }}
                                         </a>
                                     </td>
 
-                                    {{--<td>
+                                    {{-- <td>
 
                                         {{ number_format($payment->price_total, 2) }} DH
 
-                                    </td>--}}
+                                    </td> --}}
 
                                     <td>
-                                     {{ $payment->formated_price_total }} DH
+                                        {{ $payment->formated_price_total }} DH
                                     </td>
 
                                     <td>
@@ -100,8 +94,8 @@
                                             </a>
                                         </div>
                                     </td>
-                                    {{--<td>
-                                    </td>--}}
+                                    {{-- <td>
+                                    </td> --}}
 
                                 </tr>
                             @endforeach

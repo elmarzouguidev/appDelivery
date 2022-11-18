@@ -278,7 +278,8 @@ class Command extends Model
                 ->whereSubDeliveryUuid(delivery()->uuid)
                 ->whereStatus(Status::ENCOURS)
                 ->count();
-        } else {
+        } 
+        else {
             return $query->whereStatus(Status::NON_TRAITE)
                 ->count();
         }
@@ -293,6 +294,12 @@ class Command extends Model
                 ->whereStatus(Status::ENCOURS)
                 ->count();
         }
+        if (isDelivery() && delivery()->hasRole('Delivery')) {
+            return $query->whereDeliveryId(delivery()->id)
+                ->whereDeliveryUuid(delivery()->uuid)
+                //->whereStatus(Status::ENCOURS)
+                ->count();
+        }
     }
     public function scopeSubDeliveryTotalCommands($query)
     {
@@ -302,6 +309,11 @@ class Command extends Model
                 ->whereSubDeliveryUuid(delivery()->uuid)
                 ->count();
         }
+        if (isDelivery() && delivery()->hasRole('Delivery')) {
+            return $query->whereDeliveryId(delivery()->id)
+                ->whereDeliveryUuid(delivery()->uuid)
+                ->count();
+        }
     }
     public function scopeSubDeliveryTotalCommandsLivred($query)
     {
@@ -309,6 +321,12 @@ class Command extends Model
         if (isDelivery() && delivery()->hasRole('SubDelivery')) {
             return $query->whereSubDeliveryId(delivery()->id)
                 ->whereSubDeliveryUuid(delivery()->uuid)
+                ->whereStatus(Status::LIVRE)
+                ->count();
+        }
+        if (isDelivery() && delivery()->hasRole('Delivery')) {
+            return $query->whereDeliveryId(delivery()->id)
+                ->whereDeliveryUuid(delivery()->uuid)
                 ->whereStatus(Status::LIVRE)
                 ->count();
         }
@@ -322,6 +340,12 @@ class Command extends Model
                 ->whereIn('status', [Status::ENCOURS, Status::EXPEDIE])
                 ->count();
         }
+        if (isDelivery() && delivery()->hasRole('Delivery')) {
+            return $query->whereDeliveryId(delivery()->id)
+                ->whereDeliveryUuid(delivery()->uuid)
+                ->whereIn('status', [Status::ENCOURS, Status::EXPEDIE])
+                ->count();
+        }
     }
     public function scopeSubDeliveryTotalCommandsNonResponde($query)
     {
@@ -329,6 +353,15 @@ class Command extends Model
         if (isDelivery() && delivery()->hasRole('SubDelivery')) {
             return $query->whereSubDeliveryId(delivery()->id)
                 ->whereSubDeliveryUuid(delivery()->uuid)
+                ->whereIn('status', [
+                    Status::PAS_DE_REPONSE,
+                    Status::INJOIGNABLE
+                ])
+                ->count();
+        }
+        if (isDelivery() && delivery()->hasRole('Delivery')) {
+            return $query->whereDeliveryId(delivery()->id)
+                ->whereDeliveryUuid(delivery()->uuid)
                 ->whereIn('status', [
                     Status::PAS_DE_REPONSE,
                     Status::INJOIGNABLE
@@ -348,6 +381,15 @@ class Command extends Model
                 ])
                 ->count();
         }
+        if (isDelivery() && delivery()->hasRole('Delivery')) {
+            return $query->whereDeliveryId(delivery()->id)
+                ->whereDeliveryUuid(delivery()->uuid)
+                ->whereIn('status', [
+                    Status::REPORTE,
+                    Status::INTERESSE
+                ])
+                ->count();
+        }
     }
     public function scopeSubDeliveryTotalCommandsCancled($query)
     {
@@ -355,6 +397,16 @@ class Command extends Model
         if (isDelivery() && delivery()->hasRole('SubDelivery')) {
             return $query->whereSubDeliveryId(delivery()->id)
                 ->whereSubDeliveryUuid(delivery()->uuid)
+                ->whereIn('status', [
+                    Status::ANNULE,
+                    Status::REFUSE
+                ])
+                ->count();
+        }
+
+        if (isDelivery() && delivery()->hasRole('Delivery')) {
+            return $query->whereDeliveryId(delivery()->id)
+                ->whereDeliveryUuid(delivery()->uuid)
                 ->whereIn('status', [
                     Status::ANNULE,
                     Status::REFUSE

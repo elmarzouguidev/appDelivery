@@ -16,7 +16,7 @@ Route::put('/read-notifications', [HomeSubDeliveryController::class, 'markNotifi
 
     ->name('home.read.notifications');
 
-Route::group(['middleware' => ['role:DeliveryEntreprise|SubDelivery']], function () {
+Route::group(['middleware' => ['role:DeliveryEntreprise|SubDelivery|Delivery']], function () {
 
     Route::group(['prefix' => 'commands'], function () {
 
@@ -95,7 +95,7 @@ Route::group(['middleware' => ['role:DeliveryEntreprise']], function () {
     });
 });
 
-Route::group(['middleware' => ['role:DeliveryEntreprise|SubDelivery']], function () {
+Route::group(['middleware' => ['role:DeliveryEntreprise|SubDelivery|Delivery']], function () {
 
     Route::group(['prefix' => 'account'], function () {
 

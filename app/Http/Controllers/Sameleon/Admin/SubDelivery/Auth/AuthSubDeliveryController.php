@@ -27,7 +27,7 @@ class AuthSubDeliveryController extends Controller
     {
         
         Session::flush();
-
+        
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
@@ -79,6 +79,7 @@ class AuthSubDeliveryController extends Controller
      */
     private function redirectTo()
     {
+        
         return route('delivery:home');
     }
 
