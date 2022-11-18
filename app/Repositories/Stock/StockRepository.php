@@ -45,8 +45,8 @@ class StockRepository extends AppRepository implements StockInterface
                 ->whereIsDefault(true)
                 ->where('client_id', auth()->id())
                 ->where('client_uuid', auth()->user()->uuid)
-                ->with('product:id,name,price')
-                ->with('city:id,name')
+                ->with('product:uud,id,name,price')
+                ->with('city:uuid,id,name')
                 ->get();
         } elseif (isDelivery() && delivery()->hasRole('DeliveryEntreprise')) {
 
@@ -54,7 +54,7 @@ class StockRepository extends AppRepository implements StockInterface
                 ->where('delivery_id', delivery()->id)
                 ->where('delivery_uuid', delivery()->uuid)
                 ->where('city_id', delivery()->city_id)
-                ->where('city_uuid', delivery()->city->uuid)
+                ->where('city_uuid', delivery()->city_uuid)
                 ->with('product:id,name,price')
                 ->get();
         } else {
@@ -63,10 +63,9 @@ class StockRepository extends AppRepository implements StockInterface
                 ->whereIsDefault(true)
                 ->whereNull('delivery_id')
                 ->whereNull('delivery_uuid')
-                ->with('client:id,nom,prenom')
-                ->with('product:id,name,price')
+                ->with('client:id,uuid,nom,prenom')
+                ->with('product:id,uuid,name,price')
                 ->with('city:id,name')
-
                 ->get();
         }
 
