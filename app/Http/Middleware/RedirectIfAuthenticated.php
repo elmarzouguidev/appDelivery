@@ -24,12 +24,19 @@ class RedirectIfAuthenticated
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check()) {
+            /*if (Auth::guard($guard)->check()) {
                 if ($guard == "delivery") {
                     return redirect(route('delivery:home'));
                 } else {
                     return redirect(route('admin:home'));
                 }
+            }*/
+
+            if (Auth::guard("delivery")->check()) {
+                return redirect(route('delivery:home'));
+            }
+            if (Auth::guard("web")->check()) {
+                return redirect(route('admin:home'));
             }
         }
 
