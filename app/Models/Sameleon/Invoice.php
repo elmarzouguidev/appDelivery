@@ -132,7 +132,7 @@ class Invoice extends Model
                 ->get()
                 ->map(function($item)
                     {
-                        return ['total_pricer' => $item->articles_sum_articlesprice_total - $item->articles_sum_articlesfrais];
+                        return ['total_pricer' => $item->articles_sum_articlesprice_total + $item->articles_sum_articlesfrais];
                     }
                 )->sum('total_pricer');
         } 
@@ -143,7 +143,7 @@ class Invoice extends Model
                 ->get()
                 ->map(function($item)
                     {
-                        return ['total_pricer' => $item->articles_sum_articlesprice_total - $item->articles_sum_articlesfrais];
+                        return ['total_pricer' => $item->articles_sum_articlesprice_total + $item->articles_sum_articlesfrais];
                     }
                 )->sum('total_pricer');
                 
