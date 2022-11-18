@@ -127,7 +127,7 @@
                                         </button>
                                     </div>
                                     <div class="mt-3 d-grid">
-                                        <a href="{{route('delivery:auth:login')}}" class="btn btn-success waves-effect waves-light">
+                                        <a target="_blank" href="{{route('delivery:auth:login')}}" class="btn btn-success waves-effect waves-light">
                                             Espace livreur 
                                         </a>
                                     </div>
