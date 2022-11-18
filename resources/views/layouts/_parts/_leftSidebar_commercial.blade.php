@@ -9,7 +9,12 @@
                 <li class="menu-title" key="t-menu">Menu</li>
 
                 @if (auth('delivery')->check())
-                    @include('layouts._parts.__sameleon_delivery_navbar')
+                    @if (delivery()->hasRole('DeliveryEntreprise'))
+                        @include('layouts._parts.__sameleon_delivery_navbar')
+                    @endif
+                    @if (delivery()->hasRole('SubDelivery'))
+                        @include('layouts._parts.__sameleon_sub_delivery_navbar')
+                    @endif
                 @else
                     @include('layouts._parts.__sameleon_admin')
                 @endif

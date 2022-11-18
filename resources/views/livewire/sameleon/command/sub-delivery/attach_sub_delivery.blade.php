@@ -7,7 +7,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form wire:submit.prevent="attachToDelivery" method="post" action="{{ route('admin:commands.index') }}">
+                <form wire:submit.prevent="attachToSubDelivery" method="post" action="{{ route('delivery:commands.index') }}">
                     @csrf
                     <div class="row mb-4">
 
@@ -17,7 +17,7 @@
                                 required>
                                 <option value="">Choisir le livreuer *</option>
                                 @foreach ($delivries as $delivery)
-                                    <option value="{{ $delivery->id }}">{{ $delivery->full_name }} ({{$delivery->type}})</option>
+                                    <option value="{{ $delivery->uuid }}">{{ $delivery->full_name }}</option>
                                 @endforeach
                             </select>
                             @error('selectedDelivery')

@@ -173,7 +173,7 @@
                     <div class="card-body">
                         <div class="d-flex">
                             <div class="flex-grow-1">
-                                <p class="text-muted fw-medium">En cours & Expédié</p>
+                                <p class="text-muted fw-medium">Encours</p>
                                 <h4 class="mb-0">{{ $total_command_encours }}</h4>
                             </div>
 

@@ -13,6 +13,7 @@ use Livewire\Component;
 use Illuminate\Support\Carbon;
 use Illuminate\Validation\ValidationException;
 use Livewire\WithPagination;
+use PhpParser\Node\Stmt\Else_;
 
 class Commands extends Component
 {
@@ -106,6 +107,11 @@ class Commands extends Component
             Status::PAS_DE_REPONSE, Status::INJOIGNABLE, Status::ANNULE, Status::LIVRE
         ]);
 
+        $commandDeliveryStatus = implode(',', [
+            Status::ENCOURS, Status::REPORTE, Status::REFUSE, Status::RETOURNE,
+            Status::PAS_DE_REPONSE, Status::INJOIGNABLE, Status::ANNULE, Status::LIVRE
+        ]);
+
         if (isDelivery() && delivery()->hasRole('DeliveryEntreprise')) {
 
             $commands =  $command
@@ -128,8 +134,25 @@ class Commands extends Component
                 'parent_uuid' => delivery()->uuid
             ])->get();
             // dd($commandStatus);
+            return view('livewire.sameleon.command.sub-delivery.commands', compact('commands', 'delivries'));
+        } elseif (isDelivery() && delivery()->hasRole('SubDelivery')) {
+    
+            $commands =  $command
+                ->where('sub_delivery_id', delivery()->id)
+                ->where('sub_delivery_uuid', delivery()->uuid)
+                ->where('delivery_id', delivery()->parent_id)
+                ->where('delivery_uuid', delivery()->parent_uuid)
+                ->where('city_id', delivery()->city->id)
+                ->where('city_uuid', delivery()->city->uuid)
+                ->with('items')
+                ->withSum('items', 'prix_total')
+                ->with(['city:id,name'])
+                ->orderByRaw("FIELD(status, $commandStatus)")
+                //->orderByRaw("created_at DESC")
+                ->paginate(60);
+
+            return view('livewire.sameleon.command.sub-delivery.command-subdelivery', compact('commands'));
         }
-        return view('livewire.sameleon.command.sub-delivery.commands', compact('commands', 'delivries'));
     }
 
     public function mount()
@@ -142,6 +165,39 @@ class Commands extends Component
         $this->reportTime = now()->format('d-m-Y');
 
         $this->reportComment = '';
+    }
+
+    public function attachToSubDelivery()
+    {
+        if (count($this->selectedCommands) && is_string($this->selectedDelivery)); {
+
+            $delivery = Delivery::whereUuid($this->selectedDelivery)
+                ->whereParentId(delivery()->id)
+                ->whereParentUuid(delivery()->uuid)
+                ->first();
+
+            $status = Status::ENCOURS;
+
+            if ($delivery) {
+
+                Command::find($this->selectedCommands)->each->update([
+
+                    'sub_delivery_id' => $delivery->id,
+                    'sub_delivery_uuid' => $delivery->uuid,
+                    'status' => $status,
+                    'delivery_status' => DeliveryStatus::D_ENCOURS
+
+                ]);
+
+                $this->dispatchBrowserEvent('notify-global', ['message' => 'les commands envoyer avec succès']);
+
+                $this->dispatchBrowserEvent('status-updated');
+            } else {
+                $this->dispatchBrowserEvent('notify-global', ['message' => "le Livreur n'exist pas dans le system !"]);
+
+                $this->dispatchBrowserEvent('status-updated');
+            }
+        }
     }
 
 
