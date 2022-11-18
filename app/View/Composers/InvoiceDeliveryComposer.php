@@ -9,13 +9,13 @@ use Illuminate\Cache\CacheManager;
 class InvoiceDeliveryComposer
 {
 
-    protected DeliveryInvoice $invoice;
+    protected DeliveryInvoice $deliveryInvoice;
 
     protected CacheManager $cache;
 
-    public function __construct(DeliveryInvoice $invoice, CacheManager $cache)
+    public function __construct(DeliveryInvoice $deliveryInvoice, CacheManager $cache)
     {
-        $this->invoice = $invoice;
+        $this->deliveryInvoice = $deliveryInvoice;
 
         $this->cache = $cache;
     }
@@ -29,7 +29,7 @@ class InvoiceDeliveryComposer
     public function compose(View $view)
     {
 
-        $view->with('total_chiffre_affaires_non_versed', $this->invoice->totalChiffreNonVersed());
+        $view->with('delivery_total_chiffre_affaires_non_versed', $this->deliveryInvoice->totalChiffreNonVersed());
 
     }
     

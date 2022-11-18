@@ -68,23 +68,24 @@
                                             <p class="text-muted mb-0"></p>
                                         </td>
                                         <td>
-                                            {{ number_format($invoice->articles_sum_price_total,2) }} DH
+                                            {{ number_format($invoice->articles_sum_price_total, 2) }} DH
                                         </td>
                                         <td>
-                                            @if($invoice->articles_sum_price_total <= 0)
-                                              {{-- number_format($invoice->articles_sum_frais + $invoice->articles_sum_profit,2) --}}
+                                            @if ($invoice->articles_sum_price_total <= 0)
+                                                {{-- number_format($invoice->articles_sum_frais + $invoice->articles_sum_profit,2) --}}
 
-                                              {{ number_format(00,2) }} 
+                                                {{ number_format(00, 2) }}
                                             @else
-                                              {{ number_format($invoice->articles_sum_price_total-($invoice->articles_sum_frais + $invoice->articles_sum_profit),2) }} DH
-
+                                                {{-- number_format($invoice->articles_sum_price_total-($invoice->articles_sum_frais + $invoice->articles_sum_profit),2) --}}
+                                                {{ number_format($invoice->articles_sum_price_total - $invoice->articles_sum_frais, 2) }}
+                                                DH
                                             @endif
                                         </td>
                                         <td>
                                             <button type="button" disabled
-                                            class="btn btn-sm {{ __('invoice_status.classes.' . $invoice->status) }} waves-effect waves-light">
-                                            {{ __('invoice_status.statuses.' . $invoice->status) }}
-                                           </button>
+                                                class="btn btn-sm {{ __('invoice_status.classes.' . $invoice->status) }} waves-effect waves-light">
+                                                {{ __('invoice_status.statuses.' . $invoice->status) }}
+                                            </button>
                                         </td>
                                         <td>
                                             {{ $invoice->created_at->format('d-m-Y') }}
@@ -113,15 +114,15 @@
                                         <td>
                                             @if (isDelivery())
                                                 @if ($invoice->bill_count && $invoice->cloture)
-                                                    {{--<strong> {{ optional($invoice->bill)->full_number }}</strong>--}}
+                                                    {{-- <strong> {{ optional($invoice->bill)->full_number }}</strong> --}}
 
-                                                    <a target="__blank" href="{{ route('delivery.public.show.bill', [$invoice->bill->uuid,'has_header'=>true]) }}"
-                                                        type="button"
-                                                        class="btn btn-info btn-sm">
-                                                        <i class="mdi mdi-file-pdf-box font-size-16 align-middle me-2"></i>
-                                                        {{ optional($invoice->bill)->full_number }}
+                                                    <a target="__blank"
+                                                        href="{{ route('delivery.public.show.bill', [$invoice->bill->uuid, 'has_header' => true]) }}"
+                                                        type="button" class="btn btn-info btn-sm">
+                                                        <i
+                                                            class="mdi mdi-file-pdf-box font-size-16 align-middle me-2"></i>
+                                                        {{ optional($invoice->bill)->delivery_full_number }}
                                                     </a>
-
                                                 @else
                                                     <button {{ $invoice->cloture == true ? '' : 'disabled' }}
                                                         wire:click="addBill('{{ $invoice->uuid }}')" type="button"
@@ -131,16 +132,17 @@
                                                 @endif
                                             @else
                                                 @if ($invoice->bill_count && $invoice->cloture)
-                                                    {{--<strong>
+                                                    {{-- <strong>
 
                                                         {{ optional($invoice->bill)->full_number }}
 
-                                                    </strong>--}}
+                                                    </strong> --}}
 
-                                                    <a target="__blank" href="{{ route('delivery.public.show.bill', [$invoice->bill->uuid,'has_header'=>true]) }}"
-                                                        type="button"
-                                                        class="btn btn-info btn-sm">
-                                                        <i class="mdi mdi-file-pdf-box font-size-16 align-middle me-2"></i>
+                                                    <a target="__blank"
+                                                        href="{{ route('delivery.public.show.bill', [$invoice->bill->uuid, 'has_header' => true]) }}"
+                                                        type="button" class="btn btn-info btn-sm">
+                                                        <i
+                                                            class="mdi mdi-file-pdf-box font-size-16 align-middle me-2"></i>
                                                         {{ optional($invoice->bill)->full_number }}
                                                     </a>
                                                 @else

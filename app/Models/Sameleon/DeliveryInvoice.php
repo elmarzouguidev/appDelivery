@@ -109,7 +109,7 @@ class DeliveryInvoice extends Model
     {
 
         if (isDelivery()) {
-
+           
             return $query
                 ->whereDeliveryId(delivery()->id)
                 ->whereDeliveryUuid(delivery()->uuid)
@@ -122,6 +122,7 @@ class DeliveryInvoice extends Model
                         return ['total_pricer' => $item->articles_sum_articlesprice_total - $item->articles_sum_articlesfrais];
                     }
                 )->sum('total_pricer');
+                
         } else {
             return $query->doesntHave('bill')
                 ->withSum('articles', 'delivery_invoice_articles.price_total')

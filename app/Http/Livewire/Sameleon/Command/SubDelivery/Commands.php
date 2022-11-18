@@ -100,9 +100,10 @@ class Commands extends Component
 
         $command = new ItemsQuery(new Command, $this->filter);
 
-        $commandStatus = implode(',', [Status::EXPEDIE, Status::ENCOURS, Status::REPORTE, 
+        $commandStatus = implode(',', [
+            Status::NON_TRAITE, Status::EXPEDIE, Status::ENCOURS, Status::REPORTE,
             Status::REFUSE, Status::RETOURNE,
-            Status::PAS_DE_REPONSE,Status::INJOIGNABLE, Status::ANNULE, Status::LIVRE
+            Status::PAS_DE_REPONSE, Status::INJOIGNABLE, Status::ANNULE, Status::LIVRE
         ]);
 
         if (isDelivery() && delivery()->hasRole('DeliveryEntreprise')) {
