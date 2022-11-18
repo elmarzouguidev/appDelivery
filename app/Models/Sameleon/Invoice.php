@@ -35,7 +35,7 @@ class Invoice extends Model
 
         'invoice_date' => 'date:Y-m-d',
         'cloture' => 'boolean',
-        'status'=>'integer'
+        'status' => 'integer'
     ];
 
     public function getFormatedPriceHtAttribute()
@@ -115,7 +115,7 @@ class Invoice extends Model
                 ->latest()->count();
         }
         return $query->whereCloture(false)
-        ->latest()->count();
+            ->latest()->count();
     }
 
     public function scopeTotalChiffreNonVersed($query)
@@ -130,24 +130,22 @@ class Invoice extends Model
                 ->withSum('articles', 'articles.price_total')
                 ->withSum('articles', 'articles.frais')
                 ->get()
-                ->map(function($item)
-                    {
+                ->map(
+                    function ($item) {
                         return ['total_pricer' => ($item->articles_sum_articlesprice_total - $item->articles_sum_articlesfrais)];
                     }
                 )->sum('total_pricer');
-        } 
-        else {
+        } else {
             return $query->doesntHave('bill')
                 ->withSum('articles', 'articles.price_total')
                 ->withSum('articles', 'articles.frais')
                 ->withSum('articles', 'articles.profit')
                 ->get()
-                ->map(function($item)
-                    {
-                        return ['total_pricer' => $item->articles_sum_price_total-($item->articles_sum_frais + $item->articles_sum_profit)];
+                ->map(
+                    function ($item) {
+                        return ['total_pricer' => ($item->articles_sum_frais + $item->articles_sum_profit) - $item->articles_sum_price_total];
                     }
                 )->sum('total_pricer');
-                
         }
     }
 
