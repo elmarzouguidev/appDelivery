@@ -45,7 +45,7 @@ class StockRepository extends AppRepository implements StockInterface
                 ->whereIsDefault(true)
                 ->where('client_id', auth()->id())
                 ->where('client_uuid', auth()->user()->uuid)
-                ->with('product:uud,id,name,price')
+                ->with('product:uuid,id,name,price')
                 ->with('city:uuid,id,name')
                 ->get();
         } elseif (isDelivery() && delivery()->hasRole('DeliveryEntreprise')) {
