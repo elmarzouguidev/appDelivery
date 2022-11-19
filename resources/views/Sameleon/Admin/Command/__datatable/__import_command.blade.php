@@ -101,11 +101,16 @@
                                     </tr>
                                     <tr>
                                         <td>qte </td>
-                                        <th><span class="badge bg-success">Champ requis</span></th>
+                                        <th>
+                                            <span class="badge bg-success">Champ requis</span>
+                                           
+                                        </th>
                                     </tr>
                                     <tr>
                                         <td>prix </td>
-                                        <th><span class="badge bg-success">Champ requis</span></th>
+                                        <th><span class="badge bg-success">Champ requis</span>
+                                            Le prix total de la command 
+                                        </th>
                                     </tr>
 
                             </tbody>
