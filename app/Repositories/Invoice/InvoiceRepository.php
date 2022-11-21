@@ -56,7 +56,11 @@ class InvoiceRepository extends AppRepository implements InvoiceInterface
                 ->with('bill')
                 ->withCount('bill')
                 ->orderBy('cloture','asc')
-                ->get();
+                ->get()
+                ->sortBy(function ($query) {
+                    return optional($query->client)->prenom;
+                })
+                ->all();
         }
     }
 

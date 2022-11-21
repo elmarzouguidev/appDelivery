@@ -39,7 +39,9 @@ class DeliveryRepository extends AppRepository implements DeliveryInterface
             return $this->delivery->role(['SubDelivery'])
                 ->whereParentId(auth()->id())
                 ->whereParentUuid(auth()->user()->uuid)
-                ->get();
+                ->get()
+                ->sortBy('prenom')
+                ->all();
         }
 
         return $this->delivery->role(['Delivery', 'DeliveryEntreprise'])->with('childrens','city:id,name')->get();

@@ -66,7 +66,11 @@ class StockRepository extends AppRepository implements StockInterface
                 ->with('client:id,uuid,nom,prenom')
                 ->with('product:id,uuid,name,price')
                 ->with('city:id,name')
-                ->get();
+                ->get()
+                ->sortBy(function ($query) {
+                    return optional($query->client)->prenom;
+                })
+                ->all();
         }
 
         return [];

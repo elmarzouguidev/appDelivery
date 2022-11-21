@@ -50,7 +50,7 @@ class ProductRepository extends AppRepository implements ProductInterface
             return $this->product->with('media', 'client:id,nom,prenom')
                 ->get()
                 ->sortBy(function ($query) {
-                    return $query->client->prenom;
+                    return optional($query->client)->prenom;
                 })
                 ->all();
         }

@@ -47,7 +47,11 @@ class ClientRepository extends AppRepository implements ClientInterface
             });
         }
         //dd('no cache');
-        return $this->client->role('Client')->with('banks')->get();
+        return $this->client->role('Client')
+        ->with('banks')
+        ->get()
+        ->sortBy('prenom')
+        ->all();
     }
 
     /**
