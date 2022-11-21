@@ -51,7 +51,7 @@ class ProductRepository extends AppRepository implements ProductInterface
                 ->get()
                 ->sortBy(function ($query) {
                     return optional($query->client)->prenom;
-                }, SORT_DESC)
+                }, SORT_ASC)
                 ->all();
         }
 
