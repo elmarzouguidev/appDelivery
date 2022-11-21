@@ -39,17 +39,22 @@ class ProductRepository extends AppRepository implements ProductInterface
     public function getProducts()
     {
 
-            if (auth()->user()->hasRole('Client')) {
+        if (auth()->user()->hasRole('Client')) {
 
-                return $this->product
-                    ->where('user_id', auth()->id())
-                    ->where('user_uuid', auth()->user()->uuid)
-                    ->with('media')->get();
-            } else {
+            return $this->product
+                ->where('user_id', auth()->id())
+                ->where('user_uuid', auth()->user()->uuid)
+                ->with('media')->get();
+        } else {
 
-                return $this->product->with('media', 'client:id,nom,prenom')->get();
-            }
-        
+            return $this->product->with('media', 'client:id,nom,prenom')
+                ->get()
+                ->sortBy(function ($query) {
+                    return $query->client->prenom;
+                })
+                ->all();
+        }
+
         return [];
     }
 
