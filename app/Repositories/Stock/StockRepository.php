@@ -53,8 +53,8 @@ class StockRepository extends AppRepository implements StockInterface
             return $this->stock
                 ->where('delivery_id', delivery()->id)
                 ->where('delivery_uuid', delivery()->uuid)
-                ->where('city_id', delivery()->city_id)
-                ->where('city_uuid', delivery()->city_uuid)
+                ->where('city_id', delivery()->city?->id)
+                ->where('city_uuid', delivery()->city?->uuid)
                 ->with('product:id,name,price')
                 ->get();
         } else {
