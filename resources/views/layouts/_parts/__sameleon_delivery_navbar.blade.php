@@ -59,8 +59,16 @@
         <span key="t-payments">{{ __('Paiements') }}</span>
     </a>
 </li>
-
-
+<li class="menu-title" key="t-invoices">Bon de livraison</li>
+<li>
+    <a href="{{ route('delivery:b-livraison.index') }}">
+        <i class="bx bx-file"></i>
+        @if ($total_bls)
+            <span class="badge rounded-pill bg-info float-end">{{ $total_bls }}</span>
+        @endif
+        <span key="t-b-livraison">{{ __('Bon de livraison') }}</span>
+    </a>
+</li>
 <li class="menu-title" key="t-components">{{ __('navbar.advanced') }}</li>
 
 <li>

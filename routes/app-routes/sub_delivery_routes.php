@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Sameleon\Admin\SubDelivery\BL\SubDeliveryBLController;
 use App\Http\Controllers\Sameleon\Admin\SubDelivery\Command\CommandSubDeliveryController;
 use App\Http\Controllers\Sameleon\Admin\SubDelivery\Delivery\ProfilSubDeliveryController;
 use App\Http\Controllers\Sameleon\Admin\SubDelivery\Delivery\SubDeliveryController;
@@ -92,6 +93,15 @@ Route::group(['middleware' => ['role:DeliveryEntreprise']], function () {
 
         Route::get('/', [PaymentSubDeliveryController::class, 'index'])->name('payments.index');
         Route::delete('/delete', [PaymentSubDeliveryController::class, 'delete'])->name('payments.delete');
+    });
+
+    Route::group(['prefix' => 'docs'], function () {
+
+        Route::group(['prefix' => 'b-livraison'], function () {
+
+            Route::get('/', [SubDeliveryBLController::class, 'index'])->name('b-livraison.index');
+            Route::delete('/', [SubDeliveryBLController::class, 'delete'])->name('b-livraison.delete');
+        });
     });
 });
 

@@ -95,6 +95,7 @@ class ViewComposerServiceProvider extends ServiceProvider
 
         View::composer([
             'layouts._parts.__sameleon_admin',
+            'layouts._parts.__sameleon_delivery_navbar',
         ], BLComposer::class);
 
         View::composer([
