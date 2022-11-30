@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Sameleon\Stock;
 
+use App\Models\Sameleon\Delivery;
 use App\Models\Sameleon\Product;
 use App\Models\Sameleon\Stock as SameleonStock;
 use App\Repositories\City\CityInterface;
@@ -20,20 +21,50 @@ class Stock extends Component
     public $showEditStock = false;
     public $showDetail = false;
 
-    protected $listeners = ['editStock', 'editStock'];
+    public $delivery;
+    public $client;
+    public $city;
+    public $product;
+
+    public $getdeliveries;
+
+
+    protected $listeners = [
+        'editStock', 'editStock',
+        'data:update' => '$refresh',
+        'updateStock' => 'updateStock'
+    ];
 
     public function render()
     {
 
-        $deliveries = app(DeliveryInterface::class)->getDeliveryEntreprise();
+        //$deliveries = app(DeliveryInterface::class)->getDeliveryEntreprise();
         $cities = app(CityInterface::class)->getCities();
         $products = app(ProductInterface::class)->getProducts();
 
         $stocks = app(StockInterface::class)->getStocks();
         $clients = app(ClientInterface::class)->getClients();
 
-        return view('livewire.sameleon.stock.stock-new', compact('stocks', 'products', 'cities', 'deliveries', 'clients'));
+        return view('livewire.sameleon.stock.stock-new', compact('stocks', 'products', 'cities','clients'));
     }
+    public function mount()
+    {
+        $this->emit('refresh');
+
+        $this->getdeliveries = app(DeliveryInterface::class)->getDeliveryEntreprise();
+
+        $this->delivery = null;
+    }
+
+    /*public function updatedCity()
+    {
+
+        $deliveries = Delivery::whereCityId($this->city)->get()->toArray();
+
+        $this->getdeliveries = $deliveries;
+
+        //$this->blDeliveries = $deliveries;
+    }*/
 
     public function editStock(SameleonStock $stock)
     {

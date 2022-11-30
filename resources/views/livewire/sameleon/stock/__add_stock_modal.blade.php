@@ -1,14 +1,14 @@
-<div class="modal fade addStockModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog"
-    aria-labelledby=orderdetailsModalLabel" aria-hidden="true">
+<div class="modal fade addStockModal" tabindex="-1" role="dialog" aria-labelledby=orderdetailsModalLabel"
+    aria-hidden="true" wire:ignore.self>
     <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id=orderdetailsModalLabel">Créér un ajustement de stock</h5>
+                <h5 class="modal-title" id=orderdetailsModalLabel">Créér un ajustement de stock(encours ...)</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
 
-                <form method="post" action="{{ route('admin:stock.store') }}">
+                <form wire:submit.prevent="generateBR" method="post" action="{{ route('admin:stock.store') }}">
                     @csrf
                     <div class="form-check mb-3">
                         <input class="form-check-input" name="default_stock" type="checkbox" id="default_stock"
@@ -20,7 +20,7 @@
                     <div class="row mb-4">
                         <label for="select_city" class="col-form-label col-lg-2">Ville *</label>
                         <div class="col-lg-10">
-                            <select name="city" id="select_city"
+                            <select wire:model="city" name="city" id="select_city_"
                                 class="form-control select2-templating @error('city') is-invalid @enderror" required>
                                 <option value="">Choisir la ville</option>
                                 @foreach ($cities as $city)
@@ -38,11 +38,11 @@
                     <div class="row mb-4">
                         <label for="delivery_select" class="col-form-label col-lg-2">Livreur</label>
                         <div class="col-lg-10">
-                            <select name="delivery" id="delivery_select"
+                            <select wire:model.defer="delivery" name="delivery" id="delivery_select"
                                 class="form-control select2-templating @error('delivery') is-invalid @enderror"
                                 required>
                                 <option value="">Choisir le Livreur</option>
-                                @foreach ($deliveries as $delivery)
+                                @foreach ($getdeliveries as $delivery)
                                     <option value="{{ $delivery->id }}">{{ $delivery->full_name }}</option>
                                 @endforeach
                             </select>
@@ -56,7 +56,7 @@
                     <div class="row mb-4">
                         <label for="client" class="col-form-label col-lg-2">Client *</label>
                         <div class="col-lg-10">
-                            <select name="client"
+                            <select wire:model.defer="client" name="client"
                                 class="form-control select2-templating @error('client') is-invalid @enderror" required>
                                 <option value="">Choisir le client</option>
                                 @foreach ($clients as $client)
@@ -73,7 +73,7 @@
                     <div class="row mb-4">
                         <label for="product" class="col-form-label col-lg-2">Produit *</label>
                         <div class="col-lg-10">
-                            <select name="product"
+                            <select wire:model.defer="product" name="product"
                                 class="form-control select2-templating @error('product') is-invalid @enderror" required>
                                 <option value="">Choisir le produit</option>
                                 @foreach ($products as $product)
@@ -140,5 +140,4 @@
             </div>
         </div>
     </div>
-
 </div>
