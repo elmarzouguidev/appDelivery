@@ -20,12 +20,13 @@ class StockController extends Controller
 {
     public function index()
     {
-        $deliveries = app(DeliveryInterface::class)->getDeliveryEntreprise();
-        $cities = app(CityInterface::class)->getCities();
-        $products = app(ProductInterface::class)->getProducts();
+        //$deliveries = app(DeliveryInterface::class)->getDeliveryEntreprise();
+        //$cities = app(CityInterface::class)->getCities();
+       // $products = app(ProductInterface::class)->getProducts();
         //$stocks = app(StockInterface::class)->getStocks(); // see livewire stock
 
-        return view('Sameleon.Admin.Stock.index', compact('deliveries', 'cities', 'products'));
+        //return view('Sameleon.Admin.Stock.index', compact('deliveries', 'cities', 'products'));
+        return view('Sameleon.Admin.Stock.index');
     }
 
     public function deliveryStock()

@@ -11,12 +11,8 @@
                 <form method="post" action="{{ route('admin:stock.store') }}">
                     @csrf
                     <div class="form-check mb-3">
-                        <input class="form-check-input"
-                            name="default_stock" 
-                            type="checkbox" 
-                            id="default_stock"
-                            onclick="myFunction()"
-                         >
+                        <input class="form-check-input" name="default_stock" type="checkbox" id="default_stock"
+                            onclick="myFunction()">
                         <label class="form-check-label" for="default_stock">
                             Stock principal ?
                         </label>
@@ -43,14 +39,31 @@
                         <label for="delivery_select" class="col-form-label col-lg-2">Livreur</label>
                         <div class="col-lg-10">
                             <select name="delivery" id="delivery_select"
-                                class="form-control select2-templating @error('delivery') is-invalid @enderror" required
-                                >
+                                class="form-control select2-templating @error('delivery') is-invalid @enderror"
+                                required>
                                 <option value="">Choisir le Livreur</option>
                                 @foreach ($deliveries as $delivery)
                                     <option value="{{ $delivery->id }}">{{ $delivery->full_name }}</option>
                                 @endforeach
                             </select>
                             @error('delivery')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <label for="client" class="col-form-label col-lg-2">Client *</label>
+                        <div class="col-lg-10">
+                            <select name="client"
+                                class="form-control select2-templating @error('client') is-invalid @enderror" required>
+                                <option value="">Choisir le client</option>
+                                @foreach ($clients as $client)
+                                    <option value="{{ $client->id }}">{{ $client->full_name }}</option>
+                                @endforeach
+                            </select>
+                            @error('client')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

@@ -6,7 +6,7 @@
 
         @include('Sameleon.Admin.Stock.__title')
 
-        @include('Sameleon.Admin.Stock.add_stock_modal')
+        {{--@include('Sameleon.Admin.Stock.add_stock_modal')--}}
 
         @livewire('sameleon.stock.stock')
 

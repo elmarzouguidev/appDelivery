@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Sameleon\Stock;
 use App\Models\Sameleon\Product;
 use App\Models\Sameleon\Stock as SameleonStock;
 use App\Repositories\City\CityInterface;
+use App\Repositories\Client\ClientInterface;
 use App\Repositories\Delivery\DeliveryInterface;
 use App\Repositories\Product\ProductInterface;
 use App\Repositories\Stock\StockInterface;
@@ -24,9 +25,14 @@ class Stock extends Component
     public function render()
     {
 
-        $stocks = app(StockInterface::class)->getStocks();
+        $deliveries = app(DeliveryInterface::class)->getDeliveryEntreprise();
+        $cities = app(CityInterface::class)->getCities();
+        $products = app(ProductInterface::class)->getProducts();
 
-        return view('livewire.sameleon.stock.stock-new', compact('stocks'));
+        $stocks = app(StockInterface::class)->getStocks();
+        $clients = app(ClientInterface::class)->getClients();
+
+        return view('livewire.sameleon.stock.stock-new', compact('stocks', 'products', 'cities', 'deliveries', 'clients'));
     }
 
     public function editStock(SameleonStock $stock)

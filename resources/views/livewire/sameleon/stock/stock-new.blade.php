@@ -176,4 +176,6 @@
         ])
     @endif
 
+    @include('livewire.sameleon.stock.__add_stock_modal')
+
 </div>
