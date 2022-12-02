@@ -11,9 +11,14 @@ use App\Repositories\Delivery\DeliveryInterface;
 use App\Repositories\Product\ProductInterface;
 use App\Repositories\Stock\StockInterface;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class StockDelivery extends Component
 {
+
+    use WithPagination;
+
+    protected $paginationTheme = 'bootstrap';
 
     public $stockEdit;
     public $stock;
@@ -51,7 +56,7 @@ class StockDelivery extends Component
             ->sortBy(function ($query) {
                 return optional($query->client)->prenom;
             })
-            ->all();
+            ->paginate(10);
 
         $delivries = Delivery::role(['DeliveryEntreprise'])->select(['uuid', 'id', 'nom', 'prenom', 'type'])->get();
         $citiesList = app(CityInterface::class)->getCities();

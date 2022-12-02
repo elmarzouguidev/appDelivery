@@ -1,6 +1,6 @@
 <div>
     <div>
-        @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
+        @if (isAdmin())
             @include('livewire.sameleon.command.__new_filters')
         @endif
         <div class="row">
@@ -98,21 +98,7 @@
 
                             </div>
                         </div>
-                        @if (session('success'))
-                            <div class="alert alert-success">
-                                {{ session('success') }}
-                            </div>
-                        @endif
-                        @if (session('error'))
-                            <div class="alert alert-danger">
-                                {{ session('error') }}
-                            </div>
-                        @endif
-                        @if ($errors->any())
-                            @foreach ($errors->all() as $error)
-                                <div class="alert alert-danger">{{ $error }}</div>
-                            @endforeach
-                        @endif
+                        @include('layouts._parts.__messages')
                         <div class="table-responsive">
                             <table
                                 class="table table-bordered border-danger table-hover align-middle table-nowrap table-check">

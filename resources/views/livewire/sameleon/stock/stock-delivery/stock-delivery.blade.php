@@ -164,6 +164,7 @@
                             </tbody>
                         </table>
                     </div>
+                    {{ $stocks->links() }}
                 </div>
             </div>
         </div>
