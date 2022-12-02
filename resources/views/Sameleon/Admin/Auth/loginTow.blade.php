@@ -46,7 +46,7 @@
 
                                                 <h4 class="mb-3"><i
                                                         class="bx bxs-quote-alt-left text-primary h1 align-middle me-3"></i><span
-                                                        class="text-primary">5k</span>+ Satisfied clients</h4>
+                                                        class="text-primary"></span>clients satisfaits</h4>
 
                                                 <div dir="ltr">
                                                     <div class="owl-carousel owl-theme auth-review-carousel"
@@ -55,21 +55,23 @@
 
 
 
-
+                                                        @foreach($testimonials as $test)
                                                         <div class="item">
                                                             <div class="py-3">
-                                                                <p class="font-size-16 mb-4">" If Every Vendor on Envato
-                                                                    are as supportive as Themesbrand, Development with
-                                                                    be a nice experience. You guys are Wonderful. Keep
-                                                                    us the good work. "</p>
+                                                    
+                                                                <p class="font-size-16 mb-4">{!! $test->content !!}</p>
+                                                            
 
                                                                 <div>
-                                                                    <h4 class="font-size-16 text-primary">nezerious</h4>
-                                                                    <p class="font-size-14 mb-0">- Skote User</p>
+                                                                    <h4 class="font-size-16 text-primary">{{$test->client?->full_name}}</h4>
+                                                                    
+                                                            
                                                                 </div>
+                                                            </div>
                                                             </div>
 
                                                         </div>
+                                                        @endforeach
 
                                                     </div>
                                                 </div>

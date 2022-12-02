@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Sameleon\Admin;
 
 use App\Http\Controllers\Controller;
-
+use App\Models\Sameleon\Testimonial;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -23,6 +23,7 @@ class AuthAdminController extends Controller
 
     public function loginForm()
     {
+
         return view('Sameleon.Admin.Auth.login');
     }
 
