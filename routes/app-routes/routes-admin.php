@@ -121,7 +121,7 @@ Route::group(['prefix' => ''], function () {
             Route::get('/create-adjustment', [StockController::class, 'create'])->name('stock.create');
             Route::post('/create-adjustment', [StockController::class, 'store'])->name('stock.store');
             Route::post('update/{stock}', [StockController::class, 'update'])->name('stock.update');
-            Route::delete('/delete', [StockController::class, 'delete'])->name('stock.delete');
+            Route::delete('/', [StockController::class, 'delete'])->name('stock.delete');
         });
 
         Route::group(['prefix' => 'delivery'], function () {

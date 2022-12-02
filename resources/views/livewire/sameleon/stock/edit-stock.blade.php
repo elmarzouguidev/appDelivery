@@ -21,14 +21,13 @@
                                     <div class="col-lg-12">
 
                                         <div class="row">
-                                            <div class="col-lg-6">
+                                            <div class="col-lg-4">
                                                 <div class="mb-4">
-                                                    <label class="form-label">Nom du produit</label>
+                                                    <label class="form-label">Livreur</label>
                                                     <input type="text"
-                                                        class="form-control @error('client_name') is-invalid @enderror"
-                                                        name="client_name" value="{{ $stock->name }}"
-                                                        readonly>
-                                                    @error('client_name')
+                                                        class="form-control @error('delivery') is-invalid @enderror"
+                                                        name="delivery" value="{{ $stock->delivery?->full_name }}" readonly>
+                                                    @error('delivery')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                         </span>
@@ -36,13 +35,27 @@
 
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6">
+                                            <div class="col-lg-4">
                                                 <div class="mb-4">
-                                                    <label class="form-label">Nom du client </label>
+                                                    <label class="form-label">Produit</label>
                                                     <input type="text"
-                                                        class="form-control @error('client_email') is-invalid @enderror"
-                                                        name="client_email" value="{{ optional($stock->client)->full_name }}"
-                                                        readonly>
+                                                        class="form-control @error('product') is-invalid @enderror"
+                                                        name="product" value="{{ $stock->product?->name }}" readonly>
+                                                    @error('product')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="mb-4">
+                                                    <label class="form-label">Client </label>
+                                                    <input type="text"
+                                                        class="form-control @error('client') is-invalid @enderror"
+                                                        name="client"
+                                                        value="{{ $stock->client?->full_name }}" readonly>
                                                     @error('client')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
@@ -58,8 +71,8 @@
 
                                                     <input type="number"
                                                         class="form-control @error('qte_global') is-invalid @enderror"
-                                                        name="qte_global" placeholder="Entrer ici la qté ajouté" min="1"
-                                                        >
+                                                        name="qte_global" placeholder="Entrer ici la qté ajouté"
+                                                        min="1">
                                                     @error('qte_global')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
@@ -140,9 +153,9 @@
 
                                                 </span>
                                                 <input type="text"
-                                                    class="form-control @error('code') is-invalid @enderror" name="code"
-                                                    value="{{ $stock->code }}" aria-describedby="invoice_prefix"
-                                                    readonly>
+                                                    class="form-control @error('code') is-invalid @enderror"
+                                                    name="code" value="{{ $stock->code }}"
+                                                    aria-describedby="invoice_prefix" readonly>
                                                 @error('code')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -152,8 +165,7 @@
                                         </div>
                                         <div class="col-lg-12">
                                             <label>Notes</label>
-                                            <textarea  name="notes" id="textarea" class="form-control @error('notes') is-invalid @enderror"
-                                                rows="5"
+                                            <textarea name="notes" id="textarea" class="form-control @error('notes') is-invalid @enderror" rows="5"
                                                 placeholder="Plus de détails ...">{{ $stock->notes }}</textarea>
 
                                             @error('notes')
@@ -169,15 +181,14 @@
                                                     <label>Date de modification</label>
                                                     <div class="input-group" id="datepicker1">
                                                         <input type="text" name="commande_date"
-                                                            class="form-control"
-                                                            data-date-format="dd-mm-yyyy"
+                                                            class="form-control" data-date-format="dd-mm-yyyy"
                                                             value="{{ $stock->updated_at->format('d-m-Y') }}"
-                                                            data-date-container='#datepicker1' data-provide="datepicker"
-                                                            readonly>
+                                                            data-date-container='#datepicker1'
+                                                            data-provide="datepicker" readonly>
 
                                                         <span class="input-group-text"><i
                                                                 class="mdi mdi-calendar"></i></span>
-                       
+
                                                     </div>
                                                 </div>
 

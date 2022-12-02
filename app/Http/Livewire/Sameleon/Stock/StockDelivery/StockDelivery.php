@@ -75,7 +75,7 @@ class StockDelivery extends Component
 
         $this->showEditStock = true;
 
-        $this->stockEdit = $stock;
+        $this->stockEdit = $stock->load('delivery','product','client');
 
         $this->dispatchBrowserEvent('show-edit-stock');
     }

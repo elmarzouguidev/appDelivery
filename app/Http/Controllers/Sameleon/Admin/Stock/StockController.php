@@ -83,7 +83,7 @@ class StockController extends Controller
             $stock->save();
 
             if ($request->boolean('default_stock') && isAdmin()) {
-                
+
                 return redirect()->route('admin:stock.index')->with('success', "le stock a été créér avec succès");
             }
 
@@ -93,7 +93,7 @@ class StockController extends Controller
         return redirect()->back()->with('error', "Error !!!");
     }
 
-    public function update(StockFormRequest $request, Product $stock)
+    public function update(StockFormRequest $request, Stock $stock)
     {
 
         if ($request->filled('qte_global')) {
@@ -105,8 +105,6 @@ class StockController extends Controller
             $stock->qte_livre =  0;
 
             $stock->is_out = false;
-
-            $stock->can_ramassage = false;
         }
 
         if ($request->filled('qte_endomage') && $request->qte_endomage > 0) {
@@ -134,9 +132,12 @@ class StockController extends Controller
 
         if ($stock) {
 
-            $qte = $stock->qte_global -= $stock->qte_global;
+            $qte = $stock->qte_global;
 
-            $stock->product->update(['qte_rest' => $qte, 'qte_global' => $qte]);
+            $stock->product->update([
+                'qte_rest' => $stock->product->qte_rest,
+                'qte_global' => $stock->product->qte_global,
+            ]);
 
             $stock->delete();
 
