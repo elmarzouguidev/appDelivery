@@ -100,7 +100,7 @@ class Stock extends Model
 
     public function scopeQteFilters(Builder $query, $qte): Builder
     {
-        return $query->where('qte_rest', '<=', $qte);
+        return $query->where('qte_rest', $qte);
 
         /***** */
     }
