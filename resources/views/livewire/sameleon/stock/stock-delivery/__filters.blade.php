@@ -63,7 +63,7 @@
                     </div>
                     <div class="col-lg-2 col-md-2">
                         <label class="visually-hidden" for="clienter">Quantité Rest</label>
-                        <input wire:model.defer="data.qte" type="number" class="form-control" placeholder="Quantité Rest">
+                        <input wire:model.defer="data.qte" type="number" min="1" class="form-control" placeholder="Quantité Rest">
                     </div>
                     <div class="col-sm-auto">
                         <button wire:click.prevent="setfilter()" class="btn btn-primary w-md">filter</button>
