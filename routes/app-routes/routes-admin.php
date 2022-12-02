@@ -30,6 +30,7 @@ use App\Http\Controllers\Sameleon\Admin\Region\RegionController;
 use App\Http\Controllers\Sameleon\Admin\Setting\API\APIController;
 use App\Http\Controllers\Sameleon\Admin\Stock\StockController;
 use App\Http\Controllers\Sameleon\Admin\Stock\StockDeliveryController;
+use App\Http\Controllers\Sameleon\Admin\Testimonial\TestimonialController;
 use App\Http\Controllers\Sameleon\Admin\Treasury\TreausryController;
 use App\Http\Controllers\Sameleon\Apps\AppsController;
 use App\Http\Controllers\Sameleon\Metric\MetricController;
@@ -463,5 +464,14 @@ Route::group(['prefix' => ''], function () {
         Route::get('/', [HistoriqueController::class, 'index'])->name('historiques.index');
 
         Route::delete('/delete', [HistoriqueController::class, 'delete'])->name('historiques.delete');
+    });
+
+    Route::group(['prefix' => 'testimonials'], function () {
+
+        Route::get('/', [TestimonialController::class, 'index'])->name('testimonials');
+        Route::post('/', [TestimonialController::class, 'store'])->name('testimonials.store');
+        Route::put('/', [TestimonialController::class, 'activate'])->name('testimonials.activate');
+
+        Route::delete('/', [TestimonialController::class, 'delete'])->name('testimonials.delete');
     });
 });
