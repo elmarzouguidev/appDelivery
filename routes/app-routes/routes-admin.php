@@ -29,6 +29,7 @@ use App\Http\Controllers\Sameleon\Admin\Reclamation\ReclamationController;
 use App\Http\Controllers\Sameleon\Admin\Region\RegionController;
 use App\Http\Controllers\Sameleon\Admin\Setting\API\APIController;
 use App\Http\Controllers\Sameleon\Admin\Stock\StockController;
+use App\Http\Controllers\Sameleon\Admin\Stock\StockDeliveryController;
 use App\Http\Controllers\Sameleon\Admin\Treasury\TreausryController;
 use App\Http\Controllers\Sameleon\Apps\AppsController;
 use App\Http\Controllers\Sameleon\Metric\MetricController;
@@ -112,22 +113,33 @@ Route::group(['prefix' => ''], function () {
         /****Delivery Entreprise */
         Route::get('/delivery-company', [AdminProductController::class, 'deliveryEntreprise'])->name('products.delivery.index');
     });
-
     Route::group(['prefix' => 'stock'], function () {
 
-        Route::get('/', [StockController::class, 'index'])->name('stock.index');
-        Route::post('/', [StockController::class, 'store'])->name('stock.store');
-        Route::post('update/{stock}', [StockController::class, 'update'])->name('stock.update');
-        Route::delete('/delete', [StockController::class, 'delete'])->name('stock.delete');
+        Route::group(['prefix' => 'local'], function () {
+
+            Route::get('/', [StockController::class, 'index'])->name('stock.index');
+            Route::get('/create-adjustment', [StockController::class, 'create'])->name('stock.create');
+            Route::post('/create-adjustment', [StockController::class, 'store'])->name('stock.store');
+            Route::post('update/{stock}', [StockController::class, 'update'])->name('stock.update');
+            Route::delete('/delete', [StockController::class, 'delete'])->name('stock.delete');
+        });
+
+        Route::group(['prefix' => 'delivery'], function () {
+
+            Route::get('/', [StockDeliveryController::class, 'index'])->name('stock.index.delivery');
+            Route::post('/', [StockDeliveryController::class, 'store'])->name('stock.store.delivery');
+            Route::post('update/{stock}', [StockDeliveryController::class, 'update'])->name('stock.update.delivery');
+            Route::delete('/delete', [StockDeliveryController::class, 'delete'])->name('stock.delete.delivery');
+
+        });
+
     });
-
-
     Route::group(['prefix' => 'cities'], function () {
 
         Route::get('/', [AdminCityController::class, 'index'])->name('cities.index');
 
         Route::post('/', [AdminCityController::class, 'store'])->name('cities.store');
-        
+
         Route::post('/city/{city}', [AdminCityController::class, 'update'])->name('cities.update');
 
         Route::delete('/', [AdminCityController::class, 'delete'])->name('cities.delete');
@@ -200,21 +212,19 @@ Route::group(['prefix' => ''], function () {
         Route::delete('/delete', [TreausryController::class, 'delete'])->name('treausry.delete');
     });
     Route::group(['prefix' => 'docs'], function () {
-        
+
         Route::group(['prefix' => 'b-livraison'], function () {
 
             Route::get('/', [BLController::class, 'index'])->name('b-livraison.index');
             Route::delete('/delete', [BLController::class, 'delete'])->name('b-livraison.delete');
-            
         });
 
         Route::group(['prefix' => 'b-router'], function () {
 
             Route::get('/', [BRController::class, 'index'])->name('b-router.index');
             Route::delete('/delete', [BRController::class, 'delete'])->name('b-router.delete');
-            
         });
-   });
+    });
 
     Route::group(['prefix' => 'auth/admins'], function () {
 

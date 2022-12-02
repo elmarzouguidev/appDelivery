@@ -76,6 +76,22 @@ class StockRepository extends AppRepository implements StockInterface
         return [];
     }
 
+    public function getStocksForDelivery()
+    {
+        return $this->stock
+            ->whereIsDefault(false)
+            ->whereNotNull('delivery_id')
+            ->whereNotNull('delivery_uuid')
+            ->with('client:id,uuid,nom,prenom')
+            ->with('product:id,uuid,name,price')
+            ->with('city:id,name')
+            ->with('delivery:id,uuid,nom,prenom')
+            ->get()
+            ->sortBy(function ($query) {
+                return optional($query->client)->prenom;
+            })
+            ->all();
+    }
     /**
      * @param int $id
      * @return mixed

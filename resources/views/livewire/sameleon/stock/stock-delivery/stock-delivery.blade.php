@@ -11,12 +11,7 @@
                                 <a href="{{ route('admin:stock.create') }}" type="button" class="btn btn-info">
                                     Créér un ajustement
                                 </a>
-                                {{--@if (isAdmin())
-                                    <button class="btn btn-info" type="button" class="btn btn-info  btn-sm"
-                                        data-bs-toggle="modal" data-bs-target=".addStockModal">
-                                        Créér un ajustement
-                                    </button>
-                                @endif--}}
+
                             </div>
                         </div>
                     </div>
@@ -36,6 +31,7 @@
                                     </th>
                                     @if (isAdmin())
                                         <th class="align-middle">Ville</th>
+                                        <th class="align-middle">Livreur</th>
                                         <th class="align-middle">Client</th>
                                     @endif
 
@@ -80,12 +76,16 @@
                                         </td>
                                         @if (isAdmin())
                                             <td>
-                                                {{ optional($stock->city)->name }}
+                                                {{ $stock->city?->name }}
+
+                                            </td>
+                                            <td>
+                                                {{ $stock->delivery?->full_name }}
 
                                             </td>
                                             <td>
 
-                                                {{ optional($stock->client)->full_name }}
+                                                {{ $stock->client?->full_name }}
 
                                             </td>
                                         @endif
@@ -176,7 +176,4 @@
         ])
     @endif
 
-    <div wire:ignore.self>
-        @include('livewire.sameleon.stock.__add_stock_modal')
-    </div>
 </div>

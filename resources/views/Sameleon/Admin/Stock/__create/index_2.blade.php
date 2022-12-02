@@ -2,22 +2,13 @@
 
 @section('content')
     <div class="container-fluid">
-  
+
         @include('Sameleon.Admin.Stock.__title')
 
-        {{--@include('Sameleon.Admin.Stock.add_stock_modal')--}}
-
-        @livewire('sameleon.stock.stock')
+        @livewire('sameleon.stock.create-stock')
 
     </div>
 @endsection
-
-@section('css')
-    <link href="{{ asset('assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet"
-        type="text/css">
-@endsection
-
-
 @push('scripts')
     <script src="{{ asset('assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
     <script>
@@ -36,7 +27,7 @@
                 $('#select_city').val(1);
                 $('#select_city').trigger('change');
             } else {
-    
+
                 deliverySelect.setAttribute("required", "required");
                 deliverySelect.removeAttribute("disabled");
                 $('#select_city').val(null);

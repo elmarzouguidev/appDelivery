@@ -38,7 +38,7 @@ class AdminCommandController extends Controller
         //$commands = Command::withSum('products', 'product_command.price_total')->get();
         //$commands = Command::with('products')->get();
 
-        return view('Sameleon.Admin.Command.__datatable.index', compact('cities', 'clients', 'money'));
+        return view('Sameleon.Admin.Command.__datatable.index', compact('cities', 'clients'));
     }
 
     public function import(ImportCommandRequest $request)

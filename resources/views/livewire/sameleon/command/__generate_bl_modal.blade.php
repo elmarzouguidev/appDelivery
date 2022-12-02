@@ -1,4 +1,4 @@
-<div class="modal fade generateBlModal" tabindex="-1" role="dialog" aria-labelledby=orderdetailsModalLabel"
+<div class="modal fade generateBlModal" tabindex="-1" role="dialog" aria-labelledby="orderdetailsModalLabel"
     aria-hidden="true" wire:ignore.self>
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">

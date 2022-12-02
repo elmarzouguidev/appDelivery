@@ -18,8 +18,22 @@
             <span key="t-products">{{ __('Produits') }}</span>
         </a>
     </li>
-
     <li>
+        <a href="javascript: void(0);" class="has-arrow waves-effect">
+            <i class="bx bxs-box"></i>
+            @if ($stock_out)
+                <span class="badge rounded-pill bg-danger float-end">{{ $stock_out }}</span>
+            @endif
+            <span key="t-stock-reg">{{ __('Stock') }}</span>
+        </a>
+        <ul class="sub-menu" aria-expanded="false">
+            <li><a href="{{ route('admin:stock.index') }}" key="t-stock-local">{{ __('Local') }}</a></li>
+            <li><a href="{{ route('admin:stock.index.delivery') }}" key="t-stock-delivery">{{ __('Livreurs') }}</a>
+            </li>
+        </ul>
+    </li>
+
+    {{-- <li>
         <a href="{{ route('admin:stock.index') }}" class="waves-effect">
 
             <i class="bx bxs-box "></i>
@@ -29,7 +43,7 @@
             <span key="t-stock">{{ __('Stock') }}</span>
         </a>
 
-    </li>
+    </li> --}}
 @endif
 
 <li class="menu-title" key="t-commands">Commandes</li>
@@ -98,16 +112,16 @@
     </li>
 
 
-    @if(isAdmin())
-    <li>
-        <a href="{{ route('admin:b-livraison.index') }}">
-            <i class="bx bx-file"></i>
-            @if ($total_bls)
-                <span class="badge rounded-pill bg-info float-end">{{ $total_bls }}</span>
-            @endif
-            <span key="t-b-livraison">{{ __('Bon de livraison') }}</span>
-        </a>
-    </li>
+    @if (isAdmin())
+        <li>
+            <a href="{{ route('admin:b-livraison.index') }}">
+                <i class="bx bx-file"></i>
+                @if ($total_bls)
+                    <span class="badge rounded-pill bg-info float-end">{{ $total_bls }}</span>
+                @endif
+                <span key="t-b-livraison">{{ __('Bon de livraison') }}</span>
+            </a>
+        </li>
     @endif
 
     <li>
@@ -126,7 +140,7 @@
             <span key="t-payments">{{ __('Paiements') }}</span>
         </a>
     </li>
-    {{--@if(isAdmin())
+    {{-- @if (isAdmin())
         <li>
             <a href="{{ route('admin:treausry.index') }}">
                 <i class="bx bx-money"></i>
@@ -134,7 +148,7 @@
                 <span key="t-treausry">{{ __('Trésorerie') }}</span>
             </a>
         </li>
-    @endif--}}
+    @endif --}}
 
     <li class="menu-title" key="t-reclamations">Réclamations</li>
 
@@ -169,31 +183,31 @@
         </a>
     </li>
 
-    {{--<li>
+    {{-- <li>
         <a href="{{ route('admin:apps.index') }}">
             <i class='bx bx-customize'></i>
             <span key="t-contact">{{ __('Apps') }}</span>
         </a>
-    </li>--}}
-    
+    </li> --}}
+
 @endif
 
 
 @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
     <li class="menu-title" key="t-components">{{ __('navbar.advanced') }}</li>
 
-    {{--<li>
+    {{-- <li>
         <a href="{{ route('admin:historiques.index') }}" class="waves-effect">
             <span class="badge rounded-pill bg-primary float-end" key="t-new">New</span>
             <i class="bx bx-history"></i>
             <span key="t-historiques">{{ __('Historiques') }}</span>
         </a>
 
-    </li>--}}
+    </li> --}}
 
     <li>
         <a href="{{ route('admin:annonces.index') }}" class="waves-effect">
-            {{--<span class="badge rounded-pill bg-success float-end" key="t-new">New</span>--}}
+            {{-- <span class="badge rounded-pill bg-success float-end" key="t-new">New</span> --}}
             <i class="bx bx-volume-full"></i>
             <span key="t-annonces">{{ __('Annonces') }}</span>
         </a>
@@ -243,14 +257,14 @@
 
     </li>
 
-    {{--<li>
+    {{-- <li>
         <a href="{{ route('admin:banks.index') }}" class="waves-effect">
 
             <i class="bx bxs-bank"></i>
             <span key="t-banks">{{ __('Banques') }}</span>
         </a>
 
-    </li>--}}
+    </li> --}}
     {{-- <li>
         <a href="javascript: void(0);" class="has-arrow waves-effect">
             <i class="bx bx-lock"></i>
@@ -272,7 +286,7 @@
             <i class="bx bx-wrench"></i>
             <span key="t-settings">{{ __('Paramètres') }}</span>
         </a>
-        {{--<ul class="sub-menu" aria-expanded="false">
+        {{-- <ul class="sub-menu" aria-expanded="false">
             <li>
                 <a href="{{ route('admin:settings.index') }}" key="t-company">{{ __('Société') }}
                 </a>
@@ -285,6 +299,6 @@
                 <a href="{{ route('admin:integrations.index') }}" key="t-integrations">{{ __('Integrations') }}
                 </a>
             </li>
-        </ul>--}}
+        </ul> --}}
     </li>
 @endif

@@ -1,10 +1,8 @@
 <?php
 
-namespace App\Http\Livewire\Sameleon\Stock;
+namespace App\Http\Livewire\Sameleon\Stock\StockDelivery;
 
-use App\Models\Sameleon\Delivery;
-use App\Models\Sameleon\Product;
-use App\Models\Sameleon\Stock as SameleonStock;
+use App\Models\Sameleon\Stock;
 use App\Repositories\City\CityInterface;
 use App\Repositories\Client\ClientInterface;
 use App\Repositories\Delivery\DeliveryInterface;
@@ -12,7 +10,7 @@ use App\Repositories\Product\ProductInterface;
 use App\Repositories\Stock\StockInterface;
 use Livewire\Component;
 
-class Stock extends Component
+class StockDelivery extends Component
 {
 
     public $stockEdit;
@@ -21,42 +19,26 @@ class Stock extends Component
     public $showEditStock = false;
     public $showDetail = false;
 
-    public $delivery;
-    public $client;
-    public $stockCity;
-    public $product;
-
-    public $deliveries;
-
     protected $listeners = [
+        'editStock', 'editStock',
         'data:update' => '$refresh',
+        'updateStock' => 'updateStock'
     ];
 
     public function render()
     {
 
-        $cities = app(CityInterface::class)->getCities();
-        $products = app(ProductInterface::class)->getProducts();
-
-        $stocks = app(StockInterface::class)->getStocks();
-        $clients = app(ClientInterface::class)->getClients();
-
-        return view('livewire.sameleon.stock.stock-new', compact('stocks', 'products', 'cities','clients'));
+        $stocks = app(StockInterface::class)->getStocksForDelivery();
+    
+        return view('livewire.sameleon.stock.stock-delivery.stock-delivery', compact('stocks'));
     }
     public function mount()
     {
         $this->emit('refresh');
 
-        $this->stockCity = null;
-
-        $this->deliveries = [];
-
-        $this->delivery = null;
     }
 
-
-
-    public function editStock(SameleonStock $stock)
+    public function editStock(Stock $stock)
     {
 
         $this->showEditStock = true;
@@ -66,7 +48,7 @@ class Stock extends Component
         $this->dispatchBrowserEvent('show-edit-stock');
     }
 
-    public function showStockDetail(SameleonStock $stock)
+    public function showStockDetail(Stock $stock)
     {
         $this->showDetail = true;
 

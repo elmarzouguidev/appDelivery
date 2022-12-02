@@ -22,7 +22,7 @@ class StockController extends Controller
     {
         //$deliveries = app(DeliveryInterface::class)->getDeliveryEntreprise();
         //$cities = app(CityInterface::class)->getCities();
-       // $products = app(ProductInterface::class)->getProducts();
+        // $products = app(ProductInterface::class)->getProducts();
         //$stocks = app(StockInterface::class)->getStocks(); // see livewire stock
 
         //return view('Sameleon.Admin.Stock.index', compact('deliveries', 'cities', 'products'));
@@ -36,22 +36,28 @@ class StockController extends Controller
         return view('Sameleon.Admin.Stock.index', compact('stocks'));
     }
 
+    public function create()
+    {
+        return view('Sameleon.Admin.Stock.__create.index_2');
+    }
+
     public function store(StockNewFormRequest $request)
     {
-        //dd($request->all());
+        // dd($request->all());
 
-        $product = Product::find($request->product);
-        $city = City::find($request->city);
-        $delivery = Delivery::find($request->delivery);
+        $product = Product::whereUuid($request->product)->first();
+        $city = City::whereId($request->city)->first();
+        $delivery = Delivery::whereUuid($request->delivery)->first();
+        $client = User::role('Client')->whereUuid($request->client)->first();
 
-        if ($product && $city) {
+        if ($product && $city &&  $client) {
 
             $stock = new Stock();
             $stock->product_id = $product->id;
             $stock->product_uuid = $product->uuid;
 
-            $stock->client_id = $product->client->id;
-            $stock->client_uuid = $product->client->uuid;
+            $stock->client_id = $product->client?->id;
+            $stock->client_uuid = $product->client?->uuid;
 
             $stock->city_id = $city->id;
             $stock->city_uuid = $city->uuid;
@@ -76,7 +82,12 @@ class StockController extends Controller
 
             $stock->save();
 
-            return redirect()->back()->with('success', "le stock a été créér avec succès");
+            if ($request->boolean('default_stock') && isAdmin()) {
+                
+                return redirect()->route('admin:stock.index')->with('success', "le stock a été créér avec succès");
+            }
+
+            return redirect()->route('admin:stock.index.delivery')->with('success', "le stock a été créér avec succès");
         }
 
         return redirect()->back()->with('error', "Error !!!");

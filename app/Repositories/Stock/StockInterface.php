@@ -9,6 +9,8 @@ interface StockInterface
 
     public function getStocks();
 
+    public function getStocksForDelivery();
+
     public function getStock(int $id);
 
     public function getStockByUuid(string $uuid);
