@@ -1,7 +1,7 @@
 <div>
     <div class="row">
         @if (isAdmin())
-            {{--@include('livewire.sameleon.stock.stock-delivery.__stats')--}}
+            {{-- @include('livewire.sameleon.stock.stock-delivery.__stats') --}}
             @include('livewire.sameleon.stock.stock-delivery.__filters')
         @endif
         <div class="col-12">
@@ -61,15 +61,11 @@
 
                                 @foreach ($stocks as $stock)
                                     @php
-                                        if (request()->has('isOut')) {
-                                            $selected = request()->isOut;
                                         
-                                            // dd($selected);
-                                        } else {
-                                            $selected = '';
-                                        }
+                                        $selected = $stock->qte_rest <= 5 ? true : false;
+                                        
                                     @endphp
-                                    <tr {{ $selected == $stock->uuid ? 'bgcolor=#50a5f1' : '' }}>
+                                    <tr class="{{ $selected ? 'thStock' : '' }}">
                                         <td>
                                             <div class="form-check font-size-16">
                                                 <input class="form-check-input" type="checkbox"

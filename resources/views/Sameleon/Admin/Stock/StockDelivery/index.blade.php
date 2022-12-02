@@ -2,10 +2,8 @@
 
 @section('content')
     <div class="container-fluid">
-  
-        @include('Sameleon.Admin.Stock.StockDelivery.__title')
 
-        {{--@include('Sameleon.Admin.Stock.StockDelivery.add_stock_modal')--}}
+        @include('Sameleon.Admin.Stock.StockDelivery.__title')
 
         @livewire('sameleon.stock.stock-delivery.stock-delivery')
 
@@ -13,13 +11,17 @@
 @endsection
 
 @section('css')
-
+    <style>
+        .thStock {
+            background-color: #e28743;
+            color: white;
+            font-size: medium
+        }
+    </style>
 @endsection
 
 @push('scripts')
-
     <script>
-
         window.addEventListener('show-edit-stock', event => {
             $('.editstockModal').modal('show');
         });
