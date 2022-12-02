@@ -29,7 +29,7 @@ class ItemsQuery extends QueryBuilder
             AllowedFilter::scope('product', 'product_filters'),
             AllowedFilter::scope('city', 'cities_filters'),
             AllowedFilter::scope('delivery', 'delivery_filters'),
-
+            AllowedFilter::scope('qte','qte_filters' ),
             AllowedFilter::scope('source', 'source_filters'),
 
         ]);
