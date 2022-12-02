@@ -20,11 +20,12 @@ class ItemsQuery extends QueryBuilder
         $this->request->query->set('filter', $filters);
         // $this->request->appends(request()->query());
         //dd('ome 3');
+
         $this->allowedFilters([
             'status',
             //'client',
             AllowedFilter::scope('from_to'),
-            AllowedFilter::exact('client', 'user_id'),
+            AllowedFilter::scope('client','client_filters' ),
             AllowedFilter::scope('product', 'product_filters'),
             AllowedFilter::scope('city', 'cities_filters'),
             AllowedFilter::scope('delivery', 'delivery_filters'),
@@ -32,8 +33,6 @@ class ItemsQuery extends QueryBuilder
             AllowedFilter::scope('source', 'source_filters'),
 
         ]);
-
-       
     }
 
     /*public function app()

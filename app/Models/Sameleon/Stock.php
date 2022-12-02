@@ -8,6 +8,7 @@ use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 
 class Stock extends Model
 {
@@ -41,7 +42,7 @@ class Stock extends Model
 
     protected $casts = [
         'is_out' => 'boolean',
-        'is_default'=>'boolean'
+        'is_default' => 'boolean'
         //'sent_at' => 'date:d-m-Y',
 
     ];
@@ -70,5 +71,30 @@ class Stock extends Model
     {
         $date = Carbon::createFromFormat('Y-m-d', $this->sent_at);
         return $date->translatedFormat('d') . ' ' . $date->translatedFormat('F') . ' ' . $date->translatedFormat('Y');
+    }
+
+    public function scopeProductFilters(Builder $query, $product): Builder
+    {
+
+        return  $query->where('product_id', $product);
+    }
+
+    public function scopeCitiesFilters(Builder $query, $city): Builder
+    {
+        return $query->where('city_id', $city);
+    }
+
+    public function scopeDeliveryFilters(Builder $query, $delivery): Builder
+    {
+        return $query->where('delivery_id', $delivery);
+
+        /***** */
+    }
+
+    public function scopeClientFilters(Builder $query, $client): Builder
+    {
+        return $query->where('client_id', $client);
+
+        /***** */
     }
 }

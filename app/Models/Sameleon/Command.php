@@ -231,6 +231,13 @@ class Command extends Model
         /***** */
     }
 
+    public function scopeClientFilters(Builder $query, $client): Builder
+    {
+        return $query->where('user_id', $client);
+
+        /***** */
+    }
+
     public function scopeSourceFilters(Builder $query, $source): Builder
     {
 
@@ -278,8 +285,7 @@ class Command extends Model
                 ->whereSubDeliveryUuid(delivery()->uuid)
                 ->whereStatus(Status::ENCOURS)
                 ->count();
-        } 
-        else {
+        } else {
             return $query->whereStatus(Status::NON_TRAITE)
                 ->count();
         }
