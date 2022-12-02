@@ -1,6 +1,7 @@
 <div>
     <div class="row">
         @if (isAdmin())
+            {{--@include('livewire.sameleon.stock.stock-delivery.__stats')--}}
             @include('livewire.sameleon.stock.stock-delivery.__filters')
         @endif
         <div class="col-12">
