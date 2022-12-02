@@ -19,7 +19,7 @@
                                             <th>Tél</th>
                                             <th>E-mail</th>
                                             <th>Adresse</th>
-                                            <th>Action</th>
+                                       
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -30,7 +30,7 @@
                                                 <td>{{ $child->telephone }}</td>
                                                 <td>{{ $child->email  }}</td>
                                                 <td>{{ $child->addresse  }}</td>
-                                                <td>
+                                                {{--<td>
                                                     <div class="d-flex gap-3">
 
 
@@ -51,7 +51,7 @@
                                                     @csrf
                                                     @method('DELETE')
                                                     <input type="hidden" name="deliveryId" value="{{ $child->uuid }}">
-                                                </form>
+                                                </form>--}}
 
                                             </tr>
                                         @endforeach
