@@ -15,6 +15,13 @@
 @section('css')
     <link href="{{ asset('assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet"
         type="text/css">
+        <style>
+            .thStock {
+                background-color: #e28743;
+                color: white;
+                font-size: medium
+            }
+        </style>
 @endsection
 
 
