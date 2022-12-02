@@ -36,6 +36,11 @@ class StockComposer
         } elseif (isAdmin()) {
             $stock =   Stock::whereIsDefault(true)
                 ->where('qte_rest', '<=', 5)
+                ->orWhere(function ($q) {
+                    $q->whereIsDefault(false)
+                        ->whereNotNull('delivery_id')
+                        ->whereNotNull('delivery_uuid');
+                })
                 ->count();
         } elseif (isDelivery()) {
             $stock =   Stock::whereIsDefault(false)
