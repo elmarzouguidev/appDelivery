@@ -220,7 +220,6 @@
     <li>
         <a href="{{ route('admin:conditions.index') }}">
             <i class="bx bx-file"></i>
-            <span class="badge rounded-pill bg-info float-end">new</span>
             <span key="t-conditions">{{ __('Conditions') }}</span>
         </a>
     </li>
