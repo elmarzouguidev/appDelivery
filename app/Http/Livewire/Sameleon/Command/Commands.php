@@ -405,7 +405,6 @@ class Commands extends Component
                     if ($stock) {
                         if ($stock->qte_rest >= $qte && $stock->qte_rest !== 0 && $stock->qte_rest > 0 && !$stock->is_out) {
 
-
                             $stock->decrement('qte_rest', $qte);
 
                             $stock->increment('qte_livre', $qte);

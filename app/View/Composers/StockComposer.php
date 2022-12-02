@@ -29,18 +29,20 @@ class StockComposer
         if (isClient()) {
             $stock =  Stock::where('client_id', auth()->id())
                 ->where('client_uuid', auth()->user()->uuid)
-                ->whereIsOut(true)
+                //->whereIsOut(true)
+                ->where('qte_rest', '<=', 5)
                 ->whereIsDefault(false)
                 ->count();
         } elseif (isAdmin()) {
             $stock =   Stock::whereIsDefault(true)
-                ->whereIsOut(true)
+                ->where('qte_rest', '<=', 5)
                 ->count();
         } elseif (isDelivery()) {
             $stock =   Stock::whereIsDefault(false)
                 ->whereDeliveryId(delivery()->id)
                 ->whereDeliveryUuid(delivery()->uuid)
-                ->whereIsOut(true)
+                ->where('qte_rest', '<=', 5)
+                //->whereIsOut(true)
                 ->count();
         } else {
             $stock = null;

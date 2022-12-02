@@ -2,10 +2,10 @@
 
 @section('content')
     <div class="container-fluid">
-  
+
         @include('Sameleon.Admin.Stock.__title')
 
-        {{--@include('Sameleon.Admin.Stock.add_stock_modal')--}}
+        {{-- @include('Sameleon.Admin.Stock.add_stock_modal') --}}
 
         @livewire('sameleon.stock.stock')
 
@@ -15,6 +15,14 @@
 @section('css')
     <link href="{{ asset('assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css') }}" rel="stylesheet"
         type="text/css">
+
+    <style>
+        .thStock {
+            background-color: #e28743;
+            color: white;
+            font-size: medium
+        }
+    </style>
 @endsection
 
 
@@ -36,7 +44,7 @@
                 $('#select_city').val(1);
                 $('#select_city').trigger('change');
             } else {
-    
+
                 deliverySelect.setAttribute("required", "required");
                 deliverySelect.removeAttribute("disabled");
                 $('#select_city').val(null);

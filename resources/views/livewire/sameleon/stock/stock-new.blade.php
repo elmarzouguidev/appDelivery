@@ -7,16 +7,17 @@
                         <div class="col-lg-8">
 
                             <div class="col-lg-4 mb-4">
-
-                                <a href="{{ route('admin:stock.create') }}" type="button" class="btn btn-info">
-                                    Créér un ajustement
-                                </a>
-                                {{--@if (isAdmin())
+                                @if (isAdmin())
+                                    <a href="{{ route('admin:stock.create') }}" type="button" class="btn btn-info">
+                                        Créér un ajustement
+                                    </a>
+                                @endif
+                                {{-- @if (isAdmin())
                                     <button class="btn btn-info" type="button" class="btn btn-info  btn-sm"
                                         data-bs-toggle="modal" data-bs-target=".addStockModal">
                                         Créér un ajustement
                                     </button>
-                                @endif--}}
+                                @endif --}}
                             </div>
                         </div>
                     </div>
@@ -61,15 +62,11 @@
 
                                 @foreach ($stocks as $stock)
                                     @php
-                                        if (request()->has('isOut')) {
-                                            $selected = request()->isOut;
                                         
-                                            // dd($selected);
-                                        } else {
-                                            $selected = '';
-                                        }
+                                        $selected = $stock->qte_rest <= 5 ? true : false;
+                                        
                                     @endphp
-                                    <tr {{ $selected == $stock->uuid ? 'bgcolor=#50a5f1' : '' }}>
+                                    <tr class="{{ $selected ? 'thStock' : '' }}">
                                         <td>
                                             <div class="form-check font-size-16">
                                                 <input class="form-check-input" type="checkbox"
@@ -110,8 +107,8 @@
                                         </td>
                                         <td>
 
-                                            {{ $stock->qte_rest }}
-
+                                                {{ $stock->qte_rest }}
+                                          
                                         </td>
                                         {{-- @if (isAdmin())
                                             <td>
@@ -175,8 +172,4 @@
             'product' => $product,
         ])
     @endif
-
-    <div wire:ignore.self>
-        @include('livewire.sameleon.stock.__add_stock_modal')
-    </div>
 </div>

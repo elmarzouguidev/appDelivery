@@ -18,32 +18,36 @@
             <span key="t-products">{{ __('Produits') }}</span>
         </a>
     </li>
-    <li>
-        <a href="javascript: void(0);" class="has-arrow waves-effect">
-            <i class="bx bxs-box"></i>
-            @if ($stock_out)
-                <span class="badge rounded-pill bg-danger float-end">{{ $stock_out }}</span>
-            @endif
-            <span key="t-stock-reg">{{ __('Stock') }}</span>
-        </a>
-        <ul class="sub-menu" aria-expanded="false">
-            <li><a href="{{ route('admin:stock.index') }}" key="t-stock-local">{{ __('Local') }}</a></li>
-            <li><a href="{{ route('admin:stock.index.delivery') }}" key="t-stock-delivery">{{ __('Livreurs') }}</a>
-            </li>
-        </ul>
-    </li>
+    @if (isAdmin())
+        <li>
+            <a href="javascript: void(0);" class="has-arrow waves-effect">
+                <i class="bx bxs-box"></i>
+                @if ($stock_out)
+                    <span class="badge rounded-pill bg-danger float-end">{{ $stock_out }}</span>
+                @endif
+                <span key="t-stock-reg">{{ __('Stock') }}</span>
+            </a>
+            <ul class="sub-menu" aria-expanded="false">
+                <li><a href="{{ route('admin:stock.index') }}" key="t-stock-local">{{ __('Local') }}</a></li>
+                <li><a href="{{ route('admin:stock.index.delivery') }}" key="t-stock-delivery">{{ __('Livreurs') }}</a>
+                </li>
+            </ul>
+        </li>
+    @endif
 
-    {{-- <li>
-        <a href="{{ route('admin:stock.index') }}" class="waves-effect">
+    @if (isClient())
+        <li>
+            <a href="{{ route('admin:stock.index') }}" class="waves-effect">
 
-            <i class="bx bxs-box "></i>
-            @if ($stock_out)
-                <span class="badge rounded-pill bg-danger float-end">{{ $stock_out }}</span>
-            @endif
-            <span key="t-stock">{{ __('Stock') }}</span>
-        </a>
+                <i class="bx bxs-box "></i>
+                @if ($stock_out)
+                    <span class="badge rounded-pill bg-danger float-end">{{ $stock_out }}</span>
+                @endif
+                <span key="t-stock">{{ __('Stock') }}</span>
+            </a>
 
-    </li> --}}
+        </li>
+    @endif
 @endif
 
 <li class="menu-title" key="t-commands">Commandes</li>
