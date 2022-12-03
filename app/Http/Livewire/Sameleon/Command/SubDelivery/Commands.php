@@ -218,6 +218,27 @@ class Commands extends Component
     }
 
 
+
+    public function livredBy(Command $command, $user)
+    {
+
+        if ($command) {
+
+            $delivred = $command->delivred_by ?? [];
+
+            if ($user && !in_array($user, $delivred)) {
+
+                $delivred_by = array_merge(
+                    $delivred,
+                    ['guard' => auth()->guard(), 'user' => $user]
+                );
+
+                $command->update(['delivred_by' => $delivred_by]);
+            }
+        }
+        return redirect()->back();
+    }
+
     public function editStatus(Command $command)
     {
 
@@ -257,9 +278,22 @@ class Commands extends Component
 
                             $stock->increment('qte_livre', $qte);
 
+                            $prod->decrement('qte_rest', $qte);
+                            $prod->increment('qte_livre', $qte);
+
                             $command->update(['delivered_at' => now()]);
 
                             $command->update(['status' => $status]);
+
+
+                            if ($stock->qte_rest === 0) {
+                                $stock->update(['is_out' => true]);
+                            }
+                            if ($prod->qte_rest === 0) {
+                                $prod->update(['is_out' => true]);
+                            }
+
+                            $this->livredBy($command, auth()->user()->id);
                         } else {
 
                             $stock->update(['is_out' => true]);
@@ -267,6 +301,13 @@ class Commands extends Component
                             $command->update(['delivered_at' => null]);
 
                             $command->update(['status' => Status::MANQUE_DE_STOCK]);
+
+                            if ($stock->qte_rest === 0) {
+                                $stock->update(['is_out' => true]);
+                            }
+                            if ($prod->qte_rest === 0) {
+                                $prod->update(['is_out' => true]);
+                            }
                         }
                     } else {
                         $CityName = optional($command->city)->name;
@@ -314,6 +355,9 @@ class Commands extends Component
 
                             $stock->increment('qte_rest', $qte);
                             $stock->decrement('qte_livre',  $qte);
+
+                            $prod->increment('qte_rest', $qte);
+                            $prod->decrement('qte_livre', $qte);
                         }
 
                         if ($stock->qte_rest == 0) {
@@ -321,6 +365,9 @@ class Commands extends Component
                             $stock->update(['is_out' => true]);
 
                             $command->update(['status' => Status::MANQUE_DE_STOCK]);
+                        }
+                        if ($prod->qte_rest === 0) {
+                            $prod->update(['is_out' => true]);
                         }
                     } else {
 

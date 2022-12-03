@@ -197,7 +197,23 @@ class Commands extends Component
 
             $status = $delivery->city_id == 1 ? Status::ENCOURS : Status::EXPEDIE; // city_id 1 == casablanca
 
-            Command::find($this->selectedCommands)->each->update([
+            $allCommands = Command::find($this->selectedCommands)->each->get();
+
+            $commands = $allCommands->each(function ($command, $key) use ($delivery) {
+
+                if ($command->city?->id !== $delivery->city?->id) {
+                    $this->dispatchBrowserEvent('commands-error-city', ['command' => $command->code, 'city' => $delivery->city?->name]);
+
+                    throw ValidationException::withMessages([
+                        'command_listed_error' => "Le livreur 
+                        ( {$delivery->full_name} ) ne correspond pas a la ville  ( {$delivery->city?->name} )!"
+
+                    ]);
+                    exit;
+                }
+            });
+
+            $commands->each->update([
 
                 'delivery_id' => $delivery->id,
                 'delivery_uuid' => $delivery->uuid,
@@ -380,6 +396,26 @@ class Commands extends Component
         $this->commandEdit = $command;
 
         $this->dispatchBrowserEvent('show-edit-status');
+    }
+
+    public function livredBy(Command $command, $user)
+    {
+
+        if ($command) {
+
+            $delivred = $command->delivred_by ?? [];
+
+            if ($user && !in_array($user, $delivred)) {
+
+                $delivred_by = array_merge(
+                    $delivred,
+                    [$user]
+                );
+
+                $command->update(['delivred_by' => $delivred_by]);
+            }
+        }
+        return redirect()->back();
     }
 
     public function changeStatus(Command $command, int $status)
