@@ -230,7 +230,7 @@ class Commands extends Component
 
                 $delivred_by = array_merge(
                     $delivred,
-                    ['guard' => auth()->guard(), 'user' => $user]
+                    ['guard' => 'delivery', 'user' => $user]
                 );
 
                 $command->update(['delivred_by' => $delivred_by]);
