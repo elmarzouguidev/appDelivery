@@ -30,7 +30,7 @@ class CreateUserBankTable extends Migration
                 ->nullable();
 
             $table->string('rib');
-            
+
             $table->enum('type', ['client', 'delivery'])->default('client');
 
             $table->timestamps();

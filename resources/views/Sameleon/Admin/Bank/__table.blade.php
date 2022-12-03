@@ -6,42 +6,30 @@
                     <div class="col-lg-8">
 
                         <div class="col-lg-4 mb-4">
-
-                            <a href="{{ route('admin:banks.create') }}" type="button" class="btn btn-info">
+                            <button class="btn btn-info" type="button" class="btn btn-info  btn-sm" data-bs-toggle="modal"
+                                data-bs-target=".addBankModal">
                                 Ajouter une Banque
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
-                @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
-                @if (session('error'))
-                    <div class="alert alert-danger">
-                        {{ session('error') }}
-                    </div>
-                @endif
+
+                @include('layouts._parts.__messages')
+
                 <div class="table-responsive">
                     <table class="table table-bordered border-danger table-hover align-middle table-nowrap table-check">
                         <thead class="table-light">
                             <tr>
-                             
+
                                 <th style="width: 20px;" class="align-middle">
-                                        <div class="form-check font-size-16">
-                                            <input class="form-check-input" type="checkbox" id="checkAll">
-                                            <label class="form-check-label" for="checkAll"></label>
-                                        </div>
+                                    <div class="form-check font-size-16">
+                                        <input class="form-check-input" type="checkbox" id="checkAll">
+                                        <label class="form-check-label" for="checkAll"></label>
+                                    </div>
                                 </th>
- 
+
                                 <th class="align-middle">Logo</th>
                                 <th class="align-middle">Nom</th>
-                                <th class="align-middle">Code Banque</th>
-                                <th class="align-middle">Swift Code</th>
-                                <th class="align-middle">Code RIB</th>
-                                <th class="align-middle">E-mail</th>
-                                <th class="align-middle">Tél</th>
                                 <th class="align-middle">Etat</th>
                                 <th class="align-middle">Action</th>
                             </tr>
@@ -57,7 +45,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        @if(!is_null($bank->logo))
+                                        @if (!is_null($bank->logo))
                                             <div>
                                                 <img class="img-fluid rounded" alt=""
                                                     src="{{ asset('storage/' . $bank->logo) }}" width="50">
@@ -68,29 +56,11 @@
                                         <a href="{{-- $client->url --}}" class="text-body fw-bold">
                                             {{ $bank->name }}<br>
                                             <p class="text-muted mb-0">
-                                             users : {{$bank->users_count}}
+                                                users : {{ $bank->users_count }}
                                             </p>
                                         </a>
                                     </td>
-                                    <td>
-                                        {{ $bank->code_bank }}
-                                    </td>
-                                    <td>
-                                        {{ $bank->code_swift }}
-                                    </td>
-                                    <td>
-                                        {{ $bank->code_rib }}
-                                        
-                                    </td>
-                                    <td>
-                                        {{ $bank->email }}
-                                        
-                                    </td>
-                                    <td>
-                                        {{ $bank->telephone }}
-                                        
-                                    </td>
-                                    
+
                                     <td>
 
                                         <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
@@ -104,11 +74,11 @@
                                     <td>
                                         <div class="d-flex gap-3">
 
-                                            <a href="{{ route('admin:banks.edit', $bank->uuid) }}"
-                                                class="text-success">
+                                            <a href="{{ route('admin:banks.edit', $bank->uuid) }}" class="text-success">
                                                 <i class="mdi mdi-pencil font-size-18"></i>
                                             </a>
-                                            <a href="#" class="text-danger" onclick="
+                                            <a href="#" class="text-danger"
+                                                onclick="
                                                 var result = confirm('Are you sure you want to delete this bank ?');
 
                                                 if(result){

@@ -16,12 +16,7 @@ class Bank extends Model
     protected $fillable = [
         'uuid',
         'name',
-        'code_bank',
-        'code_swift',
-        'code_rib',
         'logo',
-        'addresse',
-        'description',
         'active'
     ];
 

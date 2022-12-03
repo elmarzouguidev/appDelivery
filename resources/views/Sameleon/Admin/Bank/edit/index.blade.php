@@ -7,27 +7,19 @@
 
         <div class="row">
             <div class="col-lg-12">
-                @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
-                @if (session('error'))
-                    <div class="alert alert-danger">
-                        {{ session('error') }}
-                    </div>
-                @endif
-                <form action="{{ route('admin:banks.update',$bank->uuid) }}" method="post" enctype="multipart/form-data">>
+
+                @include('layouts._parts.__messages')
+                <form action="{{ route('admin:banks.update', $bank->uuid) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="card">
                         <div class="card-body">
 
-                                <p class="card-title-desc">Entrer les information du banque</p>
-                                <div class="col-lg-12">
+                            <p class="card-title-desc">Entrer les information du banque</p>
+                            <div class="col-lg-12">
 
-                                    @include('Sameleon.Admin.Bank.edit.__edit_info')
+                                @include('Sameleon.Admin.Bank.edit.__edit_info')
 
-                                </div>
+                            </div>
                         </div>
                     </div>
 

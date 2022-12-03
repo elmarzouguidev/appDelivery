@@ -26,16 +26,8 @@ class BankUpdateFormRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', Rule::unique('banks')->ignore($this->route('bank'), 'uuid')],
-            'code_bank' => ['nullable', 'numeric'],
-            'code_swift' => ['nullable', 'string'],
-            'code_rib' => ['nullable', 'numeric'],
             'logo' => ['nullable', 'file', 'mimes:png,jpg,jpeg'],
-            'addresse' => ['nullable', 'string'],
-            'description' => ['nullable', 'string'],
 
-            'email' => ['nullable', 'email'],
-            'telephone' => ['nullable', 'phone:MA', Rule::unique('banks')->ignore($this->route('bank'), 'uuid')],
-            'siteweb' => ['nullable', 'string', Rule::unique('banks')->ignore($this->route('bank'), 'uuid')],
         ];
     }
 }

@@ -131,9 +131,7 @@ Route::group(['prefix' => ''], function () {
             Route::post('/', [StockDeliveryController::class, 'store'])->name('stock.store.delivery');
             Route::post('update/{stock}', [StockDeliveryController::class, 'update'])->name('stock.update.delivery');
             Route::delete('/delete', [StockDeliveryController::class, 'delete'])->name('stock.delete.delivery');
-
         });
-
     });
     Route::group(['prefix' => 'cities'], function () {
 
@@ -317,9 +315,10 @@ Route::group(['prefix' => ''], function () {
     Route::group(['prefix' => 'banks'], function () {
 
         Route::get('/', [BankController::class, 'index'])->name('banks.index');
+        Route::post('/', [BankController::class, 'store'])->name('banks.store');
 
-        Route::get('/create', [BankController::class, 'create'])->name('banks.create');
-        Route::post('/create', [BankController::class, 'store'])->name('banks.store');
+        // Route::get('/create', [BankController::class, 'create'])->name('banks.create');
+        // Route::post('/create', [BankController::class, 'store'])->name('banks.store');
 
         Route::get('/edit/{bank}', [BankController::class, 'edit'])->name('banks.edit');
         Route::post('/edit/{bank}', [BankController::class, 'update'])->name('banks.update');

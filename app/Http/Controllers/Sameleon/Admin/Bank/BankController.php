@@ -31,15 +31,6 @@ class BankController extends Controller
 
         $bank = new Bank();
         $bank->name = $request->name;
-        $bank->code_bank = $request->code_bank;
-        $bank->code_swift = $request->code_swift;
-        $bank->code_rib = $request->code_rib;
-        $bank->addresse = $request->addresse;
-        $bank->description = $request->description;
-
-        $bank->email = $request->email;
-        $bank->telephone = $request->telephone;
-        $bank->siteweb = $request->siteweb;
 
         if ($request->hasFile('logo')) {
 
@@ -60,15 +51,6 @@ class BankController extends Controller
     {
 
         $bank->name = $request->name;
-        $bank->code_bank = $request->code_bank;
-        $bank->code_swift = $request->code_swift;
-        $bank->code_rib = $request->code_rib;
-        $bank->addresse = $request->addresse;
-        $bank->description = $request->description;
-
-        $bank->email = $request->email;
-        $bank->telephone = $request->telephone;
-        $bank->siteweb = $request->siteweb;
 
         if ($request->hasFile('logo')) {
 
@@ -110,7 +92,6 @@ class BankController extends Controller
         $this->authorize('delete', $bank);
 
         if ($bank) {
-
 
             Storage::disk('public')->delete($bank->logo);
 
