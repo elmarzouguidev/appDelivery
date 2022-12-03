@@ -223,12 +223,12 @@
             <span key="t-conditions">{{ __('Conditions') }}</span>
         </a>
     </li>
-    <li>
+    {{--<li>
         <a href="{{ route('admin:testimonials') }}">
             <i class="bx bx-file"></i>
             <span key="t-testimonials">{{ __('Témoignage') }}</span>
         </a>
-    </li>
+    </li>--}}
     <li>
         <a href="javascript: void(0);" class="has-arrow waves-effect">
             <i class="bx bx-line-chart"></i>
