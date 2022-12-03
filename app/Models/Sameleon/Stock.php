@@ -20,6 +20,8 @@ class Stock extends Model
     protected $fillable = [
         'uuid',
         'is_default',
+        'is_client',
+        'is_delivery',
         'code',
         'client_id',
         'client_uuid',
@@ -42,7 +44,9 @@ class Stock extends Model
 
     protected $casts = [
         'is_out' => 'boolean',
-        'is_default' => 'boolean'
+        'is_default' => 'boolean',
+        'is_client' => 'boolean',
+        'is_delivery' => 'boolean'
         //'sent_at' => 'date:d-m-Y',
 
     ];

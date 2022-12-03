@@ -88,7 +88,11 @@
                                         @endif
                                         <td>
 
-                                            {{ $stock->product->name }}
+                                            @if (isClient())
+                                                {{ $stock->name }}
+                                            @else
+                                                {{ $stock->product->name }}
+                                            @endif
 
                                         </td>
 
@@ -107,8 +111,8 @@
                                         </td>
                                         <td>
 
-                                                {{ $stock->qte_rest }}
-                                          
+                                            {{ $stock->qte_rest }}
+
                                         </td>
                                         {{-- @if (isAdmin())
                                             <td>

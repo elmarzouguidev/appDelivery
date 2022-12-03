@@ -71,6 +71,13 @@ if (!function_exists('isClient')) {
     }
 }
 
+if (!function_exists('client')) {
+    function client()
+    {
+        return isClient() ? auth()->user() : null;
+    }
+}
+
 if (!function_exists('isAdmin')) {
     function isAdmin()
     {

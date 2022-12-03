@@ -31,7 +31,7 @@ class StockComposer
                 ->where('client_uuid', auth()->user()->uuid)
                 //->whereIsOut(true)
                 ->where('qte_rest', '<=', 5)
-                ->whereIsDefault(false)
+                //->whereIsDefault(true)
                 ->count();
         } elseif (isAdmin()) {
             $stock = Stock::where('qte_rest', '<=', 5)

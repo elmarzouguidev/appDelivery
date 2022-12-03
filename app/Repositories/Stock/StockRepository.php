@@ -3,7 +3,7 @@
 
 namespace App\Repositories\Stock;
 
-
+use App\Models\Sameleon\Product;
 use App\Models\Sameleon\Stock;
 use App\Repositories\AppRepository;
 use Illuminate\Database\Eloquent\Collection;
@@ -12,14 +12,16 @@ class StockRepository extends AppRepository implements StockInterface
 {
 
     private $stock;
+    private $product;
 
     private $instance;
 
     private $options;
 
-    public function __construct(Stock $stock)
+    public function __construct(Stock $stock, Product $product)
     {
         $this->stock = $stock;
+        $this->product = $product;
 
         $this->options = config('app-config');
     }
@@ -41,16 +43,17 @@ class StockRepository extends AppRepository implements StockInterface
 
         if (isClient()) {
 
-            return $this->stock
-                ->whereIsDefault(true)
-                ->where('client_id', auth()->id())
-                ->where('client_uuid', auth()->user()->uuid)
-                ->with('product:uuid,id,name,price')
-                ->with('city:uuid,id,name')
+            return $this->product
+
+                ->where('user_id', client()->id)
+                ->where('user_uuid', client()->uuid)
+                //->with('product:uuid,id,name,price')
+                //->with('city:uuid,id,name')
                 ->get();
         } elseif (isDelivery() && delivery()->hasRole('DeliveryEntreprise')) {
 
             return $this->stock
+                ->whereIsDelivery(true)
                 ->where('delivery_id', delivery()->id)
                 ->where('delivery_uuid', delivery()->uuid)
                 ->where('city_id', delivery()->city?->id)

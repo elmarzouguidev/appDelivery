@@ -406,22 +406,38 @@ class Commands extends Component
                         if ($stock->qte_rest >= $qte && $stock->qte_rest !== 0 && $stock->qte_rest > 0 && !$stock->is_out) {
 
                             $stock->decrement('qte_rest', $qte);
-
                             $stock->increment('qte_livre', $qte);
+
+                            $prod->decrement('qte_rest', $qte);
+                            $prod->increment('qte_livre', $qte);
 
                             $command->update(['delivered_at' => now()]);
 
                             $command->update(['status' => $status]);
+
+                            if ($stock->qte_rest === 0) {
+                                $stock->update(['is_out' => true]);
+                            }
+                            if ($prod->qte_rest === 0) {
+                                $prod->update(['is_out' => true]);
+                            }
                         } else {
 
-                            $stock->update(['is_out' => true]);
+                            //$stock->update(['is_out' => true]);
 
                             $command->update(['delivered_at' => null]);
 
                             $command->update(['status' => Status::MANQUE_DE_STOCK]);
+
+                            if ($stock->qte_rest === 0) {
+                                $stock->update(['is_out' => true]);
+                            }
+                            if ($prod->qte_rest === 0) {
+                                $prod->update(['is_out' => true]);
+                            }
                         }
                     } else {
-                        $CityName = optional($command->city)->name;
+                        $CityName = $command->city?->name;
 
                         $this->dispatchBrowserEvent('stock-not-found-city', ['city' => $CityName, 'product' => $prod->name]);
 
@@ -466,6 +482,9 @@ class Commands extends Component
 
                             $stock->increment('qte_rest', $qte);
                             $stock->decrement('qte_livre',  $qte);
+
+                            $prod->increment('qte_rest', $qte);
+                            $prod->decrement('qte_livre', $qte);
                         }
 
                         if ($stock->qte_rest == 0) {
@@ -473,6 +492,9 @@ class Commands extends Component
                             $stock->update(['is_out' => true]);
 
                             $command->update(['status' => Status::MANQUE_DE_STOCK]);
+                        }
+                        if ($prod->qte_rest === 0) {
+                            $prod->update(['is_out' => true]);
                         }
                     } else {
 

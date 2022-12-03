@@ -69,6 +69,7 @@ class Command extends Model
         'is_imported' => 'boolean',
         'is_closed' => 'boolean',
         'is_api' => 'boolean',
+        'delivred_by' => 'array'
         //'delivery_status'=>'integer',
         //'status'=>'integer'
 

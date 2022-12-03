@@ -20,11 +20,11 @@ class ProductFactory extends Factory
             'name' => $this->faker->word,
             'description' => $this->faker->text(),
 
-            'qte_global' => $qte = 10,
+            'qte_global' => 0,
             'qte_livre' => 0,
             'qte_expidite' => 0,
             'qte_endomage' => 0,
-            'qte_rest' => $qte,
+            'qte_rest' => 0,
 
             'price' => $this->faker->numberBetween(100, 300),
             //'sku' => $this->faker->unique()->regexify('[A-Z0-9]{10}'),

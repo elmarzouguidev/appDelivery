@@ -68,10 +68,12 @@ class StockController extends Controller
 
             if ($request->boolean('default_stock') && isAdmin()) {
                 $stock->is_default = true;
+                $stock->is_client = true;
                 $stock->delivery_id = null;
                 $stock->delivery_uuid = null;
             } else {
                 $stock->is_default = false;
+                $stock->is_delivery = true;
                 $stock->delivery_id = $delivery ? $delivery->id : null;
                 $stock->delivery_uuid = $delivery ? $delivery->uuid : null;
             }
