@@ -20,8 +20,8 @@ class DeliverySeeder extends Seeder
 
         //Delivery::query()->truncate();
 
-        $city = City::find(12) ; //agadir
-
+        $agadir = City::whereSlug('agadir')->first(); //agadir
+        $casa = City::whereSlug('casablanca')->first(); //casablanca
         $user =  [
             'nom' => 'khalid',
             'prenom' => 'livreur',
@@ -30,7 +30,10 @@ class DeliverySeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('123456789@'),
             'remember_token' => Str::random(10),
-            'is_company' => false
+            'is_company' => false,
+            'type' => 'particulier',
+            'city_id' => $casa->id,
+            'city_uuid' => $casa->uuid
         ];
 
         $user2 =  [
@@ -41,7 +44,10 @@ class DeliverySeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('123456789@'),
             'remember_token' => Str::random(10),
-            'is_company' => false
+            'is_company' => false,
+            'type' => 'particulier',
+            'city_id' => $casa->id,
+            'city_uuid' => $casa->uuid
         ];
 
         $user4 =  [
@@ -54,13 +60,14 @@ class DeliverySeeder extends Seeder
             'remember_token' => Str::random(10),
             'is_company' => true,
             'company_name' => 'ARFAOUI SARL',
+            'company_ice' => '000154780325477',
             'type' => 'entreprise',
-            'city_id' => $city->id,
-            'city_uuid' => $city->uuid
+            'city_id' => $agadir->id,
+            'city_uuid' => $agadir->uuid
         ];
 
-        $delivery = Delivery::whereEmail('chaligui@gmail.com')->first();
-        $delivery2 = Delivery::whereEmail('anas@gmail.com')->first();
+        $delivery = Delivery::whereEmail('karim@gmail.com')->first();
+        $delivery2 = Delivery::whereEmail('khalid@gmail.com')->first();
         $delivery4 = Delivery::whereEmail('company@gmail.com')->first();
 
         if (!$delivery && !$delivery2 && !$delivery4) {
