@@ -58,7 +58,7 @@
                             </div>
                             <div class="p-2">
                                 @include('layouts._parts.__messages')
-                                
+
                                 <form class="form-horizontal" action="{{ route('forgotpasswordPost') }}"
                                     method="post">
                                     @csrf
@@ -91,8 +91,7 @@
                             <script>
                                 document.write(new Date().getFullYear())
                             </script>
-                            SAMELEON GROUP <i class="mdi mdi-heart text-danger"></i> by <a
-                                href="https://elmarzougui.net" target="_blank"> Elmarzougui.net </a>
+                            SAMELEON GROUP <i class="mdi mdi-heart text-danger"></i>
 
                         </div>
                     </div>
