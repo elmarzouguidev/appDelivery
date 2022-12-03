@@ -79,21 +79,4 @@ class SettingController extends Controller
 
         return redirect()->back()->with('success', "Update a éte effectuer avec success");
     }
-
-    public function page(PageSettings $settings)
-    {
-        return view('Sameleon.Admin.SettingV2.Page.index', [
-            'setting' => $settings,
-        ]);
-    }
-
-    public function pageUpdate(PageRequest $request , PageSettings $settings)
-    {
-       
-        $settings->product_condition = $request->product_condition;
-
-        $settings->save();
-
-        return redirect()->back()->with('success', "Update a éte effectuer avec success");
-    }
 }
