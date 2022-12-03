@@ -457,6 +457,8 @@ class Commands extends Component
                             if ($prod->qte_rest === 0) {
                                 $prod->update(['is_out' => true]);
                             }
+
+                            $this->livredBy($command,auth()->user()->id);
                         } else {
 
                             //$stock->update(['is_out' => true]);
