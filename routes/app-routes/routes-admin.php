@@ -193,24 +193,28 @@ Route::group(['prefix' => ''], function () {
         Route::get('/{delivery}/team', [DeliveryController::class, 'team'])->name('delivery.team');
     });
 
-    Route::group(['prefix' => 'invoices'], function () {
-
-        Route::get('/', [AdminInvoiceController::class, 'index'])->name('invoices.index');
-        Route::delete('/delete', [AdminInvoiceController::class, 'delete'])->name('invoices.delete');
-    });
-
-    Route::group(['prefix' => 'payments'], function () {
-
-        Route::get('/', [PaymentController::class, 'index'])->name('payments.index');
-        Route::delete('/delete', [PaymentController::class, 'delete'])->name('payments.delete');
-    });
 
     Route::group(['prefix' => 'treausry'], function () {
 
-        Route::get('/', [TreausryController::class, 'index'])->name('treausry.index');
-        Route::delete('/delete', [TreausryController::class, 'delete'])->name('treausry.delete');
+        Route::group(['prefix' => 'payments'], function () {
+
+            Route::get('/', [PaymentController::class, 'index'])->name('payments.index');
+            Route::delete('/delete', [PaymentController::class, 'delete'])->name('payments.delete');
+        });
+
+        Route::group(['prefix' => 'treausry'], function () {
+
+            Route::get('/', [TreausryController::class, 'index'])->name('treausry.index');
+            Route::delete('/delete', [TreausryController::class, 'delete'])->name('treausry.delete');
+        });
     });
-    Route::group(['prefix' => 'docs'], function () {
+    Route::group(['prefix' => 'documents'], function () {
+
+        Route::group(['prefix' => 'invoices'], function () {
+
+            Route::get('/', [AdminInvoiceController::class, 'index'])->name('invoices.index');
+            Route::delete('/delete', [AdminInvoiceController::class, 'delete'])->name('invoices.delete');
+        });
 
         Route::group(['prefix' => 'b-livraison'], function () {
 
