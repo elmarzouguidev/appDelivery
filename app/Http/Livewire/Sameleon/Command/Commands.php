@@ -458,7 +458,7 @@ class Commands extends Component
                                 $prod->update(['is_out' => true]);
                             }
 
-                            $this->livredBy($command,auth()->user()->id);
+                            $this->livredBy($command, auth()->user()->id);
                         } else {
 
                             //$stock->update(['is_out' => true]);
@@ -548,6 +548,7 @@ class Commands extends Component
                 }
             });
         } else {
+
 
             $command->update(['status' => $status]);
         }
