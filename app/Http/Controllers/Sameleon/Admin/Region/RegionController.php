@@ -16,27 +16,27 @@ class RegionController extends Controller
 
         $this->authorize('viewAny', Region::class);
 
-        
+
         return view('Sameleon.Admin.Region.__datatable.index');
     }
 
     public function store(RegionFormRequest $request)
     {
-       // dd('yes','##',$request->all());
+        // dd('yes','##',$request->all());
         $this->authorize('create', Region::class);
 
         $region = new Region();
         $region->name = $request->name;
         $region->code = $request->code;
         $region->frais = $request->frais;
-        
+
         $region->description = $request->description;
         $region->city()->associate($request->city);
-        $region->frais_city = $request->frais + ($region->city->frais + $region->city->profit);
+        $region->frais_city = $request->frais + ($region->city?->frais + $region->city?->profit);
         $region->save();
 
         if ($region) {
-            
+
             return redirect()->back()->with('success', 'la région a été crée avec success');
         }
 
@@ -49,7 +49,7 @@ class RegionController extends Controller
         $region->name = $request->name;
         $region->code = $request->code;
         $region->frais = $request->frais;
-        $region->frais_city = $request->frais + ($region->city->frais + $region->city->profit);
+        $region->frais_city = $request->frais + ($region->city?->frais + $region->city?->profit);
         $region->description = $request->description;
         $region->save();
 
@@ -65,9 +65,9 @@ class RegionController extends Controller
 
         $this->authorize('delete', $region);
 
-        if ($region) {
+        if ($region && !$region->commands()->exists()) {
 
-            $region->commands->each->update(['region_id' => null,'region_uuid' => null]);
+            $region->commands->each->update(['region_id' => null, 'region_uuid' => null]);
 
             $region->delete();
 

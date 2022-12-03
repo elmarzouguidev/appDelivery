@@ -5,6 +5,7 @@ namespace App\Policies\Sameleon;
 use App\Models\Sameleon\City;
 use App\Models\Sameleon\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class CityPolicy
 {
@@ -65,7 +66,9 @@ class CityPolicy
      */
     public function delete(User $user, City $city)
     {
-        return $user->hasAnyRole('SuperAdmin') && $city->id !== 1 && $city->slug !== 'casablanca';
+        return $user->hasAnyRole('SuperAdmin') && $city->id !== 1 && $city->slug !== 'casablanca'
+            ? Response::allow()
+            : Response::deny("Vous ne pouvez pas supprimer la ville $city->slug");
     }
 
     /**
@@ -89,6 +92,8 @@ class CityPolicy
      */
     public function forceDelete(User $user, City $city)
     {
-        return $user->hasAnyRole('SuperAdmin');
+        return $user->hasAnyRole('SuperAdmin') && $city->id !== 1 && $city->slug !== 'casablanca'
+        ? Response::allow()
+        : Response::deny("Vous ne pouvez pas supprimer la ville $city->slug");
     }
 }
