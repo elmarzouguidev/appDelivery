@@ -24,18 +24,6 @@
                             Facturation
                         </a>
                     </li>
-                    <li>
-                        <a href="{{ route('admin:settings.page') }}" class="py-2 d-block">
-                            <i class="bx bx-food-menu"></i>
-                            Pages
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin:banks.index') }}" class="py-2 d-block">
-                            <i class="bx bxs-bank"></i>
-                            Banques
-                        </a>
-                    </li>
                     {{--<li>
                         <a href="{{ route('admin:settings.integrations.index') }}" class="py-2 d-block">
                             <i class="bx bx-shape-square"></i>

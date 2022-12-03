@@ -19,7 +19,7 @@ class SettingController extends Controller
     public function index(CompanySettings $settings)
     {
 
-     
+
         return view('Sameleon.Admin.SettingV2.Company.index', [
             'setting' => $settings,
         ]);
@@ -50,10 +50,8 @@ class SettingController extends Controller
 
             $old = $settings->logo;
             $settings->logo = $request->file('logo')->store('company', ['disk' => 'public']);
-      
-            Storage::disk('public')->delete($old);  
-            
-          
+
+            Storage::disk('public')->delete($old);
         }
         $settings->save();
 
@@ -71,8 +69,8 @@ class SettingController extends Controller
 
     public function invoiceUpdate(DocumentRequest $request, DocumentSettings $settings)
     {
-        $settings->invoice_start = (integer)$request->invoice_start;
-        
+        $settings->invoice_start = (int)$request->invoice_start;
+
         $settings->invoice_prefix = $request->invoice_prefix;
 
         $settings->save();

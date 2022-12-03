@@ -93,7 +93,7 @@ class CityPolicy
     public function forceDelete(User $user, City $city)
     {
         return $user->hasAnyRole('SuperAdmin') && $city->id !== 1 && $city->slug !== 'casablanca'
-        ? Response::allow()
-        : Response::deny("Vous ne pouvez pas supprimer la ville $city->slug");
+            ? Response::allow()
+            : Response::deny("Vous ne pouvez pas supprimer la ville $city->slug");
     }
 }
