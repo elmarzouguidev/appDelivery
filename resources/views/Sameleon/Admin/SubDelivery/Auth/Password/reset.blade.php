@@ -4,24 +4,15 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Login Livreur | SAMELEON Express</title>
+    <title>Livreur Mot de pass oublier | SAMELEON GROUP</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow" />
     <link rel="shortcut icon" href="{{ asset('images/logo.png') }}">
-    <meta name="author" content="Elmarzougui Abdelghafour">
-    <meta name="app_version" content="1.0.0" />
-    <meta name="app_devlopper" content="Elmarzougui Abdelghafour" />
-    <meta name="app_devlopper_website" content="https://elmarzougui.com" />
-    <meta name="app_devlopper_facebook" content="https://www.facebook.com/devscript" />
-    <meta name="app_devlopper_linkedin" content="https://www.linkedin.com/in/devscript/" />
-    <meta name="app_devlopper_twitter" content="https://twitter.com/devscriptt" />
-    <meta name="app_devlopper_github" content="https://github.com/devscript-abdo" />
-
-    @include('layouts._parts.__sec_meta')
+    <meta content="app_creator" name="Elmarzougui Abdelghafour" />
+    <meta content="app_version" name="v 1.1" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    @include('layouts._parts.__og_meta')
-    <link href="{{ asset('css/mix/app.css') }}" rel="stylesheet" type="text/css" />
 
+    <link href="{{ asset('css/mix/app.css') }}" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -35,7 +26,7 @@
                             <div class="row">
                                 <div class="col-7">
                                     <div class="text-primary p-4">
-                                        <h5 class="text-primary">Se connecter</h5>
+                                        <h5 class="text-primary">Mot de pass Oublier</h5>
 
                                     </div>
                                 </div>
@@ -66,64 +57,62 @@
                                 </a>
                             </div>
                             <div class="p-2">
+                                <div class="alert alert-success text-center mb-4" role="alert">
+                                    Enter your Email and instructions will be sent to you!
+                                </div>
                                 @include('layouts._parts.__messages')
-
-                                <form class="form-horizontal" action="{{ route('delivery:auth:loginPost') }}"
+                                <form class="form-horizontal" action="{{ route('password.update.delivery') }}"
                                     method="post">
+
                                     @csrf
                                     <x-honeypot />
+                                    <input type="hidden" name="token" value="{{ $token }}">
                                     <div class="mb-3">
-                                        <label for="email" class="form-label">E-mail</label>
-                                        <input type="email" name="email"
-                                            class="form-control  @error('email') is-invalid @enderror" id="email"
-                                            value="{{ old('email') }}" placeholder="Entrer votre email">
+                                        <label for="useremail"
+                                            class="form-label @error('email') is-invalid @enderror">E-mail</label>
+                                        <input id="email" type="email"
+                                            class="form-control @error('email') is-invalid @enderror" name="email"
+                                            value="{{ $email ?? old('email') }}" required autocomplete="email"
+                                            autofocus readonly>
 
-                                        @error('email')
+
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="password"
+                                            class="form-label @error('password') is-invalid @enderror">mot de
+                                            pass</label>
+                                        <input id="password" type="password"
+                                            class="form-control @error('password') is-invalid @enderror" name="password"
+                                            required autocomplete="new-password">
+                                        @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+
+
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="password-confirm"
+                                            class="form-label @error('password_confirmation') is-invalid @enderror">Confirmé
+                                            le mot de pass
+                                        </label>
+                                        <input id="password-confirm" type="password" class="form-control"
+                                            name="password_confirmation" required autocomplete="new-password">
+                                        @error('password_confirmation')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
 
                                     </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Password</label>
-                                        <div class="input-group auth-pass-inputgroup">
-                                            <input type="password" name="password"
-                                                class="form-control @error('password') is-invalid @enderror"
-                                                placeholder="Entrer votre mot de pass" aria-label="Password"
-                                                aria-describedby="password-addon">
-                                            <button class="btn btn-light " type="button" id="password-addon"><i
-                                                    class="mdi mdi-eye-outline"></i></button>
-                                            @error('password')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
 
-                                        </div>
-                                    </div>
-
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="remember"
-                                            id="remember-check" {{ old('remember') ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="remember-check">
-                                            se souvenir de moi
-                                        </label>
-                                    </div>
-
-                                    <div class="mt-3 d-grid">
-                                        <button class="btn btn-primary waves-effect waves-light" type="submit">Log In
+                                    <div class="text-end">
+                                        <button class="btn btn-primary w-md waves-effect waves-light"
+                                            type="submit">Reset
                                         </button>
                                     </div>
 
-                                    @if (Route::has('forgotpassword.delivery'))
-                                        <div class="mt-4 text-center">
-                                            <a href="{{ route('forgotpassword.delivery') }}" class="text-muted">
-                                                <i class="mdi mdi-lock me-1"></i>
-                                                Mot de passe oublié ?
-                                            </a>
-                                        </div>
-                                    @endif
                                 </form>
                             </div>
 
@@ -136,7 +125,7 @@
                             <script>
                                 document.write(new Date().getFullYear())
                             </script>
-                            SAMELEON GROUP
+                            SAMELEON GROUP <i class="mdi mdi-heart text-danger"></i>
 
                         </div>
                     </div>

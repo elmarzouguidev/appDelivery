@@ -197,8 +197,6 @@ class User extends Authenticatable
         return $this->belongsTo(City::class);
     }
 
-
-
     public function stocks()
     {
         return $this->hasMany(Stock::class, 'client_id');

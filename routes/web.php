@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Authentification\DeliveryForgotPasswordController;
+use App\Http\Controllers\Authentification\DeliveryResetPasswordController;
 use App\Http\Controllers\Authentification\ForgotPasswordController;
 use App\Http\Controllers\Authentification\ResetPasswordController;
 use App\Http\Controllers\Sameleon\Admin\BL\PDFBLController;
@@ -85,4 +87,24 @@ Route::group(['prefix' => 'app'], function () {
     Route::post('/password/reset/', [ResetPasswordController::class, 'reset'])
         ->middleware('guest')
         ->name('password.update');
+});
+
+/******Delivery  *****/
+Route::group(['prefix' => 'delivery/app'], function () {
+
+    Route::get('password/request', [DeliveryForgotPasswordController::class, 'showLinkRequestForm'])
+        ->middleware('guest:delivery')
+        ->name('forgotpassword.delivery');
+
+    Route::post('password/request', [DeliveryForgotPasswordController::class, 'sendResetLinkEmail'])
+        ->middleware('guest:delivery')
+        ->name('forgotpasswordPost.delivery');
+
+    Route::get('/password/reset/{token}', [DeliveryResetPasswordController::class, 'showResetForm'])
+        ->middleware('guest:delivery')
+        ->name('password.reset.delivery');
+
+    Route::post('/password/reset/', [DeliveryResetPasswordController::class, 'reset'])
+        ->middleware('guest:delivery')
+        ->name('password.update.delivery');
 });

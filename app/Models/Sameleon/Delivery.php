@@ -2,6 +2,7 @@
 
 namespace App\Models\Sameleon;
 
+use App\Notifications\Sameleon\DeliveryResetPasswordNotification;
 use App\Status\Status;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -85,7 +86,7 @@ class Delivery extends Authenticatable
     public function completProfile()
     {
 
-        return  
+        return
             //is_null($this->attributes['cnie']) ||
             is_null($this->attributes['addresse']) ||
             is_null($this->attributes['telephone']) ? false : true;
@@ -135,7 +136,7 @@ class Delivery extends Authenticatable
 
         return number_format($total, 2);
     }
-    
+
     public function getDeliveryTotalChiffreAttribute()
     {
         $commands =  $this->commandsDelivery()
@@ -152,5 +153,12 @@ class Delivery extends Authenticatable
     public function regions()
     {
         return $this->hasMany(Region::class, 'delivery_id');
+    }
+
+    /*****Notifications */
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new DeliveryResetPasswordNotification($token));
     }
 }
