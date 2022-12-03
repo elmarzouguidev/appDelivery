@@ -18,7 +18,7 @@ class CityPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->hasAnyRole('Admin','SuperAdmin');
+        return $user->hasAnyRole('Admin', 'SuperAdmin');
     }
 
     /**
@@ -30,7 +30,7 @@ class CityPolicy
      */
     public function view(User $user, City $city)
     {
-        return $user->hasAnyRole('Admin','SuperAdmin');
+        return $user->hasAnyRole('Admin', 'SuperAdmin');
     }
 
     /**
@@ -41,7 +41,7 @@ class CityPolicy
      */
     public function create(User $user)
     {
-        return $user->hasAnyRole('Admin','SuperAdmin');
+        return $user->hasAnyRole('Admin', 'SuperAdmin');
     }
 
     /**
@@ -53,7 +53,7 @@ class CityPolicy
      */
     public function update(User $user, City $city)
     {
-        return $user->hasAnyRole('Admin','SuperAdmin');
+        return $user->hasAnyRole('Admin', 'SuperAdmin');
     }
 
     /**
@@ -65,7 +65,7 @@ class CityPolicy
      */
     public function delete(User $user, City $city)
     {
-        return $user->hasAnyRole('SuperAdmin');
+        return $user->hasAnyRole('SuperAdmin') && $city->id !== 1 && $city->slug !== 'casablanca';
     }
 
     /**

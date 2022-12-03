@@ -26,7 +26,7 @@ class AdminCityController extends Controller
         $this->authorize('create', City::class);
 
         $city = new City();
-        
+
         $city->name = $request->name;
         $city->frais = $request->frais;
         $city->has_profit = $request->boolean('has_profit');
@@ -61,10 +61,12 @@ class AdminCityController extends Controller
 
         $this->authorize('delete', $city);
 
-        if ($city) {
+        if ($city && !$city->commands()->exists()) {
 
             $city->regions()->delete();
-            
+
+            $city->commands->each->update(['city_id' => null, 'city_uuid' => null]);
+
             $city->delete();
 
             return redirect()->back()->with('success', 'la ville a été supprimer avec success');
