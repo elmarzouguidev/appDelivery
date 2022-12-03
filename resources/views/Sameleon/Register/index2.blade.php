@@ -12,7 +12,7 @@
     <meta content="app_version" name="v 1.1" />
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    
+
     <link href="{{ asset('css/mix/app.css') }}?ver={{ rand(1, 852) }}" rel="stylesheet" type="text/css" />
 
 </head>
@@ -43,8 +43,8 @@
                                 <a href="{{ route('home') }}" class="auth-logo-light">
                                     <div class="avatar-md profile-user-wid mb-4">
                                         <span class="avatar-title rounded-circle bg-light">
-                                            <img src="{{ asset('images/logo.png') }}" alt="" class="rounded-circle"
-                                                height="34">
+                                            <img src="{{ asset('images/logo.png') }}" alt=""
+                                                class="rounded-circle" height="34">
                                         </span>
                                     </div>
                                 </a>
@@ -52,119 +52,110 @@
                                 <a href="https://sameleon-express.ma/" class="auth-logo-dark">
                                     <div class="avatar-md profile-user-wid mb-4">
                                         <span class="avatar-title rounded-circle bg-light">
-                                            <img src="{{ asset('images/logo.png') }}" alt="" class="rounded-circle"
-                                                height="80">
+                                            <img src="{{ asset('images/logo.png') }}" alt=""
+                                                class="rounded-circle" height="80">
                                         </span>
                                     </div>
                                 </a>
                             </div>
                             <div class="p-2">
-                                @if (session('success'))
-                                    <div class="alert alert-success">
-                                        {{ session('success') }}
-                                    </div>
-                                @endif
-                                @if ($errors->any())
-                                    @foreach ($errors->all() as $error)
-                                        <div class="alert alert-danger">{{ $error }}</div>
-                                    @endforeach
-                                @endif
+                                @include('layouts._parts.__messages')
                                 <form class="needs-validation" novalidate
-                                action="{{ route('admin:auth:register.post') }}" method="post">
-                                @csrf
-                                @honeypot
-                                <div class="mb-3">
-                                    <label for="nom" class="form-label">Nom *</label>
-                                    <input type="text" name="nom"
-                                        class="form-control @error('nom') is-invalid @enderror" id="nom"
-                                        value="{{ old('nom') }}" placeholder="Entrer votre nom" required>
+                                    action="{{ route('admin:auth:register.post') }}" method="post">
+                                    @csrf
+                                    <x-honeypot />
+                                    <div class="mb-3">
+                                        <label for="nom" class="form-label">Nom *</label>
+                                        <input type="text" name="nom"
+                                            class="form-control @error('nom') is-invalid @enderror" id="nom"
+                                            value="{{ old('nom') }}" placeholder="Entrer votre nom" required>
 
-                                    @error('nom')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="mb-3">
-                                    <label for="prenom" class="form-label">Prénom *</label>
-                                    <input type="text" name="prenom"
-                                        class="form-control @error('prenom') is-invalid @enderror"
-                                        id="prenom" value="{{ old('prenom') }}"
-                                        placeholder="Entrer votre prénom" required>
-                                    @error('prenom')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
+                                        @error('nom')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="prenom" class="form-label">Prénom *</label>
+                                        <input type="text" name="prenom"
+                                            class="form-control @error('prenom') is-invalid @enderror" id="prenom"
+                                            value="{{ old('prenom') }}" placeholder="Entrer votre prénom" required>
+                                        @error('prenom')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
 
-                                <div class="mb-3">
-                                    <label for="telephone" class="form-label">Tél *</label>
-                                    <input type="text" name="telephone"
-                                        class="form-control  @error('telephone') is-invalid @enderror"
-                                        id="telephone" value="{{ old('telephone') }}"
-                                        placeholder="Entrer votre téléphone" required>
-                                    @error('telephone')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
+                                    <div class="mb-3">
+                                        <label for="telephone" class="form-label">Tél *</label>
+                                        <input type="text" name="telephone"
+                                            class="form-control  @error('telephone') is-invalid @enderror"
+                                            id="telephone" value="{{ old('telephone') }}"
+                                            placeholder="Entrer votre téléphone" required>
+                                        @error('telephone')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
 
-                                <div class="mb-3">
-                                    <label for="useremail" class="form-label">E-mail *</label>
-                                    <input type="email" name="email"
-                                        class="form-control  @error('email') is-invalid @enderror"
-                                        id="useremail" value="{{ old('email') }}"
-                                        placeholder="Entrer votre e-mail" required>
-                                    @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
+                                    <div class="mb-3">
+                                        <label for="useremail" class="form-label">E-mail *</label>
+                                        <input type="email" name="email"
+                                            class="form-control  @error('email') is-invalid @enderror" id="useremail"
+                                            value="{{ old('email') }}" placeholder="Entrer votre e-mail" required>
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
 
-                                <div class="mb-3">
-                                    <label for="userpassword" class="form-label">Mot de pass</label>
-                                    <input type="password" name="password"
-                                        class="form-control  @error('password') is-invalid @enderror"
-                                        id="userpassword" placeholder="Entrer votre mot de pass" required>
-                                    @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
+                                    <div class="mb-3">
+                                        <label for="userpassword" class="form-label">Mot de pass</label>
+                                        <input type="password" name="password"
+                                            class="form-control  @error('password') is-invalid @enderror"
+                                            id="userpassword" placeholder="Entrer votre mot de pass" required>
+                                        @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
 
-                                <div class="mb-3">
-                                    <label for="type" class="form-label">Vous etes ?</label>
-                                    <select class="form-select @error('type') is-invalid @enderror" name="type" required>
-                                        <option value=""></option>
-                                        <option value="particulier">particulier</option>
-                                        <option value="entreprise">entreprise</option>
-                                    </select>
-                                    @error('type')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
+                                    <div class="mb-3">
+                                        <label for="type" class="form-label">Vous etes ?</label>
+                                        <select class="form-select @error('type') is-invalid @enderror" name="type"
+                                            required>
+                                            <option value=""></option>
+                                            <option value="particulier">particulier</option>
+                                            <option value="entreprise">entreprise</option>
+                                        </select>
+                                        @error('type')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
 
-                                <div>
-                                    <p class="mb-0">By registering you agree to the Sameleon GROUP
-                                        <a href="https://sameleon-express.ma/" target="_blank" class="text-primary">Terms of Use</a>
-                                    </p>
-                                </div>
+                                    <div>
+                                        <p class="mb-0">By registering you agree to the Sameleon GROUP
+                                            <a href="https://sameleon-express.ma/" target="_blank"
+                                                class="text-primary">Terms of Use</a>
+                                        </p>
+                                    </div>
 
-                                <div class="mt-4 d-grid">
-                                    <button class="btn btn-primary waves-effect waves-light"
-                                        type="submit">Register</button>
-                                </div>
+                                    <div class="mt-4 d-grid">
+                                        <button class="btn btn-primary waves-effect waves-light"
+                                            type="submit">Register</button>
+                                    </div>
 
-                                <div class="mt-4 text-center">
-                                    {{--<h5 class="font-size-14 mb-3">Sign up using</h5>--}}
+                                    <div class="mt-4 text-center">
+                                        {{-- <h5 class="font-size-14 mb-3">Sign up using</h5> --}}
 
-                                    {{-- <ul class="list-inline">
+                                        {{-- <ul class="list-inline">
                                         <li class="list-inline-item">
                                             <a href="javascript::void()"
                                                 class="social-list-item bg-primary text-white border-primary">
@@ -185,13 +176,13 @@
                                         </li>
                                     </ul> --}}
 
-                                </div>
+                                    </div>
 
-                            </form>
-                            <div class="mt-5 text-center">
-                                <p>si vous avez déjà un compte <a href="{{ route('admin:auth:login') }}"
-                                        class="fw-medium text-primary"> identifiez-vous</a> </p>
-                            </div>
+                                </form>
+                                <div class="mt-5 text-center">
+                                    <p>si vous avez déjà un compte <a href="{{ route('admin:auth:login') }}"
+                                            class="fw-medium text-primary"> identifiez-vous</a> </p>
+                                </div>
                             </div>
 
                         </div>

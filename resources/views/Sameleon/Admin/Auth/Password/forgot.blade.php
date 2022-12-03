@@ -57,15 +57,12 @@
                                 </a>
                             </div>
                             <div class="p-2">
-                                @if (session('status'))
-                                    <div class="alert alert-success">
-                                        {{ session('status') }}
-                                    </div>
-                                @endif
+                                @include('layouts._parts.__messages')
+                                
                                 <form class="form-horizontal" action="{{ route('forgotpasswordPost') }}"
                                     method="post">
                                     @csrf
-
+                                    <x-honeypot />
                                     <div class="mb-3">
                                         <label for="useremail"
                                             class="form-label @error('email') is-invalid @enderror">Email</label>

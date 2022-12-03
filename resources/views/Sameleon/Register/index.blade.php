@@ -99,7 +99,8 @@
                                         <form class="needs-validation" novalidate
                                             action="{{ route('admin:auth:register.post') }}" method="post">
                                             @csrf
-                                            @honeypot
+                                        
+                                            <x-honeypot />
                                             <div class="mb-3">
                                                 <label for="nom" class="form-label">Nom *</label>
                                                 <input type="text" name="nom"

@@ -60,14 +60,11 @@
                                 <div class="alert alert-success text-center mb-4" role="alert">
                                     Enter your Email and instructions will be sent to you!
                                 </div>
-                                @if (session('success'))
-                                    <div class="alert alert-success">
-                                        {{ session('success') }}
-                                    </div>
-                                @endif
+                                  @include('layouts._parts.__messages')
                                 <form class="form-horizontal" action="{{ route('password.update') }}" method="post">
 
                                     @csrf
+                                    <x-honeypot />
                                     <input type="hidden" name="token" value="{{ $token }}">
                                     <div class="mb-3">
                                         <label for="useremail"

@@ -66,19 +66,12 @@
                                 </a>
                             </div>
                             <div class="p-2">
-                                @if (session('success'))
-                                    <div class="alert alert-success">
-                                        {{ session('success') }}
-                                    </div>
-                                @endif
-                                @if ($errors->any())
-                                    @foreach ($errors->all() as $error)
-                                        <div class="alert alert-danger">{{ $error }}</div>
-                                    @endforeach
-                                @endif
+                                @include('layouts._parts.__messages')
+                                
                                 <form  class="form-horizontal"
                                     action="{{ route('delivery:auth:loginPost') }}" method="post">
                                     @csrf
+                                    <x-honeypot />
                                     <div class="mb-3">
                                         <label for="email" class="form-label">E-mail</label>
                                         <input type="email" name="email"

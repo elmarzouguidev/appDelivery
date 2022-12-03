@@ -28,7 +28,7 @@ return [
      * if the form wasn't submitted too quickly. Make sure this name does not
      * collide with a form field that is actually used.
      */
-    'valid_from_field_name' => env('HONEYPOT_VALID_FROM', 'valid_from'),
+    'valid_from_field_name' => env('HONEYPOT_VALID_FROM', 'valid_sameleon'),
 
     /*
      * If the form is submitted faster than this amount of seconds

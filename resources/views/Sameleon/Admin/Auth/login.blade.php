@@ -82,6 +82,8 @@
                                 <form  class="form-horizontal"
                                     action="{{ route('admin:auth:loginPost') }}" method="post">
                                     @csrf
+                                    <x-honeypot />
+
                                     <div class="mb-3">
                                         <label for="email" class="form-label">E-mail</label>
                                         <input type="email" name="email"
