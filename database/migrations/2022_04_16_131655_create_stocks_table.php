@@ -23,7 +23,7 @@ class CreateStocksTable extends Migration
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
             $table->string('product_uuid')->nullable();
 
-            $table->foreignId('client_id')->nullable()->constrained('users')->cascadeOnDelete();
+            $table->foreignId('client_id')->constrained('users')->cascadeOnDelete();
             $table->string('client_uuid')->nullable();
 
   

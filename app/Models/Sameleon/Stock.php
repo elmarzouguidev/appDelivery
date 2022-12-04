@@ -71,6 +71,11 @@ class Stock extends Model
         return $this->belongsTo(City::class);
     }
 
+    public function details()
+    {
+        return $this->hasMany(StockProduct::class);
+    }
+
     public function getAdjustmentDateAttribute()
     {
         $date = Carbon::createFromFormat('Y-m-d', $this->sent_at);
