@@ -26,19 +26,7 @@ class CreateStocksTable extends Migration
             $table->foreignId('client_id')->nullable()->constrained('users')->cascadeOnDelete();
             $table->string('client_uuid')->nullable();
 
-            $table->foreignId('delivery_id')->nullable()->constrained()->cascadeOnDelete();
-            $table->string('delivery_uuid')->nullable();
-
-
-            $table->foreignId('city_id')->constrained()->cascadeOnDelete();
-            $table->string('city_uuid')->nullable();
-
-            $table->string('qte_global')->default(0);
-            $table->string('qte_livre')->default(0);
-            $table->string('qte_expidite')->default(0);
-            $table->string('qte_endomage')->default(0);
-            $table->string('qte_rest')->default(0);
-
+  
             $table->longText('notes')->nullable();
             $table->boolean('active')->default(true);
             $table->timestamps();
