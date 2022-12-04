@@ -42,4 +42,8 @@ class StockProduct extends Model
         return $this->belongsTo(Stock::class);
     }
     
+    public function delivery()
+    {
+        return $this->belongsTo(Delivery::class, 'delivery_id');
+    }
 }
