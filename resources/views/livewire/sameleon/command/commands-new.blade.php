@@ -12,74 +12,65 @@
 
                                 <div class="mb-4">
 
-                                    
-                                        @if (isClient())
 
-                                            @if (auth()->user()->products()->count() <= 0)
-                                                <a href="{{ route('admin:products.create') }}"
-                                                    class="btn btn-info mr-3 mb-2">
-                                                    Ajouter un produit
-                                                </a>
-                                            @else
-                                                <button class="btn btn-info mr-3 mb-2" type="button" data-bs-toggle="modal"
-                                                    data-bs-target=".addCommandModal">
-                                                    Ajouter une commande
-                                                </button>
-                                            @endif
+                                    @if (isClient())
 
-                                        @endif
-
-                                        @if (isClient() || isAdmin())
-
-                                            <button class="btn btn-warning mr-3 mb-2" type="button" data-bs-toggle="modal"
-                                                data-bs-target=".importCommandModal">
-                                                Importer des commands
-                                            </button>
-
-                                        @endif
-
-                                        @if (isAdmin())
-                                            <button {{ count($selectedCommands) ? '' : 'disabled' }}
-                                                class="btn btn-primary mr-3 mb-2" type="button" data-bs-toggle="modal"
-                                                data-bs-target=".attachCommandModal">
-                                                Envoyer au Livreur {{-- : @json($selectedCommands) --}}
+                                        @if (auth()->user()->products()->count() <= 0)
+                                            <a href="{{ route('admin:products.create') }}" class="btn btn-info mr-3 mb-2">
+                                                Ajouter un produit
+                                            </a>
+                                        @else
+                                            <button class="btn btn-info mr-3 mb-2" type="button" data-bs-toggle="modal"
+                                                data-bs-target=".addCommandModal">
+                                                Ajouter une commande
                                             </button>
                                         @endif
 
-                                        @if (isAdmin())
-                                            {{--<button {{ count($selectedCommands) ? '' : 'disabled' }}
+                                    @endif
+
+                                    @if (isClient() || isAdmin())
+                                        <button class="btn btn-warning mr-3 mb-2" type="button" data-bs-toggle="modal"
+                                            data-bs-target=".importCommandModal">
+                                            Importer des commands
+                                        </button>
+                                    @endif
+
+                                    @if (isAdmin())
+                                        <button {{ count($selectedCommands) ? '' : 'disabled' }}
+                                            class="btn btn-primary mr-3 mb-2" type="button" data-bs-toggle="modal"
+                                            data-bs-target=".attachCommandModal">
+                                            Envoyer au Livreur {{-- : @json($selectedCommands) --}}
+                                        </button>
+                                    @endif
+
+                                    @if (isAdmin())
+                                        {{-- <button {{ count($selectedCommands) ? '' : 'disabled' }}
                                                 class="btn btn-primary mr-3 mb-2" type="button" 
            
                                                 wire:click="generateBl()"
                                                 >
                                                 Générer un Bon de livraison 
-                                            </button>--}}
-                                            <button {{ count($selectedCommands) ? '' : 'disabled' }}
-                                                class="btn btn-primary mr-3 mb-2" type="button" 
-                                                data-bs-toggle="modal"
-                                                data-bs-target=".generateBlModal"
-                                                
-                                                >
-                                                Générer un Bon de livraison
-                                            </button>
-                                            {{--<button {{ count($selectedCommands) ? '' : 'disabled' }}
+                                            </button> --}}
+                                        <button {{ count($selectedCommands) ? '' : 'disabled' }}
+                                            class="btn btn-primary mr-3 mb-2" type="button" data-bs-toggle="modal"
+                                            data-bs-target=".generateBlModal">
+                                            Générer un Bon de livraison
+                                        </button>
+                                        {{-- <button {{ count($selectedCommands) ? '' : 'disabled' }}
                                                 class="btn btn-primary mr-3 mb-2" type="button" 
                     
                                                 wire:click="generateBR()"
                                                 >
                                                 Générer un Bon de retour
-                                            </button>--}}
+                                            </button> --}}
 
-                                            <button {{ count($selectedCommands) ? '' : 'disabled' }}
-                                                class="btn btn-primary mr-3 mb-2" type="button" 
-                                                data-bs-toggle="modal"
-                                                data-bs-target=".generateBRModal"
-                                                
-                                                >
-                                                Générer un Bon de retour {{-- : @json($selectedCommands) --}}
-                                            </button>
-                                        @endif
-                                        {{--@if (isAdmin())
+                                        <button {{ count($selectedCommands) ? '' : 'disabled' }}
+                                            class="btn btn-primary mr-3 mb-2" type="button" data-bs-toggle="modal"
+                                            data-bs-target=".generateBRModal">
+                                            Générer un Bon de retour {{-- : @json($selectedCommands) --}}
+                                        </button>
+                                    @endif
+                                    {{-- @if (isAdmin())
                                             <button {{ count($selectedCommands) ? '' : 'disabled' }}
                                                 class="btn btn-info mr-3 mb-2" type="button" 
                                                 data-bs-toggle="modal"
@@ -88,12 +79,13 @@
                                                 >
                                                 Impression 
                                             </button>
-                                            @endif--}}
-                            
-                                        <a href="{{ route('admin:commands.archived') }}" class="btn btn-secondary mr-3 mb-2">
-                                            <i class="bx bx-archive font-size-16 align-middle me-2"></i>
-                                            Archive
-                                        </a>
+                                            @endif --}}
+
+                                    <a href="{{ route('admin:commands.archived') }}"
+                                        class="btn btn-secondary mr-3 mb-2">
+                                        <i class="bx bx-archive font-size-16 align-middle me-2"></i>
+                                        Archive
+                                    </a>
                                 </div>
 
                             </div>
@@ -145,7 +137,8 @@
                                             <td>
                                                 <p class="text-strong mb-0">
                                                     <strong>
-                                                        @if (($command->invoice_count > 0 && $command->status == App\Status\Status::LIVRE) || $command->status == App\Status\Status::REFUSE)
+                                                        @if (($command->invoice_count > 0 && $command->status == App\Status\Status::LIVRE) ||
+                                                            $command->status == App\Status\Status::REFUSE)
                                                             <a target="_blank"
                                                                 title="Facture : {{ optional($command->invoice)->full_number }}"
                                                                 style="color:#2f5393 !important"
@@ -261,7 +254,9 @@
                                                 </a> --}}
 
 
-                                                    @if ($command->status == App\Status\Status::NON_TRAITE && $command->user_id == auth()->id() && $command->user_uuid == auth()->user()->uuid)
+                                                    @if ($command->status == App\Status\Status::NON_TRAITE &&
+                                                        $command->user_id == auth()->id() &&
+                                                        $command->user_uuid == auth()->user()->uuid)
                                                         <button type="button"
                                                             class="btn btn-danger btn-sm deleteCommandBtn"
                                                             data-command="{{ $command->uuid }}">
@@ -307,16 +302,16 @@
     @endif
 
     @if ($showEditStatus)
-        @include('livewire.sameleon.command.update-status', [
+        @include('livewire.sameleon.command.update-status-2', [
             'command' => $commandEdit,
         ])
     @endif
 
-    @if ($isRepoted)
+    {{--@if ($isRepoted)
         @include('livewire.sameleon.command.reported-status', [
             'command' => $commandEdit,
         ])
-    @endif
+    @endif--}}
 
     @if (count($selectedCommands))
         @include('livewire.sameleon.command.attache_to_delivery')

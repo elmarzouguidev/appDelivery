@@ -1,7 +1,9 @@
 <div>
     <div class="row">
         <div class="col-12">
+
             @include('layouts._parts.__messages')
+            
             <div class="card">
                 <div class="card-body">
 

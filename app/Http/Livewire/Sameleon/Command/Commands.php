@@ -28,6 +28,8 @@ class Commands extends Component
 
     protected $paginationTheme = 'bootstrap';
 
+    public int $commandStatus;
+
     public $commandEdit;
 
     public $showEdit = false;
@@ -50,7 +52,7 @@ class Commands extends Component
     public $clients;
     public $products;
 
-    public $isRepoted = false;
+
     public $reportTime;
     public $reportComment;
 
@@ -153,6 +155,11 @@ class Commands extends Component
         return view('livewire.sameleon.command.commands-new', compact('commands', 'delivries'));
     }
 
+    /*public function updatedCommandStatus($value)
+    {
+        dd($value);
+    }*/
+
     public function runPoll()
     {
         $this->canPolled = true;
@@ -166,6 +173,8 @@ class Commands extends Component
     {
 
         $this->emit('refresh');
+
+        $this->commandStatus = Status::NON_TRAITE;
 
         $this->blDelivery = null;
         $this->blDeliveries = [];
@@ -396,6 +405,8 @@ class Commands extends Component
         $this->showEditStatus = true;
 
         $this->commandEdit = $command;
+     
+        $this->reportComment =  str_replace('<br />', '', $command->comment);
 
         $this->dispatchBrowserEvent('show-edit-status');
     }
@@ -420,10 +431,12 @@ class Commands extends Component
         return redirect()->back();
     }
 
-    public function changeStatus(Command $command, int $status)
+    public function changeStatus(Command $command)
     {
 
         $items = $command->items;
+
+        $status = $this->commandStatus;
 
         if ($status == Status::LIVRE && $command->status != Status::LIVRE) {
 
@@ -559,28 +572,35 @@ class Commands extends Component
         }
 
 
-        $this->isRepoted = true;
+        if ($command->reported_at != null) {
 
-        if (isAdmin()) {
-
-            if ($this->commandEdit->reported_at != null) {
-
-                $this->reportTime = $this->commandEdit->reported_at->format('d-m-Y');
-            }
-
-            $this->reportComment =  str_replace('<br />', '', $this->commandEdit->comment);
-
-            $this->dispatchBrowserEvent('status-reported');
+            $this->reportTime = $command->reported_at->format('d-m-Y');
         }
 
-        if (isDelivery()) {
+        $this->saveReportDetail($command);
 
-            $this->dispatchBrowserEvent('status-updated');
 
-            $this->dispatchBrowserEvent('notify-change');
+    }
+
+    public function saveReportDetail(Command $command)
+    {
+
+        $this->validate();
+
+        $reportedDate = null;
+
+        if ($command->status == Status::REPORTE) {
+
+            //$this->commandEdit->update(['comment' => null, 'reported_at' => null]);
+
+            $reportedDate = Carbon::createFromFormat('d-m-Y', $this->reportTime)->format('Y-m-d');
         }
 
-        //$this->dispatchBrowserEvent('status-updated');
+        $command->update(['comment' => $this->reportComment, 'reported_at' => $reportedDate]);
+
+        $this->dispatchBrowserEvent('notify-change');
+
+        $this->dispatchBrowserEvent('status-updated');
     }
 
     private function rollBackStatus(Command $command, Collection $items)
@@ -620,26 +640,7 @@ class Commands extends Component
         });
     }
 
-    public function saveReportDetail()
-    {
 
-        $this->validate();
-
-        $reportedDate = null;
-
-        if ($this->commandEdit->status == Status::REPORTE) {
-
-            //$this->commandEdit->update(['comment' => null, 'reported_at' => null]);
-
-            $reportedDate = Carbon::createFromFormat('d-m-Y', $this->reportTime)->format('Y-m-d');
-        }
-
-        $this->commandEdit->update(['comment' => $this->reportComment, 'reported_at' => $reportedDate]);
-
-        $this->dispatchBrowserEvent('notify-change');
-
-        $this->dispatchBrowserEvent('status-updated');
-    }
 
     /********************Filters **************************/
 

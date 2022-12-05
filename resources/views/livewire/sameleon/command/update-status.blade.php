@@ -79,6 +79,7 @@
                                         class="btn btn-sm btn-secondary waves-effect waves-light">Livré</button>
                                 </div>
                             </div>
+                            
                         </div>
                     </div>
                 </div>
