@@ -26,7 +26,7 @@
     @yield('css')
     <link href="{{ asset('assets/libs/magnific-popup/magnific-popup.css') }}" rel="stylesheet" type="text/css" />
 
-    <link href="{{ asset('css/mix/app.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('css/mix/app.css') }}?v={{rand(4,562)}}" rel="stylesheet" type="text/css" />
 
     @livewireStyles
 
