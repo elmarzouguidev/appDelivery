@@ -44,18 +44,17 @@ class SendNewUserPassword extends Notification
     public function toMail($notifiable)
     {
         $url = url(route('admin:auth:login', [
-            'token' => Str::random(9),
+            'token' => Str::random(15),
         ], false));
 
         return (new MailMessage)
-            ->subject(Lang::get('Sameleon-Express'))
+            ->subject(Lang::get('Sameleon Express Connectez-vous à votre compte'))
             ->line(Lang::get("Bienvenue $notifiable->full_name !"))
             ->line(Lang::get("Votre mot de pass : $this->password "))
             ->line(Lang::get("Votre E-mail : $notifiable->email "))
-            ->line(Lang::get("Merci pour votre confiance "))
-            ->line(Lang::get("Pour la  connection a l'application veuillez utiliser le lien suivant"))
+            ->line(Lang::get("Merci pour votre confiance"))
+            ->line(Lang::get("Pour la connection a l'application veuillez utiliser le lien suivant"))
             ->action(Lang::get('Se connecter'), $url);
-  
     }
 
 

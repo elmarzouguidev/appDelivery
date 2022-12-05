@@ -30,7 +30,7 @@ class ClientController extends Controller
 
         $clients = app(ClientInterface::class)->getClients();
 
-        $permissions = Permission::where('type','client')->get()->mapToGroups(function ($item, $key) {
+        $permissions = Permission::where('type', 'client')->get()->mapToGroups(function ($item, $key) {
             return [strstr($item['name'], '.', true) => ['name' => $item['name'], 'id' => $item['id']]];
         });
 
@@ -74,7 +74,7 @@ class ClientController extends Controller
 
         if ($request->boolean('generate_password')) {
 
-            $pass = Str::random(9);
+            $pass = strtolower($request->nom) . '.#' . Str::random(10);
         }
 
         $client->password = Hash::make($pass);
@@ -138,7 +138,7 @@ class ClientController extends Controller
             $client->update(['active' => !$client->active]);
 
             if ($client->active) {
-                
+
                 $client->update(['actived_at' => now()]);
             }
 
