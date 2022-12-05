@@ -21,6 +21,7 @@
                                     class="form-control select2-templating @error('city') is-invalid @enderror"
                                     required>
                                     <option value="" disabled>Choisir la ville</option>
+                                    <option value=""></option>
                                     @foreach ($cities as $city)
                                         <option value="{{ $city->id }}">{{ $city->name }}
                                         </option>
@@ -39,6 +40,7 @@
                                 <select wire:model="delivery" name="delivery" id="delivery_select"
                                     class="form-control select2-templating @error('delivery') is-invalid @enderror">
                                     <option value="" disabled>Choisir le Livreur</option>
+                                    <option value=""></option>
                                     @foreach ($deliveries as $delivery)
                                         <option value="{{ $delivery->uuid }}">{{ $delivery->full_name }}</option>
                                     @endforeach
@@ -57,6 +59,7 @@
                                     class="form-control select2-templating @error('client') is-invalid @enderror"
                                     required>
                                     <option value="" disabled>Choisir le client</option>
+                                    <option value=""></option>
                                     @foreach ($clients as $client)
                                         <option value="{{ $client->uuid }}">{{ $client->full_name }}</option>
                                     @endforeach
@@ -75,6 +78,7 @@
                                     class="form-control select2-templating @error('product') is-invalid @enderror"
                                     required>
                                     <option value="" disabled>Choisir le produit</option>
+                                    <option value=""></option>
                                     @foreach ($products as $product)
                                         <option value="{{ $product->uuid }}">{{ $product->name }}</option>
                                     @endforeach
