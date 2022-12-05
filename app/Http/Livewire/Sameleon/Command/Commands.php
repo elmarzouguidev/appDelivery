@@ -19,6 +19,7 @@ use Livewire\Component;
 use App\Status\Status;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Livewire\WithPagination;
 
@@ -63,10 +64,6 @@ class Commands extends Component
 
     protected $updatesQueryString = ['filter'];
 
-    protected $rules = [
-        'reportTime' => 'required|date',
-        'reportComment' => 'nullable|string',
-    ];
 
     protected $listeners = [
         'data:update' => '$refresh',
@@ -80,6 +77,15 @@ class Commands extends Component
     public function hydrate()
     {
         $this->emit('datatable');
+    }
+
+    protected function rules()
+    {
+        return  [
+            'reportTime' => 'required|date',
+            'reportComment' => 'nullable|string',
+            'commandStatus' => ['nullable', 'integer', Rule::in(Status::getStatus())],
+        ];
     }
 
     public function render()
@@ -131,7 +137,7 @@ class Commands extends Component
                 ->withSum('items', 'prix_total')
                 ->withCount('invoice')
                 ->with(['invoice:uuid,id,full_number,cloture', 'city:id,name'])
-                
+
                 ->orderByRaw("FIELD(status, $commandStatus)")
                 ->orderByRaw("created_at DESC")
                 ->paginate(60);
