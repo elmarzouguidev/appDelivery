@@ -12,6 +12,7 @@ class AdminInvoiceController extends Controller
     public function index()
     {
 
+        $this->deleteNullInvoices();
         /*if (auth()->user()->hasRole('Client')) {
             $invoices = Invoice::authClient()->get();
         } else {
@@ -24,5 +25,16 @@ class AdminInvoiceController extends Controller
 
         //return view('Sameleon.Admin.Invoice.__datatable.index', compact('invoices'));
         return view('Sameleon.Admin.Invoice.__datatable.index');
+    }
+
+    private function deleteNullInvoices()
+    {
+        $invoices = Invoice::doesntHave('articles')->get();
+
+        if ($invoices) {
+            foreach ($invoices as $invoice) {
+                $invoice->delete();
+            }
+        }
     }
 }

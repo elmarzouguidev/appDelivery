@@ -19,14 +19,14 @@ class InvoiceGenerator
 
     public function handle()
     {
-        
+
         $this->CloseYesterdayInvoice();
 
         $this->deleteCommands();
 
         $this->updateRefusedCommand();
 
-       // $this->deleteNullInvoices();
+        // $this->deleteNullInvoices();
         //!now()->isWeekend();
         // dd(now()->format('H:i') =='17:16');
         $commands = Command::whereIn('status', [Status::LIVRE, Status::REFUSE])
@@ -40,7 +40,6 @@ class InvoiceGenerator
             //->with('client:id,uuid')
             ->get();
 
-            //dd($commands,"fg");
         if ($commands && $commands->count() > 0) {
 
             $users =  $commands->map(function ($command, $key) {
@@ -53,7 +52,7 @@ class InvoiceGenerator
                 // dd($user);
 
                 $this->invoice = Invoice::whereDate('created_at', now()->format('Y-m-d'))
-                   //whereDate('delivered_at', now()->format('Y-m-d'))
+                    //whereDate('delivered_at', now()->format('Y-m-d'))
                     ->where('user_id', $user['user_id'])
                     ->where('user_uuid', $user['user_uuid'])
                     ->first();
@@ -79,7 +78,7 @@ class InvoiceGenerator
 
     private function addItems($userId)
     {
-        
+
         $user = User::find($userId);
         $commands = $user
             ->commands()
@@ -91,10 +90,10 @@ class InvoiceGenerator
             })
             ->withSum('items', 'prix_total')
             ->get();
-            //dd('addItmes',$commands);
+        //dd('addItmes',$commands);
         if ($commands) {
 
-        
+
             $newCommands =  $commands->map(function ($item, $key) {
 
                 $item->update(['invoice_id' => $this->invoice->id, 'invoice_uuid' => $this->invoice->uuid]);
@@ -110,14 +109,12 @@ class InvoiceGenerator
                     'status' => __('status.statuses.' . $item->status),
                     'price_total' => $price ?? 0,
                     'frais' => $item->frais,
-                    'profit'=>$item->city->profit ?? 0,
-                    'is_delivery'=>false
+                    'profit' => $item->city->profit ?? 0,
+                    'is_delivery' => false
                 ];
             })->toArray();
 
-           $this->invoice->articles()->createMany($newCommands);
-           
-
+            $this->invoice->articles()->createMany($newCommands);
         }
     }
 
@@ -191,7 +188,7 @@ class InvoiceGenerator
                     'status' => __('status.statuses.' . $item->status),
                     'price_total' => $price ?? 0,
                     'frais' => $item->frais,
-                    'profit'=>$item->city->profit ?? 0,
+                    'profit' => $item->city->profit ?? 0,
                 ];
             })->toArray();
 

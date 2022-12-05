@@ -9,7 +9,6 @@
                             <div class="card-body">
                                 <div class="button-items d-flex align-content-start flex-wrap">
 
-
                                     <button {{ $command->status == App\Status\Status::ENCOURS ? 'disabled' : ' ' }}
                                         wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::ENCOURS }})"
                                         type="button" class="btn btn-sm btn-info waves-effect waves-light">En
@@ -28,14 +27,10 @@
                                         wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::REFUSE }})"
                                         type="button" class="btn btn-sm btn-danger waves-effect">Refusé</button>
 
-
-
                                     <button {{ $command->status == App\Status\Status::CHANGE ? 'disabled' : ' ' }}
                                         wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::CHANGE }})"
                                         type="button"
                                         class="btn btn-sm btn-success waves-effect waves-light">Change</button>
-
-
 
                                     <button {{ $command->status == App\Status\Status::INJOIGNABLE ? 'disabled' : ' ' }}
                                         wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::INJOIGNABLE }})"
@@ -64,13 +59,9 @@
                                         wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::PAS_DE_REPONSE }})"
                                         type="button" class="btn btn-sm btn-light waves-effect">Pas de réponse</button>
 
-
-                                    <button
-                                        {{ $command->status == App\Status\Status::RECONFIRMER ? 'disabled' : ' ' }}
+                                    <button {{ $command->status == App\Status\Status::RECONFIRMER ? 'disabled' : ' ' }}
                                         wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::RECONFIRMER }})"
                                         type="button" class="btn btn-sm btn-light waves-effect">Reconfirmer</button>
-
-
 
                                     <button {{ $command->status == App\Status\Status::REPORTE ? 'disabled' : ' ' }}
                                         wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::REPORTE }})"
@@ -90,7 +81,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
