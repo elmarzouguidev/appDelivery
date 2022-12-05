@@ -100,6 +100,17 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
             exit();
         }
 
+        if ($row['region'] && $region && !$region->city()->is($ville)) {
+
+            $regionName = $row['region'];
+
+            throw ValidationException::withMessages([
+                'region_not_found' => "désole cette région ( $regionName ) ne correspond pas a la ville ($ville->name) !!",
+                'produit_add' => "Aucun command a été importé a cause de ce problem veuillez vérifier le nom de la région ( {$row['region']} ) avant de continuer ! "
+            ]);
+            exit();
+        }
+
         if (!$product) {
 
             throw ValidationException::withMessages([
@@ -107,6 +118,13 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
                 'produit_add' => "Aucun command a été importé a cause de ce problem veuillez ajouter ce produit ( {$productName} ) avant de continuer ! "
             ]);
             exit();
+        }
+
+        $totalFrais = $ville->frais;
+
+        if ($region) {
+
+            $totalFrais += $region->frais;
         }
 
         $data = [
@@ -125,7 +143,7 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
             'user_uuid' => auth()->user()->uuid,
 
             'is_imported' => true,
-            'frais' => $ville->frais + $region ? $region->frais : 0
+            'frais' => $totalFrais
         ];
 
         $command =  Command::create($data);

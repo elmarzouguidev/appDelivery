@@ -26,10 +26,6 @@ class ApiCommandController extends Controller
     {
     }
 
-    public function storeTow()
-    {
-        logger('ezdfze API');
-    }
     public function store(CommandRequest $request)
     {
 
@@ -51,6 +47,7 @@ class ApiCommandController extends Controller
             );
             exit();
         }
+
         if ($request->has('region') && $request->filled('region') && !$region) {
 
             return response()->json(
