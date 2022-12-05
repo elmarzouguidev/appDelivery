@@ -45,7 +45,7 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
     public function model(array $row)
     {
 
-        
+
         //$currentRowNumber = $this->getRowNumber();
 
         $productName = $row["produit_ref"] ?? $row["produit"] ?? throw ValidationException::withMessages([
@@ -124,7 +124,8 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
             'user_id' => auth()->id(),
             'user_uuid' => auth()->user()->uuid,
 
-            'is_imported' => true
+            'is_imported' => true,
+            'frais' => $ville->frais + $region ? $region->frais : 0
         ];
 
         $command =  Command::create($data);

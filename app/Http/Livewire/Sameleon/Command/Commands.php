@@ -121,7 +121,7 @@ class Commands extends Component
 
         $command = new ItemsQuery(new Command, $this->filter);
 
-        $commandStatus = implode(',', [Status::NON_TRAITE, Status::ENCOURS, Status::REPORTE, Status::EXPEDIE, Status::REFUSE, Status::LIVRE, Status::RETOURNE]);
+        $commandStatus = implode(',', [Status::NON_TRAITE, Status::ENCOURS, Status::REPORTE, Status::EXPEDIE, Status::REFUSE, Status::RETOURNE, Status::LIVRE]);
 
         if (isClient()) {
 
