@@ -86,7 +86,6 @@ class Command extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-
     public function delivery()
     {
         return $this->belongsTo(Delivery::class, 'delivery_id');
@@ -215,7 +214,7 @@ class Command extends Model
 
     public function scopeProductFilters(Builder $query, $product): Builder
     {
-        return $query->whereHas('products', function ($q) use ($product) {
+        return $query->whereHas('items', function ($q) use ($product) {
             $q->where('product_id', $product);
         });
     }

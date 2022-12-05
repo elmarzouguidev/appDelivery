@@ -33,7 +33,6 @@ class ApiCommandController extends Controller
     public function store(CommandRequest $request)
     {
 
-        logger($request->all());
         $citySlug = Str::slug(str_replace(' ', '', $request->ville));
 
         $regionSlug = Str::slug(str_replace(' ', '', $request->region));
