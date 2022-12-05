@@ -1,6 +1,6 @@
 <div>
     <div class="modal fade updateStatus" tabindex="-1" role="dialog" aria-labelledby=orderdetailsModalLabel"
-        aria-hidden="true" wire:ignore.self >
+        aria-hidden="true" wire:ignore.self>
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -11,7 +11,6 @@
                 </div>
                 <div class="modal-body">
                     <div class="col-xl-12">
-
 
                         <div class="card">
                             <div class="card-body">
@@ -34,7 +33,7 @@
 
                                         @foreach ($statuses as $status)
                                             @if ($status !== App\Status\Status::NON_TRAITE)
-                                                <input type="radio" class="btn-check mr-1 ml-2" name="commandStatus"
+                                                <input type="radio" class="btn-check mr-1 ml-2" {{$command->status == $status ? 'disabled' :''}}  name="commandStatus"
                                                     value="{{ $status }}" id="status-{{ $status }}"
                                                     wire:model="commandStatus" autocomplete="off">
                                                 <label
@@ -50,8 +49,8 @@
 
                                     <div class="d-flex flex-wrap gap-2 justify-content-start mt-4">
 
-                                        <button {{$btnStatus}} type="submit" class="btn btn-primary waves-effect waves-light"
-                                            {{-- onclick='document.getElementById("overlayy").style.display = "block"' --}}>
+                                        <button {{ $btnStatus }} type="submit"
+                                            class="btn btn-primary waves-effect waves-light" {{-- onclick='document.getElementById("overlayy").style.display = "block"' --}}>
                                             {{ __('buttons.store') }}
 
                                         </button>
