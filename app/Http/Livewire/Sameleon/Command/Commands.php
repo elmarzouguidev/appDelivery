@@ -9,6 +9,7 @@ use App\Models\Sameleon\BRouter;
 use App\Models\Sameleon\City;
 use App\Models\Sameleon\Command;
 use App\Models\Sameleon\Delivery;
+use App\Models\Sameleon\Item;
 use App\Models\Sameleon\Product;
 use App\Models\Sameleon\Stock;
 use App\Models\Sameleon\User;
@@ -16,6 +17,7 @@ use App\Repositories\City\CityInterface;
 use App\Status\DeliveryStatus;
 use Livewire\Component;
 use App\Status\Status;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
 use Illuminate\Validation\ValidationException;
 use Livewire\WithPagination;
@@ -549,7 +551,10 @@ class Commands extends Component
             });
         } else {
 
+            if ($command->status == Status::LIVRE) {
 
+                $this->rollBackStatus($command, $items);
+            }
             $command->update(['status' => $status]);
         }
 
@@ -576,6 +581,43 @@ class Commands extends Component
         }
 
         //$this->dispatchBrowserEvent('status-updated');
+    }
+
+    private function rollBackStatus(Command $command, Collection $items)
+    {
+        $items->each(function ($item, $key) use ($command) {
+
+            $prod = Product::find($item->product_id);
+
+            if ($prod) {
+
+                $qte = (int)$item->quantity;
+
+                $stock = $prod->stocks()->where([
+                    'city_id' => $command->city_id,
+                    'city_uuid' => $command->city_uuid,
+                ])->first();
+
+                if ($stock) {
+
+                    $stock->increment('qte_rest', $qte);
+                    $stock->decrement('qte_livre',  $qte);
+
+                    $prod->increment('qte_rest', $qte);
+                    $prod->decrement('qte_livre', $qte);
+                } else {
+
+                    $CityName = optional($command->city)->name;
+                    $this->dispatchBrowserEvent('stock-not-found-city', ['city' => $CityName]);
+
+                    throw ValidationException::withMessages([
+                        'stock_not_found' => "Le stock n'existe pas sur la ville $CityName !"
+                    ]);
+                    exit;
+                }
+            } else {
+            }
+        });
     }
 
     public function saveReportDetail()

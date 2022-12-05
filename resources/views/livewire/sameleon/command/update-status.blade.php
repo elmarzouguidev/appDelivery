@@ -9,26 +9,18 @@
                             <div class="card-body">
                                 <div class="button-items d-flex align-content-start flex-wrap">
 
-                                    @php
-                                        $locked = false;
-                                        if ($command->status == App\Status\Status::REFUSE || $command->status == App\Status\Status::LIVRE) {
-                                            $locked = true;
-                                        }
-                                    @endphp
-                                    <button
-                                        {{ $command->status == App\Status\Status::ENCOURS || $locked ? 'disabled' : ' ' }}
+
+                                    <button {{ $command->status == App\Status\Status::ENCOURS ? 'disabled' : ' ' }}
                                         wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::ENCOURS }})"
                                         type="button" class="btn btn-sm btn-info waves-effect waves-light">En
                                         cours</button>
 
-                                    <button
-                                        {{ $command->status == App\Status\Status::EXPEDIE || $locked ? 'disabled' : ' ' }}
+                                    <button {{ $command->status == App\Status\Status::EXPEDIE ? 'disabled' : ' ' }}
                                         wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::EXPEDIE }})"
                                         type="button"
                                         class="btn btn-sm btn-warning waves-effect waves-light">Expédié</button>
 
-                                    <button
-                                        {{ $command->status == App\Status\Status::ANNULE || $locked ? 'disabled' : ' ' }}
+                                    <button {{ $command->status == App\Status\Status::ANNULE ? 'disabled' : ' ' }}
                                         wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::ANNULE }})"
                                         type="button"
                                         class="btn btn-sm btn-primary waves-effect waves-light">Annulé</button>
@@ -38,58 +30,53 @@
 
 
 
-                                    <button
-                                        {{ $command->status == App\Status\Status::CHANGE || $locked ? 'disabled' : ' ' }}
+                                    <button {{ $command->status == App\Status\Status::CHANGE ? 'disabled' : ' ' }}
                                         wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::CHANGE }})"
                                         type="button"
                                         class="btn btn-sm btn-success waves-effect waves-light">Change</button>
 
 
 
-                                    <button
-                                        {{ $command->status == App\Status\Status::INJOIGNABLE || $locked ? 'disabled' : ' ' }}
+                                    <button {{ $command->status == App\Status\Status::INJOIGNABLE ? 'disabled' : ' ' }}
                                         wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::INJOIGNABLE }})"
                                         type="button"
                                         class="btn btn-sm btn-danger waves-effect waves-light">Injoignable</button>
 
-                                    <button
-                                        {{ $command->status == App\Status\Status::INTERESSE || $locked ? 'disabled' : ' ' }}
+                                    <button {{ $command->status == App\Status\Status::INTERESSE ? 'disabled' : ' ' }}
                                         wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::INTERESSE }})"
                                         type="button"
                                         class="btn btn-sm btn-dark waves-effect waves-light">Interessé</button>
 
                                     <button
-                                        {{ $command->status == App\Status\Status::NON_INTERESSE || $locked ? 'disabled' : ' ' }}
+                                        {{ $command->status == App\Status\Status::NON_INTERESSE ? 'disabled' : ' ' }}
                                         wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::NON_INTERESSE }})"
                                         type="button" class="btn btn-sm btn-dark waves-effect waves-light">Non
                                         interessé</button>
 
                                     <button
-                                        {{ $command->status == App\Status\Status::MANQUE_DE_STOCK || $locked ? 'disabled' : ' ' }}
+                                        {{ $command->status == App\Status\Status::MANQUE_DE_STOCK ? 'disabled' : ' ' }}
                                         wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::MANQUE_DE_STOCK }})"
                                         type="button" class="btn btn-sm btn-light waves-effect">Manque De
                                         Stock</button>
 
                                     <button
-                                        {{ $command->status == App\Status\Status::PAS_DE_REPONSE || $locked ? 'disabled' : ' ' }}
+                                        {{ $command->status == App\Status\Status::PAS_DE_REPONSE ? 'disabled' : ' ' }}
                                         wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::PAS_DE_REPONSE }})"
                                         type="button" class="btn btn-sm btn-light waves-effect">Pas de réponse</button>
 
 
                                     <button
-                                        {{ $command->status == App\Status\Status::RECONFIRMER || $locked ? 'disabled' : ' ' }}
+                                        {{ $command->status == App\Status\Status::RECONFIRMER ? 'disabled' : ' ' }}
                                         wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::RECONFIRMER }})"
                                         type="button" class="btn btn-sm btn-light waves-effect">Reconfirmer</button>
 
 
 
-                                    <button
-                                        {{ $command->status == App\Status\Status::REPORTE || $locked ? 'disabled' : ' ' }}
+                                    <button {{ $command->status == App\Status\Status::REPORTE ? 'disabled' : ' ' }}
                                         wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::REPORTE }})"
                                         type="button" class="btn btn-sm btn-danger waves-effect">Reporté</button>
 
-                                    <button
-                                        {{ $command->status == App\Status\Status::RETOURNE || $locked ? 'disabled' : ' ' }}
+                                    <button {{ $command->status == App\Status\Status::RETOURNE ? 'disabled' : ' ' }}
                                         wire:click="changeStatus('{{ $command->uuid }}',{{ App\Status\Status::RETOURNE }})"
                                         type="button" class="btn btn-sm btn-danger waves-effect">
                                         Retourné
@@ -107,6 +94,5 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>
