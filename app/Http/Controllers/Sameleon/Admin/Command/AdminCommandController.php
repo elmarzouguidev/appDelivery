@@ -84,10 +84,13 @@ class AdminCommandController extends Controller
         $command->city()->associate($request->city);
         $command->city_uuid = $command->city?->uuid;
 
-        $command->region()->associate($request->region);
-        $command->region_uuid = $command->region?->uuid;
+        $request->whenFilled('region', function ($region) use ($command) {
+            $command->region()->associate($region);
+            $command->region_uuid = $command->region?->uuid;
+        });
 
-        $command->frais = $command->city?->frais + $command->region?->frais;
+        $command->frais = $command->city?->frais + $command->region?->frais ?? 0;
+        
         $command->save();
 
         if ($command) {
@@ -164,10 +167,12 @@ class AdminCommandController extends Controller
         $command->city()->associate($request->city);
         $command->city_uuid = $command->city?->uuid;
 
-        $command->region()->associate($request->region);
-        $command->region_uuid = $command->region?->uuid;
+        $request->whenFilled('region', function ($region) use ($command) {
+            $command->region()->associate($region);
+            $command->region_uuid = $command->region?->uuid;
+        });
 
-        $command->frais = $command->city?->frais + $command->region?->frais;
+        $command->frais = $command->city?->frais + $command->region?->frais ?? 0;
 
         $command->save();
 

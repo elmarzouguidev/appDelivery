@@ -31,7 +31,7 @@ class CommandFormRequest extends FormRequest
             'client_address' => ['required', 'string'],
 
             'city' => ['required', 'integer', 'exists:cities,id'],
-            'region' => ['required', 'integer', 'exists:regions,id'],
+            'region' => ['nullable', 'integer', 'exists:regions,id'],
 
             'orderProducts' => ['required', 'array'],
             'orderProducts.*.product_id' => ['required', 'integer'],
