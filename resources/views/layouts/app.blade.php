@@ -23,16 +23,15 @@
     </div>
 
     <div id="layout-wrapper">
-      
+
         @if (isDelivery())
-      
             @include('layouts._parts.__header_delivery')
         @else
             @include('layouts._parts.__header')
         @endif
-         
+
         @include('layouts._parts._leftSidebar_commercial')
-         
+
         <div class="main-content">
 
             <div class="page-content">
