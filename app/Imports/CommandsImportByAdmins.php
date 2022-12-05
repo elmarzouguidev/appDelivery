@@ -120,7 +120,8 @@ class CommandsImportByAdmins implements ToModel, SkipsEmptyRows, WithHeadingRow,
             'user_id' => $this->client->id,
             'user_uuid' => $this->client->uuid,
 
-            'is_imported' => true
+            'is_imported' => true,
+            'frais' => $ville->frais + $region ? $region->frais : 0
         ];
 
         $command =  Command::create($data);
