@@ -8,6 +8,7 @@ use App\Traits\GetModelByUuid;
 use App\Traits\HasCode;
 use App\Traits\UuidGenerator;
 use Illuminate\Support\Str;
+
 class Region extends Model
 {
     use HasFactory;
@@ -24,7 +25,8 @@ class Region extends Model
         'frais',
         'frais_city',
         'delivery_id',
-        'delivery_uuid'
+        'delivery_uuid',
+        'city_id',
     ];
 
     public function city()
@@ -50,6 +52,6 @@ class Region extends Model
 
     public function getFormatedFraisCityAttribute()
     {
-        return number_format($this->frais_city,2);
+        return number_format($this->frais_city, 2);
     }
 }

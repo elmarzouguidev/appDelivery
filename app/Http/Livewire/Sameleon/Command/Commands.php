@@ -405,7 +405,7 @@ class Commands extends Component
         $this->showEditStatus = true;
 
         $this->commandEdit = $command;
-     
+
         $this->reportComment =  str_replace('<br />', '', $command->comment);
 
         $this->dispatchBrowserEvent('show-edit-status');
@@ -578,8 +578,6 @@ class Commands extends Component
         }
 
         $this->saveReportDetail($command);
-
-
     }
 
     public function saveReportDetail(Command $command)

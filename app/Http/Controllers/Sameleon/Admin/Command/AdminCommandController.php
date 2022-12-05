@@ -80,9 +80,14 @@ class AdminCommandController extends Controller
 
         $command->client()->associate(auth()->id());
         $command->user_uuid = auth()->user()->uuid;
+
         $command->city()->associate($request->city);
-        $command->city_uuid = $command->city->uuid;
-        $command->frais = $command->city->frais;
+        $command->city_uuid = $command->city?->uuid;
+
+        $command->region()->associate($request->region);
+        $command->region_uuid = $command->region?->uuid;
+
+        $command->frais = $command->city?->frais + $command->region?->frais;
         $command->save();
 
         if ($command) {
@@ -139,9 +144,9 @@ class AdminCommandController extends Controller
 
         $command->load('items')->loadSum('items', 'prix_total');;
 
-        $cities = app(CityInterface::class)->getCities();
+        //$cities = app(CityInterface::class)->getCities();
 
-        return view('Sameleon.Admin.Command.__edit.index', compact('command', 'cities'));
+        return view('Sameleon.Admin.Command.__edit.index', compact('command'));
     }
 
     public function update(CommandUpdateFormRequest $request, Command $command)
@@ -155,9 +160,15 @@ class AdminCommandController extends Controller
         $command->client_city = $request->client_city;
         $command->client_address = $request->client_address;
         //$command->client()->associate(auth()->id());
+
         $command->city()->associate($request->city);
-        $command->city_uuid = $command->city->uuid;
-        $command->frais = $command->city->frais;
+        $command->city_uuid = $command->city?->uuid;
+
+        $command->region()->associate($request->region);
+        $command->region_uuid = $command->region?->uuid;
+
+        $command->frais = $command->city?->frais + $command->region?->frais;
+
         $command->save();
 
         if ($command) {

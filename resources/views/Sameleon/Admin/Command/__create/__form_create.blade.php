@@ -1,16 +1,9 @@
 <div class="row">
     <div class="col-lg-12">
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-        @if (session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
-        <form  action="{{ route('admin:commands.store') }}" method="post">
+
+        @include('layouts._parts.__messages')
+
+        <form action="{{ route('admin:commands.store') }}" method="post">
             @csrf
             <div class="card">
                 <div class="card-body">
@@ -29,12 +22,13 @@
 
                         <div class="col-lg-6">
 
-                            @include('Sameleon.Admin.Command.__create.__select_city')
-                            
+                            {{-- @include('Sameleon.Admin.Command.__create.__select_city') --}}
+
+                            @livewire('sameleon.command.create.select-city')
+
                             <div class=" mb-4">
                                 <label>Adresse du client *</label>
-                                <textarea name="client_address" id="textarea"
-                                    class="form-control @error('client_address') is-invalid @enderror"
+                                <textarea name="client_address" id="textarea" class="form-control @error('client_address') is-invalid @enderror"
                                     rows="5" required></textarea>
 
                                 @error('client_address')
@@ -53,7 +47,7 @@
                     <div class="row">
                         <div class="col-lg-12 mb-4">
 
-                            {{--@include('theme.Sameleon.Command.__create.__add_articles')--}}
+                            {{-- @include('theme.Sameleon.Command.__create.__add_articles') --}}
                             @livewire('sameleon.command.products')
 
                         </div>
@@ -61,14 +55,14 @@
 
                 </div>
             </div>
-            {{--@include('theme.Sameleon.Command.__create.__condition')--}}
+            {{-- @include('theme.Sameleon.Command.__create.__condition') --}}
             <div class="d-flex flex-wrap gap-2 justify-content-end mb-4">
                 <div class="">
                     <button type="submit" class="btn btn-primary waves-effect waves-light" {{-- onclick='document.getElementById("overlayy").style.display = "block"' --}}>
                         {{ __('buttons.store') }}
 
                     </button>
-    
+
                 </div>
             </div>
 

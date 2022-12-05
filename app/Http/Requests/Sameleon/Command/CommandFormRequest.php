@@ -29,15 +29,16 @@ class CommandFormRequest extends FormRequest
             'client_email' => ['nullable', 'email'],
             'client_phone' => ['required', 'phone:MA'],
             'client_address' => ['required', 'string'],
-            
-            'city' => ['required', 'integer'],
+
+            'city' => ['required', 'integer', 'exists:cities,id'],
+            'region' => ['required', 'integer', 'exists:regions,id'],
 
             'orderProducts' => ['required', 'array'],
             'orderProducts.*.product_id' => ['required', 'integer'],
             'orderProducts.*.designation' => ['nullable', 'string'],
             'orderProducts.*.description' => ['nullable', 'string'],
-            'orderProducts.*.quantity' => ['required', 'numeric','digits_between:1,20'],
-            'orderProducts.*.prix_unitaire' => ['required', 'numeric','digits_between:1,20'],
+            'orderProducts.*.quantity' => ['required', 'numeric', 'digits_between:1,20'],
+            'orderProducts.*.prix_unitaire' => ['required', 'numeric', 'digits_between:1,20'],
         ];
     }
 }

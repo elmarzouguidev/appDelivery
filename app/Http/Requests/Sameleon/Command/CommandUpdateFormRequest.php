@@ -52,7 +52,8 @@ class CommandUpdateFormRequest extends FormRequest
             //'client_city' => ['required', Rule::in(['casablanca'])],
 
             'client_address' => ['required', 'string'],
-            'city' => ['required', 'integer'],
+            'city' => ['required', 'integer', 'exists:cities,id'],
+            'region' => ['required', 'integer', 'exists:regions,id'],
 
             'orderProducts' => ['nullable', 'array'],
             'orderProducts.*.product_id' => ['nullable', 'integer'],
@@ -63,8 +64,8 @@ class CommandUpdateFormRequest extends FormRequest
             'newOrderProducts' => ['nullable', 'array'],
             'newOrderProducts.*.product_id' => ['nullable', 'integer'],
             'newOrderProducts.*.designation' => ['nullable', 'string'],
-            'newOrderProducts.*.quantity' => ['required', 'numeric','digits_between:1,20'],
-            'newOrderProducts.*.prix_unitaire' => ['required', 'numeric','digits_between:1,20'],
+            'newOrderProducts.*.quantity' => ['nullable', 'numeric','digits_between:1,20'],
+            'newOrderProducts.*.prix_unitaire' => ['nullable', 'numeric','digits_between:1,20'],
         ];
     }
 }

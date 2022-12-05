@@ -9,7 +9,7 @@
             @endphp
             <label>Date</label>
             <div class="input-group" id="datepicker1">
-                <input {{$dateStatus}} wire:model.defer="reportTime" type="text" name="reportTime"
+                <input {{ $dateStatus }} wire:model.defer="reportTime" type="text" name="reportTime"
                     class="form-control @error('reportTime') is-invalid @enderror" data-date-format="dd-mm-yyyy"
                     value="{{ $reportTime }}" data-date-container='#datepicker1' data-provide="datepicker"
                     onchange="this.dispatchEvent(new InputEvent('input'))" required>

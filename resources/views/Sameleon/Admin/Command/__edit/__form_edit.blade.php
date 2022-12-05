@@ -1,11 +1,11 @@
 <div class="row">
     <div class="col-lg-12">
 
-        {{--<div class="card">
+        {{-- <div class="card">
             <div class="card-body">
                 <button type="button" class="btn btn-danger"> Supprimer cette command</button>
             </div>
-        </div>--}}
+        </div> --}}
 
         @include('layouts._parts.__messages')
 
@@ -24,18 +24,20 @@
                             <div class="col-lg-12">
 
                                 @include('Sameleon.Admin.Command.__edit.__date_commande')
-                                    
+
                             </div>
                         </div>
 
                         <div class="col-lg-6">
 
-                            @include('Sameleon.Admin.Command.__edit.__select_city')
-                                
+                            {{-- @include('Sameleon.Admin.Command.__edit.__select_city') --}}
+
+                            @livewire('sameleon.command.create.select-city', ['command' => $command])
+
                             <div class=" mb-4">
                                 <label>Adresse du client *</label>
                                 <textarea name="client_address" id="textarea" class="form-control @error('client_address') is-invalid @enderror"
-                                    maxlength="225" rows="5">{{ str_replace('<br>','',$command->client_address) }}</textarea>
+                                    maxlength="225" rows="5">{{ str_replace('<br>', '', $command->client_address) }}</textarea>
 
                                 @error('client_address')
                                     <span class="invalid-feedback" role="alert">
@@ -54,7 +56,7 @@
 
                     <div class="row">
                         <div class="col-lg-12 mb-4">
-                            @livewire('sameleon.command.edit',['command' => $command])
+                            @livewire('sameleon.command.edit', ['command' => $command])
                         </div>
                     </div>
 
@@ -65,12 +67,12 @@
                                     <h5 class="my-0 text-primary">
                                         <i class="mdi mdi-alarm-panel-outline me-3"></i>
                                         Total du Command: {{ $command->items_sum_prix_total }} DH
-                                        
+
                                     </h5>
                                     <hr>
                                     <h5 class="my-0 text-info">
                                         <i class="mdi mdi-alarm-panel-outline me-3"></i>
-                                        Frais de Livraison : {{$command->frais}} DH
+                                        Frais de Livraison : {{ $command->frais }} DH
 
                                     </h5>
 
