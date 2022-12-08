@@ -26,7 +26,7 @@ class StockNewFormRequest extends FormRequest
     {
         return [
             'default_stock' => ['nullable', Rule::in([1, '1', true, 'on', 'yes', 'oui', '0', 'no', 'non', false])],
-            'city' => ['required_if:default_stock,false', 'integer', 'exists:cities,id'],
+            'city' => ['required_if:default_stock,false', 'integer'],
 
             'delivery' => ['nullable', 'uuid', 'required_if:default_stock,false', 'exists:deliveries,uuid'],
             'client' => ['required', 'uuid', 'exists:users,uuid'],

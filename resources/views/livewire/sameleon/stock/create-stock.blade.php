@@ -3,7 +3,7 @@
         <div class="col-12">
 
             @include('layouts._parts.__messages')
-            
+
             <div class="card">
                 <div class="card-body">
 
@@ -21,8 +21,8 @@
                             <div class="col-lg-10">
                                 <select wire:model="city" name="city" id="select_city"
                                     class="form-control select2-templating @error('city') is-invalid @enderror"
-                                    required>
-                                    <option value="" disabled>Choisir la ville</option>
+                                    >
+                                    <option value="0">Choisir la ville</option>
                                     <option value=""></option>
                                     @foreach ($cities as $city)
                                         <option value="{{ $city->id }}">{{ $city->name }}
@@ -107,7 +107,8 @@
                         <div class="row mb-4">
                             <label for="qte_alert" class="col-form-label col-lg-2">Alert de stock *</label>
                             <div class="col-lg-10">
-                                <input id="qte_alert" name="qte_alert" type="number" placeholder="pour vous notifier la rupture de stock"
+                                <input id="qte_alert" name="qte_alert" type="number"
+                                    placeholder="pour vous notifier la rupture de stock"
                                     class="form-control @error('qte_alert') is-invalid @enderror" required>
                                 @error('qte_alert')
                                     <span class="invalid-feedback" role="alert">
