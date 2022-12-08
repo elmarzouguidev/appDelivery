@@ -105,6 +105,18 @@
                             </div>
                         </div>
                         <div class="row mb-4">
+                            <label for="qte_alert" class="col-form-label col-lg-2">Alert de stock *</label>
+                            <div class="col-lg-10">
+                                <input id="qte_alert" name="qte_alert" type="number"
+                                    class="form-control @error('qte_alert') is-invalid @enderror" required>
+                                @error('qte_alert')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-4">
                             <label for="sent_at" class="col-form-label col-lg-2">Date d'ajustement </label>
                             <div class="col-lg-10">
                                 <div class="input-group" id="datepicker1">

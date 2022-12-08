@@ -37,6 +37,7 @@ class Stock extends Model
         'qte_expidite',
         'qte_endomage',
         'qte_rest',
+        'qte_alert',
         'notes',
         'sent_at',
         'active'
@@ -105,6 +106,13 @@ class Stock extends Model
     public function scopeQteFilters(Builder $query, $qte): Builder
     {
         return $query->where('qte_rest', $qte);
+
+        /***** */
+    }
+
+    public function scopeAlertsFilters(Builder $query, $qte): Builder
+    {
+        return $query->where('qte_alert', $qte);
 
         /***** */
     }

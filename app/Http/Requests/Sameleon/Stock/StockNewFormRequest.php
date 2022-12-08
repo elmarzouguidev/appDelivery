@@ -28,10 +28,11 @@ class StockNewFormRequest extends FormRequest
             'default_stock' => ['nullable', Rule::in([1, '1', true, 'on', 'yes', 'oui', '0', 'no', 'non', false])],
             'city' => ['required', 'integer', 'exists:cities,id'],
 
-            'delivery' => ['nullable', 'uuid','required_if:default_stock,false', 'exists:deliveries,uuid'],
-            'client' => ['required', 'uuid','exists:users,uuid'],
+            'delivery' => ['nullable', 'uuid', 'required_if:default_stock,false', 'exists:deliveries,uuid'],
+            'client' => ['required', 'uuid', 'exists:users,uuid'],
             'product' => ['required', 'uuid', 'exists:products,uuid'],
             'qte' => ['required', 'integer'],
+            'qte_alert' => ['required', 'integer'],
             'sent_at' => ['required', 'date', 'date_format:d-m-Y'],
             'notes' => ['nullable', 'string']
         ];

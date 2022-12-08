@@ -63,6 +63,9 @@ class StockController extends Controller
             $stock->city_uuid = $city->uuid;
             $stock->qte_global = (int)$request->qte;
             $stock->qte_rest = (int)$request->qte;
+
+            $stock->qte_alert = (int)$request->qte_alert;
+
             $stock->sent_at = $request->date('sent_at');
             $stock->notes = $request->notes;
 
@@ -137,8 +140,8 @@ class StockController extends Controller
             $qte = $stock->qte_global;
 
             $stock->product->update([
-                'qte_rest' => $stock->product->qte_rest,
-                'qte_global' => $stock->product->qte_global,
+                'qte_rest' => $stock->product?->qte_rest,
+                'qte_global' => $stock->product?->qte_global,
             ]);
 
             $stock->delete();
