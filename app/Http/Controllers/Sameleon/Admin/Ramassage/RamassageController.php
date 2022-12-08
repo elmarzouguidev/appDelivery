@@ -128,11 +128,15 @@ class RamassageController extends Controller
     {
         $request->validate(['ramassageDeleteId' => 'required', 'uuid']);
 
-        $product = Ramassage::whereUuid($request->ramassageDeleteId)->first();
+        $ramassage = Ramassage::whereUuid($request->ramassageDeleteId)->first();
 
-        if ($product) {
+        if ($ramassage) {
 
-            $product->delete();
+            client()->unreadNotifications->each(function ($notification) use ($ramassage) {
+                $notification->data['uuid'] == $ramassage->uuid ? $notification->delete() : null;
+            });
+
+            $ramassage->delete();
 
             return redirect()->back()->with('success', "Le demande a éte supprimer avec success");
         }
