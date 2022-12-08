@@ -107,7 +107,7 @@
                         <div class="row mb-4">
                             <label for="qte_alert" class="col-form-label col-lg-2">Alert de stock *</label>
                             <div class="col-lg-10">
-                                <input id="qte_alert" name="qte_alert" type="number"
+                                <input id="qte_alert" name="qte_alert" type="number" min="0"
                                     placeholder="pour vous notifier la rupture de stock"
                                     class="form-control @error('qte_alert') is-invalid @enderror" required>
                                 @error('qte_alert')
