@@ -50,7 +50,7 @@ class StockController extends Controller
         $delivery = Delivery::whereUuid($request->delivery)->first();
         $client = User::role('Client')->whereUuid($request->client)->first();
 
-        if ($product && $city &&  $client) {
+        if ($product &&  $client) {
 
             $stock = new Stock();
             $stock->product_id = $product->id;
@@ -59,8 +59,14 @@ class StockController extends Controller
             $stock->client_id = $product->client?->id;
             $stock->client_uuid = $product->client?->uuid;
 
-            $stock->city_id = $city->id;
-            $stock->city_uuid = $city->uuid;
+            if ($request->filled('city') && $request->has('city') && !$request->boolean('default_stock')) {
+                $stock->city_id = $city->id;
+                $stock->city_uuid = $city->uuid;
+            } else {
+                $defaultCity = City::whereId(1)->whereSlug('casablanca')->first();
+                $stock->city_id = $defaultCity->id;
+                $stock->city_uuid = $defaultCity->uuid;
+            }
             $stock->qte_global = (int)$request->qte;
             $stock->qte_rest = (int)$request->qte;
 
