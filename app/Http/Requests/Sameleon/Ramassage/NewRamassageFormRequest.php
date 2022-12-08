@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Sameleon\Ramassage;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class NewRamassageFormRequest extends FormRequest
 {
@@ -24,8 +25,11 @@ class NewRamassageFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'price' => ['required', 'numeric'],
+
+            'newproduct' => ['nullable', Rule::in([1, '1', true, 'on', 'yes', 'oui', '0', 'no', 'non', false])],
+            'product' => ['required_if:newproduct,false', 'exists:products,id'],
+            'name' => ['required_if:newproduct,true', 'string', 'max:255'],
+            'price' => ['required_if:newproduct,true', 'numeric'],
             'qte' => ['required', 'integer'],
             'addresse' => 'required|string',
             'notes' => 'nullable|string',

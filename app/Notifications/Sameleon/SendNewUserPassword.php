@@ -48,7 +48,7 @@ class SendNewUserPassword extends Notification
         ], false));
 
 
-        
+    
         return (new MailMessage)
             ->subject(Lang::get('Sameleon Express Connectez-vous à votre compte'))
             ->line(Lang::get("Bienvenue $notifiable->full_name !"))

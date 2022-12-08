@@ -18,35 +18,50 @@ class RamassageController extends Controller
     public function index()
     {
 
+        $products = [];
+
         if (isClient()) {
 
-            $ramassages = Ramassage::where('user_id', auth()->id())
-                ->where('user_uuid', auth()->user()->uuid)
+            $products = Product::whereUserId(client()->id)->whereUserUuid(client()->uuid)->get();
+            $ramassages = Ramassage::where('user_id', client()->id)
+                ->where('user_uuid', client()->uuid)
                 ->with('product:id,uuid')
-                ->orderBy('accepted','desc')
+                ->orderBy('accepted', 'desc')
                 ->get();
         } else {
             $ramassages = Ramassage::whereActive(true)
                 //->whereAccepted(false)
                 ->with('client:id,nom,prenom')
-                ->orderBy('accepted','asc')
-             
+                ->orderBy('accepted', 'asc')
                 ->get();
         }
 
-        return view('Sameleon.Admin.Ramassage.index', compact('ramassages'));
+        return view('Sameleon.Admin.Ramassage.index', compact('ramassages', 'products'));
     }
 
     public function newStore(NewRamassageFormRequest $request)
     {
+
         $ramassage = new Ramassage();
-        $ramassage->name = $request->name;
-        $ramassage->price = $request->price;
         $ramassage->qte = $request->qte;
         $ramassage->addresse = $request->addresse;
         $ramassage->notes = $request->notes;
-        $ramassage->user_id = auth()->id();
-        $ramassage->user_uuid = auth()->user()->uuid;
+        $ramassage->user_id = client()->id;
+        $ramassage->user_uuid = client()->uuid;
+
+        if ($request->has('product') && $request->filled('product')) {
+            $product = Product::whereUserId(client()->id)
+                ->whereUserUuid(client()->uuid)
+                ->whereId($request->product)
+                ->first();
+            $ramassage->name = $product->name;
+            $ramassage->price = $product->price;
+            $ramassage->product()->associate($product);
+            $ramassage->product_uuid = $product->uuid;
+        } else {
+            $ramassage->name = $request->name;
+            $ramassage->price = $request->price;
+        }
         $ramassage->save();
 
         return redirect()->back()->with('success', "La demande a éte ajouter avec success");
@@ -81,10 +96,10 @@ class RamassageController extends Controller
     {
         $request->validate(['ramassageId' => 'required', 'uuid']);
 
-        $product = Ramassage::whereUuid($request->ramassageId)->first();
+        $ramassage = Ramassage::whereUuid($request->ramassageId)->first();
 
-        if ($product) {
-            $product->update(['active' => true]);
+        if ($ramassage) {
+            $ramassage->update(['active' => true]);
             return redirect()->back()->with('success', "Le demande  a éte envoyer avec success");
         }
         return redirect()->back()->with('error', "error !!!");
@@ -101,7 +116,7 @@ class RamassageController extends Controller
             $ramassage->update(['accepted' => true]);
 
             $client = $ramassage->client()->first();
-            
+
             Notification::send($client, new RamassageAccepted($ramassage));
 
             return redirect()->back()->with('success', "Le demande a éte accepter avec success");

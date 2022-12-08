@@ -62,7 +62,9 @@ class RamassageAccepted extends Notification
             'name' => $this->ramassage->name,
             'uuid' => $this->ramassage->uuid,
             'created_at' => $this->ramassage->created_at,
-            'client' => optional($this->ramassage->client)->full_name
+            'client' => $this->ramassage->client?->full_name,
+            'product_id' => $this->ramassage->product?->id,
+            'product_uuid' => $this->ramassage->product?->uuid,
         ];
     }
 }
