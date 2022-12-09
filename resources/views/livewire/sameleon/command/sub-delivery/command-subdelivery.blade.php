@@ -1,7 +1,8 @@
 <div>
     <div class="row">
         @foreach ($commands as $command)
-            <div class="col-xl-3 col-sm-6" style="{{$command->status == App\Status\Status::LIVRE ? 'opacity: 0.33;' :'' }}"> 
+            <div class="col-xl-3 col-sm-6"
+                style="{{ $command->status == App\Status\Status::LIVRE ? 'opacity: 0.33;' : '' }}">
                 <div class="card text-center">
                     <div class="card-body">
                         <div class=" mx-auto mb-4">
@@ -14,13 +15,18 @@
                         <div class=" mx-auto mb-4">
                             <span class="avatar-title bg-primary bg-soft text-primary font-size-20">
 
-                                Prix : &ensp;<strong> {{ number_format($command->items_sum_prix_total, 2) }} DH </strong>
+                                Prix : &ensp;<strong> {{ number_format($command->items_sum_prix_total, 2) }} DH
+                                </strong>
 
                             </span>
                         </div>
                         <p class="font-size-17"><strong>{{ $command->client_name }}</strong></p>
                         <hr>
                         <p class="font-size-17">{{ $command->city->name ?? ($command->client_city ?? '') }}</p>
+                        <br>
+                        <p class="text-strong mb-0" style="color:#f1b44c !important">
+                            <b>{{ $command->region?->name ?? '' }}</b>
+                        </p>
                         <br>
                         <p class="font-size-17">{!! $command->client_address !!}</p>
                         <hr>

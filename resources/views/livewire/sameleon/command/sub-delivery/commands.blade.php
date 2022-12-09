@@ -89,6 +89,9 @@
                                                 <p class="text-strong mb-0">
                                                     <b>{{ optional($command->city)->name ?? ($command->client_city ?? '') }}</b>
                                                 </p>
+                                                <p class="text-strong mb-0" style="color:#f1b44c !important">
+                                                    <b>{{ $command->region?->name ?? '' }}</b>
+                                                </p>
                                                 <p class="text-strong mb-0">{!! $command->client_address !!}</p>
                                             </td>
                                             <td>

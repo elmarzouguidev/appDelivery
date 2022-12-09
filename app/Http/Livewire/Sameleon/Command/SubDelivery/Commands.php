@@ -123,7 +123,7 @@ class Commands extends Component
                 ->with('items')
                 ->withSum('items', 'prix_total')
                 //->with('products.stock')
-                ->with(['city:id,name'])
+                ->with(['city:id,name', 'region:id,name'])
                 ->orderByRaw("FIELD(status, $commandStatus)")
                 ->orderBy('is_closed', 'asc')
                 ->orderByRaw("created_at DESC")
@@ -146,7 +146,7 @@ class Commands extends Component
                 ->where('city_uuid', delivery()->city?->uuid ?? delivery()->city_uuid)
                 ->with('items')
                 ->withSum('items', 'prix_total')
-                ->with(['city:id,name'])
+                ->with(['city:id,name', 'region:id,name'])
                 ->orderByRaw("FIELD(status, $commandDeliveryStatus)")
                 //->orderByRaw("created_at DESC")
                 ->paginate(60);

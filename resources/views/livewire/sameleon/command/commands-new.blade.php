@@ -159,7 +159,10 @@
                                                     </strong>
                                                 </p>
                                                 <p class="text-strong mb-0">
-                                                    <b>{{ $command->city->name ?? ($command->client_city ?? '') }}</b>
+                                                    <b>{{ $command->city?->name ?? ($command->client_city ?? '') }}</b>
+                                                </p>
+                                                <p class="text-strong mb-0" style="color:#f1b44c !important">
+                                                    <b>{{ $command->region?->name ?? '' }}</b>
                                                 </p>
                                                 <p class="text-strong mb-0">{!! $command->client_address !!}</p>
                                             </td>
