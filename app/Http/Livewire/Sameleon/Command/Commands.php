@@ -14,6 +14,7 @@ use App\Models\Sameleon\Product;
 use App\Models\Sameleon\Stock;
 use App\Models\Sameleon\User;
 use App\Repositories\City\CityInterface;
+use App\Repositories\Region\RegionInterface;
 use App\Status\DeliveryStatus;
 use Livewire\Component;
 use App\Status\Status;
@@ -43,6 +44,8 @@ class Commands extends Component
 
     public $cities;
     public $citiesList;
+
+    public $regions;
 
     public $blCity;
     public $blDelivery;
@@ -199,9 +202,15 @@ class Commands extends Component
             $this->clients = User::role('Client')->select(['nom', 'prenom', 'id', 'uuid'])->get();
             $this->products = Product::select(['id', 'name'])->get();
             $this->citiesList = app(CityInterface::class)->getCities();
+            $this->regions = app(RegionInterface::class)->getRegions();
+
         }
     }
 
+    public function updatedData($value)
+    {
+       // dd($value);
+    }
     public function updatedSelectedCommands()
     {
         // dd($this->selectedCommands);

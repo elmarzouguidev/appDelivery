@@ -31,13 +31,13 @@
                         </select>
                     </div>
                     <div class="col-lg-2 col-md-2">
-                        <label class="visually-hidden" for="product">Produit</label>
-                        <select wire:model.defer="data.product" class="form-control select2 chk-filter-product" name="product" id="product">
-                            <option value="">Produit</option>
+                        <label class="visually-hidden" for="region">Ville</label>
+                        <select wire:model.defer="data.region" class="form-control select2 chk-filter-region" name="region" id="region">
+                            <option value="">Région</option>
     
-                            @foreach ($products as $product)
-                                <option value="{{ $product->id }}" >
-                                    {{ $product->name }}
+                            @foreach ($regions as $region)
+                                <option value="{{ $region->id }}" >
+                                    {{ $region->name }}
                                 </option>
                             @endforeach
     
@@ -57,6 +57,21 @@
     
                         </select>
                     </div>
+                    
+                    <div class="col-lg-2 col-md-2">
+                        <label class="visually-hidden" for="product">Produit</label>
+                        <select wire:model.defer="data.product" class="form-control select2 chk-filter-product" name="product" id="product">
+                            <option value="">Produit</option>
+    
+                            @foreach ($products as $product)
+                                <option value="{{ $product->id }}" >
+                                    {{ $product->name }}
+                                </option>
+                            @endforeach
+    
+                        </select>
+                    </div>
+
                     <div class="col-lg-3 col-md-2">
                         <label class="visually-hidden" for="statusList">Etat</label>
                         <select wire:model.defer="data.status" class="form-select" name="status" id="statusList">

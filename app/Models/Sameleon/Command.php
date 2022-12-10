@@ -224,6 +224,11 @@ class Command extends Model
         return $query->where('city_id', $city);
     }
 
+    public function scopeRegionsFilters(Builder $query, $region): Builder
+    {
+        return $query->where('region_id', $region);
+    }
+
     public function scopeDeliveryFilters(Builder $query, $delivery): Builder
     {
         return $query->where('delivery_id', $delivery);
