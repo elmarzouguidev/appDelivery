@@ -130,7 +130,7 @@ class Commands extends Component
 
         $command = new ItemsQuery(new Command, $this->filter);
 
-        $commandStatus = implode(',', [Status::NON_TRAITE, Status::ENCOURS, Status::REPORTE, Status::EXPEDIE, Status::REFUSE, Status::RETOURNE, Status::LIVRE]);
+        $commandStatus = implode(',', [Status::NON_TRAITE, Status::ENCOURS, Status::REPORTE, Status::EXPEDIE, Status::REFUSE, Status::RETOURNE, Status::MANQUE_DE_STOCK, Status::LIVRE]);
 
         if (isClient()) {
 
@@ -139,7 +139,7 @@ class Commands extends Component
                 ->with('items')
                 ->withSum('items', 'prix_total')
                 ->withCount('invoice')
-                ->with(['invoice:uuid,id,full_number,cloture', 'city:id,name','region:id,name'])
+                ->with(['invoice:uuid,id,full_number,cloture', 'city:id,name', 'region:id,name'])
 
                 ->orderByRaw("FIELD(status, $commandStatus)")
                 ->orderByRaw("created_at DESC")
@@ -152,7 +152,7 @@ class Commands extends Component
                 ->with('items')
                 ->withSum('items', 'prix_total')
                 ->withCount('invoice')
-                ->with(['invoice:uuid,id,full_number,cloture', 'city:id,name','region:id,name', 'delivery:id,nom,prenom', 'client:id,nom,prenom'])
+                ->with(['invoice:uuid,id,full_number,cloture', 'city:id,name', 'region:id,name', 'delivery:id,nom,prenom', 'client:id,nom,prenom'])
                 //->orderByRaw("created_at DESC")
                 ->orderBy('is_closed', 'asc')
                 ->orderByRaw("FIELD(status, $commandStatus)")
@@ -203,13 +203,12 @@ class Commands extends Component
             $this->products = Product::select(['id', 'name'])->get();
             $this->citiesList = app(CityInterface::class)->getCities();
             $this->regions = app(RegionInterface::class)->getRegions();
-
         }
     }
 
     public function updatedData($value)
     {
-       // dd($value);
+        // dd($value);
     }
     public function updatedSelectedCommands()
     {

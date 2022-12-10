@@ -103,6 +103,7 @@ class Commands extends Component
         $commandStatus = implode(',', [
             Status::NON_TRAITE, Status::EXPEDIE, Status::ENCOURS, Status::REPORTE,
             Status::REFUSE, Status::RETOURNE,
+            Status::MANQUE_DE_STOCK,
             Status::PAS_DE_REPONSE, Status::INJOIGNABLE, Status::ANNULE, Status::LIVRE
         ]);
 
