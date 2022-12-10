@@ -201,6 +201,23 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
         ];
     }
 
+
+    /**
+     * @return array
+     */
+    public function customValidationMessages()
+    {
+        return [
+            'destinataire.required' => 'le destinataire et requis',
+            'telephone.required' => 'le telephone et requis',
+            'ville.required' => 'la ville et requis',
+            'adresse.required' => "l'adresse et requis",
+            'produit.required' => 'le produit et requis',
+            'qte.required' => 'la quantité et requis',
+            'prix.required' => 'le prix total et requis',
+        ];
+    }
+
     public function chunkSize(): int
     {
         return 1000;
