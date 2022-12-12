@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Sameleon\Admin\Product;
 
+use App\Exports\Product\ProductsExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Sameleon\Product\ImportProductFormRequest;
 use App\Imports\Product\ProductsImport;
@@ -36,5 +37,14 @@ class ProductImportController extends Controller
         }
 
         return redirect()->back()->with('success', "la list a été importé avec success  n'oublie pas d'ajouter leurs images !");
+    }
+
+    public function exportFile()
+    {
+        
+        if (client()) {
+            return (new ProductsExport)->forUser(client())->download(now() . 'products.xlsx');
+        }
+        return (new ProductsExport)->download(now() . 'products.xlsx');
     }
 }

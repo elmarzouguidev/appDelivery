@@ -100,6 +100,7 @@ Route::group(['prefix' => ''], function () {
         Route::get('/', [AdminProductController::class, 'index'])->name('products.index');
 
         Route::put('/', [ProductImportController::class, 'import'])->name('products.import');
+        Route::put('/export', [ProductImportController::class, 'exportFile'])->name('products.export');
 
         Route::get('/create', [AdminProductController::class, 'create'])->name('products.create');
         Route::post('/create', [AdminProductController::class, 'store'])->name('products.store');

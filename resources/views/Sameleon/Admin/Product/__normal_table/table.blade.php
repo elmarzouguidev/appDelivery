@@ -9,12 +9,22 @@
                         class="btn btn-primary waves-effect waves-light">
                         Ajouter un Produit
                     </a>
-   
+
                     @if (isClient() || isAdmin())
                         <button class="btn btn-warning waves-effect waves-light" type="button" data-bs-toggle="modal"
                             data-bs-target=".importProductModal">
                             Importer des produits
                         </button>
+
+                        <button type="button" class="btn btn-info waves-effect btn-label waves-light"
+                            onclick="document.getElementById('exportProducts').submit();">
+                            <i class="bx bx-file-blank label-icon"></i>
+                            Exporter des produits
+                        </button>
+                        <form id="exportProducts" method="post" action="{{ route('admin:products.export') }}">
+                            @csrf
+                            @method('PUT')
+                        </form>
                     @endif
                 </div>
             </div>
