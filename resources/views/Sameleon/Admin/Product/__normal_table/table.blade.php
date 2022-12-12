@@ -1,24 +1,30 @@
 <div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Actions Disponible</h4>
+                <p class="card-title-desc"></p>
+                <div class="button-items">
+                    <a href="{{ route('admin:products.create') }}" type="button"
+                        class="btn btn-primary waves-effect waves-light">
+                        Ajouter un Produit
+                    </a>
+   
+                    @if (isClient() || isAdmin())
+                        <button class="btn btn-warning waves-effect waves-light" type="button" data-bs-toggle="modal"
+                            data-bs-target=".importProductModal">
+                            Importer des produits
+                        </button>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="mb-4">
-
-                            <a href="{{ route('admin:products.create') }}" type="button" class="btn btn-info mr-3 mb-2">
-                                Ajouter un Produit
-                            </a>
-
-                            @if (isClient() || isAdmin())
-                                <button class="btn btn-warning mr-3 mb-2" type="button" data-bs-toggle="modal"
-                                    data-bs-target=".importProductModal">
-                                    Importer des produits
-                                </button>
-                            @endif
-                        </div>
-                    </div>
-                </div>
 
                 @include('layouts._parts.__messages')
 
@@ -120,7 +126,6 @@
                                     </form>
                                 </tr>
                             @endforeach
-
                         </tbody>
                     </table>
                 </div>
