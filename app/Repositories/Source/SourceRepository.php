@@ -38,6 +38,17 @@ class SourceRepository extends AppRepository implements SourceInterface
         });
     }
 
+ 
+    public function usersSources()
+    {
+        return $this->setCache()->remember('users_sources_cache', $this->timeToLive(), function () {
+
+            $this->source->whereUserId(auth()->id())
+                ->whereUserUuid(auth()->user()->uuid)
+                ->get() ?? [];
+        });
+    }
+
     /**
      * @param int $id
      * @return mixed

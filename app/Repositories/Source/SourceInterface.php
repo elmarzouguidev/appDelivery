@@ -11,4 +11,6 @@ interface SourceInterface
 
     public function getSource(int $id);
 
+    public function usersSources();
+
 }

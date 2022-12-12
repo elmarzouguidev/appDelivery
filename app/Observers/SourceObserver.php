@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Sameleon\Source;
+use Illuminate\Support\Facades\Cache;
 
 class SourceObserver
 {
@@ -63,7 +64,9 @@ class SourceObserver
 
     private function clearAllCache()
     {
-
-        cache()->pull('all_sources_cache');
+        if (Cache::has('all_sources_cache') || Cache::has('users_sources_cache') ) {
+            Cache::pull('all_sources_cache');
+            Cache::pull('users_sources_cache');
+        }
     }
 }
