@@ -41,10 +41,10 @@ class ProductImportController extends Controller
 
     public function exportFile()
     {
-        
+
         if (client()) {
-            return (new ProductsExport)->forUser(client())->download(now() . 'products.xlsx');
+            return (new ProductsExport)->forUser(client())->download(now()->format('d-m-Y') . '-products.xlsx');
         }
-        return (new ProductsExport)->download(now() . 'products.xlsx');
+        return (new ProductsExport)->download(now()->format('d-m-Y') . '-products.xlsx');
     }
 }
