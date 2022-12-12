@@ -17,7 +17,7 @@
                             <input id="name" name="name" type="text"
                                 class="form-control @error('name') is-invalid @enderror"
                                 placeholder="Entrer le nom de votre store " value="{{ old('name') }}" required>
-                            
+
                             @error('name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -31,7 +31,7 @@
                             <input id="domain" name="domain" type="text"
                                 class="form-control @error('domain') is-invalid @enderror"
                                 placeholder="Entrer l'url de votre store " value="{{ old('domain') }}" required>
-                            
+
                             @error('domain')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -41,14 +41,14 @@
                     </div>
                     <div class="row mb-3">
 
-                        <label class="col-lg-2 form-label">Integration</label>
+                        <label class="col-lg-2 form-label">Integration *</label>
                         <div class="col-lg-10">
                             <select name="integration"
                                 class="form-control select2-templating @error('integration') is-invalid @enderror">
                                 <option value=""></option>
-                                @foreach ($integrations as $integration)
-                                    <option value="{{ $integration->uuid }}">{{ $integration->name }}</option>
-                                @endforeach
+
+                                <option value="woocommerce">Woocommerce</option>
+                                <option value="elementor">Elementor</option>
                             </select>
                             @error('integration')
                                 <span class="invalid-feedback" role="alert">
@@ -61,7 +61,8 @@
                     <div class="row mb-4">
                         <label for="description" class="col-form-label col-lg-2">Description </label>
                         <div class="col-lg-10">
-                            <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="5"></textarea>
+                            <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description"
+                                rows="5"></textarea>
                             @error('description')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

@@ -33,15 +33,11 @@ class SourceRepository extends AppRepository implements SourceInterface
      */
     public function getSources()
     {
-        if ($this->useCache()) {
 
-            return $this->setCache()->remember('all_sources_cache', $this->timeToLive(), function () {
 
-                return $this->source->get();
-            });
-
+        return $this->setCache()->remember('all_sources_cache', $this->timeToLive(), function () {
             return $this->source->get();
-        }
+        });
     }
 
     /**

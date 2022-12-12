@@ -20,6 +20,7 @@ class TagSeeder extends Seeder
             ['name' => 'youcan', 'color' => '#ffffff'],
             ['name' => 'shopify', 'color' => '#ffffff'],
             ['name' => 'api', 'color' => '#ffffff'],
+            ['name' => 'excel', 'color' => '#ffffff'],
         ];
 
         collect($tages)->each(function ($tag) {

@@ -50,7 +50,7 @@
                                     </td>
 
                                     <td>
-                                        {{ $tag->color }}
+                                       {{ $tag->color }}
                                     </td>
                                     <td>
 

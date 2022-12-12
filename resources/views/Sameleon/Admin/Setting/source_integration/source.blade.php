@@ -5,28 +5,16 @@
                 <div class="row">
                     <div class="col-lg-8">
                         <div class="col-lg-4 mb-4">
-                            <button class="btn btn-info" type="button" class="btn btn-info  btn-sm"
-                                data-bs-toggle="modal" data-bs-target=".addDataSourceModal">
+                            <button class="btn btn-info" type="button" class="btn btn-info  btn-sm" data-bs-toggle="modal"
+                                data-bs-target=".addDataSourceModal">
                                 Ajouter une source de données
                             </button>
                         </div>
                     </div>
                 </div>
-                @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
-                @if (session('error'))
-                    <div class="alert alert-danger">
-                        {{ session('error') }}
-                    </div>
-                @endif
-                @if ($errors->any())
-                    @foreach ($errors->all() as $error)
-                        <div class="alert alert-danger">{{ $error }}</div>
-                    @endforeach
-                @endif
+
+                @include('layouts._parts.__messages')
+
                 <div class="table-responsive">
                     <table class="table table-bordered border-danger table-hover align-middle table-nowrap table-check">
                         <thead class="table-light">
@@ -38,8 +26,7 @@
                                         <label class="form-check-label" for="checkAll"></label>
                                     </div>
                                 </th>
-
-                                <th class="align-middle">Integration</th>
+                                <th class="align-middle">platform</th>
                                 <th class="align-middle">Nom</th>
                                 <th class="align-middle">Domain</th>
                                 <th class="align-middle">Secret</th>
@@ -59,9 +46,9 @@
                                         </div>
                                     </td>
                                     <td>
-
-                                        {{ $source->platform }}<br>
-
+                                        <a href="{{-- $client->url --}}" class="text-body fw-bold">
+                                            {{ $source->platform }}<br>
+                                        </a>
                                     </td>
                                     <td>
                                         <a href="{{-- $client->url --}}" class="text-body fw-bold">
@@ -82,16 +69,16 @@
                                         <div class="form-check form-switch form-switch-lg mb-3" dir="ltr">
                                             <input data-source="{{ $source->uuid }}"
                                                 class="form-check-input activeSource" type="checkbox"
-                                                id="SwitchCheckSizelg"
-                                                {{ $source->active == true ? 'checked' : '' }}>
+                                                id="SwitchCheckSizelg" {{ $source->active == true ? 'checked' : '' }}>
 
                                         </div>
                                     </td>
 
                                     <td>
                                         <div class="d-flex gap-3">
-                                            
-                                            <a href="#" class="text-danger" onclick="
+
+                                            <a href="#" class="text-danger"
+                                                onclick="
                                                 var result = confirm('Are you sure you want to delete this bank ?');
 
                                                 if(result){
@@ -103,21 +90,20 @@
                                         </div>
                                     </td>
                                     <form id="delete-source-{{ $source->uuid }}" method="post"
-                                        action="{{ route('admin:settings.integrations.delete') }}">
+                                        action="{{ route('admin:profile.sources.delete') }}">
                                         @csrf
                                         @method('DELETE')
                                         <input type="hidden" name="sourceId" value="{{ $source->uuid }}">
                                     </form>
 
                                     <form id="activate-source-{{ $source->uuid }}" method="post"
-                                        action="{{ route('admin:settings.integrations.activate') }}">
+                                        action="{{ route('admin:profile.sources.activate') }}">
                                         @csrf
                                         @method('PUT')
                                         <input type="hidden" name="sourceId" value="{{ $source->uuid }}">
                                     </form>
                                 </tr>
                             @endforeach
-
                         </tbody>
                     </table>
                 </div>

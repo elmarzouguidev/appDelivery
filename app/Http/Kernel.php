@@ -46,7 +46,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\HttpMiddleware\ForceHttps::class,
             \App\Http\Middleware\UserActivity::class,
-            
+
         ],
 
         'api' => [
@@ -82,6 +82,8 @@ class Kernel extends HttpKernel
 
         'cache_response' => \App\Http\Middleware\Cache\CacheResponseMiddleware::class,
 
+        'hooks' => \App\Http\Middleware\Hooks\VerifyHooks::class,
+        
         'woocommerce' => \App\Http\Middleware\Hooks\VerifyWoocommerceMiddleware::class,
 
         'prevent-back-history' => \App\Http\Middleware\PreventBackHistory::class,

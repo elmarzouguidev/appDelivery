@@ -426,6 +426,8 @@ Route::group(['prefix' => ''], function () {
 
             Route::get('/', [SourceController::class, 'index'])->name('profile.sources.index');
             Route::post('/', [SourceController::class, 'store'])->name('profile.sources.store');
+            Route::delete('/', [SourceController::class, 'delete'])->name('profile.sources.delete');
+            Route::put('/', [SourceController::class, 'activate'])->name('profile.sources.activate');
         });
     });
 

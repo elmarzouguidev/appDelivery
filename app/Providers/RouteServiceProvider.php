@@ -61,7 +61,7 @@ class RouteServiceProvider extends ServiceProvider
 
         //parent::boot();
 
-     
+
     }
 
     /**
@@ -106,7 +106,7 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->group(base_path('routes/app-routes/sub_delivery_auth_routes.php'));
 
-        Route::middleware(['web','auth:delivery', 'prevent-back-history'])
+        Route::middleware(['web', 'auth:delivery', 'prevent-back-history'])
             ->prefix('delivery/app')
             ->name('delivery:')
             ->namespace($this->namespace)
@@ -126,7 +126,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         if (Schema::hasTable('sources')) {
 
-            Route::middleware('web')
+            Route::middleware(['web', 'hooks'])
                 ->group(base_path('routes/hooks/hook_routes.php'));
         }
     }

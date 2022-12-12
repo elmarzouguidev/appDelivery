@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Sameleon\Source;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class SourceFormRequest extends FormRequest
 {
@@ -26,7 +27,7 @@ class SourceFormRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'unique:sources'],
             'domain' => ['required', 'string', 'unique:sources'],
-            'integration' => ['required', 'uuid'],
+            'integration' => ['required', 'string', Rule::in(['elementor', 'woocommerce'])],
         ];
     }
 }

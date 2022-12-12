@@ -27,15 +27,15 @@
             </button>
 
             <!-- App Search-->
-            {{--<form class="app-search d-none d-lg-block">
+            {{-- <form class="app-search d-none d-lg-block">
                 <div class="position-relative">
                     <input type="text" class="form-control" placeholder="{{ auth()->user()->getRoleNames()->first() ?? 'User'}}">
                     <span>
                         <strong> </strong>
                     </span>
                 </div>
-            </form>--}}
-        
+            </form> --}}
+
         </div>
 
         <div class="d-flex">
@@ -86,7 +86,7 @@
                 </button>
             </div>
 
-            {{--@include('layouts._parts.__notifications')--}}
+            {{-- @include('layouts._parts.__notifications') --}}
 
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
@@ -105,11 +105,11 @@
                         {{ auth()->user()->full_name ?? '' }}
                     </span>
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
-              
+
                     <span class="d-none d-xl-inline-block ms-1" key="t-role">
 
-                       <strong> {{ auth()->user()->getRoleNames()->first() ?? 'User'}}</strong>
-                    
+                        <strong> {{ auth()->user()->getRoleNames()->first() ?? 'User' }}</strong>
+
                     </span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
@@ -129,37 +129,30 @@
 
                     <div class="dropdown-divider"></div>
 
-                    {{-- <a class="dropdown-item d-block" href="{{ route('admin:profile.sources.index') }}">
+                    <a class="dropdown-item d-block" href="{{ route('admin:profile.sources.index') }}">
 
                         <i class="bx bx-stats font-size-16 align-middle me-1"></i>
                         <span key="t-sources">Source de données</span>
                     </a>
 
-                    <div class="dropdown-divider"></div> --}}
+                    <div class="dropdown-divider"></div>
 
-                    {{-- <a class="dropdown-item d-block" href="{{ route('admin:history') }}">
+                    <a class="dropdown-item d-block" href="{{ route('admin:history') }}">
 
                         <i class="bx bx-history font-size-16 align-middle me-1"></i>
                         <span key="t-profile">Historique</span>
                     </a>
-                    <div class="dropdown-divider"></div> --}}
+                    <div class="dropdown-divider"></div>
                     <a class="dropdown-item text-danger" href="#"
                         onclick="document.getElementById('logoutForm').submit();">
                         <i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i>
                         <span key="t-logout">Se déconnecter</span>
                     </a>
 
-                    @if (auth('delivery')->check())
-                        <form id="logoutForm" method="post" action="{{ route('delivery:auth:logout') }}">
-                            @csrf
+                    <form id="logoutForm" method="post" action="{{ route('admin:auth:logout') }}">
+                        @csrf
 
-                        </form>
-                    @else
-                        <form id="logoutForm" method="post" action="{{ route('admin:auth:logout') }}">
-                            @csrf
-
-                        </form>
-                    @endif
+                    </form>
 
                 </div>
             </div>

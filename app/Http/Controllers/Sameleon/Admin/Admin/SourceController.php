@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Sameleon\Admin\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Sameleon\Source\SourceFormRequest;
-use App\Models\Sameleon\Integration;
 use App\Models\Sameleon\Source;
-use App\Repositories\Integration\IntegrationInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Jackiedo\DotenvEditor\Facades\DotenvEditor;
@@ -18,42 +16,37 @@ class SourceController extends Controller
 
     const SLASH = '/';
 
-    const PREFIX = 'sameleonHooks';
+    const PREFIX = 'smhooks';
 
     public function index()
     {
         $sources = Source::whereUserId(auth()->id())
             ->whereUserUuid(auth()->user()->uuid)
             ->get();
-        $integrations = app(IntegrationInterface::class)->getIntegrations();
 
-        return view('Sameleon.Admin.Setting.source_integration.index', compact('sources', 'integrations'));
+        return view('Sameleon.Admin.Setting.source_integration.index', compact('sources'));
     }
 
     public function store(SourceFormRequest $request)
     {
 
-        $integration = Integration::whereUuid($request->integration)->first();
-
         $source = new Source();
 
         $source->name = $request->name;
 
+        $source->platform = $request->integration;
+
         $source->domain = $request->domain;
 
-        $source->integration_id = $integration->id;
-
-        $source->integration_uuid = $integration->uuid;
+        $source->route_name = str_replace(' ', '', $request->domain) .strtolower(Str::random(4));
 
         $source->client()->associate(auth()->user());
 
         $source->user_uuid = auth()->user()->uuid;
 
-        $source->platform = $integration->slug;
+        $source->header = $this->generateHeader($request->integration);
 
-        $source->header = $this->generateHeader($integration->slug);
-
-        $source->route = $this->generateRoutes($request->domain, $integration->slug);
+        $source->route = $this->generateRoutes($request->domain, $request->integration);
 
         $source->full_url = getDomainName() . $source->route;
 
@@ -69,7 +62,10 @@ class SourceController extends Controller
 
         $pftm = $this->generatePlatform($platform);
 
-        return  self::PREFIX . self::SLASH . $pftm . self::SLASH . Str::slug($name) . self::SEPARATOR . Str::uuid() . '/' . auth()->user()->uuid;
+        return  self::PREFIX .
+            self::SLASH . $pftm .
+            self::SLASH . Str::slug($name) .
+            self::SEPARATOR . Str::uuid() . '/' . auth()->user()->uuid . ':' . auth()->user()->id;
     }
 
     public function generateSecret()
@@ -119,5 +115,20 @@ class SourceController extends Controller
                 return 'sameleon-signature';
         }
         //  $this->headerName = $header;
+    }
+
+    public function delete(Request $request)
+    {
+        $request->validate(['sourceId' => 'required|uuid']);
+
+        $source = Source::whereUuid($request->sourceId)->firstOrFail();
+
+        if ($source) {
+
+            $source->delete();
+
+            return redirect()->back()->with('success', "la source  a été supprimer avec success");
+        }
+        return redirect()->back()->with('error', 'Error ...');
     }
 }
