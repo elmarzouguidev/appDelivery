@@ -31,6 +31,7 @@ use App\Http\Controllers\Sameleon\Admin\Region\RegionController;
 use App\Http\Controllers\Sameleon\Admin\Setting\API\APIController;
 use App\Http\Controllers\Sameleon\Admin\Stock\StockController;
 use App\Http\Controllers\Sameleon\Admin\Stock\StockDeliveryController;
+use App\Http\Controllers\Sameleon\Admin\Tag\TagController;
 use App\Http\Controllers\Sameleon\Admin\Testimonial\TestimonialController;
 use App\Http\Controllers\Sameleon\Admin\Treasury\TreausryController;
 use App\Http\Controllers\Sameleon\Apps\AppsController;
@@ -475,5 +476,14 @@ Route::group(['prefix' => ''], function () {
         Route::put('/', [TestimonialController::class, 'activate'])->name('testimonials.activate');
 
         Route::delete('/', [TestimonialController::class, 'delete'])->name('testimonials.delete');
+    });
+
+    Route::group(['prefix' => 'tags'], function () {
+
+        Route::get('/', [TagController::class, 'index'])->name('tags');
+        Route::post('/', [TagController::class, 'store'])->name('tags.store');
+        Route::put('/', [TagController::class, 'activate'])->name('tags.activate');
+
+        Route::delete('/', [TagController::class, 'delete'])->name('tags.delete');
     });
 });

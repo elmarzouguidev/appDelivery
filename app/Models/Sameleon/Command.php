@@ -158,6 +158,11 @@ class Command extends Model
         return $this->morphMany(History::class, 'historyable');
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'tag_command');
+    }
+
     /* public function setClientAddressAttribute($value)
     {
         $this->attributes['client_address'] = nl2br($value);

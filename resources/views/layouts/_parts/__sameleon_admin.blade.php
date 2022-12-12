@@ -115,7 +115,6 @@
         </a>
     </li>
 
-
     @if (isAdmin())
         <li>
             <a href="{{ route('admin:b-livraison.index') }}">
@@ -271,6 +270,14 @@
 
             <i class="bx bxs-bank"></i>
             <span key="t-banks">{{ __('Banques') }}</span>
+        </a>
+
+    </li>
+    <li>
+        <a href="{{ route('admin:tags') }}" class="waves-effect">
+
+            <i class="bx bxs-file"></i>
+            <span key="t-tags">{{ __('Tags') }}</span>
         </a>
 
     </li>

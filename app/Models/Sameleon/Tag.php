@@ -24,4 +24,9 @@ class Tag extends Model
     protected $casts = [
         'active' => 'boolean'
     ];
+
+    public function commands()
+    {
+        return $this->belongsToMany(Command::class, 'tag_command');
+    }
 }
