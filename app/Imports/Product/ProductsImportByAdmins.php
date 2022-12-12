@@ -63,7 +63,7 @@ class ProductsImportByAdmins implements ToModel, SkipsEmptyRows, WithHeadingRow,
 
             throw ValidationException::withMessages([
                 'produit_found' => "Le produit ( {$productName} ) deja existe dans le systeme !",
-                'produit_add' => "Aucun produits a été importé a cause de ce problem supprimer depuis votre fichier  ce produit ( {$productName} ) avant de continuer ! "
+                'produit_add' => "Aucun produits a été importé a cause de ce problem , supprimer de produit  ( {$productName} ) depuis votre fichier  avant de continuer ! "
             ]);
             exit();
         }
