@@ -74,6 +74,7 @@ class ProductsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
         $product =  Product::create($data);
 
         if ($product) {
+   
         }
     }
 

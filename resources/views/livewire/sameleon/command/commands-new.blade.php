@@ -10,8 +10,7 @@
                         <div class="row">
                             <div class="col-lg-12">
 
-                                <div class="d-flex align-items-center">
-
+                                <div class="mb-4">
 
                                     @if (isClient())
 

@@ -4,25 +4,24 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="row">
-                            <div class="mb-4">
-                                <a href="{{ route('admin:products.create') }}" type="button" class="btn btn-info">
-                                    Ajouter un Produit
-                                </a>
+                        <div class="mb-4">
 
-                                @if (isClient() || isAdmin())
-                                    <button class="btn btn-warning" type="button" data-bs-toggle="modal"
-                                        data-bs-target=".importProductModal">
-                                        Importer des produits
-                                    </button>
-                                @endif
-                            </div>
+                            <a href="{{ route('admin:products.create') }}" type="button" class="btn btn-info mr-3 mb-2">
+                                Ajouter un Produit
+                            </a>
+
+                            @if (isClient() || isAdmin())
+                                <button class="btn btn-warning mr-3 mb-2" type="button" data-bs-toggle="modal"
+                                    data-bs-target=".importProductModal">
+                                    Importer des produits
+                                </button>
+                            @endif
                         </div>
                     </div>
                 </div>
 
                 @include('layouts._parts.__messages')
-                
+
                 <div class="table-responsive">
                     <table class="table table-bordered border-danger table-hover align-middle table-nowrap table-check">
                         <thead class="table-light">

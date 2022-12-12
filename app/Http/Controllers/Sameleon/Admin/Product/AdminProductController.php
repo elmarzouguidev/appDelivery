@@ -175,7 +175,7 @@ class AdminProductController extends Controller
 
         $this->authorize('delete', $product);
 
-        if ($product && !$product->has('items')) {
+        if ($product && !$product->items()->exists()) {
 
             $product->ramassage()->delete();
 

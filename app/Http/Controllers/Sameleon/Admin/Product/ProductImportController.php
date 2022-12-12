@@ -35,6 +35,6 @@ class ProductImportController extends Controller
             Excel::import(new ProductsImport,  $file);
         }
 
-        return redirect()->back()->with('success', 'la list a été importé avec success');
+        return redirect()->back()->with('success', "la list a été importé avec success  n'oublie pas d'ajouter leurs images !");
     }
 }
