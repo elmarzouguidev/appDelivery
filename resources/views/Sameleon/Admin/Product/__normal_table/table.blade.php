@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-xl-12">
+    <div class="col-xl-12 col-md-4 col-sm-4 col-lg-12">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Actions Disponible</h4>

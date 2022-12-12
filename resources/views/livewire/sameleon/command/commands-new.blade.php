@@ -13,12 +13,14 @@
                             @if (isClient())
 
                                 @if (auth()->user()->products()->count() <= 0)
-                                    <a href="{{ route('admin:products.create') }}" class="btn btn-info mr-3 mb-2">
+                                    <a href="{{ route('admin:products.create') }}" class="btn btn-info btn-label mr-3 mb-2">
+                                        <i class="bx bxs-add-to-queue label-icon"></i>
                                         Ajouter un produit
                                     </a>
                                 @else
-                                    <button class="btn btn-info mr-3 mb-2" type="button" data-bs-toggle="modal"
+                                    <button class="btn btn-info btn-label mr-3 mb-2" type="button" data-bs-toggle="modal"
                                         data-bs-target=".addCommandModal">
+                                        <i class="bx bx-add-to-queue label-icon"></i>
                                         Ajouter une commande
                                     </button>
                                 @endif
@@ -26,16 +28,18 @@
                             @endif
 
                             @if (isClient() || isAdmin())
-                                <button class="btn btn-warning mr-3 mb-2" type="button" data-bs-toggle="modal"
+                                <button class="btn btn-warning btn-label mr-3 mb-2" type="button" data-bs-toggle="modal"
                                     data-bs-target=".importCommandModal">
+                                    <i class="bx bx bx-download label-icon"></i>
                                     Importer des commands
                                 </button>
                             @endif
 
                             @if (isAdmin())
                                 <button {{ count($selectedCommands) ? '' : 'disabled' }}
-                                    class="btn btn-primary mr-3 mb-2" type="button" data-bs-toggle="modal"
+                                    class="btn btn-primary btn-label mr-3 mb-2" type="button" data-bs-toggle="modal"
                                     data-bs-target=".attachCommandModal">
+                                    <i class="bx bx-user label-icon"></i>
                                     Envoyer au Livreur {{-- : @json($selectedCommands) --}}
                                 </button>
                             @endif
@@ -49,8 +53,9 @@
                                     Générer un Bon de livraison 
                                 </button> --}}
                                 <button {{ count($selectedCommands) ? '' : 'disabled' }}
-                                    class="btn btn-primary mr-3 mb-2" type="button" data-bs-toggle="modal"
+                                    class="btn btn-primary btn-label mr-3 mb-2" type="button" data-bs-toggle="modal"
                                     data-bs-target=".generateBlModal">
+                                    <i class="bx bx-file label-icon"></i>
                                     Générer un Bon de livraison
                                 </button>
                                 {{-- <button {{ count($selectedCommands) ? '' : 'disabled' }}
@@ -62,8 +67,9 @@
                                 </button> --}}
 
                                 <button {{ count($selectedCommands) ? '' : 'disabled' }}
-                                    class="btn btn-primary mr-3 mb-2" type="button" data-bs-toggle="modal"
+                                    class="btn btn-primary btn-label  mr-3 mb-2" type="button" data-bs-toggle="modal"
                                     data-bs-target=".generateBRModal">
+                                    <i class="bx bx-file label-icon"></i>
                                     Générer un Bon de retour {{-- : @json($selectedCommands) --}}
                                 </button>
                             @endif
