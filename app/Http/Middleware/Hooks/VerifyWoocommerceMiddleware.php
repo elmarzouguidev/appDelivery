@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware\Hooks;
 
+use App\Models\Sameleon\Source;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -17,9 +18,14 @@ class VerifyWoocommerceMiddleware
      */
     public function handle($request, Closure $next)
     {
+
+        $user =  substr($request->route()->uri(), strpos($request->route()->uri(), "@") + 1);
+
+        $sourceData = Source::whereUserUuid($user)->where('platform', 'woocommerce')->first();
+
         $wp_signature = $request->header('x-wc-webhook-signature') || $request->header('X-Wc-Webhook-Signature');
 
-        $get_hmac = base64_encode(hash_hmac('sha256', $wp_signature, env('WOOCOMMERCE_WEBHOOK_ITEM_UPDATED'), true));
+        $get_hmac = base64_encode(hash_hmac('sha256', $wp_signature, $sourceData->secret ?? null, true));
 
         Log::debug($request->header());
         Log::debug($wp_signature);

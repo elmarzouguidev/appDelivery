@@ -19,12 +19,21 @@ class VerifyHooks
     {
 
         $method =  substr($request->route()->action['uses'], strpos($request->route()->action['uses'], "@") + 1);
-        
+
         if (!in_array($method, config('Hooks.allowed'))) {
 
             return response()->json(['message' => 'sorry this url in not match']);
         }
 
+        if ($method === 'woocommerce') {
+            return app(VerifyWoocommerceMiddleware::class)->handle($request, function ($request) use ($next) {
+
+                if ($request) {
+                   // dd($request);
+                }
+                return $next($request);
+            });
+        }
         return $next($request);
     }
 }

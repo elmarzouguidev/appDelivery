@@ -64,7 +64,7 @@ class SourceObserver
 
     private function clearAllCache()
     {
-        if (Cache::has('all_sources_cache') || Cache::has('users_sources_cache') ) {
+        if (Cache::has('all_sources_cache') || Cache::has('users_sources_cache')) {
             Cache::pull('all_sources_cache');
             Cache::pull('users_sources_cache');
         }

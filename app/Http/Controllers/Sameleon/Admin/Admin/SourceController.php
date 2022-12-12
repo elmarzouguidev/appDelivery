@@ -38,7 +38,7 @@ class SourceController extends Controller
 
         $source->domain = $request->domain;
 
-        $source->route_name = str_replace(' ', '', $request->domain) .strtolower(Str::random(4));
+        $source->route_name = str_replace(' ', '', $request->domain) . strtolower(Str::random(4));
 
         $source->client()->associate(auth()->user());
 
@@ -65,7 +65,7 @@ class SourceController extends Controller
         return  self::PREFIX .
             self::SLASH . $pftm .
             self::SLASH . Str::slug($name) .
-            self::SEPARATOR . Str::uuid() . '/' . auth()->user()->uuid . ':' . auth()->user()->id;
+            self::SEPARATOR . Str::uuid()->toString() . '/@' . auth()->user()->uuid;
     }
 
     public function generateSecret()
