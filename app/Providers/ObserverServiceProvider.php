@@ -7,7 +7,6 @@ use App\Models\Sameleon\Bill;
 use App\Models\Sameleon\City;
 use App\Models\Sameleon\Command;
 use App\Models\Sameleon\Group;
-use App\Models\Sameleon\Integration;
 use App\Models\Sameleon\Invoice;
 use App\Models\Sameleon\Product;
 use App\Models\Sameleon\Region;
@@ -58,7 +57,6 @@ class ObserverServiceProvider extends ServiceProvider
         UserBank::observe(UserBankObserver::class);
 
         Group::observe(GroupObserver::class);
-        Integration::observe(IntegrationObserver::class);
         Source::observe(SourceObserver::class);
     }
 }

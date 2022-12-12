@@ -7,32 +7,21 @@ use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Source extends Model
+class Tag extends Model
 {
     use HasFactory;
-    use GetModelByUuid;
     use UuidGenerator;
+    use GetModelByUuid;
+
 
     protected $fillable = [
         'uuid',
-        'user_id',
-        'user_uuid',
         'name',
-        'header',
-        'secret',
-        'domain',
-        'route',
-        'full_url',
-        'options',
+        'color',
         'active',
     ];
 
     protected $casts = [
         'active' => 'boolean'
     ];
-
-    public function client()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
 }

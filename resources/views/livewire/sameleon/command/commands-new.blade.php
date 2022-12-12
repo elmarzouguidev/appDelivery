@@ -13,13 +13,14 @@
                             @if (isClient())
 
                                 @if (auth()->user()->products()->count() <= 0)
-                                    <a href="{{ route('admin:products.create') }}" class="btn btn-info btn-label mr-3 mb-2">
+                                    <a href="{{ route('admin:products.create') }}"
+                                        class="btn btn-info btn-label mr-3 mb-2">
                                         <i class="bx bxs-add-to-queue label-icon"></i>
                                         Ajouter un produit
                                     </a>
                                 @else
-                                    <button class="btn btn-info btn-label mr-3 mb-2" type="button" data-bs-toggle="modal"
-                                        data-bs-target=".addCommandModal">
+                                    <button class="btn btn-info btn-label mr-3 mb-2" type="button"
+                                        data-bs-toggle="modal" data-bs-target=".addCommandModal">
                                         <i class="bx bx-add-to-queue label-icon"></i>
                                         Ajouter une commande
                                     </button>
@@ -28,8 +29,8 @@
                             @endif
 
                             @if (isClient() || isAdmin())
-                                <button class="btn btn-warning btn-label mr-3 mb-2" type="button" data-bs-toggle="modal"
-                                    data-bs-target=".importCommandModal">
+                                <button class="btn btn-warning btn-label mr-3 mb-2" type="button"
+                                    data-bs-toggle="modal" data-bs-target=".importCommandModal">
                                     <i class="bx bx bx-download label-icon"></i>
                                     Importer des commands
                                 </button>
@@ -198,8 +199,7 @@
                                                         $command->invoice && optional($command->invoice)->cloture == 1 ? ($disabled = 'disabled') : '';
                                                     @endphp
                                                     <button id="editStatus" {{ $disabled }}
-                                                        wire:click="editStatus('{{ $command->uuid }}')"
-                                                        type="button"
+                                                        wire:click="editStatus('{{ $command->uuid }}')" type="button"
                                                         class="btn btn-sm {{ __('status.classes.' . $command->status) }} waves-effect waves-light">
                                                         {{ __('status.statuses.' . $command->status) }}
                                                         <br>

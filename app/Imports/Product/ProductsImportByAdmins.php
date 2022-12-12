@@ -83,7 +83,6 @@ class ProductsImportByAdmins implements ToModel, SkipsEmptyRows, WithHeadingRow,
         $product =  Product::create($data);
 
         if ($product) {
-         
         }
     }
 

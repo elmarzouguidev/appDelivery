@@ -18,13 +18,8 @@ class CreateSourcesTable extends Migration
 
             $table->uuid('uuid')->unique();
 
-            $table->foreignId('integration_id')->constrained();
-            $table->uuid('integration_uuid');
-
             $table->foreignId('user_id')->constrained();
             $table->uuid('user_uuid');
-
-            $table->string('platform')->nullable();
             $table->string('name')->unique();
             $table->string('header')->nullable();
             $table->string('secret')->unique()->nullable();

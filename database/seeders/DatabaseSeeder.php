@@ -37,8 +37,8 @@ class DatabaseSeeder extends Seeder
     $this->call(SubDeliverySeeder::class);
 
     $this->call(BankSeeder::class);
-
-    $this->call(IntegrationSeeder::class);
+    
+    $this->call(TagSeeder::class);
 
     $users = User::role('Client')->get();
 
