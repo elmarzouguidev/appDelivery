@@ -10,6 +10,8 @@
 
         @include('Sameleon.Admin.Product.__normal_table.table')
 
+        @include('Sameleon.Admin.Product.__normal_table.__import_product_modal')
+
     </div>
 @endsection
 

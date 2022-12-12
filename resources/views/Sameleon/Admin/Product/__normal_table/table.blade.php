@@ -3,20 +3,26 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-lg-8">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="mb-4">
+                                <a href="{{ route('admin:products.create') }}" type="button" class="btn btn-info">
+                                    Ajouter un Produit
+                                </a>
 
-                        <div class="col-lg-4 mb-4">
-                            <a href="{{ route('admin:products.create') }}" type="button" class="btn btn-info">
-                                Ajouter un Produit
-                            </a>
+                                @if (isClient() || isAdmin())
+                                    <button class="btn btn-warning" type="button" data-bs-toggle="modal"
+                                        data-bs-target=".importProductModal">
+                                        Importer des produits
+                                    </button>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>
-                @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
+
+                @include('layouts._parts.__messages')
+                
                 <div class="table-responsive">
                     <table class="table table-bordered border-danger table-hover align-middle table-nowrap table-check">
                         <thead class="table-light">
@@ -63,7 +69,8 @@
                                             @endphp
 
                                             <a class="image-popup-no-margins" href="{{ $url }}">
-                                                <img class="img-fluid" alt="" src="{{ $url }}" width="50">
+                                                <img class="img-fluid" alt="" src="{{ $url }}"
+                                                    width="50">
                                             </a>
 
                                         </div>
@@ -94,7 +101,8 @@
                                             <a href="{{ $product->edit_url }}" class="text-success">
                                                 <i class="mdi mdi-pencil font-size-18"></i>
                                             </a>
-                                            <a href="#" class="text-danger" onclick="
+                                            <a href="#" class="text-danger"
+                                                onclick="
                                                 var result = confirm('Are you sure you want to delete this product ?');
 
                                                 if(result){

@@ -31,7 +31,9 @@ class Product extends Model implements HasMedia
     use ModelHelpers;
 
     protected $fillable = [
+        'name',
         'slug',
+        'price',
         'user_uuid',
         'user_id',
         'total_commands',
@@ -39,12 +41,14 @@ class Product extends Model implements HasMedia
         'can_ramassage',
         'notes',
         'qte_rest',
-        'qte_global'
+        'qte_global',
+        'is_imported'
     ];
 
     protected $casts = [
         'is_out' => 'boolean',
         'can_ramassage' => 'boolean',
+        'is_imported' => 'boolean',
     ];
 
     //protected $with = ['stockMutations'];

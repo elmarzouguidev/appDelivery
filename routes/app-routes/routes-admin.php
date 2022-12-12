@@ -24,6 +24,7 @@ use App\Http\Controllers\Sameleon\Admin\Integration\IntegrationController;
 use App\Http\Controllers\Sameleon\Admin\Invoice\AdminInvoiceController;
 use App\Http\Controllers\Sameleon\Admin\Payment\PaymentController;
 use App\Http\Controllers\Sameleon\Admin\Product\AdminProductController;
+use App\Http\Controllers\Sameleon\Admin\Product\ProductImportController;
 use App\Http\Controllers\Sameleon\Admin\Ramassage\RamassageController;
 use App\Http\Controllers\Sameleon\Admin\Reclamation\ReclamationController;
 use App\Http\Controllers\Sameleon\Admin\Region\RegionController;
@@ -97,6 +98,8 @@ Route::group(['prefix' => ''], function () {
     Route::group(['prefix' => 'products'], function () {
 
         Route::get('/', [AdminProductController::class, 'index'])->name('products.index');
+
+        Route::put('/', [ProductImportController::class, 'import'])->name('products.import');
 
         Route::get('/create', [AdminProductController::class, 'create'])->name('products.create');
         Route::post('/create', [AdminProductController::class, 'store'])->name('products.store');

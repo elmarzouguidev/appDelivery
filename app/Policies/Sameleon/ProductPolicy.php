@@ -104,4 +104,9 @@ class ProductPolicy
             &&
             $user->uuid == $product->user_uuid || $user->hasRole('SuperAdmin');
     }
+
+    public function import(User $user)
+    {
+        return $user->hasAnyRole(['Client', 'SuperAdmin', 'Admin']) ? true : false;
+    }
 }
