@@ -26,6 +26,7 @@ class VerifyHooks
         }
 
         if ($method === 'woocommerce') {
+            
             return app(VerifyWoocommerceMiddleware::class)->handle($request, function ($request) use ($next) {
 
                 if ($request) {
