@@ -6,19 +6,21 @@
                 <p class="card-title-desc"></p>
                 <div class="button-items">
                     <a href="{{ route('admin:products.create') }}" type="button"
-                        class="btn btn-primary waves-effect waves-light">
+                        class="btn btn-primary waves-effect btn-label waves-light">
+                        <i class="bx bxs-add-to-queue label-icon"></i>
                         Ajouter un Produit
                     </a>
 
                     @if (isClient() || isAdmin())
-                        <button class="btn btn-warning waves-effect waves-light" type="button" data-bs-toggle="modal"
+                        <button class="btn btn-warning waves-effect btn-label waves-light" type="button" data-bs-toggle="modal"
                             data-bs-target=".importProductModal">
+                            <i class="bx bx bx-download label-icon"></i>
                             Importer des produits
                         </button>
 
                         <button type="button" class="btn btn-info waves-effect btn-label waves-light"
                             onclick="document.getElementById('exportProducts').submit();">
-                            <i class="bx bx-file-blank label-icon"></i>
+                            <i class="bx bx bx-upload label-icon"></i>
                             Exporter des produits
                         </button>
                         <form id="exportProducts" method="post" action="{{ route('admin:products.export') }}">
