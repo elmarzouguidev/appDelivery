@@ -27,6 +27,7 @@ class VerifyWoocommerceMiddleware
 
         $get_hmac = base64_encode(hash_hmac('sha256', $wp_signature, $sourceData->secret ?? null, true));
 
+        dd( $sourceData,$wp_signature ,$get_hmac);
         Log::debug($request->header());
         Log::debug($wp_signature);
         Log::debug($get_hmac);
