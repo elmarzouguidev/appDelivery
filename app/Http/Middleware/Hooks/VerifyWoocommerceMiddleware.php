@@ -40,7 +40,7 @@ class VerifyWoocommerceMiddleware
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handler($request, Closure $next)
+    public function handle($request, Closure $next)
     {
         $user =  substr($request->route()->uri(), strpos($request->route()->uri(), "@") + 1);
 
