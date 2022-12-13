@@ -241,7 +241,7 @@
                                                 @if ($command->comment != null)
                                                     <p class=" mb-0">
                                                       
-                                                        {{ str_replace('<br/>', '', $command->designation) }}
+                                                        {{ str_replace('<br/>', '', $command->comment) }}
                                                     </p>
                                                 @endif
                                             </td>
