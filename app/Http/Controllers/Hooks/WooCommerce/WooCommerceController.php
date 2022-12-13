@@ -17,8 +17,10 @@ class WooCommerceController extends Controller
 
     public function __construct($data)
     {
-        logger('Hi WoooCo');
-        logger($data);
+        logger('Hi Header');
+        logger($data->header());
+        logger('Hi Data Woo');
+        logger($data->all());
         $this->data = $data;
 
         $this->setData();
@@ -39,6 +41,7 @@ class WooCommerceController extends Controller
 
         $items =  $validator->validated();
         Log::info($items);
+        Log::info("yes items is validated");
         /*Lead::create([
             'nom' => $items['first_name'],
             'prenom' => $items['last_name'],

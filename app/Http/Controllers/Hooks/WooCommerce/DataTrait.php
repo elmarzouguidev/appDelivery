@@ -11,7 +11,7 @@ trait DataTrait
     {
         /**Just for Me  */
         $data = json_decode($this->data, true);
-        $fields = $data['payload']['billing'];
+        $fields = $data['billing'];
         return $fields;
     }
 

@@ -26,8 +26,8 @@ class HookRequest extends FormRequest
         return [
             'first_name' => 'required|string',
             'last_name' => 'required|string',
-            'email' => 'required|email',
-            'phone' => 'required|numeric',
+            'email' => 'nullable|email',
+            'phone' => 'required|string',
             'company' => 'nullable|string',
             'address_1' => 'required|string',
             'address_2' => 'nullable|string',
