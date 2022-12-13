@@ -9,6 +9,7 @@ use App\Models\Sameleon\Source;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Jackiedo\DotenvEditor\Facades\DotenvEditor;
+use Illuminate\Validation\ValidationException;
 
 class SourceController extends Controller
 {
@@ -21,11 +22,6 @@ class SourceController extends Controller
 
     public function index()
     {
-      
-        $hook = (new CheckIsWordpress)->check('https://test.sameleon-express.ma')->isWoocommerce();
-
-        dd($hook);
-        
         $sources = Source::whereUserId(auth()->id())
             ->whereUserUuid(auth()->user()->uuid)
             ->get();
@@ -35,6 +31,23 @@ class SourceController extends Controller
 
     public function store(SourceFormRequest $request)
     {
+
+        if ($request->integration === "woocommerce" || $request->integration === "elementor") {
+
+            $valid = (new CheckIsWordpress)->check($request->domain)->isWoocommerce()
+                ||
+                (new CheckIsWordpress)->check($request->domain)->isElementor();
+
+            if (!$valid) {
+                throw ValidationException::withMessages([
+
+                    'integration_error' => "ce wsite ne contient pas Wordpress "
+
+                ]);
+                exit();
+                return;
+            }
+        }
 
         $source = new Source();
 
