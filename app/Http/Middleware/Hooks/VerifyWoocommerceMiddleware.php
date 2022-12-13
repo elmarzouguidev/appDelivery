@@ -56,7 +56,9 @@ class VerifyWoocommerceMiddleware
         Log::debug($calculated_hmac);
 
         if ($signature != $calculated_hmac) {
-            Log::debug($signature,$calculated_hmac,'false');
+            Log::debug($signature);
+            Log::debug('false');
+            Log::debug($calculated_hmac);
             return false;
         }
 
