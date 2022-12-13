@@ -175,7 +175,7 @@ class Command extends Model
 
     public function setCommentAttribute($value)
     {
-        $this->attributes['comment'] = wordwrap($value, 20, "<br>\n");
+        $this->attributes['comment'] = nl2br($value);
     }
 
     /*public function getCommentAttribute()
