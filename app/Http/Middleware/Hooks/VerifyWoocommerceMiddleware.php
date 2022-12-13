@@ -59,7 +59,8 @@ class VerifyWoocommerceMiddleware
             Log::debug($signature);
             Log::debug('false');
             Log::debug($calculated_hmac);
-            return false;
+
+            return $next($request);
         }
 
         return $next($request);

@@ -84,7 +84,7 @@ class Kernel extends HttpKernel
 
         'hooks' => \App\Http\Middleware\Hooks\VerifyHooks::class,
         
-        'woocommerce' => \App\Http\Middleware\Hooks\VerifyWoocommerceMiddleware::class,
+        //'woocommerce' => \App\Http\Middleware\Hooks\VerifyWoocommerceMiddleware::class,
 
         'prevent-back-history' => \App\Http\Middleware\PreventBackHistory::class,
 
