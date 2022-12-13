@@ -126,7 +126,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         if (Schema::hasTable('sources')) {
 
-            Route::middleware(['web', 'woocommerce'])
+            Route::middleware(['web', 'hooks'])
                 ->group(base_path('routes/hooks/hook_routes.php'));
         }
     }
