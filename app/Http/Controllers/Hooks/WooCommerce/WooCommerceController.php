@@ -15,13 +15,13 @@ class WooCommerceController extends Controller
     private $data;
 
 
-    public function __construct($data)
+    public function __construct($payload)
     {
         logger('Hi Header');
-        logger($data->header());
+        logger($payload->header());
         logger('Hi Data Woo');
-        logger($data['billing']);
-        $this->data = $data;
+        logger($payload['billing']);
+        $this->data = $payload;
 
         $this->setData();
     }
