@@ -42,6 +42,9 @@ class VerifyWoocommerceMiddleware
      */
     public function handle($request, Closure $next)
     {
+
+        Log::debug($request->header());
+
         $user =  substr($request->route()->uri(), strpos($request->route()->uri(), "@") + 1);
 
         $sourceData = Source::whereUserUuid($user)->where('platform', 'woocommerce')->first();
@@ -51,9 +54,7 @@ class VerifyWoocommerceMiddleware
         $payload = $request->getContent();
         $calculated_hmac = base64_encode(hash_hmac('sha256', $payload, $sourceData->secret, true));
 
-        Log::debug($request->header());
-        Log::debug($signature);
-        Log::debug($calculated_hmac);
+  
 
         if ($signature != $calculated_hmac) {
             Log::debug($signature);
