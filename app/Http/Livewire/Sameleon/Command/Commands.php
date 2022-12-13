@@ -140,7 +140,7 @@ class Commands extends Component
                 ->withSum('items', 'prix_total')
                 ->withCount('invoice')
                 ->with(['invoice:uuid,id,full_number,cloture', 'city:id,name', 'region:id,name'])
-
+                ->with('tags:id,name')
                 ->orderByRaw("FIELD(status, $commandStatus)")
                 ->orderByRaw("created_at DESC")
                 ->paginate(60);
@@ -154,6 +154,7 @@ class Commands extends Component
                 ->withCount('invoice')
                 ->with(['invoice:uuid,id,full_number,cloture', 'city:id,name', 'region:id,name', 'delivery:id,nom,prenom', 'client:id,nom,prenom'])
                 //->orderByRaw("created_at DESC")
+                ->with('tags:id,name')
                 ->orderBy('is_closed', 'asc')
                 ->orderByRaw("FIELD(status, $commandStatus)")
                 ->orderByRaw("created_at DESC")

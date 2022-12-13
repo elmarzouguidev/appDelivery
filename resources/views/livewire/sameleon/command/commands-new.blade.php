@@ -173,6 +173,12 @@
                                                     <b>{{ $command->region?->name ?? '' }}</b>
                                                 </p>
                                                 <p class="text-strong mb-0">{!! $command->client_address !!}</p>
+                                                <hr>
+                                                @foreach ($command->tags as $tag)
+                                                    <span class="badge rounded-pill bg-primary"> {{ $tag->name }}
+                                                    </span>
+                                                    {{ $loop->last ? '' : ' ,' }}
+                                                @endforeach
                                             </td>
                                             <td>
                                                 @include('livewire.sameleon.command.__items_normal')
