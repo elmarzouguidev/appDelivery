@@ -20,7 +20,7 @@ class WooCommerceController extends Controller
         logger('Hi Header');
         logger($data->header());
         logger('Hi Data Woo');
-        logger($data);
+        logger($data->billing);
         $this->data = $data;
 
         $this->setData();
