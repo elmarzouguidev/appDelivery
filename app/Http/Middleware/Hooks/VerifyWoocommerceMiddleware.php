@@ -43,7 +43,10 @@ class VerifyWoocommerceMiddleware
     public function handle($request, Closure $next)
     {
 
-        Log::debug($request->header());
+        
+        $headers = collect($request->header())->transform(function ($item) {
+            Log::debug($item[0]);
+        });
 
         $user =  substr($request->route()->uri(), strpos($request->route()->uri(), "@") + 1);
 
