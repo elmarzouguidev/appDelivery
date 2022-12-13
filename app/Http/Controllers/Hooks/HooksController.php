@@ -17,7 +17,7 @@ class HooksController extends Controller
     public function woocommerce(Request $request)
     {
         logger('woocommerce had ben invoked hahah');
-        app(WooCommerceController::class, ['payload' => $request]);
+        app(WooCommerceController::class, ['request' => $request]);
     }
 
     public function elementor()

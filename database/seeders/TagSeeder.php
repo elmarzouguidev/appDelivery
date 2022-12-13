@@ -15,7 +15,7 @@ class TagSeeder extends Seeder
     public function run()
     {
         $tages = [
-            ['name' => 'woocomerce', 'color' => '#ffffff'],
+            ['name' => 'woocommerce', 'color' => '#ffffff'],
             ['name' => 'elementor', 'color' => '#ffffff'],
             ['name' => 'youcan', 'color' => '#ffffff'],
             ['name' => 'shopify', 'color' => '#ffffff'],

@@ -54,15 +54,15 @@ class VerifyWoocommerceMiddleware
 
         $userAgent = $request->header('user-agent');
 
-        $user =  substr($request->route()->uri(), strpos($request->route()->uri(), "@") + 1);
+        //$user =  substr($request->route()->uri(), strpos($request->route()->uri(), "@") + 1);
 
-        $sourceData = Source::whereUserUuid($user)->where('platform', 'woocommerce')->first();
+        //$sourceData = Source::whereUserUuid($user)->where('platform', 'woocommerce')->first();
 
-        $signature = $request->header('x-wc-webhook-signature') || $request->header('X-Wc-Webhook-Signature');
+       // $signature = $request->header('x-wc-webhook-signature') || $request->header('X-Wc-Webhook-Signature');
 
         $payload = $request->getContent();
 
-        $calculated_hmac = base64_encode(hash_hmac('sha256', $payload, $sourceData->secret, true));
+       // $calculated_hmac = base64_encode(hash_hmac('sha256', $payload, $sourceData->secret, true));
 
         if ($userAgent !== "WooCommerce/7.1.1 Hookshot (WordPress/6.1.1)") {
 

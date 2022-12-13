@@ -63,7 +63,7 @@ class CommandObserver
 
     private function clearAllCachedArchive()
     {
-        if (!app()->runningInConsole() && !request()->is('api/*','api/')) {
+        if (!app()->runningInConsole() && !request()->is('api/*', 'api/') && !request()->is('hooks/*', 'hooks/')) {
 
             if (auth()->user()->hasRole('Client')) {
 
