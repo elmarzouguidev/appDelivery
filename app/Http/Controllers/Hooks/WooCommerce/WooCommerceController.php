@@ -38,8 +38,6 @@ class WooCommerceController extends Controller
     private function getClient($user)
     {
         $this->client = User::whereUuid($user)->first();
-        logger('Client : ');
-        logger($this->client);
     }
 
     public function setData()
@@ -56,9 +54,7 @@ class WooCommerceController extends Controller
         }
 
         $items =  $validator->validated();
-
-        Log::info("yes items is validated");
-
+        
         $this->addCommand($items);
     }
 

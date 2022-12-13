@@ -90,7 +90,7 @@ class AdminCommandController extends Controller
         });
 
         $command->frais = $command->city?->frais + $command->region?->frais ?? 0;
-        
+
         $command->save();
 
         if ($command) {
@@ -236,6 +236,8 @@ class AdminCommandController extends Controller
 
         if ($command) {
             // dd('Oui command');
+            $command->tags()->detach();
+
             $command->items()->delete();
 
             $command->histories()->delete();
