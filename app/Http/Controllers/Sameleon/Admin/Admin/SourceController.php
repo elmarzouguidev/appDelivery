@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Sameleon\Admin\Admin;
 
+use App\Hooks\Validation\CheckIsWordpress;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Sameleon\Source\SourceFormRequest;
 use App\Models\Sameleon\Source;
@@ -20,6 +21,11 @@ class SourceController extends Controller
 
     public function index()
     {
+      
+        $hook = (new CheckIsWordpress)->check('https://test.sameleon-express.ma')->isWoocommerce();
+
+        dd($hook);
+        
         $sources = Source::whereUserId(auth()->id())
             ->whereUserUuid(auth()->user()->uuid)
             ->get();
