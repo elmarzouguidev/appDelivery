@@ -43,7 +43,12 @@ class VerifyWoocommerceMiddleware
     public function handle($request, Closure $next)
     {
 
-        
+        /**
+         *   'user-agent' => 
+            array (
+                0 => 'WooCommerce/7.1.1 Hookshot (WordPress/6.1.1)',
+            ),
+         */
         $headers = collect($request->header())->transform(function ($item) {
             Log::debug($item[0]);
         });
@@ -57,7 +62,7 @@ class VerifyWoocommerceMiddleware
         $payload = $request->getContent();
         $calculated_hmac = base64_encode(hash_hmac('sha256', $payload, $sourceData->secret, true));
 
-  
+
 
         if ($signature != $calculated_hmac) {
             Log::debug($signature);

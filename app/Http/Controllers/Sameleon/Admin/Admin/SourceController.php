@@ -16,7 +16,7 @@ class SourceController extends Controller
 
     const SLASH = '/';
 
-    const PREFIX = 'smhooks';
+    const PREFIX = 'hooks';
 
     public function index()
     {
@@ -46,7 +46,7 @@ class SourceController extends Controller
 
         $source->header = $this->generateHeader($request->integration);
 
-        $source->route = $this->generateRoutes($request->domain, $request->integration);
+        $source->route = $this->generateRoutes($request->integration);
 
         $source->full_url = getDomainName() . $source->route;
 
@@ -57,15 +57,14 @@ class SourceController extends Controller
         return redirect()->back()->with('success', "La source a été ajouter");
     }
 
-    public function generateRoutes($name, $platform)
+    public function generateRoutes($platform)
     {
 
         $pftm = $this->generatePlatform($platform);
 
         return  self::PREFIX .
             self::SLASH . $pftm .
-            self::SLASH . Str::slug($name) .
-            self::SEPARATOR . Str::uuid()->toString() . '/@' . auth()->user()->uuid;
+            self::SEPARATOR . strtolower(Str::random(4)) . '/@' . auth()->user()->uuid;
     }
 
     public function generateSecret()
@@ -79,16 +78,16 @@ class SourceController extends Controller
         switch ($platform) {
 
             case 'woocommerce':
-                return 'x-wc';
+                return 'wc';
                 break;
             case 'shopify':
-                return 'x-shopify';
+                return 'shopify';
                 break;
             case 'elementor':
-                return 'x-elementor';
+                return 'elementor';
                 break;
             default:
-                return 'x-sameleon';
+                return 'sameleon';
         }
     }
 
