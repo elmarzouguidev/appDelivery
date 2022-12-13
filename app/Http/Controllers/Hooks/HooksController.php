@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 class HooksController extends Controller
 {
 
-
     public function index()
     {
         return "hello from sameleon Hooks System";

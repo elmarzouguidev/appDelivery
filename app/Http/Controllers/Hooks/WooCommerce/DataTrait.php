@@ -13,8 +13,8 @@ trait DataTrait
         $data = json_decode($this->data, true);
         logger('From Data Trait');
         logger($data);
-        $fields = $data;
-        return $fields;
+        //$fields = $data;
+       // return $fields;
     }
 
     protected function getRequest()
