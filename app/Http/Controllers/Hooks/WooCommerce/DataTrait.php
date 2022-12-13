@@ -13,7 +13,7 @@ trait DataTrait
         $data = json_decode($this->data, true);
         logger('From Data Trait');
         logger($data);
-        $fields = $data->billing;
+        $fields = $data;
         return $fields;
     }
 
