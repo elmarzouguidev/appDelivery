@@ -50,26 +50,16 @@ class VerifyWoocommerceMiddleware
             ),
          */
         $headers = collect($request->header())->transform(function ($item) {
-            Log::debug($item[0]);
+            Log::debug($item);
         });
 
-        $user =  substr($request->route()->uri(), strpos($request->route()->uri(), "@") + 1);
+        $signature = $request->header('user-agent') || $request->header('User-Agent');
 
-        $sourceData = Source::whereUserUuid($user)->where('platform', 'woocommerce')->first();
-
-        $signature = $request->header('x-wc-webhook-signature') || $request->header('X-Wc-Webhook-Signature');
-
-        $payload = $request->getContent();
-        $calculated_hmac = base64_encode(hash_hmac('sha256', $payload, $sourceData->secret, true));
-
-
-
-        if ($signature != $calculated_hmac) {
+        if ($signature !== 'WooCommerce/7.1.1 Hookshot (WordPress/6.1.1)') {
             Log::debug($signature);
             Log::debug('false');
-            Log::debug($calculated_hmac);
-
-            return $next($request);
+        
+            return abort(403);
         }
 
         return $next($request);
