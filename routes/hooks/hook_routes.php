@@ -11,7 +11,7 @@ if (isset($sourceRoutes) && count($sourceRoutes) > 0) {
 
     foreach ($sourceRoutes as $sourceRoute) {
         
-        Route::get($sourceRoute->route, [HooksController::class, $sourceRoute->platform])->name($sourceRoute->route_name);
+        Route::post($sourceRoute->route, [HooksController::class, $sourceRoute->platform])->name($sourceRoute->route_name);
     }
 }
 
