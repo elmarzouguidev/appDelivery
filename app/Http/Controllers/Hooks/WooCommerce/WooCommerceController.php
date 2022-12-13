@@ -75,7 +75,8 @@ class WooCommerceController extends Controller
             //'region_uuid' => $region ? $region->uuid : null,
             'user_id' => $this->client->id,
             'user_uuid' => $this->client->uuid,
-            'frais' => $city ? $city->frais : 00
+            'frais' => $city ? $city->frais : 00,
+            'comment' => "Command added from Woocommerce for test : https://test.sameleon-express.ma/"
         ]);
         collect($items['line_items'])->each(function ($item) use ($command) {
 
@@ -91,7 +92,7 @@ class WooCommerceController extends Controller
                 'quantity' => $item['quantity'],
                 'prix_uni' => round($item['total'] / $item['quantity']),
                 'prix_total' => $item['total'],
-                'comment' => "Command added from Woocommerce for test : https://test.sameleon-express.ma/"
+          
             ]);
         });
 
