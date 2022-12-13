@@ -76,7 +76,7 @@ class WooCommerceController extends Controller
             'user_id' => $this->client->id,
             'user_uuid' => $this->client->uuid,
             'frais' => $city ? $city->frais : 00,
-            'comment' => "Cette commande a été ajouter pour TESTER l'ajoute via WooCommerce : https://test.sameleon-express.ma/"
+            'comment' => "WooCommerce Test"
         ]);
         collect($items['line_items'])->each(function ($item) use ($command) {
 
