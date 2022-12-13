@@ -11,6 +11,8 @@ trait DataTrait
     {
         /**Just for Me  */
         $data = json_decode($this->data, true);
+        logger('From Data Trait');
+        logger($data);
         $fields = $data['billing'];
         return $fields;
     }
