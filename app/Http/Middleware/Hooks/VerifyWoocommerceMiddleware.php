@@ -49,9 +49,9 @@ class VerifyWoocommerceMiddleware
             0 => 'WooCommerce/7.1.1 Hookshot (WordPress/6.1.1)',
         ),
          */
-        $headers = collect($request->header());
+
+        Log::debug($request->header('user-agent'));
         
-        Log::debug($headers);
         $user =  substr($request->route()->uri(), strpos($request->route()->uri(), "@") + 1);
 
         $sourceData = Source::whereUserUuid($user)->where('platform', 'woocommerce')->first();
