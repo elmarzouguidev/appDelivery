@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Hooks;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Hooks\WooCommerce\WooCommerceController;
 use Illuminate\Http\Request;
 
 class HooksController extends Controller
@@ -14,9 +15,10 @@ class HooksController extends Controller
         return "hello from sameleon Hooks System";
     }
 
-    public function woocommerce()
+    public function woocommerce(Request $request)
     {
         logger('woocommerce had ben invoked hahah');
+        app(WooCommerceController::class, ['data' => $request]);
     }
 
     public function elementor()

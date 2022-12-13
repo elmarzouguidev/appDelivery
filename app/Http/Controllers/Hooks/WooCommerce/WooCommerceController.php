@@ -17,6 +17,8 @@ class WooCommerceController extends Controller
 
     public function __construct($data)
     {
+        logger('Hi WoooCo');
+        logger($data);
         $this->data = $data;
 
         $this->setData();
