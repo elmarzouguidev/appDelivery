@@ -68,8 +68,8 @@ class Handler extends ExceptionHandler
                    ], 404);
          }*/
 
-         if ($exception instanceof MethodNotAllowedHttpException && $request->routeIs('admin:commands.import')) {
-    
+        if ($exception instanceof MethodNotAllowedHttpException && $request->routeIs('admin:commands.import')) {
+
             /*return response()->json([
                 'msg' => ['error' => 'sorry this URL is not Allowed from Browser Directly']
             ], 405);*/
@@ -101,7 +101,7 @@ class Handler extends ExceptionHandler
             ], 405);
         }
 
-        if ($exception instanceof MethodNotAllowedHttpException && $request->is('sameleonHooks/*')) {
+        if ($exception instanceof MethodNotAllowedHttpException && $request->is('hooks/*', 'hooks/', 'hooks')) {
             return response()->json([
                 'msg' => ['error' => "sorry this URL is not Allowed from Browser Directly it's only available from the integraion system"]
             ], 405);
