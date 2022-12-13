@@ -32,7 +32,9 @@ class WooCommerceController extends Controller
 
         $this->getClient($user);
 
-        $this->setData();
+        if ($request->has('billing') && $request->has('line_items') && $request->filled(['billing', 'line_items'])) {
+            $this->setData();
+        }
     }
 
     private function getClient($user)
@@ -54,7 +56,7 @@ class WooCommerceController extends Controller
         }
 
         $items =  $validator->validated();
-        
+
         $this->addCommand($items);
     }
 
@@ -95,7 +97,6 @@ class WooCommerceController extends Controller
         $tag = Tag::whereName('woocommerce')->first();
 
         $command->tags()->attach($tag);
-
     }
     protected function detachData()
     {
