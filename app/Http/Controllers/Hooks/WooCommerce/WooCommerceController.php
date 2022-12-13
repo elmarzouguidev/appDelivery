@@ -91,6 +91,7 @@ class WooCommerceController extends Controller
                 'quantity' => $item['quantity'],
                 'prix_uni' => round($item['total'] / $item['quantity']),
                 'prix_total' => $item['total'],
+                'comment' => "Command added from Woocommerce for test : https://test.sameleon-express.ma/"
             ]);
         });
 
