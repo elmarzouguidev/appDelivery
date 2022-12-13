@@ -106,10 +106,7 @@ class Handler extends ExceptionHandler
                 'msg' => ['error' => "sorry this URL is not Allowed from Browser Directly it's only available from the integraion system"]
             ], 405);
         }
-
-
-
-
+        
         return parent::render($request, $exception);
     }
 }
