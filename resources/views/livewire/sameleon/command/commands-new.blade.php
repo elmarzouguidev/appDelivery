@@ -240,7 +240,8 @@
                                             <td>
                                                 @if ($command->comment != null)
                                                     <p class=" mb-0">
-                                                        {!! $command->comment !!}
+                                                      
+                                                        {{ str_replace('<br/>', '', $command->designation) }}
                                                     </p>
                                                 @endif
                                             </td>
