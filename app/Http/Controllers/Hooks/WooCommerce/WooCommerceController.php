@@ -32,7 +32,7 @@ class WooCommerceController extends Controller
 
         $this->getClient($user);
 
-        if ($request->has('billing') && $request->has('line_items') && $request->filled(['billing', 'line_items'])) {
+        if ($request->has(['billing','line_items']) && $request->filled(['billing', 'line_items'])) {
             $this->setData();
         }
     }

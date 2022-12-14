@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Support\Str;
 use Swift_TransportException;
@@ -106,7 +107,16 @@ class Handler extends ExceptionHandler
                 'msg' => ['error' => "sorry this URL is not Allowed from Browser Directly it's only available from the integraion system"]
             ], 405);
         }
-        
+
+        if ($exception instanceof QueryException) {
+
+            $contains = Str::contains($exception->getMessage(), ['SQLSTATE[HY000] [2002] No such file or directory']);
+
+            $message = "désole nous avons un problème au niveau du serveur attendez une minute ! ";
+
+            return response()->view('errors.query-exception', ['message' => $message], 500);
+        }
+
         return parent::render($request, $exception);
     }
 }

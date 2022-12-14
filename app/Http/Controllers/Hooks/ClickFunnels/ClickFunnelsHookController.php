@@ -28,7 +28,9 @@ class ClickFunnelsHookController extends Controller
     public function setData()
     {
         $data = json_decode($this->data, true);
+
         $validateData = $this->getRequest();
+        
         $validator = Validator::make($data['payload'], $validateData->rules());
 
         if ($validator->fails()) {
