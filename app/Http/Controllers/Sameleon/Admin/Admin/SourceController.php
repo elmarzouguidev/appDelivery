@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Sameleon\Source\SourceFormRequest;
 use App\Models\Sameleon\Source;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Str;
 use Jackiedo\DotenvEditor\Facades\DotenvEditor;
 use Illuminate\Validation\ValidationException;
@@ -49,6 +50,8 @@ class SourceController extends Controller
             }
         }
 
+        Artisan::call('route:clear');
+        
         $source = new Source();
 
         $source->name = $request->name;
@@ -72,6 +75,8 @@ class SourceController extends Controller
         $source->secret = $this->generateSecret();
 
         $source->save();
+
+        Artisan::call('route:cache');
 
         return redirect()->back()->with('success', "La source a été ajouter");
     }
