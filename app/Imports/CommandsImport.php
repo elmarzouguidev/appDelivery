@@ -6,29 +6,19 @@ use App\Models\Sameleon\City;
 use App\Models\Sameleon\Command;
 use App\Models\Sameleon\Product;
 use App\Models\Sameleon\Region;
-use Maatwebsite\Excel\Concerns\ToModel;
-use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use Maatwebsite\Excel\Concerns\WithMappedCells;
-use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
-use Maatwebsite\Excel\Concerns\ToCollection;
-use Maatwebsite\Excel\Concerns\Importable;
+use Maatwebsite\Excel\Concerns\RemembersRowNumber;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
+use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Row;
-use Maatwebsite\Excel\Concerns\OnEachRow;
-
-use Maatwebsite\Excel\Concerns\WithChunkReading;
-use Maatwebsite\Excel\Concerns\RemembersRowNumber;
-
-use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 
 class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithValidation, WithChunkReading
 {
-
     use RemembersRowNumber;
-
 
     /*public function onRow(Row $row)
     {
@@ -38,17 +28,14 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
     }*/
 
     /**
-     * @param array $row
-     *
+     * @param  array  $row
      * @return \Illuminate\Database\Eloquent\Model|null
      */
     public function model(array $row)
     {
-
-
         //$currentRowNumber = $this->getRowNumber();
 
-        $productName = $row["produit_ref"] ?? $row["produit"] ?? throw ValidationException::withMessages([
+        $productName = $row['produit_ref'] ?? $row['produit'] ?? throw ValidationException::withMessages([
 
             'produit_field' => "
                 veuillez vérifier la structure de  votre fichier excel le column (produit ref) ou (produit)
@@ -58,7 +45,7 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
 
         ]);
 
-        $cityName = $row["ville"] ?? throw ValidationException::withMessages([
+        $cityName = $row['ville'] ?? throw ValidationException::withMessages([
 
             'ville_field' => "
                 veuillez vérifier la structure de  votre fichier excel le column (ville)
@@ -68,7 +55,7 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
 
         ]);
 
-        $productSlug = Str::slug(str_replace(' ', '', $productName)) . '-' . auth()->user()->uuid . ':' . auth()->id();
+        $productSlug = Str::slug(str_replace(' ', '', $productName)).'-'.auth()->user()->uuid.':'.auth()->id();
 
         $citySlug = Str::slug(str_replace(' ', '', $cityName));
 
@@ -82,40 +69,36 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
 
         $region = Region::whereSlug($regionSlug)->first();
 
-        if (!$ville) {
-
+        if (! $ville) {
             throw ValidationException::withMessages([
                 'city_not_found' => "La ville ( {$cityName} ) n'existe pas dans le systeme !",
-                'produit_add' => "Aucun command a été importé a cause de ce problem veuillez vérifier le nom de la ville ( {$cityName} ) avant de continuer ! "
+                'produit_add' => "Aucun command a été importé a cause de ce problem veuillez vérifier le nom de la ville ( {$cityName} ) avant de continuer ! ",
             ]);
             exit();
         }
 
-        if ($row['region'] && !$region) {
-
+        if ($row['region'] && ! $region) {
             throw ValidationException::withMessages([
                 'region_not_found' => "La région ( {$row['region']} ) n'existe pas dans le systeme !",
-                'produit_add' => "Aucun command a été importé a cause de ce problem veuillez vérifier le nom de la région ( {$row['region']} ) avant de continuer ! "
+                'produit_add' => "Aucun command a été importé a cause de ce problem veuillez vérifier le nom de la région ( {$row['region']} ) avant de continuer ! ",
             ]);
             exit();
         }
 
-        if ($row['region'] && $region && !$region->city()->is($ville)) {
-
+        if ($row['region'] && $region && ! $region->city()->is($ville)) {
             $regionName = $row['region'];
 
             throw ValidationException::withMessages([
                 'region_not_found' => "désole cette région ( $regionName ) ne correspond pas a la ville ($ville->name) !!",
-                'produit_add' => "Aucun command a été importé a cause de ce problem veuillez vérifier le nom de la région ( {$row['region']} ) avant de continuer ! "
+                'produit_add' => "Aucun command a été importé a cause de ce problem veuillez vérifier le nom de la région ( {$row['region']} ) avant de continuer ! ",
             ]);
             exit();
         }
 
-        if (!$product) {
-
+        if (! $product) {
             throw ValidationException::withMessages([
                 'produit_not_found' => "Le produit ( {$productName} ) n'existe pas dans le systeme !",
-                'produit_add' => "Aucun command a été importé a cause de ce problem veuillez ajouter ce produit ( {$productName} ) avant de continuer ! "
+                'produit_add' => "Aucun command a été importé a cause de ce problem veuillez ajouter ce produit ( {$productName} ) avant de continuer ! ",
             ]);
             exit();
         }
@@ -123,15 +106,14 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
         $totalFrais = $ville->frais;
 
         if ($region) {
-
             $totalFrais += $region->frais;
         }
 
         $data = [
-            'client_name'     => $row["destinataire"],
-            'client_phone'    => $row["telephone"],
-            'client_city'    => $row["ville"],
-            'client_address'    => $row["adresse"],
+            'client_name' => $row['destinataire'],
+            'client_phone' => $row['telephone'],
+            'client_city' => $row['ville'],
+            'client_address' => $row['adresse'],
 
             'city_id' => $ville ? $ville->id : null,
             'city_uuid' => $ville ? $ville->uuid : null,
@@ -143,10 +125,10 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
             'user_uuid' => auth()->user()->uuid,
 
             'is_imported' => true,
-            'frais' => $totalFrais
+            'frais' => $totalFrais,
         ];
 
-        $command =  Command::create($data);
+        $command = Command::create($data);
 
         /* if ($product && round($product->price) !== $prixExcel = round($row["prix"] / $row["qte"])) {
 
@@ -166,17 +148,16 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
         } */
 
         if ($command) {
-
             $command->items()->create([
 
                 'command_uuid' => $command->uuid,
-                'product_id' => $product ?  $product->id : null,
+                'product_id' => $product ? $product->id : null,
                 'product_uuid' => $product ? $product->uuid : null,
                 'designation' => $productName,
                 'product' => $productName,
-                'quantity' => $row["qte"],
-                'prix_uni' => round($row["prix"] / $row["qte"]),
-                'prix_total' => $row["prix"],
+                'quantity' => $row['qte'],
+                'prix_uni' => round($row['prix'] / $row['qte']),
+                'prix_total' => $row['prix'],
             ]);
         }
     }
@@ -200,7 +181,6 @@ class CommandsImport implements ToModel, SkipsEmptyRows, WithHeadingRow, WithVal
             'prix' => ['required', 'numeric'],
         ];
     }
-
 
     /**
      * @return array

@@ -26,7 +26,7 @@ class PermissionFormRequest extends FormRequest
         return [
             //'name' => 'required|string|unique:permissions',
             'name' => 'required|string',
-            'guard_name' => ['nullable', 'string', 'in:admin,client']
+            'guard_name' => ['nullable', 'string', 'in:admin,client'],
         ];
     }
 }

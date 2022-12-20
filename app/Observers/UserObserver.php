@@ -63,11 +63,10 @@ class UserObserver
 
     private function clearAllCache()
     {
-
         cache()->pull('all_clients_cache');
 
         cache()->pull('all_admins_cache');
-        
+
         cache()->pull('all_deliveries_cache');
     }
 }

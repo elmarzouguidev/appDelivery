@@ -24,7 +24,7 @@ class CommandFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(function (Command $command) {
-            $command->items()->saveMany(ItemFactory::new()->times(rand(1, 2))->make(['command_id' => $command->id,'command_uuid' => $command->uuid]));
+            $command->items()->saveMany(ItemFactory::new()->times(rand(1, 2))->make(['command_id' => $command->id, 'command_uuid' => $command->uuid]));
         });
     }
 }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Repositories\Region;
-
 
 use App\Models\Sameleon\Region;
 use App\Repositories\AppRepository;
@@ -10,26 +8,23 @@ use Illuminate\Database\Eloquent\Collection;
 
 class RegionRepository extends AppRepository implements RegionInterface
 {
-
     private $region;
 
     private $instance;
-    
+
     public function __construct(Region $region)
     {
         $this->region = $region;
-
     }
 
     public function __instance(): Region
     {
-        if (!$this->instance) {
+        if (! $this->instance) {
             $this->instance = $this->region;
         }
 
         return $this->instance;
     }
-
 
     /**
      * @return Client[]|Collection|string[]
@@ -39,7 +34,6 @@ class RegionRepository extends AppRepository implements RegionInterface
         if ($this->useCache()) {
             // dd('yes cache');
             return $this->setCache()->remember('all_regions_cache', $this->timeToLive(), function () {
-
                 return $this->region->with('city:id,name')->get();
             });
         }
@@ -48,14 +42,13 @@ class RegionRepository extends AppRepository implements RegionInterface
     }
 
     /**
-     * @param int $id
+     * @param  int  $id
      * @return mixed
      */
     public function getRegion(int $id)
     {
         return $this->region->find($id);
     }
-
 
     public function getRegionByUuid(string $uuid)
     {

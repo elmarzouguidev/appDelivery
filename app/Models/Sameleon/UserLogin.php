@@ -25,9 +25,8 @@ class UserLogin extends Model
         'logged_in_at',
         'device',
         'device_name',
-        'system'
+        'system',
     ];
-
 
     public function user()
     {

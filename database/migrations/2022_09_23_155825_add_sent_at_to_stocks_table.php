@@ -14,7 +14,7 @@ class AddSentAtToStocksTable extends Migration
     public function up()
     {
         Schema::table('stocks', function (Blueprint $table) {
-            $table->after('notes',function($table){
+            $table->after('notes', function ($table) {
                 $table->date('sent_at')->nullable();
             });
         });

@@ -27,7 +27,7 @@ class ReclamationFormRequest extends FormRequest
             'command' => ['required', 'integer'],
             'message' => ['required', 'string'],
             //'priority' => ['required', 'in:low,medium,high'],
-            'object' => ['nullable', 'string']
+            'object' => ['nullable', 'string'],
         ];
     }
 }

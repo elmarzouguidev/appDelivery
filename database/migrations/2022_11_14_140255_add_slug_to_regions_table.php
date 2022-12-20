@@ -14,7 +14,7 @@ class AddSlugToRegionsTable extends Migration
     public function up()
     {
         Schema::table('regions', function (Blueprint $table) {
-            $table->after('name',function($table){
+            $table->after('name', function ($table) {
                 $table->string('slug')->unique('region_slug');
             });
         });

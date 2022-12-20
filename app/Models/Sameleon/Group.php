@@ -9,11 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model
 {
-
     use HasFactory;
     use UuidGenerator;
     use GetModelByUuid;
-
 
     protected $fillable = [
         'uuid',
@@ -21,11 +19,11 @@ class Group extends Model
         'user_id',
         'name',
         'description',
-        'active'
+        'active',
     ];
 
     protected $casts = [
-        'active' => 'boolean'
+        'active' => 'boolean',
     ];
 
     public function moderator()

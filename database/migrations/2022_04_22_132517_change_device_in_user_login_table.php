@@ -14,7 +14,6 @@ class ChangeDeviceInUserLoginTable extends Migration
     public function up()
     {
         Schema::table('user_logins', function (Blueprint $table) {
-         
             $table->string('device')->nullable()->change();
         });
     }

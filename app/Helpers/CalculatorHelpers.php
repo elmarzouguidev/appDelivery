@@ -6,8 +6,6 @@ use Carbon\Carbon;
 
 trait CalculatorHelpers
 {
-
-
     public function daysBeforCancelOrder($date): bool
     {
         $to = Carbon::createFromFormat('Y-m-d H:s:i', $date);
@@ -18,5 +16,4 @@ trait CalculatorHelpers
 
         return $diff_in_days >= 15;
     }
-
 }

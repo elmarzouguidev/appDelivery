@@ -27,7 +27,7 @@ class AnnonceUpdateFormRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string'],
-            'group' => ['required', 'string', Rule::in(['all', 'clients','delivery','admins'])],
+            'group' => ['required', 'string', Rule::in(['all', 'clients', 'delivery', 'admins'])],
         ];
     }
 }

@@ -24,13 +24,13 @@ class City extends Model
         'frais',
         'code',
         'has_profit',
-        'profit'
+        'profit',
     ];
 
     protected $casts = [
         'frais' => 'float',
         'profit' => 'float',
-        'has_profit'=>'boolean'
+        'has_profit' => 'boolean',
     ];
 
     public function commands()

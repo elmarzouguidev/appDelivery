@@ -17,13 +17,12 @@ class Bank extends Model
         'uuid',
         'name',
         'logo',
-        'active'
+        'active',
     ];
 
-    protected  $casts = [
+    protected $casts = [
         'active' => 'boolean',
     ];
-
 
     public function users()
     {

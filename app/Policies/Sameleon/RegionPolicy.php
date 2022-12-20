@@ -18,7 +18,7 @@ class RegionPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->hasAnyRole('Admin','SuperAdmin');
+        return $user->hasAnyRole('Admin', 'SuperAdmin');
     }
 
     /**
@@ -30,7 +30,7 @@ class RegionPolicy
      */
     public function view(User $user, Region $region)
     {
-        return $user->hasAnyRole('Admin','SuperAdmin');
+        return $user->hasAnyRole('Admin', 'SuperAdmin');
     }
 
     /**
@@ -41,7 +41,7 @@ class RegionPolicy
      */
     public function create(User $user)
     {
-        return $user->hasAnyRole('Admin','SuperAdmin');
+        return $user->hasAnyRole('Admin', 'SuperAdmin');
     }
 
     /**
@@ -53,7 +53,7 @@ class RegionPolicy
      */
     public function update(User $user, Region $region)
     {
-        return $user->hasAnyRole('Admin','SuperAdmin');
+        return $user->hasAnyRole('Admin', 'SuperAdmin');
     }
 
     /**
@@ -65,7 +65,7 @@ class RegionPolicy
      */
     public function delete(User $user, Region $region)
     {
-        return $user->hasAnyRole('Admin','SuperAdmin');
+        return $user->hasAnyRole('Admin', 'SuperAdmin');
     }
 
     /**
@@ -77,7 +77,7 @@ class RegionPolicy
      */
     public function restore(User $user, Region $region)
     {
-        return $user->hasAnyRole('Admin','SuperAdmin');
+        return $user->hasAnyRole('Admin', 'SuperAdmin');
     }
 
     /**
@@ -89,6 +89,6 @@ class RegionPolicy
      */
     public function forceDelete(User $user, Region $region)
     {
-        return $user->hasAnyRole('Admin','SuperAdmin');
+        return $user->hasAnyRole('Admin', 'SuperAdmin');
     }
 }

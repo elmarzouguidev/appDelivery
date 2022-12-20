@@ -1,12 +1,9 @@
 <?php
 
-
 namespace App\Repositories\Invoice;
 
 interface DeliveryInvoiceInterface
 {
-
-
     public function getInvoices();
 
     public function getInvoice(int $id);

@@ -17,8 +17,8 @@ class DeliveryCommandScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-       // dd('yes from delivery scopes');
-        
+        // dd('yes from delivery scopes');
+
         $builder->where('delivery_id', delivery()->id)->where('delivery_uuid', delivery()->uuid);
     }
 }

@@ -25,7 +25,7 @@ class RoleFormRequest extends FormRequest
     {
         return [
             'name' => 'required|string|unique:roles',
-            'guard_name' => ['nullable', 'string', 'in:admin,client']
+            'guard_name' => ['nullable', 'string', 'in:admin,client'],
         ];
     }
 }

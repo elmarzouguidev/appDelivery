@@ -63,8 +63,7 @@ class ProductObserver
 
     private function clearAllCache($product)
     {
-
-        $cacheKey = "all_products_cache_" . $product->client->uuid;
+        $cacheKey = 'all_products_cache_'.$product->client->uuid;
         cache()->pull($cacheKey);
         cache()->pull('all_products_cache');
     }

@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Cache;
 
 class CacheResponseMiddleware
 {
-
     private $ttl;
+
     /**
      * Handle an incoming request.
      *
@@ -22,9 +22,9 @@ class CacheResponseMiddleware
         $this->ttl = $ttl ?? now()->addDay();
 
         if (Cache::has($this->cacheKey($request))) {
-
             return response(Cache::get($this->cacheKey($request)));
         }
+
         return $next($request);
     }
 
@@ -37,9 +37,7 @@ class CacheResponseMiddleware
      */
     public function terminate($request, $response)
     {
-
         if (Cache::has($this->cacheKey($request))) {
-
             return;
         }
 
@@ -48,6 +46,6 @@ class CacheResponseMiddleware
 
     private function cacheKey($request): string
     {
-        return md5($request->fullUrl() . '-sameleon-express' . auth()->id());
+        return md5($request->fullUrl().'-sameleon-express'.auth()->id());
     }
 }

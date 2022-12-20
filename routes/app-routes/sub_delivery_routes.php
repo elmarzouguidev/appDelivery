@@ -18,9 +18,7 @@ Route::put('/read-notifications', [HomeSubDeliveryController::class, 'markNotifi
     ->name('home.read.notifications');
 
 Route::group(['middleware' => ['role:DeliveryEntreprise|SubDelivery|Delivery']], function () {
-
     Route::group(['prefix' => 'commands'], function () {
-
         Route::get('/', [CommandSubDeliveryController::class, 'index'])->name('commands.index');
 
         Route::post('/', [CommandSubDeliveryController::class, 'store'])->name('commands.store');
@@ -29,22 +27,18 @@ Route::group(['middleware' => ['role:DeliveryEntreprise|SubDelivery|Delivery']],
 
         Route::post('/import', [CommandSubDeliveryController::class, 'import'])->name('commands.import');
         Route::group(['prefix' => 'edit'], function () {
-
             Route::get('/{command}', [CommandSubDeliveryController::class, 'edit'])->name('commands.edit');
             Route::post('/{command}', [CommandSubDeliveryController::class, 'update'])->name('commands.update');
         });
 
         Route::group(['prefix' => 'archived'], function () {
-
             Route::get('/', [CommandSubDeliveryController::class, 'archived'])->name('commands.archived');
         });
     });
 });
 
 Route::group(['middleware' => ['role:DeliveryEntreprise']], function () {
-
     Route::group(['prefix' => 'products'], function () {
-
         Route::get('/', [ProductSubDeliveryController::class, 'index'])->name('products.index');
 
         Route::get('/create', [ProductSubDeliveryController::class, 'create'])->name('products.create');
@@ -53,23 +47,19 @@ Route::group(['middleware' => ['role:DeliveryEntreprise']], function () {
         Route::delete('/', [ProductSubDeliveryController::class, 'delete'])->name('products.delete');
 
         Route::group(['prefix' => 'edit'], function () {
-
             Route::get('/{product}', [ProductSubDeliveryController::class, 'edit'])->name('products.edit');
             Route::post('/{product}', [ProductSubDeliveryController::class, 'update'])->name('products.update');
         });
     });
 
     Route::group(['prefix' => 'stock'], function () {
-
         Route::get('/', [StockSubDeliveryController::class, 'index'])->name('stock.index');
         Route::post('/', [StockSubDeliveryController::class, 'store'])->name('stock.store');
         Route::post('update/{stock}', [StockSubDeliveryController::class, 'update'])->name('stock.update');
         Route::delete('/delete', [StockSubDeliveryController::class, 'delete'])->name('stock.deletee');
     });
 
-
     Route::group(['prefix' => 'drivers'], function () {
-
         Route::get('/', [SubDeliveryController::class, 'index'])->name('delivery.index');
 
         Route::get('/create', [SubDeliveryController::class, 'create'])->name('delivery.create');
@@ -78,27 +68,22 @@ Route::group(['middleware' => ['role:DeliveryEntreprise']], function () {
         Route::delete('/', [SubDeliveryController::class, 'delete'])->name('delivery.delete');
 
         Route::group(['prefix' => 'edit'], function () {
-
             Route::get('/{delivery}', [SubDeliveryController::class, 'edit'])->name('delivery.edit');
             Route::post('/{delivery}', [SubDeliveryController::class, 'update'])->name('delivery.update');
         });
     });
 
     Route::group(['prefix' => 'invoices'], function () {
-
         Route::get('/', [InvoiceSubDeliveryController::class, 'index'])->name('invoices.index');
     });
 
     Route::group(['prefix' => 'payments'], function () {
-
         Route::get('/', [PaymentSubDeliveryController::class, 'index'])->name('payments.index');
         Route::delete('/delete', [PaymentSubDeliveryController::class, 'delete'])->name('payments.delete');
     });
 
     Route::group(['prefix' => 'docs'], function () {
-
         Route::group(['prefix' => 'b-livraison'], function () {
-
             Route::get('/', [SubDeliveryBLController::class, 'index'])->name('b-livraison.index');
             Route::delete('/', [SubDeliveryBLController::class, 'delete'])->name('b-livraison.delete');
         });
@@ -106,11 +91,8 @@ Route::group(['middleware' => ['role:DeliveryEntreprise']], function () {
 });
 
 Route::group(['middleware' => ['role:DeliveryEntreprise|SubDelivery|Delivery']], function () {
-
     Route::group(['prefix' => 'account'], function () {
-
         Route::group(['prefix' => 'info'], function () {
-
             Route::get('/', [ProfilSubDeliveryController::class, 'index'])->name('profil');
             Route::post('/', [ProfilSubDeliveryController::class, 'update'])->name('profil.update');
 

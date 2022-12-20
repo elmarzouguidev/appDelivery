@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Repositories;
 
 use Carbon\Carbon;
@@ -8,23 +7,22 @@ use Illuminate\Cache\CacheManager;
 
 class AppRepository
 {
-
-    protected  $cache;
+    protected $cache;
 
     /**
      * @return CacheManager
      */
     protected function setCache(): CacheManager
     {
-        if (!$this->cache) {
-
+        if (! $this->cache) {
             $this->cache = new CacheManager(app());
         }
+
         return $this->cache;
     }
 
     /**
-     * @param string $key
+     * @param  string  $key
      * @return mixed
      */
     private function callConfig(string $key)
@@ -39,7 +37,6 @@ class AppRepository
     {
         return $this->callConfig('use-cache');
     }
-
 
     /**
      * @return Carbon

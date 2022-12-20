@@ -3,14 +3,12 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
 class RamassageAccepted extends Notification
 {
     use Queueable;
-
 
     protected $ramassage;
 
@@ -57,7 +55,6 @@ class RamassageAccepted extends Notification
      */
     public function toArray($notifiable)
     {
-
         return [
             'name' => $this->ramassage->name,
             'uuid' => $this->ramassage->uuid,

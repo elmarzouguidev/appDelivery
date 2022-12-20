@@ -10,12 +10,12 @@ use Livewire\Component;
 
 class Region extends Component
 {
-
     public $regionEdit;
 
     public $showEdit = false;
 
     public $city;
+
     //public int $frais;
     public $total;
 
@@ -37,7 +37,6 @@ class Region extends Component
 
     public function updatedCity(int $value)
     {
-
         if (isset($value) && is_int($value)) {
             $city = City::whereId($this->city)->first();
 
@@ -50,12 +49,11 @@ class Region extends Component
         if(is_int($value))
         {
             $this->total += $value;
-        }  
+        }
     }*/
 
     public function editRegion(SameleonRegion $region)
     {
-
         $this->showEdit = true;
 
         $this->regionEdit = $region;

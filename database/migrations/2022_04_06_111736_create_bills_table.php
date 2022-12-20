@@ -20,7 +20,7 @@ class CreateBillsTable extends Migration
             $table->string('full_number')->unique()->nullable();
 
             $table->string('reference')->nullable();
-            
+
             $table->unsignedDecimal('price_total', 8, 2)->default(0);
             $table->string('status')->default('accepted');
             $table->string('bill_mode')->default('virement');

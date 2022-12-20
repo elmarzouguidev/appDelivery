@@ -14,7 +14,7 @@ class AddDeliveryToInvoicesTable extends Migration
     public function up()
     {
         Schema::table('invoices', function (Blueprint $table) {
-            $table->after('user_uuid',function($table){
+            $table->after('user_uuid', function ($table) {
                 $table->foreignId('delivery_id')->nullable();
                 $table->uuid('delivery_uuid')->nullable();
             });
@@ -29,7 +29,7 @@ class AddDeliveryToInvoicesTable extends Migration
     public function down()
     {
         Schema::table('invoices', function (Blueprint $table) {
-            $table->dropColumn(['delivery_id','delivery_uuid']);
+            $table->dropColumn(['delivery_id', 'delivery_uuid']);
         });
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
-use Spatie\Health\Http\Controllers\HealthCheckResultsController;
 use App\Http\Controllers\Developper\DevController;
 use Illuminate\Support\Facades\Route;
+use Spatie\Health\Http\Controllers\HealthCheckResultsController;
 
 Route::get('/clear-tables', [DevController::class, 'clearTables'])->name('truncateModels');
 Route::get('/link', [DevController::class, 'storageLink']);
@@ -24,6 +24,5 @@ Route::get('/livewire-assets', [DevController::class, 'livewireAssets']);
 Route::get('/livewire-discover', [DevController::class, 'livewireDiscover']);
 
 Route::get('health', HealthCheckResultsController::class);
-
 
 Route::get('/composer-dump', [DevController::class, 'composerDump']);

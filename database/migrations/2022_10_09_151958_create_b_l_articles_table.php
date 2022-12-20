@@ -15,7 +15,6 @@ class CreateBLArticlesTable extends Migration
     public function up()
     {
         Schema::create('b_l_articles', function (Blueprint $table) {
-
             $table->id();
             $table->uuid('uuid')->unique();
 

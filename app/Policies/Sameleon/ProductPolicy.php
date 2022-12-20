@@ -2,7 +2,6 @@
 
 namespace App\Policies\Sameleon;
 
-
 use App\Models\Sameleon\Product;
 use App\Models\Sameleon\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -31,7 +30,6 @@ class ProductPolicy
      */
     public function view(User $user, Product $product)
     {
-
         return $user->id == $product->user_id
             &&
             $user->uuid == $product->user_uuid || $user->hasRole('SuperAdmin');
@@ -57,7 +55,6 @@ class ProductPolicy
      */
     public function update(User $user, Product $product)
     {
-
         return $user->id == $product->user_id
             &&
             $user->uuid == $product->user_uuid || $user->hasRole('SuperAdmin');

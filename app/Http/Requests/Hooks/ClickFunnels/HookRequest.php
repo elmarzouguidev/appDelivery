@@ -24,11 +24,11 @@ class HookRequest extends FormRequest
      */
     public function rules()
     {
-       // Log::warning('From Validator');
+        // Log::warning('From Validator');
         return [
             'name' => 'required|string',
             'email' => 'required|email',
-            'message' => 'required|string'
+            'message' => 'required|string',
         ];
     }
 }

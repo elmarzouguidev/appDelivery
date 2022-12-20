@@ -4,14 +4,11 @@ namespace App\Http\Controllers\Sameleon\Admin\Invoice;
 
 use App\Http\Controllers\Controller;
 use App\Models\Sameleon\Invoice;
-use Illuminate\Http\Request;
 
 class AdminInvoiceController extends Controller
 {
-
     public function index()
     {
-
         $this->deleteNullInvoices();
         /*if (auth()->user()->hasRole('Client')) {
             $invoices = Invoice::authClient()->get();
@@ -19,7 +16,7 @@ class AdminInvoiceController extends Controller
             $invoices = Invoice::withCount('commands')
                 ->withSum('articles', 'price_total')
                 ->get();
-            //dd($invoices);   
+            //dd($invoices);
         }*/
         // disabled because we use Livewire
 

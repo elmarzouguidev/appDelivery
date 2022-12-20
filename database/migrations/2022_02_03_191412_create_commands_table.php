@@ -15,7 +15,6 @@ class CreateCommandsTable extends Migration
     public function up()
     {
         Schema::create('commands', function (Blueprint $table) {
-            
             $table->id();
             $table->uuid('uuid')->unique();
             $table->string('code')->unique();
@@ -27,7 +26,7 @@ class CreateCommandsTable extends Migration
 
             $table->foreignId('user_id')->index()->constrained()->cascadeOnDelete();
             $table->uuid('user_uuid')->nullable();
-            
+
             $table->foreignId('city_id')->index()->nullable();
 
             $table->string('client_email')->nullable();
@@ -39,7 +38,7 @@ class CreateCommandsTable extends Migration
             $table->longText('comment')->nullable();
 
             $table->string('price_total')->default(0);
-            
+
             $table->timestamps();
         });
     }

@@ -17,7 +17,7 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->hasAnyRole('SuperAdmin','Admin');
+        return $user->hasAnyRole('SuperAdmin', 'Admin');
     }
 
     /**
@@ -29,7 +29,7 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        return $user->hasAnyRole('SuperAdmin','Admin');
+        return $user->hasAnyRole('SuperAdmin', 'Admin');
     }
 
     /**
@@ -40,7 +40,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        return $user->hasAnyRole('SuperAdmin','Admin');
+        return $user->hasAnyRole('SuperAdmin', 'Admin');
     }
 
     /**
@@ -52,7 +52,7 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-         return $user->hasAnyRole('SuperAdmin','Admin');
+        return $user->hasAnyRole('SuperAdmin', 'Admin');
     }
 
     /**

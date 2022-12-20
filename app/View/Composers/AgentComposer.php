@@ -2,13 +2,12 @@
 
 namespace App\Http\View\Composers;
 
-use Illuminate\View\View;
 use Illuminate\Cache\CacheManager;
+use Illuminate\View\View;
 use Jenssegers\Agent\Agent;
 
 class AgentComposer
 {
-
     protected Agent $agent;
 
     protected CacheManager $cache;
@@ -23,12 +22,11 @@ class AgentComposer
     /**
      * Bind data to the view.
      *
-     * @param View $view
+     * @param  View  $view
      * @return void
      */
     public function compose(View $view)
     {
-
         $view->with('agent', $this->agent);
 
         /*$view->with('agent', $this->cache->remember('agent', $this->timeToLive(), function () {
@@ -36,10 +34,8 @@ class AgentComposer
          })); */
     }
 
-
     private function timeToLive()
     {
-
         return \Carbon\Carbon::now()->addDays(30);
     }
 }

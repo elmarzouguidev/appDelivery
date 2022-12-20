@@ -15,7 +15,6 @@ class AddIsClientToStocksTable extends Migration
     {
         Schema::table('stocks', function (Blueprint $table) {
             $table->after('is_default', function ($table) {
-
                 $table->boolean('is_client')->default(false);
                 $table->boolean('is_delivery')->default(false);
             });

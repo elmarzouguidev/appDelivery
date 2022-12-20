@@ -39,5 +39,4 @@ class Install extends Command
     {
         shell_exec('composer install');
     }
-
 }

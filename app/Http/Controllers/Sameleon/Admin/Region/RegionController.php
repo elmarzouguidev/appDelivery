@@ -6,16 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Sameleon\Region\RegionFormRequest;
 use App\Http\Requests\Sameleon\Region\UpdateRegionFormRequest;
 use App\Models\Sameleon\Region;
-use App\Repositories\City\CityInterface;
 use Illuminate\Http\Request;
 
 class RegionController extends Controller
 {
     public function index()
     {
-
         $this->authorize('viewAny', Region::class);
-
 
         return view('Sameleon.Admin.Region.__datatable.index');
     }
@@ -36,7 +33,6 @@ class RegionController extends Controller
         $region->save();
 
         if ($region) {
-
             return redirect()->back()->with('success', 'la région a été crée avec success');
         }
 
@@ -45,7 +41,6 @@ class RegionController extends Controller
 
     public function update(UpdateRegionFormRequest $request, Region $region)
     {
-
         $region->name = $request->name;
         $region->code = $request->code;
         $region->frais = $request->frais;
@@ -58,15 +53,13 @@ class RegionController extends Controller
 
     public function delete(Request $request)
     {
-
         $request->validate(['regionId' => 'required|uuid']);
 
         $region = Region::whereUuid($request->regionId)->firstOrFail();
 
         $this->authorize('delete', $region);
 
-        if ($region && !$region->commands()->exists()) {
-
+        if ($region && ! $region->commands()->exists()) {
             $region->commands->each->update(['region_id' => null, 'region_uuid' => null]);
 
             $region->delete();

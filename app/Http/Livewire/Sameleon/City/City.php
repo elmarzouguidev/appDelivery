@@ -4,7 +4,6 @@ namespace App\Http\Livewire\Sameleon\City;
 
 use App\Models\Sameleon\City as SameleonCity;
 use App\Repositories\City\CityInterface;
-
 use Livewire\Component;
 
 class City extends Component
@@ -17,7 +16,6 @@ class City extends Component
 
     public function render()
     {
-
         $cities = app(CityInterface::class)->getCities();
 
         return view('livewire.sameleon.city.city-new', compact('cities'));
@@ -25,7 +23,6 @@ class City extends Component
 
     public function editCity(SameleonCity $city)
     {
-
         $this->showEdit = true;
 
         $this->cityEdit = $city;
@@ -35,7 +32,6 @@ class City extends Component
 
     public function showRegion(SameleonCity $city)
     {
-
         $this->showRegion = true;
 
         $this->cityEdit = $city->load('regions');
@@ -45,6 +41,5 @@ class City extends Component
 
     public function updateCity()
     {
-        
     }
 }

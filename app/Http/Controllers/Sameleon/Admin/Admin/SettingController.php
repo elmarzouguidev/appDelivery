@@ -3,23 +3,16 @@
 namespace App\Http\Controllers\Sameleon\Admin\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Http\Requests\Setting\Company\CompanySettingRequest;
 use App\Http\Requests\Setting\Document\DocumentRequest;
-use App\Http\Requests\Setting\Page\PageRequest;
-use App\Http\Requests\SettingPagePageRequest;
 use App\Settings\CompanySettings;
 use App\Settings\DocumentSettings;
-use App\Settings\PageSettings;
 use Illuminate\Support\Facades\Storage;
 
 class SettingController extends Controller
 {
-
     public function index(CompanySettings $settings)
     {
-
-
         return view('Sameleon.Admin.SettingV2.Company.index', [
             'setting' => $settings,
         ]);
@@ -29,7 +22,6 @@ class SettingController extends Controller
         CompanySettingRequest $request,
         CompanySettings $settings
     ) {
-
         $settings->name = $request->name;
         $settings->website = $request->website;
         //$settings->logo = $request->logo;
@@ -47,7 +39,6 @@ class SettingController extends Controller
         $settings->bank_rib = $request->bank_rib;
 
         if ($request->hasFile('logo')) {
-
             $old = $settings->logo;
             $settings->logo = $request->file('logo')->store('company', ['disk' => 'public']);
 
@@ -55,7 +46,7 @@ class SettingController extends Controller
         }
         $settings->save();
 
-        return redirect()->back()->with('success', "Update a éte effectuer avec success");
+        return redirect()->back()->with('success', 'Update a éte effectuer avec success');
     }
 
     /*******Invoice *****************/
@@ -69,12 +60,12 @@ class SettingController extends Controller
 
     public function invoiceUpdate(DocumentRequest $request, DocumentSettings $settings)
     {
-        $settings->invoice_start = (int)$request->invoice_start;
+        $settings->invoice_start = (int) $request->invoice_start;
 
         $settings->invoice_prefix = $request->invoice_prefix;
 
         $settings->save();
 
-        return redirect()->back()->with('success', "Update a éte effectuer avec success");
+        return redirect()->back()->with('success', 'Update a éte effectuer avec success');
     }
 }

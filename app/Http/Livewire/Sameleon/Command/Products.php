@@ -4,11 +4,9 @@ namespace App\Http\Livewire\Sameleon\Command;
 
 use App\Models\Sameleon\Product;
 use Livewire\Component;
-use Illuminate\Support\Arr;
 
 class Products extends Component
 {
-
     protected $listeners = [
         //'selectedProduct',
     ];
@@ -21,7 +19,6 @@ class Products extends Component
 
     public function mount()
     {
-
         $this->orderProducts = [
             [
                 'product_id' => '',
@@ -30,13 +27,12 @@ class Products extends Component
                 'description' => '',
                 'prix_unitaire' => '',
                 'prix_total' => 0,
-                'readonly' => ''
-            ]
+                'readonly' => '',
+            ],
         ];
         $this->totalPrice = 0;
 
         if (isClient()) {
-
             $this->products = auth()->user()->products()->get();
         } else {
             $this->products = Product::all();
@@ -58,20 +54,18 @@ class Products extends Component
                 'description' => '',
                 'prix_unitaire' => '',
                 'prix_total' => 0,
-                'readonly' => ''
+                'readonly' => '',
             ];
         }
     }
 
     public function updated($property, $value)
     {
-
-        $key =  substr($property, strrpos($property, '.') + 1);
-        $array =  explode('.', $property);
+        $key = substr($property, strrpos($property, '.') + 1);
+        $array = explode('.', $property);
         //dd($array,"##",$key);
 
-        if ($key === 'quantity' && !is_null($value) && is_numeric($value)) {
-
+        if ($key === 'quantity' && ! is_null($value) && is_numeric($value)) {
             $prod = $this->products->firstWhere('id', $this->orderProducts[$array[1]]['product_id']);
 
             if ($prod->isOutOfStock($value)) {
@@ -79,9 +73,8 @@ class Products extends Component
             }
 
             $this->orderProducts[$array[1]]['prix_unitaire'] = $prod->price;
-            $this->orderProducts[$array[1]]['prix_total'] = $this->orderProducts[$array[1]]['prix_unitaire']  * (int)$value;
+            $this->orderProducts[$array[1]]['prix_total'] = $this->orderProducts[$array[1]]['prix_unitaire'] * (int) $value;
             //$this->orderProducts[$array[1]]['prix_total'] = $prod->price * (int)$value;
-
         }
     }
 

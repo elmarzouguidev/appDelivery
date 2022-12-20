@@ -14,8 +14,8 @@ class AddGroupToAnnoncesTable extends Migration
     public function up()
     {
         Schema::table('annonces', function (Blueprint $table) {
-            $table->after('title',function($table){
-                $table->string('group',191);
+            $table->after('title', function ($table) {
+                $table->string('group', 191);
             });
         });
     }

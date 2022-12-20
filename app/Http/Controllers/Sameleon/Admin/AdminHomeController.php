@@ -7,17 +7,14 @@ use App\Models\Sameleon\Annonce;
 use App\Models\Sameleon\Delivery;
 use App\Models\Sameleon\User;
 use App\Repositories\Bill\BillInterface;
-use App\Status\Status;
 use Illuminate\Http\Request;
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 
 class AdminHomeController extends Controller
 {
-
-
     public function index()
     {
-        $deliviers = Delivery::role(['Delivery','DeliveryEntreprise'])
+        $deliviers = Delivery::role(['Delivery', 'DeliveryEntreprise'])
             ->withCount('commandsDelivery')
             ->get();
 
@@ -42,7 +39,7 @@ class AdminHomeController extends Controller
                 'group_by_period' => 'month',
                 'chart_type' => 'bar',
                 //'filter_field' => 'created_at',
-               // 'filter_days' => 30, // show only last 30 days
+                // 'filter_days' => 30, // show only last 30 days
                 'chart_color' => '47, 83, 147',
             ];
         } elseif (isClient()) {
@@ -59,7 +56,6 @@ class AdminHomeController extends Controller
                 'chart_color' => '47, 83, 147',
             ];
         }
-
 
         $chart = new LaravelChart($chart_options);
 
@@ -78,7 +74,6 @@ class AdminHomeController extends Controller
 
     public function viewAnnonce(Request $request)
     {
-
         $request->validate(['annonceId' => ['required', 'uuid'], 'userId' => ['required', 'uuid']]);
 
         $annonce = Annonce::whereUuid($request->annonceId)->first();
@@ -86,11 +81,9 @@ class AdminHomeController extends Controller
         $user = auth()->id();
 
         if ($annonce) {
-
             $viewed = $annonce->viewed ?? [];
 
-            if ($user && !in_array($user, $viewed)) {
-
+            if ($user && ! in_array($user, $viewed)) {
                 $viewed = array_merge(
                     $viewed,
                     [$user]
@@ -99,6 +92,7 @@ class AdminHomeController extends Controller
                 $annonce->update(['viewed' => $viewed]);
             }
         }
+
         return redirect()->back();
     }
 

@@ -14,7 +14,6 @@ class CreateEstimatesTable extends Migration
     public function up()
     {
         Schema::create('estimates', function (Blueprint $table) {
-
             $table->id();
             $table->uuid('uuid')->unique();
 

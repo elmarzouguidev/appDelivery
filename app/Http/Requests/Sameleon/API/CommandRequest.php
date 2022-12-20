@@ -31,7 +31,7 @@ class CommandRequest extends FormRequest
             'destinataire' => 'required|string',
             'telephone' => 'required|phone:MA',
             'ville' => 'required|string',
-            'region' => ['nullable','sometimes','string'],
+            'region' => ['nullable', 'sometimes', 'string'],
             'adresse' => 'required|string',
 
             'items' => 'required|array',

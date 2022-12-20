@@ -4,8 +4,6 @@ namespace App\Listeners;
 
 use App\Models\Sameleon\User;
 use App\Notifications\ProductCreated;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Notification;
 
 class SendNewProductCreated

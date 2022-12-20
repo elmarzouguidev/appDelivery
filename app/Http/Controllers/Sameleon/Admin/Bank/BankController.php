@@ -12,10 +12,8 @@ use Illuminate\Support\Facades\Storage;
 
 class BankController extends Controller
 {
-
     public function index()
     {
-
         $banks = app(BankInterface::class)->getBanks();
 
         return view('Sameleon.Admin.Bank.index', compact('banks'));
@@ -28,18 +26,16 @@ class BankController extends Controller
 
     public function store(BankFormRequest $request)
     {
-
         $bank = new Bank();
         $bank->name = $request->name;
 
         if ($request->hasFile('logo')) {
-
             $bank->logo = $request->file('logo')->store('banks', ['disk' => 'public']);
         }
 
         $bank->save();
 
-        return redirect(route('admin:banks.index'))->with('success', "la Banque a été ajouté avec succès");
+        return redirect(route('admin:banks.index'))->with('success', 'la Banque a été ajouté avec succès');
     }
 
     public function edit(Bank $bank)
@@ -49,11 +45,9 @@ class BankController extends Controller
 
     public function update(BankUpdateFormRequest $request, Bank $bank)
     {
-
         $bank->name = $request->name;
 
         if ($request->hasFile('logo')) {
-
             $old = $bank->logo;
             $bank->logo = $request->file('logo')->store('banks', ['disk' => 'public']);
             Storage::disk('public')->delete($old);
@@ -61,7 +55,7 @@ class BankController extends Controller
 
         $bank->save();
 
-        return redirect(route('admin:banks.index'))->with('success', "la Banque a été modifier avec succès");
+        return redirect(route('admin:banks.index'))->with('success', 'la Banque a été modifier avec succès');
     }
 
     public function activate(Request $request)
@@ -71,10 +65,9 @@ class BankController extends Controller
         $bank = Bank::whereUuid($request->bankId)->firstOrFail();
 
         if ($bank) {
+            $bank->update(['active' => ! $bank->active]);
 
-            $bank->update(['active' => !$bank->active]);
-
-            $bank->active ? $msg = "activé" : $msg = "desactivé";
+            $bank->active ? $msg = 'activé' : $msg = 'desactivé';
 
             return redirect()->back()->with('success', "la banque a été $msg avec success");
         }
@@ -84,7 +77,6 @@ class BankController extends Controller
 
     public function delete(Request $request)
     {
-
         $request->validate(['bankId' => 'required|uuid']);
 
         $bank = Bank::whereUuid($request->bankId)->firstOrFail();
@@ -92,7 +84,6 @@ class BankController extends Controller
         $this->authorize('delete', $bank);
 
         if ($bank) {
-
             Storage::disk('public')->delete($bank->logo);
 
             $bank->users()->detach();
@@ -101,6 +92,7 @@ class BankController extends Controller
 
             return redirect()->back()->with('success', 'la banque a été supprimer avec success');
         }
+
         return redirect()->back()->with('error', 'Error ...');
     }
 }

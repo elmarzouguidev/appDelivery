@@ -27,7 +27,7 @@ class ConditionUpdateFormRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string'],
-            'type' => ['required', 'string', Rule::in(['produits', 'commands','factures'])],
+            'type' => ['required', 'string', Rule::in(['produits', 'commands', 'factures'])],
         ];
     }
 }

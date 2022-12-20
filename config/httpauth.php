@@ -44,6 +44,6 @@ return [
     | Password to access the secured realm in combination with the username.
     |
     */
-    'password' => '1234'
+    'password' => '1234',
 
 ];

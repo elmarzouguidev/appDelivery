@@ -1,11 +1,9 @@
 <?php
 
-
 namespace App\Repositories\BL;
 
 interface BLInterface
 {
-
     public function getBLs();
 
     public function getBL(int $id);

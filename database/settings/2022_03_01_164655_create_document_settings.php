@@ -11,6 +11,5 @@ class CreateDocumentSettings extends SettingsMigration
 
         $this->migrator->add('document.delivery_invoice_prefix', 'DELIVERY-FACT-');
         $this->migrator->add('document.delivery_invoice_start', 1);
-
     }
 }

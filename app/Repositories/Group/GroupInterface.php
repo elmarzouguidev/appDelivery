@@ -1,12 +1,9 @@
 <?php
 
-
 namespace App\Repositories\Group;
 
 interface GroupInterface
 {
-
-
     public function getGroups();
 
     public function getGroup(int $id);

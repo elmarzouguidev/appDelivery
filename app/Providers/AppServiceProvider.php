@@ -4,9 +4,9 @@ namespace App\Providers;
 
 use App\Http\Middleware\Cache\CacheResponseMiddleware;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,7 +25,6 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-
     public function boot()
     {
         Carbon::setLocale(config('app.locale'));

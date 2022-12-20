@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Sameleon\User;
-
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -17,15 +16,14 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-
-        $user =  [
+        $user = [
             'nom' => 'Elmarzougui',
             'prenom' => 'Abdelghafour',
             'email' => 'abdelgha4or@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('123456789@'),
             'remember_token' => Str::random(10),
-            'is_admin' => true
+            'is_admin' => true,
         ];
 
         $user2 = [
@@ -35,7 +33,7 @@ class AdminSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('123456789@'),
             'remember_token' => Str::random(10),
-            'is_admin' => true
+            'is_admin' => true,
         ];
 
         $user3 = [
@@ -45,7 +43,7 @@ class AdminSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('123456789@'),
             'remember_token' => Str::random(10),
-            'is_admin' => true
+            'is_admin' => true,
         ];
 
         $admin = User::whereEmail('abdelgha4or@gmail.com')->first();
@@ -54,22 +52,19 @@ class AdminSeeder extends Seeder
 
         $admin3 = User::whereEmail('soufian.benbella19@gmail.com')->first();
 
-        if (!$admin &&  !$admin2 &&  !$admin3) {
-
-            $newAdmin =  User::create($user);
+        if (! $admin && ! $admin2 && ! $admin3) {
+            $newAdmin = User::create($user);
 
             $newAdmin->assignRole('SuperAdmin');
 
-            $newAdmin2 =  User::create($user2);
+            $newAdmin2 = User::create($user2);
 
             $newAdmin2->assignRole('SuperAdmin');
 
-            $newAdmin3 =  User::create($user3);
+            $newAdmin3 = User::create($user3);
 
             $newAdmin3->assignRole('SuperAdmin');
-
         } else {
-
             $admin->assignRole('SuperAdmin');
 
             $admin2->assignRole('SuperAdmin');

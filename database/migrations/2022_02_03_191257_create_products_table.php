@@ -21,7 +21,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->longText('description')->nullable();
             $table->float('price')->default(0);
-       
+
             $table->unsignedBigInteger('qte_global')->default(0);
             $table->unsignedBigInteger('qte_livre')->default(0);
             $table->unsignedBigInteger('qte_expidite')->default(0);
@@ -33,7 +33,7 @@ class CreateProductsTable extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->uuid('user_uuid')->nullable();
             $table->foreignId('category_id')->index()->nullable();
-            
+
             $table->timestamps();
             $table->softDeletes();
         });

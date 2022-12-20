@@ -3,13 +3,11 @@
 namespace App\Http\View\Composers;
 
 use App\Models\Sameleon\Ramassage;
-use Illuminate\View\View;
 use Illuminate\Cache\CacheManager;
-
+use Illuminate\View\View;
 
 class RamassageComposer
 {
-
     protected CacheManager $cache;
 
     public function __construct(CacheManager $cache)
@@ -20,13 +18,12 @@ class RamassageComposer
     /**
      * Bind data to the view.
      *
-     * @param View $view
+     * @param  View  $view
      * @return void
      */
     public function compose(View $view)
     {
         if (isClient()) {
-
             $ramassage = Ramassage::where('user_id', auth()->id())
                 ->where('user_uuid', auth()->user()->uuid)
                 ->whereActive(true)

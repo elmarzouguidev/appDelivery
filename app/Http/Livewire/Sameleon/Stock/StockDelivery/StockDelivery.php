@@ -7,25 +7,23 @@ use App\Models\Sameleon\Delivery;
 use App\Models\Sameleon\Stock;
 use App\Repositories\City\CityInterface;
 use App\Repositories\Client\ClientInterface;
-use App\Repositories\Delivery\DeliveryInterface;
 use App\Repositories\Product\ProductInterface;
-use App\Repositories\Stock\StockInterface;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class StockDelivery extends Component
 {
-
     use WithPagination;
 
     protected $paginationTheme = 'bootstrap';
 
     public $stockEdit;
+
     public $stock;
 
     public $showEditStock = false;
-    public $showDetail = false;
 
+    public $showDetail = false;
 
     public $filter = [];
 
@@ -36,12 +34,11 @@ class StockDelivery extends Component
     protected $listeners = [
         'editStock', 'editStock',
         'data:update' => '$refresh',
-        'updateStock' => 'updateStock'
+        'updateStock' => 'updateStock',
     ];
 
     public function render()
     {
-
         $stock = new ItemsQuery(new Stock(), $this->filter);
 
         $stocks = $stock
@@ -65,6 +62,7 @@ class StockDelivery extends Component
 
         return view('livewire.sameleon.stock.stock-delivery.stock-delivery', compact('stocks', 'delivries', 'citiesList', 'products', 'clients'));
     }
+
     public function mount()
     {
         $this->emit('refresh');
@@ -72,10 +70,9 @@ class StockDelivery extends Component
 
     public function editStock(Stock $stock)
     {
-
         $this->showEditStock = true;
 
-        $this->stockEdit = $stock->load('delivery','product','client');
+        $this->stockEdit = $stock->load('delivery', 'product', 'client');
 
         $this->dispatchBrowserEvent('show-edit-stock');
     }
@@ -95,9 +92,7 @@ class StockDelivery extends Component
 
     public function setfilter()
     {
-
-        if (!$this->data) {
-
+        if (! $this->data) {
             return;
         }
 

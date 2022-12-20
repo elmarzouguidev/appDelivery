@@ -6,13 +6,14 @@ use App\Models\Sameleon\Delivery;
 use App\Models\Sameleon\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+
 class DeliveryPolicy
 {
     use HandlesAuthorization;
 
     /**
      * Determine whether the user can view any models.
-     * 
+     *
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function viewAny(Authenticatable $user)
@@ -40,7 +41,7 @@ class DeliveryPolicy
      */
     public function create(Authenticatable $user)
     {
-        return $user->hasAnyRole('SuperAdmin') || $user->hasRole('DeliveryEntreprise') ;
+        return $user->hasAnyRole('SuperAdmin') || $user->hasRole('DeliveryEntreprise');
     }
 
     /**
@@ -52,7 +53,7 @@ class DeliveryPolicy
      */
     public function update(Authenticatable $user, Delivery $delivery)
     {
-        return $user->hasAnyRole('SuperAdmin') || $user->hasRole('DeliveryEntreprise') ;
+        return $user->hasAnyRole('SuperAdmin') || $user->hasRole('DeliveryEntreprise');
     }
 
     /**

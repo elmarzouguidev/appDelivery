@@ -7,17 +7,15 @@ use Spatie\Permission\Models\Role;
 
 class RoleSeeder extends Seeder
 {
-
     /**
      * Run the database seeds.
      *
      * @return void
      */
-
     protected array $roles = [
 
         ['name' => 'SuperAdmin', 'guard_name' => 'admin'],
-        
+
         ['name' => 'Admin', 'guard_name' => 'admin'],
 
         ['name' => 'Client', 'guard_name' => 'admin'],

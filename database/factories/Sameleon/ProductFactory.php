@@ -3,7 +3,6 @@
 namespace Database\Factories\Sameleon;
 
 use App\Models\Sameleon\Product;
-use App\Models\Sameleon\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ProductFactory extends Factory
@@ -15,7 +14,6 @@ class ProductFactory extends Factory
      */
     public function definition()
     {
-
         return [
             'name' => $this->faker->word,
             'description' => $this->faker->text(),
@@ -35,18 +33,13 @@ class ProductFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(function (Product $item) {
-
-
-            if(connection_status() === CONNECTION_NORMAL)
-            {
-            
+            if (connection_status() === CONNECTION_NORMAL) {
                 $url = 'https://source.unsplash.com/random/400x400';
 
                 $item
                     ->addMediaFromUrl($url)
-                    ->toMediaCollection('products_photos'); 
+                    ->toMediaCollection('products_photos');
             }
-                
         });
     }
 }

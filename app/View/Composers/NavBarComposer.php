@@ -6,15 +6,17 @@ use App\Models\Sameleon\Command;
 use App\Models\Sameleon\DeliveryInvoice;
 use App\Models\Sameleon\Invoice;
 use App\Models\Sameleon\Reclamation;
-use Illuminate\View\View;
 use Illuminate\Cache\CacheManager;
+use Illuminate\View\View;
 
 class NavBarComposer
 {
-
     protected Command $command;
+
     protected Reclamation $reclamation;
+
     protected Invoice $invoice;
+
     protected DeliveryInvoice $deliverInvoice;
 
     protected CacheManager $cache;
@@ -35,12 +37,11 @@ class NavBarComposer
     /**
      * Bind data to the view.
      *
-     * @param View $view
+     * @param  View  $view
      * @return void
      */
     public function compose(View $view)
     {
-
         $view->with('total_new_command', $this->command->totalNewCommands());
         $view->with('total_new_reclamations', $this->reclamation->totalNewReclamations());
         $view->with('invoice_non_closed', $this->invoice->invoiceNonClosed());
@@ -52,10 +53,8 @@ class NavBarComposer
          })); */
     }
 
-
     private function timeToLive()
     {
-
         return \Carbon\Carbon::now()->addDays(30);
     }
 }

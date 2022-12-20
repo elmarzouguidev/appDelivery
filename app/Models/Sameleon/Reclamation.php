@@ -27,7 +27,7 @@ class Reclamation extends Model
         'user_id',
         'priority',
         'is_closed',
-        'object'
+        'object',
     ];
 
     protected $casts = [
@@ -44,7 +44,6 @@ class Reclamation extends Model
         return $this->belongsTo(Command::class);
     }
 
-
     public function scopeTotalNewReclamations($query)
     {
         if (auth()->user()->hasRole('Client')) {
@@ -53,6 +52,7 @@ class Reclamation extends Model
                 ->whereStatus(0)
                 ->count();
         }
+
         return $query->whereStatus(0)
             ->count();
     }

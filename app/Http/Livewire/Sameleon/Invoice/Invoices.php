@@ -15,31 +15,36 @@ class Invoices extends Component
     //public $invoices;
 
     public $addBiller = false;
+
     public $invoicer;
 
     /****Bill ****/
 
     public $price;
+
     public $formatedPrice;
+
     public $date;
+
     public $mode;
+
     public $reference;
+
     public $notes;
+
     public $recu;
 
     /****Cloture Invoice */
-
 
     public $buttonClass = 'disabled';
 
     protected $messages = [
         //'recu.required' => "You must use the 'Choose file' button to select which file you wish to upload",
-        'recu.max' => "Maximum file size to upload is 1MB (1024 KB)."
+        'recu.max' => 'Maximum file size to upload is 1MB (1024 KB).',
     ];
 
     public function render()
     {
-
         /*if (auth()->user()->hasRole('Client')) {
             $invoices = Invoice::authClient()
                 ->withCount('commands')
@@ -53,7 +58,7 @@ class Invoices extends Component
                 ->with('client:id,nom,prenom')
                 ->with('bill')
                 ->withCount('bill')
-                ->get();  
+                ->get();
         }*/
 
         $invoices = app(InvoiceInterface::class)->getInvoices();
@@ -64,13 +69,12 @@ class Invoices extends Component
 
     public function addBill(Invoice $invoice)
     {
-
         $this->addBiller = true;
         $this->invoicer = $invoice->loadSum('articles', 'price_total')
             ->loadSum('articles', 'frais')
             ->loadSum('articles', 'profit');
         //$this->price = $invoice->articles_sum_price_total;
-        $this->price =  ($invoice->articles_sum_price_total - ($invoice->articles_sum_frais + $invoice->articles_sum_profit));
+        $this->price = ($invoice->articles_sum_price_total - ($invoice->articles_sum_frais + $invoice->articles_sum_profit));
         $this->formatedPrice = number_format($invoice->articles_sum_price_total - ($invoice->articles_sum_frais + $invoice->articles_sum_profit), 2);
         $this->dispatchBrowserEvent('add-bill');
     }
@@ -91,8 +95,8 @@ class Invoices extends Component
             'bill_date' => $this->date,
             'bill_mode' => $this->mode,
             'reference' => $this->reference,
-            'bank_name'  => $bankAccount->name ?? null,
-            'bank_rib'   => $bankAccount->account->rib ?? null,
+            'bank_name' => $bankAccount->name ?? null,
+            'bank_rib' => $bankAccount->account->rib ?? null,
             'notes' => $this->notes,
             'price_ht' => $this->price,
             'price_total' => $this->price,
@@ -106,7 +110,6 @@ class Invoices extends Component
         $invoice->update(['cloture' => true, 'status' => InvoiceStatus::PAYEE]);
 
         if ($this->recu) {
-
             $bill->addMedia($this->recu)->toMediaCollection('bills_recu');
         }
         $this->recu = null;
@@ -123,16 +126,14 @@ class Invoices extends Component
 
     public function clotureInvoice(Invoice $invoice)
     {
-        $invoice->update(['cloture' => !$invoice->cloture]);
+        $invoice->update(['cloture' => ! $invoice->cloture]);
 
         $this->dispatchBrowserEvent('reloadbrowser');
     }
 
-
     /*** Validation Rules  ***/
     protected function rules()
     {
-
         return [
 
             'price' => ['required', 'numeric'],

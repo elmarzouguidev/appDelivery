@@ -3,26 +3,18 @@
 namespace App\Http\Controllers\Sameleon\Admin\SubDelivery\Delivery;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Http\Requests\Sameleon\Admin\UpdateBankFormRequest;
-use App\Http\Requests\Sameleon\Admin\UpdateCompanyFormRequest;
 use App\Http\Requests\Sameleon\Admin\UpdateProfilFormRequest;
 use App\Http\Requests\Sameleon\Admin\UpdateProfilPasswordFormRequest;
 use App\Models\Sameleon\Bank;
-use App\Models\Sameleon\User;
 use App\Repositories\Bank\BankInterface;
-
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class ProfilSubDeliveryController extends Controller
 {
     public function index()
     {
-
         $user = delivery();
-
 
         //$banks = app(BankInterface::class)->getBanks();
 
@@ -34,11 +26,9 @@ class ProfilSubDeliveryController extends Controller
 
     public function update(UpdateProfilFormRequest $request)
     {
-
         $user = delivery();
 
         if ($user->uuid == $request->userId) {
-
             $user->nom = $request->nom;
             $user->prenom = $request->prenom;
             $user->email = $request->email;
@@ -48,12 +38,10 @@ class ProfilSubDeliveryController extends Controller
                 $request->has(['cnie']) &&
                 $request->filled(['cnie'])
             ) {
-
                 $user->cnie = $request->cnie;
             }
 
             if ($request->hasFile('logo')) {
-
                 $old = $user->logo;
                 $user->logo = $request->file('logo')->store('delivries', ['disk' => 'public']);
                 Storage::disk('public')->delete($old);
@@ -72,12 +60,10 @@ class ProfilSubDeliveryController extends Controller
         $user = delivery();
 
         if ($user->uuid == $request->hasPassword) {
-
             if (
                 $request->has(['oldpassword', 'new_password', 'new_confirm_password']) &&
                 $request->filled(['oldpassword', 'new_password', 'new_confirm_password'])
             ) {
-
                 $user->password = Hash::make($request->new_password);
             }
             $user->save();

@@ -6,12 +6,9 @@ use App\Actions\Sameleon\InvoiceDeliveryGenerator;
 use App\Http\Controllers\Controller;
 use App\Repositories\City\CityInterface;
 use App\Repositories\Command\CommandInterface;
-use Illuminate\Http\Request;
 
 class CommandSubDeliveryController extends Controller
 {
-
-
     public function index()
     {
         $cities = app(CityInterface::class)->getCities();

@@ -8,7 +8,6 @@ use App\Models\Sameleon\User;
 use App\Status\InvoiceStatus;
 use App\Status\Status;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Storage;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 class InvoiceGenerator
@@ -19,7 +18,6 @@ class InvoiceGenerator
 
     public function handle()
     {
-
         $this->CloseYesterdayInvoice();
 
         $this->deleteCommands();
@@ -41,9 +39,7 @@ class InvoiceGenerator
             ->get();
 
         if ($commands && $commands->count() > 0) {
-
-            $users =  $commands->map(function ($command, $key) {
-
+            $users = $commands->map(function ($command, $key) {
                 return ['user_id' => $command->user_id, 'user_uuid' => $command->user_uuid];
             });
 
@@ -58,13 +54,11 @@ class InvoiceGenerator
                     ->first();
 
                 if ($this->invoice) {
-
                     //dd('YESH here');
                     $this->addItems($user['user_id']);
                     $this->addOldItems($user['user_id']);
                     $this->checkArticles($user['user_id']);
                 } else {
-
                     $this->invoice = new Invoice();
                     $this->invoice->invoice_date = now()->format('Y-m-d');
                     $this->invoice->client()->associate($user['user_id']);
@@ -78,7 +72,6 @@ class InvoiceGenerator
 
     private function addItems($userId)
     {
-
         $user = User::find($userId);
         $commands = $user
             ->commands()
@@ -92,10 +85,7 @@ class InvoiceGenerator
             ->get();
         //dd('addItmes',$commands);
         if ($commands) {
-
-
-            $newCommands =  $commands->map(function ($item, $key) {
-
+            $newCommands = $commands->map(function ($item, $key) {
                 $item->update(['invoice_id' => $this->invoice->id, 'invoice_uuid' => $this->invoice->uuid]);
 
                 $price = $item->status == Status::REFUSE ? 0 : $item->items_sum_prix_total;
@@ -106,11 +96,11 @@ class InvoiceGenerator
                     'code_command' => $item->code,
                     'date_command' => $item->created_at->format('d-m-Y'),
                     'city' => $item->city->name ?? $item->client_city,
-                    'status' => __('status.statuses.' . $item->status),
+                    'status' => __('status.statuses.'.$item->status),
                     'price_total' => $price ?? 0,
                     'frais' => $item->frais,
                     'profit' => $item->city->profit ?? 0,
-                    'is_delivery' => false
+                    'is_delivery' => false,
                 ];
             })->toArray();
 
@@ -172,9 +162,7 @@ class InvoiceGenerator
             ->get();
 
         if ($commands) {
-
-            $newCommands =  $commands->map(function ($item, $key) {
-
+            $newCommands = $commands->map(function ($item, $key) {
                 $item->update(['invoice_id' => $this->invoice->id, 'invoice_uuid' => $this->invoice->uuid]);
 
                 $price = $item->status == Status::REFUSE ? 0 : $item->items_sum_prix_total;
@@ -185,7 +173,7 @@ class InvoiceGenerator
                     'code_command' => $item->code,
                     'date_command' => $item->created_at->format('d-m-Y'),
                     'city' => $item->city->name ?? $item->client_city,
-                    'status' => __('status.statuses.' . $item->status),
+                    'status' => __('status.statuses.'.$item->status),
                     'price_total' => $price ?? 0,
                     'frais' => $item->frais,
                     'profit' => $item->city->profit ?? 0,
@@ -198,15 +186,12 @@ class InvoiceGenerator
 
     private function deleteCommands()
     {
-
         $commands = Command::whereNotIn('status', [Status::LIVRE, Status::REFUSE])
             ->has('articles')
             ->get();
 
         if ($commands) {
-
             $commands->map(function ($item, $key) {
-
                 $item->articles()->delete();
                 $item->update(['invoice_id' => null, 'invoice_uuid' => null]);
             });
@@ -222,7 +207,6 @@ class InvoiceGenerator
             ->get();
 
         if ($commands) {
-
             $commands->map(function ($item, $key) {
                 $item->articles()->update(['price_total' => 0]);
             });

@@ -30,7 +30,7 @@ class Source extends Model
     ];
 
     protected $casts = [
-        'active' => 'boolean'
+        'active' => 'boolean',
     ];
 
     public function client()

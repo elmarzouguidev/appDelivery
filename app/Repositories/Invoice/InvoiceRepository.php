@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Repositories\Invoice;
 
 use App\Models\Sameleon\Invoice;
@@ -9,7 +8,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 class InvoiceRepository extends AppRepository implements InvoiceInterface
 {
-
     private $invoice;
 
     private $instance;
@@ -21,7 +19,7 @@ class InvoiceRepository extends AppRepository implements InvoiceInterface
 
     public function __instance(): Invoice
     {
-        if (!$this->instance) {
+        if (! $this->instance) {
             $this->instance = $this->invoice;
         }
 
@@ -33,9 +31,7 @@ class InvoiceRepository extends AppRepository implements InvoiceInterface
      */
     public function getInvoices()
     {
-
         if (isClient()) {
-
             return $this->invoice
                 ->authClient()
                 ->withCount('commands')
@@ -44,10 +40,9 @@ class InvoiceRepository extends AppRepository implements InvoiceInterface
                 ->withSum('articles', 'profit')
                 ->with('bill')
                 ->withCount('bill')
-                ->orderBy('cloture','asc')
+                ->orderBy('cloture', 'asc')
                 ->get();
         } else {
-
             return $this->invoice
                 ->withCount('commands')
                 ->withSum('articles', 'price_total')
@@ -55,21 +50,19 @@ class InvoiceRepository extends AppRepository implements InvoiceInterface
                 ->withSum('articles', 'profit')
                 ->with('bill')
                 ->withCount('bill')
-                ->orderBy('cloture','asc')
+                ->orderBy('cloture', 'asc')
                 ->get();
-
         }
     }
 
     /**
-     * @param int $id
+     * @param  int  $id
      * @return mixed
      */
     public function getInvoice(int $id)
     {
         return $this->invoice->find($id);
     }
-
 
     public function getInvoiceByUuid(string $uuid)
     {

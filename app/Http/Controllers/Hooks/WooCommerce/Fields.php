@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers\Hooks\WooCommerce;
 
-Class Fields {
+class Fields
+{
+    const FNAME = 'name';
 
-   
-    const FNAME ='name';
-    const LNAME ='name';
+    const LNAME = 'name';
+
     public function __construct()
     {
-        
     }
-    
-
-    
 }

@@ -3,7 +3,6 @@
 namespace App\Notifications\Sameleon;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Lang;
@@ -14,6 +13,7 @@ class SendNewUserPassword extends Notification
     use Queueable;
 
     public $password;
+
     /**
      * Create a new notification instance.
      *
@@ -47,18 +47,15 @@ class SendNewUserPassword extends Notification
             'token' => Str::random(15),
         ], false));
 
-
-    
         return (new MailMessage)
             ->subject(Lang::get('Sameleon Express Connectez-vous à votre compte'))
             ->line(Lang::get("Bienvenue $notifiable->full_name !"))
             ->line(Lang::get("Votre mot de pass : $this->password "))
             ->line(Lang::get("Votre E-mail : $notifiable->email "))
-            ->line(Lang::get("Merci pour votre confiance"))
+            ->line(Lang::get('Merci pour votre confiance'))
             ->line(Lang::get("Pour la connection a l'application veuillez utiliser le lien suivant"))
             ->action(Lang::get('Se connecter'), $url);
     }
-
 
     /**
      * Get the array representation of the notification.

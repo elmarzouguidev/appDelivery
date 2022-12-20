@@ -19,15 +19,15 @@ class Testimonial extends Model
         'user_uuid',
         'content',
         'approved',
-        'rating'
+        'rating',
     ];
 
-    protected  $casts = [
-        'approved' => 'boolean'
+    protected $casts = [
+        'approved' => 'boolean',
     ];
 
     public function client()
     {
-        return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

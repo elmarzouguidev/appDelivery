@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Model;
 class BLivraison extends Model
 {
     use HasFactory;
-
     use UuidGenerator;
     use GetModelByUuid;
 
@@ -32,11 +31,11 @@ class BLivraison extends Model
 
     // protected $dates = ['due_date'];
 
-    protected  $casts = [
+    protected $casts = [
 
         'bon_date' => 'date:Y-m-d',
         'active' => 'boolean',
-        'closed' => 'boolean'
+        'closed' => 'boolean',
     ];
 
     public function getTotalPriceAttribute()
@@ -71,33 +70,28 @@ class BLivraison extends Model
 
     public function scopeTotalBL($query)
     {
-
         if (isDelivery()) {
             return $query
                 ->whereDeliveryId(delivery()->id)
                 ->whereDeliveryUuid(delivery()->uuid)
                 ->count();
-        } 
-
-        else {
+        } else {
             return $query->count();
         }
     }
 
     public static function boot()
     {
-
         parent::boot();
 
         static::creating(function ($model) {
-
             $number = ($model->max('code') + 1);
 
             $code = str_pad($number, 5, 0, STR_PAD_LEFT);
 
             $model->code = $code;
 
-            $model->full_number = 'BL-' . $code;
+            $model->full_number = 'BL-'.$code;
         });
     }
 }

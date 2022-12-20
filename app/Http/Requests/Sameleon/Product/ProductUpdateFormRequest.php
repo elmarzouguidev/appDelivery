@@ -25,11 +25,11 @@ class ProductUpdateFormRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'description' =>['nullable','string'],
-            'price' =>['required','numeric'],
+            'description' => ['nullable', 'string'],
+            'price' => ['required', 'numeric'],
             //'qte_global' =>['required','integer'],
             'photo' => 'nullable|file|mimes:png,jpg,jpeg',
-            'category' => 'nullable|integer'
+            'category' => 'nullable|integer',
         ];
     }
 }

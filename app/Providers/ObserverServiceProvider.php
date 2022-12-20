@@ -18,7 +18,6 @@ use App\Observers\BillObserver;
 use App\Observers\CityObserver;
 use App\Observers\CommandObserver;
 use App\Observers\GroupObserver;
-use App\Observers\IntegrationObserver;
 use App\Observers\InvoiceObserver;
 use App\Observers\ProductObserver;
 use App\Observers\RegionObserver;

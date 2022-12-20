@@ -3,19 +3,15 @@
 namespace App\Http\Controllers\Hooks\Shopify;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Log;
 use App\Models\Lead;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class ShopifyController extends Controller
 {
-
-
     use DataTrait;
 
-
     private $data;
-
 
     public function __construct($data)
     {
@@ -33,20 +29,19 @@ class ShopifyController extends Controller
         $validator = Validator::make($fields, $validateData->rules());
 
         if ($validator->fails()) {
-
             Log::error($validator->errors());
         }
 
-        $items =  $validator->validated();
+        $items = $validator->validated();
         Log::info($items);
-       /* Lead::create([
-            'nom' => $items['first_name'],
-            'prenom' => $items['last_name'],
-            'email' => $items['email'],
-            'tele' => $items['phone'],
-            'ville' => $items['city'],
-            'address' => $items['address_1'],
-            'produit' => 'titan'
-        ]);*/
+        /* Lead::create([
+             'nom' => $items['first_name'],
+             'prenom' => $items['last_name'],
+             'email' => $items['email'],
+             'tele' => $items['phone'],
+             'ville' => $items['city'],
+             'address' => $items['address_1'],
+             'produit' => 'titan'
+         ]);*/
     }
 }

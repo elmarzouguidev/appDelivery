@@ -25,7 +25,7 @@ class Kernel extends HttpKernel
 
         \Spatie\Honeypot\ProtectAgainstSpam::class,
 
-        \HTMLMin\HTMLMin\Http\Middleware\MinifyMiddleware::class
+        \HTMLMin\HTMLMin\Http\Middleware\MinifyMiddleware::class,
     ];
 
     /**
@@ -83,7 +83,7 @@ class Kernel extends HttpKernel
         'cache_response' => \App\Http\Middleware\Cache\CacheResponseMiddleware::class,
 
         'hooks' => \App\Http\Middleware\Hooks\VerifyHooks::class,
-        
+
         'woocommerce' => \App\Http\Middleware\Hooks\VerifyWoocommerceMiddleware::class,
 
         'prevent-back-history' => \App\Http\Middleware\PreventBackHistory::class,

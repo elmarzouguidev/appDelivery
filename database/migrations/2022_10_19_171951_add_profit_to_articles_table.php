@@ -14,13 +14,13 @@ class AddProfitToArticlesTable extends Migration
     public function up()
     {
         Schema::table('articles', function (Blueprint $table) {
-            $table->after('frais',function($table){
+            $table->after('frais', function ($table) {
                 $table->float('profit')->default(0)->nullable();
             });
         });
 
         Schema::table('delivery_invoice_articles', function (Blueprint $table) {
-            $table->after('frais',function($table){
+            $table->after('frais', function ($table) {
                 $table->float('profit')->default(0)->nullable();
             });
         });

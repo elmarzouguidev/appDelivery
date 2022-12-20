@@ -5,18 +5,14 @@ namespace App\Http\Controllers\Sameleon\Metric;
 use App\Http\Controllers\Controller;
 use App\Models\Sameleon\City;
 use App\Models\Sameleon\Delivery;
-use App\Models\Sameleon\User;
 use App\Status\Status;
-use Illuminate\Http\Request;
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 
 class MetricController extends Controller
 {
-
-
     public function delivery()
     {
-        $users = Delivery::role(['Delivery','DeliveryEntreprise'])
+        $users = Delivery::role(['Delivery', 'DeliveryEntreprise'])
             ->with('city:id,name')
 
             ->withCount(['commandsDelivery as commands_livred_now' => function ($query) {
@@ -51,7 +47,6 @@ class MetricController extends Controller
 
     public function cities()
     {
-
         $cities = City::has('commands')
             ->withCount(['commands as commands_livred' => function ($query) {
                 $query->whereStatus(Status::LIVRE);

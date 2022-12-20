@@ -11,12 +11,11 @@ class VerifyCsrfToken extends Middleware
      *
      * @var array
      */
- 
     protected $except = [
 
-        'hooks/*'
+        'hooks/*',
         /* this url is renerated from the Hooks Settings exemple : hooks/elementor-98c1cd34-4861-438d-ad15-2595f5184e74
-        configuration is here : 
+        configuration is here :
         App\Settings\Repositories\WebHooksRepository;*/
     ];
 }

@@ -9,21 +9,17 @@ use App\Models\Sameleon\Delivery;
 use App\Models\Sameleon\Region;
 use App\Models\Sameleon\User;
 use App\Notifications\Sameleon\SendNewDeliveryPassword;
-use App\Notifications\Sameleon\SendNewUserPassword;
 use App\Repositories\City\CityInterface;
 use App\Repositories\Delivery\DeliveryInterface;
 use App\Services\Mail\CheckConnection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\DB;
 
 class DeliveryController extends Controller
 {
     public function index()
     {
-
         $this->authorize('viewAny', User::class);
 
         $deliveries = app(DeliveryInterface::class)->getDeliveries();
@@ -33,7 +29,6 @@ class DeliveryController extends Controller
 
     public function create()
     {
-
         $this->authorize('create', User::class);
 
         $cities = app(CityInterface::class)->getCities();
@@ -43,7 +38,6 @@ class DeliveryController extends Controller
 
     public function store(DeliveryCreateFormRequest $request)
     {
-
         $this->authorize('create', User::class);
 
         $delivery = new Delivery();
@@ -63,7 +57,6 @@ class DeliveryController extends Controller
         $pass = $request->email;
 
         if ($request->boolean('generate_password')) {
-
             $pass = Str::random(9);
         }
 
@@ -74,20 +67,16 @@ class DeliveryController extends Controller
         $delivery->save();
 
         if ($request->type == 'entreprise') {
-
             $delivery->assignRole('DeliveryEntreprise');
         } else {
-
             $delivery->assignRole('Delivery');
         }
 
         if ($request->type == 'entreprise' && $request->has('regions') && $request->filled('regions')) {
-
             Region::find($request->regions)->each->update(['delivery_id' => $delivery->id, 'delivery_uuid' => $delivery->uuid]);
         }
 
         if ($request->boolean('generate_password') && CheckConnection::isConnected()) {
-
             $delivery->notify(new SendNewDeliveryPassword($pass));
         }
 
@@ -107,7 +96,6 @@ class DeliveryController extends Controller
 
     public function update(DeliveryUpdateFormRequest $request, Delivery $delivery)
     {
-
         $this->authorize('update', $delivery);
 
         $delivery->nom = $request->nom;
@@ -119,10 +107,9 @@ class DeliveryController extends Controller
         $delivery->type = $request->type;
         $delivery->cnie = $request->cnie;
 
-
         $delivery->company_ice = $request->company_ice;
         $delivery->company_name = $request->company_name;
-        
+
         //$pass = Str::random(9);
 
         // $client->password = $pass = Hash::make($pass);
@@ -139,11 +126,9 @@ class DeliveryController extends Controller
         $request->validate(['deliveryId' => 'required|uuid']);
 
         $delivery = Delivery::whereUuid($request->deliveryId)->firstOrFail();
-        
+
         if ($delivery) {
-
             if ($delivery->hasRole('DeliveryEntreprise')) {
-
                 $delivery->commandsDelivery->each->update(['delivery_id' => null, 'delivery_uuid' => null]);
             }
 
@@ -151,6 +136,7 @@ class DeliveryController extends Controller
 
             return redirect()->back()->with('success', 'le livreure a été supp avec success');
         }
+
         return redirect()->back()->with('error', 'error !! ');
     }
 

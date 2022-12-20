@@ -25,7 +25,7 @@ class UpdateProfilPasswordFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'hasPassword'=>['required','uuid'],
+            'hasPassword' => ['required', 'uuid'],
             'oldpassword' => ['nullable', 'string', 'min:6', new MatchOldPassword],
             'new_password' => ['required_with:oldpassword'],
             'new_confirm_password' => ['same:new_password'],

@@ -17,14 +17,14 @@ class CreateProductCitiesTable extends Migration
             $table->id();
             $table->uuid('uuid')->unique();
             $table->unsignedBigInteger('product_id')->index('product_city_id');
-			$table->unsignedBigInteger('city_id')->index('city_id');
-			$table->unsignedBigInteger('qte')->default(0);
+            $table->unsignedBigInteger('city_id')->index('city_id');
+            $table->unsignedBigInteger('qte')->default(0);
 
-			$table->softDeletes();
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('product_id', 'art_id')->references('id')->on('products')->onUpdate('RESTRICT')->onDelete('RESTRICT');
-			$table->foreign('city_id', 'mag_id')->references('id')->on('cities')->onUpdate('RESTRICT')->onDelete('RESTRICT');
+            $table->foreign('city_id', 'mag_id')->references('id')->on('cities')->onUpdate('RESTRICT')->onDelete('RESTRICT');
         });
     }
 

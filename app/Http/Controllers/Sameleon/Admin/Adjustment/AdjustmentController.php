@@ -7,7 +7,6 @@ use App\Http\Requests\Sameleon\Adjustment\AdjustmentFormRequest;
 use App\Repositories\City\CityInterface;
 use App\Repositories\Delivery\DeliveryInterface;
 use App\Repositories\Product\ProductInterface;
-use Illuminate\Http\Request;
 
 class AdjustmentController extends Controller
 {
@@ -24,8 +23,6 @@ class AdjustmentController extends Controller
 
     public function store(AdjustmentFormRequest $request)
     {
-
-        dd('Yello',$request->all());
-
+        dd('Yello', $request->all());
     }
 }

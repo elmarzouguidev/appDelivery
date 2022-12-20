@@ -3,13 +3,11 @@
 namespace App\Http\View\Composers;
 
 use App\Models\Sameleon\Bill;
-use App\Models\Sameleon\Command;
-use Illuminate\View\View;
 use Illuminate\Cache\CacheManager;
+use Illuminate\View\View;
 
 class PaymentComposer
 {
-
     protected Bill $bill;
 
     protected CacheManager $cache;
@@ -24,19 +22,17 @@ class PaymentComposer
     /**
      * Bind data to the view.
      *
-     * @param View $view
+     * @param  View  $view
      * @return void
      */
     public function compose(View $view)
     {
-
         $view->with('payments', $this->bill->totalCommands());
 
         /*$view->with('categoriesMenu', $this->cache->remember('categoriesMenu', $this->timeToLive(), function () {
              return $this->categories->categoryInMenu();
          })); */
     }
-    
 
     private function timeToLive()
     {

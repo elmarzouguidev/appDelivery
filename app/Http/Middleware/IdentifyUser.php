@@ -16,12 +16,10 @@ class IdentifyUser
      */
     public function handle(Request $request, Closure $next)
     {
-    
-      
-        $request->route()->setParameter('prefixer',session('uuidRouter'));
+        $request->route()->setParameter('prefixer', session('uuidRouter'));
 
         dd($request->route()->getAction());
-      
+
         return $next($request);
     }
 }

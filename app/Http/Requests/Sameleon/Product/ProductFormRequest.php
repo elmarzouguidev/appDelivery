@@ -31,7 +31,7 @@ class ProductFormRequest extends FormRequest
             'photo' => 'required|file|mimes:png,jpg,jpeg',
             'category' => 'nullable|integer',
             'client' => 'nullable|integer',
-            'ramassageId'=>['nullable','uuid']
+            'ramassageId' => ['nullable', 'uuid'],
         ];
     }
 }

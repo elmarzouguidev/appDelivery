@@ -3,20 +3,14 @@
 namespace App\Http\Controllers\Sameleon\Admin\Setting\API;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class APIController extends Controller
 {
-
-
     public function index()
     {
         return view('Sameleon.Admin.Setting.api_integration.index');
     }
-
 
     public function createToken()
     {
@@ -27,6 +21,6 @@ class APIController extends Controller
 
         auth()->user()->update(['public_key_api' => $publicToken, 'secret_key_api' => $secretToken]);
 
-        return redirect()->back()->with('success', "la clé  a éte crée avec success");
+        return redirect()->back()->with('success', 'la clé  a éte crée avec success');
     }
 }

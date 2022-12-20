@@ -15,22 +15,21 @@ class Document extends Model implements HasMedia
     use HasFactory;
     use GetModelByUuid;
     use UuidGenerator;
-
     use InteractsWithMedia;
 
     protected $with = ['media'];
-    
+
     protected $fillable = [
         'uuid',
         'name',
         'description',
         'user_id',
         'user_uuid',
-        'active'
+        'active',
     ];
 
     protected $casts = [
-        'active' => 'boolean'
+        'active' => 'boolean',
     ];
 
     public function user()

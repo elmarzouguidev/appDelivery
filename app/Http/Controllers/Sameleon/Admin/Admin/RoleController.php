@@ -22,22 +22,21 @@ class RoleController extends Controller
 
         Role::create(['name' => $request->name, 'guard_name' => $request->guard_name]);
 
-        return redirect()->back()->with('success', "La Permission  a éte ajouter  avec success");
+        return redirect()->back()->with('success', 'La Permission  a éte ajouter  avec success');
     }
 
     public function delete(Request $request)
     {
-
         $request->validate(['roleId' => 'required|integer']);
 
         $permission = Role::findOrFail($request->roleId);
 
         if ($permission) {
-
             // $permission->delete();
 
-            return redirect()->back()->with('success', "Le Role  a éte supprimer  avec success");
+            return redirect()->back()->with('success', 'Le Role  a éte supprimer  avec success');
         }
-        return redirect()->back()->with('success', "un problem a été détécter ... ");
+
+        return redirect()->back()->with('success', 'un problem a été détécter ... ');
     }
 }

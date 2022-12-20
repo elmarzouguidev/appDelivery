@@ -24,14 +24,14 @@ class CreateInvoicesTable extends Migration
             $table->unsignedDecimal('price_tva', 8, 2)->default(0)->nullable();
 
             $table->date('invoice_date')->nullable();
-    
+
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->uuid('user_uuid')->nullable();
 
             $table->boolean('cloture')->default(false);
 
             $table->boolean('active')->default(true);
-            
+
             $table->mediumText('condition_general')->nullable();
 
             $table->timestamps();

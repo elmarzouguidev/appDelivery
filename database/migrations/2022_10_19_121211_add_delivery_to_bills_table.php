@@ -14,7 +14,7 @@ class AddDeliveryToBillsTable extends Migration
     public function up()
     {
         Schema::table('bills', function (Blueprint $table) {
-            $table->after('client_uuid',function($table){
+            $table->after('client_uuid', function ($table) {
                 $table->foreignId('delivery_id')->nullable();
                 $table->uuid('delivery_uuid')->nullable();
             });
@@ -29,7 +29,7 @@ class AddDeliveryToBillsTable extends Migration
     public function down()
     {
         Schema::table('bills', function (Blueprint $table) {
-          $table->dropColumn(['delivery_id','delivery_uuid']);
+            $table->dropColumn(['delivery_id', 'delivery_uuid']);
         });
     }
 }

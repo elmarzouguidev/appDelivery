@@ -34,7 +34,7 @@ class StockNewFormRequest extends FormRequest
             'qte' => ['required', 'integer'],
             'qte_alert' => ['required', 'integer'],
             'sent_at' => ['required', 'date', 'date_format:d-m-Y'],
-            'notes' => ['nullable', 'string']
+            'notes' => ['nullable', 'string'],
         ];
     }
 }

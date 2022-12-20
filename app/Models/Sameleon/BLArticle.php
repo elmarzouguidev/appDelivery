@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 class BLArticle extends Model
 {
     use HasFactory;
-
     use UuidGenerator;
 
     protected $fillable = [
@@ -25,13 +24,13 @@ class BLArticle extends Model
         'address',
         'comment',
         'price_total',
-        'bon_date'
+        'bon_date',
     ];
 
-    protected  $casts = [
+    protected $casts = [
         'bon_date' => 'date',
         'price_total' => 'float',
-        'command_status' => 'integer'
+        'command_status' => 'integer',
     ];
 
     public function bon()

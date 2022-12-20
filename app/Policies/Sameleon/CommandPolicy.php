@@ -2,18 +2,15 @@
 
 namespace App\Policies\Sameleon;
 
-use App\Models\Sameleon\Client;
 use App\Models\Sameleon\Command;
 use App\Models\Sameleon\User;
 use App\Status\Status;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
 
 class CommandPolicy
 {
     use HandlesAuthorization;
-
 
     /*public function before(User $user, $ability)
     {
@@ -24,8 +21,6 @@ class CommandPolicy
 
     /**
      * Determine whether the user can view any models.
-     *
-
      */
     public function viewAny(User $user)
     {
@@ -34,8 +29,6 @@ class CommandPolicy
 
     /**
      * Determine whether the user can view the model.
-     *
-
      */
     public function view(User $user, Command $command)
     {
@@ -44,22 +37,18 @@ class CommandPolicy
 
     /**
      * Determine whether the user can create models.
-     *
-
      */
     public function create(User $user)
     {
-        return $user->hasAnyRole('Client','SuperAdmin')
+        return $user->hasAnyRole('Client', 'SuperAdmin')
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation de crée une command.");
     }
 
-
     public function update(User $user, Command $command)
     {
-       
         //dd($user,$command);
-        return $command->client()->is($user) || $user->hasAnyRole('SuperAdmin','Admin')
+        return $command->client()->is($user) || $user->hasAnyRole('SuperAdmin', 'Admin')
             ? Response::allow()
             : Response::deny("désolé vous n'avez pas l'autorisation d'accéder à cette command.");
     }
@@ -104,6 +93,6 @@ class CommandPolicy
 
     public function import(User $user)
     {
-       return $user->hasAnyRole(['Client','SuperAdmin','Admin']) ? true :false;
+        return $user->hasAnyRole(['Client', 'SuperAdmin', 'Admin']) ? true : false;
     }
 }

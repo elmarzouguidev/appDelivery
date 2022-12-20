@@ -1,11 +1,9 @@
 <?php
 
-
 namespace App\Repositories\BR;
 
 interface BRInterface
 {
-
     public function getBRs();
 
     public function getBR(int $id);

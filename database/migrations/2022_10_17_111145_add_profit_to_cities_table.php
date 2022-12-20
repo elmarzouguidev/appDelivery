@@ -14,7 +14,7 @@ class AddProfitToCitiesTable extends Migration
     public function up()
     {
         Schema::table('cities', function (Blueprint $table) {
-            $table->after('frais',function($table){
+            $table->after('frais', function ($table) {
                 $table->boolean('has_profit')->default(false);
                 $table->float('profit')->default(0)->nullable();
             });
@@ -29,7 +29,7 @@ class AddProfitToCitiesTable extends Migration
     public function down()
     {
         Schema::table('cities', function (Blueprint $table) {
-           $table->dropColumn('profit');
+            $table->dropColumn('profit');
         });
     }
 }

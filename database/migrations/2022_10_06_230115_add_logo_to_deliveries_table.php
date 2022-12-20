@@ -26,7 +26,7 @@ class AddLogoToDeliveriesTable extends Migration
     public function down()
     {
         Schema::table('deliveries', function (Blueprint $table) {
-          $table->dropColumn('logo');
+            $table->dropColumn('logo');
         });
     }
 }

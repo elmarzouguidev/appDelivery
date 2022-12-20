@@ -1,15 +1,12 @@
 <?php
 
-
 namespace App\Services\Mail;
-
 
 use Swift_SmtpTransport;
 use Swift_TransportException;
 
 class CheckConnection
 {
-
     public static function isConnected()
     {
         try {
@@ -18,6 +15,7 @@ class CheckConnection
             $transport->setPassword(config('mail.mailers.smtp.password'));
             $mailer = new \Swift_Mailer($transport);
             $mailer->getTransport()->start();
+
             return true;
         } catch (Swift_TransportException $e) {
             return $e->getMessage();

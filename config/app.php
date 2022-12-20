@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'debug' => (bool)env('APP_DEBUG', false),
+    'debug' => (bool) env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -166,7 +166,7 @@ return [
          * Package Service Providers...
          */
 
-       // HTMLMin\HTMLMin\HTMLMinServiceProvider::class,
+        // HTMLMin\HTMLMin\HTMLMinServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -252,7 +252,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
 
-        'ticketApp' => App\Helpers\HelperFacade::class
+        'ticketApp' => App\Helpers\HelperFacade::class,
 
     ],
 

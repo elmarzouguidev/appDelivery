@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Repositories\Invoice;
 
 use App\Models\Sameleon\DeliveryInvoice;
@@ -9,7 +8,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 class DeliveryInvoiceRepository extends AppRepository implements DeliveryInvoiceInterface
 {
-
     private $invoice;
 
     private $instance;
@@ -21,7 +19,7 @@ class DeliveryInvoiceRepository extends AppRepository implements DeliveryInvoice
 
     public function __instance(): DeliveryInvoice
     {
-        if (!$this->instance) {
+        if (! $this->instance) {
             $this->instance = $this->invoice;
         }
 
@@ -33,7 +31,6 @@ class DeliveryInvoiceRepository extends AppRepository implements DeliveryInvoice
      */
     public function getInvoices()
     {
-
         return $this->invoice
             ->withCount('commands')
             ->withSum('articles', 'price_total')
@@ -46,14 +43,13 @@ class DeliveryInvoiceRepository extends AppRepository implements DeliveryInvoice
     }
 
     /**
-     * @param int $id
+     * @param  int  $id
      * @return mixed
      */
     public function getInvoice(int $id)
     {
         return $this->invoice->find($id);
     }
-
 
     public function getInvoiceByUuid(string $uuid)
     {

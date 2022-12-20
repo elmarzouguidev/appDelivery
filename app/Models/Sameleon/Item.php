@@ -26,11 +26,11 @@ class Item extends Model
         'prix_uni',
         'prix_total',
         'options',
-        'delivred'
+        'delivred',
     ];
 
     protected $casts = [
-        'delivred' => 'boolean'
+        'delivred' => 'boolean',
     ];
 
     public function command()

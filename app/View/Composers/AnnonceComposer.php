@@ -3,12 +3,11 @@
 namespace App\Http\View\Composers;
 
 use App\Models\Sameleon\Annonce;
-use Illuminate\View\View;
 use Illuminate\Cache\CacheManager;
+use Illuminate\View\View;
 
 class AnnonceComposer
 {
-
     protected Annonce $annonce;
 
     protected CacheManager $cache;
@@ -23,16 +22,13 @@ class AnnonceComposer
     /**
      * Bind data to the view.
      *
-     * @param View $view
+     * @param  View  $view
      * @return void
      */
     public function compose(View $view)
     {
-
         $view->with('annonces', $this->annonce->activeAnnonces());
-
     }
-    
 
     private function timeToLive()
     {

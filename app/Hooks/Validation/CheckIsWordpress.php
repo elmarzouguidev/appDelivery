@@ -7,7 +7,6 @@ use Illuminate\Support\Str;
 
 class CheckIsWordpress
 {
-
     private $is_woocommerce = false;
 
     private $is_elementor = false;
@@ -22,12 +21,15 @@ class CheckIsWordpress
 
         if (Str::contains($response->body(), ['woocommerce', 'Woocommerce', 'wp-content', 'wp-content/themes', 'wp-content/plugins', 'wp--preset'])) {
             $this->is_woocommerce = true;
+
             return $this;
         }
         if (Str::contains($response->body(), ['elementor', 'Elementor', 'wp-content', 'wp-content/themes', 'wp-content/plugins', 'wp--preset'])) {
             $this->is_elementor = true;
+
             return $this;
         }
+
         return $this;
     }
 

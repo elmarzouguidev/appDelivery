@@ -9,19 +9,17 @@ use App\Models\Sameleon\BRouter;
 use App\Models\Sameleon\City;
 use App\Models\Sameleon\Command;
 use App\Models\Sameleon\Delivery;
-use App\Models\Sameleon\Item;
 use App\Models\Sameleon\Product;
-use App\Models\Sameleon\Stock;
 use App\Models\Sameleon\User;
 use App\Repositories\City\CityInterface;
 use App\Repositories\Region\RegionInterface;
 use App\Status\DeliveryStatus;
-use Livewire\Component;
 use App\Status\Status;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
+use Livewire\Component;
 use Livewire\WithPagination;
 
 class Commands extends Component
@@ -43,23 +41,26 @@ class Commands extends Component
     public $canPolled = false;
 
     public $cities;
+
     public $citiesList;
 
     public $regions;
 
     public $blCity;
+
     public $blDelivery;
+
     public $blDeliveries;
 
     public $brClient;
 
     public $clients;
+
     public $products;
 
-
     public $reportTime;
-    public $reportComment;
 
+    public $reportComment;
 
     public $filter = [];
 
@@ -67,10 +68,9 @@ class Commands extends Component
 
     protected $updatesQueryString = ['filter'];
 
-
     protected $listeners = [
         'data:update' => '$refresh',
-        'updateStock' => 'updateStock'
+        'updateStock' => 'updateStock',
     ];
 
     public $selectedCommands = [];
@@ -93,36 +93,30 @@ class Commands extends Component
 
     public function render()
     {
-
         if (request()->has('livred') && request()->livred == true) {
-
             $this->filter += ['status' => Status::LIVRE];
 
             $this->emit('refresh');
         }
         if (request()->has('encours') && request()->encours == true) {
-
             $this->filter += ['status' => Status::ENCOURS];
 
             $this->emit('refresh');
         }
 
         if (request()->has('pdr') && request()->pdr == true) {
-
             $this->filter += ['status' => Status::PAS_DE_REPONSE];
 
             $this->emit('refresh');
         }
 
         if (request()->has('reported') && request()->reported == true) {
-
             $this->filter += ['status' => Status::REPORTE];
 
             $this->emit('refresh');
         }
 
         if (request()->has('cancled') && request()->cancled == true) {
-
             $this->filter += ['status' => Status::REFUSE];
 
             $this->emit('refresh');
@@ -133,8 +127,7 @@ class Commands extends Component
         $commandStatus = implode(',', [Status::NON_TRAITE, Status::ENCOURS, Status::REPORTE, Status::INJOIGNABLE, Status::CHANGE, Status::CHANGE, Status::EXPEDIE, Status::REFUSE, Status::RETOURNE, Status::MANQUE_DE_STOCK, Status::ANNULE, Status::LIVRE]);
 
         if (isClient()) {
-
-            $commands =  $command->where('user_id', auth()->id())
+            $commands = $command->where('user_id', auth()->id())
                 ->where('user_uuid', auth()->user()->uuid)
                 ->with('items')
                 ->withSum('items', 'prix_total')
@@ -142,12 +135,11 @@ class Commands extends Component
                 ->with(['invoice:uuid,id,full_number,cloture', 'city:id,name', 'region:id,name'])
                 ->with('tags:id,name')
                 ->orderByRaw("FIELD(status, $commandStatus)")
-                ->orderByRaw("created_at DESC")
+                ->orderByRaw('created_at DESC')
                 ->paginate(60);
 
             $delivries = [];
         } else {
-
             $commands = $command
                 ->with('items')
                 ->withSum('items', 'prix_total')
@@ -157,7 +149,7 @@ class Commands extends Component
                 ->with('tags:id,name')
                 ->orderBy('is_closed', 'asc')
                 ->orderByRaw("FIELD(status, $commandStatus)")
-                ->orderByRaw("created_at DESC")
+                ->orderByRaw('created_at DESC')
                 ->paginate(60);
 
             $delivries = Delivery::role(['Delivery', 'DeliveryEntreprise'])->select(['uuid', 'id', 'nom', 'prenom', 'type'])->get();
@@ -175,6 +167,7 @@ class Commands extends Component
     {
         $this->canPolled = true;
     }
+
     public function closePoll()
     {
         $this->canPolled = false;
@@ -182,7 +175,6 @@ class Commands extends Component
 
     public function mount()
     {
-
         $this->emit('refresh');
 
         $this->commandStatus = Status::NON_TRAITE;
@@ -199,7 +191,6 @@ class Commands extends Component
         $this->reportComment = '';
 
         if (isAdmin()) {
-
             $this->clients = User::role('Client')->select(['nom', 'prenom', 'id', 'uuid'])->get();
             $this->products = Product::select(['id', 'name'])->get();
             $this->citiesList = app(CityInterface::class)->getCities();
@@ -211,6 +202,7 @@ class Commands extends Component
     {
         // dd($value);
     }
+
     public function updatedSelectedCommands()
     {
         // dd($this->selectedCommands);
@@ -218,52 +210,47 @@ class Commands extends Component
 
     public function attachToDelivery()
     {
-        if (count($this->selectedCommands) && is_int($this->selectedDelivery)); {
+        if (count($this->selectedCommands) && is_int($this->selectedDelivery));
 
-            $delivery = Delivery::find($this->selectedDelivery);
+        $delivery = Delivery::find($this->selectedDelivery);
 
-            $status = $delivery->city_id == 1 ? Status::ENCOURS : Status::EXPEDIE; // city_id 1 == casablanca
+        $status = $delivery->city_id == 1 ? Status::ENCOURS : Status::EXPEDIE; // city_id 1 == casablanca
 
-            $allCommands = Command::find($this->selectedCommands)->each->get();
+        $allCommands = Command::find($this->selectedCommands)->each->get();
 
-            $commands = $allCommands->each(function ($command, $key) use ($delivery) {
+        $commands = $allCommands->each(function ($command, $key) use ($delivery) {
+            if ($command->city?->id !== $delivery->city?->id) {
+                $this->dispatchBrowserEvent('commands-error-city', ['command' => $command->code, 'city' => $delivery->city?->name]);
 
-                if ($command->city?->id !== $delivery->city?->id) {
-                    $this->dispatchBrowserEvent('commands-error-city', ['command' => $command->code, 'city' => $delivery->city?->name]);
+                throw ValidationException::withMessages([
+                    'command_listed_error' => "Le livreur 
+                        ( {$delivery->full_name} ) ne correspond pas a la ville  ( {$delivery->city?->name} )!",
 
-                    throw ValidationException::withMessages([
-                        'command_listed_error' => "Le livreur 
-                        ( {$delivery->full_name} ) ne correspond pas a la ville  ( {$delivery->city?->name} )!"
+                ]);
+                exit;
+            }
+        });
 
-                    ]);
-                    exit;
-                }
-            });
+        $commands->each->update([
 
-            $commands->each->update([
+            'delivery_id' => $delivery->id,
+            'delivery_uuid' => $delivery->uuid,
+            'status' => $status,
+            'delivery_status' => DeliveryStatus::D_NON_TRAITE,
 
-                'delivery_id' => $delivery->id,
-                'delivery_uuid' => $delivery->uuid,
-                'status' => $status,
-                'delivery_status' => DeliveryStatus::D_NON_TRAITE
+        ]);
 
-            ]);
+        $this->dispatchBrowserEvent('notify-global', ['message' => 'les commands envoyer avec succès']);
 
-            $this->dispatchBrowserEvent('notify-global', ['message' => 'les commands envoyer avec succès']);
-
-            $this->dispatchBrowserEvent('status-updated');
-        }
+        $this->dispatchBrowserEvent('status-updated');
     }
-
 
     public function updatedBlCity()
     {
-
         $deliveries = Delivery::whereCityUuid($this->blCity)->get();
 
         $this->blDeliveries = $deliveries;
     }
-
 
     public function generateBl()
     {
@@ -272,17 +259,15 @@ class Commands extends Component
         $commandDelivery = Delivery::whereUuid($this->blDelivery)->first();
 
         if (count($this->selectedCommands) && $commandCity && $commandDelivery) {
-
             $allCommands = Command::withSum('items', 'prix_total')->find($this->selectedCommands)->each->get();
 
             $commands = $allCommands->each(function ($command, $key) use ($commandCity) {
-
-                if (!$command->city()->is($commandCity)) {
+                if (! $command->city()->is($commandCity)) {
                     $this->dispatchBrowserEvent('commands-error-city', ['command' => $command->code, 'city' => $commandCity->name]);
 
                     throw ValidationException::withMessages([
                         'command_listed_error' => "La command 
-                        ( {$command->code} ) ne correspond pas a la ville ( {$commandCity->name} )!"
+                        ( {$command->code} ) ne correspond pas a la ville ( {$commandCity->name} )!",
 
                     ]);
                     exit;
@@ -298,8 +283,7 @@ class Commands extends Component
             $bon->save();
 
             if ($bon && $commands) {
-                $newCommands =  $commands->map(function ($item, $key) use ($bon) {
-
+                $newCommands = $commands->map(function ($item, $key) use ($bon) {
                     return [
                         'b_livraison_id' => $bon->id,
                         'b_livraison_uuid' => $bon->uuid,
@@ -328,17 +312,15 @@ class Commands extends Component
         $client = User::role('Client')->whereUuid($this->brClient)->first();
 
         if (count($this->selectedCommands) && $client) {
-
             $allCommands = Command::withSum('items', 'prix_total')->find($this->selectedCommands)->each->get();
 
             $commands = $allCommands->each(function ($command, $key) use ($client) {
-
-                if (!$command->client()->is($client)) {
+                if (! $command->client()->is($client)) {
                     $this->dispatchBrowserEvent('commands-error-client', ['command' => $command->code, 'client' => $client->full_name]);
 
                     throw ValidationException::withMessages([
                         'command_listed_error' => "La command 
-                        ( {$command->code} ) ne correspond pas a le client ( {$client->full_name} )!"
+                        ( {$command->code} ) ne correspond pas a le client ( {$client->full_name} )!",
 
                     ]);
                     exit;
@@ -348,7 +330,7 @@ class Commands extends Component
 
                     throw ValidationException::withMessages([
                         'command_listed_error' => "La command 
-                        ( {$command->code} ) ne correspond pas a le status Retourné !"
+                        ( {$command->code} ) ne correspond pas a le status Retourné !",
 
                     ]);
                     exit;
@@ -362,8 +344,7 @@ class Commands extends Component
             $bon->save();
 
             if ($bon && $commands) {
-                $newCommands =  $commands->map(function ($item, $key) use ($bon) {
-
+                $newCommands = $commands->map(function ($item, $key) use ($bon) {
                     return [
                         'b_router_id' => $bon->id,
                         'b_router_uuid' => $bon->uuid,
@@ -391,7 +372,6 @@ class Commands extends Component
     public function printCommands()
     {
         if (count($this->selectedCommands)) {
-
             //$commands = Command::withSum('items', 'prix_total')->find($this->selectedCommands)->each->get();
             //$command = Command::withSum('items', 'prix_total')->find($this->selectedCommands)->first();
 
@@ -402,7 +382,6 @@ class Commands extends Component
 
     public function editCommand(Command $command)
     {
-
         //dd('fff');
         $this->showEdit = true;
 
@@ -417,25 +396,21 @@ class Commands extends Component
 
     public function editStatus(Command $command)
     {
-
         $this->showEditStatus = true;
 
         $this->commandEdit = $command;
 
-        $this->reportComment =  str_replace('<br />', '', $command->comment);
+        $this->reportComment = str_replace('<br />', '', $command->comment);
 
         $this->dispatchBrowserEvent('show-edit-status');
     }
 
     public function livredBy(Command $command, $user)
     {
-
         if ($command) {
-
             $delivred = $command->delivred_by ?? [];
 
-            if ($user && !in_array($user, $delivred)) {
-
+            if ($user && ! in_array($user, $delivred)) {
                 $delivred_by = array_merge(
                     $delivred,
                     [$user]
@@ -444,25 +419,22 @@ class Commands extends Component
                 $command->update(['delivred_by' => $delivred_by]);
             }
         }
+
         return redirect()->back();
     }
 
     public function changeStatus(Command $command)
     {
-
         $items = $command->items;
 
         $status = $this->commandStatus;
 
         if ($status == Status::LIVRE && $command->status != Status::LIVRE) {
-
             $items->each(function ($item, $key) use ($command, $status) {
-
                 $prod = Product::find($item->product_id);
 
                 if ($prod) {
-
-                    $qte = (int)$item->quantity;
+                    $qte = (int) $item->quantity;
 
                     $stock = $prod->stocks()->where([
                         'city_id' => $command->city_id,
@@ -470,8 +442,7 @@ class Commands extends Component
                     ])->first();
 
                     if ($stock) {
-                        if ($stock->qte_rest >= $qte && $stock->qte_rest !== 0 && $stock->qte_rest > 0 && !$stock->is_out) {
-
+                        if ($stock->qte_rest >= $qte && $stock->qte_rest !== 0 && $stock->qte_rest > 0 && ! $stock->is_out) {
                             $stock->decrement('qte_rest', $qte);
                             $stock->increment('qte_livre', $qte);
 
@@ -491,7 +462,6 @@ class Commands extends Component
 
                             $this->livredBy($command, auth()->user()->id);
                         } else {
-
                             //$stock->update(['is_out' => true]);
 
                             $command->update(['delivered_at' => null]);
@@ -511,35 +481,31 @@ class Commands extends Component
                         $this->dispatchBrowserEvent('stock-not-found-city', ['city' => $CityName, 'product' => $prod->name]);
 
                         throw ValidationException::withMessages([
-                            'stock_not_found' => "Le stock de ($prod->name) n'existe pas sur la ville $CityName!"
+                            'stock_not_found' => "Le stock de ($prod->name) n'existe pas sur la ville $CityName!",
                         ]);
                         exit;
                     }
                 } else {
-
                     $CityName = optional($command->city)->name;
 
                     $this->dispatchBrowserEvent('product-not-found', ['product' => $item->product]);
 
                     throw ValidationException::withMessages([
-                        'stock_not_found' => "Le produit ($item->product) n'existe pas sur le systeme !"
+                        'stock_not_found' => "Le produit ($item->product) n'existe pas sur le systeme !",
                     ]);
                     exit;
                 }
             });
         } elseif ($status == Status::REFUSE && $command->status == Status::LIVRE && $command->status != Status::REFUSE) {
-
             $command->update(['delivered_at' => '1993-03-03 00:00:00']);
 
             $command->update(['status' => $status]);
 
-            $items->each(function ($item, $key) use ($command, $status) {
-
+            $items->each(function ($item, $key) use ($command) {
                 $prod = Product::find($item->product_id);
 
                 if ($prod) {
-
-                    $qte = (int)$item->quantity;
+                    $qte = (int) $item->quantity;
 
                     $stock = $prod->stocks()->where([
                         'city_id' => $command->city_id,
@@ -548,16 +514,14 @@ class Commands extends Component
 
                     if ($stock) {
                         if ($stock->qte_rest !== 0 && $stock->qte_rest > 0 || $stock->qte_rest >= $qte) {
-
                             $stock->increment('qte_rest', $qte);
-                            $stock->decrement('qte_livre',  $qte);
+                            $stock->decrement('qte_livre', $qte);
 
                             $prod->increment('qte_rest', $qte);
                             $prod->decrement('qte_livre', $qte);
                         }
 
                         if ($stock->qte_rest == 0) {
-
                             $stock->update(['is_out' => true]);
 
                             $command->update(['status' => Status::MANQUE_DE_STOCK]);
@@ -566,12 +530,11 @@ class Commands extends Component
                             $prod->update(['is_out' => true]);
                         }
                     } else {
-
                         $CityName = optional($command->city)->name;
                         $this->dispatchBrowserEvent('stock-not-found-city', ['city' => $CityName]);
 
                         throw ValidationException::withMessages([
-                            'stock_not_found' => "Le stock n'existe pas sur la ville $CityName !"
+                            'stock_not_found' => "Le stock n'existe pas sur la ville $CityName !",
                         ]);
                         exit;
                     }
@@ -579,17 +542,13 @@ class Commands extends Component
                 }
             });
         } else {
-
             if ($command->status == Status::LIVRE) {
-
                 $this->rollBackStatus($command, $items);
             }
             $command->update(['status' => $status]);
         }
 
-
         if ($command->reported_at != null) {
-
             $this->reportTime = $command->reported_at->format('d-m-Y');
         }
 
@@ -598,13 +557,11 @@ class Commands extends Component
 
     public function saveReportDetail(Command $command)
     {
-
         $this->validate();
 
         $reportedDate = null;
 
         if ($command->status == Status::REPORTE) {
-
             //$this->commandEdit->update(['comment' => null, 'reported_at' => null]);
 
             $reportedDate = Carbon::createFromFormat('d-m-Y', $this->reportTime)->format('Y-m-d');
@@ -620,12 +577,10 @@ class Commands extends Component
     private function rollBackStatus(Command $command, Collection $items)
     {
         $items->each(function ($item, $key) use ($command) {
-
             $prod = Product::find($item->product_id);
 
             if ($prod) {
-
-                $qte = (int)$item->quantity;
+                $qte = (int) $item->quantity;
 
                 $stock = $prod->stocks()->where([
                     'city_id' => $command->city_id,
@@ -633,19 +588,17 @@ class Commands extends Component
                 ])->first();
 
                 if ($stock) {
-
                     $stock->increment('qte_rest', $qte);
-                    $stock->decrement('qte_livre',  $qte);
+                    $stock->decrement('qte_livre', $qte);
 
                     $prod->increment('qte_rest', $qte);
                     $prod->decrement('qte_livre', $qte);
                 } else {
-
                     $CityName = optional($command->city)->name;
                     $this->dispatchBrowserEvent('stock-not-found-city', ['city' => $CityName]);
 
                     throw ValidationException::withMessages([
-                        'stock_not_found' => "Le stock n'existe pas sur la ville $CityName !"
+                        'stock_not_found' => "Le stock n'existe pas sur la ville $CityName !",
                     ]);
                     exit;
                 }
@@ -654,20 +607,15 @@ class Commands extends Component
         });
     }
 
-
-
     /********************Filters **************************/
 
     public function setfilter()
     {
-
-        if (!$this->data) {
-
+        if (! $this->data) {
             return;
         }
 
-        if ($this->data && array_key_exists('from_to', $this->data) && isset($this->data['from_to']) && !is_string($this->data['from_to'])) {
-
+        if ($this->data && array_key_exists('from_to', $this->data) && isset($this->data['from_to']) && ! is_string($this->data['from_to'])) {
             $this->data['from_to'] = implode(',', array_reverse($this->data['from_to']));
         }
 

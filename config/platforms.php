@@ -1,6 +1,5 @@
 <?php
 
-
 return [
 
     'shopify',
@@ -9,6 +8,5 @@ return [
     'clickFunnels',
     'ebay',
     /**** */
-
 
 ];

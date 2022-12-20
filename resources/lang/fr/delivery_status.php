@@ -1,4 +1,5 @@
 <?php
+
 return [
 
     'statuses' => [
@@ -34,7 +35,6 @@ return [
         \App\Status\DeliveryStatus::D_REFUSE => 'btn-danger',
         \App\Status\DeliveryStatus::D_REPORTE => 'btn-dark',
         \App\Status\DeliveryStatus::D_RETOURNE => 'btn-info',
-   
 
     ],
 

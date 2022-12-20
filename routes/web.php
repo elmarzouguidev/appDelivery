@@ -12,7 +12,6 @@ use App\Http\Controllers\Sameleon\Admin\SubDelivery\Invoice\InvoiceSubDeliveryPD
 use App\Http\Controllers\Sameleon\Admin\SubDelivery\Payment\PaymentSubDeliveryPDFController;
 use Illuminate\Support\Facades\Route;
 
-
 Route::redirect('/', '/app')->name('home');
 
 Route::redirect('/delivery/', '/delivery/app')->name('deliveryhome');
@@ -20,7 +19,6 @@ Route::redirect('/delivery/', '/delivery/app')->name('deliveryhome');
 Route::redirect('/login', '/app/login')->name('login');
 
 Route::group(['prefix' => 'views', 'middleware' => 'auth'], function () {
-
     Route::group(['prefix' => 'invoices'], function () {
         Route::get('/invoice/{invoice}', [InvoiceController::class, 'showInvoice'])->name('public.show.invoice');
     });
@@ -39,7 +37,6 @@ Route::group(['prefix' => 'views', 'middleware' => 'auth'], function () {
 });
 
 Route::group(['prefix' => 'views/delivery', 'middleware' => 'auth:delivery,web'], function () {
-
     Route::group(['prefix' => 'invoices'], function () {
         Route::get('/invoice/{invoice}', [InvoiceSubDeliveryPDFController::class, 'showInvoice'])->name('delivery.public.show.invoice');
     });
@@ -57,9 +54,7 @@ Route::group(['prefix' => 'views/delivery', 'middleware' => 'auth:delivery,web']
     });
 });
 
-
 Route::group(['prefix' => 'views/public'], function () {
-
     Route::group(['prefix' => 'bl'], function () {
         Route::get('/bons/{bon}', [PDFBLController::class, 'showPublicBL'])->name('public.public.show.bl');
     });
@@ -69,9 +64,7 @@ Route::group(['prefix' => 'views/public'], function () {
     });
 });
 
-
 Route::group(['prefix' => 'app'], function () {
-
     Route::get('password/request', [ForgotPasswordController::class, 'showLinkRequestForm'])
         ->middleware('guest')
         ->name('forgotpassword');
@@ -91,7 +84,6 @@ Route::group(['prefix' => 'app'], function () {
 
 /******Delivery  *****/
 Route::group(['prefix' => 'delivery/app'], function () {
-
     Route::get('password/request', [DeliveryForgotPasswordController::class, 'showLinkRequestForm'])
         ->middleware('guest:delivery')
         ->name('forgotpassword.delivery');

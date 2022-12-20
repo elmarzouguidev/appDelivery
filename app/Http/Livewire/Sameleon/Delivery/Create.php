@@ -8,7 +8,6 @@ use Livewire\Component;
 
 class Create extends Component
 {
-
     public $regions = [];
 
     public $city;
@@ -17,16 +16,15 @@ class Create extends Component
     {
         $cities = app(CityInterface::class)->getCities();
 
-        return view('livewire.sameleon.delivery.create',compact('cities'));
+        return view('livewire.sameleon.delivery.create', compact('cities'));
     }
 
     public function mount()
     {
-
     }
 
     public function updatedCity()
     {
-        $this->regions = Region::where('city_id',$this->city)->select(['id','name'])->get();
+        $this->regions = Region::where('city_id', $this->city)->select(['id', 'name'])->get();
     }
 }

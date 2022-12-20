@@ -50,8 +50,7 @@ class StockController extends Controller
         $delivery = Delivery::whereUuid($request->delivery)->first();
         $client = User::role('Client')->whereUuid($request->client)->first();
 
-        if ($product &&  $client) {
-
+        if ($product && $client) {
             $stock = new Stock();
             $stock->product_id = $product->id;
             $stock->product_uuid = $product->uuid;
@@ -59,7 +58,7 @@ class StockController extends Controller
             $stock->client_id = $product->client?->id;
             $stock->client_uuid = $product->client?->uuid;
 
-            if ($request->filled('city') && $request->has('city') && !$request->boolean('default_stock')) {
+            if ($request->filled('city') && $request->has('city') && ! $request->boolean('default_stock')) {
                 $stock->city_id = $city->id;
                 $stock->city_uuid = $city->uuid;
             } else {
@@ -67,10 +66,10 @@ class StockController extends Controller
                 $stock->city_id = $defaultCity->id;
                 $stock->city_uuid = $defaultCity->uuid;
             }
-            $stock->qte_global = (int)$request->qte;
-            $stock->qte_rest = (int)$request->qte;
+            $stock->qte_global = (int) $request->qte;
+            $stock->qte_rest = (int) $request->qte;
 
-            $stock->qte_alert = (int)$request->qte_alert;
+            $stock->qte_alert = (int) $request->qte_alert;
 
             $stock->sent_at = $request->date('sent_at');
             $stock->notes = $request->notes;
@@ -87,40 +86,36 @@ class StockController extends Controller
                 $stock->delivery_uuid = $delivery ? $delivery->uuid : null;
             }
 
-            $qte = $product->qte_global += (int)$request->qte;
+            $qte = $product->qte_global += (int) $request->qte;
 
             $product->update(['qte_rest' => $qte, 'qte_global' => $qte]);
 
             $stock->save();
 
             if ($request->boolean('default_stock') && isAdmin()) {
-
-                return redirect()->route('admin:stock.index')->with('success', "le stock a été créér avec succès");
+                return redirect()->route('admin:stock.index')->with('success', 'le stock a été créér avec succès');
             }
 
-            return redirect()->route('admin:stock.index.delivery')->with('success', "le stock a été créér avec succès");
+            return redirect()->route('admin:stock.index.delivery')->with('success', 'le stock a été créér avec succès');
         }
 
-        return redirect()->back()->with('error', "Error !!!");
+        return redirect()->back()->with('error', 'Error !!!');
     }
 
     public function update(StockFormRequest $request, Stock $stock)
     {
-
         if ($request->filled('qte_global')) {
+            $stock->qte_global = (int) $request->qte_global;
 
-            $stock->qte_global =  (int)$request->qte_global;
+            $stock->qte_rest = (int) $request->qte_global;
 
-            $stock->qte_rest =  (int)$request->qte_global;
-
-            $stock->qte_livre =  0;
+            $stock->qte_livre = 0;
 
             $stock->is_out = false;
         }
 
         if ($request->filled('qte_endomage') && $request->qte_endomage > 0) {
-
-            $stock->qte_endomage = $stock->qte_endomage + (int)$request->qte_endomage;
+            $stock->qte_endomage = $stock->qte_endomage + (int) $request->qte_endomage;
         }
 
         $stock->notes = $request->notes;
@@ -128,11 +123,10 @@ class StockController extends Controller
         $stock->save();
 
         if ($stock->ramassage) {
-
             $stock->ramassage->delete();
         }
 
-        return redirect()->back()->with('success', "le stock a été modifier avec succès");
+        return redirect()->back()->with('success', 'le stock a été modifier avec succès');
     }
 
     public function delete(Request $request)
@@ -142,7 +136,6 @@ class StockController extends Controller
         $stock = Stock::whereUuid($request->stockId)->firstOrFail();
 
         if ($stock) {
-
             $qte = $stock->qte_global;
 
             $stock->product->update([
@@ -154,6 +147,7 @@ class StockController extends Controller
 
             return redirect()->back()->with('success', 'le stock a été supprimé avec success');
         }
+
         return redirect()->back()->with('error', 'error !! ');
     }
 }

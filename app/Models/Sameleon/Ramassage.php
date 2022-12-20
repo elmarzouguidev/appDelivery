@@ -2,10 +2,10 @@
 
 namespace App\Models\Sameleon;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class Ramassage extends Model
 {
@@ -26,12 +26,12 @@ class Ramassage extends Model
         'product_id',
         'product_uuid',
         'category_id',
-        'accepted'
+        'accepted',
     ];
 
     protected $casts = [
         'active' => 'boolean',
-        'accepted'=>'boolean'
+        'accepted' => 'boolean',
     ];
 
     public function product()

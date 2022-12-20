@@ -5,25 +5,18 @@ namespace App\Imports;
 use App\Models\Sameleon\City;
 use App\Models\Sameleon\Command;
 use App\Models\Sameleon\Product;
-use Maatwebsite\Excel\Concerns\ToModel;
-use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use Maatwebsite\Excel\Concerns\WithMappedCells;
 use Illuminate\Support\Collection;
-use Illuminate\Validation\ValidationException;
-use Maatwebsite\Excel\Concerns\ToCollection;
-use Maatwebsite\Excel\Concerns\Importable;
-use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
-use Maatwebsite\Excel\Concerns\WithValidation;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
+use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
+use Maatwebsite\Excel\Concerns\ToCollection;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithValidation;
 
 class CommandsCollectionImport implements ToCollection, SkipsEmptyRows, WithHeadingRow, WithValidation
 {
-
-
-    public function collection(Collection  $rows)
+    public function collection(Collection $rows)
     {
-
         /*$prod = collect($rows);
         dd($prod);*/
         $products = collect($rows);
@@ -39,39 +32,36 @@ class CommandsCollectionImport implements ToCollection, SkipsEmptyRows, WithHead
         })->toArray();
         //dd($productsData);
         foreach ($rows as $row) {
-
-
             /*$productField = $row["produit_ref"] ?? $row["produit"] ?? throw ValidationException::withMessages([
 
                 'produit_field' => "veuillez vérifier la structure de  votre fichier excel le column (produit ref) ou (produit) n'existe pas dans le fichier excel "
-    
+
             ]);*/
-            $ville = City::whereName($row["ville"])->first();
+            $ville = City::whereName($row['ville'])->first();
 
             $data = [
-                'client_name'     => $row["destinataire"],
-                'client_phone'    => $row["telephone"],
-                'client_city'    => $row["ville"],
-                'client_address'    => $row["adresse"],
+                'client_name' => $row['destinataire'],
+                'client_phone' => $row['telephone'],
+                'client_city' => $row['ville'],
+                'client_address' => $row['adresse'],
                 'city_id' => $ville ? $ville->id : null,
                 'user_id' => auth()->id(),
                 'user_uuid' => auth()->user()->uuid,
-                'is_imported' => true
+                'is_imported' => true,
             ];
             //dd($data);
-            $command =  Command::create($data);
+            $command = Command::create($data);
 
             $product = null;
 
             foreach ($productsData as $name => $productData) {
-
                 $productName = str_replace(' ', '', $name);
 
                 $productQte = collect($productData)->sum('qte');
 
                 //dd($name, "##f", $productQte);
 
-                $slug = Str::slug($productName) . '-' . auth()->user()->uuid;
+                $slug = Str::slug($productName).'-'.auth()->user()->uuid;
 
                 // dd($slug);
 
@@ -83,19 +73,17 @@ class CommandsCollectionImport implements ToCollection, SkipsEmptyRows, WithHead
                 // dd($rows);
 
                 //dd($product->total_commands_qte);
-                if (!$product) {
-
+                if (! $product) {
                     throw ValidationException::withMessages([
                         'produit_not_found' => "Le produit ( {$productName} ) n'existe pas dans le systeme !",
-                        'produit_add' => "Aucun command a été importé a cause de ce problem veuillez ajouter ce produit ( {$productName} ) avant de continuer ! "
+                        'produit_add' => "Aucun command a été importé a cause de ce problem veuillez ajouter ce produit ( {$productName} ) avant de continuer ! ",
                     ]);
                     exit();
                 }
                 if ($product && $product->qte_rest < $productQte) {
-
                     throw ValidationException::withMessages([
                         'produit_price' => "Le produit ( {$product->name} ) est en rupture de stock",
-                        'produit_error' => "Aucun command a été importé a cause de ce problem veuillez augmenter votre Stock !! "
+                        'produit_error' => 'Aucun command a été importé a cause de ce problem veuillez augmenter votre Stock !! ',
                     ]);
                 }
 
@@ -112,13 +100,13 @@ class CommandsCollectionImport implements ToCollection, SkipsEmptyRows, WithHead
             $command->items()->create([
 
                 'command_uuid' => $command->uuid,
-                'product_id' => $product ?  $product->id : null,
+                'product_id' => $product ? $product->id : null,
                 'product_uuid' => $product ? $product->uuid : null,
                 'designation' => $productName,
                 'product' => $productName,
-                'quantity' => $row["qte"],
-                'prix_uni' => round($row["prix"] / $row["qte"]),
-                'prix_total' => $row["prix"],
+                'quantity' => $row['qte'],
+                'prix_uni' => round($row['prix'] / $row['qte']),
+                'prix_total' => $row['prix'],
             ]);
         }
     }

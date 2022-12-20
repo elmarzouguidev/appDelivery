@@ -3,12 +3,11 @@
 namespace App\Http\View\Composers;
 
 use App\Models\Sameleon\Command;
-use Illuminate\View\View;
 use Illuminate\Cache\CacheManager;
+use Illuminate\View\View;
 
 class SubDeliveryComposer
 {
-
     protected Command $command;
 
     protected CacheManager $cache;
@@ -23,7 +22,7 @@ class SubDeliveryComposer
     /**
      * Bind data to the view.
      *
-     * @param View $view
+     * @param  View  $view
      * @return void
      */
     public function compose(View $view)
@@ -35,7 +34,6 @@ class SubDeliveryComposer
         $view->with('total_command_p_reported', $this->command->subDeliveryTotalCommandsReported());
         $view->with('total_command_cancled', $this->command->subDeliveryTotalCommandsCancled());
     }
-
 
     private function timeToLive()
     {

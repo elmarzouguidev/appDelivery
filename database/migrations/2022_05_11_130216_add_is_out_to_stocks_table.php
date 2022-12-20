@@ -14,7 +14,7 @@ class AddIsOutToStocksTable extends Migration
     public function up()
     {
         Schema::table('stocks', function (Blueprint $table) {
-            $table->after('product_uuid',function($table){
+            $table->after('product_uuid', function ($table) {
                 $table->boolean('is_out')->default(false);
             });
         });

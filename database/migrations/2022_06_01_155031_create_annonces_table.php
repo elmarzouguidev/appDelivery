@@ -14,7 +14,6 @@ class CreateAnnoncesTable extends Migration
     public function up()
     {
         Schema::create('annonces', function (Blueprint $table) {
-            
             $table->id();
 
             $table->uuid('uuid');
@@ -25,7 +24,6 @@ class CreateAnnoncesTable extends Migration
             $table->date('periode')->nullable();
 
             $table->foreignId('user_id')->nullable()->constrained();
-    
 
             $table->timestamps();
         });

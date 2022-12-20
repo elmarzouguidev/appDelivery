@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Repositories\Source;
 
 use App\Models\Sameleon\Source;
@@ -9,7 +8,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 class SourceRepository extends AppRepository implements SourceInterface
 {
-
     private $source;
 
     private $instance;
@@ -21,7 +19,7 @@ class SourceRepository extends AppRepository implements SourceInterface
 
     public function __instance(): Source
     {
-        if (!$this->instance) {
+        if (! $this->instance) {
             $this->instance = $this->source;
         }
 
@@ -38,11 +36,9 @@ class SourceRepository extends AppRepository implements SourceInterface
         });
     }
 
- 
     public function usersSources()
     {
         return $this->setCache()->remember('users_sources_cache', $this->timeToLive(), function () {
-
             $this->source->whereUserId(auth()->id())
                 ->whereUserUuid(auth()->user()->uuid)
                 ->get() ?? [];
@@ -50,7 +46,7 @@ class SourceRepository extends AppRepository implements SourceInterface
     }
 
     /**
-     * @param int $id
+     * @param  int  $id
      * @return mixed
      */
     public function getSource(int $id)

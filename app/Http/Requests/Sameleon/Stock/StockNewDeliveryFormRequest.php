@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Sameleon\Stock;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class StockNewDeliveryFormRequest extends FormRequest
 {
@@ -32,7 +31,7 @@ class StockNewDeliveryFormRequest extends FormRequest
             'product' => ['required', 'uuid', 'exists:products,uuid'],
             'qte' => ['required', 'integer'],
             'sent_at' => ['required', 'date', 'date_format:d-m-Y'],
-            'notes' => ['nullable', 'string']
+            'notes' => ['nullable', 'string'],
         ];
     }
 }

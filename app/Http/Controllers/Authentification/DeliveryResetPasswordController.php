@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Authentification;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 
@@ -18,7 +18,6 @@ class DeliveryResetPasswordController extends Controller
      * @var string
      */
     //protected $redirectTo = RouteServiceProvider::HOME;
-
 
     public function showResetForm(Request $request)
     {

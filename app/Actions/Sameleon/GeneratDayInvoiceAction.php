@@ -6,7 +6,6 @@ use App\Models\Sameleon\Command;
 use App\Models\Sameleon\Invoice;
 use App\Status\Status;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Storage;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 class GeneratDayInvoiceAction
@@ -26,7 +25,7 @@ class GeneratDayInvoiceAction
         //!now()->isWeekend();
         // dd(now()->format('H:i') =='17:16');
         if (
-             auth()->user()->hasRole('Client') && auth()->user()->commands()
+            auth()->user()->hasRole('Client') && auth()->user()->commands()
             ->whereIn('status', [Status::LIVRE, Status::REFUSE])
             //->doesntHave('articles')
             //->whereDay('delivered_at', now()->format('d'))
@@ -36,20 +35,16 @@ class GeneratDayInvoiceAction
             })
             ->count() > 0
         ) {
-
             $this->invoice = Invoice::whereDay('created_at', now()->format('d'))
                 ->where('user_id', auth()->id())
                 ->where('user_uuid', auth()->user()->uuid)
                 ->first();
 
             if ($this->invoice) {
-
                 $this->addItems();
                 $this->addOldItems();
                 $this->checkArticles();
-
             } else {
-
                 $this->invoice = new Invoice();
                 $this->invoice->invoice_date = now()->format('Y-m-d');
                 $this->invoice->client()->associate(auth()->id());
@@ -74,9 +69,7 @@ class GeneratDayInvoiceAction
             ->latest()->get();
 
         if ($commands) {
-
-            $newCommands =  $commands->map(function ($item, $key) {
-
+            $newCommands = $commands->map(function ($item, $key) {
                 $item->update(['invoice_id' => $this->invoice->id, 'invoice_uuid' => $this->invoice->uuid]);
 
                 $price = $item->status == Status::REFUSE ? 0 : $item->items_sum_prix_total;
@@ -87,11 +80,10 @@ class GeneratDayInvoiceAction
                     'code_command' => $item->code,
                     'date_command' => $item->created_at->format('d-m-Y'),
                     'city' => $item->city->name ?? $item->client_city,
-                    'status' => __('status.statuses.' . $item->status),
+                    'status' => __('status.statuses.'.$item->status),
                     'price_total' => $price ?? 0,
                     'frais' => $item->frais,
                 ];
-
             })->toArray();
 
             $this->invoice->articles()->createMany($newCommands);
@@ -153,9 +145,7 @@ class GeneratDayInvoiceAction
             ->latest()->get();
 
         if ($commands) {
-
-            $newCommands =  $commands->map(function ($item, $key) {
-
+            $newCommands = $commands->map(function ($item, $key) {
                 $item->update(['invoice_id' => $this->invoice->id, 'invoice_uuid' => $this->invoice->uuid]);
 
                 $price = $item->status == Status::REFUSE ? 0 : $item->items_sum_prix_total;
@@ -166,7 +156,7 @@ class GeneratDayInvoiceAction
                     'code_command' => $item->code,
                     'date_command' => $item->created_at->format('d-m-Y'),
                     'city' => $item->city->name ?? $item->client_city,
-                    'status' => __('status.statuses.' . $item->status),
+                    'status' => __('status.statuses.'.$item->status),
                     'price_total' => $price ?? 0,
                     'frais' => $item->frais,
                 ];
@@ -178,15 +168,12 @@ class GeneratDayInvoiceAction
 
     private function deleteCommands()
     {
-
         $commands = Command::whereNotIn('status', [Status::LIVRE, Status::REFUSE])
             ->has('articles')
             ->get();
 
         if ($commands) {
-
             $commands->map(function ($item, $key) {
-
                 $item->articles()->delete();
                 $item->update(['invoice_id' => null, 'invoice_uuid' => null]);
             });
@@ -202,7 +189,6 @@ class GeneratDayInvoiceAction
             ->get();
 
         if ($commands) {
-
             $commands->map(function ($item, $key) {
                 $item->articles()->update(['price_total' => 0]);
             });
@@ -212,8 +198,8 @@ class GeneratDayInvoiceAction
     private function getYesterdayInvoice()
     {
         $invoices = Invoice::whereDay('created_at', Carbon::yesterday()->format('d'))
-            ->where('cloture',false)
-            ->select(['id','cloture'])->get();
+            ->where('cloture', false)
+            ->select(['id', 'cloture'])->get();
         $invoices->each->update(['cloture' => true]);
     }
 }

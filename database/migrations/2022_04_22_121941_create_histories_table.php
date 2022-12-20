@@ -23,7 +23,7 @@ class CreateHistoriesTable extends Migration
 
             $table->bigInteger('historyable_id');
             $table->string('historyable_type');
-            
+
             $table->timestamps();
         });
     }

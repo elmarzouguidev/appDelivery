@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Storage;
 
 class IntegrationController extends Controller
 {
-
     public function index()
     {
         $integrations = app(IntegrationInterface::class)->getIntegrations();
@@ -27,7 +26,6 @@ class IntegrationController extends Controller
 
     public function store(IntegrationFormRequest $request)
     {
-
         $integration = new Integration();
 
         $integration->name = $request->name;
@@ -35,7 +33,6 @@ class IntegrationController extends Controller
         $integration->description = $request->description;
 
         if ($request->hasFile('logo')) {
-            
             $integration->logo = $request->file('logo')->store('integrations', ['disk' => 'public']);
         }
 
@@ -51,13 +48,11 @@ class IntegrationController extends Controller
 
     public function update(IntegrationUpdateFormRequest $request, Integration $integration)
     {
-
         $integration->name = $request->name;
         $integration->slug = $request->slug;
         $integration->description = $request->description;
 
         if ($request->hasFile('logo')) {
-
             $old = $integration->logo;
 
             $integration->logo = $request->file('logo')->store('integrations', ['disk' => 'public']);
@@ -75,10 +70,9 @@ class IntegrationController extends Controller
         $integration = Integration::whereUuid($request->integrationId)->firstOrFail();
 
         if ($integration) {
+            $integration->update(['active' => ! $integration->active]);
 
-            $integration->update(['active' => !$integration->active]);
-
-            $integration->active ? $msg = "activé" : $msg = "desactivé";
+            $integration->active ? $msg = 'activé' : $msg = 'desactivé';
 
             return redirect()->back()->with('success', "le module a été $msg avec success");
         }
@@ -93,11 +87,11 @@ class IntegrationController extends Controller
         $integration = Integration::whereUuid($integrationId)->first();
 
         if ($integration) {
-
             //$integration->delete();
 
             return redirect()->back()->with('success', 'Integration Deleted Successfully');
         }
+
         return redirect()->back()->with('error', 'Integration error');
     }
 }

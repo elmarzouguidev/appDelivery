@@ -13,9 +13,7 @@ class AddPlatformToSourcesTable extends Migration
      */
     public function up()
     {
-
-        if (!Schema::hasColumn('sources', 'platform')) {
-
+        if (! Schema::hasColumn('sources', 'platform')) {
             Schema::table('sources', function (Blueprint $table) {
                 $table->string('platform')->after('name');
             });
@@ -29,8 +27,7 @@ class AddPlatformToSourcesTable extends Migration
      */
     public function down()
     {
-        if (!Schema::hasColumn('sources', 'platform')) {
-
+        if (! Schema::hasColumn('sources', 'platform')) {
             Schema::table('sources', function (Blueprint $table) {
                 $table->dropColumn('platform');
             });

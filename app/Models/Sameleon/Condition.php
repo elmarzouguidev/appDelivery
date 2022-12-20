@@ -21,13 +21,13 @@ class Condition extends Model
         'active',
         'periode',
         'viewed',
-        'type'
+        'type',
     ];
 
-    protected  $casts = [
+    protected $casts = [
         'active' => 'boolean',
         'periode' => 'date',
-        'viewed' => 'array'
+        'viewed' => 'array',
     ];
 
     public function setViewedAttribute($value)
@@ -42,7 +42,6 @@ class Condition extends Model
 
     public function scopeActiveConditions($query)
     {
-
         return $query->whereActive(true)
         ->latest()->first();
     }

@@ -4,13 +4,11 @@ namespace App\Http\Controllers\Sameleon\Admin\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Sameleon\UserLogin;
-use Illuminate\Http\Request;
 
 class HistoryController extends Controller
 {
     public function index()
     {
-
         $connections = auth()->user()->withLastLogin() ?? [];
 
         $sessionsAll = auth()->user()->GetLoginHistory() ?? [];

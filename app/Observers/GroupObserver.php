@@ -63,7 +63,6 @@ class GroupObserver
 
     private function clearAllCache()
     {
-
         cache()->pull('all_groups_cache');
     }
 }

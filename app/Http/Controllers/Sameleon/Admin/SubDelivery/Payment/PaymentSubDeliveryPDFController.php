@@ -10,20 +10,19 @@ class PaymentSubDeliveryPDFController extends Controller
 {
     public function showBill(Request $request, Bill $bill)
     {
-  
         $request->validate(['has_header' => ['required', 'boolean']]);
 
         $hasHeader = $request->has_header;
 
         $bill->load('billable:id,full_number,invoice_date', 'delivery');
 
-        $companyLogo = "data:image/jpg;base64," . base64_encode(file_get_contents(public_path('storage/' . getCompany()->logo)));
+        $companyLogo = 'data:image/jpg;base64,'.base64_encode(file_get_contents(public_path('storage/'.getCompany()->logo)));
 
         $pdf = \PDF::loadView('Sameleon.PDF.DELIVERY.bill-delivery', compact('bill', 'companyLogo', 'hasHeader'));
 
         $pdf->setPaper('a5');
-        
-        $fileName = $bill->bill_date->format('d-m-Y') . "-[ {$bill->delivery->full_name} ]-" . 'DELIVERY-REG-' . "{$bill->full_number}" . '.pdf';
+
+        $fileName = $bill->bill_date->format('d-m-Y')."-[ {$bill->delivery->full_name} ]-".'DELIVERY-REG-'."{$bill->full_number}".'.pdf';
 
         return $pdf->stream($fileName);
     }

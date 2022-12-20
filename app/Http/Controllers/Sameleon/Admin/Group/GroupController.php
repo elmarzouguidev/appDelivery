@@ -12,18 +12,14 @@ use Illuminate\Http\Request;
 
 class GroupController extends Controller
 {
-
-
     public function index()
     {
-
         $groups = app(GroupInterface::class)->getGroups();
 
         $admins = app(AdminInterface::class)->getAdmins();
 
         return view('Sameleon.Admin.Group.index', compact('groups', 'admins'));
     }
-
 
     public function create()
     {
@@ -34,7 +30,6 @@ class GroupController extends Controller
 
     public function store(GroupFormRequest $request)
     {
-
         $group = new Group();
 
         $group->name = $request->name;
@@ -48,8 +43,6 @@ class GroupController extends Controller
         return redirect()->back()->with('success', 'Group created Successfully');
     }
 
-
-
     public function edit(Group $group)
     {
         $admins = app(AdminInterface::class)->getAdmins();
@@ -59,13 +52,12 @@ class GroupController extends Controller
 
     public function update(GroupUpdateFormRequest $request, Group $group)
     {
-
         $group->name = $request->name;
 
         $group->description = $request->description;
 
         $group->moderator()->associate($request->admin);
-        
+
         $group->save();
 
         return redirect()->back()->with('success', 'Group updated Successfully');
@@ -78,11 +70,11 @@ class GroupController extends Controller
         $group = Group::whereUuid($groupId)->first();
 
         if ($group) {
-
             $group->delete();
 
             return redirect()->back()->with('success', 'Group Deleted Successfully');
         }
+
         return redirect()->back()->with('error', 'Group error');
     }
 

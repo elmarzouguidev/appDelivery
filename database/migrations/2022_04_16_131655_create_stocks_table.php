@@ -29,7 +29,6 @@ class CreateStocksTable extends Migration
             $table->foreignId('delivery_id')->nullable()->constrained()->cascadeOnDelete();
             $table->string('delivery_uuid')->nullable();
 
-
             $table->foreignId('city_id')->constrained()->cascadeOnDelete();
             $table->string('city_uuid')->nullable();
 

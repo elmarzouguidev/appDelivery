@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Sameleon\Admin\Setting;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Http\Requests\Setting\Company\CompanySettingRequest;
 use App\Settings\CompanySettings;
 use Illuminate\Support\Facades\Storage;
@@ -12,8 +11,6 @@ class CompanySettingController extends Controller
 {
     public function index(CompanySettings $settings)
     {
-
-        
         return view('theme.pages.Setting.index', [
             'name' => $settings->name,
             'website' => $settings->website,
@@ -33,7 +30,6 @@ class CompanySettingController extends Controller
         CompanySettingRequest $request,
         CompanySettings $settings
     ) {
-        
         $settings->name = $request->name;
         $settings->website = $request->website;
         $settings->addresse = $request->addresse;
@@ -46,18 +42,15 @@ class CompanySettingController extends Controller
         $settings->if = $request->if;
 
         if ($request->hasFile('logo')) {
-
             $old = $settings->logo;
             $settings->logo = $request->file('logo')->store('company', ['disk' => 'public']);
-            if($old)
-            {
-              Storage::disk('public')->delete($old);  
+            if ($old) {
+                Storage::disk('public')->delete($old);
             }
-            
         }
 
         $settings->save();
 
-        return redirect()->back()->with('success', "Update a éte effectuer avec success");
+        return redirect()->back()->with('success', 'Update a éte effectuer avec success');
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Helpers;
+
 class Helper
 {
-
     use CalculatorHelpers;
     use InvoiceHelpers;
 
@@ -11,5 +11,4 @@ class Helper
     {
         return new self;
     }
-
 }

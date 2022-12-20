@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Hooks\WooCommerce;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Log;
 use App\Http\Requests\Hooks\WooCommerce\HookRequest;
 use App\Models\Sameleon\City;
 use App\Models\Sameleon\Command;
@@ -13,18 +11,18 @@ use App\Models\Sameleon\Product;
 use App\Models\Sameleon\Tag;
 use App\Models\Sameleon\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class WooCommerceController extends Controller
 {
-
     private $data;
 
     private $client;
 
     public function __construct(Request $request)
     {
-
-        $user =  substr($request->route()->uri(), strpos($request->route()->uri(), "@") + 1);
+        $user = substr($request->route()->uri(), strpos($request->route()->uri(), '@') + 1);
 
         logger($request->header());
 
@@ -32,7 +30,7 @@ class WooCommerceController extends Controller
 
         $this->getClient($user);
 
-        if ($request->has(['billing','line_items']) && $request->filled(['billing', 'line_items'])) {
+        if ($request->has(['billing', 'line_items']) && $request->filled(['billing', 'line_items'])) {
             $this->setData();
         }
     }
@@ -51,11 +49,10 @@ class WooCommerceController extends Controller
         $validator = Validator::make($fields, $validateData->rules());
 
         if ($validator->fails()) {
-
             Log::error($validator->errors());
         }
 
-        $items =  $validator->validated();
+        $items = $validator->validated();
 
         $this->addCommand($items);
     }
@@ -65,10 +62,10 @@ class WooCommerceController extends Controller
         $city = City::whereName($items['billing']['city'])->first();
 
         $command = Command::create([
-            'client_name'     => $items['billing']['first_name'] . ' ' . $items['billing']['last_name'],
-            'client_phone'    => $items['billing']['phone'],
-            'client_city'    => $items['billing']['city'],
-            'client_address'    => $items['billing']['address_1'],
+            'client_name' => $items['billing']['first_name'].' '.$items['billing']['last_name'],
+            'client_phone' => $items['billing']['phone'],
+            'client_city' => $items['billing']['city'],
+            'client_address' => $items['billing']['address_1'],
             'city_id' => $city ? $city->id : null,
             'city_uuid' => $city ? $city->uuid : null,
             //'region_id' => $region ? $region->id : null,
@@ -76,23 +73,22 @@ class WooCommerceController extends Controller
             'user_id' => $this->client->id,
             'user_uuid' => $this->client->uuid,
             'frais' => $city ? $city->frais : 00,
-            'comment' => "WooCommerce Test"
+            'comment' => 'WooCommerce Test',
         ]);
         collect($items['line_items'])->each(function ($item) use ($command) {
-
             $product = Product::whereName($item['name'])->first();
 
             Item::create([
                 'command_id' => $command->id,
                 'command_uuid' => $command->uuid,
-                'product_id' => $product ?  $product->id : null,
+                'product_id' => $product ? $product->id : null,
                 'product_uuid' => $product ? $product->uuid : null,
                 'designation' => $item['name'],
                 'product' => $item['name'],
                 'quantity' => $item['quantity'],
                 'prix_uni' => round($item['total'] / $item['quantity']),
                 'prix_total' => $item['total'],
-          
+
             ]);
         });
 
@@ -100,6 +96,7 @@ class WooCommerceController extends Controller
 
         $command->tags()->attach($tag);
     }
+
     protected function detachData()
     {
         /**Just for Me  */
@@ -107,6 +104,7 @@ class WooCommerceController extends Controller
         $clientInfos = $data['billing'];
         $products = $data['line_items'];
         $datas = array_merge($clientInfos, $products);
+
         return $datas;
     }
 

@@ -23,21 +23,20 @@ class Article extends Model
         'profit',
         'is_delivery',
         'command_id',
-        'command_uuid'
+        'command_uuid',
     ];
 
-    protected  $casts = [
+    protected $casts = [
         'date_command' => 'date',
         'price_total' => 'float',
         'profit' => 'float',
-        'is_delivery'=>'boolean'
+        'is_delivery' => 'boolean',
     ];
 
     public function articleable()
     {
         return $this->morphTo();
     }
-
 
     public function command()
     {

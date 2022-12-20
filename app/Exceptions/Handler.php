@@ -4,11 +4,10 @@ namespace App\Exceptions;
 
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Support\Str;
 use Swift_TransportException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -51,7 +50,6 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $exception)
     {
-
         /*if ($exception instanceof \ErrorException) {
              return response()->json([
                  'data' => 'Resource not found'
@@ -70,7 +68,6 @@ class Handler extends ExceptionHandler
          }*/
 
         if ($exception instanceof MethodNotAllowedHttpException && $request->routeIs('admin:commands.import')) {
-
             /*return response()->json([
                 'msg' => ['error' => 'sorry this URL is not Allowed from Browser Directly']
             ], 405);*/
@@ -79,40 +76,37 @@ class Handler extends ExceptionHandler
         }
 
         if ($exception instanceof Swift_TransportException) {
-
             // dd($exception->getMessage(),'--',$exception);
 
             $contains = Str::contains($exception->getMessage(), ['could not be established with host', ':stream_socket_client():']);
 
-            $contains ? $message = "désole nous avons un problème au niveau du serveur mailing" : $message = $exception->getMessage();
+            $contains ? $message = 'désole nous avons un problème au niveau du serveur mailing' : $message = $exception->getMessage();
 
             return response()->json(['_response' => ['msg' => $message, 'is_send' => false]], 500);
         }
 
         if ($exception instanceof ThrottleRequestsException && $request->is('api/*')) {
-
             return response()->json([
-                'msg' => ['error' => "désolé vous avez depassé le limit de l'api"]
+                'msg' => ['error' => "désolé vous avez depassé le limit de l'api"],
             ], 405);
         }
 
         if ($exception instanceof MethodNotAllowedHttpException && $request->is('api/*')) {
             return response()->json([
-                'msg' => ['error' => 'sorry this URL is not Allowed from Browser Directly']
+                'msg' => ['error' => 'sorry this URL is not Allowed from Browser Directly'],
             ], 405);
         }
 
         if ($exception instanceof MethodNotAllowedHttpException && $request->is('hooks/*', 'hooks/', 'hooks')) {
             return response()->json([
-                'msg' => ['error' => "sorry this URL is not Allowed from Browser Directly it's only available from the integraion system"]
+                'msg' => ['error' => "sorry this URL is not Allowed from Browser Directly it's only available from the integraion system"],
             ], 405);
         }
 
         if ($exception instanceof QueryException) {
-
             $contains = Str::contains($exception->getMessage(), ['SQLSTATE[HY000] [2002] No such file or directory']);
 
-            $message = "désole nous avons un problème au niveau du serveur attendez une minute ! ";
+            $message = 'désole nous avons un problème au niveau du serveur attendez une minute ! ';
 
             return response()->view('errors.query-exception', ['message' => $message], 500);
         }

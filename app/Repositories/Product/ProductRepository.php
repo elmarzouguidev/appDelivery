@@ -1,16 +1,13 @@
 <?php
 
-
 namespace App\Repositories\Product;
 
 use App\Models\Sameleon\Product;
 use App\Repositories\AppRepository;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class ProductRepository extends AppRepository implements ProductInterface
 {
-
     private $product;
 
     private $instance;
@@ -26,7 +23,7 @@ class ProductRepository extends AppRepository implements ProductInterface
 
     public function __instance(): Product
     {
-        if (!$this->instance) {
+        if (! $this->instance) {
             $this->instance = $this->product;
         }
 
@@ -38,15 +35,12 @@ class ProductRepository extends AppRepository implements ProductInterface
      */
     public function getProducts()
     {
-
         if (auth()->user()->hasRole('Client')) {
-
             return $this->product
                 ->where('user_id', auth()->id())
                 ->where('user_uuid', auth()->user()->uuid)
                 ->with('media')->get();
         } else {
-
             return $this->product->with('media', 'client:id,nom,prenom')
                 ->get()
                 ->sortByDesc(function ($query) {
@@ -59,7 +53,7 @@ class ProductRepository extends AppRepository implements ProductInterface
     }
 
     /**
-     * @param int $id
+     * @param  int  $id
      * @return mixed
      */
     public function getProduct(int $id)

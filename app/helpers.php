@@ -3,82 +3,81 @@
 use App\Settings\CompanySettings;
 use App\Settings\DocumentSettings;
 use App\Settings\PageSettings;
-
 use Illuminate\Support\Str;
 
-if (!function_exists('getDocument')) {
+if (! function_exists('getDocument')) {
     function getDocument(): DocumentSettings
     {
         return app(DocumentSettings::class);
     }
 }
 
-if (!function_exists('getCompany')) {
+if (! function_exists('getCompany')) {
     function getCompany(): CompanySettings
     {
         return app(CompanySettings::class);
     }
 }
 
-if (!function_exists('getPage')) {
+if (! function_exists('getPage')) {
     function getPage(): PageSettings
     {
         return app(PageSettings::class);
     }
 }
 
-if (!function_exists('getDocument')) {
+if (! function_exists('getDocument')) {
     function getImagePath()
     {
-        return asset('storage/') . '/';
+        return asset('storage/').'/';
     }
 }
 
-if (!function_exists('loadSetting')) {
+if (! function_exists('loadSetting')) {
     function loadSetting($abstract)
     {
-        return app('App\Settings\\' . $abstract . 'Settings');
+        return app('App\Settings\\'.$abstract.'Settings');
     }
 }
 
-if (!function_exists('getDomainName')) {
+if (! function_exists('getDomainName')) {
     function getDomainName()
     {
-        return request()->getSchemeAndHttpHost() . '/';
+        return request()->getSchemeAndHttpHost().'/';
     }
 }
 
 /*****Auth guard helpers *****/
 
-if (!function_exists('isDelivery')) {
+if (! function_exists('isDelivery')) {
     function isDelivery()
     {
         return auth('delivery')->check() ? true : false;
     }
 }
 
-if (!function_exists('delivery')) {
+if (! function_exists('delivery')) {
     function delivery()
     {
-        return isDelivery() ?  auth('delivery')->user() : null;
+        return isDelivery() ? auth('delivery')->user() : null;
     }
 }
 
-if (!function_exists('isClient')) {
+if (! function_exists('isClient')) {
     function isClient()
     {
         return auth()->check() && auth()->user()->hasRole('Client') ? true : false;
     }
 }
 
-if (!function_exists('client')) {
+if (! function_exists('client')) {
     function client()
     {
         return isClient() ? auth()->user() : null;
     }
 }
 
-if (!function_exists('isAdmin')) {
+if (! function_exists('isAdmin')) {
     function isAdmin()
     {
         return auth()->check() && auth()->user()->hasRole('SuperAdmin') ? true : false;
@@ -87,7 +86,7 @@ if (!function_exists('isAdmin')) {
 
 /*****Date Helpers */
 
-if (!function_exists('getNow')) {
+if (! function_exists('getNow')) {
     function getNow()
     {
         return now()->format('Y-m-d');
@@ -96,7 +95,7 @@ if (!function_exists('getNow')) {
 
 /******************* */
 
-if (!function_exists('getUuid')) {
+if (! function_exists('getUuid')) {
     function getUuid()
     {
         return Str::uuid()->toString();

@@ -15,19 +15,17 @@ use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
-
     public function index()
     {
-
         $this->authorize('viewAny', User::class);
 
         $users = app(AdminInterface::class)->getAdmins();
 
-        $permissions = Permission::where('type','admin')->get()->mapToGroups(function ($item, $key) {
+        $permissions = Permission::where('type', 'admin')->get()->mapToGroups(function ($item, $key) {
             return [strstr($item['name'], '.', true) => ['name' => $item['name'], 'id' => $item['id']]];
         });
 
-        return view('Sameleon.Admin.Admin.__normal_table.index', compact('users','permissions'));
+        return view('Sameleon.Admin.Admin.__normal_table.index', compact('users', 'permissions'));
     }
 
     public function create()
@@ -37,10 +35,10 @@ class AdminController extends Controller
         //$roles = Role::all();
 
         $roles = Role::all()->reject(function ($role, $key) {
-            return $role->name == 'Developper' || 
-            $role->name == 'Client' || 
-            $role->name == 'Delivery'||
-            $role->name == 'SubDelivery' || 
+            return $role->name == 'Developper' ||
+            $role->name == 'Client' ||
+            $role->name == 'Delivery' ||
+            $role->name == 'SubDelivery' ||
             $role->name == 'DeliveryEntreprise';
         });
 
@@ -70,7 +68,7 @@ class AdminController extends Controller
     {
         $this->authorize('update', $user);
 
-        abort_if($user->email == 'abdelgha4or@gmail.com', 403,"vous ne pouvez editer ce utilisateur");
+        abort_if($user->email == 'abdelgha4or@gmail.com', 403, 'vous ne pouvez editer ce utilisateur');
 
         $permissions = Permission::all();
 
@@ -95,40 +93,37 @@ class AdminController extends Controller
 
         //$user->syncPermissions($request->permissions);
 
-        return redirect()->back()->with('success', "Update  a éte effectuer avec success");
+        return redirect()->back()->with('success', 'Update  a éte effectuer avec success');
     }
-
 
     public function syncPermission(AdminPermissionFormRequest $request)
     {
-
-        $admin = User::Role(['Admin','SuperAdmin'])->whereUuid($request->adminId)->firstOrFail();
+        $admin = User::Role(['Admin', 'SuperAdmin'])->whereUuid($request->adminId)->firstOrFail();
 
         //dd('yes here in Admins','##',$admin,'permissions',$request->permissions);
         //abort_if($client->email === 'abdelgha4or@gmail.com' || $client->hasRole('Developper'), 403);
 
         $admin->syncPermissions($request->permissions);
 
-        return redirect()->back()->with('success', "Les permissions sont synchronisée avec succès");
+        return redirect()->back()->with('success', 'Les permissions sont synchronisée avec succès');
     }
 
     public function delete(Request $request)
     {
-
         $request->validate(['userId' => 'required|uuid']);
 
         $admin = User::whereUuid($request->userId)->firstOrFail();
 
         $this->authorize('delete', $admin);
 
-        abort_if($admin->email == 'abdelgha4or@gmail.com', 403,"vous ne pouvez suppumer ce utilisateur");
+        abort_if($admin->email == 'abdelgha4or@gmail.com', 403, 'vous ne pouvez suppumer ce utilisateur');
 
         if ($admin) {
-
             // $admin->delete();
 
             return redirect()->back()->with('success', "L' Admin  a éte supprimer  avec success");
         }
-        return redirect()->back()->with('success', "un problem a été détécter ... ");
+
+        return redirect()->back()->with('success', 'un problem a été détécter ... ');
     }
 }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Repositories\BR;
-
 
 use App\Models\Sameleon\BRouter;
 use App\Repositories\AppRepository;
@@ -10,7 +8,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 class BRRepository extends AppRepository implements BRInterface
 {
-
     private $br;
 
     private $instance;
@@ -26,39 +23,36 @@ class BRRepository extends AppRepository implements BRInterface
 
     public function __instance(): BRouter
     {
-        if (!$this->instance) {
+        if (! $this->instance) {
             $this->instance = $this->br;
         }
 
         return $this->instance;
     }
 
-
     /**
      * @return BRouter[]|Collection|string[]
      */
     public function getBRs()
     {
-        if(isClient())
-        {
+        if (isClient()) {
             return $this->br
-            ->where('user_id',auth()->id())
-            ->where('user_uuid',auth()->user()->uuid)
+            ->where('user_id', auth()->id())
+            ->where('user_uuid', auth()->user()->uuid)
             ->with('articles')->with('city:id,name')->get();
-
         }
+
         return $this->br->with('articles')->with('city:id,name')->get();
     }
 
     /**
-     * @param int $id
+     * @param  int  $id
      * @return mixed
      */
     public function getBR(int $id)
     {
         return $this->br->find($id);
     }
-
 
     public function getBRByUuid(string $uuid)
     {

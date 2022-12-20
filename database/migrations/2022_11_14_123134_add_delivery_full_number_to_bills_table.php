@@ -14,7 +14,7 @@ class AddDeliveryFullNumberToBillsTable extends Migration
     public function up()
     {
         Schema::table('bills', function (Blueprint $table) {
-            $table->after('full_number',function($table){
+            $table->after('full_number', function ($table) {
                 $table->string('delivery_code')->nullable()->unique();
                 $table->string('delivery_full_number')->nullable()->unique();
             });
@@ -29,7 +29,7 @@ class AddDeliveryFullNumberToBillsTable extends Migration
     public function down()
     {
         Schema::table('bills', function (Blueprint $table) {
-            $table->dropColumn(['delivery_code','delivery_full_number']);
+            $table->dropColumn(['delivery_code', 'delivery_full_number']);
         });
     }
 }

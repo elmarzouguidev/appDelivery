@@ -8,19 +8,14 @@ use App\Http\Requests\Sameleon\Admin\UpdateCompanyFormRequest;
 use App\Http\Requests\Sameleon\Admin\UpdateProfilFormRequest;
 use App\Http\Requests\Sameleon\Admin\UpdateProfilPasswordFormRequest;
 use App\Models\Sameleon\Bank;
-use App\Models\Sameleon\User;
 use App\Repositories\Bank\BankInterface;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class ProfilController extends Controller
 {
-
     public function index()
     {
-
         $user = auth()->user();
 
         $user->load('documents');
@@ -35,11 +30,9 @@ class ProfilController extends Controller
 
     public function update(UpdateProfilFormRequest $request)
     {
-
         $user = auth()->user();
 
         if ($user->uuid == $request->userId) {
-
             $user->nom = $request->nom;
             $user->prenom = $request->prenom;
             $user->email = $request->email;
@@ -49,12 +42,10 @@ class ProfilController extends Controller
                 $request->has(['cnie']) &&
                 $request->filled(['cnie'])
             ) {
-
                 $user->cnie = $request->cnie;
             }
 
             if ($request->hasFile('logo')) {
-
                 $old = $user->logo;
                 $user->logo = $request->file('logo')->store('users', ['disk' => 'public']);
                 Storage::disk('public')->delete($old);
@@ -73,12 +64,10 @@ class ProfilController extends Controller
         $user = auth()->user();
 
         if ($user->uuid == $request->hasPassword) {
-
             if (
                 $request->has(['oldpassword', 'new_password', 'new_confirm_password']) &&
                 $request->filled(['oldpassword', 'new_password', 'new_confirm_password'])
             ) {
-
                 $user->password = Hash::make($request->new_password);
             }
             $user->save();
@@ -93,7 +82,6 @@ class ProfilController extends Controller
         UpdateCompanyFormRequest $request,
 
     ) {
-
         $company = auth()->user()->company()->updateOrCreate(
 
             ['user_uuid' => auth()->user()->uuid],
@@ -114,10 +102,10 @@ class ProfilController extends Controller
             ]
         );
         if ($company) {
-            return redirect()->back()->with('success', "Update a éte effectuer avec success");
+            return redirect()->back()->with('success', 'Update a éte effectuer avec success');
         }
 
-        return redirect()->back()->with('error', "Error");
+        return redirect()->back()->with('error', 'Error');
     }
 
     public function updateBank(UpdateBankFormRequest $request)
@@ -126,27 +114,25 @@ class ProfilController extends Controller
 
         $bankAccount = $user->bank()->first();
 
-        if (!$bankAccount) {
-
+        if (! $bankAccount) {
             $user->banks()->attach(
-                (int)$request->bank,
+                (int) $request->bank,
                 [
                     'type' => 'client',
                     'rib' => $request->code_rib,
                     'user_uuid' => $user->uuid,
-                    'bank_uuid' => Bank::find($request->bank)->uuid
+                    'bank_uuid' => Bank::find($request->bank)->uuid,
                 ],
             );
         } else {
-            
-            $user->banks()->updateExistingPivot((int)$request->bank, [
+            $user->banks()->updateExistingPivot((int) $request->bank, [
                 'type' => 'client',
                 'rib' => $request->code_rib,
                 'user_uuid' => $user->uuid,
-                'bank_uuid' => Bank::find($request->bank)->uuid
+                'bank_uuid' => Bank::find($request->bank)->uuid,
             ]);
         }
 
-        return redirect()->back()->with('success', "Le compte a été ajouter");
+        return redirect()->back()->with('success', 'Le compte a été ajouter');
     }
 }

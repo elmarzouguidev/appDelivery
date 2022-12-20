@@ -6,19 +6,20 @@ use App\Models\Sameleon\Delivery;
 use App\Models\Sameleon\Product;
 use App\Repositories\City\CityInterface;
 use App\Repositories\Client\ClientInterface;
-use App\Repositories\Product\ProductInterface;
-use App\Repositories\Stock\StockInterface;
 use Livewire\Component;
 
 class CreateStock extends Component
 {
-
     public $delivery;
+
     public $client;
+
     public $city;
+
     public $product;
 
     public $deliveries;
+
     public $products;
 
     public function hydrate()
@@ -29,7 +30,7 @@ class CreateStock extends Component
     public function render()
     {
         $cities = app(CityInterface::class)->getCities();
-      
+
         $clients = app(ClientInterface::class)->getClients();
 
         return view('livewire.sameleon.stock.create-stock', compact('cities', 'clients'));
@@ -50,10 +51,9 @@ class CreateStock extends Component
 
     public function updatedCity()
     {
-
         $deliveryy = Delivery::whereCityId($this->city)->get();
         $this->deliveries = $deliveryy;
-       // dd($this->deliveries,$this->city);
+        // dd($this->deliveries,$this->city);
     }
 
     public function updatedClient($value)

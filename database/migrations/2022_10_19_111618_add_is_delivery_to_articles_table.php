@@ -14,7 +14,7 @@ class AddIsDeliveryToArticlesTable extends Migration
     public function up()
     {
         Schema::table('articles', function (Blueprint $table) {
-            $table->after('frais',function($table){
+            $table->after('frais', function ($table) {
                 $table->boolean('is_delivery')->default(false);
             });
         });

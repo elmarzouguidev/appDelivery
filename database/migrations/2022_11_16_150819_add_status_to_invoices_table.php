@@ -15,13 +15,13 @@ class AddStatusToInvoicesTable extends Migration
     public function up()
     {
         Schema::table('invoices', function (Blueprint $table) {
-            $table->after('active',function($table){
+            $table->after('active', function ($table) {
                 $table->integer('status')->default(InvoiceStatus::NON_PAYEE);
             });
         });
 
         Schema::table('delivery_invoices', function (Blueprint $table) {
-            $table->after('active',function($table){
+            $table->after('active', function ($table) {
                 $table->integer('status')->default(InvoiceStatus::NON_PAYEE);
             });
         });
@@ -37,7 +37,7 @@ class AddStatusToInvoicesTable extends Migration
         Schema::table('invoices', function (Blueprint $table) {
             $table->dropColumn('status');
         });
-        
+
         Schema::table('delivery_invoices', function (Blueprint $table) {
             $table->dropColumn('status');
         });

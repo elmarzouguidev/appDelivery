@@ -13,9 +13,7 @@ class BLController extends Controller
 
     public function index()
     {
-        
         $bons = app(BLInterface::class)->getBLs();
-
 
         return view('Sameleon.Admin.BL.index', compact('bons'));
     }
@@ -29,9 +27,8 @@ class BLController extends Controller
         $this->authorize('delete', $bon);
 
         if ($bon) {
-
             $bon->articles()->delete();
-            
+
             $bon->delete();
 
             return redirect()->back()->with('success', 'le BON a été supprimer avec success');

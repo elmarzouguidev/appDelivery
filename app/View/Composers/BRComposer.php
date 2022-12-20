@@ -3,12 +3,11 @@
 namespace App\Http\View\Composers;
 
 use App\Models\Sameleon\BRouter;
-use Illuminate\View\View;
 use Illuminate\Cache\CacheManager;
+use Illuminate\View\View;
 
 class BRComposer
 {
-
     protected BRouter $brouter;
 
     protected CacheManager $cache;
@@ -23,14 +22,13 @@ class BRComposer
     /**
      * Bind data to the view.
      *
-     * @param View $view
+     * @param  View  $view
      * @return void
      */
     public function compose(View $view)
     {
         $view->with('total_b_routers', $this->brouter->totalBrouter());
     }
-    
 
     private function timeToLive()
     {

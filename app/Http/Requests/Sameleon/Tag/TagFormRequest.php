@@ -25,7 +25,7 @@ class TagFormRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'unique:tags'],
-            'color' => ['nullable', 'string']
+            'color' => ['nullable', 'string'],
         ];
     }
 }

@@ -4,7 +4,6 @@ namespace App\Http\Middleware\Hooks;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class VerifyHooks
 {
@@ -17,20 +16,18 @@ class VerifyHooks
      */
     public function handle($request, Closure $next)
     {
+        $method = substr($request->route()->action['uses'], strpos($request->route()->action['uses'], '@') + 1);
 
-        $method =  substr($request->route()->action['uses'], strpos($request->route()->action['uses'], "@") + 1);
-
-        if (!in_array($method, config('Hooks.allowed'))) {
-
+        if (! in_array($method, config('Hooks.allowed'))) {
             return response()->json(['message' => 'sorry this url in not match']);
         }
 
         if ($method === 'woocommerce') {
-
             return app(VerifyWoocommerceMiddleware::class)->handle($request, function ($request) use ($next) {
                 return $next($request);
             });
         }
+
         return $next($request);
     }
 }

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Helpers;
 
 use App\Models\Finance\Estimate;
@@ -8,10 +7,8 @@ use App\Models\Finance\Invoice;
 
 trait InvoiceHelpers
 {
-
     public function nextInvoiceNumber()
     {
-
         return Invoice::max('code') + 1;
     }
 

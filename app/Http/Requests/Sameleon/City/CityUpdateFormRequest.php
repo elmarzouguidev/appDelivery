@@ -25,12 +25,12 @@ class CityUpdateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            
+
             'has_profit' => ['nullable', Rule::in([1, '1', true, 'on', 'yes', 'oui', '0', 'no', 'non', false])],
             'name' => ['required', 'string', Rule::unique('cities')->ignore($this->route('city'), 'uuid')],
             'frais' => ['required', 'numeric'],
             'profit' => ['nullable', 'required_if:has_profit,true', 'numeric'],
-           
+
         ];
     }
 }

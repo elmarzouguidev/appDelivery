@@ -14,7 +14,6 @@ class CreateUserLoginsTable extends Migration
     public function up()
     {
         Schema::create('user_logins', function (Blueprint $table) {
-
             $table->id();
 
             $table->foreignId('user_id')->nullable()->constrained()->cascadeOnDelete();

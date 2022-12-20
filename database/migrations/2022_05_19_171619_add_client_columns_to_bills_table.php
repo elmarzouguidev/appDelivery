@@ -29,7 +29,7 @@ class AddClientColumnsToBillsTable extends Migration
     public function down()
     {
         Schema::table('bills', function (Blueprint $table) {
-          $table->dropColumn(['client_id','client_uuid']);
+            $table->dropColumn(['client_id', 'client_uuid']);
         });
     }
 }

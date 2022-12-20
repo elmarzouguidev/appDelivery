@@ -18,8 +18,7 @@ class VerifyWoocommerceMiddleware
      */
     public function handleOne($request, Closure $next)
     {
-
-        $user =  substr($request->route()->uri(), strpos($request->route()->uri(), "@") + 1);
+        $user = substr($request->route()->uri(), strpos($request->route()->uri(), '@') + 1);
 
         $sourceData = Source::whereUserUuid($user)->where('platform', 'woocommerce')->first();
 
@@ -31,8 +30,10 @@ class VerifyWoocommerceMiddleware
         Log::debug($request->header());
         Log::debug($wp_signature);
         Log::debug($get_hmac);
+
         return $next($request);
     }
+
     /**
      * Handle an incoming request.
      *
@@ -42,9 +43,8 @@ class VerifyWoocommerceMiddleware
      */
     public function handle($request, Closure $next)
     {
-
         /**
-         *   'user-agent' => 
+         *   'user-agent' =>
         array (
             0 => 'WooCommerce/7.1.1 Hookshot (WordPress/6.1.1)',
         ),
@@ -58,14 +58,13 @@ class VerifyWoocommerceMiddleware
 
         //$sourceData = Source::whereUserUuid($user)->where('platform', 'woocommerce')->first();
 
-       // $signature = $request->header('x-wc-webhook-signature') || $request->header('X-Wc-Webhook-Signature');
+        // $signature = $request->header('x-wc-webhook-signature') || $request->header('X-Wc-Webhook-Signature');
 
         $payload = $request->getContent();
 
-       // $calculated_hmac = base64_encode(hash_hmac('sha256', $payload, $sourceData->secret, true));
+        // $calculated_hmac = base64_encode(hash_hmac('sha256', $payload, $sourceData->secret, true));
 
-        if ($userAgent !== "WooCommerce/7.1.1 Hookshot (WordPress/6.1.1)") {
-
+        if ($userAgent !== 'WooCommerce/7.1.1 Hookshot (WordPress/6.1.1)') {
             return abort(403, 'this not a Woocomerce Website');
         }
 

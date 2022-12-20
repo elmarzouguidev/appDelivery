@@ -14,7 +14,6 @@ class CreateEmailsTable extends Migration
     public function up()
     {
         Schema::create('emails', function (Blueprint $table) {
-
             $table->id();
             $table->uuid('uuid')->unique()->nullable();
 

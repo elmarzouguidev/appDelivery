@@ -13,7 +13,6 @@ class Tag extends Model
     use UuidGenerator;
     use GetModelByUuid;
 
-
     protected $fillable = [
         'uuid',
         'name',
@@ -22,7 +21,7 @@ class Tag extends Model
     ];
 
     protected $casts = [
-        'active' => 'boolean'
+        'active' => 'boolean',
     ];
 
     public function commands()

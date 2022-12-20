@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Repositories\City;
-
 
 use App\Models\Sameleon\City;
 use App\Repositories\AppRepository;
@@ -10,7 +8,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 class CityRepository extends AppRepository implements CityInterface
 {
-
     private $city;
 
     private $instance;
@@ -26,13 +23,12 @@ class CityRepository extends AppRepository implements CityInterface
 
     public function __instance(): City
     {
-        if (!$this->instance) {
+        if (! $this->instance) {
             $this->instance = $this->city;
         }
 
         return $this->instance;
     }
-
 
     /**
      * @return Client[]|Collection|string[]
@@ -42,7 +38,6 @@ class CityRepository extends AppRepository implements CityInterface
         if ($this->useCache()) {
             // dd('yes cache');
             return $this->setCache()->remember('all_cities_cache', $this->timeToLive(), function () {
-
                 return $this->city->with('regions:id,name')->get();
             });
         }
@@ -51,14 +46,13 @@ class CityRepository extends AppRepository implements CityInterface
     }
 
     /**
-     * @param int $id
+     * @param  int  $id
      * @return mixed
      */
     public function getCity(int $id)
     {
         return $this->city->find($id);
     }
-
 
     public function getCityByUuid(string $uuid)
     {

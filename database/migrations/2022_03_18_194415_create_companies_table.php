@@ -14,12 +14,10 @@ class CreateCompaniesTable extends Migration
     public function up()
     {
         Schema::create('companies', function (Blueprint $table) {
-
             $table->id();
 
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->uuid('user_uuid')->nullable();
-            
 
             $table->uuid('uuid')->unique();
             $table->string('code')->unique()->nullable();
@@ -39,7 +37,7 @@ class CreateCompaniesTable extends Migration
             $table->string('cnss')->unique()->nullable();
             $table->string('patente')->unique()->nullable();
             $table->string('if')->unique()->nullable();
-            
+
             $table->timestamps();
             $table->softDeletes();
         });

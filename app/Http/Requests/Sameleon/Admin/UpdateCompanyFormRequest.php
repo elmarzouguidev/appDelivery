@@ -33,7 +33,7 @@ class UpdateCompanyFormRequest extends FormRequest
             'telephone' => ['required', 'phone:MA', Rule::unique('companies')->ignore(auth()->id(), 'user_id')],
             'email' => ['required', 'email', Rule::unique('companies')->ignore(auth()->id(), 'user_id')],
             'rc' => ['nullable', 'numeric', Rule::unique('companies')->ignore(auth()->id(), 'user_id')],
-            'ice' => ['required', 'numeric','digits_between:15,16', Rule::unique('companies')->ignore(auth()->id(), 'user_id')],
+            'ice' => ['required', 'numeric', 'digits_between:15,16', Rule::unique('companies')->ignore(auth()->id(), 'user_id')],
             'cnss' => ['nullable', 'numeric', Rule::unique('companies')->ignore(auth()->id(), 'user_id')],
             'patente' => ['nullable', 'numeric', Rule::unique('companies')->ignore(auth()->id(), 'user_id')],
             'if' => ['nullable', 'numeric', Rule::unique('companies')->ignore(auth()->id(), 'user_id')],

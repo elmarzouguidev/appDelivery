@@ -6,7 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class HookRequest extends FormRequest
 {
-
     protected $stopOnFirstFailure = true;
 
     /**

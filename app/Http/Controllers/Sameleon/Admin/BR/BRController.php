@@ -10,12 +10,10 @@ use Illuminate\Http\Request;
 
 class BRController extends Controller
 {
-
     public function index()
     {
-        
         BRouterAction::run();
-        
+
         $bons = app(BRInterface::class)->getBRs();
 
         return view('Sameleon.Admin.BR.index', compact('bons'));
@@ -30,9 +28,8 @@ class BRController extends Controller
         $this->authorize('delete', $bon);
 
         if ($bon) {
-
             $bon->articles()->delete();
-            
+
             $bon->delete();
 
             return redirect()->back()->with('success', 'le BON de retour a été supprimer avec success');

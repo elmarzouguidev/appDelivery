@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Repositories\Bill;
 
 use App\Models\Sameleon\Bill;
@@ -9,7 +8,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 class BillRepository extends AppRepository implements BillInterface
 {
-
     private $bill;
 
     private $billDelivery;
@@ -27,54 +25,45 @@ class BillRepository extends AppRepository implements BillInterface
 
     public function __instance(): Bill
     {
-        if (!$this->instance) {
+        if (! $this->instance) {
             $this->instance = $this->bill;
         }
 
         return $this->instance;
     }
 
-
     /**
      * @return Bill[]|Collection|string[]
      */
     public function getBills()
     {
-
         if (isClient()) {
-
-                return $this->bill
-                    ->where('client_id', auth()->id())
-                    ->where('client_uuid', auth()->user()->uuid)
-                    ->with('media', 'billable')->get();
-        }
-        elseif(isDelivery())
-        {
+            return $this->bill
+                ->where('client_id', auth()->id())
+                ->where('client_uuid', auth()->user()->uuid)
+                ->with('media', 'billable')->get();
+        } elseif (isDelivery()) {
             return $this->bill
             ->where('delivery_id', delivery()->id)
-            ->where('delivery_uuid',delivery()->uuid)
+            ->where('delivery_uuid', delivery()->uuid)
             ->with('media', 'billable')->get();
-        } 
-        else {
-
-                return $this->bill
-                    ->whereNull(['delivery_id','delivery_uuid'])
-                    ->with('media', 'billable')->get();
+        } else {
+            return $this->bill
+                ->whereNull(['delivery_id', 'delivery_uuid'])
+                ->with('media', 'billable')->get();
         }
-        
 
         return [];
     }
 
     /**
-     * @param int $id
+     * @param  int  $id
      * @return mixed
      */
     public function getBill(int $id)
     {
         return $this->bill->find($id);
     }
-
 
     public function getBillByUuid(string $uuid)
     {

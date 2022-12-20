@@ -6,84 +6,84 @@ use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
-
     private array $repositories = [
 
         [
             'abstract' => "App\Repositories\Admin\AdminInterface",
-            'concrete' => "App\Repositories\Admin\AdminRepository"
+            'concrete' => "App\Repositories\Admin\AdminRepository",
         ],
 
         [
             'abstract' => "App\Repositories\Client\ClientInterface",
-            'concrete' => "App\Repositories\Client\ClientRepository"
+            'concrete' => "App\Repositories\Client\ClientRepository",
         ],
         [
             'abstract' => "App\Repositories\Delivery\DeliveryInterface",
-            'concrete' => "App\Repositories\Delivery\DeliveryRepository"
+            'concrete' => "App\Repositories\Delivery\DeliveryRepository",
         ],
         [
             'abstract' => "App\Repositories\Company\CompanyInterface",
-            'concrete' => "App\Repositories\Company\CompanyRepository"
+            'concrete' => "App\Repositories\Company\CompanyRepository",
         ],
 
         [
             'abstract' => "App\Repositories\City\CityInterface",
-            'concrete' => "App\Repositories\City\CityRepository"
+            'concrete' => "App\Repositories\City\CityRepository",
         ],
         [
             'abstract' => "App\Repositories\Region\RegionInterface",
-            'concrete' => "App\Repositories\Region\RegionRepository"
+            'concrete' => "App\Repositories\Region\RegionRepository",
         ],
         [
             'abstract' => "App\Repositories\Invoice\InvoiceInterface",
-            'concrete' => "App\Repositories\Invoice\InvoiceRepository"
+            'concrete' => "App\Repositories\Invoice\InvoiceRepository",
         ],
         [
             'abstract' => "App\Repositories\Invoice\DeliveryInvoiceInterface",
-            'concrete' => "App\Repositories\Invoice\DeliveryInvoiceRepository"
+            'concrete' => "App\Repositories\Invoice\DeliveryInvoiceRepository",
         ],
         [
             'abstract' => "App\Repositories\Product\ProductInterface",
-            'concrete' => "App\Repositories\Product\ProductRepository"
+            'concrete' => "App\Repositories\Product\ProductRepository",
         ],
         [
             'abstract' => "App\Repositories\Stock\StockInterface",
-            'concrete' => "App\Repositories\Stock\StockRepository"
+            'concrete' => "App\Repositories\Stock\StockRepository",
         ],
         [
             'abstract' => "App\Repositories\Bill\BillInterface",
-            'concrete' => "App\Repositories\Bill\BillRepository"
+            'concrete' => "App\Repositories\Bill\BillRepository",
         ],
         [
             'abstract' => "App\Repositories\Command\CommandInterface",
-            'concrete' => "App\Repositories\Command\CommandRepository"
+            'concrete' => "App\Repositories\Command\CommandRepository",
         ],
         [
             'abstract' => "App\Repositories\Bank\BankInterface",
-            'concrete' => "App\Repositories\Bank\BankRepository"
+            'concrete' => "App\Repositories\Bank\BankRepository",
         ],
         [
             'abstract' => "App\Repositories\Group\GroupInterface",
-            'concrete' => "App\Repositories\Group\GroupRepository"
+            'concrete' => "App\Repositories\Group\GroupRepository",
         ],
         [
             'abstract' => "App\Repositories\Integration\IntegrationInterface",
-            'concrete' => "App\Repositories\Integration\IntegrationRepository"
+            'concrete' => "App\Repositories\Integration\IntegrationRepository",
         ],
         [
             'abstract' => "App\Repositories\Source\SourceInterface",
-            'concrete' => "App\Repositories\Source\SourceRepository"
+            'concrete' => "App\Repositories\Source\SourceRepository",
         ],
         [
             'abstract' => "App\Repositories\BL\BLInterface",
-            'concrete' => "App\Repositories\BL\BLRepository"
+            'concrete' => "App\Repositories\BL\BLRepository",
         ],
         [
             'abstract' => "App\Repositories\BR\BRInterface",
-            'concrete' => "App\Repositories\BR\BRRepository"
-        ]
+            'concrete' => "App\Repositories\BR\BRRepository",
+        ],
     ];
+
     /**
      * Register services.
      *
@@ -92,7 +92,6 @@ class RepositoryServiceProvider extends ServiceProvider
     public function register()
     {
         foreach ($this->repositories as $repo) {
-
             $this->app->bind(
                 $repo['abstract'],
                 $repo['concrete'],

@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ItemFactory extends Factory
 {
-
     /**
      * Define the model's default state.
      *
@@ -19,7 +18,7 @@ class ItemFactory extends Factory
             'prix_uni' => $priceUni = $this->faker->numberBetween(100, 900),
             'prix_total' => $qte * $priceUni,
             'designation' => $this->faker->word,
-            'product'=> $this->faker->word,
+            'product' => $this->faker->word,
         ];
     }
 }

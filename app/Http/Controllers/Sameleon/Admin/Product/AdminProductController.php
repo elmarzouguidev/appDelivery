@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Sameleon\Product\AddProductFormRamassageRequest;
 use App\Http\Requests\Sameleon\Product\ProductFormRequest;
 use App\Http\Requests\Sameleon\Product\ProductUpdateFormRequest;
-use App\Models\Sameleon\City;
 use App\Models\Sameleon\Condition;
 use App\Models\Sameleon\Product;
 use App\Models\Sameleon\Ramassage;
@@ -17,15 +16,13 @@ use App\Repositories\Client\ClientInterface;
 use App\Repositories\Product\ProductInterface;
 use App\Repositories\Stock\StockInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
-
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
-use Illuminate\Support\Facades\Notification;
 
 class AdminProductController extends Controller
 {
-
     public function index()
     {
         /*if (request()->has('appFilter') && request()->filled('appFilter')) {
@@ -45,7 +42,7 @@ class AdminProductController extends Controller
                 cache()->forget('all_products_cache');
         } else {
 
-           
+
 
         }*/
 
@@ -58,7 +55,6 @@ class AdminProductController extends Controller
 
     public function deliveryEntreprise()
     {
-
         $products = app(StockInterface::class)->getStocks();
 
         return view('Sameleon.Admin.Product.__normal_table.index', compact('products'));
@@ -72,22 +68,19 @@ class AdminProductController extends Controller
 
         $product = null;
 
-        if($request->has('fromRamassage') && $request->filled('fromRamassage'))
-        {
+        if ($request->has('fromRamassage') && $request->filled('fromRamassage')) {
             $product = Ramassage::whereUuid($request->fromRamassage)->firstOrFail();
-
         }
 
-        if($product)
-        {
-            return view('Sameleon.Admin.Product.__create.index_product', compact('clients','product'));  
+        if ($product) {
+            return view('Sameleon.Admin.Product.__create.index_product', compact('clients', 'product'));
         }
+
         return view('Sameleon.Admin.Product.__create.index', compact('clients'));
     }
 
     public function store(ProductFormRequest $request)
     {
-
         $this->authorize('create', Product::class);
 
         $product = new Product();
@@ -98,30 +91,26 @@ class AdminProductController extends Controller
         //$product->qte_rest = $request->qte_global;
 
         if (isAdmin() && $request->has('client') && $request->filled('client')) {
-
             $user = User::find($request->client);
 
             $product->associateWith('client', $user);
 
-            $product->slug = Str::slug(str_replace(' ', '', $request->name)) . '-' . $user->uuid. ':' .$user->id;
+            $product->slug = Str::slug(str_replace(' ', '', $request->name)).'-'.$user->uuid.':'.$user->id;
         } else {
-            
             $product->associateWith('client', auth()->user());
 
-            $product->slug = Str::slug(str_replace(' ', '', $request->name)) . '-' . auth()->user()->uuid .':'. auth()->id();
+            $product->slug = Str::slug(str_replace(' ', '', $request->name)).'-'.auth()->user()->uuid.':'.auth()->id();
         }
 
         $product->save();
 
         if ($request->hasFile('photo')) {
-
             $product->addMediaFromRequest('photo')->toMediaCollection('products_photos');
         }
 
-        if($request->has('ramassageId') && $request->filled('ramassageId'))
-        {
+        if ($request->has('ramassageId') && $request->filled('ramassageId')) {
             $ramassage = Ramassage::whereUuid($request->ramassageId)->first();
-            $ramassage->update(['product_id' => $product->id,'product_uuid' => $product->uuid]);
+            $ramassage->update(['product_id' => $product->id, 'product_uuid' => $product->uuid]);
         }
 
         $delay = now()->addMinutes(10);
@@ -132,12 +121,11 @@ class AdminProductController extends Controller
 
         Notification::send($users, new ProductCreated($product));
 
-        return redirect(route('admin:products.index'))->with('success', "le produit a été ajouté avec succès");
+        return redirect(route('admin:products.index'))->with('success', 'le produit a été ajouté avec succès');
     }
 
     public function edit(Product $product)
     {
-
         $this->authorize('update', $product);
 
         return view('Sameleon.Admin.Product.__edit.index', compact('product'));
@@ -145,7 +133,6 @@ class AdminProductController extends Controller
 
     public function update(ProductUpdateFormRequest $request, Product $product)
     {
-
         $this->authorize('update', $product);
 
         $product->name = $request->name;
@@ -157,7 +144,6 @@ class AdminProductController extends Controller
         $product->save();
 
         if ($request->hasFile('photo')) {
-
             $product->clearMediaCollection('products_photos');
 
             $product->addMediaFromRequest('photo')->toMediaCollection('products_photos');
@@ -168,28 +154,25 @@ class AdminProductController extends Controller
 
     public function delete(Request $request)
     {
-
         $request->validate(['productId' => 'required|uuid']);
 
         $product = Product::whereUuid($request->productId)->firstOrFail();
 
         $this->authorize('delete', $product);
 
-        if ($product && !$product->items()->exists()) {
-
+        if ($product && ! $product->items()->exists()) {
             $product->ramassage()->delete();
 
             $product->delete();
 
-            return redirect(route('admin:products.index'))->with('success', "Le produit a éte supprimer avec succès");
+            return redirect(route('admin:products.index'))->with('success', 'Le produit a éte supprimer avec succès');
         }
 
-        return redirect(route('admin:products.index'))->with('error', "vous nous pouvez pas supprimer ce produit car il a des commands");
+        return redirect(route('admin:products.index'))->with('error', 'vous nous pouvez pas supprimer ce produit car il a des commands');
     }
 
     public function viewCondition(Request $request)
     {
-
         $request->validate(['conditionId' => ['required', 'uuid'], 'userId' => ['required', 'uuid']]);
 
         $condition = Condition::whereUuid($request->conditionId)->first();
@@ -197,11 +180,9 @@ class AdminProductController extends Controller
         $user = auth()->id();
 
         if ($condition) {
-
             $viewed = $condition->viewed ?? [];
 
-            if ($user && !in_array($user, $viewed)) {
-
+            if ($user && ! in_array($user, $viewed)) {
                 $viewed = array_merge(
                     $viewed,
                     [$user]
@@ -210,6 +191,7 @@ class AdminProductController extends Controller
                 $condition->update(['viewed' => $viewed]);
             }
         }
+
         return redirect()->back();
     }
 }

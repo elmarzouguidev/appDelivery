@@ -14,7 +14,7 @@ class AddCompanyIceToDeliveriesTable extends Migration
     public function up()
     {
         Schema::table('deliveries', function (Blueprint $table) {
-            $table->after('company_name',function($table){
+            $table->after('company_name', function ($table) {
                 $table->string('company_ice')->unique()->nullable();
             });
         });

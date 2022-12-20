@@ -15,16 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
 Route::group(['prefix' => 'v1', 'middleware' => 'throttle:30'], function () {
-
     Route::group(['prefix' => 'orders'], function () {
-
         Route::get('/track/{command}', [ApiCommandController::class, 'track'])->name('order.track');
 
         Route::post('/create', [ApiCommandController::class, 'store'])->name('order.store');

@@ -10,10 +10,9 @@ use Illuminate\Database\Eloquent\Model;
 class ProductCity extends Model
 {
     use HasFactory;
-
     use UuidGenerator;
     use GetModelByUuid;
-    
+
     protected $table = 'product_cities';
 
     protected $fillable = [

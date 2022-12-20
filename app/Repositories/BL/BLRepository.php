@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Repositories\BL;
-
 
 use App\Models\Sameleon\BLivraison;
 use App\Repositories\AppRepository;
@@ -10,7 +8,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 class BLRepository extends AppRepository implements BLInterface
 {
-
     private $bl;
 
     private $instance;
@@ -26,13 +23,12 @@ class BLRepository extends AppRepository implements BLInterface
 
     public function __instance(): BLivraison
     {
-        if (!$this->instance) {
+        if (! $this->instance) {
             $this->instance = $this->bl;
         }
 
         return $this->instance;
     }
-
 
     /**
      * @return BLivraison[]|Collection|string[]
@@ -45,18 +41,18 @@ class BLRepository extends AppRepository implements BLInterface
                 ->where('delivery_uuid', delivery()->uuid)
                 ->with('articles')->with('city:id,name')->get();
         }
+
         return $this->bl->with('articles')->with('city:id,name')->get();
     }
 
     /**
-     * @param int $id
+     * @param  int  $id
      * @return mixed
      */
     public function getBL(int $id)
     {
         return $this->bl->find($id);
     }
-
 
     public function getBLByUuid(string $uuid)
     {

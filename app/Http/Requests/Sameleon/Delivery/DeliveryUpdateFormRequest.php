@@ -34,8 +34,8 @@ class DeliveryUpdateFormRequest extends FormRequest
             'cnie' => ['nullable', 'required_if:type,particulier', 'string', Rule::unique('deliveries')->ignore($this->route('delivery'), 'uuid')],
             'email' => ['required', 'email', Rule::unique('deliveries')->ignore($this->route('delivery'), 'uuid')],
             //'password' => ['required', 'string', 'min:6'],
-            'company_ice'=>['nullable', 'required_if:type,entreprise', 'string', Rule::unique('deliveries')->ignore($this->route('delivery'), 'uuid')],
-            'company_name'=>['nullable', 'required_if:type,entreprise', 'string', Rule::unique('deliveries')->ignore($this->route('delivery'), 'uuid')],
+            'company_ice' => ['nullable', 'required_if:type,entreprise', 'string', Rule::unique('deliveries')->ignore($this->route('delivery'), 'uuid')],
+            'company_name' => ['nullable', 'required_if:type,entreprise', 'string', Rule::unique('deliveries')->ignore($this->route('delivery'), 'uuid')],
             'regions' => ['nullable', 'array'],
             'regions.*' => ['nullable', 'integer'],
         ];

@@ -2,9 +2,10 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
 use App\Macros\RequestMixin;
 use Illuminate\Http\Request;
+use Illuminate\Support\ServiceProvider;
+
 class MacroServiceProvider extends ServiceProvider
 {
     /**

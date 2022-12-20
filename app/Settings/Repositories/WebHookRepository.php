@@ -12,13 +12,12 @@
 namespace App\Settings\Repositories;
 
 use App\Http\Requests\Settings\Hooks\HooksRequest;
-
 use App\Settings\WebHooksSettings;
 use Illuminate\Support\Str;
 use Jackiedo\DotenvEditor\Facades\DotenvEditor;
+
 class WebHooksRepository
 {
-
     const SEPARATOR = '-';
 
     const SLASH = '/';
@@ -27,14 +26,12 @@ class WebHooksRepository
 
     public function __construct(WebHooksSettings $settings, HooksRequest $request)
     {
-
         $platform = $settings->app_platform;
         // $settings->name = $request->input('name');
         $settings->header = $request->input('header');
         $settings->secret = $request->input('secret');
         $settings->domain = $request->input('domain');
         if ($platform !== $request->input('platform')) {
-
             $settings->app_platform = $request->input('platform');
 
             $settings->route = $this->generateRoutes($request->platform);
@@ -55,17 +52,15 @@ class WebHooksRepository
         $settings->active = $request->has('active') ? true : false;
 
         $settings->save();
-
     }
 
     public function generateRoutes($name)
     {
-        return  self::PREFIX . self::SLASH . Str::slug($name) . self::SEPARATOR . Str::uuid();
+        return  self::PREFIX.self::SLASH.Str::slug($name).self::SEPARATOR.Str::uuid();
     }
 
     public function getPlatfromHeaderSignature($platform)
     {
-
         switch ($platform) {
             case 'woocommerce':
                 return 'x-wc-webhook-signature';
@@ -83,8 +78,8 @@ class WebHooksRepository
                 return 'ebay-signature-header';
                 break;
             default:
-               return 'appwebhook-haymacproduction';
+                return 'appwebhook-haymacproduction';
         }
-      //  $this->headerName = $header;
+        //  $this->headerName = $header;
     }
 }

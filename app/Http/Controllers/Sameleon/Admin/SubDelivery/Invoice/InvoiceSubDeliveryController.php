@@ -4,12 +4,9 @@ namespace App\Http\Controllers\Sameleon\Admin\SubDelivery\Invoice;
 
 use App\Http\Controllers\Controller;
 use App\Models\Sameleon\DeliveryInvoice;
-use Illuminate\Http\Request;
 
 class InvoiceSubDeliveryController extends Controller
 {
-
-
     public function index()
     {
         $this->deleteNullInvoices();

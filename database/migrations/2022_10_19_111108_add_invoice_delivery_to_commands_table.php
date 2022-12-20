@@ -14,12 +14,10 @@ class AddInvoiceDeliveryToCommandsTable extends Migration
     public function up()
     {
         Schema::table('commands', function (Blueprint $table) {
-            $table->after('invoice_uuid',function($table){
-
+            $table->after('invoice_uuid', function ($table) {
                 $table->foreignId('delivery_invoice_id')->nullable();
                 $table->uuid('delivery_invoice_uuid')->nullable();
             });
-            
         });
     }
 
@@ -31,7 +29,7 @@ class AddInvoiceDeliveryToCommandsTable extends Migration
     public function down()
     {
         Schema::table('commands', function (Blueprint $table) {
-            $table->dropColumn(['delivery_invoice_id','delivery_invoice_uuid']);
+            $table->dropColumn(['delivery_invoice_id', 'delivery_invoice_uuid']);
         });
     }
 }

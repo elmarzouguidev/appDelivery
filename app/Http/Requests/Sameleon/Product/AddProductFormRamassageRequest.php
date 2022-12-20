@@ -24,7 +24,7 @@ class AddProductFormRamassageRequest extends FormRequest
     public function rules()
     {
         return [
-            'fromRamassage'=>['nullable','uuid'],
+            'fromRamassage' => ['nullable', 'uuid'],
         ];
     }
 }

@@ -9,7 +9,7 @@ return [
         InvoiceStatus::PAYEE => 'payé',
         InvoiceStatus::EN_ATTENT => 'en attente de paiement',
         InvoiceStatus::ANNULER => 'annuler',
-        InvoiceStatus::ENCOURS => 'encours'
+        InvoiceStatus::ENCOURS => 'encours',
 
     ],
 
@@ -19,7 +19,7 @@ return [
         InvoiceStatus::PAYEE => 'btn-success',
         InvoiceStatus::EN_ATTENT => 'btn-light',
         InvoiceStatus::ANNULER => 'btn-danger',
-        InvoiceStatus::ENCOURS => 'btn-warning'
+        InvoiceStatus::ENCOURS => 'btn-warning',
     ],
 
 ];

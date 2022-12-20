@@ -9,9 +9,8 @@ use App\Imports\Product\ProductsImport;
 use App\Imports\Product\ProductsImportByAdmins;
 use App\Models\Sameleon\Product;
 use App\Models\Sameleon\User;
-use Illuminate\Http\Request;
-use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Validation\ValidationException;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductImportController extends Controller
 {
@@ -26,14 +25,13 @@ class ProductImportController extends Controller
 
             $client ?? throw ValidationException::withMessages([
 
-                'client_not_found' => "Le client ( {$client->full_name} ) n'existe pas dans le systeme !"
+                'client_not_found' => "Le client ( {$client->full_name} ) n'existe pas dans le systeme !",
 
             ]);
 
-            Excel::import(new ProductsImportByAdmins($client),  $file);
+            Excel::import(new ProductsImportByAdmins($client), $file);
         } else {
-
-            Excel::import(new ProductsImport,  $file);
+            Excel::import(new ProductsImport, $file);
         }
 
         return redirect()->back()->with('success', "la list a été importé avec success  n'oublie pas d'ajouter leurs images !");
@@ -41,10 +39,10 @@ class ProductImportController extends Controller
 
     public function exportFile()
     {
-
         if (client()) {
-            return (new ProductsExport)->forUser(client())->download(now()->format('d-m-Y') . '-products.xlsx');
+            return (new ProductsExport)->forUser(client())->download(now()->format('d-m-Y').'-products.xlsx');
         }
-        return (new ProductsExport)->download(now()->format('d-m-Y') . '-products.xlsx');
+
+        return (new ProductsExport)->download(now()->format('d-m-Y').'-products.xlsx');
     }
 }

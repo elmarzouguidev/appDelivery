@@ -14,8 +14,7 @@ class AddCompanyColumnsToCommandsTable extends Migration
     public function up()
     {
         Schema::table('commands', function (Blueprint $table) {
-            $table->after('user_uuid',function($table){
-
+            $table->after('user_uuid', function ($table) {
                 $table->foreignId('company_id')->nullable();
                 $table->uuid('company_uuid')->nullable();
             });
@@ -30,7 +29,7 @@ class AddCompanyColumnsToCommandsTable extends Migration
     public function down()
     {
         Schema::table('commands', function (Blueprint $table) {
-            $table->dropColumn(['company_id','company_uuid']);
+            $table->dropColumn(['company_id', 'company_uuid']);
         });
     }
 }

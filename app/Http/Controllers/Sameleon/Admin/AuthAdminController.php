@@ -3,18 +3,14 @@
 namespace App\Http\Controllers\Sameleon\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Sameleon\Testimonial;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
 use Illuminate\Support\Facades\Auth;
 
 class AuthAdminController extends Controller
 {
     use AuthenticatesUsers;
-
 
     public function __construct()
     {
@@ -23,7 +19,6 @@ class AuthAdminController extends Controller
 
     public function loginForm()
     {
-
         return view('Sameleon.Admin.Auth.login');
     }
 
@@ -36,22 +31,18 @@ class AuthAdminController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-
         /**Logout from other devices */
         Auth::logoutOtherDevices($request->password);
 
-        if (!Auth::user()->isActive()) {
-
+        if (! Auth::user()->isActive()) {
             Auth::logout();
 
             return redirect(route('admin:auth:login'))->withErrors(["Votre compte n'est pas encore activé"]);
         }
     }
 
-
     public function logout(Request $request)
     {
-
         $this->guard()->logout();
 
         $request->session()->invalidate();
@@ -78,7 +69,7 @@ class AuthAdminController extends Controller
             return route('admin:commands.index');
 
         } else {
-            
+
             return route('admin:home');
         }*/
 

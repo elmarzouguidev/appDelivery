@@ -13,7 +13,6 @@ class AdminCityController extends Controller
 {
     public function index()
     {
-
         $this->authorize('viewAny', City::class);
 
         //$cities = app(CityInterface::class)->getCities();
@@ -42,7 +41,6 @@ class AdminCityController extends Controller
 
     public function update(CityUpdateFormRequest $request, City $city)
     {
-
         $city->name = $request->name;
         $city->frais = $request->frais;
         $city->has_profit = $request->boolean('has_profit');
@@ -54,15 +52,13 @@ class AdminCityController extends Controller
 
     public function delete(Request $request)
     {
-
         $request->validate(['cityId' => 'required|uuid']);
 
         $city = City::whereUuid($request->cityId)->firstOrFail();
 
         $this->authorize('delete', $city);
 
-        if ($city && !$city->commands()->exists()) {
-
+        if ($city && ! $city->commands()->exists()) {
             $city->regions()->delete();
 
             $city->commands->each->update(['city_id' => null, 'city_uuid' => null]);

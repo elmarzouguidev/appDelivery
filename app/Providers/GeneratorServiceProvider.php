@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Actions\Sameleon\GeneratDayInvoiceAction;
 use Illuminate\Support\ServiceProvider;
 
 class GeneratorServiceProvider extends ServiceProvider
@@ -14,7 +13,6 @@ class GeneratorServiceProvider extends ServiceProvider
      */
     public function register()
     {
-       
     }
 
     /**
@@ -24,6 +22,5 @@ class GeneratorServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        
     }
 }

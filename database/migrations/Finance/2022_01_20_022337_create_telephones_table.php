@@ -14,14 +14,13 @@ class CreateTelephonesTable extends Migration
     public function up()
     {
         Schema::create('telephones', function (Blueprint $table) {
-
             $table->id();
             $table->uuid('uuid')->unique()->nullable();
             $table->string('code')->nullable();
 
             $table->bigInteger('telephoneable_id');
             $table->string('telephoneable_type');
-            
+
             $table->string('telephone')->unique();
             $table->string('type')->default('portable');
 

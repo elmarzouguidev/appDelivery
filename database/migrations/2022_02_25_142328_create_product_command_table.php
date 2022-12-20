@@ -14,7 +14,6 @@ class CreateProductCommandTable extends Migration
     public function up()
     {
         Schema::create('product_command', function (Blueprint $table) {
-
             $table->id();
             $table->uuid('uuid')->nullable();
             $table->string('code')->unique()->nullable();

@@ -13,15 +13,11 @@ use Illuminate\Support\Facades\Notification;
 
 class RamassageController extends Controller
 {
-
-
     public function index()
     {
-
         $products = [];
 
         if (isClient()) {
-
             $products = Product::whereUserId(client()->id)->whereUserUuid(client()->uuid)->get();
             $ramassages = Ramassage::where('user_id', client()->id)
                 ->where('user_uuid', client()->uuid)
@@ -41,7 +37,6 @@ class RamassageController extends Controller
 
     public function newStore(NewRamassageFormRequest $request)
     {
-
         $ramassage = new Ramassage();
         $ramassage->qte = $request->qte;
         $ramassage->addresse = $request->addresse;
@@ -64,13 +59,12 @@ class RamassageController extends Controller
         }
         $ramassage->save();
 
-        return redirect()->back()->with('success', "La demande a éte ajouter avec success");
+        return redirect()->back()->with('success', 'La demande a éte ajouter avec success');
     }
 
     /*****Old methed to be contunied */
     public function store(RamassageFormRequest $request)
     {
-
         $productsIds = json_decode($request->products, true);
 
         $products = Product::findMany($productsIds);
@@ -78,14 +72,13 @@ class RamassageController extends Controller
         //dd($products, json_decode($request->products, true));
 
         foreach ($products as $product) {
-
             $product->ramassage()->create([
                 'addresse' => $request->address,
                 'product_id' => $product->id,
                 'product_uuid' => $product->uuid,
                 'client_id' => auth()->id(),
                 'client_uuid' => auth()->user()->uuid,
-                'active' => true
+                'active' => true,
             ]);
         }
 
@@ -100,9 +93,11 @@ class RamassageController extends Controller
 
         if ($ramassage) {
             $ramassage->update(['active' => true]);
-            return redirect()->back()->with('success', "Le demande  a éte envoyer avec success");
+
+            return redirect()->back()->with('success', 'Le demande  a éte envoyer avec success');
         }
-        return redirect()->back()->with('error', "error !!!");
+
+        return redirect()->back()->with('error', 'error !!!');
     }
 
     public function Acceptdemande(Request $request)
@@ -112,16 +107,16 @@ class RamassageController extends Controller
         $ramassage = Ramassage::whereUuid($request->ramassageId)->first();
 
         if ($ramassage) {
-
             $ramassage->update(['accepted' => true]);
 
             $client = $ramassage->client()->first();
 
             Notification::send($client, new RamassageAccepted($ramassage));
 
-            return redirect()->back()->with('success', "Le demande a éte accepter avec success");
+            return redirect()->back()->with('success', 'Le demande a éte accepter avec success');
         }
-        return redirect()->back()->with('error', "error !!!");
+
+        return redirect()->back()->with('error', 'error !!!');
     }
 
     public function delete(Request $request)
@@ -131,15 +126,15 @@ class RamassageController extends Controller
         $ramassage = Ramassage::whereUuid($request->ramassageDeleteId)->first();
 
         if ($ramassage) {
-
             client()->unreadNotifications->each(function ($notification) use ($ramassage) {
                 $notification->data['uuid'] == $ramassage->uuid ? $notification->delete() : null;
             });
 
             $ramassage->delete();
 
-            return redirect()->back()->with('success', "Le demande a éte supprimer avec success");
+            return redirect()->back()->with('success', 'Le demande a éte supprimer avec success');
         }
-        return redirect()->back()->with('error', "error !!!");
+
+        return redirect()->back()->with('error', 'error !!!');
     }
 }

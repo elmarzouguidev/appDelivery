@@ -16,16 +16,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class ClientController extends Controller
 {
-
     public function index()
     {
-
         $this->authorize('viewAny', User::class);
 
         $clients = app(ClientInterface::class)->getClients();
@@ -43,7 +40,6 @@ class ClientController extends Controller
 
     public function create()
     {
-
         $this->authorize('create', User::class);
 
         $cities = app(CityInterface::class)->getCities();
@@ -53,7 +49,6 @@ class ClientController extends Controller
 
     public function store(RegisterFormRequest $request)
     {
-
         $this->authorize('create', User::class);
 
         $permissions = Permission::all()->pluck('name');
@@ -73,8 +68,7 @@ class ClientController extends Controller
         $pass = $request->email;
 
         if ($request->boolean('generate_password')) {
-
-            $pass = strtolower($request->nom) . '.#' . Str::random(10);
+            $pass = strtolower($request->nom).'.#'.Str::random(10);
         }
 
         $client->password = Hash::make($pass);
@@ -88,9 +82,9 @@ class ClientController extends Controller
         $client->syncPermissions($permissions);
 
         if ($request->boolean('generate_password') && CheckConnection::isConnected()) {
-
             $client->notify(new SendNewUserPassword($pass));
         }
+
         return redirect()->back()->with('success', 'le client a été ajouter avec success');
     }
 
@@ -134,15 +128,13 @@ class ClientController extends Controller
         $client = User::whereUuid($request->clientId)->firstOrFail();
 
         if ($client) {
-
-            $client->update(['active' => !$client->active]);
+            $client->update(['active' => ! $client->active]);
 
             if ($client->active) {
-
                 $client->update(['actived_at' => now()]);
             }
 
-            $client->active ? $msg = "activé" : $msg = "desactivé";
+            $client->active ? $msg = 'activé' : $msg = 'desactivé';
 
             return redirect()->back()->with('success', "le client a été $msg avec success");
         }
@@ -152,19 +144,17 @@ class ClientController extends Controller
 
     public function syncPermission(ClientPermissionFormRequest $request)
     {
-
         $client = User::Role('Client')->whereUuid($request->clientId)->firstOrFail();
 
         //abort_if($client->email === 'abdelgha4or@gmail.com' || $client->hasRole('Developper'), 403);
 
         $client->syncPermissions($request->permissions);
 
-        return redirect()->back()->with('success', "Les permissions sont synchronisée avec succès");
+        return redirect()->back()->with('success', 'Les permissions sont synchronisée avec succès');
     }
 
     public function delete(Request $request)
     {
-
         $request->validate(['clientId' => 'required|uuid']);
 
         $client = User::whereUuid($request->clientId)->firstOrFail();
@@ -172,7 +162,6 @@ class ClientController extends Controller
         $this->authorize('delete', $client);
 
         if ($client) {
-
             // dd('Yes client');
             if ($client->commands()->count()) {
                 $client->commands()->delete();
@@ -192,20 +181,20 @@ class ClientController extends Controller
 
             return redirect()->back()->with('success', 'le client a été supprimer avec success');
         }
+
         return redirect()->back()->with('error', 'Error ...');
     }
 
     public function sendEstimate(User $user, string $password)
     {
         if (CheckConnection::isConnected()) {
-
             Mail::to($user)->send(new SendPasswordMail($password));
 
             if (empty(Mail::failures())) {
-
                 return redirect()->back()->with('success', "l'email a été envoyé avec succès");
             }
         }
+
         return redirect()->back()->with('error', 'Email not send');
     }
 }

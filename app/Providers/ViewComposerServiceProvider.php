@@ -19,8 +19,8 @@ use App\Http\View\Composers\NewUserComposer;
 use App\Http\View\Composers\RamassageComposer;
 use App\Http\View\Composers\StockComposer;
 use App\Http\View\Composers\SubDeliveryComposer;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\ServiceProvider;
 
 class ViewComposerServiceProvider extends ServiceProvider
 {
@@ -62,16 +62,16 @@ class ViewComposerServiceProvider extends ServiceProvider
         View::composer([
             'Sameleon.Admin.SubDelivery.Home2.*',
         ], InvoiceDeliveryComposer::class);
-        
+
         View::composer([
             'Sameleon.Admin.Home2.*',
-            'Sameleon.Admin.SubDelivery.Home2.*'
+            'Sameleon.Admin.SubDelivery.Home2.*',
         ], AnnonceComposer::class);
 
         View::composer([
             'Sameleon.Admin.Product.*',
         ], ConditionComposer::class);
-        
+
         //View::composer(['Sameleon.Admin.Home.*'], DeliveryComposer::class);
 
         //View::composer(['livewire.sameleon.command.*'], InvoiceOfDay::class);
@@ -82,11 +82,11 @@ class ViewComposerServiceProvider extends ServiceProvider
 
         View::composer([
             'layouts._parts.__sameleon_admin',
-            'layouts._parts.__sameleon_delivery_navbar'
+            'layouts._parts.__sameleon_delivery_navbar',
         ], NavBarComposer::class);
 
         View::composer([
-            'layouts._parts.__sameleon_sub_delivery_navbar'
+            'layouts._parts.__sameleon_sub_delivery_navbar',
         ], NavBarDeliveryComposer::class);
 
         View::composer([
@@ -100,9 +100,8 @@ class ViewComposerServiceProvider extends ServiceProvider
 
         View::composer([
             'layouts._parts.__sameleon_admin',
-            'layouts._parts.__sameleon_delivery_navbar'
+            'layouts._parts.__sameleon_delivery_navbar',
         ], StockComposer::class);
-
 
         /****** update abdo */
         View::composer(['layouts._parts.__sameleon_admin'], RamassageComposer::class);

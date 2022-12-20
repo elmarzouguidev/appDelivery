@@ -16,16 +16,16 @@ class CreateDeliveriesTable extends Migration
         Schema::create('deliveries', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
-      
+
             $table->string('nom');
             $table->string('prenom');
             $table->string('telephone')->unique()->nullable();
             $table->string('cnie')->unique()->nullable();
-            
+
             $table->string('email')->unique();
             $table->string('password');
             $table->timestamp('email_verified_at')->nullable();
-            
+
             $table->boolean('is_company')->default(false);
             $table->string('company_name')->nullable();
 
@@ -36,7 +36,6 @@ class CreateDeliveriesTable extends Migration
 
             $table->foreignId('city_id')->nullable();
             $table->uuid('city_uuid')->nullable();
-
 
             $table->rememberToken();
             $table->timestamps();

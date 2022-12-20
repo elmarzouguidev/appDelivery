@@ -21,7 +21,6 @@ class ClickFunnelsHookController extends Controller
 
     public function getRequest()
     {
-
         return new HookRequest();
     }
 
@@ -30,19 +29,18 @@ class ClickFunnelsHookController extends Controller
         $data = json_decode($this->data, true);
 
         $validateData = $this->getRequest();
-        
+
         $validator = Validator::make($data['payload'], $validateData->rules());
 
         if ($validator->fails()) {
             Log::error($validator->errors());
         }
 
-        $items =  $validator->validated();
+        $items = $validator->validated();
         Log::info($items);
         // Log::info('From ClickFunnelsHookController');
         // Logger($data);
 
         //  http_response_code(200);
-
     }
 }

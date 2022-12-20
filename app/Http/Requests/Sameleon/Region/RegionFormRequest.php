@@ -26,7 +26,7 @@ class RegionFormRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'unique:regions'],
             'city' => ['required', 'integer'],
-            
+
             'frais' => ['required', 'numeric'],
             'code' => ['nullable', 'string', 'unique:regions'],
         ];

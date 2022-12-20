@@ -9,12 +9,10 @@ use App\Models\Sameleon\Source;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Str;
-use Jackiedo\DotenvEditor\Facades\DotenvEditor;
 use Illuminate\Validation\ValidationException;
 
 class SourceController extends Controller
 {
-
     const SEPARATOR = '-';
 
     const SLASH = '/';
@@ -32,26 +30,24 @@ class SourceController extends Controller
 
     public function store(SourceFormRequest $request)
     {
-
-        if ($request->integration === "woocommerce" || $request->integration === "elementor") {
-
+        if ($request->integration === 'woocommerce' || $request->integration === 'elementor') {
             $valid = (new CheckIsWordpress)->check($request->domain)->isWoocommerce()
                 ||
                 (new CheckIsWordpress)->check($request->domain)->isElementor();
 
-            if (!$valid) {
+            if (! $valid) {
                 throw ValidationException::withMessages([
-
-                    'integration_error' => "ce wsite ne contient pas Wordpress "
+                    'integration_error' => 'ce wsite ne contient pas Wordpress ',
 
                 ]);
                 exit();
+
                 return;
             }
         }
 
         Artisan::call('route:clear');
-        
+
         $source = new Source();
 
         $source->name = $request->name;
@@ -60,7 +56,7 @@ class SourceController extends Controller
 
         $source->domain = $request->domain;
 
-        $source->route_name = str_replace(' ', '', $request->domain) . strtolower(Str::random(4));
+        $source->route_name = str_replace(' ', '', $request->domain).strtolower(Str::random(4));
 
         $source->client()->associate(auth()->user());
 
@@ -70,7 +66,7 @@ class SourceController extends Controller
 
         $source->route = $this->generateRoutes($request->integration);
 
-        $source->full_url = getDomainName() . $source->route;
+        $source->full_url = getDomainName().$source->route;
 
         $source->secret = $this->generateSecret();
 
@@ -78,17 +74,16 @@ class SourceController extends Controller
 
         Artisan::call('route:cache');
 
-        return redirect()->back()->with('success', "La source a été ajouter");
+        return redirect()->back()->with('success', 'La source a été ajouter');
     }
 
     public function generateRoutes($platform)
     {
-
         $pftm = $this->generatePlatform($platform);
 
-        return  self::PREFIX .
-            self::SLASH . $pftm .
-            self::SEPARATOR . strtolower(Str::random(4)) . '/@' . auth()->user()->uuid;
+        return  self::PREFIX.
+            self::SLASH.$pftm.
+            self::SEPARATOR.strtolower(Str::random(4)).'/@'.auth()->user()->uuid;
     }
 
     public function generateSecret()
@@ -98,9 +93,7 @@ class SourceController extends Controller
 
     public function generatePlatform($platform)
     {
-
         switch ($platform) {
-
             case 'woocommerce':
                 return 'wc';
                 break;
@@ -117,7 +110,6 @@ class SourceController extends Controller
 
     public function generateHeader($platform)
     {
-
         switch ($platform) {
             case 'woocommerce':
                 return 'x-wc-webhook-signature';
@@ -147,11 +139,11 @@ class SourceController extends Controller
         $source = Source::whereUuid($request->sourceId)->firstOrFail();
 
         if ($source) {
-
             $source->delete();
 
-            return redirect()->back()->with('success', "la source  a été supprimer avec success");
+            return redirect()->back()->with('success', 'la source  a été supprimer avec success');
         }
+
         return redirect()->back()->with('error', 'Error ...');
     }
 }

@@ -15,7 +15,7 @@ class AddDeliveryStatusToCommandsTable extends Migration
     public function up()
     {
         Schema::table('commands', function (Blueprint $table) {
-            $table->after('status',function($table){
+            $table->after('status', function ($table) {
                 $table->integer('delivery_status')->default(DeliveryStatus::D_NON_TRAITE);
             });
         });

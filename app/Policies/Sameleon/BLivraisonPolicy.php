@@ -18,7 +18,7 @@ class BLivraisonPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->hasAnyRole('Admin','SuperAdmin');
+        return $user->hasAnyRole('Admin', 'SuperAdmin');
     }
 
     /**
@@ -41,7 +41,7 @@ class BLivraisonPolicy
      */
     public function create(User $user)
     {
-        return $user->hasAnyRole('Admin','SuperAdmin');
+        return $user->hasAnyRole('Admin', 'SuperAdmin');
     }
 
     /**
@@ -89,6 +89,6 @@ class BLivraisonPolicy
      */
     public function forceDelete(User $user, BLivraison $bLivraison)
     {
-       $user->hasRole('SuperAdmin');
+        $user->hasRole('SuperAdmin');
     }
 }

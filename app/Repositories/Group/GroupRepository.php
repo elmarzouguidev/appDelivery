@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Repositories\Group;
 
 use App\Models\Sameleon\Group;
@@ -9,7 +8,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 class GroupRepository extends AppRepository implements GroupInterface
 {
-
     private $group;
 
     private $instance;
@@ -21,7 +19,7 @@ class GroupRepository extends AppRepository implements GroupInterface
 
     public function __instance(): Group
     {
-        if (!$this->instance) {
+        if (! $this->instance) {
             $this->instance = $this->group;
         }
 
@@ -34,31 +32,28 @@ class GroupRepository extends AppRepository implements GroupInterface
     public function getGroups()
     {
         if ($this->useCache()) {
-
             return $this->setCache()->remember('all_groups_cache', $this->timeToLive(), function () {
-
                 return $this->group
                     ->with('moderator:id,nom,prenom')
                     ->get();
             });
         } else {
-
             return $this->group
                 ->with('moderator:id,nom,prenom')
                 ->get();
         }
+
         return [];
     }
 
     /**
-     * @param int $id
+     * @param  int  $id
      * @return mixed
      */
     public function getGroup(int $id)
     {
         return $this->group->find($id);
     }
-
 
     public function getGroupByUuid(string $uuid)
     {

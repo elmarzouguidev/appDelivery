@@ -1,7 +1,7 @@
 <?php
 
 return [
-    
+
     'dashboard' => 'Tableau de bord',
     'commercial' => 'Commercial',
     'companies' => 'Sociétés',
@@ -36,5 +36,5 @@ return [
     'roles' => 'Roles',
     'permissions' => 'Permissions',
     /************************ */
-    'files' => 'Gestion des fichiers'
+    'files' => 'Gestion des fichiers',
 ];

@@ -15,7 +15,6 @@ class CreateInvoicesTable extends Migration
     public function up()
     {
         Schema::create('invoices', function (Blueprint $table) {
-
             $table->id();
             $table->uuid('uuid')->unique();
             $table->string('code')->unique();
@@ -35,7 +34,7 @@ class CreateInvoicesTable extends Migration
             $table->date('payment_date')->nullable();
 
             $table->foreignId('client_id')->index()->nullable()->constrained();
-            
+
             $table->boolean('has_avoir')->default(false);
             $table->boolean('is_paid')->default(false);
 

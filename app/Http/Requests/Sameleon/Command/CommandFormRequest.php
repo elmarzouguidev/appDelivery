@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Sameleon\Command;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class CommandFormRequest extends FormRequest
 {

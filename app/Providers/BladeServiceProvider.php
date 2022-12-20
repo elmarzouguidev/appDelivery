@@ -25,7 +25,6 @@ class BladeServiceProvider extends ServiceProvider
     public function boot()
     {
         Blade::directive('includePart', function ($expression) {
-
             return "<?php echo view('theme/pages/'.$expression); ?>";
         });
     }

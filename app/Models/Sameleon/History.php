@@ -20,7 +20,7 @@ class History extends Model
         'action',
         'description',
         'historyable_id',
-        'historyable_type'
+        'historyable_type',
     ];
 
     public function historyable()

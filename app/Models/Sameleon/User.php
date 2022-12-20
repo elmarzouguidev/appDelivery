@@ -6,13 +6,11 @@ use App\Notifications\Sameleon\ResetPasswordNotification;
 use App\Status\Status;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -20,10 +18,9 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
     use GetModelByUuid;
     use UuidGenerator;
-
     use HasRoles;
-
     use \Staudenmeir\EloquentEagerLimit\HasEagerLimit;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -48,7 +45,7 @@ class User extends Authenticatable
         'public_key_api',
         'secret_key_api',
         'last_seen',
-        'actived_at'
+        'actived_at',
     ];
 
     /**
@@ -77,7 +74,6 @@ class User extends Authenticatable
         'is_sub_delivery' => 'boolean',
     ];
 
-
     /**
      * used for spatie/permissions
      */
@@ -86,7 +82,7 @@ class User extends Authenticatable
     protected function fullName(): Attribute
     {
         return new Attribute(
-            fn () => $this->nom . ' ' . $this->prenom,
+            fn () => $this->nom.' '.$this->prenom,
         );
     }
 
@@ -153,7 +149,7 @@ class User extends Authenticatable
 
     public function getDeliveryTotalDayChiffreAttribute()
     {
-        $commands =  $this->commandsDelivery()
+        $commands = $this->commandsDelivery()
             ->where('status', Status::LIVRE)
             ->whereDate('delivered_at', now()->format('Y-m-d'))
             ->withSum('items', 'prix_total')
@@ -166,7 +162,7 @@ class User extends Authenticatable
 
     public function getDeliveryTotalChiffreAttribute()
     {
-        $commands =  $this->commandsDelivery()
+        $commands = $this->commandsDelivery()
             ->where('status', Status::LIVRE)
             //->whereDate('delivered_at', now()->format('Y-m-d'))
             ->withSum('items', 'prix_total')
@@ -189,7 +185,7 @@ class User extends Authenticatable
 
     public function invoices()
     {
-        return $this->hasMany(Invoice::class)->orderBy('created_at', 'DESC');;
+        return $this->hasMany(Invoice::class)->orderBy('created_at', 'DESC');
     }
 
     public function city()
@@ -266,6 +262,7 @@ class User extends Authenticatable
     {
         $sessionsAll = $this->loginHistory()->get() ?? [];
         $sessionsAll->pop(); //remove las login because it's getted from scopeWithLastLogin() function
+
         return collect($sessionsAll->all());
     }
 
@@ -279,7 +276,6 @@ class User extends Authenticatable
         return $this->hasMany(UserLogin::class);
     }
 
-
     /*****Notifications */
 
     public function sendPasswordResetNotification($token)
@@ -291,17 +287,16 @@ class User extends Authenticatable
     {
         parent::boot();
 
-        $prefixer = "client-";
+        $prefixer = 'client-';
 
         static::creating(function ($model) use ($prefixer) {
-
             $number = (self::max('id') + 1);
 
             if ($model->is_admin) {
-                $prefixer = "_admin_";
+                $prefixer = '_admin_';
             }
 
-            $model->code = $prefixer . str_pad($number, 5, 0, STR_PAD_LEFT);
+            $model->code = $prefixer.str_pad($number, 5, 0, STR_PAD_LEFT);
         });
     }
 }

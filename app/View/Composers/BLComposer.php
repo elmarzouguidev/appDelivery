@@ -3,12 +3,11 @@
 namespace App\Http\View\Composers;
 
 use App\Models\Sameleon\BLivraison;
-use Illuminate\View\View;
 use Illuminate\Cache\CacheManager;
+use Illuminate\View\View;
 
 class BLComposer
 {
-
     protected BLivraison $bl;
 
     protected CacheManager $cache;
@@ -23,14 +22,13 @@ class BLComposer
     /**
      * Bind data to the view.
      *
-     * @param View $view
+     * @param  View  $view
      * @return void
      */
     public function compose(View $view)
     {
         $view->with('total_bls', $this->bl->totalBL());
     }
-    
 
     private function timeToLive()
     {

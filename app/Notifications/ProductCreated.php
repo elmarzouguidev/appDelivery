@@ -3,7 +3,6 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -12,6 +11,7 @@ class ProductCreated extends Notification
     use Queueable;
 
     protected $product;
+
     /**
      * Create a new notification instance.
      *
@@ -59,7 +59,7 @@ class ProductCreated extends Notification
             'name' => $this->product->name,
             'uuid' => $this->product->uuid,
             'created_at' => $this->product->created_at,
-            'client' => optional($this->product->client)->full_name
+            'client' => optional($this->product->client)->full_name,
         ];
     }
 }

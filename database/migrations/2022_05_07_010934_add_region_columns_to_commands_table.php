@@ -14,8 +14,7 @@ class AddRegionColumnsToCommandsTable extends Migration
     public function up()
     {
         Schema::table('commands', function (Blueprint $table) {
-            $table->after('city_id',function($table){
-
+            $table->after('city_id', function ($table) {
                 $table->foreignId('region_id')->nullable();
                 $table->uuid('region_uuid')->nullable();
             });
@@ -30,7 +29,7 @@ class AddRegionColumnsToCommandsTable extends Migration
     public function down()
     {
         Schema::table('commands', function (Blueprint $table) {
-            $table->dropColumn(['region_id','region_uuid']);
+            $table->dropColumn(['region_id', 'region_uuid']);
         });
     }
 }

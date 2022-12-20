@@ -11,16 +11,13 @@ use App\Repositories\City\CityInterface;
 use App\Repositories\Delivery\DeliveryInterface;
 use App\Services\Mail\CheckConnection;
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class SubDeliveryController extends Controller
 {
     public function index()
     {
-
         $this->authorize('viewAny', Delivery::class);
 
         $deliveries = app(DeliveryInterface::class)->getDeliveries();
@@ -30,7 +27,6 @@ class SubDeliveryController extends Controller
 
     public function create()
     {
-
         $this->authorize('create', Delivery::class);
 
         return  view('Sameleon.Admin.SubDelivery.Delivery.__create.index');
@@ -38,7 +34,6 @@ class SubDeliveryController extends Controller
 
     public function store(DeliveryCreateFormRequest $request)
     {
-
         $this->authorize('create', Delivery::class);
 
         $delivery = new Delivery();
@@ -49,13 +44,12 @@ class SubDeliveryController extends Controller
         $delivery->addresse = $request->addresse;
         $delivery->telephone = $request->telephone;
 
-        $delivery->type = "particulier";
+        $delivery->type = 'particulier';
         //$delivery->cnie = $request->cnie;
 
         $pass = $request->email;
 
         if ($request->boolean('generate_password')) {
-
             $pass = Str::random(9);
         }
 
@@ -69,12 +63,9 @@ class SubDeliveryController extends Controller
 
         $delivery->save();
 
-
         $delivery->assignRole('SubDelivery');
 
-
         if ($request->boolean('generate_password') && CheckConnection::isConnected()) {
-
             $delivery->notify(new SendNewDeliveryPassword($pass));
         }
 
@@ -94,7 +85,6 @@ class SubDeliveryController extends Controller
 
     public function update(DeliveryUpdateFormRequest $request, Delivery $delivery)
     {
-
         $this->authorize('update', $delivery);
 
         $delivery->nom = $request->nom;
@@ -121,11 +111,11 @@ class SubDeliveryController extends Controller
             ->whereParentUuid(delivery()->uuid)
             ->firstOrFail();
         if ($delivery) {
-
             $delivery->delete();
 
             return redirect()->back()->with('success', 'le livreur a été supp avec success');
         }
+
         return redirect()->back()->with('error', 'error !! ');
     }
 }

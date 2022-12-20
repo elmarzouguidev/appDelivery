@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Repositories\Delivery;
 
 use App\Models\Sameleon\Delivery;
@@ -9,7 +8,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 class DeliveryRepository extends AppRepository implements DeliveryInterface
 {
-
     private $delivery;
 
     private $instance;
@@ -21,7 +19,7 @@ class DeliveryRepository extends AppRepository implements DeliveryInterface
 
     public function __instance(): Delivery
     {
-        if (!$this->instance) {
+        if (! $this->instance) {
             $this->instance = $this->delivery;
         }
 
@@ -33,9 +31,7 @@ class DeliveryRepository extends AppRepository implements DeliveryInterface
      */
     public function getDeliveries()
     {
-
         if (isDelivery() && delivery()->hasRole('DeliveryEntreprise')) {
-            
             return $this->delivery->role(['SubDelivery'])
                 ->whereParentId(auth()->id())
                 ->whereParentUuid(auth()->user()->uuid)
@@ -44,25 +40,22 @@ class DeliveryRepository extends AppRepository implements DeliveryInterface
                 ->all();
         }
 
-        return $this->delivery->role(['Delivery', 'DeliveryEntreprise'])->with('childrens','city:id,name')->get();
-            
+        return $this->delivery->role(['Delivery', 'DeliveryEntreprise'])->with('childrens', 'city:id,name')->get();
     }
 
     public function getDeliveryEntreprise()
     {
-
-        return $this->delivery->role(['DeliveryEntreprise'])->with('childrens')->get(); 
+        return $this->delivery->role(['DeliveryEntreprise'])->with('childrens')->get();
     }
 
     /**
-     * @param int $id
+     * @param  int  $id
      * @return mixed
      */
     public function getDelivery(int $id)
     {
         return $this->delivery->find($id);
     }
-
 
     public function getDeliveryByUuid(string $uuid)
     {

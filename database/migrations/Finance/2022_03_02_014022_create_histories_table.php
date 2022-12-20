@@ -22,7 +22,7 @@ class CreateHistoriesTable extends Migration
             $table->string('user');
             $table->longText('detail');
             $table->string('action')->default('add');
-        
+
             $table->timestamps();
         });
     }

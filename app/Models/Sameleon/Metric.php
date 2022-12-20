@@ -16,7 +16,7 @@ class Metric extends Model
         'date',
         'value',
         'data',
-        'type'
+        'type',
     ];
 
     protected $casts = [];

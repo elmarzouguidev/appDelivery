@@ -21,16 +21,16 @@ class DeliveryInvoice extends Model
         'city_uuid',
         'delivery_id',
         'delivery_uuid',
-        'status'
+        'status',
     ];
 
     // protected $dates = ['due_date'];
 
-    protected  $casts = [
+    protected $casts = [
 
         'invoice_date' => 'date:Y-m-d',
         'cloture' => 'boolean',
-        'status' => 'integer'
+        'status' => 'integer',
     ];
 
     public function getFormatedPriceHtAttribute()
@@ -102,14 +102,13 @@ class DeliveryInvoice extends Model
             return $query->whereCloture(false)
                 ->latest()->count();
         }
+
         return 0;
     }
 
     public function scopeTotalChiffreNonVersed($query)
     {
-
         if (isDelivery()) {
-           
             return $query
                 ->whereDeliveryId(delivery()->id)
                 ->whereDeliveryUuid(delivery()->uuid)
@@ -122,7 +121,6 @@ class DeliveryInvoice extends Model
                         return ['total_pricer' => $item->articles_sum_articlesprice_total - $item->articles_sum_articlesfrais];
                     }
                 )->sum('total_pricer');
-                
         } else {
             return $query->doesntHave('bill')
                 ->withSum('articles', 'delivery_invoice_articles.price_total')
@@ -138,17 +136,12 @@ class DeliveryInvoice extends Model
 
     public static function boot()
     {
-
         parent::boot();
 
         static::creating(function ($model) {
-
-
             if (self::count() <= 0) {
-
                 $number = getDocument()->delivery_invoice_start;
             } else {
-
                 $number = ($model->max('code') + 1);
             }
 
@@ -156,7 +149,7 @@ class DeliveryInvoice extends Model
 
             $model->code = $code;
 
-            $model->full_number = getDocument()->delivery_invoice_prefix . $code;
+            $model->full_number = getDocument()->delivery_invoice_prefix.$code;
         });
     }
 }

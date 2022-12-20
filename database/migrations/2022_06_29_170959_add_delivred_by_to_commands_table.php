@@ -14,7 +14,7 @@ class AddDelivredByToCommandsTable extends Migration
     public function up()
     {
         Schema::table('commands', function (Blueprint $table) {
-            $table->after('delivered_at',function($table){
+            $table->after('delivered_at', function ($table) {
                 $table->longText('delivred_by')->nullable();
             });
         });

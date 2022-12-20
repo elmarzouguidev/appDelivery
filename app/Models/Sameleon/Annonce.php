@@ -2,10 +2,10 @@
 
 namespace App\Models\Sameleon;
 
+use App\Traits\GetModelByUuid;
+use App\Traits\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Traits\UuidGenerator;
-use App\Traits\GetModelByUuid;
 
 class Annonce extends Model
 {
@@ -20,15 +20,14 @@ class Annonce extends Model
         'image',
         'active',
         'periode',
-        'viewed'
+        'viewed',
     ];
 
-    protected  $casts = [
+    protected $casts = [
         'active' => 'boolean',
         'periode' => 'date',
-        'viewed' => 'array'
+        'viewed' => 'array',
     ];
-
 
     public function setViewedAttribute($value)
     {
@@ -39,28 +38,23 @@ class Annonce extends Model
     {
         return json_decode($value);
     }
-    
+
     public function scopeActiveAnnonces($query)
     {
         $group = ['all'];
 
-        if(isAdmin())
-        {
-           $group =['admins','all'];
-
-        }elseif(isClient())
-        {
+        if (isAdmin()) {
+            $group = ['admins', 'all'];
+        } elseif (isClient()) {
             $group = ['clients'];
+        } elseif (isDelivery()) {
+            $group = ['delivery'];
+        } else {
+            $group = ['all'];
         }
-        elseif(isDelivery())
-        {
-            $group =['delivery'];
-        }
-        else{
-            $group = ['all'];  
-        }
+
         return $query->whereActive(true)
-        ->whereIn('group',$group)
+        ->whereIn('group', $group)
         ->latest()->first();
     }
 }

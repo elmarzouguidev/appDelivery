@@ -14,7 +14,7 @@ class AddQteAlertToStocksTable extends Migration
     public function up()
     {
         Schema::table('stocks', function (Blueprint $table) {
-            $table->after('qte_rest',function($table){
+            $table->after('qte_rest', function ($table) {
                 $table->integer('qte_alert')->default(5);
             });
         });

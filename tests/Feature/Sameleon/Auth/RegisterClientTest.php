@@ -4,7 +4,6 @@ namespace Tests\Feature\Sameleon\Auth;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class RegisterClientTest extends TestCase
@@ -25,7 +24,7 @@ class RegisterClientTest extends TestCase
     public function testRegiterNewClient()
     {
         // Run the DatabaseSeeder...
-       // $this->seed();
+        // $this->seed();
         // Create a single App\Models\User instance...
         $user = User::factory()->create();
 

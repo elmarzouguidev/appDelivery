@@ -9,7 +9,6 @@ class Edit extends Component
 {
     public function render()
     {
-       
         return view('livewire.sameleon.command.edit');
     }
 
@@ -18,20 +17,21 @@ class Edit extends Component
     ];
 
     public $command;
+
     public $products = [];
 
     public $newOrderProducts = [];
+
     public $orderProducts;
 
     public function mount()
     {
-        
         if (auth()->user()->hasRole('Client')) {
             $this->products = auth()->user()->products()->get();
         } else {
             $this->products = Product::with('media')->get();
         }
-        
+
         $this->orderProducts = $this->command->items()->get();
 
         $this->newOrderProducts = [
@@ -40,8 +40,8 @@ class Edit extends Component
                 'quantity' => 1,
                 'designation' => '',
                 'description' => '',
-                'prix_unitaire' => ''
-            ]
+                'prix_unitaire' => '',
+            ],
         ];
 
         //dd('ffOnevvvvvvvvvvvvvvr');
@@ -55,22 +55,18 @@ class Edit extends Component
 
     public function removeProduct($id)
     {
-
         $this->command->items()->where('uuid', $id)->delete();
-        
+
         $this->mount();
     }
-
 
     /****Add Product */
     public function getPrice($index)
     {
-
-        if ($this->newOrderProducts[$index]['product_id'] !== "") {
-            $this->newOrderProducts[$index]['prix_unitaire'] =  $this->products->firstWhere('id', $this->newOrderProducts[$index]['product_id'])->price;
+        if ($this->newOrderProducts[$index]['product_id'] !== '') {
+            $this->newOrderProducts[$index]['prix_unitaire'] = $this->products->firstWhere('id', $this->newOrderProducts[$index]['product_id'])->price;
         }
     }
-
 
     public function removeItem($index)
     {
@@ -85,7 +81,7 @@ class Edit extends Component
             'quantity' => 1,
             'designation' => '',
             'description' => '',
-            'prix_unitaire' => ''
+            'prix_unitaire' => '',
         ];
     }
 }

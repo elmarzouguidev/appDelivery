@@ -11,8 +11,8 @@ class DeliveryInvoiceArticle extends Model
     use HasFactory;
     use UuidGenerator;
 
-    protected $table ='delivery_invoice_articles';
-    
+    protected $table = 'delivery_invoice_articles';
+
     protected $fillable = [
         'articleable_id',
         'articleable_type',
@@ -24,21 +24,20 @@ class DeliveryInvoiceArticle extends Model
         'frais',
         'profit',
         'command_id',
-        'command_uuid'
+        'command_uuid',
     ];
 
-    protected  $casts = [
+    protected $casts = [
         'date_command' => 'date',
         'price_total' => 'float',
         'profit' => 'float',
-        'is_delivery'=>'boolean'
+        'is_delivery' => 'boolean',
     ];
 
     public function articleable()
     {
         return $this->morphTo();
     }
-
 
     public function command()
     {

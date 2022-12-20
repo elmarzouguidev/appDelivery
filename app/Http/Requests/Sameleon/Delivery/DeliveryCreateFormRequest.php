@@ -34,8 +34,8 @@ class DeliveryCreateFormRequest extends FormRequest
             'cnie' => ['nullable', 'required_if:type,particulier', 'string', Rule::unique('deliveries')],
             'email' => ['required', 'email', Rule::unique('deliveries')],
             //'password' => ['required', 'string', 'min:6'],
-            'company_ice'=>['nullable', 'required_if:type,entreprise', 'string', Rule::unique('deliveries')],
-            'company_name'=>['nullable', 'required_if:type,entreprise', 'string', Rule::unique('deliveries')],
+            'company_ice' => ['nullable', 'required_if:type,entreprise', 'string', Rule::unique('deliveries')],
+            'company_name' => ['nullable', 'required_if:type,entreprise', 'string', Rule::unique('deliveries')],
 
             'generate_password' => ['nullable', Rule::in([1, '1', true, 'on', 'yes', 'oui', '0', 'no', 'non', false])],
             'regions' => ['nullable', 'array'],

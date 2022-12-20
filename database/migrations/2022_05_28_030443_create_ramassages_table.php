@@ -16,14 +16,14 @@ class CreateRamassagesTable extends Migration
         Schema::create('ramassages', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid');
-        
+
             $table->string('name');
             $table->float('price')->default(0);
-       
+
             $table->unsignedBigInteger('qte')->default(0);
             $table->longText('addresse');
             $table->longText('notes')->nullable();
-      
+
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->uuid('user_uuid')->nullable();
             $table->foreignId('category_id')->index()->nullable();

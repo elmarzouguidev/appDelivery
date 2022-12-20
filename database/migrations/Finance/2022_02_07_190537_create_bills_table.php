@@ -14,14 +14,13 @@ class CreateBillsTable extends Migration
     public function up()
     {
         Schema::create('bills', function (Blueprint $table) {
-
             $table->id();
             $table->uuid('uuid')->unique();
             $table->string('code')->unique();
             $table->string('full_number')->unique();
 
             $table->string('reference')->nullable();
-            
+
             $table->float('price_total')->default(0);
             $table->string('status')->default('accepted');
             $table->string('bill_mode')->default('virement-bancaire');

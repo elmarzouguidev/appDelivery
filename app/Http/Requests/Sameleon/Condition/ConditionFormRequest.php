@@ -27,7 +27,7 @@ class ConditionFormRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string'],
-            'type' => ['required', 'string', Rule::in(['produits', 'commands','factures','global'])],
+            'type' => ['required', 'string', Rule::in(['produits', 'commands', 'factures', 'global'])],
         ];
     }
 }

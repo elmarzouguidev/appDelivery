@@ -1,12 +1,9 @@
 <?php
 
-
 namespace App\Repositories\Stock;
 
 interface StockInterface
 {
-
-
     public function getStocks();
 
     public function getStocksForDelivery();

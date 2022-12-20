@@ -15,49 +15,53 @@ class Invoices extends Component
     //public $invoices;
 
     public $addBiller = false;
+
     public $invoicer;
 
     /****Bill ****/
 
     public $price;
+
     public $formatedPrice;
+
     public $date;
+
     public $mode;
+
     public $reference;
+
     public $notes;
+
     public $recu;
 
     /****Cloture Invoice */
 
     public $cloture = false;
 
-
     public $buttonClass = 'disabled';
 
     protected $messages = [
         //'recu.required' => "You must use the 'Choose file' button to select which file you wish to upload",
-        'recu.max' => "Maximum file size to upload is 1MB (1024 KB)."
+        'recu.max' => 'Maximum file size to upload is 1MB (1024 KB).',
     ];
 
     public function render()
     {
-
         $invoices = app(DeliveryInvoiceInterface::class)->getInvoices();
         $this->date = now()->format('m-d-Y');
+
         return view('livewire.sameleon.invoice.sub-delivery.invoices', compact('invoices'));
     }
 
     public function addBill(DeliveryInvoice $invoice)
     {
-
         $this->addBiller = true;
         $this->invoicer = $invoice->loadSum('articles', 'price_total')
             ->loadSum('articles', 'frais')
             ->loadSum('articles', 'profit');
         //$this->price = $invoice->articles_sum_price_total;
-        $this->price =  ($invoice->articles_sum_price_total - ($invoice->articles_sum_frais + 0));
+        $this->price = ($invoice->articles_sum_price_total - ($invoice->articles_sum_frais + 0));
         $this->formatedPrice = number_format($invoice->articles_sum_price_total - ($invoice->articles_sum_frais + 0), 2);
-
 
         $this->dispatchBrowserEvent('add-bill');
     }
@@ -74,8 +78,8 @@ class Invoices extends Component
             'bill_date' => $this->date,
             'bill_mode' => $this->mode,
             'reference' => $this->reference,
-            'bank_name'  => getCompany()->bank_name ?? null,
-            'bank_rib'   => getCompany()->bank_rib ?? null,
+            'bank_name' => getCompany()->bank_name ?? null,
+            'bank_rib' => getCompany()->bank_rib ?? null,
             'notes' => $this->notes,
             'price_ht' => $this->price,
             'price_total' => $this->price,
@@ -89,7 +93,6 @@ class Invoices extends Component
         $invoice->update(['cloture' => true, 'status' => InvoiceStatus::PAYEE]);
 
         if ($this->recu) {
-
             $bill->addMedia($this->recu)->toMediaCollection('bills_delivery_recu');
         }
         $this->recu = null;
@@ -106,16 +109,14 @@ class Invoices extends Component
 
     public function clotureInvoice(DeliveryInvoice $invoice)
     {
-        $invoice->update(['cloture' => !$invoice->cloture]);
+        $invoice->update(['cloture' => ! $invoice->cloture]);
 
         $this->dispatchBrowserEvent('reloadbrowser');
     }
 
-
     /*** Validation Rules  ***/
     protected function rules()
     {
-
         return [
 
             'price' => ['required', 'numeric'],

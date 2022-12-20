@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\DB;
 
 class ClearJobsTables extends Command
 {
-
     protected $tables = ['failed_jobs', 'jobs', 'job_batches'];
 
     /**
@@ -47,8 +46,8 @@ class ClearJobsTables extends Command
             //continue;
             //}
             DB::table($name)->truncate();
-            
         }
-        return "Done !";
+
+        return 'Done !';
     }
 }

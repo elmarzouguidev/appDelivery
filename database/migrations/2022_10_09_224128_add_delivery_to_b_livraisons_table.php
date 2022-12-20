@@ -15,10 +15,8 @@ class AddDeliveryToBLivraisonsTable extends Migration
     {
         Schema::table('b_livraisons', function (Blueprint $table) {
             $table->after('user_uuid', function ($table) {
-
                 $table->foreignId('delivery_id')->nullable();
                 $table->uuid('delivery_uuid')->nullable();
-                
             });
         });
     }

@@ -3,12 +3,11 @@
 namespace App\Http\View\Composers;
 
 use App\Models\Sameleon\Product;
-use Illuminate\View\View;
 use Illuminate\Cache\CacheManager;
+use Illuminate\View\View;
 
 class NewProductsComposer
 {
-
     protected Product $product;
 
     protected CacheManager $cache;
@@ -23,14 +22,13 @@ class NewProductsComposer
     /**
      * Bind data to the view.
      *
-     * @param View $view
+     * @param  View  $view
      * @return void
      */
     public function compose(View $view)
     {
         $view->with('new_products', $this->product->newProducts());
     }
-    
 
     private function timeToLive()
     {

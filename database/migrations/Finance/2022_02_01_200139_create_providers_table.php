@@ -14,7 +14,6 @@ class CreateProvidersTable extends Migration
     public function up()
     {
         Schema::create('providers', function (Blueprint $table) {
-
             $table->id();
             $table->uuid('uuid')->unique()->nullable();
             $table->string('code')->unique();
@@ -28,7 +27,7 @@ class CreateProvidersTable extends Migration
             $table->string('rc')->unique()->nullable();
             $table->string('ice')->unique()->nullable();
             $table->string('logo')->nullable();
-            
+
             $table->longText('description')->nullable();
 
             $table->boolean('active')->default(true);

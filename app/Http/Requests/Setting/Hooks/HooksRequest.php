@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Settings\Hooks;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Rules\ValidateDomainRule;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class HooksRequest extends FormRequest

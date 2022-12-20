@@ -3,12 +3,11 @@
 namespace App\Http\View\Composers;
 
 use App\Models\Sameleon\Command;
-use Illuminate\View\View;
 use Illuminate\Cache\CacheManager;
+use Illuminate\View\View;
 
 class CommandComposer
 {
-
     protected Command $command;
 
     protected CacheManager $cache;
@@ -23,12 +22,11 @@ class CommandComposer
     /**
      * Bind data to the view.
      *
-     * @param View $view
+     * @param  View  $view
      * @return void
      */
     public function compose(View $view)
     {
-
         $view->with('total_command', $this->command->totalCommands());
 
         $view->with('total_chiffre_affaires', $this->command->totalChiffre());
@@ -42,7 +40,6 @@ class CommandComposer
              return $this->categories->categoryInMenu();
          })); */
     }
-    
 
     private function timeToLive()
     {

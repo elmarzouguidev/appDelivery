@@ -14,7 +14,7 @@ class AddCityUuidToCommandsTable extends Migration
     public function up()
     {
         Schema::table('commands', function (Blueprint $table) {
-            $table->after('city_id',function($table){
+            $table->after('city_id', function ($table) {
                 $table->uuid('city_uuid')->nullable();
             });
         });

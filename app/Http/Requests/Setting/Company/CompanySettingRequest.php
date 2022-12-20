@@ -37,8 +37,8 @@ class CompanySettingRequest extends FormRequest
             'patente' => ['nullable', 'numeric'],
             'if' => ['nullable', 'string'],
 
-            'bank_name'=>['nullable', 'string'],
-            'bank_rib'=>['nullable', 'numeric'],
+            'bank_name' => ['nullable', 'string'],
+            'bank_rib' => ['nullable', 'numeric'],
         ];
     }
 }

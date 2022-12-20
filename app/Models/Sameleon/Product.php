@@ -4,20 +4,16 @@ namespace App\Models\Sameleon;
 
 use App\Models\Sameleon\Traits\ModelHelpers;
 use App\Models\Sameleon\Traits\ModelRoutes;
-
+use App\Traits\GetModelByUuid;
+use App\Traits\UuidGenerator;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Cache;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-
-use App\Traits\GetModelByUuid;
-use App\Traits\UuidGenerator;
-
-
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Carbon;
 
 class Product extends Model implements HasMedia
 {
@@ -25,9 +21,7 @@ class Product extends Model implements HasMedia
     use InteractsWithMedia;
     use GetModelByUuid;
     use UuidGenerator;
-
     use ModelRoutes;
-
     use ModelHelpers;
 
     protected $fillable = [
@@ -42,7 +36,7 @@ class Product extends Model implements HasMedia
         'notes',
         'qte_rest',
         'qte_global',
-        'is_imported'
+        'is_imported',
     ];
 
     protected $casts = [
@@ -114,7 +108,6 @@ class Product extends Model implements HasMedia
             ->optimize();
     }
 
-
     public function scopeFilterClient(Builder $query, $clientId): Builder
     {
         return $query->where('user_id', $clientId);
@@ -139,13 +132,12 @@ class Product extends Model implements HasMedia
     {
         parent::boot();
 
-        $prefixer = "SM.PROD-";
+        $prefixer = 'SM.PROD-';
 
         static::creating(function ($model) use ($prefixer) {
-
             $number = (self::max('id') + 1);
 
-            $model->code = $prefixer . str_pad($number, 5, 0, STR_PAD_LEFT);
+            $model->code = $prefixer.str_pad($number, 5, 0, STR_PAD_LEFT);
         });
     }
 }

@@ -2,9 +2,7 @@
 
 namespace App\Providers;
 
-use App\Macros\RequestMixin;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Http\Request;
 
 class RequestServiceProvider extends ServiceProvider
 {
@@ -25,6 +23,5 @@ class RequestServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-      
     }
 }

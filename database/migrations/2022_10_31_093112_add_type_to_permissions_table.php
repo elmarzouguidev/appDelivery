@@ -14,8 +14,8 @@ class AddTypeToPermissionsTable extends Migration
     public function up()
     {
         Schema::table('permissions', function (Blueprint $table) {
-            $table->after('guard_name',function($table){
-               $table->enum('type',['all','client','admin','delivery'])->defaul('all');
+            $table->after('guard_name', function ($table) {
+                $table->enum('type', ['all', 'client', 'admin', 'delivery'])->defaul('all');
             });
         });
     }

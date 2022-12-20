@@ -16,7 +16,7 @@ class Email extends Model
     protected $fillable = [
         'email',
         'primary',
-        'active'
+        'active',
     ];
 
     public function emailable()

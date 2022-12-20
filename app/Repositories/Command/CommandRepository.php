@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Repositories\Command;
 
 use App\Models\Sameleon\Command;
@@ -9,7 +8,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 class CommandRepository extends AppRepository implements CommandInterface
 {
-
     private $command;
 
     private $instance;
@@ -21,13 +19,12 @@ class CommandRepository extends AppRepository implements CommandInterface
 
     public function __instance(): Command
     {
-        if (!$this->instance) {
+        if (! $this->instance) {
             $this->instance = $this->command;
         }
 
         return $this->instance;
     }
-
 
     /**
      * @return Command[]|Collection|string[]
@@ -37,7 +34,6 @@ class CommandRepository extends AppRepository implements CommandInterface
         if ($this->useCache()) {
             // dd('yes cache');
             return $this->setCache()->remember('all_commands_cache', $this->timeToLive(), function () {
-
                 return $this->command->get();
             });
         }
@@ -48,15 +44,12 @@ class CommandRepository extends AppRepository implements CommandInterface
     /**
      * @return Command[]|Collection|string[]
      */
-
     public function getArchivedCommands()
     {
         if (isClient()) {
-
-            $cacheKey = "all_commands_archived_cache_" . auth()->user()->uuid;
+            $cacheKey = 'all_commands_archived_cache_'.auth()->user()->uuid;
 
             return $this->setCache()->remember($cacheKey, $this->timeToLive(), function () {
-
                 return $this->command
                     ->where('user_id', auth()->id())
                     ->where('user_uuid', auth()->user()->uuid)
@@ -65,14 +58,10 @@ class CommandRepository extends AppRepository implements CommandInterface
                     ->withSum('items', 'prix_total')
                     ->get();
             });
-        }
-        elseif(isDelivery())
-        {
-            
-            $cacheKey = "all_delivery_commands_archived_cache_" . delivery()->uuid;
+        } elseif (isDelivery()) {
+            $cacheKey = 'all_delivery_commands_archived_cache_'.delivery()->uuid;
 
             return $this->setCache()->remember($cacheKey, $this->timeToLive(), function () {
-
                 return $this->command
                     ->where('delivery_id', delivery()->id)
                     ->where('delivery_uuid', delivery()->uuid)
@@ -81,12 +70,8 @@ class CommandRepository extends AppRepository implements CommandInterface
                     ->withSum('items', 'prix_total')
                     ->get();
             });
-        }
-         else {
-
-
+        } else {
             return $this->setCache()->remember('all_commands_archived_cache', $this->timeToLive(), function () {
-
                 return $this->command
                     ->where('is_closed', true)
                     ->with('client:id,nom,prenom', 'items', 'city:id,name')
@@ -97,14 +82,13 @@ class CommandRepository extends AppRepository implements CommandInterface
     }
 
     /**
-     * @param int $id
+     * @param  int  $id
      * @return mixed
      */
     public function getCommand(int $id)
     {
         return $this->command->find($id);
     }
-
 
     public function getCommandByUuid(string $uuid)
     {

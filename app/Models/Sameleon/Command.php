@@ -6,15 +6,14 @@ use App\Models\Sameleon\Traits\ModelRoutes;
 use App\Status\Status;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
 class Command extends Model
 {
-
     use HasFactory;
     use UuidGenerator;
     use GetModelByUuid;
@@ -58,10 +57,10 @@ class Command extends Model
         'sub_delivery_id',
         'sub_delivery_uuid',
         'comment',
-        'delivred_by'
+        'delivred_by',
     ];
 
-    protected  $casts = [
+    protected $casts = [
 
         'delivered_at' => 'date:d-m-Y',
         'refused_at' => 'date:d-m-Y',
@@ -69,12 +68,11 @@ class Command extends Model
         'is_imported' => 'boolean',
         'is_closed' => 'boolean',
         'is_api' => 'boolean',
-        'delivred_by' => 'array'
+        'delivred_by' => 'array',
         //'delivery_status'=>'integer',
         //'status'=>'integer'
 
     ];
-
 
     public function items()
     {
@@ -90,6 +88,7 @@ class Command extends Model
     {
         return $this->belongsTo(Delivery::class, 'delivery_id');
     }
+
     public function subDelivery()
     {
         return $this->belongsTo(Delivery::class, 'sub_delivery_id');
@@ -109,7 +108,7 @@ class Command extends Model
     /*public function invoice()
     {
         return $this->belongsToMany(Invoice::class, 'command_invoice', 'command_id', 'invoice_id');
-          
+
     }*/
 
     public function invoice()
@@ -146,7 +145,6 @@ class Command extends Model
     {
         return $this->belongsTo(Region::class);
     }
-
 
     public function reclamation()
     {
@@ -202,17 +200,14 @@ class Command extends Model
                 'created_at',
                 [
                     Carbon::createFromFormat('m/d/Y', $dateFrom)->format('Y-m-d'),
-                    Carbon::createFromFormat('m/d/Y', $dateTo)->format('Y-m-d')
+                    Carbon::createFromFormat('m/d/Y', $dateTo)->format('Y-m-d'),
                 ]
             );
-        } elseif (isset($dateFrom) && !isset($dateTo)) {
-
+        } elseif (isset($dateFrom) && ! isset($dateTo)) {
             return $query->where('created_at', Carbon::createFromFormat('m/d/Y', $dateFrom)->format('Y-m-d'));
-        } elseif (isset($dateTo) && !isset($dateFrom)) {
-
+        } elseif (isset($dateTo) && ! isset($dateFrom)) {
             return $query->where('created_at', Carbon::createFromFormat('m/d/Y', $dateTo)->format('Y-m-d'));
         } else {
-
             return $query->where('created_at', now());
         }
     }
@@ -248,12 +243,11 @@ class Command extends Model
 
     public function scopeSourceFilters(Builder $query, $source): Builder
     {
-
-        if ((int)$source === 1) {
+        if ((int) $source === 1) {
             return $query->where('is_api', true);
-        } elseif ((int)$source === 2) {
+        } elseif ((int) $source === 2) {
             return $query->where('is_imported', true);
-        } elseif ((int)$source === 3) {
+        } elseif ((int) $source === 3) {
             return $query->where('is_imported', false)->where('is_api', false);
         } else {
             return $query;
@@ -288,7 +282,6 @@ class Command extends Model
                 ->whereStatus(Status::EXPEDIE)
                 ->count();
         } elseif (isDelivery() && delivery()->hasRole('SubDelivery')) {
-
             return $query->whereSubDeliveryId(delivery()->id)
                 ->whereSubDeliveryUuid(delivery()->uuid)
                 ->whereStatus(Status::ENCOURS)
@@ -298,10 +291,10 @@ class Command extends Model
                 ->count();
         }
     }
+
     /*******Sub delivery Composer class ***/
     public function scopeSubDeliveryTotalNewCommands($query)
     {
-
         if (isDelivery() && delivery()->hasRole('SubDelivery')) {
             return $query->whereSubDeliveryId(delivery()->id)
                 ->whereSubDeliveryUuid(delivery()->uuid)
@@ -315,9 +308,9 @@ class Command extends Model
                 ->count();
         }
     }
+
     public function scopeSubDeliveryTotalCommands($query)
     {
-
         if (isDelivery() && delivery()->hasRole('SubDelivery')) {
             return $query->whereSubDeliveryId(delivery()->id)
                 ->whereSubDeliveryUuid(delivery()->uuid)
@@ -329,9 +322,9 @@ class Command extends Model
                 ->count();
         }
     }
+
     public function scopeSubDeliveryTotalCommandsLivred($query)
     {
-
         if (isDelivery() && delivery()->hasRole('SubDelivery')) {
             return $query->whereSubDeliveryId(delivery()->id)
                 ->whereSubDeliveryUuid(delivery()->uuid)
@@ -345,9 +338,9 @@ class Command extends Model
                 ->count();
         }
     }
+
     public function scopeSubDeliveryTotalCommandsEncours($query)
     {
-
         if (isDelivery() && delivery()->hasRole('SubDelivery')) {
             return $query->whereSubDeliveryId(delivery()->id)
                 ->whereSubDeliveryUuid(delivery()->uuid)
@@ -361,15 +354,15 @@ class Command extends Model
                 ->count();
         }
     }
+
     public function scopeSubDeliveryTotalCommandsNonResponde($query)
     {
-
         if (isDelivery() && delivery()->hasRole('SubDelivery')) {
             return $query->whereSubDeliveryId(delivery()->id)
                 ->whereSubDeliveryUuid(delivery()->uuid)
                 ->whereIn('status', [
                     Status::PAS_DE_REPONSE,
-                    Status::INJOIGNABLE
+                    Status::INJOIGNABLE,
                 ])
                 ->count();
         }
@@ -378,20 +371,20 @@ class Command extends Model
                 ->whereDeliveryUuid(delivery()->uuid)
                 ->whereIn('status', [
                     Status::PAS_DE_REPONSE,
-                    Status::INJOIGNABLE
+                    Status::INJOIGNABLE,
                 ])
                 ->count();
         }
     }
+
     public function scopeSubDeliveryTotalCommandsReported($query)
     {
-
         if (isDelivery() && delivery()->hasRole('SubDelivery')) {
             return $query->whereSubDeliveryId(delivery()->id)
                 ->whereSubDeliveryUuid(delivery()->uuid)
                 ->whereIn('status', [
                     Status::REPORTE,
-                    Status::INTERESSE
+                    Status::INTERESSE,
                 ])
                 ->count();
         }
@@ -400,20 +393,20 @@ class Command extends Model
                 ->whereDeliveryUuid(delivery()->uuid)
                 ->whereIn('status', [
                     Status::REPORTE,
-                    Status::INTERESSE
+                    Status::INTERESSE,
                 ])
                 ->count();
         }
     }
+
     public function scopeSubDeliveryTotalCommandsCancled($query)
     {
-
         if (isDelivery() && delivery()->hasRole('SubDelivery')) {
             return $query->whereSubDeliveryId(delivery()->id)
                 ->whereSubDeliveryUuid(delivery()->uuid)
                 ->whereIn('status', [
                     Status::ANNULE,
-                    Status::REFUSE
+                    Status::REFUSE,
                 ])
                 ->count();
         }
@@ -423,7 +416,7 @@ class Command extends Model
                 ->whereDeliveryUuid(delivery()->uuid)
                 ->whereIn('status', [
                     Status::ANNULE,
-                    Status::REFUSE
+                    Status::REFUSE,
                 ])
                 ->count();
         }
@@ -476,7 +469,7 @@ class Command extends Model
                     Status::PAS_DE_REPONSE_3,
                     Status::PAS_DE_REPONSE_4,
                     Status::PAS_DE_REPONSE_5,*/
-                    Status::INJOIGNABLE
+                    Status::INJOIGNABLE,
                 ])->count();
         } elseif (isDelivery()) {
             return $query->whereDeliveryId(delivery()->id)
@@ -487,7 +480,7 @@ class Command extends Model
                 Status::PAS_DE_REPONSE_3,
                 Status::PAS_DE_REPONSE_4,
                 Status::PAS_DE_REPONSE_5,*/
-                    Status::INJOIGNABLE
+                    Status::INJOIGNABLE,
                 ])->count();
         } else {
             return $query->whereIn('status', [
@@ -496,7 +489,7 @@ class Command extends Model
                 Status::PAS_DE_REPONSE_3,
                 Status::PAS_DE_REPONSE_4,
                 Status::PAS_DE_REPONSE_5,*/
-                Status::INJOIGNABLE
+                Status::INJOIGNABLE,
             ])->count();
         }
     }
@@ -509,19 +502,19 @@ class Command extends Model
                 ->whereUserUuid(auth()->user()->uuid)
                 ->whereIn('status', [
                     Status::REPORTE,
-                    Status::INTERESSE
+                    Status::INTERESSE,
                 ])->count();
         } elseif (isDelivery()) {
             return $query->whereDeliveryId(delivery()->id)
                 ->whereDeliveryUuid(delivery()->uuid)
                 ->whereIn('status', [
                     Status::REPORTE,
-                    Status::INTERESSE
+                    Status::INTERESSE,
                 ])->count();
         } else {
             return $query->whereIn('status', [
                 Status::REPORTE,
-                Status::INTERESSE
+                Status::INTERESSE,
             ])->count();
         }
     }
@@ -534,31 +527,28 @@ class Command extends Model
                 ->whereUserUuid(auth()->user()->uuid)
                 ->whereIn('status', [
                     Status::ANNULE,
-                    Status::REFUSE
+                    Status::REFUSE,
                 ])->count();
         } elseif (isDelivery()) {
             return $query->whereDeliveryId(delivery()->id)
                 ->whereDeliveryUuid(delivery()->uuid)
                 ->whereIn('status', [
                     Status::ANNULE,
-                    Status::REFUSE
+                    Status::REFUSE,
                 ])->count();
         } else {
             return $query->whereIn('status', [
                 Status::ANNULE,
-                Status::REFUSE
+                Status::REFUSE,
             ])->count();
         }
     }
 
     public function scopeTotalChiffre($query)
     {
-
-
         /**** */
 
         if (isClient()) {
-
             return $query
                 ->whereUserId(auth()->id())
                 ->whereUserUuid(auth()->user()->uuid)
@@ -578,23 +568,20 @@ class Command extends Model
         }
     }
 
-
     public static function boot()
     {
-
         parent::boot();
 
         $prefix = 'SM.ORD-';
 
         static::creating(function ($model) use ($prefix) {
-
             $number = ($model->max('id') + 1);
 
             $code = str_pad($number, 4, 0, STR_PAD_LEFT);
 
-            $model->code = $prefix . $code . '-' . now()->format('dmY');
+            $model->code = $prefix.$code.'-'.now()->format('dmY');
 
-            $model->track_code = "TR-SM-" . $code . '-' . now()->format('dmY');
+            $model->track_code = 'TR-SM-'.$code.'-'.now()->format('dmY');
         });
     }
 }

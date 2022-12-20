@@ -9,19 +9,18 @@ use Livewire\Component;
 
 class SelectCity extends Component
 {
-
     public Command $command;
-    
+
     public $city;
+
     public $region;
 
-
     public $cities;
+
     public $regions;
 
     public function render()
     {
-
         return view('livewire.sameleon.command.create.select-city');
     }
 

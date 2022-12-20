@@ -3,20 +3,15 @@
 namespace App\Http\Controllers\Sameleon\Admin\SubDelivery\Auth;
 
 use App\Http\Controllers\Controller;
-
-use Illuminate\Http\Request;
-
-use Illuminate\Http\Response;
-
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class AuthSubDeliveryController extends Controller
 {
     use AuthenticatesUsers;
-
 
     public function __construct()
     {
@@ -25,9 +20,8 @@ class AuthSubDeliveryController extends Controller
 
     public function loginForm(Request $request)
     {
-        
         Session::flush();
-        
+
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
@@ -43,22 +37,18 @@ class AuthSubDeliveryController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-
         /**Logout from other devices */
         Auth::logoutOtherDevices($request->password);
 
-        if (!$this->guard()->user()->isActive()) {
-
+        if (! $this->guard()->user()->isActive()) {
             $this->guard()->logout();
 
             return redirect(route('delivery:auth:login'))->withErrors(["Votre compte n'est pas encore activé"]);
         }
     }
 
-
     public function logout(Request $request)
     {
-
         $this->guard()->logout();
 
         $request->session()->invalidate();
@@ -79,7 +69,6 @@ class AuthSubDeliveryController extends Controller
      */
     private function redirectTo()
     {
-        
         return route('delivery:home');
     }
 

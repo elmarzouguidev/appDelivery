@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Repositories\Client;
 
 use App\Models\Sameleon\User;
@@ -9,8 +8,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 class ClientRepository extends AppRepository implements ClientInterface
 {
-
-
     private $client;
 
     private $instance;
@@ -26,13 +23,12 @@ class ClientRepository extends AppRepository implements ClientInterface
 
     public function __instance(): User
     {
-        if (!$this->instance) {
+        if (! $this->instance) {
             $this->instance = $this->client;
         }
 
         return $this->instance;
     }
-
 
     /**
      * @return Client[]|Collection|string[]
@@ -42,7 +38,6 @@ class ClientRepository extends AppRepository implements ClientInterface
         if ($this->useCache()) {
             // dd('yes cache');
             return $this->setCache()->remember('all_clients_cache', $this->timeToLive(), function () {
-
                 return $this->client->role('Client')->with('banks')->get();
             });
         }
@@ -55,14 +50,13 @@ class ClientRepository extends AppRepository implements ClientInterface
     }
 
     /**
-     * @param int $id
+     * @param  int  $id
      * @return mixed
      */
     public function getClient(int $id)
     {
         return $this->client->find($id);
     }
-
 
     public function getClientByUuid(string $uuid)
     {

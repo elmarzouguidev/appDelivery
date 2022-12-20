@@ -1,12 +1,9 @@
 <?php
 
-
 namespace App\Repositories\Command;
 
 interface CommandInterface
 {
-
-
     public function getCommands();
 
     public function getArchivedCommands();

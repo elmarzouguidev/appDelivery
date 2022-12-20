@@ -5,12 +5,9 @@ namespace App\Actions\Sameleon;
 use App\Models\Sameleon\Command;
 use App\Models\Sameleon\Delivery;
 use App\Models\Sameleon\DeliveryInvoice;
-use App\Models\Sameleon\Invoice;
-use App\Models\Sameleon\User;
 use App\Status\InvoiceStatus;
 use App\Status\Status;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Storage;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 class InvoiceDeliveryGenerator
@@ -21,14 +18,13 @@ class InvoiceDeliveryGenerator
 
     public function handle()
     {
-        
         $this->CloseYesterdayInvoice();
 
         $this->deleteCommands();
 
         $this->updateRefusedCommand();
 
-       // $this->deleteNullInvoices();
+        // $this->deleteNullInvoices();
         //!now()->isWeekend();
         // dd(now()->format('H:i') =='17:16');
         $commands = Command::whereIn('status', [Status::LIVRE, Status::REFUSE])
@@ -43,12 +39,10 @@ class InvoiceDeliveryGenerator
             //->with('client:id,uuid')
             ->get();
 
-            //dd($commands);
+        //dd($commands);
 
         if ($commands && $commands->count() > 0) {
-
-            $deliveries =  $commands->map(function ($command, $key) {
-
+            $deliveries = $commands->map(function ($command, $key) {
                 return ['delivery_id' => $command->delivery_id, 'delivery_uuid' => $command->delivery_uuid];
             });
 
@@ -63,14 +57,11 @@ class InvoiceDeliveryGenerator
                     ->first();
 
                 if ($this->invoice) {
-
                     //dd('ues');
                     $this->addItems($delivery['delivery_id']);
                     $this->addOldItems($delivery['delivery_id']);
                     $this->checkArticles($delivery['delivery_id']);
-
                 } else {
-
                     $this->invoice = new DeliveryInvoice();
                     $this->invoice->invoice_date = now()->format('Y-m-d');
                     $this->invoice->delivery()->associate($delivery['delivery_id']);
@@ -101,12 +92,10 @@ class InvoiceDeliveryGenerator
             ->withSum('items', 'prix_total')
             ->get();
 
-            //dd($commands,"kgkg");
+        //dd($commands,"kgkg");
 
         if ($commands) {
-
-            $newCommands =  $commands->map(function ($item, $key) {
-
+            $newCommands = $commands->map(function ($item, $key) {
                 $item->update(['delivery_invoice_id' => $this->invoice->id, 'delivery_invoice_uuid' => $this->invoice->uuid]);
 
                 $price = $item->status == Status::REFUSE ? 0 : $item->items_sum_prix_total;
@@ -117,11 +106,11 @@ class InvoiceDeliveryGenerator
                     'code_command' => $item->code,
                     'date_command' => $item->created_at->format('d-m-Y'),
                     'city' => $item->city->name ?? $item->client_city,
-                    'status' => __('status.statuses.' . $item->status),
+                    'status' => __('status.statuses.'.$item->status),
                     'price_total' => $price ?? 0,
                     'frais' => $item->frais,
-                    'profit'=> $item->city->profit ?? 0,
-                    'is_delivery'=>true
+                    'profit' => $item->city->profit ?? 0,
+                    'is_delivery' => true,
                 ];
             })->toArray();
 
@@ -183,9 +172,7 @@ class InvoiceDeliveryGenerator
             ->get();
 
         if ($commands) {
-
-            $newCommands =  $commands->map(function ($item, $key) {
-
+            $newCommands = $commands->map(function ($item, $key) {
                 $item->update(['delivery_invoice_id' => $this->invoice->id, 'delivery_invoice_uuid' => $this->invoice->uuid]);
 
                 $price = $item->status == Status::REFUSE ? 0 : $item->items_sum_prix_total;
@@ -196,11 +183,11 @@ class InvoiceDeliveryGenerator
                     'code_command' => $item->code,
                     'date_command' => $item->created_at->format('d-m-Y'),
                     'city' => $item->city->name ?? $item->client_city,
-                    'status' => __('status.statuses.' . $item->status),
+                    'status' => __('status.statuses.'.$item->status),
                     'price_total' => $price ?? 0,
                     'frais' => $item->frais,
-                    'profit'=> $item->city->profit ?? 0,
-                    'is_delivery'=>true
+                    'profit' => $item->city->profit ?? 0,
+                    'is_delivery' => true,
                 ];
             })->toArray();
 
@@ -210,15 +197,12 @@ class InvoiceDeliveryGenerator
 
     private function deleteCommands()
     {
-
         $commands = Command::whereNotIn('status', [Status::LIVRE, Status::REFUSE])
             ->has('deliveryArticles')
             ->get();
 
         if ($commands) {
-
             $commands->map(function ($item, $key) {
-
                 $item->articles()->delete();
                 $item->update(['delivery_invoice_id' => null, 'delivery_invoice_uuid' => null]);
             });
@@ -234,7 +218,6 @@ class InvoiceDeliveryGenerator
             ->get();
 
         if ($commands) {
-
             $commands->map(function ($item, $key) {
                 $item->deliveryArticles()->update(['price_total' => 0]);
             });

@@ -5,23 +5,26 @@ namespace App\Http\Livewire\Sameleon\Stock;
 use App\Models\Sameleon\Stock as SameleonStock;
 use App\Repositories\City\CityInterface;
 use App\Repositories\Client\ClientInterface;
-
 use App\Repositories\Product\ProductInterface;
 use App\Repositories\Stock\StockInterface;
 use Livewire\Component;
 
 class Stock extends Component
 {
-
     public $stockEdit;
+
     public $stock;
 
     public $showEditStock = false;
+
     public $showDetail = false;
 
     public $delivery;
+
     public $client;
+
     public $stockCity;
+
     public $product;
 
     public $deliveries;
@@ -32,15 +35,15 @@ class Stock extends Component
 
     public function render()
     {
-
         $cities = app(CityInterface::class)->getCities();
         $products = app(ProductInterface::class)->getProducts();
 
         $stocks = app(StockInterface::class)->getStocks();
         $clients = app(ClientInterface::class)->getClients();
 
-        return view('livewire.sameleon.stock.stock-new', compact('stocks', 'products', 'cities','clients'));
+        return view('livewire.sameleon.stock.stock-new', compact('stocks', 'products', 'cities', 'clients'));
     }
+
     public function mount()
     {
         $this->emit('refresh');
@@ -54,7 +57,6 @@ class Stock extends Component
 
     public function editStock(SameleonStock $stock)
     {
-
         $this->showEditStock = true;
 
         $this->stockEdit = $stock;

@@ -12,12 +12,12 @@ class Comment extends Model
     use UuidGenerator;
 
     protected $fillable = [
-        
+
         'content',
         'user_id',
         'client_id',
         'uuid',
-        'reported_at'
+        'reported_at',
     ];
 
     protected $casts = [

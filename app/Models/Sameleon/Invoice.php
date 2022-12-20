@@ -15,7 +15,6 @@ class Invoice extends Model
     use HasFactory;
     use UuidGenerator;
     use GetModelByUuid;
-
     use InvoiceScope;
 
     protected $fillable = [
@@ -26,16 +25,16 @@ class Invoice extends Model
         'user_uuid',
         'delivery_id',
         'delivery_uuid',
-        'status'
+        'status',
     ];
 
     // protected $dates = ['due_date'];
 
-    protected  $casts = [
+    protected $casts = [
 
         'invoice_date' => 'date:Y-m-d',
         'cloture' => 'boolean',
-        'status' => 'integer'
+        'status' => 'integer',
     ];
 
     public function getFormatedPriceHtAttribute()
@@ -114,15 +113,14 @@ class Invoice extends Model
                 ->whereUserUuid(auth()->user()->uuid)
                 ->latest()->count();
         }
+
         return $query->whereCloture(false)
             ->latest()->count();
     }
 
     public function scopeTotalChiffreNonVersed($query)
     {
-
         if (isClient()) {
-
             return $query
                 ->whereUserId(auth()->id())
                 ->whereUserUuid(auth()->user()->uuid)
@@ -152,17 +150,12 @@ class Invoice extends Model
 
     public static function boot()
     {
-
         parent::boot();
 
         static::creating(function ($model) {
-
-
             if (self::count() <= 0) {
-
                 $number = getDocument()->invoice_start;
             } else {
-
                 $number = ($model->max('code') + 1);
             }
 
@@ -170,7 +163,7 @@ class Invoice extends Model
 
             $model->code = $code;
 
-            $model->full_number = getDocument()->invoice_prefix . $code;
+            $model->full_number = getDocument()->invoice_prefix.$code;
         });
     }
 }

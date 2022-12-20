@@ -39,7 +39,6 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
-
             Route::prefix('api')
                 ->middleware('api')
                 ->namespace($this->namespace)
@@ -58,10 +57,7 @@ class RouteServiceProvider extends ServiceProvider
             $this->hooksRoutes();
         });
 
-
         //parent::boot();
-
-
     }
 
     /**
@@ -82,8 +78,6 @@ class RouteServiceProvider extends ServiceProvider
 
     private function adminRoutes()
     {
-
-
         Route::middleware(['web', 'prevent-back-history'])
             ->prefix('app')
             ->name('admin:auth:')
@@ -99,7 +93,6 @@ class RouteServiceProvider extends ServiceProvider
 
     private function subDeliveryRoutes()
     {
-
         Route::middleware(['web', 'prevent-back-history'])
             ->prefix('delivery/app')
             ->name('delivery:auth:')
@@ -115,7 +108,6 @@ class RouteServiceProvider extends ServiceProvider
 
     private function devlopperRoutes()
     {
-
         Route::middleware('web')
             ->prefix('dev')
             ->namespace($this->namespace)
@@ -124,8 +116,7 @@ class RouteServiceProvider extends ServiceProvider
 
     public function hooksRoutes()
     {
-        if (app()->isProduction() &&  Schema::hasTable('sources')) {
-
+        if (app()->isProduction() && Schema::hasTable('sources')) {
             Route::middleware(['web', 'hooks'])
                 ->group(base_path('routes/hooks/hook_routes.php'));
         }

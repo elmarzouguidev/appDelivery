@@ -26,7 +26,7 @@ class StockFormRequest extends FormRequest
         return [
             'qte_global' => ['nullable', 'integer'],
             'qte_endomage' => ['nullable', 'integer'],
-            'notes' => ['nullable', 'string']
+            'notes' => ['nullable', 'string'],
         ];
     }
 }

@@ -6,12 +6,13 @@ use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 
 class Money implements CastsAttributes
 {
-
     protected $amount;
+
     protected $currency;
 
     /**
      * Money constructor.
+     *
      * @param $amount
      * @param $currency
      */
@@ -20,6 +21,7 @@ class Money implements CastsAttributes
         $this->amount = $amount;
         $this->currency = $currency;
     }
+
     public function get($model, string $key, $value, array $attributes)
     {
     }

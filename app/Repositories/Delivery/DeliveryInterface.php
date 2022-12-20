@@ -1,12 +1,9 @@
 <?php
 
-
 namespace App\Repositories\Delivery;
 
 interface DeliveryInterface
 {
-
-
     public function getDeliveries();
 
     public function getDeliveryEntreprise();

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Repositories\Bank;
-
 
 use App\Models\Sameleon\Bank;
 use App\Repositories\AppRepository;
@@ -10,7 +8,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 class BankRepository extends AppRepository implements BankInterface
 {
-
     private $bank;
 
     private $instance;
@@ -22,13 +19,12 @@ class BankRepository extends AppRepository implements BankInterface
 
     public function __instance(): Bank
     {
-        if (!$this->instance) {
+        if (! $this->instance) {
             $this->instance = $this->bank;
         }
 
         return $this->instance;
     }
-
 
     /**
      * @return Bank[]|Collection|string[]
@@ -36,9 +32,7 @@ class BankRepository extends AppRepository implements BankInterface
     public function getBanks()
     {
         if ($this->useCache()) {
-
             return $this->setCache()->remember('all_banks_cache', $this->timeToLive(), function () {
-
                 return $this->bank->withCount('users')->get();
             });
         }
@@ -47,14 +41,13 @@ class BankRepository extends AppRepository implements BankInterface
     }
 
     /**
-     * @param int $id
+     * @param  int  $id
      * @return mixed
      */
     public function getBank(int $id)
     {
         return $this->bank->find($id);
     }
-
 
     public function getBankByUuid(string $uuid)
     {

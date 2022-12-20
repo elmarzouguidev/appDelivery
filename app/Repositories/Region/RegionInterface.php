@@ -1,11 +1,9 @@
 <?php
 
-
 namespace App\Repositories\Region;
 
 interface RegionInterface
 {
-
     public function getRegions();
 
     public function getRegion(int $id);

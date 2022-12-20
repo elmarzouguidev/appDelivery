@@ -2,15 +2,12 @@
 
 namespace App\Http\View\Composers;
 
-use App\Models\Sameleon\Product;
 use App\Models\Sameleon\Stock;
-use Illuminate\View\View;
 use Illuminate\Cache\CacheManager;
-
+use Illuminate\View\View;
 
 class StockComposer
 {
-
     protected CacheManager $cache;
 
     public function __construct(CacheManager $cache)
@@ -21,13 +18,13 @@ class StockComposer
     /**
      * Bind data to the view.
      *
-     * @param View $view
+     * @param  View  $view
      * @return void
      */
     public function compose(View $view)
     {
         if (isClient()) {
-            $stock =  Stock::where('client_id', auth()->id())
+            $stock = Stock::where('client_id', auth()->id())
                 ->where('client_uuid', auth()->user()->uuid)
                 //->whereIsOut(true)
                 //->where('qte_rest', '<=', 5)
@@ -38,7 +35,7 @@ class StockComposer
             $stock = Stock::whereColumn('qte_rest', 'qte_alert')
                 ->count();
         } elseif (isDelivery()) {
-            $stock =   Stock::whereIsDefault(false)
+            $stock = Stock::whereIsDefault(false)
                 ->whereDeliveryId(delivery()->id)
                 ->whereDeliveryUuid(delivery()->uuid)
                 ->whereColumn('qte_rest', 'qte_alert')

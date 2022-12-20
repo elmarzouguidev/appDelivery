@@ -9,12 +9,11 @@ use InvalidArgumentException;
 
 class Email implements CastsAttributes
 {
-
     /**
-     * @param Model $model
-     * @param string $key
-     * @param mixed $value
-     * @param array $attributes
+     * @param  Model  $model
+     * @param  string  $key
+     * @param  mixed  $value
+     * @param  array  $attributes
      * @return EmailModel|mixed
      */
     public function get($model, $key, $value, $attributes)
@@ -25,10 +24,10 @@ class Email implements CastsAttributes
     }
 
     /**
-     * @param Model $model
-     * @param string $key
-     * @param mixed $value
-     * @param array $attributes
+     * @param  Model  $model
+     * @param  string  $key
+     * @param  mixed  $value
+     * @param  array  $attributes
      * @return array|mixed
      */
     public function set($model, $key, $value, $attributes)

@@ -1,12 +1,9 @@
 <?php
 
-
 namespace App\Repositories\Bill;
 
 interface BillInterface
 {
-
-
     public function getBills();
 
     public function getBill(int $id);

@@ -14,7 +14,6 @@ class CreateBCommandsTable extends Migration
     public function up()
     {
         Schema::create('b_commands', function (Blueprint $table) {
-
             $table->id();
             $table->uuid('uuid')->unique();
             $table->string('code')->unique();
@@ -30,7 +29,7 @@ class CreateBCommandsTable extends Migration
             $table->date('date_due')->nullable();
 
             $table->foreignId('provider_id')->index()->nullable()->constrained();
- 
+
             $table->mediumText('admin_notes')->nullable();
 
             $table->mediumText('condition_general')->nullable();

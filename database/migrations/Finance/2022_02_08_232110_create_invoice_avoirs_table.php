@@ -28,7 +28,7 @@ class CreateInvoiceAvoirsTable extends Migration
 
             $table->date('invoice_date');
             $table->date('due_date')->nullable();
- 
+
             $table->foreignId('client_id')->index()->nullable()->constrained();
 
             $table->foreignId('invoice_id')->index()->nullable();

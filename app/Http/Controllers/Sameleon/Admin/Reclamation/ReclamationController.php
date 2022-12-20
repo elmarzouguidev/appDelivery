@@ -12,33 +12,29 @@ class ReclamationController extends Controller
 {
     public function index()
     {
-
         if (auth()->user()->hasRole('Client')) {
-
-            $commands   = Command::where('user_id', auth()->id())
+            $commands = Command::where('user_id', auth()->id())
                 ->where('user_uuid', auth()->user()->uuid)
                 ->select(['id', 'code'])->get();
-            $complaints =  Reclamation::where('user_id', auth()->id())
+            $complaints = Reclamation::where('user_id', auth()->id())
                 ->with('command')
                 ->whereActive(true)
                 ->get();
-            $count = $complaints->count();    
+            $count = $complaints->count();
         } else {
-            $commands   = Command::select(['id', 'code'])->get();
-            $complaints =  Reclamation::with('user', 'command')
+            $commands = Command::select(['id', 'code'])->get();
+            $complaints = Reclamation::with('user', 'command')
                 ->whereActive(true)
                 ->get();
-            $count = $complaints->count();    
+            $count = $complaints->count();
         }
 
-        return view('Sameleon.Admin.Reclamation.index', compact('complaints', 'commands','count'));
+        return view('Sameleon.Admin.Reclamation.index', compact('complaints', 'commands', 'count'));
     }
 
     public function store(ReclamationFormRequest $request)
     {
-
-        $reclamation = new Reclamation()
-        ;
+        $reclamation = new Reclamation();
         $reclamation->command_id = $request->command;
 
         $reclamation->message = $request->message;
@@ -51,7 +47,7 @@ class ReclamationController extends Controller
 
         $reclamation->save();
 
-        return redirect()->back()->with('success', "La réclamation  a éte crée avec success");
+        return redirect()->back()->with('success', 'La réclamation  a éte crée avec success');
     }
 
     public function show(Reclamation $reclamation)
@@ -66,13 +62,12 @@ class ReclamationController extends Controller
         $rec = Reclamation::whereUuid($request->complaintId)->first();
 
         if ($rec) {
-
             // dd("oui i find it");
             $rec->delete();
 
-            return redirect()->back()->with('success', "La réclamation  a éte supprimer avec success");
+            return redirect()->back()->with('success', 'La réclamation  a éte supprimer avec success');
         }
 
-        return redirect()->back()->with('error', "error !!");
+        return redirect()->back()->with('error', 'error !!');
     }
 }

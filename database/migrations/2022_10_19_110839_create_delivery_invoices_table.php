@@ -24,7 +24,7 @@ class CreateDeliveryInvoicesTable extends Migration
             $table->float('price_tva')->default(0)->nullable();
 
             $table->date('invoice_date')->nullable();
-    
+
             $table->foreignId('delivery_id')->constrained();
             $table->uuid('delivery_uuid')->nullable();
 
@@ -34,7 +34,7 @@ class CreateDeliveryInvoicesTable extends Migration
             $table->boolean('cloture')->default(false);
 
             $table->boolean('active')->default(true);
-            
+
             $table->mediumText('condition_general')->nullable();
 
             $table->timestamps();

@@ -3,7 +3,6 @@
 namespace App\Notifications\Sameleon;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Lang;
@@ -13,6 +12,7 @@ class DeliveryResetPasswordNotification extends Notification
     use Queueable;
 
     public $token;
+
     /**
      * Create a new notification instance.
      *
@@ -54,7 +54,6 @@ class DeliveryResetPasswordNotification extends Notification
             ->line(Lang::get('Ce lien de réinitialisation de mot de passe expirera dans :count minutes.', ['count' => config('auth.passwords.deliveries.expire')]))
             ->line(Lang::get("Si vous n'avez pas demandé de réinitialisation de mot de passe, aucune autre action n'est requise."));
     }
-
 
     /**
      * Get the array representation of the notification.

@@ -26,7 +26,7 @@ class AddRefusedAtToCommandsTable extends Migration
     public function down()
     {
         Schema::table('commands', function (Blueprint $table) {
-          $table->dropColumn('refused_at');
+            $table->dropColumn('refused_at');
         });
     }
 }

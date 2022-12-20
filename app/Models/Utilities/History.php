@@ -13,7 +13,7 @@ class History extends Model
         'user_id',
         'user',
         'detail',
-        'action'
+        'action',
     ];
 
     public function historyable()

@@ -14,8 +14,7 @@ class AddDeliveryIdToRegionsTable extends Migration
     public function up()
     {
         Schema::table('regions', function (Blueprint $table) {
-            $table->after('city_id',function($table){
-
+            $table->after('city_id', function ($table) {
                 $table->foreignId('delivery_id')->nullable();
                 $table->uuid('delivery_uuid')->nullable();
             });
@@ -30,7 +29,7 @@ class AddDeliveryIdToRegionsTable extends Migration
     public function down()
     {
         Schema::table('regions', function (Blueprint $table) {
-            $table->dropColumn(['delivery_id','delivery_uuid']);
+            $table->dropColumn(['delivery_id', 'delivery_uuid']);
         });
     }
 }

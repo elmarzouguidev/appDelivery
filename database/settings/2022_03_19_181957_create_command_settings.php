@@ -6,6 +6,5 @@ class CreateCommandSettings extends SettingsMigration
 {
     public function up(): void
     {
-
     }
 }

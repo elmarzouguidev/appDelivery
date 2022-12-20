@@ -15,7 +15,6 @@ class AddSubDeliveryIdToCommandsTable extends Migration
     {
         Schema::table('commands', function (Blueprint $table) {
             $table->after('delivery_uuid', function ($table) {
-
                 $table->foreignId('sub_delivery_id')->nullable();
                 $table->uuid('sub_delivery_uuid')->nullable();
             });

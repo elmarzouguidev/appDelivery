@@ -3,9 +3,8 @@
 namespace App\Jobs\Importer\CSV;
 
 use App\Models\Utilities\Sale;
-use Illuminate\Bus\Queueable;
 use Illuminate\Bus\Batchable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
+use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -21,7 +20,6 @@ class CSVImporterJob implements ShouldQueue
      *
      * @return void
      */
-
     public $data;
 
     public $header;
@@ -40,7 +38,6 @@ class CSVImporterJob implements ShouldQueue
     public function handle()
     {
         foreach ($this->data as $sale) {
-
             $saleData = array_combine($this->header, $sale);
 
             Sale::create($saleData);

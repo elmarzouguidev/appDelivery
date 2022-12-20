@@ -2,7 +2,6 @@
 
 namespace App\Listeners;
 
-use Log;
 use Spatie\MediaLibrary\MediaCollections\Events\MediaHasBeenAdded;
 
 class MediaListeners

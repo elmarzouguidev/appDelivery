@@ -6,17 +6,12 @@ use Illuminate\Auth\Middleware\Authenticate as Middleware;
 
 class Authenticate extends Middleware
 {
-
-
     protected function redirectTo($request)
     {
-
-
-        if (!$request->expectsJson()) {
-            if ($request->route()->getName() === "admin:home") {
+        if (! $request->expectsJson()) {
+            if ($request->route()->getName() === 'admin:home') {
                 return route('admin:auth:login');
-            } elseif ($request->route()->getName() === "delivery:home") {
-
+            } elseif ($request->route()->getName() === 'delivery:home') {
                 return route('delivery:auth:login');
             } else {
                 return route('admin:auth:login');

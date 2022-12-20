@@ -63,11 +63,9 @@ class CommandObserver
 
     private function clearAllCachedArchive()
     {
-        if (!app()->runningInConsole() && !request()->is('api/*', 'api/') && !request()->is('hooks/*', 'hooks/')) {
-
+        if (! app()->runningInConsole() && ! request()->is('api/*', 'api/') && ! request()->is('hooks/*', 'hooks/')) {
             if (auth()->user()->hasRole('Client')) {
-
-                $cacheKey = "all_commands_archived_cache_" . auth()->user()->uuid;
+                $cacheKey = 'all_commands_archived_cache_'.auth()->user()->uuid;
                 cache()->pull($cacheKey);
                 cache()->pull('all_commands_archived_cache');
             } else {

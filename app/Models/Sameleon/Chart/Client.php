@@ -12,7 +12,6 @@ class Client extends Model
 
     protected $table = 'users';
 
-
     /**
      * The "booted" method of the model.
      *

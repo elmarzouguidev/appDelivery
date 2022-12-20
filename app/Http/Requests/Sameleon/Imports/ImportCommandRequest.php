@@ -25,7 +25,7 @@ class ImportCommandRequest extends FormRequest
     {
         return [
             'file' => ['required', 'file', 'mimes:csv,xls,xlsx'],
-            'client'=>['nullable' , 'uuid','exists:users,uuid']
+            'client' => ['nullable', 'uuid', 'exists:users,uuid'],
         ];
     }
 }

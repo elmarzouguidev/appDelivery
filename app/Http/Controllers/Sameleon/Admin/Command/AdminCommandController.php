@@ -16,15 +16,13 @@ use App\Repositories\City\CityInterface;
 use App\Repositories\Client\ClientInterface;
 use App\Repositories\Command\CommandInterface;
 use Illuminate\Http\Request;
-use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Validation\ValidationException;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminCommandController extends Controller
 {
     public function index()
     {
-
-
         InvoiceGenerator::run();
 
         $cities = app(CityInterface::class)->getCities();
@@ -52,14 +50,13 @@ class AdminCommandController extends Controller
 
             $client ?? throw ValidationException::withMessages([
 
-                'client_not_found' => "Le client ( {$client->full_name} ) n'existe pas dans le systeme !"
+                'client_not_found' => "Le client ( {$client->full_name} ) n'existe pas dans le systeme !",
 
             ]);
 
-            Excel::import(new CommandsImportByAdmins($client),  $file);
+            Excel::import(new CommandsImportByAdmins($client), $file);
         } else {
-
-            Excel::import(new CommandsImport,  $file);
+            Excel::import(new CommandsImport, $file);
         }
 
         return redirect()->back()->with('success', 'la list a été importé avec success');
@@ -67,7 +64,6 @@ class AdminCommandController extends Controller
 
     public function store(CommandFormRequest $request)
     {
-
         $this->authorize('create', Command::class);
 
         $command = new Command();
@@ -94,7 +90,6 @@ class AdminCommandController extends Controller
         $command->save();
 
         if ($command) {
-
             /*foreach ($request->orderProducts as $product) {
                 $command->products()->attach(
                     (int)$product['product_id'],
@@ -111,7 +106,6 @@ class AdminCommandController extends Controller
             }*/
 
             foreach ($request->orderProducts as $product) {
-
                 $prod = Product::find($product['product_id']);
 
                 $command->items()->create([
@@ -134,7 +128,7 @@ class AdminCommandController extends Controller
             'user_id' => auth()->id(),
             'user_uuid' => auth()->user()->uuid,
             'description' => "a crée la command <strong>$command->code</strong>",
-            'action' => 'create'
+            'action' => 'create',
         ]);
 
         return redirect()->back()->with('success', 'la commande a été ajouter avec success');
@@ -142,10 +136,9 @@ class AdminCommandController extends Controller
 
     public function edit(Command $command)
     {
-
         $this->authorize('update', $command);
 
-        $command->load('items')->loadSum('items', 'prix_total');;
+        $command->load('items')->loadSum('items', 'prix_total');
 
         //$cities = app(CityInterface::class)->getCities();
 
@@ -154,7 +147,6 @@ class AdminCommandController extends Controller
 
     public function update(CommandUpdateFormRequest $request, Command $command)
     {
-
         $this->authorize('update', $command);
 
         $command->client_name = $request->client_name;
@@ -195,9 +187,7 @@ class AdminCommandController extends Controller
             }*/
 
             if (count($request->getNewArticles())) {
-
                 foreach ($request->newOrderProducts as $product) {
-
                     $prod = Product::find($product['product_id']);
 
                     $command->items()->create([
@@ -219,7 +209,7 @@ class AdminCommandController extends Controller
             'user_id' => auth()->id(),
             'user_uuid' => auth()->user()->uuid,
             'description' => "a modifier la command <strong>$command->code</strong>",
-            'action' => 'update'
+            'action' => 'update',
         ]);
         // return redirect($command->edit_url)->with('success', 'la commande a été modifier avec success');
         return redirect()->back()->with('success', 'la commande a été modifier avec success');
@@ -227,7 +217,6 @@ class AdminCommandController extends Controller
 
     public function delete(Request $request)
     {
-
         $request->validate(['commandId' => 'required|uuid']);
 
         $command = Command::whereUuid($request->commandId)->firstOrFail();
@@ -244,9 +233,10 @@ class AdminCommandController extends Controller
 
             $command->delete();
 
-            return redirect()->back()->with('success', "La command a été supprimer avec success");
+            return redirect()->back()->with('success', 'La command a été supprimer avec success');
         }
-        return redirect()->back()->with('success', "Problem ... !!");
+
+        return redirect()->back()->with('success', 'Problem ... !!');
     }
 
     public function archived()
@@ -255,7 +245,6 @@ class AdminCommandController extends Controller
 
         return view('Sameleon.Admin.Command.Archive.index', compact('commands'));
     }
-
 
     public function downloadExemple()
     {

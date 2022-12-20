@@ -5,10 +5,10 @@ namespace App\Models\Sameleon;
 use App\Traits\GetModelByUuid;
 use App\Traits\HasCode;
 use App\Traits\UuidGenerator;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
-use Illuminate\Database\Eloquent\Builder;
 
 class Stock extends Model
 {
@@ -40,14 +40,14 @@ class Stock extends Model
         'qte_alert',
         'notes',
         'sent_at',
-        'active'
+        'active',
     ];
 
     protected $casts = [
         'is_out' => 'boolean',
         'is_default' => 'boolean',
         'is_client' => 'boolean',
-        'is_delivery' => 'boolean'
+        'is_delivery' => 'boolean',
         //'sent_at' => 'date:d-m-Y',
 
     ];
@@ -75,12 +75,12 @@ class Stock extends Model
     public function getAdjustmentDateAttribute()
     {
         $date = Carbon::createFromFormat('Y-m-d', $this->sent_at);
-        return $date->translatedFormat('d') . ' ' . $date->translatedFormat('F') . ' ' . $date->translatedFormat('Y');
+
+        return $date->translatedFormat('d').' '.$date->translatedFormat('F').' '.$date->translatedFormat('Y');
     }
 
     public function scopeProductFilters(Builder $query, $product): Builder
     {
-
         return  $query->where('product_id', $product);
     }
 

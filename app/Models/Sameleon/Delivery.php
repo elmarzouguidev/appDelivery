@@ -4,19 +4,14 @@ namespace App\Models\Sameleon;
 
 use App\Notifications\Sameleon\DeliveryResetPasswordNotification;
 use App\Status\Status;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-
-use Illuminate\Foundation\Auth\User as Authenticatable;
-
-use Illuminate\Database\Eloquent\Casts\Attribute;
-
-use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Notifications\Notifiable;
-
-use Spatie\Permission\Traits\HasRoles;
-
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class Delivery extends Authenticatable
 {
@@ -45,7 +40,7 @@ class Delivery extends Authenticatable
         'city_id',
         'type',
         'company_ice',
-        'company_name'
+        'company_name',
     ];
 
     /**
@@ -74,7 +69,7 @@ class Delivery extends Authenticatable
     protected function fullName(): Attribute
     {
         return new Attribute(
-            fn () => $this->nom . ' ' . $this->prenom,
+            fn () => $this->nom.' '.$this->prenom,
         );
     }
 
@@ -85,7 +80,6 @@ class Delivery extends Authenticatable
 
     public function completProfile()
     {
-
         return
             //is_null($this->attributes['cnie']) ||
             is_null($this->attributes['addresse']) ||
@@ -126,7 +120,7 @@ class Delivery extends Authenticatable
 
     public function getDeliveryTotalDayChiffreAttribute()
     {
-        $commands =  $this->commandsDelivery()
+        $commands = $this->commandsDelivery()
             ->where('status', Status::LIVRE)
             ->whereDate('delivered_at', now()->format('Y-m-d'))
             ->withSum('items', 'prix_total')
@@ -139,7 +133,7 @@ class Delivery extends Authenticatable
 
     public function getDeliveryTotalChiffreAttribute()
     {
-        $commands =  $this->commandsDelivery()
+        $commands = $this->commandsDelivery()
             ->where('status', Status::LIVRE)
             //->whereDate('delivered_at', now()->format('Y-m-d'))
             ->withSum('items', 'prix_total')

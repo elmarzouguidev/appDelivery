@@ -1,12 +1,9 @@
 <?php
 
-
 namespace App\Repositories\Client;
 
 interface ClientInterface
 {
-
-
     public function getClients();
 
     public function getClient(int $id);

@@ -14,7 +14,7 @@ class AddIsImportedToProductsTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->after('category_id',function($table){
+            $table->after('category_id', function ($table) {
                 $table->boolean('is_imported')->default(false);
             });
         });

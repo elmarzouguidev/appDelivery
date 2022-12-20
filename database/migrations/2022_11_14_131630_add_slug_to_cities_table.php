@@ -14,7 +14,7 @@ class AddSlugToCitiesTable extends Migration
     public function up()
     {
         Schema::table('cities', function (Blueprint $table) {
-            $table->after('name',function($table){
+            $table->after('name', function ($table) {
                 $table->string('slug');
             });
         });

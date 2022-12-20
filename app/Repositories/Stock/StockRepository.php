@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Repositories\Stock;
 
 use App\Models\Sameleon\Product;
@@ -10,8 +9,8 @@ use Illuminate\Database\Eloquent\Collection;
 
 class StockRepository extends AppRepository implements StockInterface
 {
-
     private $stock;
+
     private $product;
 
     private $instance;
@@ -28,7 +27,7 @@ class StockRepository extends AppRepository implements StockInterface
 
     public function __instance(): Stock
     {
-        if (!$this->instance) {
+        if (! $this->instance) {
             $this->instance = $this->stock;
         }
 
@@ -40,9 +39,7 @@ class StockRepository extends AppRepository implements StockInterface
      */
     public function getStocks()
     {
-
         if (isClient()) {
-
             return $this->product
 
                 ->where('user_id', client()->id)
@@ -51,7 +48,6 @@ class StockRepository extends AppRepository implements StockInterface
                 //->with('city:uuid,id,name')
                 ->get();
         } elseif (isDelivery() && delivery()->hasRole('DeliveryEntreprise')) {
-
             return $this->stock
                 ->whereIsDelivery(true)
                 ->where('delivery_id', delivery()->id)
@@ -61,7 +57,6 @@ class StockRepository extends AppRepository implements StockInterface
                 ->with('product:id,name,price')
                 ->get();
         } else {
-
             return $this->stock
                 ->whereIsDefault(true)
                 ->whereNull('delivery_id')
@@ -95,15 +90,15 @@ class StockRepository extends AppRepository implements StockInterface
             })
             ->all();
     }
+
     /**
-     * @param int $id
+     * @param  int  $id
      * @return mixed
      */
     public function getStock(int $id)
     {
         return $this->stock->find($id);
     }
-
 
     public function getStockByUuid(string $uuid)
     {

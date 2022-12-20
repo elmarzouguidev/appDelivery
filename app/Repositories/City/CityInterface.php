@@ -1,11 +1,9 @@
 <?php
 
-
 namespace App\Repositories\City;
 
 interface CityInterface
 {
-
     public function getCities();
 
     public function getCity(int $id);

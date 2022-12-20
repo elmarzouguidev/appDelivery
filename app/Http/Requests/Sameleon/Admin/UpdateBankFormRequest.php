@@ -25,7 +25,7 @@ class UpdateBankFormRequest extends FormRequest
     {
         return [
             'bank' => ['required', 'integer'],
-            'code_rib' => ['required', 'numeric']
+            'code_rib' => ['required', 'numeric'],
         ];
     }
 }
