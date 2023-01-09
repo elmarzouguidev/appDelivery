@@ -14,6 +14,6 @@ class ProductSeeder extends Seeder
      */
     public function run($user)
     {
-        Product::factory(2)->create(['user_id' => $user->id, 'user_uuid' => $user->uuid]);
+        Product::factory(4)->create(['user_id' => $user->id, 'user_uuid' => $user->uuid]);
     }
 }
