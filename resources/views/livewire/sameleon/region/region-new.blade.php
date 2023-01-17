@@ -76,7 +76,7 @@
                                             <p class="text-muted mb-0"></p>
                                         </td>
                                         <td>
-                                            {{ optional($region->city)->faris + optional($region->city)->profit ?? 0 }}
+                                            {{ optional($region->city)->faris + optional($region->city)->profit }}
                                             <p class="text-muted mb-0"></p>
                                         </td>
                                         <td>
