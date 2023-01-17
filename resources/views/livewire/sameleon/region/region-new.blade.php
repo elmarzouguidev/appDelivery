@@ -42,6 +42,7 @@
                                     <th class="align-middle">Nom</th>
                                     <th class="align-middle">Frais de région</th>
                                     <th class="align-middle">Ville</th>
+                                    <th class="align-middle">Frais de ville</th>
                                     <th class="align-middle">Total</th>
                                     <th class="align-middle">Action</th>
                                 </tr>
@@ -67,7 +68,7 @@
                                             <p class="text-muted mb-0"></p>
                                         </td>
                                         <td>
-                                            {{ number_format($region->frais,2) }} DH
+                                            {{ number_format($region->frais, 2) }} DH
                                             <p class="text-muted mb-0"></p>
                                         </td>
                                         <td>
@@ -75,10 +76,14 @@
                                             <p class="text-muted mb-0"></p>
                                         </td>
                                         <td>
+                                            {{ optional($region->city)->faris + optional($region->city)->profit ?? 0 }}
+                                            <p class="text-muted mb-0"></p>
+                                        </td>
+                                        <td>
                                             {{ $region->formated_frais_city }} DH
                                             <p class="text-muted mb-0"></p>
                                         </td>
-                                   
+
                                         <td>
                                             <div class="d-flex gap-3">
 
@@ -86,7 +91,8 @@
                                                     class="text-success">
                                                     <i class="mdi mdi-pencil font-size-18"></i>
                                                 </a>
-                                                <a href="#" class="text-danger" onclick="
+                                                <a href="#" class="text-danger"
+                                                    onclick="
                                                     var result = confirm('Are you sure you want to delete this region ?');
     
                                                     if(result){
@@ -112,7 +118,7 @@
                 </div>
             </div>
         </div>
-       
+
     </div>
 
     @if ($showEdit)
