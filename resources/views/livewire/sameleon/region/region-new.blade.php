@@ -15,17 +15,8 @@
                         </div>
                     </div>
 
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-                    @if (session('error'))
-                        <div class="alert alert-danger">
-                            {{ session('notice') }}
-                        </div>
-                    @endif
-
+                    @include('layouts._parts.__messages')
+                    
                     <div class="table-responsive">
                         <table
                             class="table table-bordered border-danger table-hover align-middle table-nowrap table-check">
