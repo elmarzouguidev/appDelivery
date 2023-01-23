@@ -34,7 +34,8 @@ class AuthAdminController extends Controller
         /**Logout from other devices */
         //Auth::logoutOtherDevices($request->password);
 
-        if (! Auth::user()->isActive()) {
+        if (!Auth::user()->isActive()) {
+
             Auth::logout();
 
             return redirect(route('admin:auth:login'))->withErrors(["Votre compte n'est pas encore activé"]);

@@ -17,12 +17,12 @@
                     <table class="table table-bordered border-danger table-hover align-middle table-nowrap table-check">
                         <thead class="table-light">
                             <tr>
-                             
+
                                 <th style="width: 20px;" class="align-middle">
-                                        <div class="form-check font-size-16">
-                                            <input class="form-check-input" type="checkbox" id="checkAll">
-                                            <label class="form-check-label" for="checkAll"></label>
-                                        </div>
+                                    <div class="form-check font-size-16">
+                                        <input class="form-check-input" type="checkbox" id="checkAll">
+                                        <label class="form-check-label" for="checkAll"></label>
+                                    </div>
                                 </th>
 
                                 <th class="align-middle">CODE</th>
@@ -45,33 +45,31 @@
                                     </td>
 
                                     <td>
-                                        <a 
-                                            target="_blank" 
-                                            href="{{route('public.show.bl',$bon->uuid)}}" 
-                                            class="text-body fw-bold"
-                                            style="color:blue !important"
-                                        >
-                                         {{ $bon->full_number }}
+                                        <a target="_blank" href="{{ route('delivery.public.show.bill', $bon->uuid) }}"
+                                            class="text-body fw-bold" style="color:blue !important">
+                                            {{ $bon->full_number }}
                                         </a>
                                     </td>
                                     <td>
                                         {{ $bon->city->name }}
                                     </td>
                                     <td>
-                                        {{ $bon->total_commands}}
+                                        {{ $bon->total_commands }}
                                     </td>
                                     <td>
-                                        {{ $bon->bon_date->format('d-m-Y')}}
+                                        {{ $bon->bon_date->format('d-m-Y') }}
                                     </td>
                                     <td>
-                                        <a target="_blank" href="{{route('public.show.bl',$bon->uuid)}}" class=" btn btn-info btn-sm" type="button">
+                                        <a target="_blank" href="{{ route('public.show.bl', $bon->uuid) }}"
+                                            class=" btn btn-info btn-sm" type="button">
                                             <i class="mdi mdi-file-pdf-box font-size-18"></i>
                                             {{ $bon->full_number }}
                                         </a>
                                     </td>
                                     <td>
                                         <div class="d-flex gap-3">
-                                            <a href="#" class="text-danger" onclick="
+                                            <a href="#" class="text-danger"
+                                                onclick="
                                                 var result = confirm('Are you sure you want to delete this BL ?');
 
                                                 if(result){
