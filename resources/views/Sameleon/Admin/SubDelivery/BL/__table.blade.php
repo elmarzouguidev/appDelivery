@@ -45,7 +45,7 @@
                                     </td>
 
                                     <td>
-                                        <a target="_blank" href="{{ route('delivery.public.show.bill', $bon->uuid) }}"
+                                        <a target="_blank" href="{{ route('delivery.public.show.bl', $bon->uuid) }}"
                                             class="text-body fw-bold" style="color:blue !important">
                                             {{ $bon->full_number }}
                                         </a>
@@ -60,7 +60,7 @@
                                         {{ $bon->bon_date->format('d-m-Y') }}
                                     </td>
                                     <td>
-                                        <a target="_blank" href="{{ route('public.show.bl', $bon->uuid) }}"
+                                        <a target="_blank" href="{{ route('delivery.public.show.bl', $bon->uuid) }}"
                                             class=" btn btn-info btn-sm" type="button">
                                             <i class="mdi mdi-file-pdf-box font-size-18"></i>
                                             {{ $bon->full_number }}
