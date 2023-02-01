@@ -94,10 +94,21 @@
                 </div>
             </div>
         </div>
+
+
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
+
+                        <div class="row d-flex justify-content-center">
+
+                            <div class="spinner-border text-primary m-1" role="status" wire:loading.delay
+                                wire:target="setfilter">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+
                         @include('layouts._parts.__messages')
                         <div class="table-responsive">
                             <table
@@ -145,8 +156,9 @@
                                             <td>
                                                 <p class="text-strong mb-0">
                                                     <strong>
-                                                        @if (($command->invoice_count > 0 && $command->status == App\Status\Status::LIVRE) ||
-                                                            $command->status == App\Status\Status::REFUSE)
+                                                        @if (
+                                                            ($command->invoice_count > 0 && $command->status == App\Status\Status::LIVRE) ||
+                                                                $command->status == App\Status\Status::REFUSE)
                                                             <a target="_blank"
                                                                 title="Facture : {{ optional($command->invoice)->full_number }}"
                                                                 style="color:#2f5393 !important"
@@ -240,7 +252,7 @@
                                             <td>
                                                 @if ($command->comment != null)
                                                     <p class=" mb-0">
-                                                      
+
                                                         {{ str_replace('<br />', '', $command->comment) }}
                                                     </p>
                                                 @endif
@@ -276,9 +288,10 @@
                                                 </a> --}}
 
 
-                                                    @if ($command->status == App\Status\Status::NON_TRAITE &&
-                                                        $command->user_id == auth()->id() &&
-                                                        $command->user_uuid == auth()->user()->uuid)
+                                                    @if (
+                                                        $command->status == App\Status\Status::NON_TRAITE &&
+                                                            $command->user_id == auth()->id() &&
+                                                            $command->user_uuid == auth()->user()->uuid)
                                                         <button type="button"
                                                             class="btn btn-danger btn-sm deleteCommandBtn"
                                                             data-command="{{ $command->uuid }}">
