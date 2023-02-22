@@ -29,7 +29,7 @@ class ProductFactory extends Factory
         ];
     }
 
-    public function configure()
+    /*public function configure()
     {
         return $this->afterCreating(function (Product $item) {
             if (connection_status() === CONNECTION_NORMAL) {
@@ -41,5 +41,5 @@ class ProductFactory extends Factory
                     ->toMediaCollection('products_photos');
             }
         });
-    }
+    }*/
 }
