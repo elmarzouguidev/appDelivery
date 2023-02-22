@@ -33,7 +33,7 @@ class ProductFactory extends Factory
     {
         return $this->afterCreating(function (Product $item) {
             if (connection_status() === CONNECTION_NORMAL) {
-                $url = 'https://loremflickr.com/320/240';
+                $url = 'https://source.unsplash.com/random/400x400';
                 //$url = $this->faker->imageUrl(800, 600);
 
                 $item
