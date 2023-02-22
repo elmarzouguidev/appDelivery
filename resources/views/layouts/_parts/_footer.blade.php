@@ -9,11 +9,11 @@
                     </a>
                 </b>
             </div>
-            <!--<div class="col-sm-6">
+            <div class="col-sm-6">
                 <div class="text-sm-end d-none d-sm-block">
                     Developed by <a title="Elmarzougui Abdelghafour" href="https://www.linkedin.com/in/devscript" target="_blank">Elmarzougui.com</a>
                 </div>
-            </div>-->
+            </div>
         </div>
     </div>
 </footer>
