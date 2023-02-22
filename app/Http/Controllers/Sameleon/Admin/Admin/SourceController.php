@@ -37,7 +37,7 @@ class SourceController extends Controller
 
             if (! $valid) {
                 throw ValidationException::withMessages([
-                    'integration_error' => 'ce wsite ne contient pas Wordpress ',
+                    'integration_error' => 'ce site ne contient pas Wordpress ',
 
                 ]);
                 exit();

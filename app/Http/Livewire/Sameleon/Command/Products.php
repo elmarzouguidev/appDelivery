@@ -9,6 +9,8 @@ class Products extends Component
 {
     protected $listeners = [
         //'selectedProduct',
+
+        //''
     ];
 
     public $products;
