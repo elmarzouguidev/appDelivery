@@ -19,7 +19,6 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
-header("X-Robots-Tag: noindex, nofollow", true);
 
 # Allow access from all domains for webfonts.
 # Alternatively you could only whitelist your
