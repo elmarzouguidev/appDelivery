@@ -4,8 +4,8 @@
             <div class="col-sm-6">
                 <script>document.write(new Date().getFullYear())</script> © <b>
                     
-                    <a title="SAMELEON EXPRESS" href="https://sameleon-express.ma/" target="_blank">
-                        SAMELEON EXPRESS
+                    <a title="QuickRoute" href="https://wedoapp.ma/" target="_blank">
+                        QuickRoute
                     </a>
                 </b>
             </div>
