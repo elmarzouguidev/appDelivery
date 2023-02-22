@@ -36,21 +36,21 @@ class DeliverySeeder extends Seeder
         ];
 
         $user4 = [
-            'nom' => 'Abir',
-            'prenom' => 'Arfaoui',
+            'nom' => 'Société',
+            'prenom' => 'Société',
             'email' => 'company@gmail.com',
             'telephone' => '0677512759',
             'email_verified_at' => now(),
             'password' => Hash::make('123456789@'),
             'remember_token' => Str::random(10),
             'is_company' => true,
-            'company_name' => 'ARFAOUI SARL',
+            'company_name' => 'DELIVERY SARL',
             'company_ice' => '000154780325477',
             'type' => 'entreprise',
             'city_id' => $agadir->id,
             'city_uuid' => $agadir->uuid,
         ];
-
+        
         $delivery2 = Delivery::whereEmail('khalid@gmail.com')->first();
         $delivery4 = Delivery::whereEmail('company@gmail.com')->first();
 

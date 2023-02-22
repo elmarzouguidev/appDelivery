@@ -17,7 +17,6 @@ class ProductFactory extends Factory
         return [
             'name' => $this->faker->word,
             'description' => $this->faker->text(),
-
             'qte_global' => 0,
             'qte_livre' => 0,
             'qte_expidite' => 0,

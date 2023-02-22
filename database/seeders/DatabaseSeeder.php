@@ -41,16 +41,14 @@ class DatabaseSeeder extends Seeder
         $users = User::role('Client')->get();
 
         foreach ($users as $user) {
-            $this->callWith(ProductSeeder::class, ['user' => $user]);
 
-            // $this->callWith(CommandSeeder::class, ['user' => $user]);
+            $this->callWith(ProductSeeder::class, ['user' => $user]);
         }
     }
 
     private function clearAll()
     {
         Storage::disk('public')->deleteDirectory('app-files');
-
         Artisan::call('config:clear');
         Artisan::call('route:clear');
         Artisan::call('view:clear');
