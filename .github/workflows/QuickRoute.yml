@@ -1,0 +1,19 @@
+name: Deployment to quickroute.haymacproduction.ma
+on:
+  push:
+    branches:
+      - quickroute
+jobs:
+  FTP-Deploy-Action:
+    name: FTP-Deploy-Action
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+      - name: FTP-Deploy-Action
+        uses: SamKirkland/FTP-Deploy-Action@4.3.3
+        with:
+          server: ${{ secrets.FTP_SERVER_QUICK }}
+          username: ${{ secrets.FTP_USERNAME_QUICK  }}
+          password: ${{ secrets.FTP_PASSWORD_QUICK }}
