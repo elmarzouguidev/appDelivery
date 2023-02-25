@@ -7,7 +7,7 @@
 
 <meta http-equiv="Feature-Policy" content="ch-viewport-width *">
 
-<meta name="application-name" content="Sameleon Express">
+<meta name="application-name" content="QuickRoute">
 
 <meta name="google" content="notranslate">
 
