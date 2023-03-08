@@ -2,23 +2,23 @@
 
 namespace App\Providers;
 
-use App\Http\View\Composers\AnnonceComposer;
-use App\Http\View\Composers\BillComposer;
-use App\Http\View\Composers\BLComposer;
-use App\Http\View\Composers\BRComposer;
-use App\Http\View\Composers\CommandComposer;
-use App\Http\View\Composers\ConditionComposer;
-use App\Http\View\Composers\DeliveryComposer;
-use App\Http\View\Composers\InvoiceComposer;
-use App\Http\View\Composers\InvoiceDeliveryComposer;
-use App\Http\View\Composers\InvoiceOfDay;
-use App\Http\View\Composers\NavBarComposer;
-use App\Http\View\Composers\NavBarDeliveryComposer;
-use App\Http\View\Composers\NewProductsComposer;
-use App\Http\View\Composers\NewUserComposer;
-use App\Http\View\Composers\RamassageComposer;
-use App\Http\View\Composers\StockComposer;
-use App\Http\View\Composers\SubDeliveryComposer;
+use App\View\Composers\AnnonceComposer;
+use App\View\Composers\BillComposer;
+use App\View\Composers\BLComposer;
+use App\View\Composers\BRComposer;
+use App\View\Composers\CommandComposer;
+use App\View\Composers\ConditionComposer;
+use App\View\Composers\DeliveryComposer;
+use App\View\Composers\InvoiceComposer;
+use App\View\Composers\InvoiceDeliveryComposer;
+use App\View\Composers\InvoiceOfDay;
+use App\View\Composers\NavBarComposer;
+use App\View\Composers\NavBarDeliveryComposer;
+use App\View\Composers\NewProductsComposer;
+use App\View\Composers\NewUserComposer;
+use App\View\Composers\RamassageComposer;
+use App\View\Composers\StockComposer;
+use App\View\Composers\SubDeliveryComposer;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
