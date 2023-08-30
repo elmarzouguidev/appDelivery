@@ -21,7 +21,7 @@ class AdminSeeder extends Seeder
             'prenom' => 'Abdelghafour',
             'email' => 'abdelgha4or@gmail.com',
             'email_verified_at' => now(),
-            'password' => Hash::make('123456789@2023'),
+            'password' => Hash::make('123456789@'),
             'remember_token' => Str::random(10),
             'is_admin' => true,
         ];
