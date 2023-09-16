@@ -28,7 +28,7 @@ class SubDeliverySeeder extends Seeder
 
         $delivery = Delivery::whereEmail('aboudi@gmail.com')->first();
 
-        if (! $delivery) {
+        if (!$delivery) {
             $user1 = Delivery::create($user);
 
             $user1->assignRole('SubDelivery');

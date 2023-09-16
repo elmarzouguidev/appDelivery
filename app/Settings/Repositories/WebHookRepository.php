@@ -11,12 +11,12 @@
 
 namespace App\Settings\Repositories;
 
-use App\Http\Requests\Settings\Hooks\HooksRequest;
+use App\Http\Requests\Setting\Hooks\HooksRequest;
 use App\Settings\WebHooksSettings;
 use Illuminate\Support\Str;
 use Jackiedo\DotenvEditor\Facades\DotenvEditor;
 
-class WebHooksRepository
+class WebHookRepository
 {
     const SEPARATOR = '-';
 

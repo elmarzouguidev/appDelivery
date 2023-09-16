@@ -1,6 +1,6 @@
 <p align="center">
-    <a href="https://elmarzougui.net" target="_blank">
-        <img src="./logo.png" width="400" height="400">
+    <a href="https://wedoapp.ma" target="_blank">
+        <img src="./QuickRoute.png" width="400" height="400">
     </a>
 </p>
 
@@ -12,5 +12,3 @@
 - **[HayMacProduction](https://haymacproduction.ma/)**
 
 ## License
-
-Commercial Application  software licensed under the [MIT license](https://opensource.org/licenses/MIT).

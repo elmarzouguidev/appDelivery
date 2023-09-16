@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\View\Composers;
+namespace App\View\Composers;
 
 use Illuminate\Cache\CacheManager;
 use Illuminate\View\View;

@@ -14,21 +14,6 @@ class CitySeeder extends Seeder
      */
     public function run()
     {
-        /*$cities = [
-            ['name' => 'Casablanca', 'frais' => 14],
-            ['name' => 'Mohammadia', 'frais' => 20],
-            ['name' => 'Ain harrouda', 'frais' => 20],
-            ['name' => 'Bouskoura', 'frais' => 14],
-            ['name' => 'Dar bouazza', 'frais' => 14],
-            ['name' => 'Errahma', 'frais' => 14],
-            ['name' => 'Had soualem', 'frais' => 14],
-            ['name' => 'Mediouna', 'frais' => 20],
-            ['name' => 'Nouaceur', 'frais' => 20],
-            ['name' => 'Sidi rahhal', 'frais' => 20],
-            ['name' => 'Tit mellil', 'frais' => 20],
-            ['name' => 'Agadir', 'frais' => 25,'has_profit'=>true,'profit'=>15],
-        ];*/
-
         $cities = [
             ['name' => 'Casablanca', 'slug' => 'casablanca', 'frais' => 14, 'has_profit' => true, 'profit' => 0],
             ['name' => 'Mohammadia', 'slug' => 'mohammadia', 'frais' => 20, 'has_profit' => true, 'profit' => 10],

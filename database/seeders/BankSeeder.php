@@ -16,6 +16,7 @@ class BankSeeder extends Seeder
     {
         $banks = [
             ['name' => 'CIH BANK', 'logo' => 'banks/cih-bank.png', 'active' => true],
+            ['name' => 'SGMB', 'logo' => 'banks/sgmb-bank.png', 'active' => true],
         ];
 
         foreach ($banks as $bank) {

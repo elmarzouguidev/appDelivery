@@ -20,12 +20,12 @@ class ClientSeed extends Seeder
         $permissions = Permission::all()->pluck('name');
 
         $user = [
-            'nom' => 'Ahmed',
+            'nom' => 'Client',
             'prenom' => 'Ouahdi',
             'telephone' => '0677512750',
             'email' => 'client@gmail.com',
             'email_verified_at' => now(),
-            'password' => Hash::make('123456789@2023'),
+            'password' => Hash::make('123456789@'),
             'remember_token' => Str::random(10),
             'is_client' => true,
             'addresse' => 'casablanca Maarif Rue 15',
@@ -35,7 +35,7 @@ class ClientSeed extends Seeder
 
         $client = User::whereEmail('client@gmail.com')->first();
 
-        if (! $client) {
+        if (!$client) {
             $newAdmin = User::create($user);
             $newAdmin->assignRole('Client');
 

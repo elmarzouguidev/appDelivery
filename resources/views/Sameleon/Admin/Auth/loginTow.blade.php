@@ -4,7 +4,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Login | SAMELEON GROUP</title>
+    <title>Login | QuickRoute</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow" />
     <link rel="shortcut icon" href="{{ asset('images/logo.png') }}">
@@ -15,7 +15,7 @@
     <meta name="app_devlopper_facebook" content="https://www.facebook.com/devscript" />
     <meta name="app_devlopper_linkedin" content="https://www.linkedin.com/in/devscript/" />
     <meta name="app_devlopper_twitter" content="https://twitter.com/devscriptt" />
-    <meta name="app_devlopper_github" content="https://github.com/devscript-abdo" />
+    <meta name="app_devlopper_github" content="https://github.com/elmarzouguidev" />
 
     @include('layouts._parts.__sec_meta')
 
@@ -186,7 +186,7 @@
                                         <script>
                                             document.write(new Date().getFullYear())
                                         </script>
-                                        SAMELEON GROUP
+                                        QuickRoute
                                     </p>
                                 </div>
                             </div>

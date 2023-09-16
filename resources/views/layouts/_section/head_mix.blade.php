@@ -1,7 +1,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>SAMELEON EXPRESS System</title>
+    <title>QuickRoute System</title>
 
     <meta name="robots" content="noindex, nofollow" />
     <meta name="googlebot" content="noindex,nofollow">

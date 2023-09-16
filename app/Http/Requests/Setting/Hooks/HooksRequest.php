@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Settings\Hooks;
+namespace App\Http\Requests\Setting\Hooks;
 
 use App\Rules\ValidateDomainRule;
 use Illuminate\Foundation\Http\FormRequest;
