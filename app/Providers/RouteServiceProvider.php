@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
@@ -116,7 +117,7 @@ class RouteServiceProvider extends ServiceProvider
 
     public function hooksRoutes()
     {
-        if (app()->isProduction() && Schema::hasTable('sources')) {
+        if (app()->isProduction() && DB::connection()->getPDO() && Schema::hasTable('sources')) {
             Route::middleware(['web', 'hooks'])
                 ->group(base_path('routes/hooks/hook_routes.php'));
         }
