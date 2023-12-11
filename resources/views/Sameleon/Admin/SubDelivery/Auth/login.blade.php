@@ -4,7 +4,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Login Livreur | SAMELEON Express</title>
+    <title>Login Livreur | QuickRoute</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow" />
     <link rel="shortcut icon" href="{{ asset('images/logo.png') }}">
