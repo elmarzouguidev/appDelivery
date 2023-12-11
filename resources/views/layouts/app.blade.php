@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="fr">
-<!--This application is created by Elmarzougui Abdelghafour CopyRight 2023 -->
+<!--This application is created by Elmarzougui Abdelghafour CopyRight 2024 -->
 
 @include('layouts._section.head_mix')
 
