@@ -25,7 +25,7 @@ class Kernel extends HttpKernel
 
         \Spatie\Honeypot\ProtectAgainstSpam::class,
 
-        \HTMLMin\HTMLMin\Http\Middleware\MinifyMiddleware::class,
+        \Abordage\LaravelHtmlMin\Middleware\HtmlMinify::class,
     ];
 
     /**
