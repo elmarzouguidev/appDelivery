@@ -24,6 +24,8 @@ class Kernel extends HttpKernel
         //\App\Http\Middleware\Authentification\RedirectorMiddleware::class,
 
         \Spatie\Honeypot\ProtectAgainstSpam::class,
+
+        \Abordage\LaravelHtmlMin\Middleware\HtmlMinify::class,
     ];
 
     /**

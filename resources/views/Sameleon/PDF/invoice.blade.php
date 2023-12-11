@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>FACTURE-CLIENT-{{ optional($invoice->client)->full_name }} - {{ $invoice->invoice_date->format('d-m-Y') }}</title>
+    <title>FACTURE-CLIENT-{{ optional($invoice->client)->full_name }} - {{ $invoice->invoice_date->format('d-m-Y') }}
+    </title>
     <style>
         @page {
             margin: 60px 25px;
@@ -152,7 +153,6 @@
             text-align: center;
             line-height: 10px;
         }
-
     </style>
 </head>
 
@@ -172,8 +172,8 @@
                 -R.C:{{ optional(getCompany())->rc }}
                 -PATENTE:{{ optional(getCompany())->patente }}
                 -I.F:{{ optional(getCompany())->if }}
-                @if(isset(getCompany()->cnss))
-                -CNSS:{{ optional(getCompany())->cnss }}
+                @if (isset(getCompany()->cnss))
+                    -CNSS:{{ optional(getCompany())->cnss }}
                 @endif
                 -ICE:{{ optional(getCompany())->ice }}
             </p>
@@ -202,24 +202,24 @@
                     <table>
                         <tr>
                             <td style="width: 50% ;">
-                                @if(optional($invoice->client)->type == 'entreprise' && optional($invoice->client)->company)
-                                <strong> Client : {{ optional($invoice->client->company)->name }}</strong> <br />
+                                @if (optional($invoice->client)->type == 'entreprise' && optional($invoice->client)->company)
+                                    <strong> Client : {{ optional($invoice->client->company)->name }}</strong> <br />
                                 @else
-                                <strong>Client : {{ optional($invoice->client)->full_name }}</strong> <br />
+                                    <strong>Client : {{ optional($invoice->client)->full_name }}</strong> <br />
                                 @endif
 
-                                @if(optional($invoice->client)->type == 'particulier')
-                                 CNIE : {{ strtoupper(optional($invoice->client)->cnie) }}<br />
+                                @if (optional($invoice->client)->type == 'particulier')
+                                    CNIE : {{ strtoupper(optional($invoice->client)->cnie) }}<br />
                                 @endif
 
-                                @if(optional($invoice->client)->type == 'entreprise' && optional($invoice->client)->company)
-                                 ICE : {{ optional($invoice->client->company)->ice }}<br />
+                                @if (optional($invoice->client)->type == 'entreprise' && optional($invoice->client)->company)
+                                    ICE : {{ optional($invoice->client->company)->ice }}<br />
                                 @endif
 
-                                @if(optional($invoice->client)->type == 'entreprise' && optional($invoice->client)->company)
-                                 Adresse : {{ optional($invoice->client->company)->addresse }} <br />
+                                @if (optional($invoice->client)->type == 'entreprise' && optional($invoice->client)->company)
+                                    Adresse : {{ optional($invoice->client->company)->addresse }} <br />
                                 @else
-                                 Adresse : {{ optional($invoice->client)->addresse }} <br />
+                                    Adresse : {{ optional($invoice->client)->addresse }} <br />
                                 @endif
 
                             </td>
@@ -256,59 +256,56 @@
             </tr>
 
             @foreach ($invoice->articles as $article)
-         
                 @php
-                 $color = '';
-                 optional($article->command)->status == App\Status\Status::REFUSE ? $color = 'red':''
+                    $color = '';
+                    optional($article->command)->status == App\Status\Status::REFUSE ? ($color = 'red') : '';
                 @endphp
-                <tr class="item {{ $loop->last ? 'last' : '' }}" style="color:{{$color}} !important">
+                <tr class="item {{ $loop->last ? 'last' : '' }}" style="color:{{ $color }} !important">
                     <td style="width: 30% ;">{{ $article->code_command }}</td>
-                    @if(optional($article->command)->status != App\Status\Status::LIVRE)
-                     <td>{{ optional($article->command)->updated_at->format('d-m-Y') ?? '' }}</td>
+                    @if (optional($article->command)->status != App\Status\Status::LIVRE)
+                        <td>{{ optional($article->command)->updated_at->format('d-m-Y') ?? '' }}</td>
                     @else
-                     <td>{{ optional($article->command)->delivered_at->format('d-m-Y') ?? '' }}</td>
+                        <td>{{ optional($article->command)->delivered_at->format('d-m-Y') ?? '' }}</td>
                     @endif
                     <td>{{ $article->city }}</td>
                     <td>{{ __('status.statuses.' . $article->command->status) }}</td>
-                    @if(optional($article->command)->status == App\Status\Status::REFUSE)
-                    <td>----</td>
+                    @if (optional($article->command)->status == App\Status\Status::REFUSE)
+                        <td>----</td>
                     @else
-                    <td>{{$article->formated_price_total}}</td>
+                        <td>{{ $article->formated_price_total }}</td>
                     @endif
-                    <td>{{ number_format($article->frais + $article->profit,2) }} DH</td>
+                    <td>{{ number_format($article->frais + $article->profit, 2) }} DH</td>
                 </tr>
-
             @endforeach
-            
-            <div class="pricer">
-                <tr class="heading-price lefter">
-                    <td colspan="6">Montant BRUT : {{ number_format($invoice->formated_total_brut,2)}} DH</td>
-                </tr>
-                <tr class="heading-price lefter">
-                    @php
-                     $netFrais= 0;
-                     $frais = $invoice->articles->sum('frais');
-                     $profit = $invoice->articles->sum('profit');
-                     if($profit > 0 && $profit !== 0)
-                        {
-                           $netFrais = $frais + $profit ;
-                        }else{
-                            $netFrais = $frais ;  
-                        }
-                    @endphp
-                    <td colspan="6">Frais : {{ number_format($netFrais,2) }} DH</td>
-                </tr>
-                {{--@if(isAdmin())
+
+
+            <tr class="heading-price lefter">
+                <td colspan="6">Montant BRUT : {{ number_format($invoice->formated_total_brut, 2) }} DH</td>
+            </tr>
+            <tr class="heading-price lefter">
+                @php
+                    $netFrais = 0;
+                    $frais = $invoice->articles->sum('frais');
+                    $profit = $invoice->articles->sum('profit');
+                    if ($profit > 0 && $profit !== 0) {
+                        $netFrais = $frais + $profit;
+                    } else {
+                        $netFrais = $frais;
+                    }
+                @endphp
+                <td colspan="6">Frais : {{ number_format($netFrais, 2) }} DH</td>
+            </tr>
+            {{-- @if (isAdmin())
                     <tr class="heading-price lefter">
                         @php
                         $profit = $invoice->articles->sum('profit')
                         @endphp
                         <td colspan="6">Profit : {{ number_format($profit,2) }} DH</td>
                     </tr>
-                @endif--}}
+                @endif --}}
 
-                <tr class="heading-price lefter">
-                    {{--@if(isAdmin())
+            <tr class="heading-price lefter">
+                {{-- @if (isAdmin())
                         @php 
                             if($invoice->formated_total_brut == 0 || $frais > $invoice->formated_total_brut)
                             {
@@ -325,22 +322,19 @@
                             }
             
                         @endphp
-                    @else--}}
-                        @php 
-                            if($invoice->formated_total_brut == 0 || $netFrais > $invoice->formated_total_brut)
-                            {
-                                $net = 00;
-                            }
-                            else{
-                                
-                                $net = $invoice->formated_total_brut - $netFrais ;
-                            }
-            
-                        @endphp
-                    {{--@endif--}}
-                    <td colspan="6">Montant NET : {{ number_format($net,2) }} DH</td>
-                </tr>
-            </div>
+                    @else --}}
+                @php
+                    if ($invoice->formated_total_brut == 0 || $netFrais > $invoice->formated_total_brut) {
+                        $net = 00;
+                    } else {
+                        $net = $invoice->formated_total_brut - $netFrais;
+                    }
+
+                @endphp
+                {{-- @endif --}}
+                <td colspan="6">Montant NET : {{ number_format($net, 2) }} DH</td>
+            </tr>
+
 
         </table>
 
@@ -367,7 +361,7 @@
         }
 
 
-</script>
+    </script>
 </body>
 
 </html>
