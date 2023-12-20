@@ -95,7 +95,7 @@
             background: #eee;
             /*border-bottom: 2px solid #325288;*/
             font-weight: bold;
-          
+
         }
 
         .invoice-box table tr.details td {
@@ -152,7 +152,6 @@
             text-align: center;
             line-height: 10px;
         }
-
     </style>
 </head>
 
@@ -172,8 +171,8 @@
                 -R.C:{{ optional(getCompany())->rc }}
                 -PATENTE:{{ optional(getCompany())->patente }}
                 -I.F:{{ optional(getCompany())->if }}
-                @if(isset(getCompany()->cnss))
-                -CNSS:{{ optional(getCompany())->cnss }}
+                @if (isset(getCompany()->cnss))
+                    -CNSS:{{ optional(getCompany())->cnss }}
                 @endif
                 -ICE:{{ optional(getCompany())->ice }}
             </p>
@@ -203,31 +202,31 @@
                         <tr>
                             <td style="width: 50% ;">
                                 <strong>Client : {{ optional($bill->client)->full_name }}</strong> <br />
-                                @if(optional($bill->client)->type == 'particulier')
-                                 CNIE : {{ strtoupper(optional($bill->client)->cnie) }}<br />
+                                @if (optional($bill->client)->type == 'particulier')
+                                    CNIE : {{ strtoupper(optional($bill->client)->cnie) }}<br />
                                 @endif
-                                @if(optional($bill->client)->type == 'entreprise' && optional($bill->client)->company)
-                                 ICE : {{ optional($bill->client->company)->ice }}<br />
+                                @if (optional($bill->client)->type == 'entreprise' && optional($bill->client)->company)
+                                    ICE : {{ optional($bill->client->company)->ice }}<br />
                                 @endif
 
                             </td>
                             <td style="width: 50% ; text-align: right; !important">
                                 <strong>Règlement N° : {{ $bill->code }}</strong><br />
                                 Date : {{ $bill->bill_date->format('d-m-Y') }}<br />
-                        
+
                             </td>
 
                         </tr>
                         <tr>
-                            
+
                             <td style="width: 100% ; text-align: left; !important">
                                 <strong>Facture N° : {{ $bill->billable->full_number }}</strong><br />
                                 Date : {{ $bill->billable->invoice_date->format('d-m-Y') }}<br />
 
                             </td>
-                 
+
                         </tr>
-                        @if($bill->bank_name)
+                        @if ($bill->bank_name)
                             <tr>
 
                                 <td style="width: 100% ; text-align: left; !important">
@@ -236,7 +235,7 @@
 
                             </tr>
                         @endif
-                        @if($bill->bank_rib)
+                        @if ($bill->bank_rib)
                             <tr>
 
                                 <td style="width: 100% ; text-align: left; !important">
@@ -245,7 +244,7 @@
 
                             </tr>
                         @endif
-                        @if($bill->reference)
+                        @if ($bill->reference)
                             <tr>
 
                                 <td style="width: 100% ; text-align: left; !important">
@@ -258,13 +257,13 @@
                 </td>
             </tr>
 
-            <div class="pricer">
 
-                <tr class="heading-price">
 
-                    <td colspan="6">Montant : {{ $bill->formated_price_total }} DH</td>
-                </tr>
-            </div>
+            <tr class="heading-price">
+
+                <td colspan="6">Montant : {{ $bill->formated_price_total }} DH</td>
+            </tr>
+
 
         </table>
 
