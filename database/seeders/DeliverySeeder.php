@@ -50,11 +50,11 @@ class DeliverySeeder extends Seeder
             'city_id' => $agadir->id,
             'city_uuid' => $agadir->uuid,
         ];
-        
+
         $delivery2 = Delivery::whereEmail('khalid@gmail.com')->first();
         $delivery4 = Delivery::whereEmail('company@gmail.com')->first();
 
-        if (! $delivery2 && ! $delivery4) {
+        if (!$delivery2 && !$delivery4) {
             $newAdmin = Delivery::create($user);
             $newAdmin->assignRole('Delivery');
 
