@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Sameleon\Admin\BL;
 use App\Http\Controllers\Controller;
 use App\Models\Sameleon\BLivraison;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class PDFBLController extends Controller
@@ -17,11 +18,19 @@ class PDFBLController extends Controller
 
         $bon->load('articles', 'city:id,name', 'articles.command.items', 'delivery');
 
-        $companyLogo = 'data:image/jpg;base64,'.base64_encode(file_get_contents(public_path('storage/'.getCompany()->logo)));
+        if (Storage::disk('public')->exists(getCompany()->logo)) {
+            // dd('yes logo');
+            $logo = public_path('storage/' . getCompany()->logo);
+        } else {
+            //dd('no its default logo');
+            $logo = public_path('logo.png');
+        }
+
+        $companyLogo = 'data:image/jpg;base64,' . base64_encode(file_get_contents($logo));
 
         $pdf = \PDF::loadView('Sameleon.PDF.bl', compact('bon', 'companyLogo', 'qrcode'));
 
-        $fileName = $bon->bon_date->format('d-m-Y').'BL-'."{$bon->full_number}".'.pdf';
+        $fileName = $bon->bon_date?->format('d-m-Y') . 'BL-' . "{$bon->full_number}" . '.pdf';
 
         return $pdf->stream($fileName);
     }
@@ -33,11 +42,19 @@ class PDFBLController extends Controller
 
         $bon->load('articles', 'city:id,name', 'articles.command.items', 'delivery');
 
-        $companyLogo = 'data:image/jpg;base64,'.base64_encode(file_get_contents(public_path('storage/'.getCompany()->logo)));
+        if (Storage::disk('public')->exists(getCompany()->logo)) {
+            // dd('yes logo');
+            $logo = public_path('storage/' . getCompany()->logo);
+        } else {
+            //dd('no its default logo');
+            $logo = public_path('logo.png');
+        }
+
+        $companyLogo = 'data:image/jpg;base64,' . base64_encode(file_get_contents($logo));
 
         $pdf = \PDF::loadView('Sameleon.PDF.bl', compact('bon', 'companyLogo', 'qrcode'));
 
-        $fileName = $bon->bon_date->format('d-m-Y').'BL-'."{$bon->full_number}".'.pdf';
+        $fileName = $bon->bon_date?->format('d-m-Y') . 'BL-' . "{$bon->full_number}" . '.pdf';
 
         return $pdf->stream($fileName);
     }

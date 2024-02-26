@@ -29,7 +29,7 @@ class InvoiceController extends Controller
 
         $pdf = \PDF::loadView('Sameleon.PDF.invoice', compact('invoice', 'companyLogo', 'hasHeader'));
 
-        $fileName = $invoice->invoice_date->format('d-m-Y') . "-[ {$invoice->client->full_name} ]-" . 'FACTURE-' . "{$invoice->code}" . '.pdf';
+        $fileName = $invoice->invoice_date?->format('d-m-Y') . "-[ {$invoice->client?->full_name} ]-" . 'FACTURE-' . "{$invoice?->code}" . '.pdf';
 
         return $pdf->stream($fileName);
     }

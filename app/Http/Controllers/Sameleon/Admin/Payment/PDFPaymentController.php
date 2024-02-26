@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Sameleon\Admin\Payment;
 use App\Http\Controllers\Controller;
 use App\Models\Sameleon\Bill;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PDFPaymentController extends Controller
 {
@@ -16,7 +17,15 @@ class PDFPaymentController extends Controller
 
         $bill->load('billable:id,full_number,invoice_date', 'client');
 
-        $companyLogo = 'data:image/jpg;base64,'.base64_encode(file_get_contents(public_path('storage/'.getCompany()->logo)));
+        if (Storage::disk('public')->exists(getCompany()->logo)) {
+            // dd('yes logo');
+            $logo = public_path('storage/' . getCompany()->logo);
+        } else {
+            //dd('no its default logo');
+            $logo = public_path('logo.png');
+        }
+
+        $companyLogo = 'data:image/jpg;base64,'.base64_encode(file_get_contents($logo ));
 
         $pdf = \PDF::loadView('Sameleon.PDF.bill', compact('bill', 'companyLogo', 'hasHeader'));
 
