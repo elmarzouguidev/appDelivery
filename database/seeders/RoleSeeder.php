@@ -22,11 +22,11 @@ class RoleSeeder extends Seeder
 
         ['name' => 'Developper', 'guard_name' => 'admin'],
 
-        ['name' => 'Delivery', 'guard_name' => 'delivery'],
+        ['name' => 'Delivery', 'guard_name' => 'delivery'], // livreur
 
-        ['name' => 'DeliveryEntreprise', 'guard_name' => 'delivery'],
+        ['name' => 'DeliveryEntreprise', 'guard_name' => 'delivery'], // livreur
 
-        ['name' => 'SubDelivery', 'guard_name' => 'delivery'],
+        ['name' => 'SubDelivery', 'guard_name' => 'delivery'], // livreur
 
     ];
 

@@ -17,16 +17,16 @@ class AdminSeeder extends Seeder
     public function run()
     {
         $user = [
-            'nom' => 'Elmarzougui',
-            'prenom' => 'Abdelghafour',
-            'email' => 'abdelgha4or@gmail.com',
+            'nom' => 'Sameleon',
+            'prenom' => 'Admin',
+            'email' => 'admin@gmail.com',
             'email_verified_at' => now(),
-            'password' => Hash::make('123456789@'),
+            'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
             'is_admin' => true,
         ];
 
-        $admin = User::whereEmail('abdelgha4or@gmail.com')->first();
+        $admin = User::whereEmail('admin@gmail.com')->first();
 
         if (!$admin) {
             $newAdmin = User::create($user);

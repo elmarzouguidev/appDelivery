@@ -20,12 +20,12 @@ class ClientSeed extends Seeder
         $permissions = Permission::all()->pluck('name');
 
         $user = [
-            'nom' => 'Client',
-            'prenom' => 'Ouahdi',
-            'telephone' => '0677512750',
+            'nom' => 'Sameleon',
+            'prenom' => 'Client',
+            'telephone' => '0677512850',
             'email' => 'client@gmail.com',
             'email_verified_at' => now(),
-            'password' => Hash::make('123456789@'),
+            'password' => Hash::make('password@'),
             'remember_token' => Str::random(10),
             'is_client' => true,
             'addresse' => 'casablanca Maarif Rue 15',

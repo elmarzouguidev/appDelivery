@@ -17,11 +17,11 @@ class SubDeliverySeeder extends Seeder
     public function run()
     {
         $user = [
-            'nom' => 'Aboudi',
+            'nom' => 'Sous Livreur',
             'prenom' => 'Khalid',
             'email' => 'aboudi@gmail.com',
             'email_verified_at' => now(),
-            'password' => Hash::make('123456789@'),
+            'password' => Hash::make('password@'),
             'remember_token' => Str::random(10),
             'parent_id' => 2,
         ];
