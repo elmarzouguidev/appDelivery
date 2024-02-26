@@ -12,7 +12,7 @@ class DefaultDownloader implements Downloader
         $context = stream_context_create(
             array(
                 "http" => array(
-                    "header" => "User-Agent: Quickroute"
+                    "header" => "User-Agent: SameleonExpress"
                 )
             )
         );

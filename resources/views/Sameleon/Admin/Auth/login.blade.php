@@ -4,7 +4,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Login | QuickRoute</title>
+    <title>Login | SameleonExpress</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex, nofollow" />
     <link rel="shortcut icon" href="{{ asset('images/logo.png') }}">
@@ -153,7 +153,7 @@
                             <script>
                                 document.write(new Date().getFullYear())
                             </script>
-                            QuickRoute
+                            SameleonExpress
 
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 <p align="center">
-    <a href="https://wedoapp.ma" target="_blank">
-        <img src="./QuickRoute.png" width="400" height="400">
+    <a href="https://Sameleon.ma" target="_blank">
+        <img src="./SameleonExpress.png" width="400" height="400">
     </a>
 </p>
 
@@ -8,7 +8,7 @@
 
 ### Premium Partners
 
-- **[WEDO APP](https://wedoapp.ma/)**
+- **[WEDO APP](https://Sameleon.ma/)**
 - **[HayMacProduction](https://haymacproduction.ma/)**
 
 ## License
