@@ -6,7 +6,7 @@
                     document.write(new Date().getFullYear())
                 </script> © <b>
 
-                    <a title="QuickRoute" href="https://wedoapp.ma/" target="_blank">
+                    <a title="QuickRoute" href="https://quickroute.ma/" target="_blank">
                         QuickRoute
                     </a>
                 </b>
