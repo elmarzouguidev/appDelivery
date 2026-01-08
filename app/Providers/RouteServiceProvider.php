@@ -116,9 +116,9 @@ class RouteServiceProvider extends ServiceProvider
 
     public function hooksRoutes()
     {
-        if (app()->isProduction() && Schema::hasTable('sources')) {
+        /*if (app()->isProduction() && Schema::hasTable('sources')) {
             Route::middleware(['web', 'hooks'])
                 ->group(base_path('routes/hooks/hook_routes.php'));
-        }
+        }*/
     }
 }
